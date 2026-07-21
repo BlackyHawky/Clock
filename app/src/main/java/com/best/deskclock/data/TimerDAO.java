@@ -96,6 +96,11 @@ public final class TimerDAO {
     private static final String VIBRATE = "timer_vibrate_";
 
     /**
+     * Prefix for a key to a preference that signals the timer should vibrate with a vibration pattern when it expires.
+     */
+    private static final String VIBRATION_PATTERN = "timer_vibration_pattern_";
+
+    /**
      * Prefix for a key to a preference that signals the flash should turn on when timers expire.
      */
     private static final String FLASH_ON = "timer_flash_on_";
@@ -121,6 +126,7 @@ public final class TimerDAO {
         final Set<String> timerIds = prefs.getStringSet(TIMER_IDS, Collections.emptySet());
         final List<Timer> timers = new ArrayList<>(timerIds.size());
         final boolean defaultVibrateFallback = SettingsDAO.isTimerVibrate(prefs);
+        final String defaultVibrationPatternFallback = SettingsDAO.getTimerVibrationPattern(prefs);
         final boolean defaultFlashOnFallback = SettingsDAO.shouldTurnOnBackFlashForExpiredTimer(prefs);
         final String addTimeButtonValueFallback = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(prefs));
         final Uri ringtoneFallback = SettingsDAO.getTimerRingtoneUri(prefs, defaultUri);
@@ -155,12 +161,14 @@ public final class TimerDAO {
                 final int autoSilenceDuration = prefs.getInt(AUTO_SILENCE + id, autoSilenceDurationFallback);
                 final int volumeCrescendoDuration = prefs.getInt(VOLUME_CRESCENDO + id, volumeCrescendoDurationFallback);
                 final boolean vibrate = prefs.getBoolean(VIBRATE + id, defaultVibrateFallback);
+                final String vibrationPattern = prefs.getString(VIBRATION_PATTERN + id, defaultVibrationPatternFallback);
                 final boolean flashOn = prefs.getBoolean(FLASH_ON + id, defaultFlashOnFallback);
                 final boolean turnOffMedia = prefs.getBoolean(TURN_OFF_MEDIA + id, false);
                 final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
 
                 timers.add(new Timer(id, state, length, totalLength, lastStartTime, lastWallClockTime, remainingTime, label, buttonTime,
-                    ringtone, autoSilenceDuration, volumeCrescendoDuration, vibrate, flashOn, turnOffMedia, deleteAfterUse)
+                    ringtone, autoSilenceDuration, volumeCrescendoDuration, vibrate, vibrationPattern, flashOn, turnOffMedia,
+                    deleteAfterUse)
                 );
             }
         }
@@ -199,6 +207,7 @@ public final class TimerDAO {
         editor.putInt(AUTO_SILENCE + id, timer.getAutoSilence());
         editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
+        editor.putString(VIBRATION_PATTERN + id, timer.getVibrationPattern());
         editor.putBoolean(FLASH_ON + id, timer.isFlashOn());
         editor.putBoolean(TURN_OFF_MEDIA + id, timer.getTurnOffMedia());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
@@ -208,8 +217,8 @@ public final class TimerDAO {
         // Return a new timer with the generated timer id present.
         return new Timer(id, timer.getState(), timer.getLength(), timer.getTotalLength(), timer.getLastStartTime(),
             timer.getLastWallClockTime(), timer.getRemainingTime(), timer.getLabel(), timer.getButtonTime(), timer.getRingtoneUri(),
-            timer.getAutoSilence(), timer.getVolumeCrescendoDuration(), timer.isVibrate(), timer.isFlashOn(), timer.getTurnOffMedia(),
-            timer.getDeleteAfterUse()
+            timer.getAutoSilence(), timer.getVolumeCrescendoDuration(), timer.isVibrate(), timer.getVibrationPattern(), timer.isFlashOn(),
+            timer.getTurnOffMedia(), timer.getDeleteAfterUse()
         );
     }
 
@@ -236,6 +245,7 @@ public final class TimerDAO {
         editor.putInt(AUTO_SILENCE + id, timer.getAutoSilence());
         editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
+        editor.putString(VIBRATION_PATTERN + id, timer.getVibrationPattern());
         editor.putBoolean(FLASH_ON + id, timer.isFlashOn());
         editor.putBoolean(TURN_OFF_MEDIA + id, timer.getTurnOffMedia());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
@@ -274,6 +284,7 @@ public final class TimerDAO {
         editor.remove(AUTO_SILENCE + id);
         editor.remove(VOLUME_CRESCENDO + id);
         editor.remove(VIBRATE + id);
+        editor.remove(VIBRATION_PATTERN + id);
         editor.remove((FLASH_ON + id));
         editor.remove(TURN_OFF_MEDIA + id);
         editor.remove(DELETE_AFTER_USE + id);

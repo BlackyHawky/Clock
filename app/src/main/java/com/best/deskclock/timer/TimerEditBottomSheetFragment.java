@@ -11,6 +11,11 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_HEARTBEAT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_STRONG;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_TICK_TOCK;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -49,6 +54,7 @@ import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
 import com.best.deskclock.dialogfragment.TimerSetNewDurationDialogFragment;
+import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
@@ -74,6 +80,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private static final String STATE_ADD_TIME_BUTTON_VALUE = "state_add_time_button_value";
     private static final String STATE_TIMER_RINGTONE_URI = "state_timer_ringtone_uri";
     private static final String STATE_VIBRATE = "state_vibrate";
+    private static final String STATE_VIBRATION_PATTERN = "state_vibration_pattern";
     private static final String STATE_FLASH_ON = "state_flash_on";
     private static final String STATE_TURN_OFF_MEDIA = "state_turn_off_media";
     private static final String STATE_DELETE_AFTER_USE = "state_delete_after_use";
@@ -92,6 +99,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private int mAddTimeButtonValue;
     private Uri mTimerRingtoneUri;
     private boolean mVibrate;
+    private String mVibrationPattern;
     private boolean mFlashOn;
     private boolean mTurnOffMedia;
     private boolean mDeleteAfterUse;
@@ -149,9 +157,9 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     @Override
     public void onDestroyView() {
         nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
-            mBinding.chooseRingtone, mBinding.vibrateOnOff, mBinding.flashOnOff, mBinding.turnOffMedia, mBinding.deleteTimerAfterUse,
-            mBinding.autoSilenceDurationLayout, mBinding.crescendoDurationLayout, mBinding.deleteButton, mBinding.duplicateButton,
-            mBinding.saveButton);
+            mBinding.chooseRingtone, mBinding.vibrateOnOff, mBinding.vibrationPatternLayout, mBinding.flashOnOff, mBinding.turnOffMedia,
+            mBinding.deleteTimerAfterUse, mBinding.autoSilenceDurationLayout, mBinding.crescendoDurationLayout, mBinding.deleteButton,
+            mBinding.duplicateButton, mBinding.saveButton);
 
         mBinding = null;
 
@@ -169,6 +177,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             outState.putInt(STATE_ADD_TIME_BUTTON_VALUE, mAddTimeButtonValue);
             outState.putParcelable(STATE_TIMER_RINGTONE_URI, mTimerRingtoneUri);
             outState.putBoolean(STATE_VIBRATE, mVibrate);
+            outState.putString(STATE_VIBRATION_PATTERN, mVibrationPattern);
             outState.putBoolean(STATE_FLASH_ON, mFlashOn);
             outState.putBoolean(STATE_DELETE_AFTER_USE, mDeleteAfterUse);
             outState.putBoolean(STATE_TURN_OFF_MEDIA, mTurnOffMedia);
@@ -191,7 +200,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             // caused by the BottomSheet. The 'MaterialAlertDialog' will handle this dimming.
             window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-            // Prevent the BottomSheet from moving when the keyboard opens (for example, when editing the alarm label).
+            // Prevent the BottomSheet from moving when the keyboard opens (for example, when editing the timer label).
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         }
 
@@ -212,6 +221,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 ? savedInstanceState.getParcelable(STATE_TIMER_RINGTONE_URI, Uri.class)
                 : savedInstanceState.getParcelable(STATE_TIMER_RINGTONE_URI);
             mVibrate = savedInstanceState.getBoolean(STATE_VIBRATE);
+            mVibrationPattern = savedInstanceState.getString(STATE_VIBRATION_PATTERN);
             mFlashOn = savedInstanceState.getBoolean(STATE_FLASH_ON);
             mTurnOffMedia = savedInstanceState.getBoolean(STATE_TURN_OFF_MEDIA);
             mDeleteAfterUse = savedInstanceState.getBoolean(STATE_DELETE_AFTER_USE);
@@ -223,6 +233,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mAddTimeButtonValue = Integer.parseInt(timer.getButtonTime());
             mTimerRingtoneUri = timer.getRingtoneUri();
             mVibrate = timer.isVibrate();
+            mVibrationPattern = timer.getVibrationPattern();
             mFlashOn = timer.isFlashOn();
             mTurnOffMedia = timer.getTurnOffMedia();
             mDeleteAfterUse = timer.getDeleteAfterUse();
@@ -250,6 +261,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindAddTimeButtonValue();
         bindRingtone();
         bindVibrator();
+        bindVibrationPattern();
         bindFlash();
         bindTurnOffMedia();
         bindDeleteTimerAfterUse();
@@ -411,11 +423,45 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mBinding.vibrateOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Events.sendTimerEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
             mVibrate = isChecked;
-
+            bindVibrationPattern();
+            updateSecondGroup();
             if (isChecked) {
                 Utils.setVibrationTime(requireContext(), 300);
             }
         });
+    }
+
+    private void bindVibrationPattern() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        if (!mVibrate || SettingsDAO.isPerTimerVibrationPatternDisabled(mPrefs)) {
+            mBinding.vibrationPatternLayout.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.vibrationPatternTitle.setTypeface(mGeneralTypeface);
+        mBinding.vibrationPatternValue.setTypeface(mGeneralTypeface);
+        mBinding.vibrationPatternLayout.setVisibility(VISIBLE);
+
+        switch (mVibrationPattern) {
+            case VIBRATION_PATTERN_SOFT -> mBinding.vibrationPatternValue.setText(getString(R.string.vibration_pattern_soft));
+            case VIBRATION_PATTERN_STRONG -> mBinding.vibrationPatternValue.setText(getString(R.string.vibration_pattern_strong));
+            case VIBRATION_PATTERN_HEARTBEAT -> mBinding.vibrationPatternValue.setText(getString(R.string.vibration_pattern_heartbeat));
+            case VIBRATION_PATTERN_ESCALATING -> mBinding.vibrationPatternValue.setText(getString(R.string.vibration_pattern_escalating));
+            case VIBRATION_PATTERN_TICK_TOCK -> mBinding.vibrationPatternValue.setText(getString(R.string.vibration_pattern_tick_tock));
+            default -> mBinding.vibrationPatternValue.setText(getString(R.string.label_default));
+        }
+
+        View.OnClickListener openVibrationPatternFragment = v -> {
+            Events.sendTimerEvent(R.string.action_set_vibration_pattern, R.string.label_deskclock);
+
+            final VibrationPatternDialogFragment fragment = VibrationPatternDialogFragment.newInstance(mTimerId, mVibrationPattern);
+            VibrationPatternDialogFragment.show(getChildFragmentManager(), fragment);
+        };
+
+        mBinding.vibrationPatternLayout.setOnClickListener(openVibrationPatternFragment);
     }
 
     private void bindFlash() {
@@ -558,7 +604,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mBinding.crescendoDurationLayout.setVisibility(VISIBLE);
 
         View.OnClickListener openVolumeCrescendoFragment = v -> {
-            Events.sendAlarmEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
+            Events.sendTimerEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
 
             final VolumeCrescendoDurationDialogFragment fragment =
                 VolumeCrescendoDurationDialogFragment.newInstance(mTimerId, mVolumeCrescendoDuration);
@@ -610,6 +656,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mTimerAutoSilence,
                 mVolumeCrescendoDuration,
                 mVibrate,
+                mVibrationPattern,
                 mFlashOn,
                 mTurnOffMedia,
                 mDeleteAfterUse
@@ -675,6 +722,12 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 bindAddTimeButtonValue();
             });
 
+        childFragmentManager.setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mVibrationPattern = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
+                bindVibrationPattern();
+            });
+
         childFragmentManager.setFragmentResultListener(AutoSilenceDurationDialogFragment.REQUEST_KEY, this,
             (requestKey, bundle) -> {
                 mTimerAutoSilence = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
@@ -712,6 +765,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mTimerAutoSilence,
                 mVolumeCrescendoDuration,
                 mVibrate,
+                mVibrationPattern,
                 mFlashOn,
                 mTurnOffMedia,
                 mDeleteAfterUse
@@ -728,20 +782,25 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mBinding.chooseRingtone
         );
 
-        ThemeUtils.applyExpressiveBackgroundsToGroup(
-            requireContext(),
-            mPrefs,
-            mBinding.vibrateOnOff,
-            mBinding.flashOnOff,
-            mBinding.turnOffMedia,
-            mBinding.deleteTimerAfterUse
-        );
+        updateSecondGroup();
 
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
             mPrefs,
             mBinding.autoSilenceDurationLayout,
             mBinding.crescendoDurationLayout
+        );
+    }
+
+    private void updateSecondGroup() {
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.vibrateOnOff,
+            mBinding.vibrationPatternLayout,
+            mBinding.flashOnOff,
+            mBinding.turnOffMedia,
+            mBinding.deleteTimerAfterUse
         );
     }
 

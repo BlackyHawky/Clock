@@ -380,18 +380,19 @@ public final class DataModel {
      * @param autoSilence       the auto silence duration
      * @param crescendoDuration the volume crescendo duration
      * @param isVibrate         {@code true} to enable vibration upon expiration, {@code false} otherwise
+     * @param vibrationPattern  the vibration pattern
      * @param isFlashOn         {@code true} tu turn on the flash upon expiration, {@code false} otherwise
      * @param turnOffMedia      {@code true} to turn off media upon expiration, {@code false} otherwise.
      * @param deleteAfterUse    {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
     public Timer addTimer(long length, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
-                          boolean isVibrate, boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
+                          boolean isVibrate, String vibrationPattern, boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
 
         enforceMainLooper();
 
-        return mTimerModel.addTimer(length, label, buttonTime, ringtone, autoSilence, crescendoDuration, isVibrate, isFlashOn,
-            turnOffMedia, deleteAfterUse
+        return mTimerModel.addTimer(length, label, buttonTime, ringtone, autoSilence, crescendoDuration, isVibrate, vibrationPattern,
+            isFlashOn, turnOffMedia, deleteAfterUse
         );
     }
 
@@ -513,12 +514,14 @@ public final class DataModel {
      * @param autoSilence       the new custom auto silence duration
      * @param crescendoDuration the new custom volume crescendo duration
      * @param isVibrate         {@code true} to enable vibration upon expiration, {@code false} otherwise
+     * @param vibrationPattern  the vibration pattern
      * @param isFlashOn         {@code true} tu turn on the flash upon expiration, {@code false} otherwise
      * @param turnOffMedia      {@code true} to turn off media upon expiration, {@code false} otherwise.
      * @param deleteAfterUse    {@code true} to automatically delete the timer after use, {@code false} otherwise
      */
     public void updateAllTimerSettings(Timer timer, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
-                                       boolean isVibrate, boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
+                                       boolean isVibrate, String vibrationPattern, boolean isFlashOn, boolean turnOffMedia,
+                                       boolean deleteAfterUse) {
 
         enforceMainLooper();
 
@@ -528,6 +531,7 @@ public final class DataModel {
             .setAutoSilence(autoSilence)
             .setCrescendoDuration(crescendoDuration)
             .setIsVibrate(isVibrate)
+            .setVibrationPattern(vibrationPattern)
             .setFlashOn(isFlashOn)
             .setTurnOffMedia(turnOffMedia)
             .setDeleteAfterUse(deleteAfterUse);

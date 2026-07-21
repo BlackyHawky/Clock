@@ -129,12 +129,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DISPLAY_DISMISS_BUTTON = false;
     public static final int DEFAULT_ALARM_NOTIFICATION_REMINDER = 30;
     public static final boolean DEFAULT_ENABLE_PER_ALARM_VIBRATION_PATTERN = false;
-    public static final String DEFAULT_VIBRATION_PATTERN = "default";
-    public static final String VIBRATION_PATTERN_SOFT = "soft";
-    public static final String VIBRATION_PATTERN_STRONG = "strong";
-    public static final String VIBRATION_PATTERN_HEARTBEAT = "heartbeat";
-    public static final String VIBRATION_PATTERN_ESCALATING = "escalating";
-    public static final String VIBRATION_PATTERN_TICK_TOCK = "tick_tock";
     public static final int DEFAULT_VIBRATION_START_DELAY = 0;
     public static final boolean DEFAULT_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = false;
     public static final boolean DEFAULT_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = false;
@@ -184,6 +178,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_ENABLE_PER_TIMER_AUTO_SILENCE = true;
     public static final boolean DEFAULT_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION = true;
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
+    public static final boolean DEFAULT_ENABLE_PER_TIMER_VIBRATION_PATTERN = true;
     public static final int DEFAULT_TIMER_RINGTONE_TITLE_COLOR = Color.GRAY;
     public static final int DEFAULT_TIMER_SHADOW_COLOR = Color.parseColor("#BF888888");
     public static final boolean DEFAULT_TIMER_VOLUME_BUTTONS_ACTION = false;
@@ -234,6 +229,12 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_SHADOW_OFFSET = 10;
     public static final int DEFAULT_DIGITAL_CLOCK_FONT_SIZE = 70;
     public static final int DEFAULT_ANALOG_CLOCK_SIZE = 70;
+    public static final String DEFAULT_VIBRATION_PATTERN = "default";
+    public static final String VIBRATION_PATTERN_SOFT = "soft";
+    public static final String VIBRATION_PATTERN_STRONG = "strong";
+    public static final String VIBRATION_PATTERN_HEARTBEAT = "heartbeat";
+    public static final String VIBRATION_PATTERN_ESCALATING = "escalating";
+    public static final String VIBRATION_PATTERN_TICK_TOCK = "tick_tock";
 
     // Permission management
     public static final boolean DEFAULT_ENABLE_FOREGROUND_SERVICE = false;

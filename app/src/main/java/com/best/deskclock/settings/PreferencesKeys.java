@@ -171,6 +171,8 @@ public class PreferencesKeys {
     public static final String KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION = "key_enable_per_timer_volume_crescendo_duration";
     public static final String KEY_TIMER_VIBRATION_CATEGORY = "key_timer_vibration_category";
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
+    public static final String KEY_TIMER_VIBRATION_PATTERN = "key_timer_vibration_pattern";
+    public static final String KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN = "key_enable_per_timer_vibration_pattern";
     public static final String KEY_TIMER_VOLUME_BUTTONS_ACTION = "key_timer_volume_buttons_action";
     public static final String KEY_TIMER_POWER_BUTTON_ACTION = "key_timer_power_button_action";
     public static final String KEY_TIMER_HEADPHONES_BUTTON_ACTION = "key_timer_headphones_button_action";
