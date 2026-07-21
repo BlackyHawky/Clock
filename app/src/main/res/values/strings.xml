@@ -1099,6 +1099,8 @@
     <string name="timer_volume_buttons_action_title">Reset the expired timers with the volume buttons</string>
     <!-- Setting title to reset expired timers with power button. -->
     <string name="timer_power_button_action_title">Reset the expired timers with the power button</string>
+    <!-- Setting title to reset expired timers with headphones button. -->
+    <string name="timer_headphones_button_action_title">Reset the expired timers with the headphones Play/Pause button</string>
     <!-- Summary of timer preferences for volume buttons action. -->
     <string name="timer_buttons_action_summary">Only works on the lock screen</string>
     <!-- Setting title to enable flip action for expired timers. -->

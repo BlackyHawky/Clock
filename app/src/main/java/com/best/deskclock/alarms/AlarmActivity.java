@@ -43,7 +43,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.session.MediaSession;
-import android.media.session.PlaybackState;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -621,47 +620,15 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         boolean isAutoRouting = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
 
         if (isAdvancedPlayback && isAutoRouting) {
-            mMediaSession = new MediaSession(this, "AlarmMediaSession");
-
-            PlaybackState state = new PlaybackState.Builder()
-                .setActions(PlaybackState.ACTION_PLAY_PAUSE | PlaybackState.ACTION_STOP | PlaybackState.ACTION_PAUSE)
-                .setState(PlaybackState.STATE_PLAYING, PlaybackState.PLAYBACK_POSITION_UNKNOWN, 1.0f)
-                .build();
-
-            mMediaSession.setPlaybackState(state);
-
-            mMediaSession.setCallback(new MediaSession.Callback() {
-                @Override
-                public boolean onMediaButtonEvent(@NonNull Intent mediaButtonEvent) {
-                    KeyEvent keyEvent = SdkUtils.isAtLeastAndroid13()
-                        ? mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT, KeyEvent.class)
-                        : mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-
-                    if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                        int keyCode = keyEvent.getKeyCode();
-
-                        if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE ||
-                            keyCode == KeyEvent.KEYCODE_MEDIA_STOP ||
-                            keyCode == KeyEvent.KEYCODE_MEDIA_PLAY ||
-                            keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
-
-                            if (!mAlarmHandled) {
-                                switch (mHeadphonesButtonBehavior) {
-                                    case SNOOZE -> snooze();
-                                    case DISMISS -> dismiss();
-                                    case NOTHING -> { /* Do nothing */ }
-                                }
-                            }
-
-                            return true;
-                        }
+            mMediaSession = RingtoneUtils.createMediaSession(this, "AlarmMediaSession", () -> {
+                if (!mAlarmHandled) {
+                    switch (mHeadphonesButtonBehavior) {
+                        case SNOOZE -> snooze();
+                        case DISMISS -> dismiss();
+                        case NOTHING -> { /* Do nothing */ }
                     }
-
-                    return super.onMediaButtonEvent(mediaButtonEvent);
                 }
             });
-
-            mMediaSession.setActive(true);
         }
     }
 

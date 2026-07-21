@@ -772,6 +772,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the expired timer is reset with the headphones Play/Pause button. {@code false} otherwise.
+     */
+    public static boolean isExpiredTimerResetWithHeadphonesButton(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getBoolean(KEY_TIMER_HEADPHONES_BUTTON_ACTION, DEFAULT_TIMER_HEADPHONES_BUTTON_ACTION);
+    }
+
+    /**
      * @return {@code true} if the flip action for timers is enabled. {@code false} otherwise.
      */
     public static boolean isFlipActionForTimersEnabled(SharedPreferences prefs) {

@@ -4,6 +4,7 @@ package com.best.deskclock.utils;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioAttributes;
@@ -11,9 +12,13 @@ import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
+import android.media.session.MediaSession;
+import android.media.session.PlaybackState;
 import android.net.Uri;
+import android.view.KeyEvent;
 
 import androidx.annotation.AnyRes;
+import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
@@ -118,6 +123,56 @@ public class RingtoneUtils {
             LogUtils.e("Ringtone URI is not readable: " + uri, e);
             return false;
         }
+    }
+
+    /**
+     * Creates and activates a MediaSession to intercept headphones buttons.
+     *
+     * @param context    The context for obtaining the MediaSession
+     * @param sessionTag The session name
+     * @param onAction   Callback executed when a Play/Pause/Stop button is pressed
+     * @return the active MediaSession
+     */
+    public static MediaSession createMediaSession(Context context, String sessionTag, Runnable onAction) {
+        MediaSession mediaSession = new MediaSession(context, sessionTag);
+
+        PlaybackState state = new PlaybackState.Builder()
+            .setActions(PlaybackState.ACTION_PLAY_PAUSE | PlaybackState.ACTION_STOP | PlaybackState.ACTION_PAUSE)
+            .setState(PlaybackState.STATE_PLAYING, PlaybackState.PLAYBACK_POSITION_UNKNOWN, 1.0f)
+            .build();
+
+        mediaSession.setPlaybackState(state);
+
+        mediaSession.setCallback(new MediaSession.Callback() {
+            @Override
+            public boolean onMediaButtonEvent(@NonNull Intent mediaButtonEvent) {
+                KeyEvent keyEvent = SdkUtils.isAtLeastAndroid13()
+                    ? mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT, KeyEvent.class)
+                    : mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+
+                if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    int keyCode = keyEvent.getKeyCode();
+
+                    if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE ||
+                        keyCode == KeyEvent.KEYCODE_MEDIA_STOP ||
+                        keyCode == KeyEvent.KEYCODE_MEDIA_PLAY ||
+                        keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
+
+                        if (onAction != null) {
+                            onAction.run();
+                        }
+
+                        return true;
+                    }
+                }
+
+                return super.onMediaButtonEvent(mediaButtonEvent);
+            }
+        });
+
+        mediaSession.setActive(true);
+
+        return mediaSession;
     }
 
     /**

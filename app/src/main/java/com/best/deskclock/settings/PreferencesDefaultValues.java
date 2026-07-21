@@ -188,6 +188,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_TIMER_SHADOW_COLOR = Color.parseColor("#BF888888");
     public static final boolean DEFAULT_TIMER_VOLUME_BUTTONS_ACTION = false;
     public static final boolean DEFAULT_TIMER_POWER_BUTTON_ACTION = false;
+    public static final boolean DEFAULT_TIMER_HEADPHONES_BUTTON_ACTION = false;
     public static final boolean DEFAULT_TIMER_FLIP_ACTION = false;
     public static final boolean DEFAULT_TIMER_SHAKE_ACTION = false;
     public static final int DEFAULT_TIMER_SHAKE_INTENSITY = 16;

@@ -30,6 +30,7 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -94,6 +95,8 @@ public class ExpiredTimersActivity extends BaseActivity {
     private int mMargin10;
     private int mMargin2;
     private long mActivityStartTime;
+    private MediaSession mMediaSession;
+    private boolean mPowerBtnReceiverRegistered = false;
 
     /**
      * Scheduled to update the timers while at least one is expired.
@@ -110,7 +113,7 @@ public class ExpiredTimersActivity extends BaseActivity {
      */
     private ViewGroup mExpiredTimersScrollView;
 
-    private final BroadcastReceiver PowerBtnReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mPowerBtnReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getAction() != null) {
@@ -122,9 +125,7 @@ public class ExpiredTimersActivity extends BaseActivity {
                         return;
                     }
 
-                    if (SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs)) {
-                        DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
-                    }
+                    DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                 }
             }
         }
@@ -159,13 +160,18 @@ public class ExpiredTimersActivity extends BaseActivity {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Register Power button (screen off) intent receiver
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        if (SdkUtils.isAtLeastAndroid13()) {
-            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-        } else {
-            registerReceiver(PowerBtnReceiver, filter);
+        if (SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs)) {
+            IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+            if (SdkUtils.isAtLeastAndroid13()) {
+                registerReceiver(mPowerBtnReceiver, powerFilter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                registerReceiver(mPowerBtnReceiver, powerFilter);
+            }
+
+            mPowerBtnReceiverRegistered = true;
         }
+
+        initHeadphonesButton();
 
         final List<Timer> expiredTimers = getExpiredTimers();
 
@@ -274,6 +280,11 @@ public class ExpiredTimersActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
+        if (mPowerBtnReceiverRegistered) {
+            unregisterReceiver(mPowerBtnReceiver);
+            mPowerBtnReceiverRegistered = false;
+        }
+
         DataModel.getDataModel().removeTimerListener(mTimerChangeWatcher);
 
         mRegularTypeface = null;
@@ -284,25 +295,54 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         mBinding = null;
 
+        if (mMediaSession != null) {
+            mMediaSession.setActive(false);
+            mMediaSession.release();
+            mMediaSession = null;
+        }
+
         super.onDestroy();
     }
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
         switch (event.getKeyCode()) {
-            case KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_MUTE,
-                 KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS, KeyEvent.KEYCODE_HEADSETHOOK -> {
-                if (event.getAction() == KeyEvent.ACTION_UP) {
-                    final boolean isExpiredTimerResetWithVolumeButtons = SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs);
-                    if (isExpiredTimerResetWithVolumeButtons) {
+            case KeyEvent.KEYCODE_VOLUME_UP,
+                 KeyEvent.KEYCODE_VOLUME_DOWN,
+                 KeyEvent.KEYCODE_VOLUME_MUTE,
+                 KeyEvent.KEYCODE_CAMERA,
+                 KeyEvent.KEYCODE_FOCUS -> {
+                if (SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs)) {
+                    if (event.getAction() == KeyEvent.ACTION_UP) {
                         DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
+                    return true;
                 }
-                return true;
+            }
+
+            case KeyEvent.KEYCODE_HEADSETHOOK -> {
+                if (SettingsDAO.isExpiredTimerResetWithHeadphonesButton(mPrefs)) {
+                    if (event.getAction() == KeyEvent.ACTION_UP) {
+                        DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
+                    }
+                    return true;
+                }
             }
         }
 
         return super.dispatchKeyEvent(event);
+    }
+
+    private void initHeadphonesButton() {
+        boolean isAdvancedPlayback = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
+        boolean isAutoRouting = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
+        boolean isExpiredTimerResetWithHeadphonesButton = SettingsDAO.isExpiredTimerResetWithHeadphonesButton(mPrefs);
+
+        if (isAdvancedPlayback && isAutoRouting && isExpiredTimerResetWithHeadphonesButton) {
+            mMediaSession = RingtoneUtils.createMediaSession(this, "TimerMediaSession", () ->
+                DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button)
+            );
+        }
     }
 
     /**
