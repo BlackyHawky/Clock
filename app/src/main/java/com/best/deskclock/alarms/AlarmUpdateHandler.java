@@ -258,11 +258,11 @@ public final class AlarmUpdateHandler {
             isUndone.set(true);
 
             if (mDeletedAlarm != null) {
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 final Alarm alarmToRestore = mDeletedAlarm;
 
                 mDeletedAlarm = null;
-
-                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 asyncAddAlarm(alarmToRestore);
             }

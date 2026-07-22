@@ -282,16 +282,18 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             }
 
             case KEY_DISPLAY_ALARM_SECOND_HAND -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isSecondHandDisplayed = (boolean) newValue;
                 ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
 
                 mAlarmClockSecondHandPref.setVisible(isSecondHandDisplayed && alarmClockStyle == ClockStyle.ANALOG);
                 mAlarmSecondHandColorPref.setVisible(isSecondHandDisplayed && alarmClockStyle != ClockStyle.ANALOG_MATERIAL);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_SWIPE_ACTION -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isSwipeActionEnabled = (boolean) newValue;
 
                 mSlideZoneColorPref.setVisible(isSwipeActionEnabled);
@@ -300,11 +302,11 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mDismissTitleColorPref.setVisible(isSwipeActionEnabled);
                 mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
                 mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_SNOOZE_SELECTOR -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isSnoozeSelectorDisplayed = (boolean) newValue;
 
                 mSnoozeZoneColorPref.setVisible(isSnoozeSelectorDisplayed);
@@ -313,22 +315,20 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mSnoozeSelectorTextColorPref.setVisible(isSnoozeSelectorDisplayed);
                 mSnoozeMinusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
                 mSnoozePlusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ALARM_DISPLAY_TEXT_SHADOW -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isTextShadowDisplayed = (boolean) newValue;
                 mShadowColorPref.setVisible(isTextShadowDisplayed);
                 mShadowOffsetPref.setVisible(isTextShadowDisplayed);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_RINGTONE_TITLE -> {
-                mRingtoneTitleColorPref.setVisible((boolean) newValue);
-
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                mRingtoneTitleColorPref.setVisible((boolean) newValue);
             }
 
             case KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE -> {

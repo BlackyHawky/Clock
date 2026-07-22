@@ -419,10 +419,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
                 resetTimerCreationViews();
                 animateToView(mBinding.timerContentView, false);
                 left.announceForAccessibility(getString(R.string.timer_canceled));
-                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
             });
         }
     }
@@ -445,6 +445,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             mCreatingTimer = true;
 
             try {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 // Create the new timer.
                 final long timerLength = getTimeInMillis();
                 String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
@@ -475,7 +477,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 // Start the new timer.
                 DataModel.getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             } finally {
                 mCreatingTimer = false;
             }

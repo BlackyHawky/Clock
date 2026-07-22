@@ -156,6 +156,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean displayBackground = (boolean) newValue;
                 boolean isCustomColor = !WidgetDAO.isDigitalWidgetDefaultBackgroundColor(mPrefs);
                 boolean isRadiusCustomizable = WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
@@ -168,28 +170,27 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                     : displayBackground && isCustomColor && isRadiusCustomizable);
                 mDefaultBackgroundColorPref.setVisible(displayBackground);
                 mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
-                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
-
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_DATE -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isDateDisplayed = (boolean) newValue;
 
                 mDisplayTopDatePref.setVisible(isDateDisplayed);
                 mDefaultDateColorPref.setVisible(isDateDisplayed);
                 mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
                     && !WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs));
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isNextAlarmDisplayed = (boolean) newValue;
                 boolean isNextAlarmTitleDisplayed = WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(mPrefs);
 
@@ -202,21 +203,21 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                 mDefaultNextAlarmColorPref.setVisible(isNextAlarmDisplayed);
                 mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
                     && !WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isNextAlarmTitleDisplayed = (boolean) newValue;
 
                 mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed);
                 mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed
                     && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(mPrefs));
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean areWorldCitiesDisplayed = (boolean) newValue;
                 boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
 
@@ -237,11 +238,11 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                 } else {
                     mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
                 }
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isCustomColor = !(boolean) newValue;
                 boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs);
                 boolean isRadiusCustomizable = WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
@@ -252,13 +253,11 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                     mCustomizeBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground);
                     mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
                 }
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
-                mCustomClockColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomClockColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
@@ -267,28 +266,28 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
-                mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR -> {
-                mCustomNextAlarmTitleColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomNextAlarmTitleColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
-                mCustomCityClockColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomCityClockColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
-                mCustomCityNameColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomCityNameColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR -> {
-                mCustomCityNoteColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomCityNoteColorPref.setVisible(!(boolean) newValue);
             }
         }
 

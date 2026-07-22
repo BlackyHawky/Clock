@@ -295,6 +295,8 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
     @Override
     public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
         if (KEY_ENABLE_LOCAL_LOGGING.equals(preference.getKey())) {
+            Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
             if (newValue.equals(false)) {
                 tapCountOnVersion = 0;
 
@@ -306,8 +308,6 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             }
 
             requireActivity().recreate();
-
-            Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         return true;

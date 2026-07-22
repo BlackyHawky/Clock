@@ -185,15 +185,13 @@ public class ClockSettingsFragment extends ScreenFragment
             }
 
             case KEY_DISPLAY_CLOCK_SECONDS -> {
-                mClockSecondHandPref.setVisible((boolean) newValue && SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
-
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mClockSecondHandPref.setVisible((boolean) newValue && SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
             }
 
             case KEY_AUTO_HOME_CLOCK -> {
-                mHomeTimeZonePref.setEnabled((boolean) newValue);
-
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mHomeTimeZonePref.setEnabled((boolean) newValue);
             }
 
             case KEY_DISPLAY_TEXT_UPPERCASE -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
