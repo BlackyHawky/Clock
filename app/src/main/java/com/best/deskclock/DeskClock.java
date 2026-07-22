@@ -37,6 +37,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.setup.FirstLaunch;
+import com.best.deskclock.stopwatch.StopwatchFragment;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uicomponents.CustomTooltip;
@@ -82,6 +84,7 @@ import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -109,6 +112,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private Typeface mRegularTypeface;
     private String mFontPath;
     private boolean mIsToolBarDisplayed;
+    private long mLastFabClickTime = 0;
+    private static final long MIN_CLICK_INTERVAL = 500;
 
     private AlertDialog mKeepAndroidOpenDialog = null;
 
@@ -565,7 +570,18 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private void configureFabAndButtons() {
         // Configure the buttons shared by the tabs.
-        mBinding.fab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
+        mBinding.fab.setOnClickListener(view -> {
+            final DeskClockFragment currentFragment = getSelectedDeskClockFragment();
+            long currentTime = SystemClock.elapsedRealtime();
+            final boolean isStopwatch = currentFragment instanceof StopwatchFragment;
+
+            if (isStopwatch || (currentTime - mLastFabClickTime >= MIN_CLICK_INTERVAL)) {
+                mLastFabClickTime = currentTime;
+                currentFragment.onFabClick();
+            } else {
+                LogUtils.v("Rapid FAB click ignored for Alarm/Timer to prevent double actions.");
+            }
+        });
 
         mBinding.leftButton.setOnLongClickListener(v -> {
             CustomTooltip.showAbove(v, mBinding.leftButton.getContentDescription().toString(), true);
