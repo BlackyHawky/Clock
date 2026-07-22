@@ -171,6 +171,8 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isNotBackgroundTransparent = !(boolean) newValue;
                 boolean isNotTimerBackgroundImageNull = SettingsDAO.getTimerBackgroundImage(mPrefs) != null;
                 boolean isAtLeastAndroid12 = SdkUtils.isAtLeastAndroid12();
@@ -180,11 +182,11 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 mTimerBlurIntensityPref.setVisible(isAtLeastAndroid12
                     && isNotBackgroundTransparent
                     && isNotTimerBackgroundImageNull);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_TIMER_STATE_INDICATOR -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isTimerStateIndicatorDisplayed = (boolean) newValue;
 
                 mTimerColorCategory.setVisible(isTimerStateIndicatorDisplayed || SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs));
@@ -192,11 +194,11 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 mPausedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
                 mExpiredTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
                 mMissedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_TIMER_RINGTONE_TITLE -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isRingtoneTitleDisplayed = (boolean) newValue;
                 boolean isTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(mPrefs);
 
@@ -206,17 +208,15 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 mDisplayTextShadowPref.setVisible(isRingtoneTitleDisplayed);
                 mShadowColorPref.setVisible(isRingtoneTitleDisplayed && isTextShadowDisplayed);
                 mShadowOffsetPref.setVisible(isRingtoneTitleDisplayed && isTextShadowDisplayed);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_TIMER_DISPLAY_TEXT_SHADOW -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean displayTextShadow = (boolean) newValue;
 
                 mShadowColorPref.setVisible(displayTextShadow);
                 mShadowOffsetPref.setVisible(displayTextShadow);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
         }
 

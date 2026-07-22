@@ -479,9 +479,9 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mBinding.flashOnOff.setChecked(mFlashOn);
         mBinding.flashOnOff.setVisibility(VISIBLE);
         mBinding.flashOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Utils.performHapticFeedback(buttonView, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             Events.sendTimerEvent(R.string.action_toggle_flash, R.string.label_deskclock);
             mFlashOn = isChecked;
-            Utils.performHapticFeedback(mBinding.flashOnOff, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         });
     }
 
@@ -495,8 +495,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mBinding.turnOffMedia.setChecked(mTurnOffMedia);
 
         mBinding.turnOffMedia.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Utils.performHapticFeedback(buttonView, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mTurnOffMedia = isChecked;
-            Utils.performHapticFeedback(mBinding.turnOffMedia, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         });
     }
 
@@ -516,8 +516,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mBinding.deleteTimerAfterUse.setVisibility(VISIBLE);
 
         mBinding.deleteTimerAfterUse.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Utils.performHapticFeedback(buttonView, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mDeleteAfterUse = isChecked;
-            Utils.performHapticFeedback(mBinding.deleteTimerAfterUse, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         });
     }
 
@@ -621,10 +621,10 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         }
 
         mBinding.deleteButton.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mIsDeleted = true;
             Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
             DataModel.getDataModel().removeTimer(getTimer(), R.string.label_deskclock);
-            Utils.performHapticFeedback(mBinding.deleteButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             dismiss();
         });
     }
@@ -648,6 +648,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 return;
             }
 
+            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
             DataModel.getDataModel().addTimer(
                 mTimerTimeText,
                 mTimerLabel,
@@ -662,17 +664,15 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mDeleteAfterUse
             );
 
-            Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
             dismiss();
         });
     }
 
     private void bindSaveButton() {
         mBinding.saveButton.setOnClickListener(v -> {
-            Events.sendTimerEvent(R.string.action_save, R.string.label_deskclock);
+            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-            Utils.performHapticFeedback(mBinding.saveButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Events.sendTimerEvent(R.string.action_save, R.string.label_deskclock);
 
             dismiss();
         });

@@ -435,24 +435,26 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * Start the stopwatch.
      */
     private void doStart() {
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         DataModel.getDataModel().startStopwatch();
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
     }
 
     /**
      * Pause the stopwatch.
      */
     private void doPause() {
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         DataModel.getDataModel().pauseStopwatch();
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
     }
 
     /**
      * Reset the stopwatch.
      */
     private void doReset() {
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+
         final Stopwatch.State priorState = getStopwatch().getState();
         Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
         DataModel.getDataModel().resetStopwatch();
@@ -461,8 +463,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
-
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
     }
 
     /**
@@ -778,13 +778,13 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private final class TimeClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
             if (getStopwatch().isRunning()) {
                 DataModel.getDataModel().pauseStopwatch();
             } else {
                 DataModel.getDataModel().startStopwatch();
             }
-
-            Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
     }
 

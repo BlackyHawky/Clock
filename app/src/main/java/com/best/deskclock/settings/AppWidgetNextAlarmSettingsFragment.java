@@ -109,6 +109,8 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean displayBackground = (boolean) newValue;
                 boolean isCustomColor = !WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(mPrefs);
                 boolean isRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
@@ -121,13 +123,11 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
                     : displayBackground && isCustomColor && isRadiusCustomizable);
                 mDefaultBackgroundColorPref.setVisible(displayBackground);
                 mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
-                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW,
@@ -135,6 +135,8 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isCustomColor = !(boolean) newValue;
                 boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs);
                 boolean isRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
@@ -145,23 +147,21 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
                     mCustomizeBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground);
                     mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
                 }
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
-                mCustomTitleColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomTitleColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
-                mCustomAlarmTitleColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomAlarmTitleColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
-                mCustomAlarmColorPref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mCustomAlarmColorPref.setVisible(!(boolean) newValue);
             }
         }
 

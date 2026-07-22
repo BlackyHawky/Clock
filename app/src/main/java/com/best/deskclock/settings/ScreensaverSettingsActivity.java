@@ -310,13 +310,13 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 }
 
                 case KEY_DISPLAY_SCREENSAVER_BATTERY -> {
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                     boolean isBatteryVisible = (boolean) newValue;
 
                     mBatteryColorPref.setVisible(isBatteryVisible);
                     mBoldBatteryPref.setVisible(isBatteryVisible);
                     mItalicBatteryPref.setVisible(isBatteryVisible);
-
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 }
 
                 case KEY_SCREENSAVER_CLOCK_DIAL, KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL, KEY_SCREENSAVER_CLOCK_SECOND_HAND -> {
@@ -326,10 +326,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 }
 
                 case KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS -> {
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                     mClockSecondHandPref.setVisible((boolean) newValue
                         && SettingsDAO.getScreensaverClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
-
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 }
 
                 case KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
@@ -338,14 +337,14 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                      KEY_SCREENSAVER_KEEP_SCREEN_ON -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 case KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS -> {
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                     boolean areNotDynamicColors = !(boolean) newValue;
 
                     mClockColorPref.setVisible(areNotDynamicColors);
                     mBatteryColorPref.setVisible(areNotDynamicColors);
                     mDateColorPref.setVisible(areNotDynamicColors);
                     mNextAlarmColorPref.setVisible(areNotDynamicColors);
-
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 }
             }
 

@@ -439,6 +439,8 @@ public class AlarmSettingsFragment extends ScreenFragment
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 stopRingtonePreview();
 
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean isAdvancedAudioPlaybackEnabled = (boolean) newValue;
 
                 mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
@@ -448,12 +450,12 @@ public class AlarmSettingsFragment extends ScreenFragment
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
                 mHeadphonesButtonPref.setVisible(isAdvancedAudioPlaybackEnabled
                     && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
                 stopRingtonePreview();
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isAutoRoutingToExternalAudioDevice = (boolean) newValue;
 
@@ -461,14 +463,12 @@ public class AlarmSettingsFragment extends ScreenFragment
                 mExternalAudioDeviceVolumePref.setVisible(isAutoRoutingToExternalAudioDevice
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
                 mHeadphonesButtonPref.setVisible(isAutoRoutingToExternalAudioDevice);
-
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_SYSTEM_MEDIA_VOLUME -> {
                 stopRingtonePreview();
-                mExternalAudioDeviceVolumePref.setVisible(!(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mExternalAudioDeviceVolumePref.setVisible(!(boolean) newValue);
             }
 
             case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT -> {

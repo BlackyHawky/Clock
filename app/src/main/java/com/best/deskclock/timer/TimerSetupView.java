@@ -202,6 +202,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+        Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.CLOCK_TICK);
+
         if (view == mBinding.timerSetupDigitsLayout.timerSetupDelete) {
             delete();
         } else if (view.getId() == R.id.timer_setup_digit_00) {
@@ -210,7 +212,6 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         } else {
             append(getDigitForId(view.getId()));
         }
-        Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.CLOCK_TICK);
     }
 
     @Override

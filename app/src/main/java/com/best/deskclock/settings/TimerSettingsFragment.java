@@ -350,6 +350,9 @@ public class TimerSettingsFragment extends ScreenFragment
 
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 stopRingtonePreview();
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 mAutoRoutingToExternalAudioDevicePref.setVisible(mIsAlarmTabHidden && (boolean) newValue);
                 mSystemMediaVolume.setVisible(mIsAlarmTabHidden
                     && (boolean) newValue
@@ -358,28 +361,26 @@ public class TimerSettingsFragment extends ScreenFragment
                     && (boolean) newValue
                     && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
                 stopRingtonePreview();
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mSystemMediaVolume.setVisible(mIsAlarmTabHidden && (boolean) newValue);
                 mExternalAudioDeviceVolumePref.setVisible(mIsAlarmTabHidden
                     && (boolean) newValue
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_SYSTEM_MEDIA_VOLUME -> {
                 stopRingtonePreview();
-                mExternalAudioDeviceVolumePref.setVisible(mIsAlarmTabHidden && !(boolean) newValue);
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mExternalAudioDeviceVolumePref.setVisible(mIsAlarmTabHidden && !(boolean) newValue);
             }
 
             case KEY_TIMER_SHAKE_ACTION -> {
-                mTimerShakeIntensityPref.setVisible((boolean) newValue);
-
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                mTimerShakeIntensityPref.setVisible((boolean) newValue);
             }
 
             case KEY_TIMER_VIBRATE -> {
@@ -438,6 +439,7 @@ public class TimerSettingsFragment extends ScreenFragment
 
             case KEY_SINGLE_TIMER_MODE -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                 boolean newValueBool = (boolean) newValue;
 
                 if (DataModel.getDataModel().getTimers().isEmpty()) {
