@@ -23,7 +23,7 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"พรุ่งนี้"</string>
     <string name="alarm_today" msgid="7873594221106531654">"วันนี้"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ปิด"</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">"การปลุกที่ถูกเพิกเฉย"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">ปลุกที่ถูกเพิกเฉย</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"ปิดเสียง"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"ปิดการปลุก"</string>
@@ -32,7 +32,7 @@
         <item quantity="other">ปิดเสียงเตือนชั่วคราว <xliff:g id="MINUTES">%d</xliff:g> นาที</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ปิดเสียงเตือนชั่วคราวจนถึง <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ตั้งปลุกครั้งต่อไป"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">ปลุกครั้งต่อไป</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ลบการปลุกที่พลาดออกไปแล้ว"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"เหลืออีกไม่ถึง 1 นาที"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -216,4 +216,72 @@
     <string name="shake_action_title">การเขย่าอุปกรณ์</string>
     <string name="stopwatch_channel">จับเวลา</string>
     <string name="timer_channel">จับเวลา</string>
+    <string name="schedule_alarm_title">ตั้งปลุก</string>
+    <string name="pause_alarm_title">หยุดปลุก</string>
+    <string name="pause_alarm_range">หยุด: %1$s</string>
+    <string name="delay_picker_dialog_title">ปลุกใน…</string>
+    <string name="alarm_label_box_title">ชื่อปลุก</string>
+    <string name="sync_alarm_by_label_title">เชื่อมปลุกที่มีชื่อเดียวกัน</string>
+    <string name="label_default">เริ่มต้น</string>
+    <string name="label_indefinitely">ไม่มีกำหนด</string>
+    <string name="selected">เลือก</string>
+    <string name="more_options">ตัวเลือกเพิ่มเติม</string>
+    <string name="label_new_image">ภาพใหม่</string>
+    <string name="label_new_font">ฟอนต์ใหม่</string>
+    <string name="warning">คำเตือน</string>
+    <string name="label_hours">ชั่วโมง</string>
+    <string name="label_minutes">นาที</string>
+    <string name="label_seconds">วินาที</string>
+    <string name="confirm_action_prompt">\n\nคุณอยากดำเนินการต่อหรือไม่</string>
+    <string name="button_tip_title">กดปุ่ม \"+\" ค้างไว้เพื่อเพิ่มโฟลเดอร์</string>
+    <string name="alarm_scheduled_for">ตั้งไว้สำหรับ %s</string>
+    <string name="progress_ringtones">กำลังเพิ่มริงโทน… (%1$d/%2$d)</string>
+    <string name="alarm_alert_dismiss_and_delete_text">ปิด &amp; ลบ</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">ปิด &amp;\nลบ</string>
+    <string name="occasional_alarm_alert_predismiss_title">ปลุกครั้งคราวครั้งต่อไป</string>
+    <string name="alarm_alert_off_and_deleted_text">ปลุกปิดและลบ</string>
+    <string name="alarm_flash">แฟลช</string>
+    <string name="delete_occasional_alarm_after_use_title">ลบปลุกหลังปิดแล้ว</string>
+    <string name="vertical_widget">นาฬิกาแนวตั้ง</string>
+    <string name="next_alarm_widget">ปลุกถัดไป</string>
+    <string name="settings_permission_message">สิทธิ์การเข้าถึงที่จำเป็นถูกปฏิเสธ ซึ่งอาจจะทำให้เกิดข้อผิดพลาด</string>
+    <string name="settings_permission_summary">คลิกที่นี่เพื่อจัดการสิทธิ์การเข้าถึง</string>
+    <string name="style_category_title">สไตล์</string>
+    <string name="colors_category_title">สี</string>
+    <string name="font_category_title">ฟอนต์</string>
+    <string name="permissions_category_title">สิทธิ์การเข้าถึง</string>
+    <string name="miscellaneous_category_title">อื่น ๆ</string>
+    <string name="tabs_category_title">แท็บ</string>
+    <string name="custom_font_title">เลือกฟอนต์</string>
+    <string name="custom_font_title_variant">เปลี่ยนหรือลบฟอนต์</string>
+    <string name="custom_font_dialog_title">ฟอนต์</string>
+    <string name="custom_font_toast_message_selected">เลือกฟอนต์สำเร็จ</string>
+    <string name="custom_font_toast_message_deleted">ลบฟอนต์สำเร็จ</string>
+    <string name="ringtone_category_title">ริงโทน</string>
+    <string name="vibration_category_title">การสั่น</string>
+    <string name="actions_category_title">การกระทำ</string>
+    <string name="interface_customization_settings">อินเทอร์เฟซ</string>
+    <string name="interface_customization_summary">ตกแต่งสไตล์ ฟอนต์ ภาษา และสีของแอปพลิเคชัน</string>
+    <string name="display_settings_title">ตั้งค่าการแสดงผล</string>
+    <string name="title_theme">ธีม</string>
+    <string name="system_theme">ระบบ</string>
+    <string name="light_theme">สว่าง</string>
+    <string name="dark_theme">มืด</string>
+    <string name="title_accent_color">สีเน้น</string>
+    <string name="auto_night_accent_color_title">นำสีเน้นมาใช้ในโหมดมืด</string>
+    <string name="day_accent_color_title">สีเน้นสำหรับโหมดสว่าง</string>
+    <string name="night_accent_color_title">สีเน้นสำหรับโหมดกลางคืน</string>
+    <string name="black_accent_color">ดำ</string>
+    <string name="blue_accent_color">ฟ้า</string>
+    <string name="blue_gray_accent_color">ฟ้าเทา</string>
+    <string name="brown_accent_color">น้ำตาล</string>
+    <string name="green_accent_color">เขียว</string>
+    <string name="indigo_accent_color">คราม</string>
+    <string name="orange_accent_color">ส้ม</string>
+    <string name="pink_accent_color">ชมพู</string>
+    <string name="purple_accent_color">ม่วง</string>
+    <string name="red_accent_color">แดง</string>
+    <string name="yellow_accent_color">เหลือง</string>
+    <string name="title_dark_theme_mode">โหมดธีมมืด</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
 </resources>

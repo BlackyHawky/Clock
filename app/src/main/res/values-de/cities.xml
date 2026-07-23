@@ -10,7 +10,7 @@
     <string name="C4" msgid="4450258423854546267">A<xliff:g id="SEPARATOR">=</xliff:g>Algier<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g></string>
     <string name="C5" msgid="8063142106679202722">B<xliff:g id="SEPARATOR">=</xliff:g>Blantyre<xliff:g id="TIMEZONE">|Africa/Blantyre</xliff:g></string>
     <string name="C6" msgid="1620940469531839828">B<xliff:g id="SEPARATOR">=</xliff:g>Brazzaville<xliff:g id="TIMEZONE">|Africa/Brazzaville</xliff:g></string>
-    <string name="C7" msgid="8450502029020824529">C<xliff:g id="SEPARATOR">=</xliff:g>Kairo<xliff:g id="TIMEZONE">|Africa/Cairo</xliff:g></string>
+    <string name="C7" msgid="8450502029020824529">K<xliff:g id="SEPARATOR">=</xliff:g>Kairo<xliff:g id="TIMEZONE">|Africa/Cairo</xliff:g></string>
     <string name="C8" msgid="5843391672611053116">C<xliff:g id="SEPARATOR">=</xliff:g>Casablanca<xliff:g id="TIMEZONE">|Africa/Casablanca</xliff:g></string>
     <string name="C9" msgid="2164088076645942134">C<xliff:g id="SEPARATOR">=</xliff:g>Conakry<xliff:g id="TIMEZONE">|Africa/Conakry</xliff:g></string>
     <string name="C10" msgid="6275085554326816487">D<xliff:g id="SEPARATOR">=</xliff:g>Dakar<xliff:g id="TIMEZONE">|Africa/Dakar</xliff:g></string>
@@ -167,7 +167,7 @@
     <string name="C167" msgid="5502175796232774744">B<xliff:g id="SEPARATOR">=</xliff:g>Bukarest<xliff:g id="TIMEZONE">|Europe/Bucharest</xliff:g></string>
     <string name="C168" msgid="6750159439632567316">B<xliff:g id="SEPARATOR">=</xliff:g>Budapest<xliff:g id="TIMEZONE">|Europe/Budapest</xliff:g></string>
     <string name="C169" msgid="591483187800562071">C<xliff:g id="SEPARATOR">=</xliff:g>Chisinau<xliff:g id="TIMEZONE">|Europe/Chisinau</xliff:g></string>
-    <string name="C170" msgid="157539770076958216">C<xliff:g id="SEPARATOR">=</xliff:g>Kopenhagen<xliff:g id="TIMEZONE">|Europe/Copenhagen</xliff:g></string>
+    <string name="C170" msgid="157539770076958216">K<xliff:g id="SEPARATOR">=</xliff:g>Kopenhagen<xliff:g id="TIMEZONE">|Europe/Copenhagen</xliff:g></string>
     <string name="C171" msgid="4774534094571993566">D<xliff:g id="SEPARATOR">=</xliff:g>Dublin<xliff:g id="TIMEZONE">|Europe/Dublin</xliff:g></string>
     <string name="C172" msgid="6781166861618808351">G<xliff:g id="SEPARATOR">=</xliff:g>Gibraltar<xliff:g id="TIMEZONE">|Europe/Gibraltar</xliff:g></string>
     <string name="C173" msgid="6620286361619640304">H<xliff:g id="SEPARATOR">=</xliff:g>Helsinki<xliff:g id="TIMEZONE">|Europe/Helsinki</xliff:g></string>
@@ -195,7 +195,7 @@
     <string name="C195" msgid="6936101855361464954">S<xliff:g id="SEPARATOR">=</xliff:g>Stockholm<xliff:g id="TIMEZONE">|Europe/Stockholm</xliff:g></string>
     <string name="C196" msgid="6845595341045260631">T<xliff:g id="SEPARATOR">=</xliff:g>Tallinn<xliff:g id="TIMEZONE">|Europe/Tallinn</xliff:g></string>
     <string name="C197" msgid="2200341923401640765">V<xliff:g id="SEPARATOR">=</xliff:g>Vatikanstadt<xliff:g id="TIMEZONE">|Europe/Vatican</xliff:g></string>
-    <string name="C198" msgid="3104432830681695782">V<xliff:g id="SEPARATOR">=</xliff:g>Wien<xliff:g id="TIMEZONE">|Europe/Vienna</xliff:g></string>
+    <string name="C198" msgid="3104432830681695782">W<xliff:g id="SEPARATOR">=</xliff:g>Wien<xliff:g id="TIMEZONE">|Europe/Vienna</xliff:g></string>
     <string name="C199" msgid="1622823742072233091">V<xliff:g id="SEPARATOR">=</xliff:g>Vilnius<xliff:g id="TIMEZONE">|Europe/Vilnius</xliff:g></string>
     <string name="C200" msgid="6181652506383585123">W<xliff:g id="SEPARATOR">=</xliff:g>Warschau<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g></string>
     <string name="C201" msgid="5026927396527258914">Z<xliff:g id="SEPARATOR">=</xliff:g>Zagreb<xliff:g id="TIMEZONE">|Europe/Zagreb</xliff:g></string>
@@ -250,7 +250,7 @@
     <string name="C253" msgid="131023875763265059">R<xliff:g id="SEPARATOR">=</xliff:g>Reno<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C254" msgid="6114708580340716772">B<xliff:g id="SEPARATOR">=</xliff:g>Black Rock City<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C255" msgid="7954132426931661492">D<xliff:g id="SEPARATOR">=</xliff:g>Doha<xliff:g id="TIMEZONE">|Asia/Riyadh</xliff:g></string>
-    <string name="C256" msgid="4677098546257306673">B<xliff:g id="SEPARATOR">=</xliff:g>Peking<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Shanghai</xliff:g></string>
+    <string name="C256" msgid="4677098546257306673">P<xliff:g id="SEPARATOR">=</xliff:g>Peking<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Shanghai</xliff:g></string>
     <string name="C257" msgid="6859408162854724420">M<xliff:g id="SEPARATOR">=</xliff:g>Mumbai<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g></string>
     <string name="C258" msgid="4883343467599097650">D<xliff:g id="SEPARATOR">=</xliff:g>Delhi<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g></string>
     <string name="C259" msgid="5562442240689501324">O<xliff:g id="SEPARATOR">=</xliff:g>Osaka<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Tokyo</xliff:g></string>
@@ -264,7 +264,7 @@
     <string name="C267" msgid="2210484655793571387">A<xliff:g id="SEPARATOR">=</xliff:g>Ankara<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g></string>
     <string name="C268" msgid="263106973500029909">B<xliff:g id="SEPARATOR">=</xliff:g>Bangalore<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g></string>
     <string name="C269" msgid="6541694468583591229">B<xliff:g id="SEPARATOR">=</xliff:g>Brasília<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g></string>
-    <string name="C270" msgid="1314079881051130603">C<xliff:g id="SEPARATOR">=</xliff:g>Kapstadt<xliff:g id="TIMEZONE">|Africa/Johannesburg</xliff:g></string>
+    <string name="C270" msgid="1314079881051130603">K<xliff:g id="SEPARATOR">=</xliff:g>Kapstadt<xliff:g id="TIMEZONE">|Africa/Johannesburg</xliff:g></string>
     <string name="C271" msgid="8640235215580011665">I<xliff:g id="SEPARATOR">=</xliff:g>Islamabad<xliff:g id="TIMEZONE">|Asia/Karachi</xliff:g></string>
     <string name="C272" msgid="1609536549681428971">R<xliff:g id="SEPARATOR">=</xliff:g>Rio de Janeiro<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g></string>
     <string name="C273" msgid="7079941149646181981">A<xliff:g id="SEPARATOR">=</xliff:g>Ann Arbor<xliff:g id="TIMEZONE">|America/Detroit</xliff:g></string>
@@ -285,7 +285,7 @@
     <string name="C288" msgid="852288766460325989">M<xliff:g id="SEPARATOR">=</xliff:g>Manchester<xliff:g id="TIMEZONE">|Europe/London</xliff:g></string>
     <string name="C290" msgid="9191944922972784727">S<xliff:g id="SEPARATOR">=</xliff:g>St. Petersburg<xliff:g id="TIMEZONE">|Europe/Moscow</xliff:g></string>
     <string name="C291" msgid="4662360206594986867">K<xliff:g id="SEPARATOR">=</xliff:g>Krakau<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g></string>
-    <string name="C292" msgid="3704362015612990315">W<xliff:g id="SEPARATOR">=</xliff:g>Breslau<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g></string>
+    <string name="C292" msgid="3704362015612990315">B<xliff:g id="SEPARATOR">=</xliff:g>Breslau<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g></string>
     <string name="C293" msgid="3807981967850386200">H<xliff:g id="SEPARATOR">=</xliff:g>Hamburg<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g></string>
     <string name="C294" msgid="2800056634746552933">O<xliff:g id="SEPARATOR">=</xliff:g>Oulu<xliff:g id="TIMEZONE">|Europe/Bucharest</xliff:g></string>
     <string name="C295" msgid="7855357204471157922">H<xliff:g id="SEPARATOR">=</xliff:g>Haifa<xliff:g id="TIMEZONE">|Asia/Jerusalem</xliff:g></string>

@@ -368,4 +368,15 @@
     <string name="external_audio_device_volume_title">Alarm volume for external audio devices</string>
     <string name="connect_external_audio_device_title">Connect an external audio device to access this setting</string>
     <string name="disconnect_external_audio_device_title">Disconnect the external audio device to access this setting</string>
+    <string name="settings_language_hebrew">Hebrew</string>
+    <string name="toast_message_backup_error">Backup failed</string>
+    <string name="toast_message_restore_error">Restore failed</string>
+    <string name="tab_animation_cube">Cube</string>
+    <string name="tab_animation_depth">Depth</string>
+    <string name="tab_animation_flip">Flip</string>
+    <string name="tab_animation_gate">Gate</string>
+    <string name="vibration_pattern_soft">Soft</string>
+    <string name="vibration_pattern_strong">Strong</string>
+    <string name="vibration_pattern_heartbeat">Heartbeat</string>
+    <string name="label_none">None</string>
 </resources>

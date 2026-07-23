@@ -677,4 +677,5 @@
     <string name="display_timer_end_time_title">Показать время остановки таймера</string>
     <string name="timer_missed_channel">Пропущенные таймеры</string>
     <string name="tab_animation_zoom_out">Отъезд</string>
+    <string name="settings_language_hebrew">Иврит</string>
 </resources>

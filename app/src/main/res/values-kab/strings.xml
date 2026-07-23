@@ -104,7 +104,7 @@
     <string name="settings_language_system">Tutlayt tanagrawant</string>
     <string name="settings_language_english_us">Taglizit (Iwunak Yeddukklen)</string>
     <string name="timer_add_custom_time">+ %s</string>
-    <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
+    <string name="world_day_of_week_label">/ <xliff:g id="label">%s</xliff:g></string>
     <plurals name="hours">
         <item quantity="one">1 n wesrag</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> n yesragen</item>
@@ -155,4 +155,57 @@
     <string name="license">Turagt n uɣbalu yeldin</string>
     <string name="add_label">Rnu tabzimt</string>
     <string name="lap_number_single_digit"># <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="alarm_vibrate">Angugu</string>
+    <string name="warning">Ɣur-k</string>
+    <string name="label_hours">Isragen</string>
+    <string name="label_minutes">n tesdatin</string>
+    <string name="label_seconds">Tasinin</string>
+    <string name="alarm_alert_snooze_text">Sgen</string>
+    <string name="timer_remaining_single">d-yegran</string>
+    <string name="timer_remaining_multiple">d-yegran</string>
+    <string name="permissions_category_title">Tisirag</string>
+    <string name="tabs_category_title">Iccaren</string>
+    <string name="indigo_accent_color">Indigo</string>
+    <string name="settings_language_arabic">Taɛrabt</string>
+    <string name="settings_language_hungarian">Tahungarit</string>
+    <string name="settings_language_hebrew">Taɛebrit</string>
+    <string name="tab_animation_cube">Agasas</string>
+    <string name="tab_animation_depth">Talqayt</string>
+    <string name="tab_animation_flip">Tuttya</string>
+    <string name="missed_alarm_repeat_limit_1_time">1 n tikkelt</string>
+    <string name="vibration_pattern_strong">Iǧhed</string>
+    <string name="shadow_color_title">Ini n tili</string>
+    <string name="background_image_dialog_title">Tugna n ugilal</string>
+    <string name="volume_button_setting_title">Tiqeffalin n imesli</string>
+    <string name="button_action_snooze">Sgen</string>
+    <string name="power_button_title">Taqeffalt n tnezmart</string>
+    <string name="menu_timer">Amakud</string>
+    <string name="button_cities">Timdinin</string>
+    <string name="menu_item_sort_by_name">Smizzwer s yisem</string>
+    <string name="sw_resume_button">Kemmel</string>
+    <string name="reset">Wennez tikkelt-nniḍen</string>
+    <string name="sw_volume_up_action_title">Rnu deg ubleɣ</string>
+    <string name="sw_volume_down_action_title">Ssider-as i ubleɣ</string>
+    <string name="timezone_marquesas">Tigzirin n Markisas</string>
+    <string name="timezone_gambier">Tigzirin n Gambir</string>
+    <string name="timezone_pitcairn">Tigzirin n Pitkaṛn</string>
+    <string name="timezone_easter_island">Asammer n Island</string>
+    <string name="timezone_miquelon">San-Pyir-d-Miklun</string>
+    <string name="timezone_lord_howe">Tigzirt n Luṛd Haw</string>
+    <string name="timezone_norfolk">Tigzirtn n Nuṛfulk</string>
+    <string name="whats_new_title">D acu-t umaynut</string>
+    <string name="shortcut_start_screensaver_short">Agdil n usuḍes</string>
+    <string name="swn_paused">Asteɛfu</string>
+    <string name="screensaver_settings_title">Agdil n usuḍes</string>
+    <string name="screensaver_brightness_title">Tifawit</string>
+    <string name="preview_title">Timeẓriwt</string>
+    <string name="timer_channel">Amakud</string>
+    <string name="widgets_settings">Iwiǧiten</string>
+    <string name="background_color_title">Ini n uɣawas n deffir</string>
+    <string name="display_date_title">Sken-d azemz</string>
+    <string name="denied_permission_label">Tasiregt ur tettwaqbel ara</string>
+    <string name="notifications_dialog_title">Ilɣuten</string>
+    <string name="FSN_dialog_title">Ilɣa n ugdil aččuran</string>
+    <string name="restore_button_title">Err-it-id</string>
+    <string name="toast_message_backup_error">Aḥraz ur yeddi ara</string>
 </resources>

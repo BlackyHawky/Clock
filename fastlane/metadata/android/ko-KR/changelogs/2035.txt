@@ -1,0 +1,2 @@
+많은 변경 및 수정 사항을 아래에서 확인할 수 있습니다:
+https://github.com/BlackyHawky/Clock/releases/tag/2.31
