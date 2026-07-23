@@ -1,0 +1,5 @@
+- Start der App über die Stoppuhr-Benachrichtigung korrigiert
+- Timer-Aktualisierung korrigiert , wenn ein Timer angehalten und ein anderer gestartet wird
+- Feld „Alarm anhalten“ bei der Auswahl der Wochentage korrigert
+
+Die anderen Funktionen der Version 2.30 bleiben erhalten und können hier eingesehen werden: https://github.com/BlackyHawky/Clock/releases/tag/2.30

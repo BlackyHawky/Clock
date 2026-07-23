@@ -34,8 +34,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarme arrêtée"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Répéter"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Répétition après <xliff:g id="MINUTES">%d</xliff:g> minute</item>
-        <item quantity="other">Répétition après <xliff:g id="MINUTES">%d</xliff:g> minutes</item>
+        <item quantity="one">Répétition après <xliff:g id="MINUTES">%d</xliff:g> minute</item>
+        <item quantity="other">Répétition après <xliff:g id="MINUTES">%d</xliff:g> minutes</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Répétition jusqu\'à <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarme imminente"</string>
@@ -48,36 +48,36 @@
     <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minute ajoutée au minuteur, <xliff:g id="TIME">%2$s</xliff:g>"</string>
+    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minute ajoutée au minuteur, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Dans"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Dans"</string>
-    <string name="alarm_confirmation_toast_1">"Prochaine alarme prévue dans moins d\'une minute."</string>
+    <string name="alarm_confirmation_toast_1">"Prochaine alarme prévue dans moins d\'une minute."</string>
     <string name="alarm_confirmation_toast_2">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g>."</string>
     <string name="alarm_confirmation_toast_3">"Prochaine alarme prévue dans <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_4">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="HOURS">%2$s</xliff:g>."</string>
     <string name="alarm_confirmation_toast_5">"Prochaine alarme prévue dans <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_6">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_7">"Prochaine alarme prévue dans <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_8">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Prochaine alarme prévue dans <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> jour</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> jours</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> jour</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> jours</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> heure</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> heures</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> heure</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> heures</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> h</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> h</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minute</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> seconde</item>
@@ -170,35 +170,35 @@
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"Tour <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"Tour <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"Tour <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"Tour <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mon temps est <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"Temps de circuit :"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Tour <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Temps de circuit :"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Tour <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_label_box_title">Libellé du minuteur</string>
     <string name="timer_button_time_box_title">Minutes à ajouter au minuteur</string>
     <string name="timer_add_timer" msgid="862733633862574752">"Ajouter un minuteur"</string>
     <string name="timer_start" msgid="6158486445614356442">"Départ"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Supprimer le numéro \"<xliff:g id="NUMBER_STRING">%s</xliff:g>\""</string>
-    <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Ajouter %s minute"</string>
+    <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Ajouter %s minute"</string>
     <string name="timer_add_custom_time">+ %s</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Ajouter %s min"</string>
+    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Ajouter %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Arrêter"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Arrêter tous les minuteurs"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Le minuteur a été annulé."</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Le temps est écoulé."</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> minuteurs ont expiré."</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> minuteurs ont expiré."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minuteur"</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Rappel manqué : <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Rappel manqué : <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Interrompre"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <string name="jocular_content_message_1">On peut dire que vous êtes rapide.</string>
     <string name="jocular_content_message_2">Profitez du fruit de votre travail.</string>
-    <string name="jocular_content_message_3">Les appareils Android sont connus pour leur rapidité, mais ils ne sont pas aussi rapides que vous !</string>
-    <string name="jocular_content_message_4">Ouf !</string>
-    <string name="jocular_content_message_5">Temps record !</string>
-    <string name="jocular_content_message_6">Quelle vitesse prodigieuse !</string>
+    <string name="jocular_content_message_3">Les appareils Android sont connus pour leur rapidité, mais ils ne sont pas aussi rapides que vous !</string>
+    <string name="jocular_content_message_4">Ouf !</string>
+    <string name="jocular_content_message_5">Temps record !</string>
+    <string name="jocular_content_message_6">Quelle vitesse prodigieuse !</string>
     <string name="jocular_content_message_7">Distorsion temporelle.</string>
     <string name="jocular_content_message_8">Un bond vers la gauche.</string>
     <string name="jocular_content_message_9">Quoi qu\'il arrive, vous n\'êtes jamais en retard.</string>
@@ -278,7 +278,7 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> et <xliff:g id="MINUTES">%2$s</xliff:g> de moins"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"J+1, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Hier, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Prochaine alarme : <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Prochaine alarme : <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Aucune alarme"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Heure non valide <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Aucune alarme définie à <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>."</string>
@@ -290,8 +290,8 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarme à <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Le minuteur a bien été créé."</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> minuteur ignoré</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuteurs ignorés</item>
+        <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> minuteur ignoré</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuteurs ignorés</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durée de minuteur incorrecte."</string>
     <string name="invalid_timer" msgid="900957020728335675">"Minuteur non valide sélectionné"</string>
@@ -300,7 +300,7 @@
     <string name="dismiss_alarm" msgid="7204593078688533541">Arrêter l\'alarme</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Veuillez sélectionner l\'alarme que vous souhaitez arrêter</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Aucune alarme n\'a été déclenchée."</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"L\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> a été reportée de 10 minutes."</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"L\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> a été reportée de 10 minutes."</string>
     <string name="flip_action_title">Action lorsque l\'appareil est retourné</string>
     <string name="shake_action_title">Action lorsque l\'appareil est secoué</string>
     <string name="firing_alarms_timers_channel">Déclenchement d\'alarmes et de minuteurs</string>
@@ -569,7 +569,7 @@
     <string name="features_dialog_message">Visiter la page des fonctionnalités principales :\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Alarme ignorée. <xliff:g example="Next alarm Monday." id="alarm_day">Reprogramée pour %s.</xliff:g></string>
     <string name="blur_intensity_title">Intensité du flou</string>
-    <string name="background_image_title">Sélectionner une image d\'arrière-plan</string>
+    <string name="background_image_title">Sélectionner une image de fond</string>
     <string name="background_image_toast_message_selected">Image sélectionnée avec succès</string>
     <string name="display_text_shadow_title">Afficher l\'ombre du texte</string>
     <string name="shadow_color_title">Couleur de l\'ombre</string>
@@ -584,8 +584,8 @@
     <string name="progress_ringtones">Ajout des sonneries… (%1$d/%2$d)</string>
     <string name="display_text_uppercase_title">Afficher le texte en majuscules</string>
     <string name="label_new_image">Nouvelle image</string>
-    <string name="background_image_title_variant">Modifier ou supprimer l\'image d\'arrière-plan</string>
-    <string name="background_image_dialog_title">Image d\'arrière-plan</string>
+    <string name="background_image_title_variant">Modifier ou supprimer l\'image de fond</string>
+    <string name="background_image_dialog_title">Image de fond</string>
     <string name="background_image_toast_message_deleted">Image supprimée avec succès</string>
     <string name="label_new_font">Nouvelle police</string>
     <string name="custom_font_title">Sélectionner une police personnalisée</string>

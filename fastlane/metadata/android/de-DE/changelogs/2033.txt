@@ -1,0 +1,8 @@
+Viele Korrekturen und Verbesserungen im Detail hier:
+https://github.com/BlackyHawky/Clock/releases/tag/2.30
+
+**Hinweise:**
+ - Die Einstellung „Benachrichtigungserinnerung“ wurde auf den Standardwert (30 Minuten) zurückgesetzt.
+ - Die Einstellung „Sprache“ wurde zurückgesetzt.
+ - Aufgrund des neuen ZIP-Formats, das beim Speichern von App-Daten verwendet wird, sind ältere Backups nun obsolet.
+ - Bitte erstellen Sie nach dem Update der App ein neues Backup und löschen Sie das alte.

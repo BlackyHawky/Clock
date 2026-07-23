@@ -23,7 +23,7 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Morgen"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Heute"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Verwerfen</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">Entgangener Wecker</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">Verpasster Wecker</string>
     <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">Stumm</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Wecker ausgeschaltet</string>
@@ -34,7 +34,7 @@
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Schlummern bis <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Anstehender Wecker</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Der entgangene Wecker wurde gelöscht</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Der verpasste Wecker wurde gelöscht</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Nur noch weniger als eine Minute"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
@@ -210,7 +210,7 @@
     <string name="timer_created" msgid="4381027137335885547">"Timer erstellt"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="one">Timer verworfen</item>
-        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> Timer ausgeschaltet</item>
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> Timer verworfen</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ungültige Dauer für Timer"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Ungültiger Timer ausgewählt"</string>
@@ -223,14 +223,14 @@
     <string name="flip_action_title">Aktion beim Umdrehen</string>
     <string name="shake_action_title">Aktion beim Schütteln</string>
     <string name="firing_alarms_timers_channel">Starten von Weckern &amp; Timern</string>
-    <string name="alarm_missed_channel">Entgangene Wecker</string>
+    <string name="alarm_missed_channel">Verpasste Wecker</string>
     <string name="alarm_snooze_channel">Schlummernde Wecker</string>
     <string name="alarm_upcoming_channel">Anstehende Wecker</string>
     <string name="stopwatch_channel">Stoppuhr</string>
     <string name="timer_channel">Timer</string>
     <string name="selected">Ausgewählt</string>
     <string name="alarm_label_box_title">Weckername</string>
-    <string name="alarm_settings_summary">Stil, Standard-Weckton, Lautstärke, Aktionen zum Verwerfen oder Schlummern von Weckern, ersten Wochentag und Benachrichtigung über anstehende Wecker einstellen</string>
+    <string name="alarm_settings_summary">Einstellen von Stil, Schriftart, Standard-Weckton, Lautstärke, Aktionen zum Verwerfen oder Schlummern von Weckern, ersten Wochentag und Benachrichtigung über anstehende Wecker</string>
     <string name="first_launch_button_later">Später</string>
     <string name="first_launch_button_now">Jetzt</string>
     <string name="first_launch_important_info_title">WICHTIGE INFORMATION</string>
@@ -243,7 +243,7 @@
     <string name="display_background_border_summary">Rahmen für einige Elemente der App anzeigen (Wecker, Städte, Timer usw.)</string>
     <string name="swipe_action_title">Wischen zum Verwerfen oder Schlummern von Weckern</string>
     <string name="style_category_title">Stil</string>
-    <string name="font_category_title">Schrift</string>
+    <string name="font_category_title">Schriftart</string>
     <string name="ringtone_category_title">Weckton</string>
     <string name="interface_customization_settings">Aussehen</string>
     <string name="interface_customization_summary">Anpassen von Stil, Schriftart, Sprache und Farbe der App</string>
@@ -303,7 +303,7 @@
     <string name="city_name_default_color_title">Standardfarbe für Stadtnamen verwenden</string>
     <string name="city_name_color_title">Stadtnamenfarbe</string>
     <string name="digital_widget_message_summary">„Städte anzeigen“ muss deaktiviert sein, um auf diese Einstellung zugreifen zu können</string>
-    <string name="max_clock_font_size_title">Schriftgröße der Hauptuhr</string>
+    <string name="max_clock_font_size_title">Maximale Schriftgröße der Hauptuhr</string>
     <string name="FSN_dialog_text">Damit der Wecker bei ausgeschaltetem Bildschirm ausgelöst werden kann, muss seit Android 14 die Berechtigung für \"Vollbild-Benachrichtigungen\" aktiviert sein.</string>
     <string name="gnu_gpl">GNU-General-Public-Lizenz v3.0</string>
     <string name="app_slogan">100% FOSS; „Uhr“ basiert auf AOSP</string>
@@ -316,9 +316,9 @@
     <string name="title_theme">Thema</string>
     <string name="settings_vibration_title">Vibrationen aktivieren</string>
     <string name="settings_vibration_summary">Nur einige Buttons der Benutzeroberfläche sind betroffen (z. B. der Button für Start/Pause des Timers oder die Umschalt-Buttons)</string>
-    <string name="clock_settings_summary">Einstellen von Stil, Zeitzone und Datum und Uhrzeit</string>
+    <string name="clock_settings_summary">Einstellen von Stil, Schriftart, Zeitzone sowie Datum und Uhrzeit des Geräts</string>
     <string name="about_title">Über</string>
-    <string name="permission_requirement_title">Erfordernis: </string>
+    <string name="permission_requirement_title">Erfordernis: </string>
     <string name="next_alarm_color_title">Farbe des nächsten Weckers</string>
     <string name="screensaver_brightness_title">Helligkeit</string>
     <string name="screensaver_bold_digital_clock_title">Digitaluhr <b>fett</b></string>
@@ -343,7 +343,7 @@
     <string name="alarm_title_default_color">Standardfarbe für Weckernamen verwenden</string>
     <string name="denied_permission_label">Zugriff verweigert</string>
     <string name="alarm_title_color">Farbe des Weckernamens</string>
-    <string name="github_dialog_message">Besuche die GitHub-Seite des Projekts:\n\n%s</string>
+    <string name="github_dialog_message">GitHub-Seite des Projekts besuchen:\n\n%s</string>
     <string name="whats_new_dialog_message">Entdecke, was neu ist: \n \n%s</string>
     <string name="transparent_background_for_expired_timer_title">Transparenter Hintergrund, wenn Timer ablaufen</string>
     <string name="next_alarm_widget">Nächster Wecker</string>
@@ -375,13 +375,13 @@
     <string name="timer_volume_buttons_action_title">Abgelaufene Timer mit Lautstärketasten zurücksetzen</string>
     <string name="timer_power_button_action_title">Abgelaufene Timer mit Ein/Aus-Taste zurücksetzen</string>
     <string name="timer_buttons_action_summary">Funktioniert nur bei gesperrtem Bildschirm</string>
-    <string name="sw_settings_summary">Fontanpassungen und Aktionen für Lautstärketasten</string>
+    <string name="sw_settings_summary">Anpassungen der Schriftart und Aktionen für Lautstärketasten</string>
     <string name="sw_start_pause_action">Start / Pause</string>
     <string name="sw_long_press_volume_down_action_title">Leiser-Taste (lange drücken)</string>
     <string name="alarm_alert_dismiss_and_delete_text">Verwerfen &amp; Löschen</string>
     <string name="alarm_alert_off_and_deleted_text">Wecker ausgeschaltet und gelöscht</string>
     <string name="hour_default_color_title">Standardfarbe für Stunden verwenden</string>
-    <string name="widget_max_font_size_title">Schriftgröße des Widgets</string>
+    <string name="widget_max_font_size_title">Maximale Schriftgröße des Widgets</string>
     <string name="restart_app_dialog_title_for_restore">Wiederherstellung abgeschlossen</string>
     <string name="black_accent_color">Schwarz</string>
     <string name="sw_volume_up_action_title">Lauter-Taste</string>
@@ -428,7 +428,7 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Doppelte Vibration beim Schlummern des Weckers und einfache Vibration beim Verwerfen des Weckers</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Blitzlicht einschalten, wenn der Wecker klingelt</string>
     <string name="about_translate_link">Auf Codeberg übersetzen</string>
-    <string name="translate_dialog_message">Besuchen Sie die Codeberg-Seite:\n\n%s</string>
+    <string name="translate_dialog_message">Codeberg-Seite besuchen:\n\n%s</string>
     <string name="permission_info_title">Nur für Xiaomi-Geräte</string>
     <string name="show_lockscreen_dialog_title">Auf dem Sperrbildschirm anzeigen</string>
     <string name="show_lockscreen_permission_title">AUF DEM SPERRBILDSCHIRM ANZEIGEN</string>
@@ -538,7 +538,7 @@
     <string name="enable_per_alarm_volume_dialog_message">Individuelle Wecker-Lautstärken werden zurückgesetzt.%s</string>
     <string name="display_dismiss_button_title">Verwerfen-Button anzeigen, sobald der Wecker aktiviert ist</string>
     <string name="display_dismiss_button_summary">Wenn deaktiviert, wird der Button zur selben Zeit angezeigt wie die Benachrichtigungserinnerung</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Für jeden Wecker eine benutzerdefinierte Anzahl von Wiederholungen bei Weckerversäumnis verwenden</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">Für jeden verpassten Wecker eine benutzerdefinierte Anzahl von Wiederholungen verwenden</string>
     <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Individuelle Anzahl an Wiederholungen für verpasste Wecker wird zurückgesetzt.%s</string>
     <string name="missed_alarm_repeat_limit_title">Verpasste Wecker wiederholen</string>
     <string name="missed_alarm_repeat_limit_1_time">Einmal</string>
@@ -552,16 +552,16 @@
     <string name="shadow_color_title">Schattenfarbe</string>
     <string name="shadow_offset_title">Schattenabstand</string>
     <string name="blur_intensity_title">Stärke der Unschärfe</string>
-    <string name="background_image_title">Ein Hintergrundbild auswählen</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Für jeden Wecker eine individuelle Lautstärkeerhöhungsdauer verwenden</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Individuelle Lautstärkeerhöhungsdauern werden zurückgesetzt.%s</string>
+    <string name="background_image_title">Hintergrundbild auswählen</string>
+    <string name="enable_per_alarm_crescendo_duration_title">Für jeden Wecker eine individuelle Dauer der Lautstärkeerhöhung verwenden</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Individuelle Dauern der Lautstärkeerhöhung werden zurückgesetzt.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Für jeden Wecker eine individuelle Dauer bis zum Stummschalten verwenden</string>
     <string name="enable_per_alarm_auto_silence_dialog_message">Individuelle Stummschaltdauern werden zurückgesetzt.%s</string>
     <string name="features_dialog_message">Seite mit den wichtigsten Funktionen besuchen:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Wecker verworfen. <xliff:g example="Nächster Wecker am Montag" id="alarm_day">Neu geplant für %s.</xliff:g></string>
     <string name="progress_ringtones">Klingeltöne hinzufügen… (%1$d/%2$d)</string>
     <string name="display_timer_state_indicator_title">Zustandsanzeigen für Timer anzeigen</string>
-    <string name="running_timer_indicator_color_title">Farbe für laufendenen Timer</string>
+    <string name="running_timer_indicator_color_title">Farbe für laufenden Timer</string>
     <string name="paused_timer_indicator_color_title">Farbe für pausierten Timer</string>
     <string name="expired_timer_indicator_color_title">Farbe für abgelaufenen Timer</string>
     <string name="customize_background_corner_radius_title">Hintergrund-Eckenradius anpassen</string>
@@ -570,8 +570,8 @@
     <string name="display_text_uppercase_title">Text in Großbuchstaben anzeigen</string>
     <string name="label_new_image">Neues Bild</string>
     <string name="label_new_font">Neue Schriftart</string>
-    <string name="custom_font_title">Wähle eine eigene Schriftart aus</string>
-    <string name="custom_font_title_variant">Wechsle oder entferne eine eigene Schriftart</string>
+    <string name="custom_font_title">Eigene Schriftart auswählen</string>
+    <string name="custom_font_title_variant">Eigene Schriftart wechseln oder löschen</string>
     <string name="custom_font_dialog_title">Schriftart</string>
     <string name="custom_font_toast_message_selected">Schriftart erfolgreich ausgewählt</string>
     <string name="custom_font_toast_message_deleted">Schriftart erfolgreich entfernt</string>
@@ -649,4 +649,17 @@
     <string name="single_timer_mode_title">Modus für Einzel-Timer</string>
     <string name="single_timer_mode_summary">Nur einen Timer behalten, der beim Reset automatisch gelöscht wird</string>
     <string name="single_timer_mode_warning_message">Die Timer werden gelöscht.%s</string>
+    <string name="settings_language_hebrew">Hebräisch</string>
+    <string name="settings_vibration_disabled_summary">Vibrationen sind in den Geräteeinstellungen deaktiviert</string>
+    <string name="settings_tab_animation_title">Animation bei Wechseln der Tabs</string>
+    <string name="tab_animation_cube">Würfel</string>
+    <string name="tab_animation_depth">Tiefe</string>
+    <string name="tab_animation_flip">Umblättern</string>
+    <string name="tab_animation_zoom_out">Herauszoomen</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Timer</string>
+    <string name="timer_end_time_label">Endzeit: <xliff:g example="8:30" id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Position der Timer-Buttons tauschen</string>
+    <string name="display_timer_end_time_title">Endzeit des Timers anzeigen</string>
+    <string name="timer_missed_channel">Verpasste Timer</string>
+    <string name="tab_animation_gate">Tor</string>
 </resources>
