@@ -281,6 +281,7 @@ public final class TimerService extends Service {
                     mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
                     mAudioFocusRequest = null;
                 } else {
+                    //noinspection deprecation
                     mAudioManager.abandonAudioFocus(null);
                 }
             } catch (Exception e) {
@@ -363,6 +364,7 @@ public final class TimerService extends Service {
                     .build();
                 mAudioManager.requestAudioFocus(mAudioFocusRequest);
             } else {
+                //noinspection deprecation
                 mAudioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
             }
         } catch (Exception e) {

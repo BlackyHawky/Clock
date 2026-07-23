@@ -13,8 +13,10 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -25,6 +27,7 @@ import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
@@ -43,8 +46,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -73,6 +80,15 @@ public class ThemeUtils {
             layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
             window.setAttributes(layoutParams);
         }
+    }
+
+    /**
+     * Hides the system navigation and status bars for an immersive experience.
+     */
+    public static void hideSystemBars(Window window, View view) {
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(window, view);
+        controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        controller.hide(WindowInsetsCompat.Type.systemBars());
     }
 
     /**
@@ -649,6 +665,66 @@ public class ThemeUtils {
                     buttonDrawable.jumpToCurrentState();
                 }
             }
+        }
+    }
+
+    /**
+     * Applies the appropriate enter transition (Fade or Slide) when creating an activity.
+     * Should be called in onCreate() before super.onCreate().
+     *
+     * @param activity The activity being created
+     */
+    @SuppressWarnings("deprecation")
+    public static void setActivityEnterTransition(Activity activity) {
+        SharedPreferences prefs = getDefaultSharedPreferences(activity);
+        boolean isFadeEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
+
+        int enterAnim = isFadeEnabled ? R.anim.fade_in : R.anim.activity_slide_from_right;
+        int exitAnim = isFadeEnabled ? R.anim.fade_out : R.anim.activity_slide_to_left;
+
+        if (SdkUtils.isAtLeastAndroid14()) {
+            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, enterAnim, exitAnim);
+        } else {
+            activity.overridePendingTransition(enterAnim, exitAnim);
+        }
+    }
+
+    /**
+     * Starts an activity with the appropriate transition (Fade or Slide).
+     *
+     * @param context The calling activity or fragment
+     * @param intent  The intent of the activity to start
+     */
+    public static void startActivityWithTransition(Context context, Intent intent) {
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        boolean isFadeEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
+
+        int enterAnim = isFadeEnabled ? R.anim.fade_in : R.anim.activity_slide_from_right;
+        int exitAnim = isFadeEnabled ? R.anim.fade_out : R.anim.activity_slide_to_left;
+
+        Bundle options = ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim).toBundle();
+
+        context.startActivity(intent, options);
+    }
+
+    /**
+     * Finishes an activity with the appropriate return transition (Fade or Slide).
+     *
+     * @param activity The activity to finish
+     */
+    @SuppressWarnings("deprecation")
+    public static void finishActivityWithTransition(Activity activity) {
+        activity.finish();
+
+        SharedPreferences prefs = getDefaultSharedPreferences(activity);
+        boolean isFadeEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
+        int enterAnim = isFadeEnabled ? R.anim.fade_in : R.anim.activity_slide_from_left;
+        int exitAnim = isFadeEnabled ? R.anim.fade_out : R.anim.activity_slide_to_right;
+
+        if (SdkUtils.isAtLeastAndroid14()) {
+            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, enterAnim, exitAnim);
+        } else {
+            activity.overridePendingTransition(enterAnim, exitAnim);
         }
     }
 

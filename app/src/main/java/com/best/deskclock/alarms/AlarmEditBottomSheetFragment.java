@@ -2,7 +2,6 @@
 
 package com.best.deskclock.alarms;
 
-import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -39,7 +38,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.IntentCompat;
 import androidx.core.graphics.Insets;
+import androidx.core.os.BundleCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -147,9 +148,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private final ActivityResultLauncher<Intent> mRingtonePickerLauncher = registerForActivityResult(
         new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                Uri uri = SdkUtils.isAtLeastAndroid13()
-                    ? result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri.class)
-                    : result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                Uri uri = IntentCompat.getParcelableExtra(result.getData(), RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri.class);
 
                 mAlarm.alert = (uri != null) ? uri : RingtoneUtils.RINGTONE_SILENT;
 
@@ -283,9 +282,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
 
         final Bundle bundleToUse = (savedInstanceState != null) ? savedInstanceState : requireArguments();
-        Alarm alarmFromArguments = SdkUtils.isAtLeastAndroid13()
-            ? bundleToUse.getParcelable(ARG_ALARM, Alarm.class)
-            : bundleToUse.getParcelable(ARG_ALARM);
+        Alarm alarmFromArguments = BundleCompat.getParcelable(bundleToUse, ARG_ALARM, Alarm.class);
 
         if (alarmFromArguments == null) {
             dismiss();
@@ -1047,22 +1044,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert.toString());
             }
 
-            startActivity(previewIntent);
-
-            if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-                if (SdkUtils.isAtLeastAndroid14()) {
-                    requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
-                } else {
-                    requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                }
-            } else {
-                if (SdkUtils.isAtLeastAndroid14()) {
-                    requireActivity().overrideActivityTransition(
-                        OVERRIDE_TRANSITION_OPEN, R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-                } else {
-                    requireActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-                }
-            }
+            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent);
         });
     }
 

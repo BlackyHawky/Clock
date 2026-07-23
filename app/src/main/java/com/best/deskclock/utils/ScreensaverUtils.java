@@ -26,16 +26,12 @@ import android.graphics.drawable.Drawable;
 import android.os.BatteryManager;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.ClockStyle;
@@ -469,20 +465,4 @@ public class ScreensaverUtils {
         applyBrightness(nextAlarm, prefs, screensaverNextAlarmColorPicker, null);
     }
 
-    /**
-     * Hide system bars when the screensaver is active.
-     */
-    public static void hideScreensaverSystemBars(Window window, View view) {
-        if (SdkUtils.isAtLeastAndroid10()) {
-            WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(window, view);
-            controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-            controller.hide(WindowInsetsCompat.Type.systemBars());
-        } else {
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_IMMERSIVE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-    }
 }

@@ -19,6 +19,7 @@ import android.view.KeyEvent;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
+import androidx.core.content.IntentCompat;
 
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
@@ -146,9 +147,7 @@ public class RingtoneUtils {
         mediaSession.setCallback(new MediaSession.Callback() {
             @Override
             public boolean onMediaButtonEvent(@NonNull Intent mediaButtonEvent) {
-                KeyEvent keyEvent = SdkUtils.isAtLeastAndroid13()
-                    ? mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT, KeyEvent.class)
-                    : mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+                KeyEvent keyEvent = IntentCompat.getParcelableExtra(mediaButtonEvent, Intent.EXTRA_KEY_EVENT, KeyEvent.class);
 
                 if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
                     int keyCode = keyEvent.getKeyCode();

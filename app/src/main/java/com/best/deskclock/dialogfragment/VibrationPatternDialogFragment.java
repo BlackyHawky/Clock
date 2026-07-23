@@ -187,6 +187,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
                             VibrationEffect effect = VibrationEffect.createWaveform(pattern, 0);
                             mVibrator.vibrate(effect);
                         } else {
+                            //noinspection deprecation
                             mVibrator.vibrate(pattern, 0);
                         }
                     }

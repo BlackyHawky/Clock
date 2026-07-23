@@ -65,7 +65,7 @@ public class CustomToast {
      * styling across light and dark modes. The returned Toast is not
      * shown automatically and must be displayed by the caller.</p>
      *
-     * <p>Note: even if {@link Toast#setView(View)} is obsolete, its use is not problematic;
+     * <p>Note: even if {@code Toast.setView(View)} is obsolete, its use is not problematic;
      * indeed, apps targeting API level 30 or higher that are in the background will
      * not have custom toast views displayed.</p>
      *
@@ -80,6 +80,7 @@ public class CustomToast {
 
         Toast toast = new Toast(themedContext);
         toast.setDuration(duration);
+        //noinspection deprecation
         toast.setView(layout);
 
         return toast;

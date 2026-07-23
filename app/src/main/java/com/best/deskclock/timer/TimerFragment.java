@@ -43,7 +43,9 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.os.BundleCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -193,9 +195,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         if (savedInstanceState != null) {
             // If timer setup state is present, retrieve it to be later honored.
-            mTimerSetupState = SdkUtils.isAtLeastAndroid13()
-                ? savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE, int[].class)
-                : savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
+            mTimerSetupState = BundleCompat.getSerializable(savedInstanceState, KEY_TIMER_SETUP_STATE, int[].class);
         }
 
         requireActivity().getOnBackPressedDispatcher().addCallback(
@@ -422,7 +422,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
                 resetTimerCreationViews();
                 animateToView(mBinding.timerContentView, false);
-                left.announceForAccessibility(getString(R.string.timer_canceled));
+                ViewCompat.setStateDescription(left, getString(R.string.timer_canceled));
             });
         }
     }

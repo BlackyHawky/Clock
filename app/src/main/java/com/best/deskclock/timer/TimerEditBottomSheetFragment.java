@@ -40,7 +40,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.IntentCompat;
 import androidx.core.graphics.Insets;
+import androidx.core.os.BundleCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
@@ -61,7 +63,6 @@ import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -129,9 +130,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private final ActivityResultLauncher<Intent> mRingtonePickerLauncher = registerForActivityResult(
         new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                Uri uri = SdkUtils.isAtLeastAndroid13()
-                    ? result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri.class)
-                    : result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                Uri uri = IntentCompat.getParcelableExtra(result.getData(), RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri.class);
 
                 mTimerRingtoneUri = (uri != null) ? uri : RingtoneUtils.RINGTONE_SILENT;
 
@@ -217,9 +216,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mTimerTimeText = savedInstanceState.getLong(STATE_TIMER_TIME_TEXT);
             mTimerLabel = savedInstanceState.getString(STATE_TIMER_LABEL);
             mAddTimeButtonValue = savedInstanceState.getInt(STATE_ADD_TIME_BUTTON_VALUE);
-            mTimerRingtoneUri = SdkUtils.isAtLeastAndroid13()
-                ? savedInstanceState.getParcelable(STATE_TIMER_RINGTONE_URI, Uri.class)
-                : savedInstanceState.getParcelable(STATE_TIMER_RINGTONE_URI);
+            mTimerRingtoneUri = BundleCompat.getParcelable(savedInstanceState, STATE_TIMER_RINGTONE_URI, Uri.class);
             mVibrate = savedInstanceState.getBoolean(STATE_VIBRATE);
             mVibrationPattern = savedInstanceState.getString(STATE_VIBRATION_PATTERN);
             mFlashOn = savedInstanceState.getBoolean(STATE_FLASH_ON);

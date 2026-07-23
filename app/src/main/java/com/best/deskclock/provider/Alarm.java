@@ -22,6 +22,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.ParcelCompat;
 import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
@@ -30,7 +31,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -428,9 +428,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         flash = p.readInt() == 1;
         label = p.readString();
         syncByLabel = p.readInt() == 1;
-        alert = SdkUtils.isAtLeastAndroid13()
-            ? p.readParcelable(getClass().getClassLoader(), Uri.class)
-            : p.readParcelable(getClass().getClassLoader());
+        alert = ParcelCompat.readParcelable(p, getClass().getClassLoader(), Uri.class);
         deleteAfterUse = p.readInt() == 1;
         autoSilenceDuration = p.readInt();
         snoozeDuration = p.readInt();

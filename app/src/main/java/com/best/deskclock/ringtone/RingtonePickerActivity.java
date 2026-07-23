@@ -36,7 +36,9 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.IntentCompat;
 import androidx.core.graphics.Insets;
+import androidx.core.os.BundleCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.documentfile.provider.DocumentFile;
@@ -63,7 +65,6 @@ import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -277,22 +278,16 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         if (savedInstanceState != null) {
             mIsPlaying = savedInstanceState.getBoolean(STATE_KEY_PLAYING);
-            mSelectedRingtoneUri = SdkUtils.isAtLeastAndroid13()
-                ? savedInstanceState.getParcelable(EXTRA_RINGTONE_URI, Uri.class)
-                : savedInstanceState.getParcelable(EXTRA_RINGTONE_URI);
+            mSelectedRingtoneUri = BundleCompat.getParcelable(savedInstanceState, EXTRA_RINGTONE_URI, Uri.class);
         }
 
         if (mSelectedRingtoneUri == null) {
-            mSelectedRingtoneUri = SdkUtils.isAtLeastAndroid13()
-                ? intent.getParcelableExtra(EXTRA_RINGTONE_URI, Uri.class)
-                : intent.getParcelableExtra(EXTRA_RINGTONE_URI);
+            mSelectedRingtoneUri = IntentCompat.getParcelableExtra(intent, EXTRA_RINGTONE_URI, Uri.class);
         }
 
         mReturnResultOnly = intent.getBooleanExtra(EXTRA_RETURN_RESULT_ONLY, false);
 
-        mDefaultRingtoneUri = SdkUtils.isAtLeastAndroid13()
-            ? intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI, Uri.class)
-            : intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
+        mDefaultRingtoneUri = IntentCompat.getParcelableExtra(intent, EXTRA_DEFAULT_RINGTONE_URI, Uri.class);
         final int defaultRingtoneTitleId = intent.getIntExtra(EXTRA_DEFAULT_RINGTONE_NAME, 0);
         mDefaultRingtoneTitle = getString(defaultRingtoneTitleId);
 
@@ -581,9 +576,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Bundle arguments = requireArguments();
-            final Uri toRemove = SdkUtils.isAtLeastAndroid13()
-                ? arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE, Uri.class)
-                : arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
+            final Uri toRemove = BundleCompat.getParcelable(arguments, ARG_RINGTONE_URI_TO_REMOVE, Uri.class);
 
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
                 ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);

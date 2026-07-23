@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
@@ -397,22 +396,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, now.get(Calendar.HOUR_OF_DAY));
                 previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, now.get(Calendar.MINUTE));
 
-                startActivity(previewIntent);
-
-                if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-                    if (SdkUtils.isAtLeastAndroid14()) {
-                        requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
-                    } else {
-                        requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    }
-                } else {
-                    if (SdkUtils.isAtLeastAndroid14()) {
-                        requireActivity().overrideActivityTransition(
-                            OVERRIDE_TRANSITION_OPEN, R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-                    } else {
-                        requireActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-                    }
-                }
+                ThemeUtils.startActivityWithTransition(context, previewIntent);
             }
         }
 

@@ -523,6 +523,7 @@ public final class RingtonePlayer {
             mAudioManager.requestAudioFocus(mAudioFocusRequest);
         } else {
             int streamType = isExternalAudioDevice ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
+            //noinspection deprecation
             mAudioManager.requestAudioFocus(null, streamType, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
         }
     }
@@ -535,6 +536,7 @@ public final class RingtonePlayer {
             mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
             mAudioFocusRequest = null;
         } else {
+            //noinspection deprecation
             mAudioManager.abandonAudioFocus(null);
         }
     }

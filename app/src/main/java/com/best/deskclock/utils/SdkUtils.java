@@ -76,6 +76,14 @@ public class SdkUtils {
     }
 
     /**
+     * @return {@code true} if the API version is before 30 (Red Velvet Cake).
+     * {@code false} otherwise.
+     */
+    public static boolean isBeforeAndroid11() {
+        return !isAtLeastAndroid11();
+    }
+
+    /**
      * @return {@code true} if the API version is greater than or equal to 31 (Snow Cone).
      * {@code false} otherwise.
      */

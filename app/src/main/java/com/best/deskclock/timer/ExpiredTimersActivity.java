@@ -59,7 +59,6 @@ import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.databinding.ExpiredTimersActivityBinding;
 import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
-import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -182,16 +181,14 @@ public class ExpiredTimersActivity extends BaseActivity {
             return;
         }
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+
         if (SdkUtils.isAtLeastAndroid81()) {
             setTurnScreenOn(true);
             setShowWhenLocked(true);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
         } else {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+            //noinspection deprecation
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
 
         // Honor rotation on tablets; fix the orientation on phones.
@@ -258,7 +255,7 @@ public class ExpiredTimersActivity extends BaseActivity {
             addTimer(timer);
         }
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
+        ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
 
         applyWindowInsets();
 

@@ -334,6 +334,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         } else {
             mVibrationPref.setVisible(true);
 
+            //noinspection deprecation
             boolean isSystemHapticFeedbackEnabled = Settings.System.getInt(
                 requireContext().getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1) == 1;
 

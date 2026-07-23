@@ -154,6 +154,7 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * Applies a color to the navigation bar for activities.
      */
+    @SuppressWarnings("deprecation")
     private void applyNavigationBarColor(String darkMode) {
         if (SdkUtils.isAtLeastAndroid10()) {
             if (this instanceof DeskClock) {

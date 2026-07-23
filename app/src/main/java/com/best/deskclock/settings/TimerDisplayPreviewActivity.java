@@ -51,7 +51,6 @@ import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
 import com.best.deskclock.timer.TimerItem;
 import com.best.deskclock.timer.TimerItemCompact;
-import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -83,8 +82,6 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
      * The scene root for transitions when expired timers are added/removed from this container.
      */
     private ViewGroup mExpiredTimersScrollView;
-
-    private boolean mIsFadeTransitionsEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +120,6 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             : SettingsDAO.getAccentColor(mPrefs);
 
         getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
-
-        mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
 
         if (mBinding.expiredTimersScrollVertical != null) {
             mExpiredTimersScrollView = mBinding.expiredTimersScrollVertical;
@@ -197,7 +192,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         // Add dummy timer to view
         addTimer(fakeTimer);
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
+        ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
 
         applyWindowInsets();
 
@@ -392,19 +387,6 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     }
 
     private void finishActivity() {
-        finish();
-        if (mIsFadeTransitionsEnabled) {
-            if (SdkUtils.isAtLeastAndroid14()) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out);
-            } else {
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        } else {
-            if (SdkUtils.isAtLeastAndroid14()) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
-            } else {
-                overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
-            }
-        }
+        ThemeUtils.finishActivityWithTransition(this);
     }
 }
