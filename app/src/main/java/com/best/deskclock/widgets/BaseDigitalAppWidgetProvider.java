@@ -221,7 +221,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      *       combining them.</li>
      *   <li>Combine the two orientation RemoteViews into a single RemoteViews and call
      *       {@link AppWidgetManager#updateAppWidget(int, RemoteViews)} to push the update.</li>
-     *   <li>On pre-Android 12 devices, call {@link AppWidgetManager#notifyAppWidgetViewDataChanged(int, int)}
+     *   <li>On pre-Android 12 devices, call {@code AppWidgetManager.notifyAppWidgetViewDataChanged(int, int)}
      *       after updating the RemoteViews.</li>
      * </ul>
      *
@@ -260,6 +260,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         updateDayChangeCallback(context);
 
         if (SdkUtils.isBeforeAndroid12()) {
+            //noinspection deprecation
             wm.notifyAppWidgetViewDataChanged(widgetId, getWorldCityListViewId());
         }
     }
@@ -400,6 +401,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, getCityServiceClass());
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+            //noinspection deprecation
             rv.setRemoteAdapter(getWorldCityListViewId(), intent);
         }
 

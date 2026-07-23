@@ -21,13 +21,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
 import android.view.WindowManager;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.BaseActivity;
@@ -110,7 +109,7 @@ public class ScreensaverActivity extends BaseActivity {
 
         setContentView(mBinding.getRoot());
 
-        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), getWindow().getDecorView());
+        ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
 
         ScreensaverUtils.setScreensaverClockStyle(mBinding.saverContainer);
 
@@ -226,15 +225,14 @@ public class ScreensaverActivity extends BaseActivity {
         final Window win = getWindow();
         final WindowManager.LayoutParams winParams = win.getAttributes();
 
-        if (SdkUtils.isAtLeastAndroid11()) {
-            WindowInsetsController insetsController = win.getInsetsController();
-            if (insetsController != null) {
-                insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-                insetsController.hide(WindowInsets.Type.systemBars());
-            }
-        }
+        WindowInsetsControllerCompat insetsController = WindowCompat.getInsetsController(win, win.getDecorView());
+        insetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        insetsController.hide(WindowInsetsCompat.Type.systemBars());
 
-        winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        if (SdkUtils.isBeforeAndroid11()) {
+            //noinspection deprecation
+            winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        }
 
         int flags = getWindowFlags();
         boolean shouldScreenRemainOn = pluggedIn || SettingsDAO.shouldScreensaverScreenRemainOn(mPrefs);
@@ -272,6 +270,7 @@ public class ScreensaverActivity extends BaseActivity {
     /**
      * @return the flags to apply to the window to keep the screen active (before API 27).
      */
+    @SuppressWarnings("deprecation")
     private static int getLegacyWindowFlags() {
         return WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
             | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON

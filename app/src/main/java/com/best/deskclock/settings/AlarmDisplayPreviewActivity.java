@@ -111,7 +111,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     private float mInitialTouchX = 0;
     private Vibrator mVibrator;
     private boolean mAreSnoozedOrDismissedAlarmVibrationsEnabled;
-    private boolean mIsFadeTransitionsEnabled;
     private boolean mIsTextShadowDisplayed;
     private int mShadowColor;
     private int mShadowOffset;
@@ -145,7 +144,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
         mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(mPrefs);
-        mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
         mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(mPrefs);
         mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(mPrefs);
         mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(mPrefs, this);
@@ -188,7 +186,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         applyWindowInsets();
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
+        ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
     }
 
     @Override
@@ -869,6 +867,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
+            //noinspection deprecation
             mVibrator.vibrate(new long[]{700, 500}, -1);
         }
     }
@@ -880,6 +879,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
+            //noinspection deprecation
             mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
         }
     }
@@ -989,20 +989,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     }
 
     private void finishActivity() {
-        finish();
-        if (mIsFadeTransitionsEnabled) {
-            if (SdkUtils.isAtLeastAndroid14()) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out);
-            } else {
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        } else {
-            if (SdkUtils.isAtLeastAndroid14()) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
-            } else {
-                overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
-            }
-        }
+        ThemeUtils.finishActivityWithTransition(this);
     }
 
 }

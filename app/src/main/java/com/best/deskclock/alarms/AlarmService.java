@@ -31,6 +31,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ServiceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
@@ -508,6 +509,7 @@ public class AlarmService extends Service {
             if (SdkUtils.isAtLeastAndroid8()) {
                 mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{300, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
+                //noinspection deprecation
                 mVibrator.vibrate(new long[]{300, 500}, -1);
             }
         }
@@ -528,6 +530,7 @@ public class AlarmService extends Service {
             if (SdkUtils.isAtLeastAndroid8()) {
                 mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{300, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
+                //noinspection deprecation
                 mVibrator.vibrate(new long[]{300, 200, 100, 500}, -1);
             }
         }
@@ -543,11 +546,7 @@ public class AlarmService extends Service {
         intent.setPackage(getPackageName());
         sendBroadcast(intent);
 
-        if (SdkUtils.isAtLeastAndroid7()) {
-            stopForeground(Service.STOP_FOREGROUND_REMOVE);
-        } else {
-            stopForeground(true);
-        }
+        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE);
 
         mCurrentAlarm = null;
         detachListeners();

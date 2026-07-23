@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 
+import androidx.core.content.IntentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.best.deskclock.base.AppExecutors;
@@ -19,7 +20,6 @@ import com.best.deskclock.controller.HandleApiCalls;
 import com.best.deskclock.databinding.SelectionLayoutBinding;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.SdkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +63,8 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
         binding.alarmRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         final Intent intent = getIntent();
-        final Parcelable[] alarmsFromIntent = SdkUtils.isAtLeastAndroid13()
-            ? intent.getParcelableArrayExtra(EXTRA_ALARMS, Alarm.class)
-            : intent.getParcelableArrayExtra(EXTRA_ALARMS);
+        final Parcelable[] alarmsFromIntent = IntentCompat.getParcelableArrayExtra(intent, EXTRA_ALARMS, Alarm.class);
+
         mAction = intent.getIntExtra(EXTRA_ACTION, ACTION_INVALID);
 
         // reading alarms from intent

@@ -117,8 +117,10 @@ public final class TimerKlaxon {
                 vibrator.vibrate(vibrationEffect, vibrationAttributes);
             } else if (SdkUtils.isAtLeastAndroid8()) {
                 VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
+                //noinspection deprecation
                 vibrator.vibrate(vibrationEffect, audioAttributes);
             } else {
+                //noinspection deprecation
                 vibrator.vibrate(pattern, 0, audioAttributes);
             }
         }

@@ -105,7 +105,7 @@ public final class Screensaver extends DreamService {
 
         setContentView(mBinding.getRoot());
 
-        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mBinding.saverContainer);
+        ThemeUtils.hideSystemBars(getWindow(), mBinding.saverContainer);
 
         ScreensaverUtils.setScreensaverClockStyle(mBinding.saverContainer);
 

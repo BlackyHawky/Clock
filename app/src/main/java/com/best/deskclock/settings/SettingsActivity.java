@@ -57,6 +57,7 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import org.json.JSONException;
@@ -265,21 +266,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
-                    requireActivity().finish();
-                    if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-                        if (SdkUtils.isAtLeastAndroid14()) {
-                            requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out);
-                        } else {
-                            requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        }
-                    } else {
-                        if (SdkUtils.isAtLeastAndroid14()) {
-                            requireActivity().overrideActivityTransition(
-                                OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
-                        } else {
-                            requireActivity().overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
-                        }
-                    }
+                    ThemeUtils.finishActivityWithTransition(requireActivity());
                 }
             });
         }

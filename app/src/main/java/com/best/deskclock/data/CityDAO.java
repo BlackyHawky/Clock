@@ -6,6 +6,7 @@
 
 package com.best.deskclock.data;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -123,6 +124,7 @@ final class CityDAO {
      * @return the domain of cities from which the user may choose a world clock
      * @noinspection resource
      */
+    @SuppressLint("AppBundleLocaleChanges")
     static Map<String, City> getCities(Context context) {
         final Resources resources = Utils.getLocalizedContext(context).getResources();
         final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);

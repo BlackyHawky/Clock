@@ -277,6 +277,7 @@ public class Utils {
             if (SdkUtils.isAtLeastAndroid8()) {
                 vibrator.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
+                //noinspection deprecation
                 vibrator.vibrate(milliseconds);
             }
         }

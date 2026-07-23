@@ -9,6 +9,8 @@ package com.best.deskclock.timer;
 import android.content.Context;
 import android.view.View;
 
+import androidx.core.view.ViewCompat;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
@@ -72,8 +74,9 @@ public record TimerClickHandler(TimerFragment mTimerFragment) {
         final String buttonTime = timer.getButtonTime();
 
         if (currentTime > 0) {
-            v.announceForAccessibility(TimerStringFormatter.formatString(
-                context, R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
+            ViewCompat.setStateDescription(v, TimerStringFormatter.formatString(
+                context, R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true)
+            );
         }
     }
 

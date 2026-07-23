@@ -58,6 +58,7 @@ public class StopwatchTileService extends TileService {
         if (SdkUtils.isAtLeastAndroid14()) {
             startActivityAndCollapse(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE));
         } else {
+            //noinspection deprecation
             startActivityAndCollapse(intent);
         }
     }

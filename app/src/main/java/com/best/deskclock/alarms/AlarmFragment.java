@@ -43,6 +43,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.os.BundleCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -267,9 +268,7 @@ public final class AlarmFragment extends DeskClockFragment
         updateWarningBannerVisibility();
 
         if (savedInstanceState != null) {
-            Alarm restoredAlarm = SdkUtils.isAtLeastAndroid13()
-                ? savedInstanceState.getParcelable(KEY_SELECTED_ALARM, Alarm.class)
-                : savedInstanceState.getParcelable(KEY_SELECTED_ALARM);
+            Alarm restoredAlarm = BundleCompat.getParcelable(savedInstanceState, KEY_SELECTED_ALARM, Alarm.class);
 
             if (restoredAlarm != null && mAlarmTimeClickHandler != null) {
                 mAlarmTimeClickHandler.setSelectedAlarm(restoredAlarm);

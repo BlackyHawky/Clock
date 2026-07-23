@@ -6,7 +6,6 @@
 
 package com.best.deskclock.clock;
 
-import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -287,22 +286,9 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void onFabClick() {
-        startActivity(new Intent(requireContext(), CitySelectionActivity.class));
+        Intent intent = new Intent(requireContext(), CitySelectionActivity.class);
 
-        if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-            if (SdkUtils.isAtLeastAndroid14()) {
-                requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
-            } else {
-                requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        } else {
-            if (SdkUtils.isAtLeastAndroid14()) {
-                requireActivity().overrideActivityTransition(
-                    OVERRIDE_TRANSITION_OPEN, R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-            } else {
-                requireActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-            }
-        }
+        ThemeUtils.startActivityWithTransition(requireContext(), intent);
     }
 
     @Override

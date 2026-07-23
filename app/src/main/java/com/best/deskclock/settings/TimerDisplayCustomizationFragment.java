@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
@@ -236,21 +235,9 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                     mTimerBlurIntensityPref.setVisible(false));
 
             case KEY_TIMER_PREVIEW -> {
-                startActivity(new Intent(context, TimerDisplayPreviewActivity.class));
-                if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-                    if (SdkUtils.isAtLeastAndroid14()) {
-                        requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
-                    } else {
-                        requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    }
-                } else {
-                    if (SdkUtils.isAtLeastAndroid14()) {
-                        requireActivity().overrideActivityTransition(
-                            OVERRIDE_TRANSITION_OPEN, R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-                    } else {
-                        requireActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-                    }
-                }
+                Intent previewIntent = new Intent(context, TimerDisplayPreviewActivity.class);
+
+                ThemeUtils.startActivityWithTransition(requireContext(), previewIntent);
             }
         }
 

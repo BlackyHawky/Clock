@@ -13,14 +13,11 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.core.view.ViewCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
@@ -82,25 +79,6 @@ public class AlarmUtils {
      * This action will display the next alarm of this app only in the clock tab and screensaver.
      */
     public static final String ACTION_NEXT_ALARM_CHANGED_BY_CLOCK = "com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK";
-
-    /**
-     * Hide system bars when alarm goes off or timer expires.
-     */
-    public static void hideSystemBarsOfTriggeredAlarms(Window window, View view) {
-        if (SdkUtils.isAtLeastAndroid10()) {
-            WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(window, view);
-            controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-            controller.hide(WindowInsetsCompat.Type.systemBars());
-        } else {
-            view.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            );
-        }
-    }
 
     public static void showDismissToast(Context context, Alarm alarm, AlarmInstance instance) {
         final Context localizedContext = Utils.getLocalizedContext(context);
@@ -470,7 +448,7 @@ public class AlarmUtils {
         final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
         final String text = formatElapsedTimeUntilAlarm(snackbarAnchor.getContext(), alarmTimeDelta);
         SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT));
-        snackbarAnchor.announceForAccessibility(text);
+        ViewCompat.setStateDescription(snackbarAnchor, text);
     }
 
 }

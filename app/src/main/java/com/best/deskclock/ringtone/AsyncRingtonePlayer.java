@@ -257,6 +257,7 @@ public final class AsyncRingtonePlayer {
 
                 mAudioManager.requestAudioFocus(mAudioFocusRequest);
             } else {
+                //noinspection deprecation
                 mAudioManager.requestAudioFocus(null, AudioManager.STREAM_ALARM, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
             }
         }
@@ -269,6 +270,7 @@ public final class AsyncRingtonePlayer {
                         mAudioFocusRequest = null;
                     }
                 } else {
+                    //noinspection deprecation
                     mAudioManager.abandonAudioFocus(null);
                 }
             }

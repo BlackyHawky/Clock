@@ -20,6 +20,8 @@ import android.widget.CompoundButton;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import androidx.core.view.ViewCompat;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
@@ -286,10 +288,10 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
 
         if (checked) {
             mUserSelectedCities.add(city);
-            b.announceForAccessibility(mContext.getString(R.string.city_checked, city.getName()));
+            ViewCompat.setStateDescription(b, mContext.getString(R.string.city_checked, city.getName()));
         } else {
             mUserSelectedCities.remove(city);
-            b.announceForAccessibility(mContext.getString(R.string.city_unchecked, city.getName()));
+            ViewCompat.setStateDescription(b, mContext.getString(R.string.city_unchecked, city.getName()));
 
             // Delete the associated note
             mPrefs.edit().remove(KEY_CITY_NOTE + city.getId()).apply();
