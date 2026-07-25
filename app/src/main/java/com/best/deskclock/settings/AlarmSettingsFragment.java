@@ -101,7 +101,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mEnablePerAlarmVolumeCrescendoDurationPref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
     SwitchPreferenceCompat mAutoRoutingToExternalAudioDevicePref;
-    SwitchPreferenceCompat mSystemMediaVolume;
+    SwitchPreferenceCompat mSystemMediaVolumePref;
     CustomSliderPreference mExternalAudioDeviceVolumePref;
     PreferenceCategory mAlarmVibrationCategory;
     VibrationPatternPreference mVibrationPatternPref;
@@ -210,7 +210,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mEnablePerAlarmVolumeCrescendoDurationPref = findPreference(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
         mAutoRoutingToExternalAudioDevicePref = findPreference(KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE);
-        mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
+        mSystemMediaVolumePref = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
         mExternalAudioDeviceVolumePref = findPreference(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME);
         mAlarmVibrationCategory = findPreference(KEY_ALARM_VIBRATION_CATEGORY);
         mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
@@ -296,7 +296,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             mMaterialDatePickerStylePref, mAlarmRingtonePref, mAlarmAutoSilencePref, mEnablePerAlarmAutoSilencePref,
             mAlarmSnoozeDurationPref, mEnablePerAlarmSnoozeDurationPref, mRepeatMissedAlarmPref, mEnablePerAlarmMissedRepeatLimitPref,
             mAlarmVolumePref, mEnablePerAlarmVolumePref, mAlarmVolumeCrescendoDurationPref, mEnablePerAlarmVolumeCrescendoDurationPref,
-            mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref,
+            mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolumePref, mExternalAudioDeviceVolumePref,
             mAlarmVibrationCategory, mEnableAlarmVibrationsByDefaultPref, mVibrationPatternPref, mEnablePerAlarmVibrationPatternPref,
             mEnableSnoozedOrDismissedAlarmVibrationsPref, mVolumeButtonsPref, mPowerButtonPref, mHeadphonesButtonPref, mFlipActionPref,
             mShakeActionPref, mShakeIntensityPref, mSortAlarmPref, mDisplayEnabledAlarmsFirstPref, mEnableAlarmFabLongPressPref,
@@ -445,7 +445,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 boolean isAdvancedAudioPlaybackEnabled = (boolean) newValue;
 
                 mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
-                mSystemMediaVolume.setVisible(isAdvancedAudioPlaybackEnabled && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+                mSystemMediaVolumePref.setVisible(isAdvancedAudioPlaybackEnabled && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
                 mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
                     && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
@@ -460,7 +460,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
                 boolean isAutoRoutingToExternalAudioDevice = (boolean) newValue;
 
-                mSystemMediaVolume.setVisible(isAutoRoutingToExternalAudioDevice);
+                mSystemMediaVolumePref.setVisible(isAutoRoutingToExternalAudioDevice);
                 mExternalAudioDeviceVolumePref.setVisible(isAutoRoutingToExternalAudioDevice
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
                 mHeadphonesButtonPref.setVisible(isAutoRoutingToExternalAudioDevice);
@@ -637,8 +637,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
         mAutoRoutingToExternalAudioDevicePref.setOnPreferenceChangeListener(this);
 
-        mSystemMediaVolume.setVisible(isAdvancedAudioPlaybackEnabled && isAutoRoutingToExternalAudioDevice);
-        mSystemMediaVolume.setOnPreferenceChangeListener(this);
+        mSystemMediaVolumePref.setVisible(isAdvancedAudioPlaybackEnabled && isAutoRoutingToExternalAudioDevice);
+        mSystemMediaVolumePref.setOnPreferenceChangeListener(this);
 
         mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
             && isAutoRoutingToExternalAudioDevice
@@ -1046,7 +1046,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mEnablePerAlarmVolumeCrescendoDurationPref = null;
         mAdvancedAudioPlaybackPref = null;
         mAutoRoutingToExternalAudioDevicePref = null;
-        mSystemMediaVolume = null;
+        mSystemMediaVolumePref = null;
         mExternalAudioDeviceVolumePref = null;
         mAlarmVibrationCategory = null;
         mEnableAlarmVibrationsByDefaultPref = null;

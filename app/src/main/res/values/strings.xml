@@ -592,6 +592,8 @@
     <string name="custom_font_toast_message_deleted">Font successfully deleted</string>
     <!-- Category title for ringtone settings -->
     <string name="ringtone_category_title">Ringtone</string>
+    <!-- Category title for advanced audio playback -->
+    <string name="advanced_audio_playback_category_title">Advanced audio playback</string>
     <!-- Category title for vibration settings -->
     <string name="vibration_category_title">Vibration</string>
     <!-- Category title for alarm actions -->
