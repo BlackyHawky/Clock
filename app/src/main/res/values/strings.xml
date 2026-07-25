@@ -582,8 +582,10 @@
     <string name="custom_font_title">Select a custom font</string>
     <!-- Setting title to choose or delete font. -->
     <string name="custom_font_title_variant">Change or delete the custom font</string>
-    <!-- Dialog title for changing the font. -->
+    <!-- Dialog title to select a custom font. -->
     <string name="custom_font_dialog_title">Font</string>
+    <!-- Dialog message to change the font. -->
+    <string name="custom_font_dialog_message">Change or delete the custom font.</string>
     <!-- Toast message when a font is successfully selected. -->
     <string name="custom_font_toast_message_selected">Font successfully selected</string>
     <!-- Toast message when a font is successfully deleted. -->
@@ -622,6 +624,8 @@
     <string name="background_image_title_variant">Change or delete the background image</string>
     <!-- Dialog title for the alarm background image. -->
     <string name="background_image_dialog_title">Background image</string>
+    <!-- Dialog message to change the alarm background image. -->
+    <string name="background_image_dialog_message">Change or delete the background image.</string>
     <!-- Toast message when an image is successfully selected. -->
     <string name="background_image_toast_message_selected">Image successfully selected</string>
     <!-- Toast message when an image is successfully deleted. -->

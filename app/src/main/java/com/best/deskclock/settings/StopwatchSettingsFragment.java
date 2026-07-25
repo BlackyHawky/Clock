@@ -23,12 +23,13 @@ import androidx.preference.Preference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
-public class StopwatchSettingsFragment extends ScreenFragment
+public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     Preference mStopwatchFontPref;

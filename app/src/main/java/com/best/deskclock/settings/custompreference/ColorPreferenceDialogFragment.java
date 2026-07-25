@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BATTERY_COLOR_PICKER;
@@ -24,7 +24,6 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;

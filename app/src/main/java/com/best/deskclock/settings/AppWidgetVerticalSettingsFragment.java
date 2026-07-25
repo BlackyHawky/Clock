@@ -16,6 +16,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
@@ -24,7 +25,7 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.VerticalAppWidgetProvider;
 
-public class AppWidgetVerticalSettingsFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener {
+public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragment implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 

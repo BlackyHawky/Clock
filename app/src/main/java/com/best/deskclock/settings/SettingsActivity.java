@@ -41,6 +41,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.KeepAliveService;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
@@ -121,7 +122,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         outState.putBoolean(KEY_APPBAR_EXPANDED, mIsAppBarExpanded);
     }
 
-    public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
+    public static class SettingsFragment extends BaseSettingsScreenFragment implements Preference.OnPreferenceClickListener {
 
         private static final String BACKUP_JSON_FILE_NAME = "settings.json";
 

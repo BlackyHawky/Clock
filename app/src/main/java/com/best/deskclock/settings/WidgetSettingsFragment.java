@@ -13,8 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 
-public class WidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
+public class WidgetSettingsFragment extends BaseSettingsScreenFragment implements Preference.OnPreferenceClickListener {
 
     Preference mAnalogWidgetCustomizationPref;
     Preference mDigitalWidgetCustomizationPref;

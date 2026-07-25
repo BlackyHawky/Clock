@@ -34,6 +34,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.KeepAliveService;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.settings.custompreference.PermissionsManagementPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
@@ -65,7 +66,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
     }
 
-    public static class PermissionsManagementFragment extends ScreenFragment
+    public static class PermissionsManagementFragment extends BaseSettingsScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         private static final String KEY_SHOW_FOREGROUND_SERVICE_DIALOG = "show_foreground_service_dialog";

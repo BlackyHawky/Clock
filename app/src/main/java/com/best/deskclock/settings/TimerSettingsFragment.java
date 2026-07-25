@@ -35,6 +35,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
@@ -60,7 +61,7 @@ import com.best.deskclock.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimerSettingsFragment extends ScreenFragment
+public class TimerSettingsFragment extends BaseSettingsScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final String KEY_SHOW_SINGLE_TIMER_WARNING = "show_single_timer_warning";

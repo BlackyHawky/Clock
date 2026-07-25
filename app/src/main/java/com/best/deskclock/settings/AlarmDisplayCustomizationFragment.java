@@ -26,6 +26,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
@@ -44,7 +45,7 @@ import com.google.android.material.color.MaterialColors;
 import java.util.Calendar;
 import java.util.List;
 
-public class AlarmDisplayCustomizationFragment extends ScreenFragment
+public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final String KEY_PENDING_DIALOG_PREF_KEY = "pending_dialog_pref_key";

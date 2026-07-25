@@ -238,17 +238,9 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/miscellaneous_category_title"
+        android:title="@string/background_image_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
-
-        <SwitchPreferenceCompat
-            android:key="key_screensaver_keep_screen_on"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_keep_screen_on_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
 
         <Preference
             android:key="key_screensaver_background_image"
@@ -264,6 +256,21 @@
             android:summary="@string/label_default"
             android:defaultValue="20"
             android:max="100"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="key_screensaver_keep_screen_on"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_keep_screen_on_title"
+            android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
