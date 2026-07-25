@@ -323,6 +323,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindMissedAlarmRepeatLimit();
         bindCrescendoDuration();
         bindAlarmVolume();
+        bindSpace();
         bindAlarmBackgroundImage();
         bindBlurIntensity();
         bindDeleteButton();
@@ -890,6 +891,19 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         };
 
         mBinding.alarmVolumeLayout.setOnClickListener(openVolumeFragment);
+    }
+
+    private void bindSpace() {
+        if (mBinding.autoSilenceDurationLayout.getVisibility() == GONE
+            && mBinding.snoozeDurationLayout.getVisibility() == GONE
+            && mBinding.missedAlarmRepeatLimitLayout.getVisibility() == GONE
+            && mBinding.crescendoDurationLayout.getVisibility() == GONE
+            && mBinding.alarmVolumeLayout.getVisibility() == GONE) {
+            mBinding.space.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.space.setVisibility(VISIBLE);
     }
 
     private void bindAlarmBackgroundImage() {

@@ -264,6 +264,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindDeleteTimerAfterUse();
         bindAutoSilenceValue();
         bindCrescendoDuration();
+        bindSpace();
         bindDeleteButton();
         bindDuplicateButton();
         bindSaveButton();
@@ -610,6 +611,15 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         };
 
         mBinding.crescendoDurationLayout.setOnClickListener(openVolumeCrescendoFragment);
+    }
+
+    private void bindSpace() {
+        if (mBinding.autoSilenceDurationLayout.getVisibility() == GONE && mBinding.crescendoDurationLayout.getVisibility() == GONE) {
+            mBinding.space.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.space.setVisibility(VISIBLE);
     }
 
     private void bindDeleteButton() {
