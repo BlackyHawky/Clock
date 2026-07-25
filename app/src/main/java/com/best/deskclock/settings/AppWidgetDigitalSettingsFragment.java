@@ -17,6 +17,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -30,7 +31,7 @@ import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
 import java.util.List;
 
-public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener {
+public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock.settings;
+package com.best.deskclock.base;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -53,8 +53,13 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
+import com.best.deskclock.settings.AboutFragment;
+import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.ColorPreferenceDialogFragment;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
+import com.best.deskclock.settings.custompreference.CustomListPreferenceDialogFragment;
+import com.best.deskclock.settings.custompreference.CustomMultiSelectListPreferenceDialogFragment;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
@@ -65,7 +70,7 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
-public abstract class ScreenFragment extends PreferenceFragmentCompat {
+public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompat {
 
     private static final String KEY_PENDING_FILE_PREF_KEY = "pending_file_pref_key";
     private static final String KEY_PENDING_FILE_PATH = "pending_file_path";
@@ -79,21 +84,21 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     protected static final int MENU_BUG_REPORT = 2;
     protected static final int MENU_RESET_SETTINGS = 3;
 
-    CollapsingToolbarBaseLayoutBinding mActivityBinding;
+    private CollapsingToolbarBaseLayoutBinding mActivityBinding;
 
-    SharedPreferences mPrefs;
-    DisplayMetrics mDisplayMetrics;
-    Typeface mRegularTypeface;
-    Typeface mBoldTypeface;
+    public SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
+    private Typeface mRegularTypeface;
+    private Typeface mBoldTypeface;
 
-    RecyclerView mRecyclerView;
-    LinearLayoutManager mLinearLayoutManager;
-    AlertDialog mActiveDialog = null;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    public AlertDialog mActiveDialog = null;
 
     int mRecyclerViewPosition = -1;
 
     /**
-     * This method should be implemented by subclasses of ScreenFragment to provide the title
+     * This method should be implemented by subclasses of BaseSettingsScreenFragment to provide the title
      * for the fragment's collapsing toolbar.
      * <p>
      * The title returned by this method will be displayed in the collapsing toolbar layout
@@ -478,8 +483,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     ? R.string.custom_font_dialog_title
                     : R.string.background_image_dialog_title),
                 getString(isFontFile
-                    ? R.string.custom_font_title_variant
-                    : R.string.background_image_title_variant),
+                    ? R.string.custom_font_dialog_message
+                    : R.string.background_image_dialog_message),
                 null,
                 getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
                 (d, w) -> {

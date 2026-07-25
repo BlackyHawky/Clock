@@ -27,6 +27,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.SettingsDAO;
@@ -50,7 +51,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-public class InterfaceCustomizationFragment extends ScreenFragment
+public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static boolean isLanguageChanged = false;

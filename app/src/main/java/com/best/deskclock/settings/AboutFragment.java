@@ -43,6 +43,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
@@ -75,7 +76,7 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class AboutFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class AboutFragment extends BaseSettingsScreenFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final String KEY_SHOW_RESET_SETTINGS_DIALOG = "show_reset_settings_dialog";
     private static final String KEY_PENDING_LINK_DIALOG = "pending_link_dialog";

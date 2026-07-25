@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -52,6 +52,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
     private static final String ARG_ENTRIES = "entries";
     private static final String ARG_ENTRY_VALUES = "entry_values";
     private static final String ARG_CURRENT_VALUES = "current_values";
+    private static final String SAVE_STATE_VALUES = "save_state_values";
 
     private MultiSelectListPreference preference;
 
@@ -90,6 +91,13 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putStringArrayList(SAVE_STATE_VALUES, new ArrayList<>(mNewValues));
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -100,10 +108,23 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
         CharSequence title = args.getCharSequence(ARG_TITLE);
         CharSequence[] entries = args.getCharSequenceArray(ARG_ENTRIES);
         CharSequence[] entryValues = args.getCharSequenceArray(ARG_ENTRY_VALUES);
-        String[] currentValuesArray = args.getStringArray(ARG_CURRENT_VALUES);
 
-        if (currentValuesArray != null) {
-            mNewValues.addAll(Arrays.asList(currentValuesArray));
+        mNewValues.clear();
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVE_STATE_VALUES)) {
+            // Restoring after screen rotation
+            ArrayList<String> savedValues = savedInstanceState.getStringArrayList(SAVE_STATE_VALUES);
+
+            if (savedValues != null) {
+                mNewValues.addAll(savedValues);
+            }
+        } else {
+            // First opening: take the preference values
+            String[] currentValuesArray = args.getStringArray(ARG_CURRENT_VALUES);
+
+            if (currentValuesArray != null) {
+                mNewValues.addAll(Arrays.asList(currentValuesArray));
+            }
         }
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);

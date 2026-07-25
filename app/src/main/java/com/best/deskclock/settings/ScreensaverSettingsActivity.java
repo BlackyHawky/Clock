@@ -23,6 +23,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
@@ -59,7 +60,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
     }
 
-    public static class ScreensaverSettingsFragment extends ScreenFragment
+    public static class ScreensaverSettingsFragment extends BaseSettingsScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         ColorPickerPreference mClockColorPref;

@@ -146,7 +146,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/miscellaneous_category_title"
+        android:title="@string/background_image_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
@@ -166,6 +166,13 @@
             android:max="100"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
 
         <Preference
             android:key="key_timer_preview"
