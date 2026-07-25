@@ -52,6 +52,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 import com.best.deskclock.alarms.AlarmFragment;
@@ -291,6 +292,9 @@ public class DeskClock extends BaseActivity implements FabContainer {
         if (tabsChanged) {
             mFragmentTabPagerAdapter.clearCache();
             mFragmentTabPagerAdapter.notifyDataSetChanged();
+
+            mBinding.deskClockPager.setPageTransformer(false, null);
+            updatePageTransformer();
         }
 
         if (mShouldRecreate) {
@@ -685,19 +689,29 @@ public class DeskClock extends BaseActivity implements FabContainer {
         mBinding.deskClockPager.addOnPageChangeListener(new PageChangeWatcher());
 
         // Set the animation when switching tabs.
+        updatePageTransformer();
+    }
+
+    /**
+     * Update the animation when switching tabs.
+     */
+    private void updatePageTransformer() {
         mBinding.deskClockPager.post(() -> {
             if (isFinishing() || isDestroyed()) {
                 return;
             }
 
             String tabAnimation = SettingsDAO.getTabAnimation(mPrefs);
-            switch (tabAnimation) {
-                case TAB_ANIMATION_CUBE -> mBinding.deskClockPager.setPageTransformer(true, new CubePageTransformer());
-                case TAB_ANIMATION_DEPTH -> mBinding.deskClockPager.setPageTransformer(true, new DepthPageTransformer());
-                case TAB_ANIMATION_FLIP -> mBinding.deskClockPager.setPageTransformer(true, new FlipPageTransformer());
-                case TAB_ANIMATION_GATE -> mBinding.deskClockPager.setPageTransformer(true, new GatePageTransformer());
-                case TAB_ANIMATION_ZOOM_OUT -> mBinding.deskClockPager.setPageTransformer(true, new ZoomOutPageTransformer());
-            }
+            ViewPager.PageTransformer transformer = switch (tabAnimation) {
+                case TAB_ANIMATION_CUBE -> new CubePageTransformer();
+                case TAB_ANIMATION_DEPTH -> new DepthPageTransformer();
+                case TAB_ANIMATION_FLIP -> new FlipPageTransformer();
+                case TAB_ANIMATION_GATE -> new GatePageTransformer();
+                case TAB_ANIMATION_ZOOM_OUT -> new ZoomOutPageTransformer();
+                default -> null;
+            };
+
+            mBinding.deskClockPager.setPageTransformer(true, transformer);
         });
     }
 
