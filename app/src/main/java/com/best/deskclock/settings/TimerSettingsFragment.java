@@ -85,9 +85,10 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mEnablePerTimerAutoSilencePref;
     AlarmVolumePreference mAlarmVolumePref;
     SwitchPreferenceCompat mEnablePerTimerVolumeCrescendoDurationPref;
+    PreferenceCategory mAdvancedAudioPlaybackCategoryPref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
     SwitchPreferenceCompat mAutoRoutingToExternalAudioDevicePref;
-    SwitchPreferenceCompat mSystemMediaVolume;
+    SwitchPreferenceCompat mSystemMediaVolumePref;
     CustomSliderPreference mExternalAudioDeviceVolumePref;
     PreferenceCategory mTimerVibrationCategory;
     SwitchPreferenceCompat mTimerVibratePref;
@@ -176,9 +177,10 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mEnablePerTimerAutoSilencePref = findPreference(KEY_ENABLE_PER_TIMER_AUTO_SILENCE);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
         mEnablePerTimerVolumeCrescendoDurationPref = findPreference(KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION);
+        mAdvancedAudioPlaybackCategoryPref = findPreference(KEY_TIMER_ADVANCED_AUDIO_PLAYBACK_CATEGORY);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
         mAutoRoutingToExternalAudioDevicePref = findPreference(KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE);
-        mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
+        mSystemMediaVolumePref = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
         mExternalAudioDeviceVolumePref = findPreference(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME);
         mTimerVibrationCategory = findPreference(KEY_TIMER_VIBRATION_CATEGORY);
         mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
@@ -274,7 +276,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     public void onDestroy() {
         nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
             mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mEnablePerTimerVolumeCrescendoDurationPref, mAdvancedAudioPlaybackPref,
-            mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibrationCategory,
+            mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolumePref, mExternalAudioDeviceVolumePref, mTimerVibrationCategory,
             mTimerVibratePref, mEnablePerTimerVibrationPatternPref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref,
             mTimerHeadphonesButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref,
             mTurnOnBackFlashForExpiredTimerPref, mDisplayLowAlarmVolumeWarningPref);
@@ -354,29 +356,33 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                mAutoRoutingToExternalAudioDevicePref.setVisible(mIsAlarmTabHidden && (boolean) newValue);
-                mSystemMediaVolume.setVisible(mIsAlarmTabHidden
-                    && (boolean) newValue
+                boolean isAdvancedAudioPlaybackEnabled = (boolean) newValue;
+
+                mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
+                mSystemMediaVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
                     && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
-                mExternalAudioDeviceVolumePref.setVisible(mIsAlarmTabHidden
-                    && (boolean) newValue
+                mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
                     && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
             }
 
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
                 stopRingtonePreview();
+
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mSystemMediaVolume.setVisible(mIsAlarmTabHidden && (boolean) newValue);
-                mExternalAudioDeviceVolumePref.setVisible(mIsAlarmTabHidden
-                    && (boolean) newValue
-                    && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+
+                boolean isAutoRoutingToExternalAudioDevice = (boolean) newValue;
+
+                mSystemMediaVolumePref.setVisible(isAutoRoutingToExternalAudioDevice);
+                mExternalAudioDeviceVolumePref.setVisible(isAutoRoutingToExternalAudioDevice
+                    && SettingsDAO.shouldUseCustomMediaVolume(mPrefs)
+                );
             }
 
             case KEY_SYSTEM_MEDIA_VOLUME -> {
                 stopRingtonePreview();
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mExternalAudioDeviceVolumePref.setVisible(mIsAlarmTabHidden && !(boolean) newValue);
+                mExternalAudioDeviceVolumePref.setVisible(!(boolean) newValue);
             }
 
             case KEY_TIMER_SHAKE_ACTION -> {
@@ -554,17 +560,17 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
         mEnablePerTimerVolumeCrescendoDurationPref.setOnPreferenceChangeListener(this);
 
-        mAdvancedAudioPlaybackPref.setVisible(mIsAlarmTabHidden);
+        mAdvancedAudioPlaybackCategoryPref.setVisible(mIsAlarmTabHidden);
+
         mAdvancedAudioPlaybackPref.setOnPreferenceChangeListener(this);
 
-        mAutoRoutingToExternalAudioDevicePref.setVisible(mIsAlarmTabHidden && isAdvancedAudioPlaybackEnabled);
+        mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
         mAutoRoutingToExternalAudioDevicePref.setOnPreferenceChangeListener(this);
 
-        mSystemMediaVolume.setVisible(mIsAlarmTabHidden && isAdvancedAudioPlaybackEnabled && isAutoRoutingToExternalAudioDevice);
-        mSystemMediaVolume.setOnPreferenceChangeListener(this);
+        mSystemMediaVolumePref.setVisible(isAdvancedAudioPlaybackEnabled && isAutoRoutingToExternalAudioDevice);
+        mSystemMediaVolumePref.setOnPreferenceChangeListener(this);
 
-        mExternalAudioDeviceVolumePref.setVisible(mIsAlarmTabHidden
-            && isAdvancedAudioPlaybackEnabled
+        mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
             && isAutoRoutingToExternalAudioDevice
             && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
         mExternalAudioDeviceVolumePref.setEnabled(mExternalAudioDeviceVolumePref.isVisible() && mHasExternalAudioDeviceConnected);
@@ -952,9 +958,10 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mEnablePerTimerAutoSilencePref = null;
         mAlarmVolumePref = null;
         mEnablePerTimerVolumeCrescendoDurationPref = null;
+        mAdvancedAudioPlaybackCategoryPref = null;
         mAdvancedAudioPlaybackPref = null;
         mAutoRoutingToExternalAudioDevicePref = null;
-        mSystemMediaVolume = null;
+        mSystemMediaVolumePref = null;
         mExternalAudioDeviceVolumePref = null;
         mTimerVibrationCategory = null;
         mTimerVibratePref = null;

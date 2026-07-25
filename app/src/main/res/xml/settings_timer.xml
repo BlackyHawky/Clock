@@ -89,6 +89,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="key_timer_advanced_audio_playback_category"
+        android:title="@string/advanced_audio_playback_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
         <SwitchPreferenceCompat
             android:key="key_advanced_audio_playback"
             android:layout="@layout/settings_preference_layout"
