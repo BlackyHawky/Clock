@@ -101,7 +101,6 @@ public final class AlarmNotifications {
      * @param postedNotification     The notification that was just posted
      * @return The first active notification for the group
      */
-
     private static Notification getFirstActiveNotification(Context context, String group, int canceledNotificationId,
                                                            Notification postedNotification) {
 
@@ -112,8 +111,15 @@ public final class AlarmNotifications {
         for (StatusBarNotification statusBarNotification : notifications) {
             final Notification n = statusBarNotification.getNotification();
             if (!isGroupSummary(n) && group.equals(n.getGroup()) && statusBarNotification.getId() != canceledNotificationId) {
-                if (firstActiveNotification == null || n.getSortKey().compareTo(firstActiveNotification.getSortKey()) < 0) {
+                if (firstActiveNotification == null) {
                     firstActiveNotification = n;
+                } else {
+                    String sortKey1 = n.getSortKey() != null ? n.getSortKey() : "";
+                    String sortKey2 = firstActiveNotification.getSortKey() != null ? firstActiveNotification.getSortKey() : "";
+
+                    if (sortKey1.compareTo(sortKey2) < 0) {
+                        firstActiveNotification = n;
+                    }
                 }
             }
         }
