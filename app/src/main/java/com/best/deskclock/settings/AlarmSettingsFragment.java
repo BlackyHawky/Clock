@@ -47,11 +47,13 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.dialogfragment.AlarmNotificationReminderDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationStartDelayDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.settings.custompreference.AlarmMathHardnessLevelPreference;
 import com.best.deskclock.settings.custompreference.AlarmNotificationReminderPreference;
 import com.best.deskclock.settings.custompreference.AlarmSnoozeDurationPreference;
 import com.best.deskclock.settings.custompreference.AlarmVolumePreference;
@@ -114,6 +116,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     ListPreference mFlipActionPref;
     ListPreference mShakeActionPref;
     CustomSliderPreference mShakeIntensityPref;
+    SwitchPreferenceCompat mEnablePerAlarmMathHardnessLevelPref;
     ListPreference mSortAlarmPref;
     SwitchPreferenceCompat mDisplayEnabledAlarmsFirstPref;
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
@@ -223,6 +226,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
         mShakeActionPref = findPreference(KEY_SHAKE_ACTION);
         mShakeIntensityPref = findPreference(KEY_SHAKE_INTENSITY);
+        mEnablePerAlarmMathHardnessLevelPref = findPreference(KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL);
         mSortAlarmPref = findPreference(KEY_SORT_ALARM);
         mDisplayEnabledAlarmsFirstPref = findPreference(KEY_DISPLAY_ENABLED_ALARMS_FIRST);
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
@@ -299,9 +303,9 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolumePref, mExternalAudioDeviceVolumePref,
             mAlarmVibrationCategory, mEnableAlarmVibrationsByDefaultPref, mVibrationPatternPref, mEnablePerAlarmVibrationPatternPref,
             mEnableSnoozedOrDismissedAlarmVibrationsPref, mVolumeButtonsPref, mPowerButtonPref, mHeadphonesButtonPref, mFlipActionPref,
-            mShakeActionPref, mShakeIntensityPref, mSortAlarmPref, mDisplayEnabledAlarmsFirstPref, mEnableAlarmFabLongPressPref,
-            mWeekStartPref, mDisplayDismissButtonPref, mTurnOnBackFlashForTriggeredAlarmPref, mDeleteOccasionalAlarmByDefaultPref,
-            mDisplayLowAlarmVolumeWarningPref);
+            mShakeActionPref, mShakeIntensityPref, mEnablePerAlarmMathHardnessLevelPref, mSortAlarmPref, mDisplayEnabledAlarmsFirstPref,
+            mEnableAlarmFabLongPressPref, mWeekStartPref, mDisplayDismissButtonPref, mTurnOnBackFlashForTriggeredAlarmPref,
+            mDeleteOccasionalAlarmByDefaultPref, mDisplayLowAlarmVolumeWarningPref);
 
         mAudioManager = null;
         mAlarmUpdateHandler = null;
@@ -331,6 +335,23 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     });
                 } else {
                     triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_AUTO_SILENCE);
+                    return false;
+                }
+            }
+
+            case KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                if ((boolean) newValue) {
+                    AppExecutors.getDiskIO().execute(() -> {
+                        List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+                        for (Alarm alarm : currentAlarms) {
+                            alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs);
+                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        }
+                    });
+                } else {
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL);
                     return false;
                 }
             }
@@ -584,6 +605,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             VibrationStartDelayDialogFragment dialogFragment = VibrationStartDelayDialogFragment.newInstance(pref.getKey(), currentValue,
                 currentValue == DEFAULT_VIBRATION_START_DELAY);
             VibrationStartDelayDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else if (pref instanceof AlarmMathHardnessLevelPreference alarmMathHardnessLevelPreference) {
+            String currentValue = alarmMathHardnessLevelPreference.getMathHardnessLevel();
+            AlarmMathHardnessLevelDialogFragment dialogFragment = AlarmMathHardnessLevelDialogFragment.newInstance(pref.getKey(), currentValue);
+            AlarmMathHardnessLevelDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof AlarmNotificationReminderPreference alarmNotificationReminderPreference) {
             int currentValue = alarmNotificationReminderPreference.getAlarmNotificationReminderTime();
             AlarmNotificationReminderDialogFragment dialogFragment =
@@ -679,6 +704,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             final int shakeActionIndex = mShakeActionPref.findIndexOfValue(String.valueOf(SettingsDAO.getShakeAction(mPrefs)));
             mShakeIntensityPref.setVisible(shakeActionIndex != 2);
         }
+
+        mEnablePerAlarmMathHardnessLevelPref.setOnPreferenceChangeListener(this);
 
         mSortAlarmPref.setOnPreferenceChangeListener(this);
         mSortAlarmPref.setSummary(mSortAlarmPref.getEntry());
@@ -824,6 +851,30 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 }
             });
 
+        // Math hardness preference
+        parentFragmentManager.setFragmentResultListener(AlarmMathHardnessLevelDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, bundle) -> {
+                String key = bundle.getString(AlarmMathHardnessLevelDialogFragment.RESULT_PREF_KEY);
+                String newValue = bundle.getString(AlarmMathHardnessLevelDialogFragment.RESULT_MATH_HARDNESS_LEVEL);
+
+                if (key != null) {
+                    AlarmMathHardnessLevelPreference pref = findPreference(key);
+                    if (pref != null) {
+                        pref.setMathHardnessLevel(newValue);
+                    }
+
+                    if (SettingsDAO.isPerAlarmMathHardnessLevelDisabled(mPrefs)) {
+                        AppExecutors.getDiskIO().execute(() -> {
+                            List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+                            for (Alarm alarm : currentAlarms) {
+                                alarm.mathHardnessLevel = newValue;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
+                        });
+                    }
+                }
+            });
+
         // Notification reminder preference
         parentFragmentManager.setFragmentResultListener(AlarmNotificationReminderDialogFragment.REQUEST_KEY, viewLifecycleOwner,
             (requestKey, bundle) -> {
@@ -918,6 +969,11 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                             showDisablePerAlarmSettingDialog(R.string.enable_alarm_vibrations_by_default_dialog_message,
                                 KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, mEnableAlarmVibrationsByDefaultPref, null,
                                 alarm -> alarm.vibrate = false);
+
+                        case KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_math_hardness_level_dialog_message,
+                                KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL, mEnablePerAlarmMathHardnessLevelPref, null,
+                                alarm -> alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs));
 
                         case KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                             showDisablePerAlarmSettingDialog(R.string.enable_delete_occasional_alarm_by_default_dialog_message,
@@ -1059,6 +1115,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mFlipActionPref = null;
         mShakeActionPref = null;
         mShakeIntensityPref = null;
+        mEnablePerAlarmMathHardnessLevelPref = null;
         mSortAlarmPref = null;
         mDisplayEnabledAlarmsFirstPref = null;
         mEnableAlarmFabLongPressPref = null;

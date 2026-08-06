@@ -301,6 +301,28 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/math_challenge_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <com.best.deskclock.settings.custompreference.AlarmMathHardnessLevelPreference
+            android:key="key_alarm_math_hardness_level"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/math_hardness_level_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_alarm_math_hardness_level"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_per_alarm_math_hardness_level_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">

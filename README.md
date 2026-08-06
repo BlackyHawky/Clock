@@ -33,8 +33,10 @@ It combines modern design, powerful features, and transparency — giving you fu
 ### • ⏰ **Advanced alarms**
 
 * Set alarms to a specific date
-* Flip or shake to dismiss/postpone
-* Use power or volume buttons to snooze/stop
+* To dismiss/snooze alarms:
+  * Flip or shake your device
+  * Use power or volume buttons to snooze/stop
+  * Solve math problems
 * Swipe to delete, duplicate, or customize alarms
 * Custom titles, backgrounds, and ringtones (including random playback)
 
@@ -72,6 +74,7 @@ It combines modern design, powerful features, and transparency — giving you fu
 * On Android 14+ with HyperOS, the _"Full screen notification"_ permission may be revoked. Possible solution [here](https://github.com/BlackyHawky/Clock/discussions/303#discussioncomment-13407709).
 * MIUI users may face problems due to aggressive battery optimizations.
   * Please make sure that battery optimizations are disabled for the app before opening an issue.
+* For ZTE devices, go to: _Settings_ → _Battery_ → _Apps AI-control_ → _Clock_ → Set _Auto-start_, _Secondary Launch_, and _Background running_ to _**"Allowed"**_ from _**"Automatic"**_ to ensure alarms trigger correctly.
 
 > [!NOTE]  
 > I’m not an expert developer, so some problems may require community help to solve.

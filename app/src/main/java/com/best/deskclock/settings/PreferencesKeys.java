@@ -106,6 +106,8 @@ public class PreferencesKeys {
     public static final String KEY_FLIP_ACTION = "key_flip_action";
     public static final String KEY_SHAKE_ACTION = "key_shake_action";
     public static final String KEY_SHAKE_INTENSITY = "key_shake_intensity";
+    public static final String KEY_ALARM_MATH_HARDNESS_LEVEL = "key_alarm_math_hardness_level";
+    public static final String KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL = "key_enable_per_alarm_math_hardness_level";
     public static final String KEY_SORT_ALARM = "key_sort_alarm";
     public static final String KEY_DISPLAY_ENABLED_ALARMS_FIRST = "key_display_enabled_alarms_first";
     public static final String KEY_ENABLE_ALARM_FAB_LONG_PRESS = "key_enable_alarm_fab_long_press";

@@ -14,6 +14,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -70,6 +71,7 @@ import androidx.core.widget.TextViewCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.BaseActivity;
+import com.best.deskclock.controller.AlarmMathMissionController;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.HeadphonesButtonBehavior;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
@@ -91,6 +93,7 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.io.File;
+import java.util.Random;
 
 public class AlarmActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -104,6 +107,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private static final int ALPHA_DURATION_MILLIS = 400;
     private static final int ALERT_REVEAL_DURATION_MILLIS = 500;
     private static final int ALERT_DISMISS_DELAY_MILLIS = 2500;
+
+    public static final int MISSION_ACTION_SNOOZE = 1;
+    public static final int MISSION_ACTION_DISMISS = 2;
 
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -154,6 +160,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
     private float mInitialTouchX = 0;
 
+    private final Random mMissionRandom = new Random();
+    private AlarmMathMissionController mMathMissionController;
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -192,9 +201,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 // Power keys dismiss the alarm.
                 if (!mAlarmHandled && !isFinishing()) {
                     if (mPowerBehavior == PowerButtonBehavior.SNOOZE) {
-                        snooze();
+                        requestAlarmAction(MISSION_ACTION_SNOOZE);
                     } else if (mPowerBehavior == PowerButtonBehavior.DISMISS) {
-                        dismiss();
+                        requestAlarmAction(MISSION_ACTION_DISMISS);
                     }
                 }
             }
@@ -217,6 +226,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
         mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(mPrefs);
+        mMathMissionController = new AlarmMathMissionController(this, action -> {
+            if (action == MISSION_ACTION_SNOOZE) {
+                snooze();
+            } else {
+                dismiss();
+            }
+        }, mGeneralBoldTypeface);
 
         // Register Power button (screen off) intent receiver
         if (mPowerBehavior != PowerButtonBehavior.NOTHING) {
@@ -398,13 +414,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         }
                         case SNOOZE -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                snooze();
+                                requestAlarmAction(MISSION_ACTION_SNOOZE);
                             }
                             return true;
                         }
                         case DISMISS -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                dismiss();
+                                requestAlarmAction(MISSION_ACTION_DISMISS);
                             }
                             return true;
                         }
@@ -421,13 +437,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         }
                         case SNOOZE -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                snooze();
+                                requestAlarmAction(MISSION_ACTION_SNOOZE);
                             }
                             return true;
                         }
                         case DISMISS -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                dismiss();
+                                requestAlarmAction(MISSION_ACTION_DISMISS);
                             }
                             return true;
                         }
@@ -450,14 +466,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective text.
         if (!mIsSwipeActionEnabled) {
             if (view == mBinding.snoozeButton) {
-                snooze();
+                requestAlarmAction(MISSION_ACTION_SNOOZE);
             } else if (view == mBinding.dismissButton) {
                 dismiss();
             } else if (view == mBinding.dismissOnlyButton) {
                 if (isSnoozeDisabledForAlarmInstance()) {
-                    dismiss();
+                    requestAlarmAction(MISSION_ACTION_DISMISS);
                 } else {
-                    snooze();
+                    requestAlarmAction(MISSION_ACTION_SNOOZE);
                 }
             }
         }
@@ -557,17 +573,17 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             if (mBinding.contentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
                 if (deltaX <= -maxDeltaX) {
-                    dismiss(); // Left = Dismiss in RTL
+                    requestAlarmAction(MISSION_ACTION_DISMISS); // Left = Dismiss in RTL
                 } else if (deltaX >= maxDeltaX) {
-                    snooze(); // Right = Snooze en RTL
+                    requestAlarmAction(MISSION_ACTION_SNOOZE); // Right = Snooze en RTL
                 } else {
                     resetAnimations();
                 }
             } else {
                 if (deltaX >= maxDeltaX) {
-                    dismiss(); // Right = Dismiss in RTL
+                    requestAlarmAction(MISSION_ACTION_DISMISS); // Right = Dismiss in RTL
                 } else if (deltaX <= -maxDeltaX) {
-                    snooze(); // Left = Snooze in LTR
+                    requestAlarmAction(MISSION_ACTION_SNOOZE); // Left = Snooze in LTR
                 } else {
                     resetAnimations();
                 }
@@ -621,8 +637,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mMediaSession = RingtoneUtils.createMediaSession(this, "AlarmMediaSession", () -> {
                 if (!mAlarmHandled) {
                     switch (mHeadphonesButtonBehavior) {
-                        case SNOOZE -> snooze();
-                        case DISMISS -> dismiss();
+                        case SNOOZE -> requestAlarmAction(MISSION_ACTION_SNOOZE);
+                        case DISMISS -> requestAlarmAction(MISSION_ACTION_DISMISS);
                         case NOTHING -> { /* Do nothing */ }
                     }
                 }
@@ -1010,7 +1026,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private void initSnoozeSelectorListeners() {
         mBinding.snoozeSelectorText.setOnLongClickListener(v -> {
-            snooze();
+            requestAlarmAction(MISSION_ACTION_SNOOZE);
             return true;
         });
 
@@ -1202,6 +1218,30 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mBinding.snoozeText.setAlpha(alpha);
             mBinding.dismissText.setAlpha(1.0f);
         }
+    }
+
+    private void requestAlarmAction(int action) {
+        if (mAlarmHandled) {
+            return;
+        }
+
+        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(mPrefs)
+            ? SettingsDAO.getAlarmMathHardnessLevel(mPrefs)
+            : mAlarm.mathHardnessLevel;
+
+        if (mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL)) {
+            if (action == MISSION_ACTION_SNOOZE) {
+                snooze();
+            } else {
+                dismiss();
+            }
+
+            return;
+        }
+
+        resetAnimations();
+
+        mMathMissionController.requestMissionAction(action, mathHardnessLevel, mMissionRandom);
     }
 
     /**

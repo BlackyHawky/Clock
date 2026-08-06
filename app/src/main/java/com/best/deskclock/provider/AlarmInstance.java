@@ -10,6 +10,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
@@ -21,6 +22,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -500,20 +502,37 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time when alarm should be silence, or null if never
      */
-    public Calendar getTimeout(Context context) {
+    public Calendar getTimeout(Context context, Alarm alarm) {
         Calendar calendar = getAlarmTime();
 
         if (mAutoSilenceDuration == TIMEOUT_NEVER) {
             // Alarm silence has been set to "Never"
             return null;
-        } else if (mAutoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
+        }
+
+        int durationSeconds;
+
+        if (mAutoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
             // Alarm silence has been set to "At the end of the ringtone"
             // or "Dismiss alarm when ringtone ends" has been ticked in the alarm editing panel
-            int milliSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone);
-            calendar.add(Calendar.MILLISECOND, milliSeconds);
+            durationSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone) / 1000;
         } else {
-            calendar.add(Calendar.SECOND, mAutoSilenceDuration);
+            durationSeconds = mAutoSilenceDuration;
         }
+
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs) || alarm == null
+            ? SettingsDAO.getAlarmMathHardnessLevel(prefs)
+            : alarm.mathHardnessLevel;
+
+        boolean hasMathMission = !mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL);
+
+        if (hasMathMission) {
+            durationSeconds = Math.max(durationSeconds, DEFAULT_AUTO_SILENCE_DURATION);
+        }
+
+        calendar.add(Calendar.SECOND, durationSeconds);
 
         return calendar;
     }
