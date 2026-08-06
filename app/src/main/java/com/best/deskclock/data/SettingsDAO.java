@@ -1047,6 +1047,21 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the math hardness level applied to alarms.
+     */
+    public static String getAlarmMathHardnessLevel(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_MATH_HARDNESS_LEVEL, DEFAULT_MATH_HARDNESS_LEVEL);
+    }
+
+    /**
+     * @return {@code true} if the math hardness levels are disabled for each alarm. {@code false} otherwise.
+     */
+    public static boolean isPerAlarmMathHardnessLevelDisabled(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return !pref.getBoolean(KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL, DEFAULT_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL);
+    }
+
+    /**
      * @return the alarm sorting by time, by time of next alarm and by name.
      */
     public static String getAlarmSorting(SharedPreferences prefs) {

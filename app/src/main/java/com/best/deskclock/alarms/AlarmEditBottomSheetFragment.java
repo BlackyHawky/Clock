@@ -65,6 +65,7 @@ import com.best.deskclock.dialogfragment.BlurIntensityDialogFragment;
 import com.best.deskclock.dialogfragment.DatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.SpinnerDatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
@@ -245,7 +246,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mBinding.chooseRingtone, mBinding.vibrationPatternLayout, mBinding.autoSilenceDurationLayout, mBinding.snoozeDurationLayout,
             mBinding.missedAlarmRepeatLimitLayout, mBinding.crescendoDurationLayout, mBinding.alarmVolumeLayout,
             mBinding.alarmBackgroundImageLayout, mBinding.alarmBackgroundImageButton, mBinding.alarmBlurIntensityLayout,
-            mBinding.deleteButton, mBinding.duplicateButton, mBinding.previewButton, mBinding.saveButton);
+            mBinding.mathHardnessLevelLayout, mBinding.deleteButton, mBinding.duplicateButton, mBinding.previewButton,
+            mBinding.saveButton);
 
         mAlarmUpdateHandler = null;
 
@@ -321,6 +323,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindAutoSilenceValue();
         bindSnoozeDurationValue();
         bindMissedAlarmRepeatLimit();
+        bindAlarmHardnessLevel();
         bindCrescendoDuration();
         bindAlarmVolume();
         bindSpace();
@@ -704,37 +707,57 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.autoSilenceDurationValue.setTypeface(mGeneralTypeface);
 
         int autoSilenceDuration = mAlarm.autoSilenceDuration;
+        boolean isAutoSilenceNever = autoSilenceDuration == TIMEOUT_NEVER;
+        boolean hasMathMission = !mAlarm.mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL);
 
-        if (autoSilenceDuration == TIMEOUT_NEVER) {
-            mBinding.autoSilenceDurationValue.setText(getString(R.string.label_never));
-        } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
-            mBinding.autoSilenceDurationValue.setText(getString(R.string.auto_silence_end_of_ringtone));
-        } else {
-            int m = autoSilenceDuration / 60;
-            int s = autoSilenceDuration % 60;
+        mBinding.autoSilenceDurationLayout.setEnabled(!hasMathMission);
+        mBinding.autoSilenceDurationTitle.setEnabled(!hasMathMission);
+        mBinding.autoSilenceDurationValue.setEnabled(!hasMathMission);
 
-            if (m > 0 && s > 0) {
-                String minutesString = getResources().getQuantityString(R.plurals.minutes_short, m, m);
-                String secondsString = s + " " + getString(R.string.seconds_label);
-                mBinding.autoSilenceDurationValue.setText(String.format("%s %s", minutesString, secondsString));
-            } else if (m > 0) {
-                mBinding.autoSilenceDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
+        if (hasMathMission) {
+            if (isAutoSilenceNever) {
+                mBinding.autoSilenceDurationValue.setText(getString(R.string.label_never));
             } else {
-                String secondsString = s + " " + getString(R.string.seconds_label);
-                mBinding.autoSilenceDurationValue.setText(secondsString);
+                int effectiveDuration = Math.max(autoSilenceDuration, 0);
+                int minMissionDuration = DEFAULT_AUTO_SILENCE_DURATION / 60;
+                int m = Math.max(effectiveDuration / 60, minMissionDuration);
+
+                mBinding.autoSilenceDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
             }
+
+            mBinding.autoSilenceDurationLayout.setOnClickListener(null);
+        } else {
+            if (isAutoSilenceNever) {
+                mBinding.autoSilenceDurationValue.setText(getString(R.string.label_never));
+            } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
+                mBinding.autoSilenceDurationValue.setText(getString(R.string.auto_silence_end_of_ringtone));
+            } else {
+                int m = autoSilenceDuration / 60;
+                int s = autoSilenceDuration % 60;
+
+                if (m > 0 && s > 0) {
+                    String minutesString = getResources().getQuantityString(R.plurals.minutes_short, m, m);
+                    String secondsString = s + " " + getString(R.string.seconds_label);
+                    mBinding.autoSilenceDurationValue.setText(String.format("%s %s", minutesString, secondsString));
+                } else if (m > 0) {
+                    mBinding.autoSilenceDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
+                } else {
+                    String secondsString = s + " " + getString(R.string.seconds_label);
+                    mBinding.autoSilenceDurationValue.setText(secondsString);
+                }
+            }
+
+            View.OnClickListener openAutoSilenceDurationFragment = v -> {
+                Events.sendAlarmEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
+
+                final AutoSilenceDurationDialogFragment fragment = AutoSilenceDurationDialogFragment.newInstance(mAlarm.autoSilenceDuration);
+                AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment);
+            };
+
+            mBinding.autoSilenceDurationLayout.setOnClickListener(openAutoSilenceDurationFragment);
         }
 
         mBinding.autoSilenceDurationLayout.setVisibility(VISIBLE);
-
-        View.OnClickListener openAutoSilenceDurationFragment = v -> {
-            Events.sendAlarmEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
-
-            final AutoSilenceDurationDialogFragment fragment = AutoSilenceDurationDialogFragment.newInstance(mAlarm.autoSilenceDuration);
-            AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment);
-        };
-
-        mBinding.autoSilenceDurationLayout.setOnClickListener(openAutoSilenceDurationFragment);
     }
 
     private void bindSnoozeDurationValue() {
@@ -811,6 +834,34 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         };
 
         mBinding.missedAlarmRepeatLimitLayout.setOnClickListener(openAlarmMissedRepeatLimitFragment);
+    }
+
+    private void bindAlarmHardnessLevel() {
+        if (SettingsDAO.isPerAlarmMathHardnessLevelDisabled(mPrefs)) {
+            mBinding.mathHardnessLevelLayout.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.mathHardnessLevelTitle.setTypeface(mGeneralTypeface);
+        mBinding.mathHardnessLevelValue.setTypeface(mGeneralTypeface);
+        mBinding.mathHardnessLevelLayout.setVisibility(VISIBLE);
+
+        String mathHardnessLevelText = mAlarm.mathHardnessLevel;
+        switch (mathHardnessLevelText) {
+            case MATH_HARDNESS_LEVEL_EASY -> mBinding.mathHardnessLevelValue.setText(getString(R.string.math_hardness_level_easy));
+            case MATH_HARDNESS_LEVEL_NORMAL -> mBinding.mathHardnessLevelValue.setText(getString(R.string.math_hardness_level_normal));
+            case MATH_HARDNESS_LEVEL_HARD -> mBinding.mathHardnessLevelValue.setText(getString(R.string.math_hardness_level_hard));
+            default -> mBinding.mathHardnessLevelValue.setText(getString(R.string.label_off));
+        }
+
+        View.OnClickListener openMathHardnessLevelDialogFragment = v -> {
+            Events.sendAlarmEvent(R.string.action_set_math_hardness_level, R.string.label_deskclock);
+
+            final AlarmMathHardnessLevelDialogFragment fragment = AlarmMathHardnessLevelDialogFragment.newInstance(mAlarm.mathHardnessLevel);
+            AlarmMathHardnessLevelDialogFragment.show(getChildFragmentManager(), fragment);
+        };
+
+        mBinding.mathHardnessLevelLayout.setOnClickListener(openMathHardnessLevelDialogFragment);
     }
 
     private void bindCrescendoDuration() {
@@ -897,6 +948,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         if (mBinding.autoSilenceDurationLayout.getVisibility() == GONE
             && mBinding.snoozeDurationLayout.getVisibility() == GONE
             && mBinding.missedAlarmRepeatLimitLayout.getVisibility() == GONE
+            && mBinding.mathHardnessLevelLayout.getVisibility() == GONE
             && mBinding.crescendoDurationLayout.getVisibility() == GONE
             && mBinding.alarmVolumeLayout.getVisibility() == GONE) {
             mBinding.space.setVisibility(GONE);
@@ -1147,6 +1199,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 bindMissedAlarmRepeatLimit();
             });
 
+        childFragmentManager.setFragmentResultListener(AlarmMathHardnessLevelDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.mathHardnessLevel = bundle.getString(AlarmMathHardnessLevelDialogFragment.RESULT_MATH_HARDNESS_LEVEL);
+                bindAlarmHardnessLevel();
+                bindAutoSilenceValue();
+            });
+
         childFragmentManager.setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY, this,
             (requestKey, bundle) -> {
                 mAlarm.crescendoDuration = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
@@ -1390,6 +1449,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mBinding.autoSilenceDurationLayout,
             mBinding.snoozeDurationLayout,
             mBinding.missedAlarmRepeatLimitLayout,
+            mBinding.mathHardnessLevelLayout,
             mBinding.crescendoDurationLayout,
             mBinding.alarmVolumeLayout
         );

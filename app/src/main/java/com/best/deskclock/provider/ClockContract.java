@@ -148,6 +148,12 @@ public final class ClockContract {
          * Type: INTEGER
          */
         String BLUR_INTENSITY = "blurIntensity";
+
+        /**
+         * The math hardness level to dismiss or snooze the alarms
+         * Type: STRING
+         */
+        String MATH_HARDNESS_LEVEL = "mathHardnessLevel";
     }
 
     /**

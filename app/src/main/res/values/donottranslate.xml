@@ -71,6 +71,7 @@
     <string name="action_set_blur_intensity">Set Blur Intensity</string>
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
     <string name="action_set_vibration_pattern">Set Vibration Pattern</string>
+    <string name="action_set_math_hardness_level">Set Math Hardness Level</string>
     <string name="action_toggle_flash">Toggle Flash</string>
     <string name="action_delete_alarm_after_use">Delete Alarm After Use</string>
     <string name="action_set_auto_silence_duration">Set Auto Silence Duration</string>
@@ -303,6 +304,21 @@
         <item>1</item>
         <item>2</item>
         <item>0</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when invoking the math hardness level preference. -->
+    <string-array name="math_hardness_level_entries">
+        <item>@string/label_off</item>
+        <item>@string/math_hardness_level_easy</item>
+        <item>@string/math_hardness_level_normal</item>
+        <item>@string/math_hardness_level_hard</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the math_hardness_level_entries above. -->
+    <string-array name="math_hardness_level_values" translatable="false">
+        <item>off</item>
+        <item>easy</item>
+        <item>normal</item>
+        <item>hard</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the clock style preference. -->

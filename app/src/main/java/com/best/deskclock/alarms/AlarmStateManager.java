@@ -403,7 +403,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         Events.sendAlarmEvent(R.string.action_fire, 0);
 
-        Calendar timeout = instance.getTimeout(context);
+        Calendar timeout = instance.getTimeout(context, alarm);
         if (timeout != null) {
             scheduleInstanceStateChange(context, timeout, instance, AlarmInstance.MISSED_STATE);
         }
@@ -699,7 +699,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
         final Calendar currentTime = getCurrentTime();
         final Calendar alarmTime = instance.getAlarmTime();
-        final Calendar timeoutTime = instance.getTimeout(context);
+        final Calendar timeoutTime = instance.getTimeout(context, alarm);
         final Calendar notificationTime = instance.getNotificationTime(context);
         final Calendar missedTTL = instance.getMissedTimeToLive();
 

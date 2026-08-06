@@ -14,6 +14,7 @@ import static com.best.deskclock.data.TimerDAO.STATE;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
 import static com.best.deskclock.data.TimerDAO.TIMER_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
@@ -193,6 +194,7 @@ public class BackupAndRestoreUtils {
             alarmObject.put("pauseEndDate", alarm.pauseEndDate);
             alarmObject.put("backgroundImage", alarm.backgroundImage);
             alarmObject.put("blurIntensity", alarm.blurIntensity);
+            alarmObject.put("mathHardnessLevel", alarm.mathHardnessLevel);
 
             if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                 alarmsArray.put(alarmObject);
@@ -407,6 +409,7 @@ public class BackupAndRestoreUtils {
         String oldBackgroundImage = alarmObject.optString("backgroundImage", DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE);
         String newBackgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         int blurIntensity = alarmObject.optInt("blurIntensity", DEFAULT_BLUR_INTENSITY);
+        String mathHardnessLevel = alarmObject.optString("mathHardnessLevel", DEFAULT_MATH_HARDNESS_LEVEL);
 
         if (!TextUtils.isEmpty(oldBackgroundImage)) {
             String fileName = new File(oldBackgroundImage).getName();
@@ -451,7 +454,7 @@ public class BackupAndRestoreUtils {
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
             missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate, newBackgroundImage,
-            blurIntensity);
+            blurIntensity, mathHardnessLevel);
 
         restoredAlarm.addAlarm(contentResolver);
 

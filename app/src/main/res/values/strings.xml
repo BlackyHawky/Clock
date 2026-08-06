@@ -294,6 +294,18 @@
          [CHAR LIMIT=NONE]
     -->
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
+    <!-- Dialog title shown when math challenge must be solved before snoozing. -->
+    <string name="math_challenge_title_snooze">Solve to snooze</string>
+    <!-- Dialog title shown when math challenge must be solved before dismissing. -->
+    <string name="math_challenge_title_dismiss">Solve to dismiss</string>
+    <!-- Dialog button text to set a new problem. -->
+    <string name="math_challenge_new_problem">New problem</string>
+    <!-- Hint for alarm mission answer field. -->
+    <string name="math_challenge_answer_hint">Your answer</string>
+    <!-- Prompt for alarm math mission challenge. -->
+    <string name="math_challenge_prompt">What is %1$d + %2$d?</string>
+    <!-- Error shown when alarm mission answer is incorrect. -->
+    <string name="math_challenge_wrong_answer">Incorrect answer</string>
 
     <!-- ******************* -->
     <!-- **     CLOCK     ** -->
@@ -980,6 +992,20 @@
     <string name="flip_action_title">Device flip action</string>
     <!-- Setting title for the shake action setting. -->
     <string name="shake_action_title">Device shake action</string>
+    <!-- Category title for math challenge settings -->
+    <string name="math_challenge_category_title">Math challenge</string>
+    <!-- Setting title to change the math hardness level -->
+    <string name="math_hardness_level_title">Math hardness level</string>
+    <!-- Setting title to change the math hardness level to Easy -->
+    <string name="math_hardness_level_easy">Easy</string>
+    <!-- Setting title to change the math hardness level to Normal -->
+    <string name="math_hardness_level_normal">Normal</string>
+    <!-- Setting title to change the math hardness level to Hard -->
+    <string name="math_hardness_level_hard">Hard</string>
+    <!-- Setting title to use a custom math hardness level for each alarm. -->
+    <string name="enable_per_alarm_math_hardness_level_title">Use a custom math hardness level for each alarm</string>
+    <!-- Dialog message when the "Set a math hardness level for each alarm" setting is disabled. -->
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Custom math hardness levels will be reset.%s</string>
 
     <!-- *********************************** -->
     <!-- **     ALARM DISPLAY SETTINGS    ** -->

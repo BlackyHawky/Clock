@@ -294,6 +294,7 @@ public final class AlarmTimeClickHandler {
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
+        alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs);
 
         return alarm;
     }
