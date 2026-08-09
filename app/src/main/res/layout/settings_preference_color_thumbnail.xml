@@ -6,29 +6,43 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/thumbnail"
-    android:layout_width="@dimen/preference_thumbnail_size"
+    android:layout_width="wrap_content"
     android:layout_height="@dimen/preference_thumbnail_size"
-    tools:background="@drawable/bg_circle_for_preview">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="1dp"
-        android:src="@drawable/bg_checker"
-        android:contentDescription="@null" />
+    android:orientation="horizontal">
 
     <View
-        android:id="@+id/colorPreview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="1dp" />
+        android:layout_width="1dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/colorOutline" />
 
-    <View
-        android:id="@+id/border"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="@dimen/preference_thumbnail_size"
+        android:layout_height="@dimen/preference_thumbnail_size"
+        tools:background="@drawable/bg_circle_for_preview">
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:src="@drawable/bg_checker"
+            android:contentDescription="@null" />
+
+        <View
+            android:id="@+id/colorPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp" />
+
+        <View
+            android:id="@+id/border"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</LinearLayout>
