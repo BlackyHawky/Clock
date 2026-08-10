@@ -30,6 +30,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BlurMaskFilter;
@@ -41,7 +42,6 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.session.MediaSession;
 import android.os.Bundle;
@@ -56,11 +56,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -91,6 +89,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 import java.util.Random;
@@ -1011,7 +1010,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         int snoozeZoneColor = SettingsDAO.getSnoozeZoneColor(mPrefs);
         int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(mPrefs);
 
-        mBinding.snoozeSelectorText.setBackground(ThemeUtils.pillRippleDrawable(this, snoozeZoneColor));
+        mBinding.snoozeSelectorText.setBackgroundTintList(ColorStateList.valueOf(snoozeZoneColor));
         mBinding.snoozeSelectorText.setTypeface(mGeneralBoldTypeface);
         mBinding.snoozeSelectorText.setTextColor(snoozeTextColor);
 
@@ -1089,29 +1088,15 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Applies visual styling to a snooze button, including background, symbol color, and
      * enabled/disabled state.
      *
-     * @param imageView       the button to style
+     * @param button          the button to style
      * @param backgroundColor the background color when enabled
      * @param symbolColor     the symbol color when enabled
      * @param enabled         true to enable the button, false to disable it
      */
-    private void styleSnoozeButton(ImageView imageView, int backgroundColor, int symbolColor,
-                                   boolean enabled) {
-
-        GradientDrawable circle = (GradientDrawable) ThemeUtils.circleDrawable();
-
-        if (!enabled) {
-            circle.setColor(Color.parseColor("#80808080"));
-            imageView.setBackground(circle);
-            imageView.setColorFilter(ContextCompat.getColor(this, R.color.colorDisabled));
-            imageView.setClickable(false);
-            return;
-        }
-
-        circle.setColor(backgroundColor);
-
-        imageView.setBackground(ThemeUtils.rippleDrawable(this, circle));
-        imageView.setColorFilter(symbolColor);
-        imageView.setClickable(true);
+    private void styleSnoozeButton(MaterialButton button, int backgroundColor, int symbolColor, boolean enabled) {
+        button.setEnabled(enabled);
+        button.setBackgroundTintList(ColorStateList.valueOf(enabled ? backgroundColor : Color.parseColor("#80808080")));
+        button.setIconTint(ColorStateList.valueOf(enabled ? symbolColor : Color.parseColor("#60E6E0E9")));
     }
 
     private String buildTimeString(int totalMinutes) {
