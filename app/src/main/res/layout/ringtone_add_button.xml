@@ -13,7 +13,6 @@
     android:layout_margin="20dp"
     android:layout_gravity="bottom|end"
     android:contentDescription="@string/add_new_sound"
-    android:importantForAccessibility="no"
     app:srcCompat="@drawable/ic_add"
     app:tint="?android:attr/colorBackground"
     app:materialThemeOverlay="@style/ThemeOverlay.Material3Expressive.FloatingActionButton.Primary" />
