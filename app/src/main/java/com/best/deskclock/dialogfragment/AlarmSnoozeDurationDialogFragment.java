@@ -239,7 +239,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 mOkButton.setEnabled(!isInvalidInput(inputHoursText, inputMinutesText));
                 mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(inputHoursText, inputMinutesText));
             },
-            CustomDialog.SoftInputMode.SHOW_KEYBOARD
+            isNone ? CustomDialog.SoftInputMode.NONE : CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 

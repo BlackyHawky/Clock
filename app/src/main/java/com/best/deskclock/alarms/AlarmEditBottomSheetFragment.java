@@ -16,7 +16,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -39,10 +38,10 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.IntentCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.os.BundleCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -57,6 +56,7 @@ import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.databinding.AlarmEditBottomSheetBinding;
 import com.best.deskclock.databinding.DeskClockBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
@@ -65,7 +65,6 @@ import com.best.deskclock.dialogfragment.BlurIntensityDialogFragment;
 import com.best.deskclock.dialogfragment.DatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
-import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.SpinnerDatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
@@ -81,7 +80,6 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
-import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -125,8 +123,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private String mTag;
     private boolean mIsNewAlarm;
     private boolean mIsDeleted;
-    private int mScreenHeight;
-    private int mVisualPadding;
 
     public static AlarmEditBottomSheetFragment newInstance(Alarm alarm, long alarmId, String tag, boolean isNewAlarm) {
 
@@ -224,8 +220,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
 
         mDisplayMetrics = getResources().getDisplayMetrics();
-        mScreenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        mVisualPadding = (int) dpToPx(8, mDisplayMetrics);
 
         setupFragmentResultListeners();
     }
@@ -302,13 +296,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         behavior.setSkipCollapsed(true);
 
-        InsetsUtils.doOnApplyWindowInsets(mBinding.getRoot(), (v, insets) -> {
-            Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
-            int statusBarHeight = statusBars.top;
-
-            behavior.setMaxHeight(mScreenHeight - statusBarHeight - mVisualPadding);
-        });
-
         bindCustomDragHandleTooltip();
         bindClock();
         bindDaysOfWeekButtons();
@@ -342,6 +329,17 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             if (bottomSheetInternal != null) {
                 bottomSheetInternal.setElevation(dpToPx(12, mDisplayMetrics));
+
+                View parent = (View) bottomSheetInternal.getParent();
+
+                if (parent != null) {
+                    WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(parent);
+                    int topInset = insets != null
+                        ? insets.getInsets(WindowInsetsCompat.Type.statusBars() | WindowInsetsCompat.Type.displayCutout()).top
+                        : 0;
+                    int availableHeight = parent.getHeight() - topInset;
+                    BottomSheetBehavior.from(bottomSheetInternal).setMaxHeight(availableHeight);
+                }
             }
         });
 

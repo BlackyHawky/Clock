@@ -21,7 +21,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -41,9 +40,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.IntentCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.os.BundleCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 
@@ -61,7 +60,6 @@ import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.DeviceUtils;
-import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -108,8 +106,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private int mVolumeCrescendoDuration;
 
     private boolean mIsDeleted;
-    private int mScreenHeight;
-    private int mVisualPadding;
 
     public static TimerEditBottomSheetFragment newInstance(int timerId, String tag) {
 
@@ -147,8 +143,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
         mTimerBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getTimerDurationFont(mPrefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
-        mScreenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        mVisualPadding = (int) dpToPx(8, mDisplayMetrics);
 
         setupFragmentResultListeners();
     }
@@ -246,13 +240,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         behavior.setSkipCollapsed(true);
 
-        InsetsUtils.doOnApplyWindowInsets(mBinding.getRoot(), (v, insets) -> {
-            Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
-            int statusBarHeight = statusBars.top;
-
-            behavior.setMaxHeight(mScreenHeight - statusBarHeight - mVisualPadding);
-        });
-
         bindTimerTimeText();
         bindLabel();
         bindAddTimeButtonValue();
@@ -277,6 +264,17 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
 
             if (bottomSheetInternal != null) {
                 bottomSheetInternal.setElevation(dpToPx(12, mDisplayMetrics));
+
+                View parent = (View) bottomSheetInternal.getParent();
+
+                if (parent != null) {
+                    WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(parent);
+                    int topInset = insets != null
+                        ? insets.getInsets(WindowInsetsCompat.Type.statusBars() | WindowInsetsCompat.Type.displayCutout()).top
+                        : 0;
+                    int availableHeight = parent.getHeight() - topInset;
+                    BottomSheetBehavior.from(bottomSheetInternal).setMaxHeight(availableHeight);
+                }
             }
         });
 

@@ -179,7 +179,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
                 mOkButton.setEnabled(!isInvalidInput(minutesText));
                 mDefaultButton.setEnabled(isNotDefaultVibrationStartDelay(minutesText));
             },
-            CustomDialog.SoftInputMode.SHOW_KEYBOARD
+            isNone ? CustomDialog.SoftInputMode.NONE : CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 

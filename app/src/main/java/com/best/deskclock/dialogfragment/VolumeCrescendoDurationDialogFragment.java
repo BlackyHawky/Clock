@@ -276,7 +276,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
                 mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(inputMinutesText, inputSecondsText));
             },
-            CustomDialog.SoftInputMode.SHOW_KEYBOARD
+            isOff ? CustomDialog.SoftInputMode.NONE : CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
