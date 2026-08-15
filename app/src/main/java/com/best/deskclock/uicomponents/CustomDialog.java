@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -50,11 +51,21 @@ public class CustomDialog {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
         // Builder
         MaterialAlertDialogBuilder builder = (styleRes != null)
             ? new MaterialAlertDialogBuilder(context, styleRes)
             : new MaterialAlertDialogBuilder(context);
+
+        // Custom insets
+        int verticalInset = (int) dpToPx(12, displayMetrics);
+        int horizontalInset = (int) dpToPx(18, displayMetrics);
+
+        builder.setBackgroundInsetStart(horizontalInset);
+        builder.setBackgroundInsetEnd(horizontalInset);
+        builder.setBackgroundInsetTop(verticalInset);
+        builder.setBackgroundInsetBottom(verticalInset);
 
         // Title and icon
         if (title != null || icon != null) {
@@ -62,7 +73,7 @@ public class CustomDialog {
 
             if (icon != null) {
                 titleBinding.dialogTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-                titleBinding.dialogTitle.setCompoundDrawablePadding((int) dpToPx(18, context.getResources().getDisplayMetrics()));
+                titleBinding.dialogTitle.setCompoundDrawablePadding((int) dpToPx(18, displayMetrics));
             }
 
             if (title != null) {
@@ -139,9 +150,13 @@ public class CustomDialog {
 
             // Soft input mode
             if (softInputMode == SoftInputMode.SHOW_KEYBOARD) {
-                window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
-                    | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
-                );
+                //noinspection deprecation
+                int mode = !ThemeUtils.isTablet() && ThemeUtils.isPortrait()
+                    // For phones in portrait mode, resize the window to keep the dialog buttons visible.
+                    ? WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                    : WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
+
+                window.setSoftInputMode(mode);
             }
         }
 
@@ -157,8 +172,8 @@ public class CustomDialog {
             scrollView.setScrollIndicators(View.SCROLL_INDICATOR_BOTTOM);
         }
 
-        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+            (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             scrollView.setScrollIndicators(View.SCROLL_INDICATOR_TOP | View.SCROLL_INDICATOR_BOTTOM);
 
             boolean atTop = !scrollView.canScrollVertically(-1);

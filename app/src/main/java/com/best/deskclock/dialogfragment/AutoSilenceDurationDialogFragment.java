@@ -317,7 +317,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
                 mDefaultButton.setEnabled(isNotDefaultAutoSilenceDuration(inputMinutesText, inputSecondsText));
             },
-            CustomDialog.SoftInputMode.SHOW_KEYBOARD
+            isNever || isEndOfRingtone ? CustomDialog.SoftInputMode.NONE : CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
