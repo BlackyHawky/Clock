@@ -1625,6 +1625,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if milliseconds are displayed for the stopwatch. {@code false} otherwise.
+     */
+    public static boolean areMillisecondsDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_stopwatch.xml
+        return prefs.getBoolean(KEY_SW_DISPLAY_MILLISECONDS, DEFAULT_SW_DISPLAY_MILLISECONDS);
+    }
+
+    /**
      * @return the action to execute when volume up button is pressed for the stopwatch
      */
     public static String getVolumeUpActionForStopwatch(SharedPreferences prefs) {

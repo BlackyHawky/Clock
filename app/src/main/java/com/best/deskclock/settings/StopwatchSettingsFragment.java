@@ -4,6 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesKeys.FILE_STOPWATCH_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_DISPLAY_MILLISECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
@@ -18,8 +19,10 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
@@ -28,11 +31,13 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     Preference mStopwatchFontPref;
+    SwitchPreferenceCompat mDisplayMillisecondsPref;
     ListPreference mVolumeUpActionPref;
     ListPreference mVolumeUpActionAfterLongPressPref;
     ListPreference mVolumeDownActionPref;
@@ -105,6 +110,7 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
         addPreferencesFromResource(R.xml.settings_stopwatch);
 
         mStopwatchFontPref = findPreference(KEY_SW_FONT);
+        mDisplayMillisecondsPref = findPreference(KEY_SW_DISPLAY_MILLISECONDS);
         mVolumeUpActionPref = findPreference(KEY_SW_VOLUME_UP_ACTION);
         mVolumeUpActionAfterLongPressPref = findPreference(KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS);
         mVolumeDownActionPref = findPreference(KEY_SW_VOLUME_DOWN_ACTION);
@@ -122,8 +128,8 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
 
     @Override
     public void onDestroy() {
-        nullifyPreferenceListeners(mStopwatchFontPref, mVolumeUpActionPref, mVolumeUpActionAfterLongPressPref, mVolumeDownActionPref,
-            mVolumeDownActionAfterLongPressPref);
+        nullifyPreferenceListeners(mStopwatchFontPref, mDisplayMillisecondsPref, mVolumeUpActionPref, mVolumeUpActionAfterLongPressPref,
+            mVolumeDownActionPref, mVolumeDownActionAfterLongPressPref);
 
         nullifyAllPrefs();
 
@@ -133,6 +139,8 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
+            case KEY_SW_DISPLAY_MILLISECONDS -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
             case KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
                  KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS -> {
                 final ListPreference preference = (ListPreference) pref;
@@ -160,6 +168,8 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
             : R.string.custom_font_title_variant));
         mStopwatchFontPref.setOnPreferenceClickListener(this);
 
+        mDisplayMillisecondsPref.setOnPreferenceChangeListener(this);
+
         mVolumeUpActionPref.setOnPreferenceChangeListener(this);
         mVolumeUpActionPref.setSummary(mVolumeUpActionPref.getEntry());
 
@@ -175,6 +185,7 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
 
     private void nullifyAllPrefs() {
         mStopwatchFontPref = null;
+        mDisplayMillisecondsPref = null;
         mVolumeUpActionPref = null;
         mVolumeUpActionAfterLongPressPref = null;
         mVolumeDownActionPref = null;

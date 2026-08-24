@@ -1197,6 +1197,8 @@
     <string name="sw_long_press_volume_down_action_title">Volume down (after long press)</string>
     <!-- Setting title to start / pause the stopwatch. -->
     <string name="sw_start_pause_action">Start / Pause</string>
+    <!-- Setting title to display milliseconds. -->
+    <string name="sw_display_milliseconds_title">Display milliseconds</string>
 
     <!-- ********************************* -->
     <!-- **     SCREENSAVER SETTINGS    ** -->

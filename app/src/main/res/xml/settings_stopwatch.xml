@@ -20,6 +20,14 @@
             app:singleLineTitle="false"
             tools:title="@string/custom_font_title" />
 
+        <SwitchPreferenceCompat
+            android:key="key_sw_display_milliseconds"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/sw_display_milliseconds_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

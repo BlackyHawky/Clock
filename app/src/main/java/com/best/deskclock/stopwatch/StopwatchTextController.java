@@ -26,16 +26,33 @@ public final class StopwatchTextController {
 
     private long mLastTime = Long.MIN_VALUE;
 
+    private boolean mAreMillisecondsDisplayed = true;
+
     public StopwatchTextController(TextView mainTextView, TextView hundredthsTextView) {
         mMainTextView = mainTextView;
         mHundredthsTextView = hundredthsTextView;
     }
 
+    public void setMillisecondsDisplayed(boolean displayed) {
+        if (mAreMillisecondsDisplayed != displayed) {
+            mAreMillisecondsDisplayed = displayed;
+
+            mLastTime = Long.MIN_VALUE;
+        }
+    }
+
     public void setTimeString(long accumulatedTime) {
-        // Since time is only displayed to centiseconds, if there is a change at the milliseconds
-        // level but not the centiseconds level, we can avoid unnecessary work.
-        if ((mLastTime / 10) == (accumulatedTime / 10)) {
-            return;
+        if (mAreMillisecondsDisplayed) {
+            // Since time is only displayed to centiseconds, if there is a change at the milliseconds
+            // level but not the centiseconds level, we can avoid unnecessary work.
+            if ((mLastTime / 10) == (accumulatedTime / 10)) {
+                return;
+            }
+        } else {
+            // Avoid unnecessary work if the second has not changed.
+            if ((mLastTime / SECOND_IN_MILLIS) == (accumulatedTime / SECOND_IN_MILLIS)) {
+                return;
+            }
         }
 
         final int hours = (int) (accumulatedTime / HOUR_IN_MILLIS);
@@ -47,15 +64,17 @@ public final class StopwatchTextController {
         final int seconds = (int) (remainder / SECOND_IN_MILLIS);
         remainder = (int) (remainder % SECOND_IN_MILLIS);
 
-        mHundredthsTextView.setText(UiDataModel.getUiDataModel().getFormattedNumber(remainder / 10, 2));
+        if (mAreMillisecondsDisplayed) {
+            mHundredthsTextView.setText(UiDataModel.getUiDataModel().getFormattedNumber(remainder / 10, 2));
+        }
 
-        // Avoid unnecessary computations and garbage creation if seconds have not changed since
-        // last layout pass.
-        if ((mLastTime / SECOND_IN_MILLIS) != (accumulatedTime / SECOND_IN_MILLIS)) {
+        // Avoid unnecessary computations and garbage creation if seconds have not changed since last layout pass.
+        if (!mAreMillisecondsDisplayed || (mLastTime / SECOND_IN_MILLIS) != (accumulatedTime / SECOND_IN_MILLIS)) {
             final Context context = mMainTextView.getContext();
             final String time = FormattedTextUtils.getTimeString(context, hours, minutes, seconds);
             mMainTextView.setText(time);
         }
+
         mLastTime = accumulatedTime;
     }
 }

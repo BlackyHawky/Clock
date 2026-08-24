@@ -201,6 +201,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = false;
 
     // Stopwatch
+    public static final boolean DEFAULT_SW_DISPLAY_MILLISECONDS = true;
     public static final String DEFAULT_SW_ACTION = "0";
     public static final String SW_ACTION_START_PAUSE = "1";
     public static final String SW_ACTION_RESET = "2";
