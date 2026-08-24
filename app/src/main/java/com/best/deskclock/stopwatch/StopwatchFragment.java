@@ -17,6 +17,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_RESET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_SHARE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_START_PAUSE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_DISPLAY_MILLISECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
@@ -78,6 +79,11 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private static final int REDRAW_PERIOD_RUNNING = 25;
 
     /**
+     * Milliseconds between redraws while running (without milliseconds displayed).
+     */
+    private static final int REDRAW_PERIOD_RUNNING_WITHOUT_MS = 100;
+
+    /**
      * Milliseconds between redraws while paused.
      */
     private static final int REDRAW_PERIOD_PAUSED = 500;
@@ -116,6 +122,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
     private SharedPreferences mPrefs;
     private Typeface mStopwatchTypeface;
+    private boolean mAreMillisecondsDisplayed;
     private String mVolumeUpAction;
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
@@ -126,8 +133,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
         if (key != null) {
             switch (key) {
-                case KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
-                     KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS -> {
+                case KEY_SW_FONT, KEY_SW_DISPLAY_MILLISECONDS, KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
+                     KEY_SW_VOLUME_DOWN_ACTION, KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS -> {
 
                     mAreSettingsChanged = true;
 
@@ -191,6 +198,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         applyStopwatchFont();
 
+        applyMillisecondsVisibility();
+
         // Handle header text font
         TextView[] titles = {
             mBinding.lapHeaderLayout.lapTitle,
@@ -204,6 +213,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         // Timer text serves as a virtual start/stop button.
         mStopwatchTextController = new StopwatchTextController(
             mBinding.stopwatchTimeLayout.stopwatchTimeText, mBinding.stopwatchTimeLayout.stopwatchHundredthsText);
+
+        mStopwatchTextController.setMillisecondsDisplayed(mAreMillisecondsDisplayed);
 
         mLapsAdapter = new LapsAdapter(requireContext(), regularTypeface, boldTypeface);
         mBinding.lapsList.setAdapter(mLapsAdapter);
@@ -389,7 +400,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private void refreshSettings() {
         String stopwatchFontPath = SettingsDAO.getStopwatchFont(mPrefs);
         mStopwatchTypeface = ThemeUtils.loadFont(stopwatchFontPath);
-
+        mAreMillisecondsDisplayed = SettingsDAO.areMillisecondsDisplayed(mPrefs);
         mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
         mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
         mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
@@ -401,9 +412,19 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTypeface(mStopwatchTypeface);
     }
 
+    private void applyMillisecondsVisibility() {
+        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setVisibility(mAreMillisecondsDisplayed ? VISIBLE : GONE);
+
+        if (mStopwatchTextController != null) {
+            mStopwatchTextController.setMillisecondsDisplayed(mAreMillisecondsDisplayed);
+        }
+    }
+
     private void applySettingsChanges() {
         refreshSettings();
         applyStopwatchFont();
+        applyMillisecondsVisibility();
+        updateTime();
 
         mAreSettingsChanged = false;
     }
@@ -458,8 +479,13 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         final Stopwatch.State priorState = getStopwatch().getState();
         Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
         DataModel.getDataModel().resetStopwatch();
+
         mBinding.stopwatchTimeLayout.stopwatchTimeText.setAlpha(1f);
-        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setAlpha(1f);
+
+        if (mAreMillisecondsDisplayed) {
+            mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setAlpha(1f);
+        }
+
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
@@ -615,7 +641,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (mBinding.stopwatchTimeLayout.stopwatchTimeText.getAlpha() != 1f) {
             mBinding.stopwatchTimeLayout.stopwatchTimeText.setAlpha(1f);
         }
-        if (mBinding.stopwatchTimeLayout.stopwatchHundredthsText.getAlpha() != 1f) {
+
+        if (mAreMillisecondsDisplayed && mBinding.stopwatchTimeLayout.stopwatchHundredthsText.getAlpha() != 1f) {
             mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setAlpha(1f);
         }
 
@@ -735,16 +762,23 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
                     .setDuration(200)
                     .start();
 
-                mBinding.stopwatchTimeLayout.stopwatchHundredthsText.animate()
-                    .alpha(textTargetAlpha)
-                    .setDuration(200)
-                    .start();
+                if (mAreMillisecondsDisplayed) {
+                    mBinding.stopwatchTimeLayout.stopwatchHundredthsText.animate()
+                        .alpha(textTargetAlpha)
+                        .setDuration(200)
+                        .start();
+                }
             }
 
             if (!stopwatch.isReset()) {
-                final long period = stopwatch.isPaused()
-                    ? REDRAW_PERIOD_PAUSED
-                    : REDRAW_PERIOD_RUNNING;
+                final long period;
+
+                if (stopwatch.isPaused()) {
+                    period = REDRAW_PERIOD_PAUSED;
+                } else {
+                    period = mAreMillisecondsDisplayed ? REDRAW_PERIOD_RUNNING : REDRAW_PERIOD_RUNNING_WITHOUT_MS;
+                }
+
                 final long endTime = Utils.now();
                 final long delay = Math.max(0, startTime + period - endTime);
                 mBinding.stopwatchTimeLayout.stopwatchTimeText.postDelayed(this, delay);
