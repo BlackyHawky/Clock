@@ -37,6 +37,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.TimerSetupViewBinding;
 import com.best.deskclock.uicomponents.FabContainer;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -61,6 +62,15 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
      */
     private FabContainer mFabContainer;
 
+    private final Runnable mUpdateFabRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mFabContainer != null) {
+                mFabContainer.updateFab(FAB_SHRINK_AND_EXPAND);
+            }
+        }
+    };
+
     public TimerSetupView(Context context) {
         this(context, null);
     }
@@ -68,7 +78,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     public TimerSetupView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final BidiFormatter bf = BidiFormatter.getInstance(false /* rtlContext */);
+        final BidiFormatter bf = BidiFormatter.getInstance(false);
         final String hoursLabel = bf.unicodeWrap(context.getString(R.string.hours_label));
         final String minutesLabel = bf.unicodeWrap(context.getString(R.string.minutes_label));
         final String secondsLabel = bf.unicodeWrap(context.getString(R.string.seconds_label));
@@ -176,8 +186,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         updateDeleteAndDivider();
     }
 
-    public void setFabContainer(FabContainer fabContainer) {
-        mFabContainer = fabContainer;
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        removeCallbacks(mUpdateFabRunnable);
     }
 
     @Override
@@ -218,11 +231,18 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     public boolean onLongClick(View view) {
         if (view == mBinding.timerSetupDigitsLayout.timerSetupDelete) {
             Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.CLOCK_TICK);
+
+            view.setPressed(false);
+            view.jumpDrawablesToCurrentState();
             reset();
             updateFab();
             return true;
         }
         return false;
+    }
+
+    public void setFabContainer(FabContainer fabContainer) {
+        mFabContainer = fabContainer;
     }
 
     private int getDigitForId(int id) {
@@ -279,12 +299,13 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     }
 
     private void updateDeleteAndDivider() {
-        final boolean enabled = hasValidInput();
-        mBinding.timerSetupDigitsLayout.timerSetupDelete.setEnabled(enabled);
+        mBinding.timerSetupDigitsLayout.timerSetupDelete.setEnabled(hasValidInput());
     }
 
     private void updateFab() {
-        mFabContainer.updateFab(FAB_SHRINK_AND_EXPAND);
+        removeCallbacks(mUpdateFabRunnable);
+
+        postDelayed(mUpdateFabRunnable, AnimatorUtils.SHORT_ANIMATION_DURATION);
     }
 
     private void append(int digit) {

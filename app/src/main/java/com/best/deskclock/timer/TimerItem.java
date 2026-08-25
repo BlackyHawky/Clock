@@ -28,6 +28,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.best.deskclock.R;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemBinding;
+import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -188,7 +189,7 @@ public class TimerItem extends ConstraintLayout {
             if (mBinding.circularProgressIndicator.getAlpha() != targetAlpha) {
                 mBinding.circularProgressIndicator.animate()
                     .alpha(targetAlpha)
-                    .setDuration(300)
+                    .setDuration(AnimatorUtils.MEDIUM_ANIMATION_DURATION)
                     .start();
             }
 
@@ -224,7 +225,7 @@ public class TimerItem extends ConstraintLayout {
         if (mBinding.timerTimeText.getAlpha() != textTargetAlpha) {
             mBinding.timerTimeText.animate()
                 .alpha(textTargetAlpha)
-                .setDuration(200)
+                .setDuration(AnimatorUtils.SHORT_ANIMATION_DURATION)
                 .start();
         }
     }

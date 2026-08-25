@@ -84,6 +84,7 @@ import com.best.deskclock.uicomponents.pagetransformers.ZoomOutPageTransformer;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
@@ -597,7 +598,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             return true;
         });
 
-        final long duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        final long duration = AnimatorUtils.SHORT_ANIMATION_DURATION;
 
         final ValueAnimator hideFabAnimation = getScaleAnimator(mBinding.fab, 1f, 0f);
         final ValueAnimator showFabAnimation = getScaleAnimator(mBinding.fab, 0f, 1f);
@@ -621,6 +622,18 @@ public class DeskClock extends BaseActivity implements FabContainer {
             }
         });
 
+        showFabAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mBinding.fab.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mBinding.fab.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+        });
+
         leftHideAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -634,6 +647,20 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 mBinding.rightButton.setLayerType(View.LAYER_TYPE_NONE, null);
 
                 getSelectedDeskClockFragment().onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
+            }
+        });
+
+        leftShowAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mBinding.leftButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                mBinding.rightButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mBinding.leftButton.setLayerType(View.LAYER_TYPE_NONE, null);
+                mBinding.rightButton.setLayerType(View.LAYER_TYPE_NONE, null);
             }
         });
 
