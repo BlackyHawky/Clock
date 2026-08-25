@@ -51,6 +51,8 @@ public class TextTime extends AppCompatTextView {
     private int mHour;
     private int mMinute;
 
+    private DataModel mDataModel;
+
     private final ContentObserver mFormatChangeObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
 
         @Override
@@ -81,6 +83,7 @@ public class TextTime extends AppCompatTextView {
             return;
         }
 
+        mDataModel = DataModel.getDataModel();
         setTimeFormat();
         chooseFormat();
     }
@@ -100,7 +103,7 @@ public class TextTime extends AppCompatTextView {
     }
 
     private void chooseFormat() {
-        final boolean format24Requested = DataModel.getDataModel().is24HourFormat();
+        final boolean format24Requested = mDataModel.is24HourFormat();
         if (format24Requested) {
             mFormat = mFormat24 == null ? DEFAULT_FORMAT_24_HOUR : mFormat24;
         } else {
@@ -171,7 +174,7 @@ public class TextTime extends AppCompatTextView {
         }
 
         // Format the time relative to UTC to ensure hour and minute are not adjusted for DST.
-        final Calendar calendar = DataModel.getDataModel().getCalendar();
+        final Calendar calendar = mDataModel.getCalendar();
         calendar.setTimeZone(UTC);
         calendar.set(HOUR_OF_DAY, mHour);
         calendar.set(MINUTE, mMinute);

@@ -32,6 +32,7 @@ import android.util.DisplayMetrics;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -150,6 +151,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private RingtoneAddButtonBinding mAddButtonBinding;
     private DialogProgressBinding mDialogProgressBinding;
 
+    private DataModel mDataModel;
     private FragmentManager mFragmentManager;
     private DisplayMetrics mDisplayMetrics;
     private AlertDialog mProgressDialog;
@@ -220,11 +222,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * @return an intent that launches the ringtone picker to edit the ringtone of a specific timer
      */
     public static Intent createPerTimerRingtonePickerIntent(Context context, Uri currentTimerUri) {
-        final DataModel dataModel = DataModel.getDataModel();
         return new Intent(context, RingtonePickerActivity.class)
             .putExtra(EXTRA_TITLE, R.string.timer_sound)
             .putExtra(EXTRA_RINGTONE_URI, currentTimerUri)
-            .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultTimerRingtoneUri())
+            .putExtra(EXTRA_DEFAULT_RINGTONE_URI, DataModel.getDataModel().getDefaultTimerRingtoneUri())
             .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_timer_ringtone_title)
             .putExtra(EXTRA_RETURN_RESULT_ONLY, true);
     }
@@ -259,9 +260,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mDataModel = DataModel.getDataModel();
         mRingtonePickerBinding = RingtonePickerBinding.inflate(getLayoutInflater(), mBaseBinding.contentFrame);
 
         SharedPreferences prefs = getDefaultSharedPreferences(this);
@@ -371,9 +373,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     protected void onPause() {
         if (mSelectedRingtoneUri != null && !mReturnResultOnly) {
             if (mTitleResourceId == R.string.default_alarm_ringtone_title) {
-                DataModel.getDataModel().setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
+                mDataModel.setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
             } else {
-                DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
+                mDataModel.setTimerRingtoneUri(mSelectedRingtoneUri);
             }
         }
 
@@ -410,7 +412,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     @NonNull
     @Override
     public Loader<List<RingtoneAdapter.RingtoneItem>> onCreateLoader(int id, Bundle args) {
-        return new RingtoneLoader(getApplicationContext(), mDefaultRingtoneUri, mDefaultRingtoneTitle);
+        return new RingtoneLoader(getApplicationContext(), mDataModel, mDefaultRingtoneUri, mDefaultRingtoneTitle);
     }
 
     @Override
@@ -654,7 +656,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 }
 
                 // When the loader completes, it must play the new ringtone.
-                mSelectedRingtoneUri = DataModel.getDataModel().customRingtoneToAdd(uri, title);
+                mSelectedRingtoneUri = mDataModel.customRingtoneToAdd(uri, title);
                 mIsPlaying = true;
 
                 // Reload the data to reflect the change in the UI.
@@ -727,7 +729,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 long size = file.length();
 
-                if (DataModel.getDataModel().isCustomRingtoneAlreadyAdded(name, size)) {
+                if (mDataModel.isCustomRingtoneAlreadyAdded(name, size)) {
                     continue;
                 }
 
@@ -739,7 +741,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     }
 
                     // Add the new custom ringtone to the data model.
-                    DataModel.getDataModel().customRingtoneToAdd(fileUri, finalName);
+                    mDataModel.customRingtoneToAdd(fileUri, finalName);
 
                     // Reload the data to reflect the change in the UI.
                     LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
@@ -806,18 +808,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 }
 
                 // Reset the default alarm ringtone if it was just removed.
-                if (removeUri.equals(DataModel.getDataModel().getAlarmRingtoneUriFromSettings())) {
-                    DataModel.getDataModel().setAlarmRingtoneUriFromSettings(systemDefaultRingtoneUri);
+                if (removeUri.equals(mDataModel.getAlarmRingtoneUriFromSettings())) {
+                    mDataModel.setAlarmRingtoneUriFromSettings(systemDefaultRingtoneUri);
                 }
 
                 // Reset the timer ringtone if it was just removed.
-                if (removeUri.equals(DataModel.getDataModel().getTimerRingtoneUri())) {
-                    final Uri timerRingtoneUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
-                    DataModel.getDataModel().setTimerRingtoneUri(timerRingtoneUri);
+                if (removeUri.equals(mDataModel.getTimerRingtoneUri())) {
+                    final Uri timerRingtoneUri = mDataModel.getDefaultTimerRingtoneUri();
+                    mDataModel.setTimerRingtoneUri(timerRingtoneUri);
                 }
 
                 // Remove the corresponding custom ringtone.
-                DataModel.getDataModel().removeCustomRingtone(removeUri);
+                mDataModel.removeCustomRingtone(removeUri);
 
                 // Find the ringtone to be removed from the adapter.
                 final RingtoneHolder toRemove = getRingtoneHolder(removeUri);
@@ -825,7 +827,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     return;
                 }
 
-                final List<CustomRingtone> customRingtones = DataModel.getDataModel().getCustomRingtones();
+                final List<CustomRingtone> customRingtones = mDataModel.getCustomRingtones();
                 int remainingCount = customRingtones.size();
 
                 // If "Random Ringtone" is selected and there is only one ringtone left,

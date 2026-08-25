@@ -6,10 +6,8 @@
 
 package com.best.deskclock.uicomponents;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -52,8 +50,6 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(this);
-
         ThemeUtils.setActivityEnterTransition(this);
 
         super.onCreate(savedInstanceState);
@@ -67,9 +63,9 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
 
         super.setContentView(mBaseBinding.getRoot());
 
-        final String getDarkMode = SettingsDAO.getDarkMode(prefs);
+        final String getDarkMode = SettingsDAO.getDarkMode(getPrefs());
 
-        final Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        final Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getPrefs()));
         mBaseBinding.collapsingToolbar.setExpandedTitleTypeface(typeface);
         mBaseBinding.collapsingToolbar.setCollapsedTitleTypeface(typeface);
 

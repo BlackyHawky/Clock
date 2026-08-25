@@ -42,6 +42,7 @@ import java.util.Objects;
 public class DeskClockApplication extends Application implements Application.ActivityLifecycleCallbacks {
 
     private static DeskClockApplication sInstance;
+    private DataModel mDataModel;
 
     private int mStartedActivities = 0;
     private boolean mIsChangingConfiguration = false;
@@ -51,17 +52,19 @@ public class DeskClockApplication extends Application implements Application.Act
         super.onCreate();
 
         sInstance = this;
+        mDataModel = DataModel.getDataModel();
+        Controller controller = Controller.getController();
 
         initDebugAndNightlyDefaults();
 
         String theme = SettingsDAO.getTheme(getDefaultSharedPreferences(this));
         applySystemNightMode(theme);
 
-        DataModel.getDataModel().init();
+        mDataModel.init();
         UiDataModel.getUiDataModel().init();
-        Controller.getController().init();
-        Controller.getController().addEventTracker(new LogEventTracker());
-        Controller.getController().updateShortcuts();
+        controller.init();
+        controller.addEventTracker(new LogEventTracker());
+        controller.updateShortcuts();
 
         if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.updateNotificationChannels(this);
@@ -73,7 +76,7 @@ public class DeskClockApplication extends Application implements Application.Act
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
         if (mStartedActivities == 0 && !mIsChangingConfiguration) {
-            DataModel.getDataModel().setApplicationInForeground(true);
+            mDataModel.setApplicationInForeground(true);
         }
 
         mIsChangingConfiguration = false;
@@ -86,7 +89,7 @@ public class DeskClockApplication extends Application implements Application.Act
 
         if (mStartedActivities == 0) {
             if (!activity.isChangingConfigurations()) {
-                DataModel.getDataModel().setApplicationInForeground(false);
+                mDataModel.setApplicationInForeground(false);
             } else {
                 mIsChangingConfiguration = true;
             }
@@ -101,6 +104,7 @@ public class DeskClockApplication extends Application implements Application.Act
 
     private void initDebugAndNightlyDefaults() {
         SharedPreferences prefs = getDefaultSharedPreferences(this);
+
         if (!prefs.contains(KEY_ACCENT_COLOR)) {
             if (BuildConfig.IS_DEBUG_BUILD) {
                 prefs.edit().putString(KEY_ACCENT_COLOR, RED_ACCENT_COLOR).apply();

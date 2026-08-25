@@ -8,7 +8,6 @@ package com.best.deskclock.screensaver;
 
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -16,13 +15,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -33,7 +32,6 @@ import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DeskClockSaverBinding;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -49,7 +47,6 @@ public class ScreensaverActivity extends BaseActivity {
 
     private DeskClockSaverBinding mBinding;
 
-    private SharedPreferences mPrefs;
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private boolean mIsScreensaverTextUppercase;
     private String mDateFormat;
@@ -94,13 +91,12 @@ public class ScreensaverActivity extends BaseActivity {
     private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = DeskClockSaverBinding.inflate(getLayoutInflater());
 
-        mPrefs = getDefaultSharedPreferences(this);
-        mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(mPrefs);
+        mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(getPrefs());
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
@@ -113,10 +109,10 @@ public class ScreensaverActivity extends BaseActivity {
 
         ScreensaverUtils.setScreensaverClockStyle(mBinding.saverContainer);
 
-        mPositionUpdater = new MoveScreensaverRunnable(mBinding.saverContainer, mBinding.mainClock);
+        mPositionUpdater = new MoveScreensaverRunnable(mBinding.saverContainer, mBinding.mainClock, getUiDataModel());
 
         if (mBinding.screensaverBackgroundImage.getVisibility() == View.VISIBLE) {
-            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage);
+            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage, getUiDataModel());
         }
 
         applyWindowInsets();
@@ -159,7 +155,7 @@ public class ScreensaverActivity extends BaseActivity {
         if (mBackgroundAnimator != null) {
             mBackgroundAnimator.start();
         }
-        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+        getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
         final Intent intent = SdkUtils.isAtLeastAndroid13()
             ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
@@ -175,7 +171,8 @@ public class ScreensaverActivity extends BaseActivity {
     @Override
     public void onPause() {
         super.onPause();
-        UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
+
+        getUiDataModel().removePeriodicCallback(mMidnightUpdater);
 
         stopPositionUpdater();
 
@@ -235,7 +232,7 @@ public class ScreensaverActivity extends BaseActivity {
         }
 
         int flags = getWindowFlags();
-        boolean shouldScreenRemainOn = pluggedIn || SettingsDAO.shouldScreensaverScreenRemainOn(mPrefs);
+        boolean shouldScreenRemainOn = pluggedIn || SettingsDAO.shouldScreensaverScreenRemainOn(getPrefs());
 
         if (shouldScreenRemainOn) {
             winParams.flags |= flags;

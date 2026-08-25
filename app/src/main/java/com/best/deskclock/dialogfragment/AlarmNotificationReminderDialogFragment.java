@@ -189,7 +189,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             if (mInput != null) {
                 mInput.showSoftInput(mBinding.editHours, InputMethodManager.SHOW_IMPLICIT);
             }
-        }, 200);
+        }, Utils.UI_SETTLE_DELAY_MS);
     }
 
     @Override

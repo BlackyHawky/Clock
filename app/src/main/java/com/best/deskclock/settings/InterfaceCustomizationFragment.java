@@ -17,6 +17,7 @@ import android.service.quicksettings.TileService;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
@@ -93,7 +94,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_GENERAL_FONT);
-            String oldFontPath = mPrefs.getString(KEY_GENERAL_FONT, null);
+            String oldFontPath = getPrefs().getString(KEY_GENERAL_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -107,7 +108,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
+                    getPrefs().edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
@@ -136,7 +137,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings_interface_customization);
@@ -228,7 +229,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
             case KEY_VISIBLE_TABS -> {
                 @SuppressWarnings("unchecked")
                 Set<String> newSelectedTabs = (Set<String>) newValue;
-                Set<String> oldSelectedTabs = SettingsDAO.getVisibleTabs(mPrefs);
+                Set<String> oldSelectedTabs = SettingsDAO.getVisibleTabs(getPrefs());
 
                 if (newSelectedTabs.isEmpty()) {
                     // This shouldn't happen because it's impossible to uncheck all the entries.
@@ -246,7 +247,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
                 // If the setting has changed (checked or unchecked) and the cities is displayed on the digital widget,
                 // refresh it.
-                if (wasClockVisible != isClockVisible && WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs)) {
+                if (wasClockVisible != isClockVisible && WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(getPrefs())) {
                     WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
                 }
 
@@ -271,14 +272,14 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     public boolean onPreferenceClick(@NonNull Preference pref) {
         if (pref.getKey().equals(KEY_GENERAL_FONT)) {
             selectCustomFile(mGeneralFontPref, fontPickerLauncher,
-                SettingsDAO.getGeneralFont(mPrefs), KEY_GENERAL_FONT, true, null);
+                SettingsDAO.getGeneralFont(getPrefs()), KEY_GENERAL_FONT, true, null);
         }
 
         return true;
     }
 
     private void setupPreferences() {
-        Set<String> visibleTabs = SettingsDAO.getVisibleTabs(mPrefs);
+        Set<String> visibleTabs = SettingsDAO.getVisibleTabs(getPrefs());
 
         mThemePref.setSummary(mThemePref.getEntry());
         mThemePref.setOnPreferenceChangeListener(this);
@@ -286,14 +287,14 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         mDarkModePref.setSummary(mDarkModePref.getEntry());
         mDarkModePref.setOnPreferenceChangeListener(this);
 
-        mGeneralFontPref.setTitle(getString(SettingsDAO.getGeneralFont(mPrefs) == null
+        mGeneralFontPref.setTitle(getString(SettingsDAO.getGeneralFont(getPrefs()) == null
             ? R.string.custom_font_title
             : R.string.custom_font_title_variant));
         mGeneralFontPref.setOnPreferenceClickListener(this);
 
         mAccentColorPref.setSummary(mAccentColorPref.getEntry());
         mAccentColorPref.setOnPreferenceChangeListener(this);
-        if (SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)) {
+        if (SettingsDAO.isAutoNightAccentColorEnabled(getPrefs())) {
             mAccentColorPref.setTitle(requireContext().getString(R.string.title_accent_color));
             mAccentColorPref.setDialogTitle(requireContext().getString(R.string.title_accent_color));
         } else {
@@ -303,7 +304,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
         mAutoNightAccentColorPref.setOnPreferenceChangeListener(this);
 
-        mNightAccentColorPref.setVisible(!SettingsDAO.isAutoNightAccentColorEnabled(mPrefs));
+        mNightAccentColorPref.setVisible(!SettingsDAO.isAutoNightAccentColorEnabled(getPrefs()));
         mNightAccentColorPref.setSummary(mNightAccentColorPref.getEntry());
         mNightAccentColorPref.setOnPreferenceChangeListener(this);
 

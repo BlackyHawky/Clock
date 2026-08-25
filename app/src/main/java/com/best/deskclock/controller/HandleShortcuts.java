@@ -12,6 +12,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
@@ -24,20 +26,22 @@ public class HandleShortcuts extends Activity {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("HandleShortcuts");
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final Intent intent = getIntent();
 
         try {
             final String action = intent.getAction();
+            final UiDataModel uiDataModel = UiDataModel.getUiDataModel();
+
             if (action != null) {
                 switch (action) {
                     case StopwatchService.ACTION_PAUSE_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_shortcut);
 
                         // Open DeskClock positioned on the stopwatch tab.
-                        UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
+                        uiDataModel.setSelectedTab(STOPWATCH);
                         startActivity(new Intent(this, DeskClock.class).setAction(StopwatchService.ACTION_PAUSE_STOPWATCH));
                         setResult(RESULT_OK);
                     }
@@ -45,7 +49,7 @@ public class HandleShortcuts extends Activity {
                         Events.sendStopwatchEvent(R.string.action_start, R.string.label_shortcut);
 
                         // Open DeskClock positioned on the stopwatch tab.
-                        UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
+                        uiDataModel.setSelectedTab(STOPWATCH);
                         startActivity(new Intent(this, DeskClock.class).setAction(StopwatchService.ACTION_START_STOPWATCH));
                         setResult(RESULT_OK);
                     }

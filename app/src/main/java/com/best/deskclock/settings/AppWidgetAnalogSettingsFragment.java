@@ -13,6 +13,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -55,7 +56,7 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings_customize_analog_widget);
@@ -119,7 +120,7 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
                 final int index = mClockDialPref.findIndexOfValue((String) newValue);
                 final boolean isSunOrFlowerClockDial = newValue.equals(mClockDialSun) || newValue.equals(mClockDialFlower);
                 final boolean isSecondHandEnabled = SdkUtils.isAtLeastAndroid12()
-                    && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(mPrefs);
+                    && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(getPrefs());
 
                 mClockDialPref.setSummary(mClockDialPref.getEntries()[index]);
 
@@ -136,13 +137,13 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 final boolean isSecondHandDisplayed = (boolean) newValue;
-                final String clockDial = WidgetDAO.getAnalogWidgetClockDial(mPrefs);
+                final String clockDial = WidgetDAO.getAnalogWidgetClockDial(getPrefs());
                 final boolean isSunOrFlowerClockDial = clockDial.equals(ANALOG_WIDGET_CLOCK_DIAL_SUN)
                     || clockDial.equals(ANALOG_WIDGET_CLOCK_DIAL_FLOWER);
 
                 mClockSecondHandPref.setVisible(isSecondHandDisplayed && !isSunOrFlowerClockDial);
                 mDefaultSecondHandColorPref.setVisible(isSecondHandDisplayed);
-                mSecondHandColorPref.setVisible(isSecondHandDisplayed && !WidgetDAO.isAnalogWidgetDefaultSecondHandColor(mPrefs));
+                mSecondHandColorPref.setVisible(isSecondHandDisplayed && !WidgetDAO.isAnalogWidgetDefaultSecondHandColor(getPrefs()));
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_DIAL_COLOR -> {
@@ -162,7 +163,7 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
 
             case KEY_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mSecondHandColorPref.setVisible(!(boolean) newValue && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(mPrefs));
+                mSecondHandColorPref.setVisible(!(boolean) newValue && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(getPrefs()));
             }
         }
 
@@ -172,7 +173,7 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
 
     private void setupPreferences() {
         final boolean isAtLeastAndroid12 = SdkUtils.isAtLeastAndroid12();
-        final boolean isSecondHandDisplayed = isAtLeastAndroid12 && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(mPrefs);
+        final boolean isSecondHandDisplayed = isAtLeastAndroid12 && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(getPrefs());
         final boolean isSunOrFlowerClockDial = mClockDialPref.getValue().equals(mClockDialSun)
             || mClockDialPref.getValue().equals(mClockDialFlower);
 
@@ -190,32 +191,32 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
 
         mDefaultDialColorPref.setOnPreferenceChangeListener(this);
 
-        mDialColorPref.setVisible(!WidgetDAO.isAnalogWidgetDefaultDialColor(mPrefs));
+        mDialColorPref.setVisible(!WidgetDAO.isAnalogWidgetDefaultDialColor(getPrefs()));
         mDialColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultHourHandColorPref.setOnPreferenceChangeListener(this);
 
-        mHourHandColorPref.setVisible(!WidgetDAO.isAnalogWidgetDefaultHourHandColor(mPrefs));
+        mHourHandColorPref.setVisible(!WidgetDAO.isAnalogWidgetDefaultHourHandColor(getPrefs()));
         mHourHandColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultMinuteHandColorPref.setOnPreferenceChangeListener(this);
 
-        mMinuteHandColorPref.setVisible(!WidgetDAO.isAnalogWidgetDefaultMinuteHandColor(mPrefs));
+        mMinuteHandColorPref.setVisible(!WidgetDAO.isAnalogWidgetDefaultMinuteHandColor(getPrefs()));
         mMinuteHandColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultSecondHandColorPref.setVisible(isSecondHandDisplayed);
         mDefaultSecondHandColorPref.setOnPreferenceChangeListener(this);
 
-        mSecondHandColorPref.setVisible(isSecondHandDisplayed && !WidgetDAO.isAnalogWidgetDefaultSecondHandColor(mPrefs));
+        mSecondHandColorPref.setVisible(isSecondHandDisplayed && !WidgetDAO.isAnalogWidgetDefaultSecondHandColor(getPrefs()));
         mSecondHandColorPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {
-        mDisplaySecondsPref.setChecked(WidgetDAO.isSecondHandDisplayedOnAnalogWidget(mPrefs));
-        mDefaultDialColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultDialColor(mPrefs));
-        mDefaultHourHandColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultHourHandColor(mPrefs));
-        mDefaultMinuteHandColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultMinuteHandColor(mPrefs));
-        mDefaultSecondHandColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultSecondHandColor(mPrefs));
+        mDisplaySecondsPref.setChecked(WidgetDAO.isSecondHandDisplayedOnAnalogWidget(getPrefs()));
+        mDefaultDialColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultDialColor(getPrefs()));
+        mDefaultHourHandColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultHourHandColor(getPrefs()));
+        mDefaultMinuteHandColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultMinuteHandColor(getPrefs()));
+        mDefaultSecondHandColorPref.setChecked(WidgetDAO.isAnalogWidgetDefaultSecondHandColor(getPrefs()));
     }
 
     private void updateAnalogWidget() {

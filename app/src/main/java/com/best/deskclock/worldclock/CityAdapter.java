@@ -81,6 +81,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     private static final int VIEW_TYPE_CITY = 1;
 
     private final Context mContext;
+    private final DataModel mDataModel;
     private final SharedPreferences mPrefs;
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
@@ -137,8 +138,9 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     private Comparator<City> mCachedComparator;
     private DataModel.CitySort mCachedCitySort;
 
-    public CityAdapter(Context context) {
+    public CityAdapter(Context context, DataModel dataModel) {
         mContext = context;
+        mDataModel = dataModel;
         mPrefs = getDefaultSharedPreferences(context);
         mInflater = LayoutInflater.from(context);
 
@@ -408,7 +410,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
         mIs24HoursMode = DateFormat.is24HourFormat(mContext);
 
         // Refresh the user selections.
-        final List<City> selected = DataModel.getDataModel().getSelectedCities();
+        final List<City> selected = mDataModel.getSelectedCities();
 
         mUserSelectedCities.clear();
         mUserSelectedCities.addAll(selected);
@@ -434,9 +436,9 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
         final List<City> filteredCities;
 
         if (TextUtils.isEmpty(query)) {
-            filteredCities = DataModel.getDataModel().getAllCities();
+            filteredCities = mDataModel.getAllCities();
         } else {
-            final List<City> unselected = DataModel.getDataModel().getUnselectedCities();
+            final List<City> unselected = mDataModel.getUnselectedCities();
             filteredCities = new ArrayList<>(unselected.size());
 
             for (City city : unselected) {
@@ -472,7 +474,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
         DataModel.CitySort currentSort = getCitySort();
 
         if (mCachedComparator == null || mCachedCitySort != currentSort) {
-            mCachedComparator = DataModel.getDataModel().getCityIndexComparator();
+            mCachedComparator = mDataModel.getCityIndexComparator();
             mCachedCitySort = currentSort;
         }
 

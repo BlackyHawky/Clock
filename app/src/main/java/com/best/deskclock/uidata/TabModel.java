@@ -97,6 +97,7 @@ final class TabModel {
             return false;
         }
 
+        DataModel dataModel = DataModel.getDataModel();
         List<Tab> recentlyHiddenTabs = new ArrayList<>(mActiveTabs);
         recentlyHiddenTabs.removeAll(newActiveTabs);
 
@@ -126,18 +127,18 @@ final class TabModel {
 
         // Reset running timers if the Timer tab is not visible
         if (recentlyHiddenTabs.contains(Tab.TIMERS)) {
-            for (Timer timer : new ArrayList<>(DataModel.getDataModel().getTimers())) {
+            for (Timer timer : new ArrayList<>(dataModel.getTimers())) {
                 if (!timer.isReset()) {
-                    DataModel.getDataModel().resetTimer(timer, R.string.label_deskclock);
+                    dataModel.resetTimer(timer, R.string.label_deskclock);
                 }
             }
         }
 
         // Reset running stopwatch if the Stopwatch tab is not visible
         if (recentlyHiddenTabs.contains(Tab.STOPWATCH)) {
-            final Stopwatch stopwatch = DataModel.getDataModel().getStopwatch();
+            final Stopwatch stopwatch = dataModel.getStopwatch();
             if (!stopwatch.isReset()) {
-                DataModel.getDataModel().resetStopwatch();
+                dataModel.resetStopwatch();
             }
         }
 

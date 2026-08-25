@@ -25,21 +25,22 @@ public final class ShortcutEventTracker implements EventTracker {
 
     private final ShortcutManager mShortcutManager;
     private final Set<String> shortcuts = new ArraySet<>(5);
+    private final UiDataModel mUiDataModel;
 
     public ShortcutEventTracker() {
         Context appContext = DeskClockApplication.getAppContext();
         mShortcutManager = appContext.getSystemService(ShortcutManager.class);
-        final UiDataModel uidm = UiDataModel.getUiDataModel();
-        shortcuts.add(uidm.getShortcutId(R.string.category_alarm, R.string.action_create));
-        shortcuts.add(uidm.getShortcutId(R.string.category_timer, R.string.action_create));
-        shortcuts.add(uidm.getShortcutId(R.string.category_stopwatch, R.string.action_pause));
-        shortcuts.add(uidm.getShortcutId(R.string.category_stopwatch, R.string.action_start));
-        shortcuts.add(uidm.getShortcutId(R.string.category_screensaver, R.string.action_show));
+        mUiDataModel = UiDataModel.getUiDataModel();
+        shortcuts.add(mUiDataModel.getShortcutId(R.string.category_alarm, R.string.action_create));
+        shortcuts.add(mUiDataModel.getShortcutId(R.string.category_timer, R.string.action_create));
+        shortcuts.add(mUiDataModel.getShortcutId(R.string.category_stopwatch, R.string.action_pause));
+        shortcuts.add(mUiDataModel.getShortcutId(R.string.category_stopwatch, R.string.action_start));
+        shortcuts.add(mUiDataModel.getShortcutId(R.string.category_screensaver, R.string.action_show));
     }
 
     @Override
     public void sendEvent(@StringRes int category, @StringRes int action, @StringRes int label) {
-        final String shortcutId = UiDataModel.getUiDataModel().getShortcutId(category, action);
+        final String shortcutId = mUiDataModel.getShortcutId(category, action);
         if (shortcuts.contains(shortcutId)) {
             mShortcutManager.reportShortcutUsed(shortcutId);
         }

@@ -36,7 +36,6 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
@@ -122,7 +121,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_TIMER_FONT);
-            String oldFontPath = mPrefs.getString(KEY_TIMER_DURATION_FONT, null);
+            String oldFontPath = getPrefs().getString(KEY_TIMER_DURATION_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -136,7 +135,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
+                    getPrefs().edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
@@ -165,7 +164,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings_timer);
@@ -196,11 +195,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mTurnOnBackFlashForExpiredTimerPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
-        mIsAlarmTabHidden = !SettingsDAO.isAlarmTabVisible(mPrefs);
+        mIsAlarmTabHidden = !SettingsDAO.isAlarmTabVisible(getPrefs());
 
         if (mIsAlarmTabHidden) {
             mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
-            mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs);
+            mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), getPrefs());
         }
 
         if (savedInstanceState != null) {
@@ -295,21 +294,21 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 preference.setSummary(preference.getEntries()[index]);
             }
 
-            case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+            case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(getDataModel().getTimerRingtoneTitle());
 
             case KEY_ENABLE_PER_TIMER_AUTO_SILENCE -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                List<Timer> timerList = DataModel.getDataModel().getTimers();
+                List<Timer> timerList = getDataModel().getTimers();
 
                 if ((boolean) newValue) {
                     for (Timer timer : timerList) {
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
                             timer.getRingtoneUri(),
-                            SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
+                            SettingsDAO.getTimerAutoSilenceDuration(getPrefs()),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
                             timer.getVibrationPattern(),
@@ -327,17 +326,17 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                List<Timer> timerList = DataModel.getDataModel().getTimers();
+                List<Timer> timerList = getDataModel().getTimers();
 
                 if ((boolean) newValue) {
                     for (Timer timer : timerList) {
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
-                            SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
+                            SettingsDAO.getTimerVolumeCrescendoDuration(getPrefs()),
                             timer.isVibrate(),
                             timer.getVibrationPattern(),
                             timer.isFlashOn(),
@@ -360,10 +359,10 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
                 mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
                 mSystemMediaVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
-                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()));
                 mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
-                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
-                    && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs())
+                    && SettingsDAO.shouldUseCustomMediaVolume(getPrefs()));
             }
 
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
@@ -375,7 +374,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
                 mSystemMediaVolumePref.setVisible(isAutoRoutingToExternalAudioDevice);
                 mExternalAudioDeviceVolumePref.setVisible(isAutoRoutingToExternalAudioDevice
-                    && SettingsDAO.shouldUseCustomMediaVolume(mPrefs)
+                    && SettingsDAO.shouldUseCustomMediaVolume(getPrefs())
                 );
             }
 
@@ -393,11 +392,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_TIMER_VIBRATE -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                List<Timer> timerList = DataModel.getDataModel().getTimers();
+                List<Timer> timerList = getDataModel().getTimers();
 
                 if ((boolean) newValue) {
                     for (Timer timer : timerList) {
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
@@ -420,11 +419,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                List<Timer> timerList = DataModel.getDataModel().getTimers();
+                List<Timer> timerList = getDataModel().getTimers();
 
                 if ((boolean) newValue) {
                     for (Timer timer : timerList) {
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
@@ -432,7 +431,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
-                            SettingsDAO.getVibrationPattern(mPrefs),
+                            SettingsDAO.getVibrationPattern(getPrefs()),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -449,7 +448,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
                 boolean newValueBool = (boolean) newValue;
 
-                if (DataModel.getDataModel().getTimers().isEmpty()) {
+                if (getDataModel().getTimers().isEmpty()) {
                     mSortTimerPref.setVisible(!newValueBool);
                 } else {
                     mShowSingleTimerWarning = true;
@@ -465,10 +464,10 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                List<Timer> timerList = DataModel.getDataModel().getTimers();
+                List<Timer> timerList = getDataModel().getTimers();
 
                 for (Timer timer : timerList) {
-                    DataModel.getDataModel().updateAllTimerSettings(
+                    getDataModel().updateAllTimerSettings(
                         timer,
                         timer.getLabel(),
                         timer.getButtonTime(),
@@ -503,7 +502,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_TIMER_DISPLAY_CUSTOMIZATION -> animateAndShowFragment(new TimerDisplayCustomizationFragment());
 
             case KEY_TIMER_DURATION_FONT -> selectCustomFile(mTimerDurationFontPref, fontPickerLauncher,
-                SettingsDAO.getTimerDurationFont(mPrefs), KEY_TIMER_DURATION_FONT, true, null);
+                SettingsDAO.getTimerDurationFont(getPrefs()), KEY_TIMER_DURATION_FONT, true, null);
 
             case KEY_TIMER_RINGTONE -> startActivity(RingtonePickerActivity.createTimerRingtonePickerIntentForSettings(context));
         }
@@ -536,12 +535,12 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     }
 
     private void setupPreferences() {
-        final boolean isAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
-        final boolean isAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
+        final boolean isAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs());
+        final boolean isAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs());
 
         mTimerDisplayCustomizationPref.setOnPreferenceClickListener(this);
 
-        mTimerDurationFontPref.setTitle(getString(SettingsDAO.getTimerDurationFont(mPrefs) == null
+        mTimerDurationFontPref.setTitle(getString(SettingsDAO.getTimerDurationFont(getPrefs()) == null
             ? R.string.custom_font_title
             : R.string.custom_font_title_variant));
         mTimerDurationFontPref.setOnPreferenceClickListener(this);
@@ -572,7 +571,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
         mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
             && isAutoRoutingToExternalAudioDevice
-            && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+            && SettingsDAO.shouldUseCustomMediaVolume(getPrefs()));
         mExternalAudioDeviceVolumePref.setEnabled(mExternalAudioDeviceVolumePref.isVisible() && mHasExternalAudioDeviceConnected);
 
         mTimerVibrationCategory.setVisible(DeviceUtils.hasVibrator(requireContext()));
@@ -585,8 +584,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
         mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
 
-        mTimerHeadphonesButtonActionPref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs)
-            && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+        mTimerHeadphonesButtonActionPref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs())
+            && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()));
         mTimerHeadphonesButtonActionPref.setOnPreferenceChangeListener(this);
 
         SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
@@ -598,12 +597,12 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         } else {
             mTimerFlipActionPref.setOnPreferenceChangeListener(this);
             mTimerShakeActionPref.setOnPreferenceChangeListener(this);
-            mTimerShakeIntensityPref.setVisible(SettingsDAO.isShakeActionForTimersEnabled(mPrefs));
+            mTimerShakeIntensityPref.setVisible(SettingsDAO.isShakeActionForTimersEnabled(getPrefs()));
         }
 
         mSingleTimerModePref.setOnPreferenceChangeListener(this);
 
-        mSortTimerPref.setVisible(!SettingsDAO.isSingleTimerModeEnabled(mPrefs));
+        mSortTimerPref.setVisible(!SettingsDAO.isSingleTimerModeEnabled(getPrefs()));
         mSortTimerPref.setOnPreferenceChangeListener(this);
         mSortTimerPref.setSummary(mSortTimerPref.getEntry());
 
@@ -628,11 +627,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                     if (pref != null) {
                         pref.setAutoSilenceDuration(newValue);
 
-                        if (SettingsDAO.isPerTimerAutoSilenceDisabled(mPrefs)) {
-                            List<Timer> timerList = DataModel.getDataModel().getTimers();
+                        if (SettingsDAO.isPerTimerAutoSilenceDisabled(getPrefs())) {
+                            List<Timer> timerList = getDataModel().getTimers();
 
                             for (Timer timer : timerList) {
-                                DataModel.getDataModel().updateAllTimerSettings(
+                                getDataModel().updateAllTimerSettings(
                                     timer,
                                     timer.getLabel(),
                                     timer.getButtonTime(),
@@ -662,11 +661,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                     if (pref != null) {
                         pref.setVolumeCrescendoDuration(newValue);
 
-                        if (SettingsDAO.isPerTimerCrescendoDurationDisabled(mPrefs)) {
-                            List<Timer> timerList = DataModel.getDataModel().getTimers();
+                        if (SettingsDAO.isPerTimerCrescendoDurationDisabled(getPrefs())) {
+                            List<Timer> timerList = getDataModel().getTimers();
 
                             for (Timer timer : timerList) {
-                                DataModel.getDataModel().updateAllTimerSettings(
+                                getDataModel().updateAllTimerSettings(
                                     timer,
                                     timer.getLabel(),
                                     timer.getButtonTime(),
@@ -696,11 +695,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                     if (pref != null) {
                         pref.setPattern(newValue);
 
-                        if (SettingsDAO.isPerTimerVibrationPatternDisabled(mPrefs)) {
-                            List<Timer> timerList = DataModel.getDataModel().getTimers();
+                        if (SettingsDAO.isPerTimerVibrationPatternDisabled(getPrefs())) {
+                            List<Timer> timerList = getDataModel().getTimers();
 
                             for (Timer timer : timerList) {
-                                DataModel.getDataModel().updateAllTimerSettings(
+                                getDataModel().updateAllTimerSettings(
                                     timer,
                                     timer.getLabel(),
                                     timer.getButtonTime(),
@@ -739,7 +738,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             return;
         }
 
-        List<Timer> timerList = DataModel.getDataModel().getTimers();
+        List<Timer> timerList = getDataModel().getTimers();
 
         mPendingDialogPrefKey = prefKey;
 
@@ -747,7 +746,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             switch (prefKey) {
                 case KEY_TIMER_VIBRATE -> showDisablePerTimerSettingDialog(R.string.timer_vibrate_dialog_message, KEY_TIMER_VIBRATE,
                     mTimerVibratePref, timer ->
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
@@ -765,7 +764,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 case KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN -> showDisablePerTimerSettingDialog(
                     R.string.enable_per_alarm_vibration_pattern_dialog_message, KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN,
                     mEnablePerTimerVibrationPatternPref, timer ->
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
@@ -773,7 +772,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
-                            SettingsDAO.getTimerVibrationPattern(mPrefs),
+                            SettingsDAO.getTimerVibrationPattern(getPrefs()),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -783,12 +782,12 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 case KEY_ENABLE_PER_TIMER_AUTO_SILENCE -> showDisablePerTimerSettingDialog(
                     R.string.enable_per_alarm_auto_silence_dialog_message, KEY_ENABLE_PER_TIMER_AUTO_SILENCE,
                     mEnablePerTimerAutoSilencePref, timer ->
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
                             timer.getRingtoneUri(),
-                            SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
+                            SettingsDAO.getTimerAutoSilenceDuration(getPrefs()),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
                             timer.getVibrationPattern(),
@@ -801,13 +800,13 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 case KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION -> showDisablePerTimerSettingDialog(
                     R.string.enable_per_alarm_crescendo_duration_dialog_message, KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION,
                     mEnablePerTimerVolumeCrescendoDurationPref, timer ->
-                        DataModel.getDataModel().updateAllTimerSettings(
+                        getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
-                            SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
+                            SettingsDAO.getTimerVolumeCrescendoDuration(getPrefs()),
                             timer.isVibrate(),
                             timer.getVibrationPattern(),
                             timer.isFlashOn(),
@@ -817,7 +816,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 );
             }
         } else {
-            mPrefs.edit().putBoolean(prefKey, false).apply();
+            getPrefs().edit().putBoolean(prefKey, false).apply();
 
             Preference pref = findPreference(prefKey);
             if (pref instanceof SwitchPreferenceCompat switchPreferenceCompat) {
@@ -840,13 +839,13 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             null,
             getString(android.R.string.ok),
             (d, w) -> {
-                List<Timer> timerList = DataModel.getDataModel().getTimers();
+                List<Timer> timerList = getDataModel().getTimers();
 
                 for (Timer timer : timerList) {
                     timerUpdater.update(timer);
                 }
 
-                mPrefs.edit().putBoolean(prefKey, false).apply();
+                getPrefs().edit().putBoolean(prefKey, false).apply();
                 switchPref.setChecked(false);
             },
             getString(android.R.string.cancel),
@@ -872,14 +871,14 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             null,
             getString(android.R.string.ok),
             (d, w) -> {
-                List<Timer> timersToDelete = new ArrayList<>(DataModel.getDataModel().getTimers());
+                List<Timer> timersToDelete = new ArrayList<>(getDataModel().getTimers());
 
                 for (Timer timer : timersToDelete) {
-                    DataModel.getDataModel().removeTimer(timer, R.string.label_deskclock);
+                    getDataModel().removeTimer(timer, R.string.label_deskclock);
                 }
 
                 mSortTimerPref.setVisible(!newValue);
-                mPrefs.edit().putBoolean(KEY_SINGLE_TIMER_MODE, newValue).apply();
+                getPrefs().edit().putBoolean(KEY_SINGLE_TIMER_MODE, newValue).apply();
                 mSingleTimerModePref.setChecked(newValue);
 
                 mShowSingleTimerWarning = false;
@@ -946,7 +945,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     }
 
     private void updateRingtonePreferences() {
-        mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+        mTimerRingtonePref.setSummary(getDataModel().getTimerRingtoneTitle());
         mTimerRingtonePref.setIntent(RingtonePickerActivity.createTimerRingtonePickerIntentForSettings(requireContext()));
     }
 

@@ -10,14 +10,12 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +32,6 @@ import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -44,6 +41,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -52,7 +50,6 @@ import androidx.transition.TransitionManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.BaseActivity;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
@@ -78,11 +75,10 @@ public class ExpiredTimersActivity extends BaseActivity {
     private static final long POWER_BUTTON_ACTIVATION_DELAY = 1500;
 
     private ExpiredTimersActivityBinding mBinding;
-    private SharedPreferences mPrefs;
+
     private Typeface mRegularTypeface;
     private Typeface mBoldTypeface;
     private Typeface mTimerTimeTypeface;
-    private DisplayMetrics mDisplayMetrics;
     private boolean mAreTimerButtonPositionsInverted;
     private boolean mIsIndicatorStateDisplayed;
     private int mColorPaused;
@@ -124,42 +120,40 @@ public class ExpiredTimersActivity extends BaseActivity {
                         return;
                     }
 
-                    DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
+                    getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                 }
             }
         }
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mActivityStartTime = SystemClock.elapsedRealtime();
 
         mBinding = ExpiredTimersActivityBinding.inflate(getLayoutInflater());
 
-        mPrefs = getDefaultSharedPreferences(this);
-        mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(mPrefs);
-        mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
-        mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
-        mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
-        mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
-        mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
+        mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());
+        mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(getPrefs());
+        mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(getPrefs());
+        mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(getPrefs());
+        mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(getPrefs());
+        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
         mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
-        mDisplayMetrics = getResources().getDisplayMetrics();
+        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(getPrefs()));
         mIsPortrait = ThemeUtils.isPortrait();
         mIsTablet = ThemeUtils.isTablet();
-        mMargin10 = (int) dpToPx(10, mDisplayMetrics);
-        mMargin2 = (int) dpToPx(2, mDisplayMetrics);
+        mMargin10 = (int) dpToPx(10, getDisplayMetrics());
+        mMargin2 = (int) dpToPx(2, getDisplayMetrics());
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Register Power button (screen off) intent receiver
-        if (SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs)) {
+        if (SettingsDAO.isExpiredTimerResetWithPowerButton(getPrefs())) {
             IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
             if (SdkUtils.isAtLeastAndroid13()) {
                 registerReceiver(mPowerBtnReceiver, powerFilter, Context.RECEIVER_NOT_EXPORTED);
@@ -198,9 +192,9 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         setContentView(mBinding.getRoot());
 
-        String activeAccentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)
-            ? SettingsDAO.getNightAccentColor(mPrefs)
-            : SettingsDAO.getAccentColor(mPrefs);
+        String activeAccentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(getPrefs())
+            ? SettingsDAO.getNightAccentColor(getPrefs())
+            : SettingsDAO.getAccentColor(getPrefs());
 
         getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
 
@@ -210,14 +204,14 @@ public class ExpiredTimersActivity extends BaseActivity {
             mExpiredTimersScrollView = mBinding.expiredTimersScrollHorizontal;
         }
 
-        final String imagePath = SettingsDAO.getTimerBackgroundImage(mPrefs);
+        final String imagePath = SettingsDAO.getTimerBackgroundImage(getPrefs());
 
-        if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
+        if (SettingsDAO.isTimerRingtoneTitleDisplayed(getPrefs())) {
             displayRingtoneTitle();
             mBinding.ringtoneLayout.setVisibility(VISIBLE);
         }
 
-        if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
+        if (SettingsDAO.isTimerBackgroundTransparent(getPrefs())) {
             mBinding.timerBackgroundImage.setVisibility(GONE);
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         } else {
@@ -231,7 +225,7 @@ public class ExpiredTimersActivity extends BaseActivity {
                     if (bitmap != null) {
                         mBinding.timerBackgroundImage.setImageBitmap(bitmap);
 
-                        float blurIntensity = SettingsDAO.getTimerBlurIntensity(mPrefs);
+                        float blurIntensity = SettingsDAO.getTimerBlurIntensity(getPrefs());
 
                         if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
                             RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
@@ -260,7 +254,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         applyWindowInsets();
 
         // Update views in response to timer data changes.
-        DataModel.getDataModel().addTimerListener(mTimerChangeWatcher);
+        getDataModel().addTimerListener(mTimerChangeWatcher);
     }
 
     @Override
@@ -282,7 +276,7 @@ public class ExpiredTimersActivity extends BaseActivity {
             mPowerBtnReceiverRegistered = false;
         }
 
-        DataModel.getDataModel().removeTimerListener(mTimerChangeWatcher);
+        getDataModel().removeTimerListener(mTimerChangeWatcher);
 
         mRegularTypeface = null;
         mBoldTypeface = null;
@@ -309,18 +303,18 @@ public class ExpiredTimersActivity extends BaseActivity {
                  KeyEvent.KEYCODE_VOLUME_MUTE,
                  KeyEvent.KEYCODE_CAMERA,
                  KeyEvent.KEYCODE_FOCUS -> {
-                if (SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs)) {
+                if (SettingsDAO.isExpiredTimerResetWithVolumeButtons(getPrefs())) {
                     if (event.getAction() == KeyEvent.ACTION_UP) {
-                        DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
+                        getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
                     return true;
                 }
             }
 
             case KeyEvent.KEYCODE_HEADSETHOOK -> {
-                if (SettingsDAO.isExpiredTimerResetWithHeadphonesButton(mPrefs)) {
+                if (SettingsDAO.isExpiredTimerResetWithHeadphonesButton(getPrefs())) {
                     if (event.getAction() == KeyEvent.ACTION_UP) {
-                        DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
+                        getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
                     return true;
                 }
@@ -331,13 +325,13 @@ public class ExpiredTimersActivity extends BaseActivity {
     }
 
     private void initHeadphonesButton() {
-        boolean isAdvancedPlayback = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
-        boolean isAutoRouting = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
-        boolean isExpiredTimerResetWithHeadphonesButton = SettingsDAO.isExpiredTimerResetWithHeadphonesButton(mPrefs);
+        boolean isAdvancedPlayback = SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs());
+        boolean isAutoRouting = SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs());
+        boolean isExpiredTimerResetWithHeadphonesButton = SettingsDAO.isExpiredTimerResetWithHeadphonesButton(getPrefs());
 
         if (isAdvancedPlayback && isAutoRouting && isExpiredTimerResetWithHeadphonesButton) {
             mMediaSession = RingtoneUtils.createMediaSession(this, "TimerMediaSession", () ->
-                DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button)
+                getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button)
             );
         }
     }
@@ -360,20 +354,20 @@ public class ExpiredTimersActivity extends BaseActivity {
      * Display ringtone title if enabled in Timer settings.
      */
     private void displayRingtoneTitle() {
-        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(DataModel.getDataModel().getTimerRingtoneUri());
+        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(getDataModel().getTimerRingtoneUri());
         final Drawable iconRingtone = silent
             ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
             : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int iconRingtoneSize = (int) dpToPx(24, mDisplayMetrics);
-        final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(mPrefs);
-        final int shadowOffset = SettingsDAO.getTimerShadowOffset(mPrefs);
+        int iconRingtoneSize = (int) dpToPx(24, getDisplayMetrics());
+        final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(getPrefs());
+        final int shadowOffset = SettingsDAO.getTimerShadowOffset(getPrefs());
         final float shadowRadius = shadowOffset * 0.5f;
-        final int shadowColor = SettingsDAO.getTimerShadowColor(mPrefs);
+        final int shadowColor = SettingsDAO.getTimerShadowColor(getPrefs());
 
         if (iconRingtone != null) {
             iconRingtone.setTint(ringtoneTitleColor);
 
-            if (SettingsDAO.isTimerTextShadowDisplayed(mPrefs)) {
+            if (SettingsDAO.isTimerTextShadowDisplayed(getPrefs())) {
                 // Convert the drawable to a bitmap
                 Bitmap iconBitmap = Bitmap.createBitmap(iconRingtoneSize, iconRingtoneSize, Bitmap.Config.ARGB_8888);
                 Canvas iconCanvas = new Canvas(iconBitmap);
@@ -407,8 +401,8 @@ public class ExpiredTimersActivity extends BaseActivity {
             }
         }
 
-        mBinding.ringtoneTitle.setText(DataModel.getDataModel().getTimerRingtoneTitle());
-        mBinding.ringtoneTitle.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs)));
+        mBinding.ringtoneTitle.setText(getDataModel().getTimerRingtoneTitle());
+        mBinding.ringtoneTitle.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs())));
         mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "expired_timers_activity.xml" file)
         mBinding.ringtoneTitle.setSelected(true);
@@ -437,7 +431,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         TransitionManager.beginDelayedTransition(mExpiredTimersScrollView);
 
         final int timerId = timer.getId();
-        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs) && !SettingsDAO.isSingleTimerModeEnabled(mPrefs);
+        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(getPrefs()) && !SettingsDAO.isSingleTimerModeEnabled(getPrefs());
         final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
 
         final View view;
@@ -489,8 +483,8 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         // Add logic to the "Add Minute Or Hour" button.
         addTimeButton.setOnClickListener(v -> {
-            final Timer timer1 = DataModel.getDataModel().getTimer(timerId);
-            DataModel.getDataModel().addCustomTimeToTimer(timer1);
+            final Timer timer1 = getDataModel().getTimer(timerId);
+            getDataModel().addCustomTimeToTimer(timer1);
         });
 
         // Add logic to hide the "Reset" buttons
@@ -498,8 +492,8 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         // Add logic to the "Stop" button
         stopButton.setOnClickListener(v -> {
-            final Timer timer1 = DataModel.getDataModel().getTimer(timerId);
-            DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
+            final Timer timer1 = getDataModel().getTimer(timerId);
+            getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
             removeTimer(timer1);
         });
 
@@ -594,7 +588,7 @@ public class ExpiredTimersActivity extends BaseActivity {
     }
 
     private List<Timer> getExpiredTimers() {
-        return DataModel.getDataModel().getExpiredTimers();
+        return getDataModel().getExpiredTimers();
     }
 
     /**
@@ -609,7 +603,7 @@ public class ExpiredTimersActivity extends BaseActivity {
                 final View child = mBinding.expiredTimersList.getChildAt(i);
 
                 final int timerId = child.getId();
-                final Timer timer = DataModel.getDataModel().getTimer(timerId);
+                final Timer timer = getDataModel().getTimer(timerId);
                 if (timer == null) {
                     continue;
                 }

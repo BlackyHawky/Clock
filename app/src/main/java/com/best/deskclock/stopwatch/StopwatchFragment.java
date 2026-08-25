@@ -11,7 +11,6 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_RESET;
@@ -53,7 +52,6 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.base.DeskClockFragment;
 import com.best.deskclock.base.RunnableFragment;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
@@ -121,7 +119,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         super(STOPWATCH);
     }
 
-    private SharedPreferences mPrefs;
     private Typeface mStopwatchTypeface;
     private boolean mAreMillisecondsDisplayed;
     private String mVolumeUpAction;
@@ -148,10 +145,9 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     };
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPrefs = getDefaultSharedPreferences(requireContext());
         refreshSettings();
     }
 
@@ -191,7 +187,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
         Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
         Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
 
@@ -217,15 +213,15 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         mStopwatchTextController.setMillisecondsDisplayed(mAreMillisecondsDisplayed);
 
-        mLapsAdapter = new LapsAdapter(requireContext(), regularTypeface, boldTypeface);
+        mLapsAdapter = new LapsAdapter(requireContext(), getDataModel(), getUiDataModel(), regularTypeface, boldTypeface);
         mBinding.lapsList.setAdapter(mLapsAdapter);
 
-        DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
+        getDataModel().addStopwatchListener(mStopwatchWatcher);
 
         updateTime();
         showOrHideLaps(getStopwatch().isReset());
 
-        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
+        getPrefs().registerOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     @Override
@@ -240,11 +236,11 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (intent != null) {
             final String action = intent.getAction();
             if (StopwatchService.ACTION_START_STOPWATCH.equals(action)) {
-                DataModel.getDataModel().startStopwatch();
+                getDataModel().startStopwatch();
                 // Consume the intent
                 requireActivity().setIntent(null);
             } else if (StopwatchService.ACTION_PAUSE_STOPWATCH.equals(action)) {
-                DataModel.getDataModel().pauseStopwatch();
+                getDataModel().pauseStopwatch();
                 // Consume the intent
                 requireActivity().setIntent(null);
             }
@@ -277,9 +273,9 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public void onDestroyView() {
         mBinding.stopwatchTimeWrapper.setOnClickListener(null);
 
-        DataModel.getDataModel().removeStopwatchListener(mStopwatchWatcher);
+        getDataModel().removeStopwatchListener(mStopwatchWatcher);
 
-        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+        getPrefs().unregisterOnSharedPreferenceChangeListener(mPrefListener);
 
         mBinding.lapsList.setAdapter(null);
 
@@ -399,13 +395,13 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private void refreshSettings() {
-        String stopwatchFontPath = SettingsDAO.getStopwatchFont(mPrefs);
+        String stopwatchFontPath = SettingsDAO.getStopwatchFont(getPrefs());
         mStopwatchTypeface = ThemeUtils.loadFont(stopwatchFontPath);
-        mAreMillisecondsDisplayed = SettingsDAO.areMillisecondsDisplayed(mPrefs);
-        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
-        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
-        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
-        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
+        mAreMillisecondsDisplayed = SettingsDAO.areMillisecondsDisplayed(getPrefs());
+        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(getPrefs());
+        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(getPrefs());
+        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(getPrefs());
+        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(getPrefs());
     }
 
     private void applyStopwatchFont() {
@@ -459,7 +455,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private void doStart() {
         Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
-        DataModel.getDataModel().startStopwatch();
+        getDataModel().startStopwatch();
     }
 
     /**
@@ -468,7 +464,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private void doPause() {
         Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
-        DataModel.getDataModel().pauseStopwatch();
+        getDataModel().pauseStopwatch();
     }
 
     /**
@@ -479,7 +475,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         final Stopwatch.State priorState = getStopwatch().getState();
         Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
-        DataModel.getDataModel().resetStopwatch();
+        getDataModel().resetStopwatch();
 
         mBinding.stopwatchTimeLayout.stopwatchTimeText.setAlpha(1f);
 
@@ -594,11 +590,11 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private Stopwatch getStopwatch() {
-        return DataModel.getDataModel().getStopwatch();
+        return getDataModel().getStopwatch();
     }
 
     private boolean canRecordMoreLaps() {
-        return DataModel.getDataModel().canAddMoreLaps();
+        return getDataModel().canAddMoreLaps();
     }
 
     /**
@@ -796,12 +792,12 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             adjustWakeLock();
 
             if (after.isReset()) {
-                if (DataModel.getDataModel().isApplicationInForeground()) {
+                if (getDataModel().isApplicationInForeground()) {
                     updateUI(BUTTONS_IMMEDIATE);
                 }
                 return;
             }
-            if (DataModel.getDataModel().isApplicationInForeground()) {
+            if (getDataModel().isApplicationInForeground()) {
                 updateUI(FAB_MORPH | BUTTONS_IMMEDIATE);
             }
         }
@@ -816,9 +812,9 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             if (getStopwatch().isRunning()) {
-                DataModel.getDataModel().pauseStopwatch();
+                getDataModel().pauseStopwatch();
             } else {
-                DataModel.getDataModel().startStopwatch();
+                getDataModel().startStopwatch();
             }
         }
     }

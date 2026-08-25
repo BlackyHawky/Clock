@@ -48,6 +48,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private final Context mContext;
     private final SharedPreferences mPrefs;
+    private final DataModel mDataModel;
     private ClockSettings mSettings;
     private final List<City> mCities;
     private final Typeface mRegularTypeface;
@@ -59,11 +60,13 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final Drawable.ConstantState mBgMiddle;
     private final Drawable.ConstantState mBgBottom;
 
-    public SelectedCitiesAdapter(Context context, SharedPreferences prefs, List<City> cities, boolean hasBlackAccentColor,
-                                 Typeface regularTypeface, Typeface boldTypeface, ClockSettings clockSettings) {
+    public SelectedCitiesAdapter(Context context, SharedPreferences prefs, DataModel dataModel, List<City> cities,
+                                 boolean hasBlackAccentColor, Typeface regularTypeface, Typeface boldTypeface,
+                                 ClockSettings clockSettings) {
 
         mContext = context;
         mPrefs = prefs;
+        mDataModel = dataModel;
         mCities = new ArrayList<>(cities);
         mHasBlackAccentColor = hasBlackAccentColor;
         mRegularTypeface = regularTypeface;
@@ -145,7 +148,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void citiesChanged() {
-        List<City> newCities = DataModel.getDataModel().getSelectedCities();
+        List<City> newCities = mDataModel.getSelectedCities();
 
         if (!mCities.equals(newCities)) {
             mCities.clear();
@@ -169,11 +172,11 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onRowSaved() {
-        DataModel.getDataModel().updateSelectedCitiesOrder(mCities);
+        mDataModel.updateSelectedCitiesOrder(mCities);
     }
 
     private City getHomeCity() {
-        return DataModel.getDataModel().getHomeCity();
+        return mDataModel.getHomeCity();
     }
 
     public List<City> getCities() {

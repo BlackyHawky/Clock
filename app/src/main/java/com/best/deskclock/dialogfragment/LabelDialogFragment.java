@@ -264,7 +264,7 @@ public class LabelDialogFragment extends DialogFragment {
             if (imm != null) {
                 imm.showSoftInput(mBinding.edit, InputMethodManager.SHOW_IMPLICIT);
             }
-        }, 200);
+        }, Utils.UI_SETTLE_DELAY_MS);
     }
 
     @Override

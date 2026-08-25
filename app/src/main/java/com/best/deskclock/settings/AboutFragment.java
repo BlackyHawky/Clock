@@ -147,7 +147,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings_about);
@@ -193,7 +193,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menu.clear();
 
-                if (BuildConfig.DEBUG || SettingsDAO.isDebugSettingsDisplayed(mPrefs)) {
+                if (BuildConfig.DEBUG || SettingsDAO.isDebugSettingsDisplayed(getPrefs())) {
                     menu.add(0, MENU_BUG_REPORT, 0, R.string.log_backup_icon_title)
                         .setIcon(R.drawable.ic_bug_report)
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -276,8 +276,8 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
                 tapCountOnVersion++;
 
                 if (tapCountOnVersion == 5) {
-                    mPrefs.edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, true).apply();
-                    mPrefs.edit().putBoolean(KEY_ENABLE_LOCAL_LOGGING, true).apply();
+                    getPrefs().edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, true).apply();
+                    getPrefs().edit().putBoolean(KEY_ENABLE_LOCAL_LOGGING, true).apply();
 
                     CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_debug_displayed);
                     requireActivity().recreate();
@@ -303,7 +303,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
 
                 LogUtils.clearSavedLocalLogs(requireContext());
 
-                mPrefs.edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, false).apply();
+                getPrefs().edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, false).apply();
 
                 CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_debug_hidden);
             }
@@ -415,7 +415,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
     private void showKeepAndroidOpenDialog() {
         mShowKeepAndroidOpenDialog = true;
 
-        mActiveDialog = Utils.displayKeepAndroidOpenDialog(requireContext(), mPrefs, true);
+        mActiveDialog = Utils.displayKeepAndroidOpenDialog(requireContext(), getPrefs(), true);
 
         mActiveDialog.setOnDismissListener(d -> mShowKeepAndroidOpenDialog = false);
 
@@ -442,8 +442,8 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
         mReadLicencePref.setOnPreferenceClickListener(this);
         mKeepAndroidOpenPref.setOnPreferenceClickListener(this);
 
-        mDebugCategoryPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(mPrefs));
-        mEnableLocalLoggingPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(mPrefs));
+        mDebugCategoryPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(getPrefs()));
+        mEnableLocalLoggingPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(getPrefs()));
         mEnableLocalLoggingPref.setOnPreferenceChangeListener(this);
     }
 
@@ -471,8 +471,8 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
         BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = true;
 
         AppExecutors.getDiskIO().execute(() -> {
-            SharedPreferences.Editor editor = mPrefs.edit();
-            Map<String, ?> settings = mPrefs.getAll();
+            SharedPreferences.Editor editor = getPrefs().edit();
+            Map<String, ?> settings = getPrefs().getAll();
 
             releaseAllCustomRingtonePermissions();
             deleteAllCustomRingtoneFiles();
@@ -552,10 +552,10 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
      * retrieves the associated file paths, and removes each file if present.</p>
      */
     private void deleteAllCustomRingtoneFiles() {
-        Set<String> ids = mPrefs.getStringSet(RINGTONE_IDS, Collections.emptySet());
+        Set<String> ids = getPrefs().getStringSet(RINGTONE_IDS, Collections.emptySet());
 
         for (String id : ids) {
-            String uriString = mPrefs.getString(RINGTONE_URI + id, null);
+            String uriString = getPrefs().getString(RINGTONE_URI + id, null);
             if (uriString != null) {
                 Uri uri = Uri.parse(uriString);
                 FileUtils.clearFile(uri.getPath());
@@ -572,10 +572,10 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
      */
     private void releaseAllCustomRingtonePermissions() {
         ContentResolver contentResolver = requireContext().getContentResolver();
-        Set<String> ids = mPrefs.getStringSet(RINGTONE_IDS, Collections.emptySet());
+        Set<String> ids = getPrefs().getStringSet(RINGTONE_IDS, Collections.emptySet());
 
         for (String id : ids) {
-            String uriString = mPrefs.getString(RINGTONE_URI + id, null);
+            String uriString = getPrefs().getString(RINGTONE_URI + id, null);
             if (uriString != null) {
                 try {
                     contentResolver.releasePersistableUriPermission(Uri.parse(uriString), Intent.FLAG_GRANT_READ_URI_PERMISSION);

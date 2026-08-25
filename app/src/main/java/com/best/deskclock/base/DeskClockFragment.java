@@ -6,16 +6,23 @@
 
 package com.best.deskclock.base;
 
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.best.deskclock.DeskClockApplication;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uicomponents.FabContainer;
 import com.best.deskclock.uicomponents.FabController;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
+import com.best.deskclock.utils.ThemeUtils;
 
 public abstract class DeskClockFragment extends Fragment implements FabContainer, FabController {
 
@@ -29,8 +36,29 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
      */
     private FabContainer mFabContainer;
 
+    private final DataModel mDataModel;
+    private final UiDataModel mUiDataModel;
+    private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
+    private boolean mIsTablet;
+    private boolean mIsPortrait;
+    private boolean mIsLandscape;
+
     public DeskClockFragment(Tab tab) {
         mTab = tab;
+        mDataModel = DataModel.getDataModel();
+        mUiDataModel = UiDataModel.getUiDataModel();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mPrefs = DeskClockApplication.getDefaultSharedPreferences(requireContext());
+        mDisplayMetrics = getResources().getDisplayMetrics();
+        mIsTablet = ThemeUtils.isTablet();
+        mIsPortrait = ThemeUtils.isPortrait();
+        mIsLandscape = ThemeUtils.isLandscape();
     }
 
     @Override
@@ -91,14 +119,41 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
      * @return {@code true} if the currently selected tab displays this fragment
      */
     public final boolean isTabSelected() {
-        return UiDataModel.getUiDataModel().getSelectedTab() == mTab;
+        return mUiDataModel.getSelectedTab() == mTab;
     }
 
     /**
      * Select the tab that displays this fragment.
      */
     public final void selectTab() {
-        UiDataModel.getUiDataModel().setSelectedTab(mTab);
+        mUiDataModel.setSelectedTab(mTab);
     }
 
+    protected final DataModel getDataModel() {
+        return mDataModel;
+    }
+
+    protected final UiDataModel getUiDataModel() {
+        return mUiDataModel;
+    }
+
+    protected final SharedPreferences getPrefs() {
+        return mPrefs;
+    }
+
+    protected final DisplayMetrics getDisplayMetrics() {
+        return mDisplayMetrics;
+    }
+
+    protected final boolean isTablet() {
+        return mIsTablet;
+    }
+
+    protected final boolean isPortrait() {
+        return mIsPortrait;
+    }
+
+    protected final boolean isLandscape() {
+        return mIsLandscape;
+    }
 }

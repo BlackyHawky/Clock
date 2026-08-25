@@ -45,6 +45,7 @@ public final class StopwatchCircleView extends View {
     private final RectF mArcRect = new RectF();
 
     private final DisplayMetrics mDisplayMetrics;
+    private final DataModel mDataModel;
 
     public StopwatchCircleView(Context context) {
         this(context, null);
@@ -53,6 +54,7 @@ public final class StopwatchCircleView extends View {
     public StopwatchCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        mDataModel = DataModel.getDataModel();
         mDisplayMetrics = getResources().getDisplayMetrics();
         final float dotDiameter = (int) dpToPx(12, mDisplayMetrics);
         int strokeSize = (int) dpToPx(6, mDisplayMetrics);
@@ -96,7 +98,7 @@ public final class StopwatchCircleView extends View {
         final List<Lap> laps = getLaps();
 
         // If a reference lap does not exist or should not be drawn, draw a simple circle.
-        if (laps.isEmpty() || !DataModel.getDataModel().canAddMoreLaps()) {
+        if (laps.isEmpty() || !mDataModel.canAddMoreLaps()) {
             canvas.drawCircle(xCenter, yCenter, radius, mRemainingPaint);
             return;
         }
@@ -164,10 +166,10 @@ public final class StopwatchCircleView extends View {
     }
 
     private Stopwatch getStopwatch() {
-        return DataModel.getDataModel().getStopwatch();
+        return mDataModel.getStopwatch();
     }
 
     private List<Lap> getLaps() {
-        return DataModel.getDataModel().getLaps();
+        return mDataModel.getLaps();
     }
 }

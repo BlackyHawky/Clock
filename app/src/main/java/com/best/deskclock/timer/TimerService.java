@@ -182,21 +182,24 @@ public final class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        final DataModel dataModel = DataModel.getDataModel();
+
         try {
             final String action = intent.getAction();
             final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
+
             if (action != null) {
                 switch (action) {
                     case ACTION_UPDATE_NOTIFICATION -> {
-                        DataModel.getDataModel().updateTimerNotification();
+                        dataModel.updateTimerNotification();
                         return START_NOT_STICKY;
                     }
                     case ACTION_RESET_EXPIRED_TIMERS -> {
-                        DataModel.getDataModel().resetOrDeleteExpiredTimers(label);
+                        dataModel.resetOrDeleteExpiredTimers(label);
                         return START_NOT_STICKY;
                     }
                     case ACTION_RESET_MISSED_TIMERS -> {
-                        DataModel.getDataModel().resetOrDeleteMissedTimers(label);
+                        dataModel.resetOrDeleteMissedTimers(label);
                         return START_NOT_STICKY;
                     }
                 }
@@ -204,7 +207,7 @@ public final class TimerService extends Service {
 
             // Look up the timer in question.
             final int timerId = intent.getIntExtra(EXTRA_TIMER_ID, -1);
-            final Timer timer = DataModel.getDataModel().getTimer(timerId);
+            final Timer timer = dataModel.getTimer(timerId);
 
             // If the timer cannot be located, ignore the action.
             if (timer == null) {
@@ -216,23 +219,23 @@ public final class TimerService extends Service {
                 switch (action) {
                     case ACTION_START_TIMER -> {
                         Events.sendTimerEvent(R.string.action_start, label);
-                        DataModel.getDataModel().startTimer(this, timer);
+                        dataModel.startTimer(this, timer);
                     }
                     case ACTION_PAUSE_TIMER -> {
                         Events.sendTimerEvent(R.string.action_pause, label);
-                        DataModel.getDataModel().pauseTimer(timer);
+                        dataModel.pauseTimer(timer);
                     }
                     case ACTION_ADD_CUSTOM_TIME_TO_TIMER -> {
                         Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, label);
-                        DataModel.getDataModel().addCustomTimeToTimer(timer);
+                        dataModel.addCustomTimeToTimer(timer);
                     }
                     case ACTION_RESET_TIMER -> {
-                        DataModel.getDataModel().resetTimer(timer, label);
+                        dataModel.resetTimer(timer, label);
                         detachListeners();
                     }
                     case ACTION_TIMER_EXPIRED -> {
                         Events.sendTimerEvent(R.string.action_fire, label);
-                        DataModel.getDataModel().expireTimer(this, timer);
+                        dataModel.expireTimer(this, timer);
                         turnOnFlash(timer);
                         stopMedia(timer);
                         attachListeners();
@@ -241,7 +244,7 @@ public final class TimerService extends Service {
             }
         } finally {
             // This service is foreground when expired timers exist and stopped when none exist.
-            final List<Timer> expiredTimers = DataModel.getDataModel().getExpiredTimers();
+            final List<Timer> expiredTimers = dataModel.getExpiredTimers();
 
             if (expiredTimers.isEmpty()) {
                 stopSelf();

@@ -232,8 +232,9 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      */
     protected void relayoutWidget(Context context, AppWidgetManager wm, int widgetId, Bundle options) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final List<City> cities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
-        final City home = DataModel.getDataModel().getHomeCity();
+        DataModel dataModel = DataModel.getDataModel();
+        final List<City> cities = new ArrayList<>(dataModel.getSelectedCities());
+        final City home = dataModel.getHomeCity();
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, prefs);
 
         if (showHomeClock) {
@@ -902,8 +903,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             return;
         }
 
-        final DataModel dm = DataModel.getDataModel();
-        final List<City> selectedCities = dm.getSelectedCities();
+        final DataModel dataModel = DataModel.getDataModel();
+        final List<City> selectedCities = dataModel.getSelectedCities();
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, getDefaultSharedPreferences(context));
         if (selectedCities.isEmpty() && !showHomeClock) {
             // Remove the existing day-change callback.
@@ -915,7 +916,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         final Set<TimeZone> zones = new ArraySet<>(selectedCities.size() + 2);
         zones.add(TimeZone.getDefault());
         if (showHomeClock) {
-            zones.add(dm.getHomeCity().getTimeZone());
+            zones.add(dataModel.getHomeCity().getTimeZone());
         }
         for (City city : selectedCities) {
             zones.add(city.getTimeZone());

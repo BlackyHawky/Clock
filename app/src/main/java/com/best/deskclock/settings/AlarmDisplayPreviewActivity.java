@@ -10,7 +10,6 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 
@@ -20,7 +19,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -48,6 +46,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
@@ -87,7 +86,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
     private AlarmActivityBinding mBinding;
 
-    private SharedPreferences mPrefs;
     private Typeface mGeneralBoldTypeface;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private float mAlarmTitleFontSize;
@@ -117,15 +115,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
-        mPrefs = getDefaultSharedPreferences(this);
-        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs()));
         mVibrator = getSystemService(Vibrator.class);
-        mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs);
+        mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getPrefs());
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (ThemeUtils.isPortrait()) {
@@ -141,18 +138,18 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         initAlarmBackground();
 
-        mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
-        mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(mPrefs);
-        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(mPrefs);
-        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(mPrefs);
-        mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(mPrefs, this);
-        mSnoozeMinusButtonColor = SettingsDAO.getSnoozeMinusButtonColor(mPrefs);
-        mSnoozePlusButtonColor = SettingsDAO.getSnoozePlusButtonColor(mPrefs);
-        mSnoozeMinusSymbolColor = SettingsDAO.getSnoozeMinusSymbolColor(mPrefs);
-        mSnoozePlusSymbolColor = SettingsDAO.getSnoozePlusSymbolColor(mPrefs);
-        mIsTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(mPrefs);
-        mShadowColor = SettingsDAO.getAlarmShadowColor(mPrefs);
-        mShadowOffset = SettingsDAO.getAlarmShadowOffset(mPrefs);
+        mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
+        mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(getPrefs());
+        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(getPrefs());
+        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(getPrefs());
+        mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(getPrefs(), this);
+        mSnoozeMinusButtonColor = SettingsDAO.getSnoozeMinusButtonColor(getPrefs());
+        mSnoozePlusButtonColor = SettingsDAO.getSnoozePlusButtonColor(getPrefs());
+        mSnoozeMinusSymbolColor = SettingsDAO.getSnoozeMinusSymbolColor(getPrefs());
+        mSnoozePlusSymbolColor = SettingsDAO.getSnoozePlusSymbolColor(getPrefs());
+        mIsTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(getPrefs());
+        mShadowColor = SettingsDAO.getAlarmShadowColor(getPrefs());
+        mShadowOffset = SettingsDAO.getAlarmShadowOffset(getPrefs());
         mShadowRadius = mShadowOffset * 0.5f;
 
         initAlarmClock();
@@ -340,15 +337,15 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the background.
      */
     private void initAlarmBackground() {
-        final String getDarkMode = SettingsDAO.getDarkMode(mPrefs);
+        final String getDarkMode = SettingsDAO.getDarkMode(getPrefs());
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
-            ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
-            : SettingsDAO.getAlarmBackgroundColor(mPrefs);
+            ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
+            : SettingsDAO.getAlarmBackgroundColor(getPrefs());
 
         String previewImage = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE);
         final String imagePath = TextUtils.isEmpty(previewImage)
-            ? SettingsDAO.getAlarmBackgroundImage(mPrefs)
+            ? SettingsDAO.getAlarmBackgroundImage(getPrefs())
             : previewImage;
 
         // Apply a background image and a blur effect.
@@ -366,7 +363,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
                     if (SdkUtils.isAtLeastAndroid12()) {
                         int blurIntensity =
-                            getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_BLUR_INTENSITY, SettingsDAO.getAlarmBlurIntensity(mPrefs));
+                            getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_BLUR_INTENSITY, SettingsDAO.getAlarmBlurIntensity(getPrefs()));
 
                         if (blurIntensity != DEFAULT_BLUR_INTENSITY) {
                             RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
@@ -389,10 +386,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the digital or analog clock.
      */
     private void initAlarmClock() {
-        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
-        final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
-        int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
-        float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(mPrefs);
+        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(getPrefs());
+        final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(getPrefs());
+        int alarmClockColor = SettingsDAO.getAlarmClockColor(getPrefs());
+        float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(getPrefs());
 
         ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, mBinding.analogClock);
 
@@ -400,7 +397,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         int previewMinute = getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, -1);
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
-            ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(mPrefs));
+            ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(getPrefs()));
             ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.4f, false, true, false, false, false);
             mBinding.digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             mBinding.digitalClock.setTextColor(alarmClockColor);
@@ -414,7 +411,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
                 mBinding.digitalClock.setStaticTime(previewHour, previewMinute);
             }
         } else {
-            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(mPrefs));
+            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(getPrefs()));
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
 
             if (previewHour != -1 && previewMinute != -1) {
@@ -434,7 +431,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mBinding.alarmTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.alarmTitle.setTextColor(mAlarmTitleColor);
 
-        if (SettingsDAO.isAlarmTitleDisplayedOnSingleLine(mPrefs)) {
+        if (SettingsDAO.isAlarmTitleDisplayedOnSingleLine(getPrefs())) {
             TextViewCompat.setAutoSizeTextTypeWithDefaults(mBinding.alarmTitle, TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE);
             mBinding.alarmTitle.setSingleLine(true);
             mBinding.alarmTitle.setSelected(true); // Allow text scrolling
@@ -479,7 +476,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the slide mode colors.
      */
     private void initSlideColors() {
-        int slideZoneColor = SettingsDAO.getSlideZoneColor(mPrefs);
+        int slideZoneColor = SettingsDAO.getSlideZoneColor(getPrefs());
 
         Drawable background = AppCompatResources.getDrawable(this, R.drawable.bg_alarm_slide_zone);
         if (background != null) {
@@ -497,11 +494,11 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mBinding.alarmButton.setContentDescription(getString(R.string.description_direction_both));
 
         mBinding.snoozeText.setTypeface(mGeneralBoldTypeface);
-        mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(mPrefs));
+        mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(getPrefs()));
         mBinding.snoozeText.setText(getString(R.string.button_action_snooze));
 
         mBinding.dismissText.setTypeface(mGeneralBoldTypeface);
-        mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(mPrefs));
+        mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(getPrefs()));
         mBinding.dismissText.setText(getString(R.string.button_action_dismiss));
     }
 
@@ -609,14 +606,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the "Snooze" and "Dismiss" buttons.
      */
     private void initSnoozeAndDismissButtons() {
-        mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
+        mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(getPrefs(), this));
         mBinding.snoozeButton.setText(getString(R.string.button_action_snooze));
         mBinding.snoozeButton.setTypeface(mGeneralBoldTypeface);
         mBinding.snoozeButton.setContentDescription(getString(R.string.description_snooze_button));
         mBinding.snoozeButton.setVisibility(VISIBLE);
         mBinding.snoozeButton.setOnClickListener(this);
 
-        mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
+        mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(getPrefs(), this));
         mBinding.dismissButton.setText(getString(R.string.button_action_dismiss));
         mBinding.dismissButton.setTypeface(mGeneralBoldTypeface);
         mBinding.dismissButton.setContentDescription(getString(R.string.description_dismiss_button));
@@ -657,8 +654,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the snooze selector style.
      */
     private void initSnoozeSelectorStyle() {
-        int snoozeZoneColor = SettingsDAO.getSnoozeZoneColor(mPrefs);
-        int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(mPrefs);
+        int snoozeZoneColor = SettingsDAO.getSnoozeZoneColor(getPrefs());
+        int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(getPrefs());
 
         mBinding.snoozeSelectorText.setBackgroundTintList(ColorStateList.valueOf(snoozeZoneColor));
         mBinding.snoozeSelectorText.setTypeface(mGeneralBoldTypeface);
@@ -687,7 +684,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the ringtone title.
      */
     private void initRingtoneTitle() {
-        if (SettingsDAO.isRingtoneTitleDisplayed(mPrefs)) {
+        if (SettingsDAO.isRingtoneTitleDisplayed(getPrefs())) {
             mBinding.ringtoneLayout.setVisibility(VISIBLE);
 
             displayRingtoneTitle();
@@ -888,12 +885,12 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
             ringtoneTitleText = getString(R.string.silent_ringtone_title);
             musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent);
         } else {
-            ringtoneTitleText = DataModel.getDataModel().getRingtoneTitle(ringtoneUri);
+            ringtoneTitleText = getDataModel().getRingtoneTitle(ringtoneUri);
             musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
         }
 
         int iconSize = (int) dpToPx(24, getResources().getDisplayMetrics());
-        final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
+        final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(getPrefs());
 
         if (musicIcon != null) {
             musicIcon.setTint(ringtoneTitleColor);
@@ -943,7 +940,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Display a message after snoozing or dismissing the alarm.
      */
     private void displayAlarmActionMessage(final int titleResId, final String descriptionText) {
-        if (SettingsDAO.isAlarmActionMessageHidden(mPrefs)) {
+        if (SettingsDAO.isAlarmActionMessageHidden(getPrefs())) {
             finishActivity();
             return;
         }

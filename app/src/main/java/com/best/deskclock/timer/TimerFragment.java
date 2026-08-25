@@ -12,7 +12,6 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_CREATION_VIEW_SPINNER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.*;
@@ -57,7 +56,6 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.base.DeskClockFragment;
 import com.best.deskclock.base.RunnableFragment;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
@@ -104,17 +102,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private TimerFragmentBinding mBinding;
 
-    private SharedPreferences mPrefs;
     private final TimerSettings mSettings = new TimerSettings();
     private boolean mIsManualSorting;
-    private DisplayMetrics mDisplayMetrics;
     private Serializable mTimerSetupState;
     private TimerAdapter mAdapter;
     private ViewGroup mCurrentView;
     private TimerItemTouchHelper mTouchHelperCallback;
     private ItemTouchHelper mItemTouchHelper;
-    private boolean mIsTablet;
-    private boolean mIsLandscape;
 
     /**
      * Updates the FABs in response to timers being added or removed.
@@ -156,16 +150,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     @Override
-    public void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
-
-        mPrefs = getDefaultSharedPreferences(requireContext());
-        mDisplayMetrics = getResources().getDisplayMetrics();
-        mIsTablet = ThemeUtils.isTablet();
-        mIsLandscape = ThemeUtils.isLandscape();
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
@@ -177,7 +161,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         });
 
         mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
-        mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), mDisplayMetrics));
+        mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), getDisplayMetrics()));
 
         RecyclerView.ItemAnimator animator = mBinding.timerRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -248,7 +232,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
         Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
         Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
 
@@ -259,20 +243,20 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mBinding.timerVolumeBanner.volumeWarningText.setTypeface(boldTypeface);
         mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(boldTypeface);
 
-        mAdapter = new TimerAdapter(requireContext(), mPrefs, new TimerClickHandler(this), mIsTablet, mIsLandscape,
-            regularTypeface, boldTypeface, mSettings);
+        mAdapter = new TimerAdapter(requireContext(), getPrefs(), getDataModel(), new TimerClickHandler(this, getDataModel()),
+            isTablet(), isLandscape(), regularTypeface, boldTypeface, mSettings);
 
         mBinding.timerRecyclerView.setAdapter(mAdapter);
         mAdapter.loadTimersAsync();
-        DataModel.getDataModel().addTimerListener(mAdapter);
+        getDataModel().addTimerListener(mAdapter);
 
-        DataModel.getDataModel().addTimerListener(mTimerWatcher);
+        getDataModel().addTimerListener(mTimerWatcher);
 
-        mTouchHelperCallback = new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
+        mTouchHelperCallback = new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, isTablet(), isLandscape(), mIsManualSorting);
         mItemTouchHelper = new ItemTouchHelper(mTouchHelperCallback);
         handleItemTouchHelper();
 
-        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
+        getPrefs().registerOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     @Override
@@ -291,7 +275,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onResume() {
         super.onResume();
 
-        boolean isSystem24Hour = DataModel.getDataModel().is24HourFormat();
+        boolean isSystem24Hour = getDataModel().is24HourFormat();
 
         if (mAreSettingsChanged || mSettings.is24HourFormat != isSystem24Hour) {
             applySettingsChanges();
@@ -351,10 +335,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     @Override
     public void onDestroyView() {
-        DataModel.getDataModel().removeTimerListener(mAdapter);
-        DataModel.getDataModel().removeTimerListener(mTimerWatcher);
+        getDataModel().removeTimerListener(mAdapter);
+        getDataModel().removeTimerListener(mTimerWatcher);
 
-        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+        getPrefs().unregisterOnSharedPreferenceChangeListener(mPrefListener);
 
         mBinding.timerSpinnerSetupView.setOnChangeListener(null);
 
@@ -431,12 +415,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onFabClick() {
         if (mCurrentView == mBinding.timerContentView) {
             if (mSettings.isSingleTimerMode) {
-                List<Timer> timers = DataModel.getDataModel().getTimers();
+                List<Timer> timers = getDataModel().getTimers();
 
-                if (!DataModel.getDataModel().getTimers().isEmpty()) {
+                if (!getDataModel().getTimers().isEmpty()) {
                     Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                    DataModel.getDataModel().removeTimer(timers.get(0), R.string.label_deskclock);
+                    getDataModel().removeTimer(timers.get(0), R.string.label_deskclock);
                 }
             } else {
                 animateToView(getTimerCreationView(), true);
@@ -450,15 +434,15 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 // Create the new timer.
                 final long timerLength = getTimeInMillis();
                 String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
-                String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
-                String vibrationPattern = SettingsDAO.getTimerVibrationPattern(mPrefs);
-                Uri ringtoneUri = DataModel.getDataModel().getTimerRingtoneUri();
-                int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
-                int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
-                boolean isVibrate = SettingsDAO.isTimerVibrate(mPrefs);
-                boolean isFlashOn = SettingsDAO.shouldTurnOnBackFlashForExpiredTimer(mPrefs);
+                String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(getPrefs()));
+                String vibrationPattern = SettingsDAO.getTimerVibrationPattern(getPrefs());
+                Uri ringtoneUri = getDataModel().getTimerRingtoneUri();
+                int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(getPrefs());
+                int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(getPrefs());
+                boolean isVibrate = SettingsDAO.isTimerVibrate(getPrefs());
+                boolean isFlashOn = SettingsDAO.shouldTurnOnBackFlashForExpiredTimer(getPrefs());
 
-                final Timer timer = DataModel.getDataModel().addTimer(
+                final Timer timer = getDataModel().addTimer(
                     timerLength,
                     defaultLabel,
                     defaultTimeToAddToTimer,
@@ -475,7 +459,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
                 // Start the new timer.
-                DataModel.getDataModel().startTimer(timer);
+                getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
             } finally {
                 mCreatingTimer = false;
@@ -697,11 +681,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private boolean isSpinnerCreationView() {
-        return SettingsDAO.getTimerCreationViewStyle(mPrefs).equals(TIMER_CREATION_VIEW_SPINNER_STYLE);
+        return SettingsDAO.getTimerCreationViewStyle(getPrefs()).equals(TIMER_CREATION_VIEW_SPINNER_STYLE);
     }
 
     public void startUpdatingTime() {
-        if (!isTabSelected() || !DataModel.getDataModel().hasActiveTimer()) {
+        if (!isTabSelected() || !getDataModel().hasActiveTimer()) {
             return;
         }
 
@@ -717,25 +701,25 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private void refreshSettings() {
-        String timerFontPath = SettingsDAO.getTimerDurationFont(mPrefs);
+        String timerFontPath = SettingsDAO.getTimerDurationFont(getPrefs());
         mSettings.timerTimeTypeface = ThemeUtils.boldTypeface(timerFontPath);
 
-        mSettings.is24HourFormat = DataModel.getDataModel().is24HourFormat();
+        mSettings.is24HourFormat = getDataModel().is24HourFormat();
         mSettings.timerEndTimeFormatPattern = mSettings.is24HourFormat
             ? ClockUtils.get24ModeFormat(false, false)
             : ClockUtils.get12ModeFormat(requireContext(), 0.8f, false, false, false, true, false);
 
-        mSettings.isSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(mPrefs);
-        mSettings.isTimerEndTimeDisplayed = SettingsDAO.isTimerEndTimeDisplayed(mPrefs);
-        mSettings.areTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(mPrefs);
-        mSettings.isIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
+        mSettings.isSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(getPrefs());
+        mSettings.isTimerEndTimeDisplayed = SettingsDAO.isTimerEndTimeDisplayed(getPrefs());
+        mSettings.areTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
+        mSettings.isIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());
 
-        mSettings.colorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
-        mSettings.colorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
-        mSettings.colorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
-        mSettings.colorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
+        mSettings.colorPaused = SettingsDAO.getPausedTimerIndicatorColor(getPrefs());
+        mSettings.colorRunning = SettingsDAO.getRunningTimerIndicatorColor(getPrefs());
+        mSettings.colorExpired = SettingsDAO.getExpiredTimerIndicatorColor(getPrefs());
+        mSettings.colorMissed = SettingsDAO.getMissedTimerIndicatorColor(getPrefs());
 
-        mSettings.timerSorting = SettingsDAO.getTimerSortingPreference(mPrefs);
+        mSettings.timerSorting = SettingsDAO.getTimerSortingPreference(getPrefs());
         mIsManualSorting = mSettings.timerSorting.equals(DEFAULT_SORT_TIMER_MANUALLY);
     }
 
@@ -758,20 +742,20 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private boolean hasTimers() {
-        return !DataModel.getDataModel().getTimers().isEmpty();
+        return !getDataModel().getTimers().isEmpty();
     }
 
     private boolean hasMultipleTimers() {
-        return DataModel.getDataModel().getTimers().size() > 1;
+        return getDataModel().getTimers().size() > 1;
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        if (mIsTablet) {
-            int spanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
+        if (isTablet()) {
+            int spanCount = hasMultipleTimers() ? (isLandscape() ? 3 : 2) : 1;
             return new GridLayoutManager(context, spanCount);
         }
 
-        return new LinearLayoutManager(context, mIsLandscape
+        return new LinearLayoutManager(context, isLandscape()
             ? LinearLayoutManager.HORIZONTAL
             : LinearLayoutManager.VERTICAL, false);
     }
@@ -795,9 +779,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      */
     public void updateWarningBannerVisibility() {
         boolean isStreamLow = RingtoneUtils.isAlarmStreamLow(requireContext());
-        boolean shouldShow = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs)
+        boolean shouldShow = SettingsDAO.isLowAlarmVolumeWarningDisplayed(getPrefs())
             && isStreamLow
-            && DataModel.getDataModel().hasRunningTimer();
+            && getDataModel().hasRunningTimer();
 
         int targetVisibility = shouldShow ? VISIBLE : GONE;
 
@@ -829,8 +813,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
-            if (mIsTablet && mBinding.timerRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
-                int newSpanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
+            if (isTablet() && mBinding.timerRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+                int newSpanCount = hasMultipleTimers() ? (isLandscape() ? 3 : 2) : 1;
 
                 if (gridLayoutManager.getSpanCount() != newSpanCount) {
                     gridLayoutManager.setSpanCount(newSpanCount);
@@ -859,7 +843,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
             if (layoutManager != null && hasMultipleTimers() && position != RecyclerView.NO_POSITION) {
                 if (justReset || stoppedExpired) {
-                    if (mIsTablet && layoutManager instanceof LinearLayoutManager linearLayoutManager) {
+                    if (isTablet() && layoutManager instanceof LinearLayoutManager linearLayoutManager) {
                         int firstVisible = linearLayoutManager.findFirstVisibleItemPosition();
                         View firstView = linearLayoutManager.findViewByPosition(firstVisible);
                         int offset = (firstView != null) ? firstView.getTop() : 0;
@@ -891,8 +875,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
-            if (mIsTablet && mBinding.timerRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
-                int newSpanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
+            if (isTablet() && mBinding.timerRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+                int newSpanCount = hasMultipleTimers() ? (isLandscape() ? 3 : 2) : 1;
 
                 if (gridLayoutManager.getSpanCount() != newSpanCount) {
                     gridLayoutManager.setSpanCount(newSpanCount);

@@ -45,23 +45,25 @@ public final class StopwatchService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         final String action = intent.getAction();
         final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
+        final DataModel dataModel = DataModel.getDataModel();
+
         if (action != null) {
             switch (action) {
                 case ACTION_START_STOPWATCH -> {
                     Events.sendStopwatchEvent(R.string.action_start, label);
-                    DataModel.getDataModel().startStopwatch();
+                    dataModel.startStopwatch();
                 }
                 case ACTION_PAUSE_STOPWATCH -> {
                     Events.sendStopwatchEvent(R.string.action_pause, label);
-                    DataModel.getDataModel().pauseStopwatch();
+                    dataModel.pauseStopwatch();
                 }
                 case ACTION_RESET_STOPWATCH -> {
                     Events.sendStopwatchEvent(R.string.action_reset, label);
-                    DataModel.getDataModel().resetStopwatch();
+                    dataModel.resetStopwatch();
                 }
                 case ACTION_LAP_STOPWATCH -> {
                     Events.sendStopwatchEvent(R.string.action_lap, label);
-                    DataModel.getDataModel().addLap();
+                    dataModel.addLap();
                 }
             }
         }

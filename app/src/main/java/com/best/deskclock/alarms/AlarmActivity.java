@@ -10,7 +10,6 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
@@ -28,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -58,6 +56,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
@@ -88,7 +87,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
@@ -123,7 +121,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     };
 
     private AlarmActivityBinding mBinding;
-    private SharedPreferences mPrefs;
     private Typeface mGeneralBoldTypeface;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private Alarm mAlarm;
@@ -211,20 +208,17 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mActivityStartTime = SystemClock.elapsedRealtime();
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
-        Context storageContext = Utils.getSafeStorageContext(this);
-
-        mPrefs = getDefaultSharedPreferences(storageContext);
-        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
-        mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
-        mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
-        mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(mPrefs);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs()));
+        mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(getPrefs());
+        mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(getPrefs());
+        mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(getPrefs());
         mMathMissionController = new AlarmMathMissionController(this, action -> {
             if (action == MISSION_ACTION_SNOOZE) {
                 snooze();
@@ -277,18 +271,18 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         initAlarmBackground();
 
-        mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
-        mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(mPrefs);
-        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(mPrefs);
-        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(mPrefs);
-        mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(mPrefs, this);
-        mSnoozeMinusButtonColor = SettingsDAO.getSnoozeMinusButtonColor(mPrefs);
-        mSnoozePlusButtonColor = SettingsDAO.getSnoozePlusButtonColor(mPrefs);
-        mSnoozeMinusSymbolColor = SettingsDAO.getSnoozeMinusSymbolColor(mPrefs);
-        mSnoozePlusSymbolColor = SettingsDAO.getSnoozePlusSymbolColor(mPrefs);
-        mIsTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(mPrefs);
-        mShadowColor = SettingsDAO.getAlarmShadowColor(mPrefs);
-        mShadowOffset = SettingsDAO.getAlarmShadowOffset(mPrefs);
+        mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
+        mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(getPrefs());
+        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(getPrefs());
+        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(getPrefs());
+        mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(getPrefs(), this);
+        mSnoozeMinusButtonColor = SettingsDAO.getSnoozeMinusButtonColor(getPrefs());
+        mSnoozePlusButtonColor = SettingsDAO.getSnoozePlusButtonColor(getPrefs());
+        mSnoozeMinusSymbolColor = SettingsDAO.getSnoozeMinusSymbolColor(getPrefs());
+        mSnoozePlusSymbolColor = SettingsDAO.getSnoozePlusSymbolColor(getPrefs());
+        mIsTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(getPrefs());
+        mShadowColor = SettingsDAO.getAlarmShadowColor(getPrefs());
+        mShadowOffset = SettingsDAO.getAlarmShadowOffset(getPrefs());
         mShadowRadius = mShadowOffset * 0.5f;
 
         initAlarmClock();
@@ -629,8 +623,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void initHeadphonesButton() {
-        boolean isAdvancedPlayback = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
-        boolean isAutoRouting = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
+        boolean isAdvancedPlayback = SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs());
+        boolean isAutoRouting = SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs());
 
         if (isAdvancedPlayback && isAutoRouting) {
             mMediaSession = RingtoneUtils.createMediaSession(this, "AlarmMediaSession", () -> {
@@ -649,13 +643,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Initializes the background.
      */
     private void initAlarmBackground() {
-        final String darkMode = SettingsDAO.getDarkMode(mPrefs);
+        final String darkMode = SettingsDAO.getDarkMode(getPrefs());
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
-            ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
-            : SettingsDAO.getAlarmBackgroundColor(mPrefs);
-        final boolean isPerAlarmBackgroundImageEnable = SettingsDAO.isPerAlarmBackgroundImageEnable(mPrefs);
-        String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
+            ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
+            : SettingsDAO.getAlarmBackgroundColor(getPrefs());
+        final boolean isPerAlarmBackgroundImageEnable = SettingsDAO.isPerAlarmBackgroundImageEnable(getPrefs());
+        String imagePath = SettingsDAO.getAlarmBackgroundImage(getPrefs());
 
         if (isPerAlarmBackgroundImageEnable && !TextUtils.isEmpty(mAlarm.backgroundImage)) {
             imagePath = mAlarm.backgroundImage;
@@ -677,7 +671,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
                     float blurIntensity = isPerAlarmBackgroundImageEnable
                         ? mAlarm.blurIntensity
-                        : SettingsDAO.getAlarmBlurIntensity(mPrefs);
+                        : SettingsDAO.getAlarmBlurIntensity(getPrefs());
 
                     if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
                         RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
@@ -698,15 +692,15 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Initializes the digital or analog clock.
      */
     private void initAlarmClock() {
-        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
-        final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
-        final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
-        final float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(mPrefs);
+        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(getPrefs());
+        final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(getPrefs());
+        final int alarmClockColor = SettingsDAO.getAlarmClockColor(getPrefs());
+        final float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(getPrefs());
 
         ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, mBinding.analogClock);
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
-            ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(mPrefs));
+            ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(getPrefs()));
             ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.4f, false, true, false, false, false);
             mBinding.digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             mBinding.digitalClock.setTextColor(alarmClockColor);
@@ -716,7 +710,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 mBinding.digitalClock.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             }
         } else {
-            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(mPrefs));
+            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(getPrefs()));
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
         }
     }
@@ -730,7 +724,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mBinding.alarmTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.alarmTitle.setTextColor(mAlarmTitleColor);
 
-        if (SettingsDAO.isAlarmTitleDisplayedOnSingleLine(mPrefs)) {
+        if (SettingsDAO.isAlarmTitleDisplayedOnSingleLine(getPrefs())) {
             TextViewCompat.setAutoSizeTextTypeWithDefaults(mBinding.alarmTitle, TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE);
             mBinding.alarmTitle.setSingleLine(true);
             mBinding.alarmTitle.setSelected(true); // Allow text scrolling
@@ -776,7 +770,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Initializes the slide mode colors.
      */
     private void initSlideColors() {
-        int slideZoneColor = SettingsDAO.getSlideZoneColor(mPrefs);
+        int slideZoneColor = SettingsDAO.getSlideZoneColor(getPrefs());
 
         Drawable background = AppCompatResources.getDrawable(this, R.drawable.bg_alarm_slide_zone);
         if (background != null) {
@@ -803,7 +797,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         ));
 
         mBinding.snoozeText.setTypeface(mGeneralBoldTypeface);
-        mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(mPrefs));
+        mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(getPrefs()));
         int snoozeTextRes = isSnoozeDisabledForAlarmInstance()
             ? (isOccasionalAlarmDeletedAfterUse()
             ? R.string.delete
@@ -817,7 +811,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             : R.string.button_action_dismiss
         ));
         mBinding.dismissText.setTypeface(mGeneralBoldTypeface);
-        mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(mPrefs));
+        mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(getPrefs()));
     }
 
     /**
@@ -924,7 +918,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mBinding.snoozeButton.setVisibility(GONE);
         mBinding.dismissButton.setVisibility(GONE);
 
-        mBinding.dismissOnlyButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
+        mBinding.dismissOnlyButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(getPrefs(), this));
         mBinding.dismissOnlyButton.setTypeface(mGeneralBoldTypeface);
         mBinding.dismissOnlyButton.setText(getString(isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss));
         mBinding.dismissOnlyButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
@@ -944,14 +938,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private void initSnoozeAndDismissButtons() {
         mBinding.dismissOnlyButton.setVisibility(GONE);
 
-        mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
+        mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(getPrefs(), this));
         mBinding.snoozeButton.setText(getString(R.string.button_action_snooze));
         mBinding.snoozeButton.setTypeface(mGeneralBoldTypeface);
         mBinding.snoozeButton.setContentDescription(getString(R.string.description_snooze_button));
         mBinding.snoozeButton.setVisibility(VISIBLE);
         mBinding.snoozeButton.setOnClickListener(this);
 
-        mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
+        mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(getPrefs(), this));
         mBinding.dismissButton.setText(getString(isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss));
         mBinding.dismissButton.setTypeface(mGeneralBoldTypeface);
         mBinding.dismissButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
@@ -1007,8 +1001,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Initializes the snooze selector style.
      */
     private void initSnoozeSelectorStyle() {
-        int snoozeZoneColor = SettingsDAO.getSnoozeZoneColor(mPrefs);
-        int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(mPrefs);
+        int snoozeZoneColor = SettingsDAO.getSnoozeZoneColor(getPrefs());
+        int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(getPrefs());
 
         mBinding.snoozeSelectorText.setBackgroundTintList(ColorStateList.valueOf(snoozeZoneColor));
         mBinding.snoozeSelectorText.setTypeface(mGeneralBoldTypeface);
@@ -1037,7 +1031,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Initializes the ringtone title.
      */
     private void initRingtoneTitle() {
-        if (SettingsDAO.isRingtoneTitleDisplayed(mPrefs)) {
+        if (SettingsDAO.isRingtoneTitleDisplayed(getPrefs())) {
             mBinding.ringtoneLayout.setVisibility(VISIBLE);
 
             displayRingtoneTitle();
@@ -1093,7 +1087,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * @param symbolColor     the symbol color when enabled
      * @param enabled         true to enable the button, false to disable it
      */
-    private void styleSnoozeButton(MaterialButton button, int backgroundColor, int symbolColor, boolean enabled) {
+    private void styleSnoozeButton(@NonNull MaterialButton button, int backgroundColor, int symbolColor, boolean enabled) {
         button.setEnabled(enabled);
         button.setBackgroundTintList(ColorStateList.valueOf(enabled ? backgroundColor : Color.parseColor("#80808080")));
         button.setIconTint(ColorStateList.valueOf(enabled ? symbolColor : Color.parseColor("#60E6E0E9")));
@@ -1210,8 +1204,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
-        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(mPrefs)
-            ? SettingsDAO.getAlarmMathHardnessLevel(mPrefs)
+        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(getPrefs())
+            ? SettingsDAO.getAlarmMathHardnessLevel(getPrefs())
             : mAlarm.mathHardnessLevel;
 
         if (mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL)) {
@@ -1373,12 +1367,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private void displayRingtoneTitle() {
         final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(mAlarmInstance.mRingtone);
-        final String title = DataModel.getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
+        final String title = getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
         final Drawable musicIcon = silent
             ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
             : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int ringtoneIconSize = (int) dpToPx(24, getResources().getDisplayMetrics());
-        final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
+        int ringtoneIconSize = (int) dpToPx(24, getDisplayMetrics());
+        final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(getPrefs());
 
         if (musicIcon != null) {
             musicIcon.setTint(ringtoneTitleColor);
@@ -1428,7 +1422,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Display a message after snoozing or dismissing the alarm.
      */
     private void displayAlarmActionMessage(final int titleResId, final String descriptionText, final String accessibilityText) {
-        if (SettingsDAO.isAlarmActionMessageHidden(mPrefs)) {
+        if (SettingsDAO.isAlarmActionMessageHidden(getPrefs())) {
             finish();
             return;
         }

@@ -19,6 +19,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -61,7 +62,7 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_STOPWATCH_FONT);
-            String oldFontPath = mPrefs.getString(KEY_SW_FONT, null);
+            String oldFontPath = getPrefs().getString(KEY_SW_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -75,7 +76,7 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
+                    getPrefs().edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
@@ -104,7 +105,7 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings_stopwatch);
@@ -156,14 +157,14 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     public boolean onPreferenceClick(@NonNull Preference pref) {
         if (pref.getKey().equals(KEY_SW_FONT)) {
             selectCustomFile(mStopwatchFontPref, fontPickerLauncher,
-                SettingsDAO.getStopwatchFont(mPrefs), KEY_SW_FONT, true, null);
+                SettingsDAO.getStopwatchFont(getPrefs()), KEY_SW_FONT, true, null);
         }
 
         return true;
     }
 
     private void setupPreferences() {
-        mStopwatchFontPref.setTitle(getString(SettingsDAO.getStopwatchFont(mPrefs) == null
+        mStopwatchFontPref.setTitle(getString(SettingsDAO.getStopwatchFont(getPrefs()) == null
             ? R.string.custom_font_title
             : R.string.custom_font_title_variant));
         mStopwatchFontPref.setOnPreferenceClickListener(this);

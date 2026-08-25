@@ -11,6 +11,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -50,7 +51,7 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings_customize_next_alarm_widget);
@@ -113,8 +114,8 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean displayBackground = (boolean) newValue;
-                boolean isCustomColor = !WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(mPrefs);
-                boolean isRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+                boolean isCustomColor = !WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(getPrefs());
+                boolean isRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(getPrefs());
 
                 mCustomizeBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
                     ? displayBackground
@@ -139,8 +140,8 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isCustomColor = !(boolean) newValue;
-                boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs);
-                boolean isRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+                boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(getPrefs());
+                boolean isRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(getPrefs());
 
                 mCustomBackgroundColorPref.setVisible(isCustomColor);
 
@@ -177,9 +178,9 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
 
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
-        boolean isBackgroundVisible = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs);
-        boolean isBackgroundCornerRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
-        boolean isCustomColor = !WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(mPrefs);
+        boolean isBackgroundVisible = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(getPrefs());
+        boolean isBackgroundCornerRadiusCustomizable = WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(getPrefs());
+        boolean isCustomColor = !WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(getPrefs());
 
         if (SdkUtils.isAtLeastAndroid12()) {
             mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible);
@@ -203,30 +204,30 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
 
         mDefaultTitleColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomTitleColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultTitleColor(mPrefs));
+        mCustomTitleColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultTitleColor(getPrefs()));
         mCustomTitleColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultAlarmTitleColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomAlarmTitleColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
+        mCustomAlarmTitleColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(getPrefs()));
         mCustomAlarmTitleColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultAlarmColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomAlarmColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(mPrefs));
+        mCustomAlarmColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(getPrefs()));
         mCustomAlarmColorPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {
-        mDisplayTextUppercasePref.setChecked(WidgetDAO.isTextUppercaseDisplayedOnNextAlarmWidget(mPrefs));
-        mDisplayTextShadowPref.setChecked(WidgetDAO.isTextShadowDisplayedOnNextAlarmWidget(mPrefs));
-        mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs));
-        mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs));
-        mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isNextAlarmWidgetHorizontalPaddingApplied(mPrefs));
-        mDefaultBackgroundColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(mPrefs));
-        mDefaultTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultTitleColor(mPrefs));
-        mDefaultAlarmTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
-        mDefaultAlarmColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(mPrefs));
+        mDisplayTextUppercasePref.setChecked(WidgetDAO.isTextUppercaseDisplayedOnNextAlarmWidget(getPrefs()));
+        mDisplayTextShadowPref.setChecked(WidgetDAO.isTextShadowDisplayedOnNextAlarmWidget(getPrefs()));
+        mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(getPrefs()));
+        mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(getPrefs()));
+        mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isNextAlarmWidgetHorizontalPaddingApplied(getPrefs()));
+        mDefaultBackgroundColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(getPrefs()));
+        mDefaultTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultTitleColor(getPrefs()));
+        mDefaultAlarmTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(getPrefs()));
+        mDefaultAlarmColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(getPrefs()));
     }
 
     private void updateNextAlarmWidget() {
