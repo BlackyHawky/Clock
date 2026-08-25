@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.IntentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -44,7 +45,7 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
     private int mAction;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         // This activity is shown if:
         // a) No search mode was specified in which case we show all enabled alarms.
         // b) If search mode was next and there was multiple alarms firing next

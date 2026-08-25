@@ -117,6 +117,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private Typeface mGeneralTypeface;
     private Typeface mAlarmBoldTypeface;
     private DisplayMetrics mDisplayMetrics;
+    private UiDataModel mUiDataModel;
     private Alarm mAlarm;
     private Alarm mOriginalAlarm;
     private AlarmUpdateHandler mAlarmUpdateHandler;
@@ -218,7 +219,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mPrefs = getDefaultSharedPreferences(requireContext());
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
         mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
-
+        mUiDataModel = UiDataModel.getUiDataModel();
         mDisplayMetrics = getResources().getDisplayMetrics();
 
         setupFragmentResultListeners();
@@ -435,8 +436,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             dayButton.setId(View.generateViewId());
             dayButton.setTypeface(mGeneralTypeface);
-            dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
-            dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
+            dayButton.setText(mUiDataModel.getShortWeekday(weekday));
+            dayButton.setContentDescription(mUiDataModel.getLongWeekday(weekday));
 
             mBinding.repeatDaysGroup.addView(dayButton);
             dayButtons[i] = dayButton;

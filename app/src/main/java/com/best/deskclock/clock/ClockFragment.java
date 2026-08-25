@@ -10,7 +10,6 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
 import static com.best.deskclock.settings.PreferencesKeys.*;
@@ -48,7 +47,6 @@ import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 import com.best.deskclock.uicomponents.CustomTooltip;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -70,9 +68,7 @@ public final class ClockFragment extends DeskClockFragment {
 
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
-    private SharedPreferences mPrefs;
     private final ClockSettings mSettings = new ClockSettings();
-    private DisplayMetrics mDisplayMetrics;
     private List<City> mSelectedCities;
     private boolean mIsDigitalClock;
     private boolean mAreSettingsChanged = false;
@@ -98,8 +94,6 @@ public final class ClockFragment extends DeskClockFragment {
     private CityItemTouchHelper mTouchHelperCallback;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-    private boolean mIsPortrait;
-    private boolean mIsTablet;
     private boolean mHasBlackAccentColor;
 
     /**
@@ -110,17 +104,13 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPrefs = getDefaultSharedPreferences(requireContext());
-        mDisplayMetrics = getResources().getDisplayMetrics();
-        mHasBlackAccentColor = SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR);
-        mIsPortrait = ThemeUtils.isPortrait();
-        mIsTablet = ThemeUtils.isTablet();
+        mHasBlackAccentColor = SettingsDAO.getAccentColor(getPrefs()).equals(BLACK_ACCENT_COLOR);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
-        mSelectedCities = DataModel.getDataModel().getSelectedCities();
+        mSelectedCities = getDataModel().getSelectedCities();
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
     }
 
@@ -137,9 +127,11 @@ public final class ClockFragment extends DeskClockFragment {
 
         mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(requireContext(), mDisplayMetrics, mIsPortrait, mIsTablet));
+        mBinding.cityRecyclerView.addItemDecoration(
+            new CitySpacingItemDecoration(requireContext(), getDisplayMetrics(), isPortrait(), isTablet())
+        );
 
-        if (mIsPortrait) {
+        if (isPortrait()) {
             mBinding.cityRecyclerView.addOnLayoutChangeListener((v, left, top, right, bottom,
                                                                  oldLeft, oldTop, oldRight, oldBottom) ->
                 v.post(() -> {
@@ -176,7 +168,7 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         // Schedule a runnable to update the date every quarter-hour.
-        UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
+        getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
 
         refreshAlarm();
 
@@ -190,16 +182,16 @@ public final class ClockFragment extends DeskClockFragment {
         refreshSettings();
         updateMainClock();
 
-        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String fontPath = SettingsDAO.getGeneralFont(getPrefs());
         Typeface regularTypeface = ThemeUtils.loadFont(fontPath);
         Typeface boldTypeface = ThemeUtils.boldTypeface(fontPath);
 
         mCityAdapter = new SelectedCitiesAdapter(
-            requireContext(), mPrefs, mSelectedCities, mHasBlackAccentColor, regularTypeface, boldTypeface, mSettings);
+            requireContext(), getPrefs(), getDataModel(), mSelectedCities, mHasBlackAccentColor, regularTypeface, boldTypeface, mSettings);
 
         mBinding.cityRecyclerView.setAdapter(mCityAdapter);
 
-        DataModel.getDataModel().addCityListener(mCityAdapter);
+        getDataModel().addCityListener(mCityAdapter);
 
         mTouchHelperCallback = new CityItemTouchHelper(mCityAdapter, mSettings.showHomeClock);
         mItemTouchHelper = new ItemTouchHelper(mTouchHelperCallback);
@@ -217,7 +209,7 @@ public final class ClockFragment extends DeskClockFragment {
                 }
             });
 
-        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
+        getPrefs().registerOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -240,7 +232,7 @@ public final class ClockFragment extends DeskClockFragment {
     public void onResume() {
         super.onResume();
 
-        boolean isSystem24Hour = DataModel.getDataModel().is24HourFormat();
+        boolean isSystem24Hour = getDataModel().is24HourFormat();
 
         if (mAreSettingsChanged || mSettings.is24HourFormat != isSystem24Hour) {
             applySettingsChanges();
@@ -270,10 +262,10 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void onDestroyView() {
-        UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
-        DataModel.getDataModel().removeCityListener(mCityAdapter);
+        getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
+        getDataModel().removeCityListener(mCityAdapter);
 
-        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+        getPrefs().unregisterOnSharedPreferenceChangeListener(mPrefListener);
 
         mBinding.cityRecyclerView.setAdapter(null);
 
@@ -332,18 +324,18 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     private void refreshSettings() {
-        mSettings.clockStyle = SettingsDAO.getClockStyle(mPrefs);
-        mSettings.is24HourFormat = DataModel.getDataModel().is24HourFormat();
-        mSettings.showSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
-        mSettings.isTextUppercase = SettingsDAO.isTextUppercaseDisplayed(mPrefs);
+        mSettings.clockStyle = SettingsDAO.getClockStyle(getPrefs());
+        mSettings.is24HourFormat = getDataModel().is24HourFormat();
+        mSettings.showSeconds = SettingsDAO.areClockSecondsDisplayed(getPrefs());
+        mSettings.isTextUppercase = SettingsDAO.isTextUppercaseDisplayed(getPrefs());
 
-        mSettings.digitalClockTypeface = ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(mPrefs));
-        mSettings.digitalClockFontSize = SettingsDAO.getDigitalClockFontSize(mPrefs);
-        mSettings.analogClockSizePercent = SettingsDAO.getAnalogClockSize(mPrefs);
+        mSettings.digitalClockTypeface = ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(getPrefs()));
+        mSettings.digitalClockFontSize = SettingsDAO.getDigitalClockFontSize(getPrefs());
+        mSettings.analogClockSizePercent = SettingsDAO.getAnalogClockSize(getPrefs());
 
-        mSettings.showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
-        mSettings.isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
-        mSettings.citySorting = SettingsDAO.getCitySorting(mPrefs);
+        mSettings.showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), getPrefs());
+        mSettings.isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(getPrefs());
+        mSettings.citySorting = SettingsDAO.getCitySorting(getPrefs());
 
         mIsDigitalClock = mSettings.clockStyle == DataModel.ClockStyle.DIGITAL;
     }

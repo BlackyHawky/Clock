@@ -51,6 +51,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
 import com.best.deskclock.settings.AboutFragment;
@@ -86,7 +87,8 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
     private CollapsingToolbarBaseLayoutBinding mActivityBinding;
 
-    public SharedPreferences mPrefs;
+    private DataModel mDataModel;
+    private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
     private Typeface mRegularTypeface;
     private Typeface mBoldTypeface;
@@ -109,12 +111,13 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     protected abstract String getFragmentTitle();
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (SdkUtils.isAtLeastAndroid7()) {
             getPreferenceManager().setStorageDeviceProtected();
         }
 
+        mDataModel = DataModel.getDataModel();
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
         String fontPath = SettingsDAO.getGeneralFont(mPrefs);
@@ -552,6 +555,14 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         dialog.setCancelable(false);
 
         return dialog;
+    }
+
+    protected final DataModel getDataModel() {
+        return mDataModel;
+    }
+
+    protected final SharedPreferences getPrefs() {
+        return mPrefs;
     }
 
     /**

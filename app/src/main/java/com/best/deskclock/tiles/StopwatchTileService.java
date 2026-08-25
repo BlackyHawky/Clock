@@ -40,6 +40,7 @@ public class StopwatchTileService extends TileService {
     public void onClick() {
         super.onClick();
 
+        final DataModel dataModel = DataModel.getDataModel();
         final Intent intent = new Intent(this, DeskClock.class)
             .addFlags(FLAG_ACTIVITY_NEW_TASK)
             .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
@@ -47,11 +48,11 @@ public class StopwatchTileService extends TileService {
         UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
 
         final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
-        if (DataModel.getDataModel().getStopwatch().isRunning()) {
-            DataModel.getDataModel().pauseStopwatch();
+        if (dataModel.getStopwatch().isRunning()) {
+            dataModel.pauseStopwatch();
             Events.sendStopwatchEvent(R.string.action_pause, label);
         } else {
-            DataModel.getDataModel().startStopwatch();
+            dataModel.startStopwatch();
             Events.sendStopwatchEvent(R.string.action_start, label);
         }
 

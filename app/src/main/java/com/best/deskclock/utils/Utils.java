@@ -59,12 +59,29 @@ import java.util.Map;
 
 public class Utils {
 
+    /**
+     * A short delay (in milliseconds) used to let the UI settle before executing certain actions,
+     * such as showing the soft keyboard or requesting focus.
+     */
+    public static final long UI_SETTLE_DELAY_MS = 200;
+
+    /**
+     * Ensures that the current code is running on the main (UI) thread.
+     *
+     * @throws IllegalAccessError if called from a background thread.
+     */
     public static void enforceMainLooper() {
         if (Looper.getMainLooper() != Looper.myLooper()) {
             throw new IllegalAccessError("May only call from main thread.");
         }
     }
 
+    /**
+     * Ensures that the current code is running on a background thread.
+     * This is useful to prevent blocking the UI thread during heavy operations.
+     *
+     * @throws IllegalAccessError if called from the main thread.
+     */
     public static void enforceNotMainLooper() {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             throw new IllegalAccessError("May not call from main thread.");

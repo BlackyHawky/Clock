@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
@@ -55,7 +56,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
@@ -95,7 +96,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
 
         @Override
-        public void onCreate(Bundle savedInstanceState) {
+        public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             addPreferencesFromResource(R.xml.settings_permissions_management);
@@ -222,7 +223,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 null,
                 getString(android.R.string.ok),
                 (d, w) -> {
-                    mPrefs.edit().putBoolean(KEY_ENABLE_FOREGROUND_SERVICE, true).apply();
+                    getPrefs().edit().putBoolean(KEY_ENABLE_FOREGROUND_SERVICE, true).apply();
                     mEnableForegroundServicePref.setChecked(true);
                     ContextCompat.startForegroundService(requireContext(), new Intent(requireContext(), KeepAliveService.class));
                 },
@@ -378,7 +379,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          */
         private void updateEssentialPermissionsPref() {
             boolean granted = !PermissionUtils.areEssentialPermissionsNotGranted(requireContext());
-            mPrefs.edit().putBoolean(KEY_ESSENTIAL_PERMISSIONS_GRANTED, granted).apply();
+            getPrefs().edit().putBoolean(KEY_ESSENTIAL_PERMISSIONS_GRANTED, granted).apply();
         }
 
         private void updateSinglePreference(String key) {

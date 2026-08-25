@@ -72,7 +72,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         LogUtils.i("AlarmInitReceiver " + action);
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-
+        DataModel dataModel = DataModel.getDataModel();
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
@@ -89,11 +89,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 ContextCompat.startForegroundService(context, new Intent(context, KeepAliveService.class));
             }
 
-            DataModel.getDataModel().updateAfterReboot();
+            dataModel.updateAfterReboot();
         } else if (ACTION_TIME_CHANGED.equals(action)) {
             // Stopwatch and timer data need to be updated on time change so the reboot
             // functionality works as expected.
-            DataModel.getDataModel().updateAfterTimeSet();
+            dataModel.updateAfterTimeSet();
         }
 
         // Update shortcuts so they exist for the user.
@@ -101,7 +101,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             || ACTION_LOCALE_CHANGED.equals(action)
             || ACTION_APPLICATION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
-            DataModel.getDataModel().updateAllNotifications();
+            dataModel.updateAllNotifications();
 
             if (SdkUtils.isAtLeastAndroid8()) {
                 NotificationUtils.updateNotificationChannels(context);

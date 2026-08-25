@@ -70,6 +70,8 @@ class StopwatchNotificationBuilder {
         final List<Action> actions = new ArrayList<>(2);
 
         if (running) {
+            DataModel dataModel = DataModel.getDataModel();
+
             // Left button: Pause
             final Intent pause = new Intent(context, StopwatchService.class)
                 .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
@@ -81,7 +83,7 @@ class StopwatchNotificationBuilder {
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right button: Add Lap
-            if (DataModel.getDataModel().canAddMoreLaps()) {
+            if (dataModel.canAddMoreLaps()) {
                 final Intent lap = new Intent(context, StopwatchService.class)
                     .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
@@ -93,7 +95,7 @@ class StopwatchNotificationBuilder {
             }
 
             // Show the current lap number if any laps have been recorded.
-            final int lapCount = DataModel.getDataModel().getLaps().size();
+            final int lapCount = dataModel.getLaps().size();
             if (lapCount > 0) {
                 final int lapNumber = lapCount + 1;
                 final String lap = localizedContext.getString(R.string.sw_notification_lap_number, lapNumber);

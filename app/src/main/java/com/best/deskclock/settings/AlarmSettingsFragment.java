@@ -41,13 +41,12 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmNotificationReminderDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
-import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationStartDelayDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
@@ -144,7 +143,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_ALARM_FONT);
-            String oldFontPath = mPrefs.getString(KEY_ALARM_FONT, null);
+            String oldFontPath = getPrefs().getString(KEY_ALARM_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -158,7 +157,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
+                    getPrefs().edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
@@ -187,11 +186,11 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
-        mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs);
+        mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), getPrefs());
         mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
 
         addPreferencesFromResource(R.xml.settings_alarm);
@@ -329,7 +328,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs);
+                            alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(getPrefs());
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                         }
                     });
@@ -346,7 +345,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs);
+                            alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                         }
                     });
@@ -363,7 +362,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs);
+                            alarm.snoozeDuration = SettingsDAO.getSnoozeLength(getPrefs());
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                         }
                     });
@@ -380,7 +379,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
+                            alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(getPrefs());
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                         }
                     });
@@ -394,7 +393,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 final int index = mRepeatMissedAlarmPref.findIndexOfValue((String) newValue);
                 mRepeatMissedAlarmPref.setSummary(mRepeatMissedAlarmPref.getEntries()[index]);
 
-                if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(mPrefs)) {
+                if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(getPrefs())) {
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                         for (Alarm alarm : currentAlarms) {
@@ -431,7 +430,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
+                            alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(getPrefs());
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                         }
                     });
@@ -448,7 +447,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs);
+                            alarm.vibrationPattern = SettingsDAO.getVibrationPattern(getPrefs());
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                         }
                     });
@@ -466,12 +465,12 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 boolean isAdvancedAudioPlaybackEnabled = (boolean) newValue;
 
                 mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
-                mSystemMediaVolumePref.setVisible(isAdvancedAudioPlaybackEnabled && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+                mSystemMediaVolumePref.setVisible(isAdvancedAudioPlaybackEnabled && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()));
                 mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
-                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
-                    && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs())
+                    && SettingsDAO.shouldUseCustomMediaVolume(getPrefs()));
                 mHeadphonesButtonPref.setVisible(isAdvancedAudioPlaybackEnabled
-                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()));
             }
 
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
@@ -483,7 +482,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
                 mSystemMediaVolumePref.setVisible(isAutoRoutingToExternalAudioDevice);
                 mExternalAudioDeviceVolumePref.setVisible(isAutoRoutingToExternalAudioDevice
-                    && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                    && SettingsDAO.shouldUseCustomMediaVolume(getPrefs()));
                 mHeadphonesButtonPref.setVisible(isAutoRoutingToExternalAudioDevice);
             }
 
@@ -572,7 +571,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         switch (pref.getKey()) {
             case KEY_ALARM_DISPLAY_CUSTOMIZATION -> animateAndShowFragment(new AlarmDisplayCustomizationFragment());
 
-            case KEY_ALARM_FONT -> selectCustomFile(mAlarmFontPref, fontPickerLauncher, SettingsDAO.getAlarmFont(mPrefs), KEY_ALARM_FONT,
+            case KEY_ALARM_FONT -> selectCustomFile(mAlarmFontPref, fontPickerLauncher, SettingsDAO.getAlarmFont(getPrefs()), KEY_ALARM_FONT,
                 true, null);
 
             case KEY_DEFAULT_ALARM_RINGTONE -> startActivity(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(context));
@@ -620,12 +619,12 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     }
 
     private void setupPreferences() {
-        final boolean isAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
-        final boolean isAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
+        final boolean isAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs());
+        final boolean isAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs());
 
         mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
 
-        mAlarmFontPref.setTitle(getString(SettingsDAO.getAlarmFont(mPrefs) == null
+        mAlarmFontPref.setTitle(getString(SettingsDAO.getAlarmFont(getPrefs()) == null
             ? R.string.custom_font_title
             : R.string.custom_font_title_variant));
         mAlarmFontPref.setOnPreferenceClickListener(this);
@@ -642,7 +641,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         mEnablePerAlarmSnoozeDurationPref.setOnPreferenceChangeListener(this);
 
-        updateMissedAlarmPrefsVisibility(SettingsDAO.getAlarmTimeout(mPrefs), SettingsDAO.getSnoozeLength(mPrefs));
+        updateMissedAlarmPrefsVisibility(SettingsDAO.getAlarmTimeout(getPrefs()), SettingsDAO.getSnoozeLength(getPrefs()));
 
         mRepeatMissedAlarmPref.setOnPreferenceChangeListener(this);
         mRepeatMissedAlarmPref.setSummary(mRepeatMissedAlarmPref.getEntry());
@@ -667,7 +666,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
             && isAutoRoutingToExternalAudioDevice
-            && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+            && SettingsDAO.shouldUseCustomMediaVolume(getPrefs()));
         mExternalAudioDeviceVolumePref.setEnabled(mExternalAudioDeviceVolumePref.isVisible() && mHasExternalAudioDeviceConnected);
 
         mAlarmVibrationCategory.setVisible(DeviceUtils.hasVibrator(requireContext()));
@@ -701,7 +700,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             mShakeActionPref.setOnPreferenceChangeListener(this);
 
             // shakeActionIndex == 2 --> Nothing
-            final int shakeActionIndex = mShakeActionPref.findIndexOfValue(String.valueOf(SettingsDAO.getShakeAction(mPrefs)));
+            final int shakeActionIndex = mShakeActionPref.findIndexOfValue(String.valueOf(SettingsDAO.getShakeAction(getPrefs())));
             mShakeIntensityPref.setVisible(shakeActionIndex != 2);
         }
 
@@ -715,7 +714,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mEnableAlarmFabLongPressPref.setOnPreferenceChangeListener(this);
 
         // Set the default first day of the week programmatically
-        final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);
+        final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getPrefs());
         final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
         final String value = String.valueOf(firstDay);
         final int index = mWeekStartPref.findIndexOfValue(value);
@@ -748,9 +747,9 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     if (pref != null) {
                         pref.setAutoSilenceDuration(newValue);
 
-                        updateMissedAlarmPrefsVisibility(newValue, SettingsDAO.getSnoozeLength(mPrefs));
+                        updateMissedAlarmPrefsVisibility(newValue, SettingsDAO.getSnoozeLength(getPrefs()));
 
-                        if (SettingsDAO.isPerAlarmAutoSilenceDisabled(mPrefs)) {
+                        if (SettingsDAO.isPerAlarmAutoSilenceDisabled(getPrefs())) {
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                                 for (Alarm alarm : currentAlarms) {
@@ -774,9 +773,9 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     if (pref != null) {
                         pref.setSnoozeDuration(newValue);
 
-                        updateMissedAlarmPrefsVisibility(SettingsDAO.getAlarmTimeout(mPrefs), newValue);
+                        updateMissedAlarmPrefsVisibility(SettingsDAO.getAlarmTimeout(getPrefs()), newValue);
 
-                        if (SettingsDAO.isPerAlarmSnoozeDurationDisabled(mPrefs)) {
+                        if (SettingsDAO.isPerAlarmSnoozeDurationDisabled(getPrefs())) {
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                                 for (Alarm alarm : currentAlarms) {
@@ -800,7 +799,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     if (pref != null) {
                         pref.setVolumeCrescendoDuration(newValue);
 
-                        if (SettingsDAO.isPerAlarmCrescendoDurationDisabled(mPrefs)) {
+                        if (SettingsDAO.isPerAlarmCrescendoDurationDisabled(getPrefs())) {
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                                 for (Alarm alarm : currentAlarms) {
@@ -824,7 +823,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     if (pref != null) {
                         pref.setPattern(newValue);
 
-                        if (!SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs)) {
+                        if (!SettingsDAO.isPerAlarmVibrationPatternEnabled(getPrefs())) {
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                                 for (Alarm alarm : currentAlarms) {
@@ -863,7 +862,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                         pref.setMathHardnessLevel(newValue);
                     }
 
-                    if (SettingsDAO.isPerAlarmMathHardnessLevelDisabled(mPrefs)) {
+                    if (SettingsDAO.isPerAlarmMathHardnessLevelDisabled(getPrefs())) {
                         AppExecutors.getDiskIO().execute(() -> {
                             List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
                             for (Alarm alarm : currentAlarms) {
@@ -937,17 +936,17 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                         case KEY_ENABLE_PER_ALARM_AUTO_SILENCE ->
                             showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_auto_silence_dialog_message,
                                 KEY_ENABLE_PER_ALARM_AUTO_SILENCE, mEnablePerAlarmAutoSilencePref,
-                                mAlarmAutoSilencePref, alarm -> alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs));
+                                mAlarmAutoSilencePref, alarm -> alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(getPrefs()));
 
                         case KEY_ENABLE_PER_ALARM_SNOOZE_DURATION ->
                             showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_snooze_duration_dialog_message,
                                 KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, mEnablePerAlarmSnoozeDurationPref, mAlarmSnoozeDurationPref,
-                                alarm -> alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs));
+                                alarm -> alarm.snoozeDuration = SettingsDAO.getSnoozeLength(getPrefs()));
 
                         case KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT ->
                             showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
                                 KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref, mRepeatMissedAlarmPref,
-                                alarm -> alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
+                                alarm -> alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(getPrefs()));
 
                         case KEY_ENABLE_PER_ALARM_VOLUME ->
                             showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_volume_dialog_message,
@@ -958,12 +957,12 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                             showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_crescendo_duration_dialog_message,
                                 KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION, mEnablePerAlarmVolumeCrescendoDurationPref,
                                 mAlarmVolumeCrescendoDurationPref, alarm ->
-                                    alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs));
+                                    alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(getPrefs()));
 
                         case KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN ->
                             showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_vibration_pattern_dialog_message,
                                 KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN, mEnablePerAlarmVibrationPatternPref, mVibrationPatternPref,
-                                alarm -> alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs));
+                                alarm -> alarm.vibrationPattern = SettingsDAO.getVibrationPattern(getPrefs()));
 
                         case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT ->
                             showDisablePerAlarmSettingDialog(R.string.enable_alarm_vibrations_by_default_dialog_message,
@@ -973,7 +972,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                         case KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL ->
                             showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_math_hardness_level_dialog_message,
                                 KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL, mEnablePerAlarmMathHardnessLevelPref, null,
-                                alarm -> alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs));
+                                alarm -> alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs()));
 
                         case KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                             showDisablePerAlarmSettingDialog(R.string.enable_delete_occasional_alarm_by_default_dialog_message,
@@ -981,7 +980,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                                 alarm -> alarm.deleteAfterUse = false);
                     }
                 } else {
-                    mPrefs.edit().putBoolean(prefKey, false).apply();
+                    getPrefs().edit().putBoolean(prefKey, false).apply();
 
                     Preference pref = findPreference(prefKey);
                     if (pref instanceof SwitchPreferenceCompat switchPreferenceCompat) {
@@ -1014,7 +1013,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     }
                 });
 
-                mPrefs.edit().putBoolean(prefKey, false).apply();
+                getPrefs().edit().putBoolean(prefKey, false).apply();
                 switchPref.setChecked(false);
                 if (dependentPref != null) {
                     dependentPref.setVisible(true);
@@ -1080,7 +1079,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     }
 
     private void updateRingtonePreferences() {
-        mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+        mAlarmRingtonePref.setSummary(getDataModel().getAlarmRingtoneTitle());
         mAlarmRingtonePref.setIntent(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(requireContext()));
     }
 

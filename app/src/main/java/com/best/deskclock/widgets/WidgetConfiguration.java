@@ -6,6 +6,7 @@ import static com.best.deskclock.utils.WidgetUtils.KEY_LAUNCHED_FROM_WIDGET;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -29,7 +30,7 @@ public class WidgetConfiguration {
         }
 
         @Override
-        public void onCreate(final Bundle savedInstanceState) {
+        public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             showFragmentFromWidget(this, savedInstanceState, new AppWidgetAnalogSettingsFragment());
@@ -44,7 +45,7 @@ public class WidgetConfiguration {
         }
 
         @Override
-        public void onCreate(final Bundle savedInstanceState) {
+        public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             showFragmentFromWidget(this, savedInstanceState, new AppWidgetDigitalSettingsFragment());
@@ -59,7 +60,7 @@ public class WidgetConfiguration {
         }
 
         @Override
-        public void onCreate(final Bundle savedInstanceState) {
+        public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             showFragmentFromWidget(this, savedInstanceState, new AppWidgetVerticalSettingsFragment());
@@ -74,7 +75,7 @@ public class WidgetConfiguration {
         }
 
         @Override
-        public void onCreate(final Bundle savedInstanceState) {
+        public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             showFragmentFromWidget(this, savedInstanceState, new AppWidgetNextAlarmSettingsFragment());

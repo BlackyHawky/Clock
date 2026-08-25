@@ -7,10 +7,8 @@
 package com.best.deskclock.worldclock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -24,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -63,12 +62,10 @@ public final class CitySelectionActivity extends BaseActivity {
      */
     private CityAdapter mCitiesAdapter;
 
-    private SharedPreferences mPrefs;
-
     public SearchView mSearchView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = CitiesActivityBinding.inflate(getLayoutInflater());
@@ -78,8 +75,7 @@ public final class CitySelectionActivity extends BaseActivity {
 
         ThemeUtils.allowDisplayCutout(getWindow());
 
-        mPrefs = getDefaultSharedPreferences(this);
-        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getPrefs()));
 
         setContentView(mBinding.getRoot());
 
@@ -114,7 +110,7 @@ public final class CitySelectionActivity extends BaseActivity {
 
         mBinding.toolbar.addView(mSearchView);
 
-        mCitiesAdapter = new CityAdapter(this);
+        mCitiesAdapter = new CityAdapter(this, getDataModel());
 
         mSearchView.post(() -> mSearchView.clearFocus());
 
@@ -178,7 +174,7 @@ public final class CitySelectionActivity extends BaseActivity {
         super.onPause();
 
         // Save the selected cities.
-        DataModel.getDataModel().setSelectedCities(mCitiesAdapter.getSelectedCities());
+        getDataModel().setSelectedCities(mCitiesAdapter.getSelectedCities());
     }
 
     @Override
@@ -203,7 +199,7 @@ public final class CitySelectionActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Save the new sort order.
-        DataModel.getDataModel().toggleCitySort();
+        getDataModel().toggleCitySort();
 
         item.setTitle(getMenuTitle());
 
@@ -234,7 +230,7 @@ public final class CitySelectionActivity extends BaseActivity {
     }
 
     private int getMenuTitle() {
-        if (SettingsDAO.getCitySort(mPrefs) == DataModel.CitySort.NAME) {
+        if (SettingsDAO.getCitySort(getPrefs()) == DataModel.CitySort.NAME) {
             return R.string.menu_item_sort_by_gmt_offset;
         } else {
             return R.string.menu_item_sort_by_name;

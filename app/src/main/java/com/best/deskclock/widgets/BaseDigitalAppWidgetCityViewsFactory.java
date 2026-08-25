@@ -110,6 +110,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     private final Intent mFillInIntent = new Intent();
 
     private final Context mContext;
+    private final DataModel mDataModel;
     private final SharedPreferences mPrefs;
     private final float m12HourFontSize;
     private final float m24HourFontSize;
@@ -123,6 +124,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
     protected BaseDigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
         mContext = context;
+        mDataModel = DataModel.getDataModel();
         mPrefs = getDefaultSharedPreferences(mContext);
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
         final boolean isTablet = ThemeUtils.isTablet();
@@ -263,7 +265,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     public synchronized void onDataSetChanged() {
         // Fetch the data on the main Looper.
         final RefreshRunnable refreshRunnable = new RefreshRunnable(mContext);
-        DataModel.getDataModel().run(refreshRunnable);
+        mDataModel.run(refreshRunnable);
 
         // Store the data in local variables.
         mHomeCity = refreshRunnable.mHomeCity;
@@ -286,7 +288,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         final boolean shadowEnabled = isTextShadowDisplayed(mPrefs);
         final boolean isTextUppercase = isTextUppercaseDisplayed(mPrefs);
-        final boolean is24HourFormat = DataModel.getDataModel().is24HourFormat();
+        final boolean is24HourFormat = mDataModel.is24HourFormat();
         final float fontSize = is24HourFormat ? m24HourFontSize : m12HourFontSize;
 
         // Selection of active and inactive IDs
@@ -412,8 +414,9 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         @Override
         public void run() {
-            mHomeCity = DataModel.getDataModel().getHomeCity();
-            mCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
+            DataModel dataModel = DataModel.getDataModel();
+            mHomeCity = dataModel.getHomeCity();
+            mCities = new ArrayList<>(dataModel.getSelectedCities());
             mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, getDefaultSharedPreferences(mContext));
         }
     }

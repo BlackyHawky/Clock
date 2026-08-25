@@ -56,6 +56,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     private final CharSequence mTimeTemplate;
     private int mInputPointer = -1;
     private MaterialButton[] mDigitButton;
+    private final UiDataModel mUiDataModel;
 
     /**
      * Updates to the fab are requested via this container.
@@ -77,6 +78,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
     public TimerSetupView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        mUiDataModel = UiDataModel.getUiDataModel();
 
         final BidiFormatter bf = BidiFormatter.getInstance(false);
         final String hoursLabel = bf.unicodeWrap(context.getString(R.string.hours_label));
@@ -275,11 +278,10 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         final int minutes = mInput[3] * 10 + mInput[2];
         final int hours = mInput[5] * 10 + mInput[4];
 
-        final UiDataModel uiDataModel = UiDataModel.getUiDataModel();
         SpannableString text = new SpannableString(TextUtils.expandTemplate(mTimeTemplate,
-            uiDataModel.getFormattedNumber(hours, 2),
-            uiDataModel.getFormattedNumber(minutes, 2),
-            uiDataModel.getFormattedNumber(seconds, 2)));
+            mUiDataModel.getFormattedNumber(hours, 2),
+            mUiDataModel.getFormattedNumber(minutes, 2),
+            mUiDataModel.getFormattedNumber(seconds, 2)));
 
         int endIdx = text.length();
         int startIdx = seconds > 0 ? 8 : endIdx;
@@ -332,7 +334,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         // Update TalkBack to read the number being deleted.
         mBinding.timerSetupDigitsLayout.timerSetupDelete.setContentDescription(getContext().getString(
             R.string.timer_descriptive_delete,
-            UiDataModel.getUiDataModel().getFormattedNumber(digit))
+            mUiDataModel.getFormattedNumber(digit))
         );
 
         // Update the fab, delete, and divider when we have valid input.
@@ -357,7 +359,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         if (mInputPointer >= 0) {
             mBinding.timerSetupDigitsLayout.timerSetupDelete.setContentDescription(getContext().getString(
                 R.string.timer_descriptive_delete,
-                UiDataModel.getUiDataModel().getFormattedNumber(mInput[0])));
+                mUiDataModel.getFormattedNumber(mInput[0])));
         } else {
             mBinding.timerSetupDigitsLayout.timerSetupDelete.setContentDescription(getContext().getString(R.string.delete));
         }

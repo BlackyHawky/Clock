@@ -122,7 +122,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void setItems(List<AlarmItemHolder> items) {
+    public void setItems(@NonNull List<AlarmItemHolder> items) {
         Iterator<AlarmItemHolder> iterator = items.iterator();
 
         while (iterator.hasNext()) {

@@ -46,13 +46,17 @@ class ShortcutController {
 
     private final ComponentName mComponentName;
     private final ShortcutManager mShortcutManager;
+    private final DataModel mDataModel;
+    private final UiDataModel mUiDataModel;
 
     ShortcutController() {
         Context appContext = DeskClockApplication.getAppContext();
         mComponentName = new ComponentName(appContext, DeskClock.class);
         mShortcutManager = appContext.getSystemService(ShortcutManager.class);
+        mDataModel = DataModel.getDataModel();
+        mUiDataModel = UiDataModel.getUiDataModel();
         Controller.getController().addEventTracker(new ShortcutEventTracker());
-        DataModel.getDataModel().addStopwatchListener(new StopwatchWatcher());
+        mDataModel.addStopwatchListener(new StopwatchWatcher());
     }
 
     void updateShortcuts() {
@@ -71,20 +75,20 @@ class ShortcutController {
             if (SettingsDAO.isAlarmTabVisible(prefs)) {
                 dynamicShortcuts.add(createNewAlarmShortcut());
             } else {
-                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_alarm, R.string.action_create));
+                disabledShortcutIds.add(mUiDataModel.getShortcutId(R.string.category_alarm, R.string.action_create));
             }
 
             if (SettingsDAO.isTimerTabVisible(prefs)) {
                 dynamicShortcuts.add(createNewTimerShortcut());
             } else {
-                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_timer, R.string.action_create));
+                disabledShortcutIds.add(mUiDataModel.getShortcutId(R.string.category_timer, R.string.action_create));
             }
 
             if (SettingsDAO.isStopwatchTabVisible(prefs)) {
                 dynamicShortcuts.add(createStopwatchShortcut());
             } else {
-                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_stopwatch, R.string.action_start));
-                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_stopwatch, R.string.action_pause));
+                disabledShortcutIds.add(mUiDataModel.getShortcutId(R.string.category_stopwatch, R.string.action_start));
+                disabledShortcutIds.add(mUiDataModel.getShortcutId(R.string.category_stopwatch, R.string.action_pause));
             }
 
             dynamicShortcuts.add(createScreensaverShortcut());
@@ -113,7 +117,7 @@ class ShortcutController {
             .setClass(appContext, HandleApiCalls.class)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
-        final String setAlarmShortcut = UiDataModel.getUiDataModel().getShortcutId(R.string.category_alarm, R.string.action_create);
+        final String setAlarmShortcut = mUiDataModel.getShortcutId(R.string.category_alarm, R.string.action_create);
 
         return new ShortcutInfo.Builder(appContext, setAlarmShortcut)
             .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_new_alarm))
@@ -132,7 +136,7 @@ class ShortcutController {
             .setClass(appContext, HandleApiCalls.class)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
-        final String setTimerShortcut = UiDataModel.getUiDataModel().getShortcutId(R.string.category_timer, R.string.action_create);
+        final String setTimerShortcut = mUiDataModel.getShortcutId(R.string.category_timer, R.string.action_create);
 
         return new ShortcutInfo.Builder(appContext, setTimerShortcut)
             .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_new_timer))
@@ -147,17 +151,17 @@ class ShortcutController {
     private ShortcutInfo createStopwatchShortcut() {
         Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
-        final @StringRes int action = DataModel.getDataModel().getStopwatch().isRunning()
+        final @StringRes int action = mDataModel.getStopwatch().isRunning()
             ? R.string.action_pause
             : R.string.action_start;
-        final String shortcutId = UiDataModel.getUiDataModel().getShortcutId(R.string.category_stopwatch, action);
+        final String shortcutId = mUiDataModel.getShortcutId(R.string.category_stopwatch, action);
         final ShortcutInfo.Builder shortcut = new ShortcutInfo.Builder(appContext, shortcutId)
             .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_stopwatch))
             .setActivity(mComponentName)
             .setRank(2);
         final Intent intent;
 
-        if (DataModel.getDataModel().getStopwatch().isRunning()) {
+        if (mDataModel.getStopwatch().isRunning()) {
             intent = new Intent(StopwatchService.ACTION_PAUSE_STOPWATCH).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
             shortcut.setShortLabel(appContext.getString(R.string.shortcut_pause_stopwatch_short)).setLongLabel(appContext.getString(R.string.shortcut_pause_stopwatch_long));
         } else {
@@ -177,7 +181,7 @@ class ShortcutController {
             .setClass(appContext, ScreensaverActivity.class)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
-        final String screensaverShortcut = UiDataModel.getUiDataModel().getShortcutId(R.string.category_screensaver, R.string.action_show);
+        final String screensaverShortcut = mUiDataModel.getShortcutId(R.string.category_screensaver, R.string.action_show);
 
         return new ShortcutInfo.Builder(appContext, screensaverShortcut)
             .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_screensaver))

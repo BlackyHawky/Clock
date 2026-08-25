@@ -32,12 +32,15 @@ import java.util.List;
  */
 public class RingtoneLoader extends AsyncTaskLoader<List<RingtoneAdapter.RingtoneItem>> {
 
+    private final DataModel mDataModel;
     private final Uri mDefaultRingtoneUri;
     private final String mDefaultRingtoneTitle;
     private List<CustomRingtone> mCustomRingtones;
 
-    RingtoneLoader(Context context, Uri defaultRingtoneUri, String defaultRingtoneTitle) {
+    RingtoneLoader(Context context, DataModel dataModel, Uri defaultRingtoneUri, String defaultRingtoneTitle) {
         super(context);
+
+        mDataModel = dataModel;
         mDefaultRingtoneUri = defaultRingtoneUri;
         mDefaultRingtoneTitle = defaultRingtoneTitle;
     }
@@ -46,15 +49,15 @@ public class RingtoneLoader extends AsyncTaskLoader<List<RingtoneAdapter.Rington
     protected void onStartLoading() {
         super.onStartLoading();
 
-        mCustomRingtones = DataModel.getDataModel().getCustomRingtones();
+        mCustomRingtones = mDataModel.getCustomRingtones();
         forceLoad();
     }
 
     @Override
     public List<RingtoneAdapter.RingtoneItem> loadInBackground() {
         // Prime the ringtone title cache for later access.
-        DataModel.getDataModel().loadRingtoneTitles();
-        DataModel.getDataModel().loadRingtonePermissions();
+        mDataModel.loadRingtoneTitles();
+        mDataModel.loadRingtonePermissions();
 
         // Fetch the standard system ringtones.
         final RingtoneManager ringtoneManager = new RingtoneManager(getContext());

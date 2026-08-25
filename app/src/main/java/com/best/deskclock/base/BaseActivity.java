@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -26,7 +27,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -69,11 +72,17 @@ public class BaseActivity extends AppCompatActivity {
      */
     private static final Map<Activity, SharedPreferences.OnSharedPreferenceChangeListener> mListenerMap = new WeakHashMap<>();
 
+    private DataModel mDataModel;
+    private UiDataModel mUiDataModel;
     private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mPrefs = getDefaultSharedPreferences(this);
+        mDataModel = DataModel.getDataModel();
+        mUiDataModel = UiDataModel.getUiDataModel();
+        mPrefs = getDefaultSharedPreferences(Utils.getSafeStorageContext(this));
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
         applyThemeAndAccentColor();
 
@@ -289,4 +298,21 @@ public class BaseActivity extends AppCompatActivity {
             default -> null;
         };
     }
+
+    protected final DataModel getDataModel() {
+        return mDataModel;
+    }
+
+    protected final UiDataModel getUiDataModel() {
+        return mUiDataModel;
+    }
+
+    protected final SharedPreferences getPrefs() {
+        return mPrefs;
+    }
+
+    protected final DisplayMetrics getDisplayMetrics() {
+        return mDisplayMetrics;
+    }
+
 }

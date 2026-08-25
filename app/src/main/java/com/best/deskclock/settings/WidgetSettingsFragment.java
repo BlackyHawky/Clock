@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_CU
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
@@ -28,7 +29,7 @@ public class WidgetSettingsFragment extends BaseSettingsScreenFragment implement
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings_widgets);

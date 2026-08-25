@@ -55,6 +55,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final SharedPreferences mPrefs;
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
+    private final DataModel mDataModel;
     private TimerSettings mSettings;
     private RecyclerView mRecyclerView;
     private final boolean mIsTablet;
@@ -65,11 +66,12 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Drawable.ConstantState mBgMiddle; // Middle
     private final Drawable.ConstantState mBgEnd;    // Bottom (Portrait) or Right (Landscape)
 
-    public TimerAdapter(Context context, SharedPreferences sharedPreferences, TimerClickHandler timerClickHandler, boolean isTablet,
-                        boolean isLandscape, Typeface regularTypeface, Typeface boldTypeface, TimerSettings settings) {
+    public TimerAdapter(Context context, SharedPreferences sharedPreferences, DataModel dataModel, TimerClickHandler timerClickHandler,
+                        boolean isTablet, boolean isLandscape, Typeface regularTypeface, Typeface boldTypeface, TimerSettings settings) {
 
         mContext = context;
         mPrefs = sharedPreferences;
+        mDataModel = dataModel;
         mTimerClickHandler = timerClickHandler;
         mIsTablet = isTablet;
         mIsLandscape = isLandscape;
@@ -422,7 +424,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void loadTimersAsync() {
-        List<Timer> sourceTimers = new ArrayList<>(DataModel.getDataModel().getTimers());
+        List<Timer> sourceTimers = new ArrayList<>(mDataModel.getTimers());
 
         AppExecutors.getDiskIO().execute(() -> {
             final List<Timer> sortedTimers = buildSortedTimerList(sourceTimers);
@@ -435,7 +437,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void refreshTimersCache() {
-        List<Timer> sourceTimers = new ArrayList<>(DataModel.getDataModel().getTimers());
+        List<Timer> sourceTimers = new ArrayList<>(mDataModel.getTimers());
         mCachedTimers = buildSortedTimerList(sourceTimers);
     }
 
@@ -463,7 +465,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void swapTimers(int fromPosition, int toPosition) {
-        List<Timer> dataModelTimers = DataModel.getDataModel().getTimers();
+        List<Timer> dataModelTimers = mDataModel.getTimers();
 
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {

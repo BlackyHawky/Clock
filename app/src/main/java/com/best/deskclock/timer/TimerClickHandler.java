@@ -21,7 +21,7 @@ import com.best.deskclock.utils.LogUtils;
 /**
  * Click handler for a timer item.
  */
-public record TimerClickHandler(TimerFragment mTimerFragment) {
+public record TimerClickHandler(TimerFragment mTimerFragment, DataModel mDataModel) {
 
     public static final String TAG = "TimerClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
@@ -29,44 +29,44 @@ public record TimerClickHandler(TimerFragment mTimerFragment) {
     public void onPlayPauseClicked(Timer timer) {
         if (timer.isPaused() || timer.isReset()) {
             Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-            DataModel.getDataModel().startTimer(timer);
+            mDataModel.startTimer(timer);
         } else if (timer.isRunning()) {
             Events.sendTimerEvent(R.string.action_pause, R.string.label_deskclock);
-            DataModel.getDataModel().pauseTimer(timer);
+            mDataModel.pauseTimer(timer);
         } else if (timer.isExpired()) {
             final boolean isDeleteAfterUse = timer.getDeleteAfterUse();
 
             Events.sendTimerEvent(isDeleteAfterUse ? R.string.action_delete : R.string.action_reset, R.string.label_deskclock);
 
             if (isDeleteAfterUse) {
-                DataModel.getDataModel().removeTimer(timer, R.string.label_deskclock);
+                mDataModel.removeTimer(timer, R.string.label_deskclock);
             } else {
-                DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
+                mDataModel.resetOrDeleteExpiredTimers(R.string.label_deskclock);
             }
         } else if (timer.isMissed()) {
             Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
-            DataModel.getDataModel().resetOrDeleteMissedTimers(R.string.label_deskclock);
+            mDataModel.resetOrDeleteMissedTimers(R.string.label_deskclock);
         }
     }
 
     public void onCircleClicked(Timer timer) {
         if (timer.isPaused() || timer.isReset()) {
             Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-            DataModel.getDataModel().startTimer(timer);
+            mDataModel.startTimer(timer);
         } else if (timer.isRunning()) {
             Events.sendTimerEvent(R.string.action_pause, R.string.label_deskclock);
-            DataModel.getDataModel().pauseTimer(timer);
+            mDataModel.pauseTimer(timer);
         }
     }
 
     public void onResetClicked(Timer timer) {
         Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
-        DataModel.getDataModel().resetTimer(timer, R.string.label_deskclock);
+        mDataModel.resetTimer(timer, R.string.label_deskclock);
     }
 
     public void onAddTimeClicked(Timer timer, View v) {
         Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
-        DataModel.getDataModel().addCustomTimeToTimer(timer);
+        mDataModel.addCustomTimeToTimer(timer);
 
         Context context = mTimerFragment.requireContext();
 

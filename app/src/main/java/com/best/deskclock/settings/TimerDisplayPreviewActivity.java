@@ -10,11 +10,9 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
 
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -43,7 +42,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.BaseActivity;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.ExpiredTimersActivityBinding;
@@ -63,7 +61,6 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
     private ExpiredTimersActivityBinding mBinding;
 
-    private SharedPreferences mPrefs;
     private Typeface mRegularTypeface;
     private Typeface mBoldTypeface;
     private Typeface mTimerTimeTypeface;
@@ -84,22 +81,21 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     private ViewGroup mExpiredTimersScrollView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = ExpiredTimersActivityBinding.inflate(getLayoutInflater());
 
-        mPrefs = getDefaultSharedPreferences(this);
-        mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(mPrefs);
-        mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
-        mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
-        mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
-        mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
-        mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
+        mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());
+        mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(getPrefs());
+        mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(getPrefs());
+        mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(getPrefs());
+        mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(getPrefs());
+        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
         mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
+        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(getPrefs()));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mIsPortrait = ThemeUtils.isPortrait();
         mIsTablet = ThemeUtils.isTablet();
@@ -115,9 +111,9 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         setContentView(mBinding.getRoot());
 
-        String activeAccentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)
-            ? SettingsDAO.getNightAccentColor(mPrefs)
-            : SettingsDAO.getAccentColor(mPrefs);
+        String activeAccentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(getPrefs())
+            ? SettingsDAO.getNightAccentColor(getPrefs())
+            : SettingsDAO.getAccentColor(getPrefs());
 
         getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
 
@@ -127,14 +123,14 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             mExpiredTimersScrollView = mBinding.expiredTimersScrollHorizontal;
         }
 
-        final String imagePath = SettingsDAO.getTimerBackgroundImage(mPrefs);
+        final String imagePath = SettingsDAO.getTimerBackgroundImage(getPrefs());
 
-        if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
+        if (SettingsDAO.isTimerRingtoneTitleDisplayed(getPrefs())) {
             displayRingtoneTitle();
             mBinding.ringtoneLayout.setVisibility(VISIBLE);
         }
 
-        if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
+        if (SettingsDAO.isTimerBackgroundTransparent(getPrefs())) {
             mBinding.timerBackgroundImage.setVisibility(GONE);
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         } else {
@@ -148,7 +144,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
                     if (bitmap != null) {
                         mBinding.timerBackgroundImage.setImageBitmap(bitmap);
 
-                        float intensity = SettingsDAO.getTimerBlurIntensity(mPrefs);
+                        float intensity = SettingsDAO.getTimerBlurIntensity(getPrefs());
 
                         if (SdkUtils.isAtLeastAndroid12() && intensity != DEFAULT_BLUR_INTENSITY) {
 
@@ -219,20 +215,20 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
      * Display ringtone title if enabled in Timer settings.
      */
     private void displayRingtoneTitle() {
-        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(DataModel.getDataModel().getTimerRingtoneUri());
+        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(getDataModel().getTimerRingtoneUri());
         final Drawable iconRingtone = silent
             ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
             : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
         int iconRingtoneSize = (int) dpToPx(24, mDisplayMetrics);
-        final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(mPrefs);
-        final int shadowOffset = SettingsDAO.getTimerShadowOffset(mPrefs);
+        final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(getPrefs());
+        final int shadowOffset = SettingsDAO.getTimerShadowOffset(getPrefs());
         final float shadowRadius = shadowOffset * 0.5f;
-        final int shadowColor = SettingsDAO.getTimerShadowColor(mPrefs);
+        final int shadowColor = SettingsDAO.getTimerShadowColor(getPrefs());
 
         if (iconRingtone != null) {
             iconRingtone.setTint(ringtoneTitleColor);
 
-            if (SettingsDAO.isTimerTextShadowDisplayed(mPrefs)) {
+            if (SettingsDAO.isTimerTextShadowDisplayed(getPrefs())) {
                 // Convert the drawable to a bitmap
                 Bitmap iconBitmap = Bitmap.createBitmap(iconRingtoneSize, iconRingtoneSize, Bitmap.Config.ARGB_8888);
                 Canvas iconCanvas = new Canvas(iconBitmap);
@@ -266,8 +262,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             }
         }
 
-        mBinding.ringtoneTitle.setText(DataModel.getDataModel().getTimerRingtoneTitle());
-        mBinding.ringtoneTitle.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs)));
+        mBinding.ringtoneTitle.setText(getDataModel().getTimerRingtoneTitle());
+        mBinding.ringtoneTitle.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs())));
         mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "expired_timers_activity.xml" file)
         mBinding.ringtoneTitle.setSelected(true);
@@ -292,7 +288,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
      */
     private void addTimer(Timer timer) {
         final int timerId = timer.getId();
-        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs) && !SettingsDAO.isSingleTimerModeEnabled(mPrefs);
+        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(getPrefs()) && !SettingsDAO.isSingleTimerModeEnabled(getPrefs());
         final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
 
         final View view;

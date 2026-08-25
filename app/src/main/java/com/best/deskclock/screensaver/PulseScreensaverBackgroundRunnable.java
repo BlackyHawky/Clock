@@ -42,18 +42,20 @@ public final class PulseScreensaverBackgroundRunnable implements Runnable {
 
     private final View mBackgroundView;
     private Animator mActiveAnimator;
+    private final UiDataModel mUiDataModel;
 
-    public PulseScreensaverBackgroundRunnable(View backgroundView) {
+    public PulseScreensaverBackgroundRunnable(View backgroundView, UiDataModel uiDataModel) {
         mBackgroundView = backgroundView;
+        mUiDataModel = uiDataModel;
     }
 
     public void start() {
         stop();
-        UiDataModel.getUiDataModel().addHalfMinuteCallback(this, -FADE_TIME);
+        mUiDataModel.addHalfMinuteCallback(this, -FADE_TIME);
     }
 
     public void stop() {
-        UiDataModel.getUiDataModel().removePeriodicCallback(this);
+        mUiDataModel.removePeriodicCallback(this);
         if (mActiveAnimator != null) {
             mActiveAnimator.end();
             mActiveAnimator = null;

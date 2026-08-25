@@ -81,13 +81,13 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
 
         final AlarmRowBinding binding;
 
-        public ViewHolder(AlarmRowBinding binding) {
+        public ViewHolder(@NonNull AlarmRowBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
         }
 
-        public void bind(Alarm alarm, Typeface regularTypeface, Typeface alarmBoldTypeface, Weekdays.Order weekdayOrder,
+        public void bind(@NonNull Alarm alarm, Typeface regularTypeface, Typeface alarmBoldTypeface, Weekdays.Order weekdayOrder,
                          SimpleDateFormat dateFormat) {
 
             Context context = itemView.getContext();

@@ -230,7 +230,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             if (mInput != null) {
                 mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
             }
-        }, 200);
+        }, Utils.UI_SETTLE_DELAY_MS);
     }
 
     @Override

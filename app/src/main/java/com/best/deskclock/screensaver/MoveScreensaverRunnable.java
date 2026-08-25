@@ -58,13 +58,16 @@ public final class MoveScreensaverRunnable implements Runnable {
      */
     private Animator mActiveAnimator;
 
+    private final UiDataModel mUiDataModel;
+
     /**
      * @param contentView contains the {@code saverView}
      * @param saverView   a child view of {@code contentView} that periodically moves around
      */
-    public MoveScreensaverRunnable(View contentView, View saverView) {
+    public MoveScreensaverRunnable(View contentView, View saverView, UiDataModel uiDataModel) {
         mContentView = contentView;
         mSaverView = saverView;
+        mUiDataModel = uiDataModel;
     }
 
     /**
@@ -88,14 +91,14 @@ public final class MoveScreensaverRunnable implements Runnable {
         run();
 
         // Schedule callbacks every minute to adjust the position of mSaverView.
-        UiDataModel.getUiDataModel().addHalfMinuteCallback(this, -FADE_TIME);
+        mUiDataModel.addHalfMinuteCallback(this, -FADE_TIME);
     }
 
     /**
      * Stop the random movement of the saver view within the content view.
      */
     public void stop() {
-        UiDataModel.getUiDataModel().removePeriodicCallback(this);
+        mUiDataModel.removePeriodicCallback(this);
 
         // End any animation currently running.
         if (mActiveAnimator != null) {

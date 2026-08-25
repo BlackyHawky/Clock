@@ -87,6 +87,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private static final String STATE_VOLUME_CRESCENDO_DURATION = "state_volume_crescendo_duration";
 
     private TimerEditBottomSheetBinding mBinding;
+
+    private DataModel mDataModel;
     private SharedPreferences mPrefs;
     private Typeface mGeneralTypeface;
     private Typeface mTimerBoldTypeface;
@@ -139,6 +141,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mDataModel = DataModel.getDataModel();
         mPrefs = getDefaultSharedPreferences(requireContext());
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
         mTimerBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getTimerDurationFont(mPrefs));
@@ -366,13 +369,13 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        final Uri defaultUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
+        final Uri defaultUri = mDataModel.getDefaultTimerRingtoneUri();
         final String title;
 
         if (defaultUri.equals(mTimerRingtoneUri)) {
             title = getString(R.string.default_timer_ringtone_title);
         } else {
-            title = DataModel.getDataModel().getRingtoneTitle(mTimerRingtoneUri);
+            title = mDataModel.getRingtoneTitle(mTimerRingtoneUri);
         }
 
         mBinding.chooseRingtone.setText(title);
@@ -629,7 +632,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mIsDeleted = true;
             Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
-            DataModel.getDataModel().removeTimer(getTimer(), R.string.label_deskclock);
+            mDataModel.removeTimer(getTimer(), R.string.label_deskclock);
             dismiss();
         });
     }
@@ -655,7 +658,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
 
             Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-            DataModel.getDataModel().addTimer(
+            mDataModel.addTimer(
                 mTimerTimeText,
                 mTimerLabel,
                 String.valueOf(mAddTimeButtonValue),
@@ -695,7 +698,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return null;
         }
 
-        return DataModel.getDataModel().getTimer(mTimerId);
+        return mDataModel.getTimer(mTimerId);
     }
 
     private void setupFragmentResultListeners() {
@@ -756,13 +759,13 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         boolean durationChanged = timer.getLength() != mTimerTimeText;
 
         if (durationChanged) {
-            DataModel.getDataModel().setNewTimerDuration(timer, mTimerTimeText);
+            mDataModel.setNewTimerDuration(timer, mTimerTimeText);
 
             timer = getTimer();
         }
 
         if (timer != null) {
-            DataModel.getDataModel().updateAllTimerSettings(
+            mDataModel.updateAllTimerSettings(
                 timer,
                 mTimerLabel,
                 String.valueOf(mAddTimeButtonValue),

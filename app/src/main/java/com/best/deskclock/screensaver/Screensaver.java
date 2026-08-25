@@ -43,6 +43,7 @@ public final class Screensaver extends DreamService {
 
     private DeskClockSaverBinding mBinding;
 
+    private UiDataModel mUiDataModel;
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private MoveScreensaverRunnable mPositionUpdater;
     private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
@@ -88,6 +89,7 @@ public final class Screensaver extends DreamService {
 
         SharedPreferences prefs = getDefaultSharedPreferences(this);
         mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs);
+        mUiDataModel = UiDataModel.getUiDataModel();
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
     }
@@ -109,10 +111,10 @@ public final class Screensaver extends DreamService {
 
         ScreensaverUtils.setScreensaverClockStyle(mBinding.saverContainer);
 
-        mPositionUpdater = new MoveScreensaverRunnable(mBinding.saverContainer, mBinding.mainClock);
+        mPositionUpdater = new MoveScreensaverRunnable(mBinding.saverContainer, mBinding.mainClock, mUiDataModel);
 
         if (mBinding.screensaverBackgroundImage.getVisibility() == View.VISIBLE) {
-            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage);
+            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage, mUiDataModel);
             mBackgroundAnimator.start();
         }
 
@@ -134,7 +136,7 @@ public final class Screensaver extends DreamService {
         AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
 
         startPositionUpdater();
-        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+        mUiDataModel.addMidnightCallback(mMidnightUpdater, 100);
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -169,7 +171,7 @@ public final class Screensaver extends DreamService {
     public void onDetachedFromWindow() {
         LOGGER.v("Screensaver detached from window");
 
-        UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
+        mUiDataModel.removePeriodicCallback(mMidnightUpdater);
 
         stopPositionUpdater();
 

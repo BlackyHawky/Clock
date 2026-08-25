@@ -34,7 +34,7 @@ import java.util.List;
  * Displays a list of lap times in reverse order. That is, the newest lap is at the top, the oldest
  * lap is at the bottom.
  */
-class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
+public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
     private static final long TEN_MINUTES = 10 * DateUtils.MINUTE_IN_MILLIS;
     private static final long HOUR = DateUtils.HOUR_IN_MILLIS;
@@ -52,6 +52,8 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private static final StringBuilder sTimeBuilder = new StringBuilder(12);
 
     private final Context mContext;
+    private final DataModel mDataModel;
+    private final UiDataModel mUiDataModel;
 
     /**
      * Used to determine when the time format for the lap time column has changed length.
@@ -73,8 +75,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private final int mMinLapColor;
     private final int mMaxLapColor;
 
-    LapsAdapter(Context context, Typeface regularTypeface, Typeface boldTypeface) {
+    LapsAdapter(Context context, DataModel dataModel, UiDataModel uiDataModel, Typeface regularTypeface, Typeface boldTypeface) {
         mContext = context;
+        mDataModel = dataModel;
+        mUiDataModel = uiDataModel;
         mRegularTypeface = regularTypeface;
         mBoldTypeface = boldTypeface;
         mDecimalSeparator = String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
@@ -110,7 +114,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         } else {
             // For the current lap, compute times relative to the stopwatch.
             totalTime = getStopwatch().getTotalTime();
-            lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
+            lapTime = mDataModel.getCurrentLapTime(totalTime);
             lapNumber = getLaps().size() + 1;
         }
 
@@ -145,11 +149,11 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     }
 
     private Stopwatch getStopwatch() {
-        return DataModel.getDataModel().getStopwatch();
+        return mDataModel.getStopwatch();
     }
 
     private List<Lap> getLaps() {
-        return DataModel.getDataModel().getLaps();
+        return mDataModel.getLaps();
     }
 
     /**
@@ -248,7 +252,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         RecyclerView.ViewHolder holder = rv.findViewHolderForAdapterPosition(0);
         if (holder instanceof LapItemHolder lapHolder && holder.itemView.isAttachedToWindow()) {
             // Compute the lap time using the total time.
-            long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
+            long lapTime = mDataModel.getCurrentLapTime(totalTime);
 
             lapHolder.binding.lapTime.setText(formatLapTime(lapTime, false));
             lapHolder.binding.lapTotal.setText(formatAccumulatedTime(totalTime, false));
@@ -263,7 +267,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * @return a newly cleared lap
      */
     public Lap addLap() {
-        final Lap lap = DataModel.getDataModel().addLap();
+        final Lap lap = mDataModel.addLap();
 
         long newLapTime = lap.getLapTime();
         if (minLapTime == Long.MAX_VALUE) {
@@ -332,7 +336,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             // Append the final lap
             builder.append(laps.size() + 1);
             builder.append(separator);
-            final long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
+            final long lapTime = mDataModel.getCurrentLapTime(totalTime);
             builder.append(formatTime(lapTime, lapTime, " "));
             builder.append("\n");
         }
@@ -362,7 +366,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
     private String formatLapTime(long lapTime, boolean isBinding) {
         // The longest lap dictates the way the given lapTime must be formatted.
-        final long longestLapTime = Math.max(DataModel.getDataModel().getLongestLapTime(), lapTime);
+        final long longestLapTime = Math.max(mDataModel.getLongestLapTime(), lapTime);
         final String formattedTime = formatTime(longestLapTime, lapTime, LRM_SPACE);
 
         // If the newly formatted lap time has altered the format, refresh all laps.
@@ -425,28 +429,28 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
         // The display of hours and minutes varies based on maxTime.
         if (maxTime < TEN_MINUTES) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 1));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(minutes, 1));
         } else if (maxTime < HOUR) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(minutes, 2));
         } else if (maxTime < TEN_HOURS) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 1));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(hours, 1));
             sTimeBuilder.append(separator);
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(minutes, 2));
         } else if (maxTime < HUNDRED_HOURS) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 2));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(hours, 2));
             sTimeBuilder.append(separator);
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(minutes, 2));
         } else {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 3));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(hours, 3));
             sTimeBuilder.append(separator);
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+            sTimeBuilder.append(mUiDataModel.getFormattedNumber(minutes, 2));
         }
 
         // The display of seconds and hundredths-of-a-second is constant.
         sTimeBuilder.append(separator);
-        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(seconds, 2));
+        sTimeBuilder.append(mUiDataModel.getFormattedNumber(seconds, 2));
         sTimeBuilder.append(mDecimalSeparator);
-        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hundredths, 2));
+        sTimeBuilder.append(mUiDataModel.getFormattedNumber(hundredths, 2));
 
         return sTimeBuilder.toString();
     }

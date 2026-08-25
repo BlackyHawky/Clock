@@ -37,6 +37,8 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmFragment;
@@ -79,13 +81,17 @@ public class HandleApiCalls extends Activity {
 
     private Context mAppContext;
     private SharedPreferences mPrefs;
+    private DataModel mDataModel;
+    private UiDataModel mUiDataModel;
 
     @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mAppContext = getApplicationContext();
         mPrefs = getDefaultSharedPreferences(mAppContext);
+        mDataModel = DataModel.getDataModel();
+        mUiDataModel = UiDataModel.getUiDataModel();
 
         try {
             final Intent intent = getIntent();
@@ -148,7 +154,7 @@ public class HandleApiCalls extends Activity {
 
     private void handleDismissAlarm(Intent intent) {
         // Change to the alarms tab.
-        UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+        mUiDataModel.setSelectedTab(ALARMS);
 
         // Open DeskClock which is now positioned on the alarms tab.
         startActivity(new Intent(mAppContext, DeskClock.class));
@@ -342,7 +348,7 @@ public class HandleApiCalls extends Activity {
         // cannot be created so show the UI for creating the alarm from scratch per spec.
         if (hour == -1) {
             // Change to the alarms tab.
-            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+            mUiDataModel.setSelectedTab(ALARMS);
 
             // Intent has no time or an invalid time, open the alarm creation UI.
             final Intent createAlarm = Alarm.createIntent(this, DeskClock.class, Alarm.INVALID_ID)
@@ -392,7 +398,7 @@ public class HandleApiCalls extends Activity {
         }
 
         // Schedule the next instance.
-        final Calendar now = DataModel.getDataModel().getCalendar();
+        final Calendar now = mDataModel.getCalendar();
         final AlarmInstance alarmInstance = alarm.createInstanceAfter(now);
         setupInstance(alarmInstance, skipUi);
 
@@ -406,9 +412,9 @@ public class HandleApiCalls extends Activity {
             final Timer selectedTimer = getSelectedTimer(dataUri);
             if (selectedTimer != null) {
                 if (selectedTimer.getDeleteAfterUse()) {
-                    DataModel.getDataModel().removeTimer(selectedTimer, R.string.label_intent);
+                    mDataModel.removeTimer(selectedTimer, R.string.label_intent);
                 } else {
-                    DataModel.getDataModel().resetTimer(selectedTimer, R.string.label_intent);
+                    mDataModel.resetTimer(selectedTimer, R.string.label_intent);
                 }
 
                 Controller.getController().notifyVoiceSuccess(
@@ -419,7 +425,7 @@ public class HandleApiCalls extends Activity {
                 LOGGER.e("Could not dismiss timer: invalid URI");
             }
         } else {
-            final List<Timer> expiredTimers = DataModel.getDataModel().getExpiredTimers();
+            final List<Timer> expiredTimers = mDataModel.getExpiredTimers();
             if (!expiredTimers.isEmpty()) {
                 final int numberOfTimers = expiredTimers.size();
                 boolean allDeleted = true;
@@ -431,7 +437,7 @@ public class HandleApiCalls extends Activity {
                     }
                 }
 
-                DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_intent);
+                mDataModel.resetOrDeleteExpiredTimers(R.string.label_intent);
 
                 final int pluralResId = allDeleted ? R.plurals.expired_timers_deleted : R.plurals.expired_timers_dismissed;
                 final String timersDismissedMessage = getResources().getQuantityString(pluralResId, numberOfTimers, numberOfTimers);
@@ -448,7 +454,7 @@ public class HandleApiCalls extends Activity {
     private Timer getSelectedTimer(Uri dataUri) {
         try {
             final int timerId = (int) ContentUris.parseId(dataUri);
-            return DataModel.getDataModel().getTimer(timerId);
+            return mDataModel.getTimer(timerId);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -460,9 +466,9 @@ public class HandleApiCalls extends Activity {
         // Open DeskClock positioned in the correct tab.
         final int tabToDisplay = SettingsDAO.getTabToDisplay(mPrefs);
         if (tabToDisplay == DEFAULT_TAB_TO_DISPLAY_INTEGER) {
-            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.getUiDataModel().getSelectedTab());
+            mUiDataModel.setSelectedTab(mUiDataModel.getSelectedTab());
         } else {
-            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[tabToDisplay]);
+            mUiDataModel.setSelectedTab(UiDataModel.Tab.values()[tabToDisplay]);
         }
 
         startActivity(new Intent(this, DeskClock.class));
@@ -473,14 +479,14 @@ public class HandleApiCalls extends Activity {
 
         final Intent showTimersIntent = new Intent(this, DeskClock.class);
 
-        final List<Timer> timers = DataModel.getDataModel().getTimers();
+        final List<Timer> timers = mDataModel.getTimers();
         if (!timers.isEmpty()) {
             final Timer newestTimer = timers.get(timers.size() - 1);
             showTimersIntent.putExtra(TimerService.EXTRA_TIMER_ID, newestTimer.getId());
         }
 
         // Open DeskClock positioned on the timers tab.
-        UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+        mUiDataModel.setSelectedTab(TIMERS);
         startActivity(showTimersIntent);
     }
 
@@ -488,7 +494,7 @@ public class HandleApiCalls extends Activity {
         // If no length is supplied, show the timer setup view.
         if (!intent.hasExtra(AlarmClock.EXTRA_LENGTH)) {
             // Change to the timers tab.
-            UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+            mUiDataModel.setSelectedTab(TIMERS);
 
             // Open DeskClock which is now positioned on the timers tab and show the timer setup.
             startActivity(TimerFragment.createTimerSetupIntent(this));
@@ -510,7 +516,7 @@ public class HandleApiCalls extends Activity {
 
         // Attempt to reuse an existing timer that is Reset with the same length and label.
         Timer timer = null;
-        for (Timer t : DataModel.getDataModel().getTimers()) {
+        for (Timer t : mDataModel.getTimers()) {
             if (!t.isReset()) {
                 continue;
             }
@@ -530,13 +536,13 @@ public class HandleApiCalls extends Activity {
             SharedPreferences prefs = getDefaultSharedPreferences(mAppContext);
             String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(prefs));
             String vibrationPattern = SettingsDAO.getTimerVibrationPattern(prefs);
-            Uri ringtoneUri = DataModel.getDataModel().getTimerRingtoneUri();
+            Uri ringtoneUri = mDataModel.getTimerRingtoneUri();
             int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(prefs);
             int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
             boolean isVibrate = SettingsDAO.isTimerVibrate(prefs);
             boolean isFlashOn = SettingsDAO.shouldTurnOnBackFlashForExpiredTimer(mPrefs);
 
-            timer = DataModel.getDataModel().addTimer(lengthMillis,
+            timer = mDataModel.addTimer(lengthMillis,
                 label,
                 defaultTimeToAddToTimer,
                 ringtoneUri,
@@ -553,14 +559,14 @@ public class HandleApiCalls extends Activity {
         }
 
         // Start the selected timer.
-        DataModel.getDataModel().startTimer(timer);
+        mDataModel.startTimer(timer);
         Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
         Controller.getController().notifyVoiceSuccess(this, getString(R.string.timer_created));
 
         // If not instructed to skip the UI, display the running timer.
         if (!skipUi) {
             // Change to the timers tab.
-            UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+            mUiDataModel.setSelectedTab(TIMERS);
 
             // Open DeskClock which is now positioned on the timers tab.
             startActivity(new Intent(this, DeskClock.class).putExtra(TimerService.EXTRA_TIMER_ID, timer.getId()));
@@ -573,7 +579,7 @@ public class HandleApiCalls extends Activity {
         AlarmUtils.popAlarmSetToast(this, instance.getAlarmTime().getTimeInMillis());
         if (!skipUi) {
             // Change to the alarms tab.
-            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+            mUiDataModel.setSelectedTab(ALARMS);
 
             // Open DeskClock which is now positioned on the alarms tab.
             final Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId)
@@ -711,7 +717,7 @@ public class HandleApiCalls extends Activity {
             selection.append(" AND ").append(Alarm.RINGTONE).append("=?");
 
             // If the intent explicitly specified a NULL ringtone, treat it as the default ringtone.
-            final Uri defaultRingtone = DataModel.getDataModel().getDefaultAlarmRingtoneUriFromSettings();
+            final Uri defaultRingtone = mDataModel.getDefaultAlarmRingtoneUriFromSettings();
             final Uri ringtone = getAlertFromIntent(intent, defaultRingtone);
             args.add(ringtone.toString());
         }
