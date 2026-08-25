@@ -23,6 +23,10 @@ public class AnimatorUtils {
     @SuppressWarnings("unchecked")
     public static final TypeEvaluator<Integer> ARGB_EVALUATOR = new ArgbEvaluator();
 
+    public static final long SHORT_ANIMATION_DURATION = 200;
+
+    public static final long MEDIUM_ANIMATION_DURATION = 300;
+
     public static ValueAnimator getScaleAnimator(View view, float... values) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
             PropertyValuesHolder.ofFloat(View.SCALE_X, values),

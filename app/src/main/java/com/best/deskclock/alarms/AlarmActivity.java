@@ -1238,7 +1238,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mBinding.alarmButton.animate()
             .translationX(0)
-            .setDuration(200)
+            .setDuration(AnimatorUtils.SHORT_ANIMATION_DURATION)
             .start();
 
         if (mTranslationAnimator != null && !mTranslationAnimator.isRunning()) {

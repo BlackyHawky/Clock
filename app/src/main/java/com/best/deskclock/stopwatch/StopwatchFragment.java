@@ -61,6 +61,7 @@ import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.databinding.StopwatchFragmentBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uicomponents.CustomTooltip;
+import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -759,13 +760,13 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             if (mBinding.stopwatchTimeLayout.stopwatchTimeText.getAlpha() != textTargetAlpha) {
                 mBinding.stopwatchTimeLayout.stopwatchTimeText.animate()
                     .alpha(textTargetAlpha)
-                    .setDuration(200)
+                    .setDuration(AnimatorUtils.SHORT_ANIMATION_DURATION)
                     .start();
 
                 if (mAreMillisecondsDisplayed) {
                     mBinding.stopwatchTimeLayout.stopwatchHundredthsText.animate()
                         .alpha(textTargetAlpha)
-                        .setDuration(200)
+                        .setDuration(AnimatorUtils.SHORT_ANIMATION_DURATION)
                         .start();
                 }
             }
