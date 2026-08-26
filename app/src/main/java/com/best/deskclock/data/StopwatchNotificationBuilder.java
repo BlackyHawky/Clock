@@ -20,6 +20,7 @@ import android.text.format.DateUtils;
 import android.widget.RemoteViews;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationCompat.Action;
@@ -40,7 +41,7 @@ import java.util.List;
  */
 class StopwatchNotificationBuilder {
 
-    public Notification build(Context context, NotificationModel nm, Stopwatch stopwatch) {
+    public Notification build(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Stopwatch stopwatch) {
         @StringRes final int eventLabel = R.string.label_notification;
 
         final Context localizedContext = Utils.getLocalizedContext(context);

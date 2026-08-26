@@ -11,6 +11,8 @@ import static com.best.deskclock.uidata.UiDataModel.Tab;
 
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.data.SettingsDAO;
 
 /**
@@ -29,7 +31,7 @@ final class TabDAO {
     /**
      * @return an enumerated value indicating the currently selected primary tab
      */
-    static Tab getSelectedTab(SharedPreferences prefs) {
+    static Tab getSelectedTab(@NonNull SharedPreferences prefs) {
         int tabIndex = SettingsDAO.getTabToDisplay(prefs);
         if (tabIndex == DEFAULT_TAB_TO_DISPLAY_INTEGER) {
             final int ordinal = prefs.getInt(KEY_SELECTED_TAB, Tab.CLOCKS.ordinal());
@@ -42,7 +44,7 @@ final class TabDAO {
     /**
      * @param tab an enumerated value indicating the newly selected primary tab
      */
-    static void setSelectedTab(SharedPreferences prefs, Tab tab) {
+    static void setSelectedTab(@NonNull SharedPreferences prefs, @NonNull Tab tab) {
         prefs.edit().putInt(KEY_SELECTED_TAB, tab.ordinal()).apply();
     }
 }

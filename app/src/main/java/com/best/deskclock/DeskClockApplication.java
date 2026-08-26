@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceManager;
@@ -96,7 +97,7 @@ public class DeskClockApplication extends Application implements Application.Act
         }
     }
 
-    @Override public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {}
+    @Override public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {}
     @Override public void onActivityResumed(@NonNull Activity activity) {}
     @Override public void onActivityPaused(@NonNull Activity activity) {}
     @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
@@ -121,7 +122,7 @@ public class DeskClockApplication extends Application implements Application.Act
         }
     }
 
-    private void applySystemNightMode(String theme) {
+    private void applySystemNightMode(@NonNull String theme) {
         switch (theme) {
             case SYSTEM_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -136,7 +137,7 @@ public class DeskClockApplication extends Application implements Application.Act
     /**
      * Returns the default {@link SharedPreferences} instance from the underlying storage context.
      */
-    public static SharedPreferences getDefaultSharedPreferences(Context context) {
+    public static SharedPreferences getDefaultSharedPreferences(@NonNull Context context) {
         final Context appContext = context.getApplicationContext();
         final Context storageContext;
 

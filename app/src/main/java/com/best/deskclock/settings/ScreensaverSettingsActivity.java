@@ -16,6 +16,7 @@ import android.provider.Settings;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
@@ -276,7 +277,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         @Override
-        public boolean onPreferenceChange(Preference pref, Object newValue) {
+        public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
             switch (pref.getKey()) {
                 case KEY_SCREENSAVER_CLOCK_STYLE -> {
                     final int clockIndex = mClockStylePref.findIndexOfValue((String) newValue);
@@ -354,7 +355,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         @Override
-        public boolean onPreferenceClick(Preference pref) {
+        public boolean onPreferenceClick(@NonNull Preference pref) {
             final Context context = requireActivity();
 
             switch (pref.getKey()) {

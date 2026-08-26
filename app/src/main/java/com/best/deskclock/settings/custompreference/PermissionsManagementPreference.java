@@ -95,7 +95,7 @@ public class PermissionsManagementPreference extends Preference {
     }
 
     @Override
-    protected void onRestoreInstanceState(Parcelable state) {
+    protected void onRestoreInstanceState(@Nullable Parcelable state) {
         if (state == null || !state.getClass().equals(SavedState.class)) {
             super.onRestoreInstanceState(state);
             return;
@@ -216,18 +216,18 @@ public class PermissionsManagementPreference extends Preference {
     private static class SavedState extends BaseSavedState {
         boolean isDialogShowing;
 
-        public SavedState(Parcelable superState) {
+        public SavedState(@Nullable Parcelable superState) {
             super(superState);
         }
 
-        public SavedState(Parcel source) {
+        public SavedState(@NonNull Parcel source) {
             super(source);
 
             isDialogShowing = source.readInt() == 1;
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
 
             dest.writeInt(isDialogShowing ? 1 : 0);
@@ -241,7 +241,7 @@ public class PermissionsManagementPreference extends Preference {
                 }
 
                 @Override
-                public SavedState createFromParcel(Parcel source) {
+                public SavedState createFromParcel(@NonNull Parcel source) {
                     return new SavedState(source);
                 }
             };

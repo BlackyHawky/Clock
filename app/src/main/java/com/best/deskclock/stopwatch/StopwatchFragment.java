@@ -151,9 +151,10 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         refreshSettings();
     }
 
+    @NonNull
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         mBinding = StopwatchFragmentBinding.inflate(inflater, container, false);
@@ -290,7 +291,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_VOLUME_UP:
@@ -313,7 +314,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_UP) {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                 if (mIsVolumeUpLongPressed) {
@@ -700,7 +701,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     /**
      * Set actions for volume buttons
      */
-    private void getVolumeButtonsActions(String volumeAction) {
+    private void getVolumeButtonsActions(@NonNull String volumeAction) {
         switch (volumeAction) {
             case SW_ACTION_START_PAUSE -> {
                 if (getStopwatch().isReset() || getStopwatch().isPaused()) {
@@ -788,7 +789,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      */
     private class StopwatchWatcher implements StopwatchListener {
         @Override
-        public void stopwatchUpdated(Stopwatch after) {
+        public void stopwatchUpdated(@NonNull Stopwatch after) {
             adjustWakeLock();
 
             if (after.isReset()) {
@@ -808,7 +809,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      */
     private final class TimeClickListener implements View.OnClickListener {
         @Override
-        public void onClick(View view) {
+        public void onClick(@NonNull View view) {
             Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             if (getStopwatch().isRunning()) {

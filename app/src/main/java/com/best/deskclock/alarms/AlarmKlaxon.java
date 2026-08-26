@@ -14,6 +14,8 @@ import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
@@ -89,7 +91,7 @@ public final class AlarmKlaxon {
         }
     }
 
-    public static void start(AlarmInstance alarmInstance) {
+    public static void start(@NonNull AlarmInstance alarmInstance) {
         // Make sure we are stopped before starting
         stop();
 

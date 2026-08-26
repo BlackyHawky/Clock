@@ -129,13 +129,14 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     /**
      * @return an Intent that selects the timers tab with the setup screen for a new timer in place.
      */
-    public static Intent createTimerSetupIntent(Context context) {
+    @NonNull
+    public static Intent createTimerSetupIntent(@NonNull Context context) {
         return new Intent(context, DeskClock.class).putExtra(EXTRA_TIMER_SETUP, true);
     }
 
     private final BroadcastReceiver mVolumeReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (RingtoneUtils.VOLUME_CHANGED_ACTION.equals(intent.getAction())) {
                 updateWarningBannerVisibility();
             }
@@ -149,8 +150,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         super(TIMERS);
     }
 
+    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         mBinding = TimerFragmentBinding.inflate(inflater, container, false);
@@ -471,7 +473,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         if (mCurrentView == mBinding.timerSetupView) {
             return mBinding.timerSetupView.onKeyDown(keyCode, event);
         }
@@ -528,7 +530,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      * @param toView      one of "timerView" or "timerSetup"
      * @param animateDown {@code true} if the views should animate upwards, otherwise downwards
      */
-    private void animateToView(final View toView, final boolean animateDown) {
+    private void animateToView(@NonNull View toView, boolean animateDown) {
         if (mCurrentView == toView) {
             return;
         }
@@ -571,7 +573,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 fadeOutAnimator.setDuration(animationDuration / 2);
                 fadeOutAnimator.addListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationStart(Animator animation) {
+                    public void onAnimationStart(@NonNull Animator animation) {
                         super.onAnimationStart(animation);
 
                         // The fade-out animation and fab-shrinking animation should run together.
@@ -579,7 +581,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     }
 
                     @Override
-                    public void onAnimationEnd(Animator animation) {
+                    public void onAnimationEnd(@NonNull Animator animation) {
                         super.onAnimationEnd(animation);
                         if (toTimers) {
                             showTimersView(FAB_AND_BUTTONS_EXPAND);
@@ -603,7 +605,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 animatorSet.playTogether(fadeOutAnimator, fadeInAnimator, translationAnimatorSet);
                 animatorSet.addListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationEnd(Animator animation) {
+                    public void onAnimationEnd(@NonNull Animator animation) {
                         super.onAnimationEnd(animation);
                         mBinding.timerContentView.setTranslationY(0f);
                         mBinding.timerSetupView.setTranslationY(0f);
@@ -749,7 +751,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         return getDataModel().getTimers().size() > 1;
     }
 
-    private RecyclerView.LayoutManager getLayoutManager(Context context) {
+    @NonNull
+    private RecyclerView.LayoutManager getLayoutManager(@NonNull Context context) {
         if (isTablet()) {
             int spanCount = hasMultipleTimers() ? (isLandscape() ? 3 : 2) : 1;
             return new GridLayoutManager(context, spanCount);
@@ -798,7 +801,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      */
     private class TimerWatcher implements TimerListener {
         @Override
-        public void timerAdded(Timer timer) {
+        public void timerAdded(@NonNull Timer timer) {
             // Ensure the timer list is displayed if the UI loaded faster than the database during app launch,
             // or if a timer was added externally.
             if (mCurrentView != mBinding.timerContentView && !mCreatingTimer) {
@@ -829,7 +832,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
 
         @Override
-        public void timerUpdated(Timer before, Timer after) {
+        public void timerUpdated(@NonNull Timer before, @NonNull Timer after) {
             int position = mAdapter.getTimers().indexOf(after);
             boolean justStarted = before.isReset() && !after.isReset();
             boolean justPaused = !before.isPaused() && after.isPaused();
@@ -867,7 +870,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
 
         @Override
-        public void timerRemoved(Timer timer) {
+        public void timerRemoved(@NonNull Timer timer) {
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
             if (mCurrentView == mBinding.timerContentView && mAdapter.getItemCount() == 0) {
@@ -906,15 +909,15 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         private final int spacing;
         private final boolean mIsRTL;
 
-        public GridSpacingItemDecoration(Context context, DisplayMetrics displayMetrics) {
+        public GridSpacingItemDecoration(@NonNull Context context, @NonNull DisplayMetrics displayMetrics) {
             this.margin = (int) dpToPx(10, displayMetrics);
             this.spacing = (int) dpToPx(2, displayMetrics);
             this.mIsRTL = ThemeUtils.isRTL(context);
         }
 
         @Override
-        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
-                                   @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent,
+                                   @NonNull RecyclerView.State state) {
 
             int position = parent.getChildAdapterPosition(view);
 

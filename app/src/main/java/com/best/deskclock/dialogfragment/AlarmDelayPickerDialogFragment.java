@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
@@ -69,6 +71,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
      * @param hours   The alarm hours.
      * @param minutes The alarm minutes.
      */
+    @NonNull
     public static AlarmDelayPickerDialogFragment newInstance(int hours, int minutes) {
         final Bundle args = new Bundle();
         args.putInt(ARG_EDIT_HOURS, hours);
@@ -82,7 +85,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     /**
      * Displays {@link AlarmDelayPickerDialogFragment}.
      */
-    public static void show(FragmentManager manager, AlarmDelayPickerDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull AlarmDelayPickerDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -96,7 +99,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
@@ -247,7 +250,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
      * type EditText for a time picker.
      * It configures the keyboard and validation behavior when the user changes the hour or minute.
      */
-    private void setupEditTextInput(NumberPicker numberPicker) {
+    private void setupEditTextInput(@NonNull NumberPicker numberPicker) {
         int count = numberPicker.getChildCount();
 
         for (int i = 0; i < count; i++) {
@@ -265,16 +268,16 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                 }
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    public void beforeTextChanged(@Nullable CharSequence s, int start, int count, int after) {
                     }
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    public void onTextChanged(@Nullable CharSequence s, int start, int before, int count) {
                         int hour = mBinding.hourPicker.getValue();
                         int minute = mBinding.minutePicker.getValue();
 
                         if (numberPicker == mBinding.hourPicker) {
-                            if (s.toString().isEmpty()) {
+                            if (TextUtils.isEmpty(s)) {
                                 hour = 0;
                             } else {
                                 hour = Integer.parseInt(s.toString());
@@ -289,7 +292,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                             inputMethodManager.restartInput(editText);
                         } else if (numberPicker == mBinding.minutePicker) {
-                            if (s.toString().isEmpty()) {
+                            if (TextUtils.isEmpty(s)) {
                                 minute = 0;
                             } else {
                                 minute = Integer.parseInt(s.toString());
@@ -304,7 +307,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                     }
 
                     @Override
-                    public void afterTextChanged(Editable s) {
+                    public void afterTextChanged(@Nullable Editable s) {
                     }
                 });
 

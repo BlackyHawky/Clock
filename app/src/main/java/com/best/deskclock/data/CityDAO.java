@@ -15,6 +15,8 @@ import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
@@ -58,7 +60,8 @@ final class CityDAO {
      * @param cityMap maps city ids to city instances
      * @return the list of city ids selected for display by the user
      */
-    static List<City> getSelectedCities(SharedPreferences prefs, Map<String, City> cityMap) {
+    @NonNull
+    static List<City> getSelectedCities(@NonNull SharedPreferences prefs, @NonNull Map<String, City> cityMap) {
         final int size = prefs.getInt(NUMBER_OF_CITIES, 0);
         final List<City> selectedCities = new ArrayList<>(size);
 
@@ -82,7 +85,7 @@ final class CityDAO {
      * @param prefs  the SharedPreferences instance where cities are saved
      * @param cities the list of selected cities, in the desired order
      */
-    static void saveSelectedCitiesOrder(SharedPreferences prefs, List<City> cities) {
+    static void saveSelectedCitiesOrder(@NonNull SharedPreferences prefs, @NonNull List<City> cities) {
         SharedPreferences.Editor editor = prefs.edit();
 
         int oldSize = prefs.getInt(NUMBER_OF_CITIES, 0);
@@ -107,7 +110,7 @@ final class CityDAO {
     /**
      * @param cities the collection of cities selected for display by the user
      */
-    static void setSelectedCities(SharedPreferences prefs, Collection<City> cities) {
+    static void setSelectedCities(@NonNull SharedPreferences prefs, @NonNull Collection<City> cities) {
         final SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(NUMBER_OF_CITIES, cities.size());
 
@@ -124,8 +127,9 @@ final class CityDAO {
      * @return the domain of cities from which the user may choose a world clock
      * @noinspection resource
      */
+    @NonNull
     @SuppressLint("AppBundleLocaleChanges")
-    static Map<String, City> getCities(Context context) {
+    static Map<String, City> getCities(@NonNull Context context) {
         final Resources resources = Utils.getLocalizedContext(context).getResources();
         final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
 
@@ -187,8 +191,9 @@ final class CityDAO {
      * @param englishFormattedName Same as formattedName, but strictly in English for search matching.
      * @param tzId                 the string id of the timezone a given city is located in
      */
+    @Nullable
     @VisibleForTesting
-    static City createCity(String id, String formattedName, String englishFormattedName, String tzId) {
+    static City createCity(@NonNull String id, @NonNull String formattedName, @NonNull String englishFormattedName, @NonNull String tzId) {
         final TimeZone tz = TimeZone.getTimeZone(tzId);
         // If the time zone lookup fails, GMT is returned. No cities actually map to GMT.
         if ("GMT".equals(tz.getID())) {

@@ -31,6 +31,8 @@ import android.text.format.DateUtils;
 import android.widget.RemoteViews;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -64,7 +66,7 @@ class TimerNotificationBuilder {
      * @param timer the timer on which to base the chronometer display
      * @return the time at which the chronometer will/did reach 0:00 in realtime
      */
-    private static long getChronometerBase(Timer timer) {
+    private static long getChronometerBase(@NonNull Timer timer) {
         // The in-app timer display rounds *up* to the next second for positive timer values. Mirror
         // that behavior in the notification's Chronometer by padding in an extra second as needed.
         final long remaining = timer.getRemainingTime();
@@ -90,7 +92,7 @@ class TimerNotificationBuilder {
     /**
      * @return the notification for running timers.
      */
-    public Notification build(Context context, NotificationModel nm, Timer timer) {
+    public Notification build(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Timer timer) {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final boolean running = timer.isRunning();
         final long base = getChronometerBase(timer);
@@ -253,7 +255,7 @@ class TimerNotificationBuilder {
     /**
      * @return the notification for expired timers.
      */
-    Notification buildHeadsUp(Context context, List<Timer> expired) {
+    Notification buildHeadsUp(@NonNull Context context, @NonNull List<Timer> expired) {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final Timer timer = expired.get(0);
@@ -370,7 +372,7 @@ class TimerNotificationBuilder {
     /**
      * @return the notification for missed timers.
      */
-    Notification buildMissed(Context context, NotificationModel nm, Timer timer) {
+    Notification buildMissed(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Timer timer) {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final int timerId = timer.getId();
@@ -449,7 +451,7 @@ class TimerNotificationBuilder {
         return notification.build();
     }
 
-    public Notification buildSummaryNotification(Context context, NotificationModel nm) {
+    public Notification buildSummaryNotification(@NonNull Context context, @NonNull NotificationModel nm) {
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
             .setAction(TimerService.ACTION_SHOW_TIMER)
@@ -474,7 +476,7 @@ class TimerNotificationBuilder {
             .build();
     }
 
-    private PendingIntent resetTimerIntent(Context context, int timerId, boolean isMissedTimer) {
+    private PendingIntent resetTimerIntent(@NonNull Context context, int timerId, boolean isMissedTimer) {
         Intent dismissIntent = new Intent(context, TimerService.class)
             .setAction(isMissedTimer ? TimerService.ACTION_RESET_MISSED_TIMERS : TimerService.ACTION_RESET_EXPIRED_TIMERS)
             .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
@@ -483,8 +485,10 @@ class TimerNotificationBuilder {
         return Utils.pendingServiceIntent(context, dismissIntent, timerId);
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    private RemoteViews buildChronometer(Context context, long base, boolean running, CharSequence titleText, CharSequence stateText) {
+    private RemoteViews buildChronometer(@NonNull Context context, long base, boolean running, @NonNull CharSequence titleText,
+                                         @Nullable CharSequence stateText) {
 
         final RemoteViews content = new RemoteViews(context.getPackageName(), R.layout.chronometer_notif_content);
 

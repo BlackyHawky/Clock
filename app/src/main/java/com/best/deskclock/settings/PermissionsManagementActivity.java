@@ -163,7 +163,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
 
         @Override
-        public boolean onPreferenceChange(Preference pref, Object newValue) {
+        public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
             if (pref.getKey().equals(KEY_ENABLE_FOREGROUND_SERVICE)) {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
@@ -316,6 +316,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             }
         }
 
+        @Nullable
         private Intent getFullScreenNotificationsIntent() {
             if (SdkUtils.isAtLeastAndroid14()) {
                 return new Intent(ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
@@ -350,7 +351,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         /**
          * Display dialog when user wants to revoke permission.
          */
-        private void displayRevocationDialog(String prefKey, Intent intent) {
+        private void displayRevocationDialog(@NonNull String prefKey, @Nullable Intent intent) {
             mPendingRevocationPrefKey = prefKey;
 
             mActiveDialog = CustomDialog.create(
@@ -382,7 +383,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             getPrefs().edit().putBoolean(KEY_ESSENTIAL_PERMISSIONS_GRANTED, granted).apply();
         }
 
-        private void updateSinglePreference(String key) {
+        private void updateSinglePreference(@NonNull String key) {
             Preference preference = findPreference(key);
 
             if (preference instanceof PermissionsManagementPreference permissionsManagementPref) {

@@ -15,6 +15,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.base.AppExecutors;
@@ -49,7 +51,7 @@ final class TabModel {
 
     private final List<Tab> mActiveTabs = new ArrayList<>();
 
-    TabModel(Context context) {
+    TabModel(@NonNull Context context) {
         mContext = context;
         mPrefs = getDefaultSharedPreferences(context);
         updateActiveTabs();
@@ -148,14 +150,14 @@ final class TabModel {
     /**
      * @param tabListener to be notified when the selected tab changes
      */
-    void addTabListener(TabListener tabListener) {
+    void addTabListener(@NonNull TabListener tabListener) {
         mTabListeners.add(tabListener);
     }
 
     /**
      * @param tabListener to no longer be notified when the selected tab changes
      */
-    void removeTabListener(TabListener tabListener) {
+    void removeTabListener(@NonNull TabListener tabListener) {
         mTabListeners.remove(tabListener);
     }
 
@@ -192,7 +194,7 @@ final class TabModel {
      * @param tab the tab to find
      * @return the current dynamic index of the tab, or -1 if hidden
      */
-    int getTabIndex(Tab tab) {
+    int getTabIndex(@NonNull Tab tab) {
         return mActiveTabs.indexOf(tab);
     }
 
@@ -214,7 +216,7 @@ final class TabModel {
     /**
      * @param tab an enumerated value indicating the newly selected primary tab
      */
-    void setSelectedTab(Tab tab) {
+    void setSelectedTab(@NonNull Tab tab) {
         final Tab oldSelectedTab = getSelectedTab();
         if (oldSelectedTab != tab) {
             mSelectedTab = tab;

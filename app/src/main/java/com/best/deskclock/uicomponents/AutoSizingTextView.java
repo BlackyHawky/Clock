@@ -9,6 +9,8 @@ package com.best.deskclock.uicomponents;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 /**
@@ -18,15 +20,15 @@ public class AutoSizingTextView extends AppCompatTextView {
 
     private final TextSizeHelper mTextSizeHelper;
 
-    public AutoSizingTextView(Context context) {
+    public AutoSizingTextView(@NonNull Context context) {
         this(context, null);
     }
 
-    public AutoSizingTextView(Context context, AttributeSet attrs) {
+    public AutoSizingTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, android.R.attr.textViewStyle);
     }
 
-    public AutoSizingTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AutoSizingTextView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mTextSizeHelper = new TextSizeHelper(this);
     }
@@ -38,7 +40,7 @@ public class AutoSizingTextView extends AppCompatTextView {
     }
 
     @Override
-    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
+    protected void onTextChanged(@NonNull CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         if (mTextSizeHelper != null) {
             mTextSizeHelper.onTextChanged(lengthBefore, lengthAfter);

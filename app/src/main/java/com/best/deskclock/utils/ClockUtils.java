@@ -19,6 +19,9 @@ import android.view.View;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -39,7 +42,7 @@ public class ClockUtils {
      * If the analog clock is not visible, it never displays seconds to avoid it scheduling unnecessary
      * ticking runnable.
      */
-    public static void setAnalogClockSecondsEnabled(DataModel.ClockStyle clockStyle, AnalogClock analogClock,
+    public static void setAnalogClockSecondsEnabled(@NonNull DataModel.ClockStyle clockStyle, @NonNull AnalogClock analogClock,
                                                     boolean displaySeconds) {
 
         switch (clockStyle) {
@@ -63,7 +66,7 @@ public class ClockUtils {
      * @param digitalClock if the view concerned is the digital clock
      * @param analogClock  if the view concerned is the analog clock
      */
-    public static void setClockStyle(DataModel.ClockStyle clockStyle, View digitalClock, View analogClock) {
+    public static void setClockStyle(@NonNull DataModel.ClockStyle clockStyle, @NonNull View digitalClock, @NonNull View analogClock) {
         switch (clockStyle) {
             case ANALOG, ANALOG_MATERIAL -> {
                 analogClock.setVisibility(View.VISIBLE);
@@ -89,7 +92,7 @@ public class ClockUtils {
      * @param analogClock the analog clock view whose size should be adjusted
      * @param sizePercent the analog clock size defined in the settings
      */
-    public static void adjustAnalogClockSize(View analogClock, int sizePercent) {
+    public static void adjustAnalogClockSize(@NonNull View analogClock, int sizePercent) {
         float factor = computeFactor(sizePercent);
 
         int screenHeight = analogClock.getContext().getResources().getDisplayMetrics().heightPixels;
@@ -105,7 +108,7 @@ public class ClockUtils {
         analogClock.requestLayout();
     }
 
-    public static void refreshAnalogClockStyle(AnalogClock analogClock) {
+    public static void refreshAnalogClockStyle(@Nullable AnalogClock analogClock) {
         if (analogClock != null) {
             analogClock.updateClockStyle();
         }
@@ -141,7 +144,7 @@ public class ClockUtils {
      *
      * @param clock the TextClock instance whose font should be updated
      */
-    public static void setDigitalClockFont(TextClock clock, String fontPath) {
+    public static void setDigitalClockFont(@NonNull TextClock clock, @NonNull String fontPath) {
         Typeface typeface = ThemeUtils.loadFont(fontPath);
         clock.setTypeface(typeface);
     }
@@ -153,7 +156,7 @@ public class ClockUtils {
      * @param clock          TextClock to format
      * @param includeSeconds whether to include seconds in the clock's time
      */
-    public static void setDigitalClockTimeFormat(TextClock clock, float amPmRatio, boolean includeSeconds, boolean isAlarm,
+    public static void setDigitalClockTimeFormat(@Nullable TextClock clock, float amPmRatio, boolean includeSeconds, boolean isAlarm,
                                                  boolean isClockTab, boolean isTimer, boolean isScreensaver) {
 
         if (clock != null) {
@@ -172,7 +175,8 @@ public class ClockUtils {
      * @param includeSeconds whether to include seconds in the time string
      * @return format string for 12 hours mode time, not including seconds
      */
-    public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds, boolean isAlarm,
+    @NonNull
+    public static CharSequence get12ModeFormat(@NonNull Context context, float amPmRatio, boolean includeSeconds, boolean isAlarm,
                                                boolean isClockTab, boolean isTimer, boolean isScreensaver) {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -240,7 +244,9 @@ public class ClockUtils {
      * If the provided typeface is null, a default span is used. Otherwise, a bold version
      * of the typeface is applied, with compatibility handling for older Android versions.
      */
-    private static void applyTypefaceSpan(Spannable sp, int amPmPos, Typeface userTypeface, TypefaceSpan defaultSpan, int textStyle) {
+    private static void applyTypefaceSpan(@NonNull Spannable sp, int amPmPos, @Nullable Typeface userTypeface,
+                                          @NonNull TypefaceSpan defaultSpan, int textStyle) {
+
         if (userTypeface == null) {
             sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
@@ -270,7 +276,9 @@ public class ClockUtils {
     /**
      * Clock views can call this to refresh their date.
      **/
-    public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock, boolean isUppercase) {
+    public static void updateDate(@NonNull String dateSkeleton, @NonNull String descriptionSkeleton, @NonNull View clock,
+                                  boolean isUppercase) {
+
         final TextView dateDisplay = clock.findViewById(R.id.date);
 
         if (dateDisplay == null) {
@@ -293,7 +301,7 @@ public class ClockUtils {
     /**
      * Applies a bold font to the date.
      */
-    public static void applyBoldDateTypeface(View clock) {
+    public static void applyBoldDateTypeface(@NonNull View clock) {
         SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
         final TextView date = clock.findViewById(R.id.date);
 
@@ -313,7 +321,8 @@ public class ClockUtils {
      * @param zones a collection of time zones
      * @return the nearest point in the future at which any of the time zones changes days
      */
-    public static Date getNextDay(Date time, Collection<TimeZone> zones) {
+    @Nullable
+    public static Date getNextDay(@NonNull Date time, @NonNull Collection<TimeZone> zones) {
         Calendar next = null;
         for (TimeZone tz : zones) {
             final Calendar c = Calendar.getInstance(tz);
@@ -339,7 +348,7 @@ public class ClockUtils {
     /**
      * Apply the clock icon font to the next alarm view.
      */
-    public static void setClockIconTypeface(View clock) {
+    public static void setClockIconTypeface(@NonNull View clock) {
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         nextAlarmIconView.setTypeface(getAlarmIconTypeface(clock.getContext()));
     }
@@ -352,7 +361,7 @@ public class ClockUtils {
      *
      * @return a special font containing a glyph that draws an alarm clock or a label.
      */
-    public static Typeface getAlarmIconTypeface(Context context) {
+    public static Typeface getAlarmIconTypeface(@NonNull Context context) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/clock.ttf");
     }
 }

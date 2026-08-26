@@ -30,6 +30,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 
 import com.best.deskclock.R;
@@ -72,11 +74,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
     };
 
-    public TimerSetupView(Context context) {
+    public TimerSetupView(@NonNull Context context) {
         this(context, null);
     }
 
-    public TimerSetupView(Context context, AttributeSet attrs) {
+    public TimerSetupView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         mUiDataModel = UiDataModel.getUiDataModel();
@@ -197,7 +199,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         View view = null;
         if (keyCode == KeyEvent.KEYCODE_DEL) {
             view = mBinding.timerSetupDigitsLayout.timerSetupDelete;
@@ -217,7 +219,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(@NonNull View view) {
         Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.CLOCK_TICK);
 
         if (view == mBinding.timerSetupDigitsLayout.timerSetupDelete) {
@@ -231,7 +233,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     }
 
     @Override
-    public boolean onLongClick(View view) {
+    public boolean onLongClick(@NonNull View view) {
         if (view == mBinding.timerSetupDigitsLayout.timerSetupDelete) {
             Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.CLOCK_TICK);
 
@@ -244,7 +246,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         return false;
     }
 
-    public void setFabContainer(FabContainer fabContainer) {
+    public void setFabContainer(@NonNull FabContainer fabContainer) {
         mFabContainer = fabContainer;
     }
 
@@ -403,7 +405,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     /**
      * @param state an opaque state of this view previously produced by {@link #getState()}
      */
-    public void setState(Serializable state) {
+    public void setState(@Nullable Serializable state) {
         final int[] input = (int[]) state;
         if (input != null && mInput.length == input.length) {
             for (int i = 0; i < mInput.length; i++) {
@@ -417,7 +419,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
     }
 
-    public void updateTimerSetupTimeFont(Typeface timerTimeFont) {
+    public void updateTimerSetupTimeFont(@NonNull Typeface timerTimeFont) {
         if (mBinding != null) {
             mBinding.timerSetupTimeLayout.timerSetupTime.setTypeface(timerTimeFont);
         }

@@ -22,6 +22,8 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
@@ -183,27 +185,27 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected boolean isTextUppercase(SharedPreferences prefs) {
+    protected boolean isTextUppercase(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs);
     }
 
     @Override
-    protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
+    protected boolean isTextShadowDisplayed(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isTextShadowDisplayedOnDigitalWidget(prefs);
     }
 
     @Override
-    protected boolean areWorldCitiesDisplayed(SharedPreferences prefs) {
+    protected boolean areWorldCitiesDisplayed(@NonNull SharedPreferences prefs) {
         return WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(prefs);
     }
 
     @Override
-    protected boolean isHorizontalPaddingApplied(SharedPreferences prefs) {
+    protected boolean isHorizontalPaddingApplied(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetHorizontalPaddingApplied(prefs);
     }
 
     @Override
-    protected int getMaxWidgetFontSize(SharedPreferences prefs) {
+    protected int getMaxWidgetFontSize(@NonNull SharedPreferences prefs) {
         return WidgetDAO.getDigitalWidgetMaxClockFontSize(prefs);
     }
 
@@ -213,7 +215,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected String getNextAlarmTime(Context context) {
+    protected String getNextAlarmTime(@NonNull Context context) {
         return AlarmUtils.getNextAlarm(context);
     }
 
@@ -228,37 +230,39 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected boolean isDefaultCityClockColor(SharedPreferences prefs) {
+    protected boolean isDefaultCityClockColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetDefaultCityClockColor(prefs);
     }
 
     @Override
-    protected int getCityClockColor(SharedPreferences prefs) {
+    protected int getCityClockColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.getDigitalWidgetCustomCityClockColor(prefs);
     }
 
     @Override
-    protected boolean isDefaultCityNameColor(SharedPreferences prefs) {
+    protected boolean isDefaultCityNameColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetDefaultCityNameColor(prefs);
     }
 
     @Override
-    protected int getCityNameColor(SharedPreferences prefs) {
+    protected int getCityNameColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.getDigitalWidgetCustomCityNameColor(prefs);
     }
 
     @Override
-    protected boolean isDefaultCityNoteColor(SharedPreferences prefs) {
+    protected boolean isDefaultCityNoteColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetDefaultCityNoteColor(prefs);
     }
 
     @Override
-    protected int getCityNoteColor(SharedPreferences prefs) {
+    protected int getCityNoteColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.getDigitalWidgetCustomCityNoteColor(prefs);
     }
 
     @Override
-    protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
+    protected void bindDateClickAction(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs,
+                                       @NonNull PendingIntent calendarPendingIntent) {
+
         boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
 
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
@@ -269,7 +273,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureClock(RemoteViews rv, Context context, SharedPreferences prefs) {
+    protected void configureClock(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs) {
         if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
             rv.setViewVisibility(getClockViewId(), VISIBLE);
             rv.setViewVisibility(getClockCustomViewId(), GONE);
@@ -288,7 +292,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureDate(RemoteViews rv, Context context, SharedPreferences prefs) {
+    protected void configureDate(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs) {
         if (!WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
             rv.setViewVisibility(getDateViewId(), GONE);
             rv.setViewVisibility(getTopDateViewId(), GONE);
@@ -337,7 +341,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureNextAlarm(RemoteViews rv, Context context, SharedPreferences prefs, String nextAlarmTime) {
+    protected void configureNextAlarm(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
+                                      @NonNull String nextAlarmTime) {
+
         if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
@@ -365,7 +371,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle) {
+    protected void configureNextAlarmTitle(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs, @NonNull String nextAlarmTime,
+                                           @Nullable String nextAlarmTitle) {
+
         if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || !WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(prefs)) {
             rv.setViewVisibility(getLabelIconViewId(), GONE);
             rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
@@ -401,7 +409,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs, int widthPx, int heightPx) {
+    protected void configureBackground(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
+                                       int widthPx, int heightPx) {
+
         if (!WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
@@ -439,7 +449,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureSizerClock(View sizer, SharedPreferences prefs) {
+    protected void configureSizerClock(@NonNull View sizer, @NonNull SharedPreferences prefs) {
         final TextClock clock = sizer.findViewById(getClockViewId());
         final TextClock clockForCustomColor = sizer.findViewById(getClockCustomViewId());
         if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
@@ -452,7 +462,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureSizerDate(View sizer, Context context, SharedPreferences prefs) {
+    protected void configureSizerDate(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs) {
         final TextView date = sizer.findViewById(getDateViewId());
         final TextView topDate = sizer.findViewById(getTopDateViewId());
         final TextView dateForCustomColor = sizer.findViewById(getDateCustomViewId());
@@ -505,7 +515,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureSizerNextAlarm(View sizer, Context context, SharedPreferences prefs, String nextAlarmTime) {
+    protected void configureSizerNextAlarm(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
+                                           @NonNull String nextAlarmTime) {
+
         final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
         final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
@@ -540,7 +552,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureSizerNextAlarmTitle(View sizer, Context context, SharedPreferences prefs, String nextAlarmTime) {
+    protected void configureSizerNextAlarmTitle(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
+                                                @NonNull String nextAlarmTime) {
+
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
         final TextView labelIcon = sizer.findViewById(getLabelIconViewId());
         final TextView nextAlarmTitleView = sizer.findViewById(getNextAlarmTitleViewId());
@@ -587,7 +601,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureClockForMeasurement(View sizer, DigitalWidgetSizes measuredSizes, SharedPreferences prefs) {
+    protected void configureClockForMeasurement(@NonNull View sizer, @NonNull DigitalWidgetSizes measuredSizes,
+                                                @NonNull SharedPreferences prefs) {
+
         if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
             TextClock clock = sizer.findViewById(getClockViewId());
             clock.setText(WidgetUtils.getLongestTimeString(clock));
@@ -602,7 +618,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureDateForMeasurement(View sizer, DigitalWidgetSizes measuredSizes, SharedPreferences prefs) {
+    protected void configureDateForMeasurement(@NonNull View sizer, @NonNull DigitalWidgetSizes measuredSizes,
+                                               @NonNull SharedPreferences prefs) {
+
         boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
 
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
@@ -615,7 +633,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureNextAlarmForMeasurement(View sizer, DigitalWidgetSizes measuredSizes, SharedPreferences prefs) {
+    protected void configureNextAlarmForMeasurement(@NonNull View sizer, @NonNull DigitalWidgetSizes measuredSizes,
+                                                    @NonNull SharedPreferences prefs) {
+
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
             final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());
             final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
@@ -648,7 +668,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void finalizeMeasurement(View sizer, DigitalWidgetSizes measuredSizes, SharedPreferences prefs) {
+    protected void finalizeMeasurement(@NonNull View sizer, @NonNull DigitalWidgetSizes measuredSizes, @NonNull SharedPreferences prefs) {
         if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
             TextClock clock = sizer.findViewById(getClockViewId());
             measuredSizes.mMeasuredTextWidthPx = clock.getMeasuredWidth();
@@ -685,7 +705,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Keep
-    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+    public static void updateAppWidget(@NonNull Context context, @NonNull AppWidgetManager wm, int widgetId) {
         new DigitalAppWidgetProvider().relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
     }
 

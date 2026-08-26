@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -44,7 +45,8 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
 
     private ColorPickerPreference preference;
 
-    public static ColorPreferenceDialogFragment newInstance(ColorPickerPreference pref) {
+    @NonNull
+    public static ColorPreferenceDialogFragment newInstance(@NonNull ColorPickerPreference pref) {
         Bundle args = new Bundle();
         args.putString(ARG_PREF_KEY, pref.getKey());
 
@@ -56,13 +58,13 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
     /**
      * Displays {@link ColorPreferenceDialogFragment}.
      */
-    public static void show(FragmentManager manager, ColorPreferenceDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull ColorPreferenceDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Context context = requireContext();
 
         resolvePreferenceIfNeeded();
@@ -112,7 +114,7 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
     }
 
     @NonNull
-    private ColorPickerView getColorPickerView(Context context) {
+    private ColorPickerView getColorPickerView(@NonNull Context context) {
         ColorPickerView colorPickerView = new ColorPickerView(context);
 
         colorPickerView.setColor(preference.getColor());

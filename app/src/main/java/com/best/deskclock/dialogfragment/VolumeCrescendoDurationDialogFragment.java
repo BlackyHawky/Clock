@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -80,7 +81,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * @param key               The shared preference key used to identify the setting.
      * @param crescendoDuration The crescendo duration in seconds.
      */
-    public static VolumeCrescendoDurationDialogFragment newInstance(String key, int crescendoDuration) {
+    @NonNull
+    public static VolumeCrescendoDurationDialogFragment newInstance(@NonNull String key, int crescendoDuration) {
         Bundle args = new Bundle();
 
         boolean isOff = crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION;
@@ -109,6 +111,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      *
      * @param crescendoDuration The crescendo duration in seconds.
      */
+    @NonNull
     public static VolumeCrescendoDurationDialogFragment newInstance(int crescendoDuration) {
 
         final Bundle args = new Bundle();
@@ -139,6 +142,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * @param timerId the {@link Timer} id whose volume crescendo duration will be edited.
      * @param crescendoDuration The crescendo duration in seconds.
      */
+    @NonNull
     public static VolumeCrescendoDurationDialogFragment newInstance(int timerId, int crescendoDuration) {
 
         final Bundle args = new Bundle();
@@ -166,7 +170,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     /**
      * Displays {@link VolumeCrescendoDurationDialogFragment}.
      */
-    public static void show(FragmentManager manager, VolumeCrescendoDurationDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull VolumeCrescendoDurationDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -188,7 +192,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
@@ -434,7 +438,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * </ul>
      * {@code false} otherwise.
      */
-    private boolean isInvalidInput(String minutesText, String secondsText) {
+    private boolean isInvalidInput(@NonNull String minutesText, @NonNull String secondsText) {
         int minutes = 0;
         int seconds = 0;
 
@@ -536,7 +540,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * @return {@code true} if the alarm volume crescendo duration or the timer volume crescendo
      * duration is not the default value; {@code false} otherwise.
      */
-    private boolean isNotDefaultVolumeCrescendoDuration(String minutesText, String secondsText) {
+    private boolean isNotDefaultVolumeCrescendoDuration(@NonNull String minutesText, @NonNull String secondsText) {
         int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
         int seconds = secondsText.isEmpty() ? 0 : Integer.parseInt(secondsText);
 
@@ -553,7 +557,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        public void onTextChanged(@Nullable CharSequence charSequence, int start, int before, int count) {
             if (mBinding.crescendoOffButton.isChecked()) {
                 updateDialogForValidInput();
                 return;
@@ -593,11 +597,11 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        public void beforeTextChanged(@Nullable CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(@Nullable Editable editable) {
         }
     }
 
@@ -607,7 +611,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     private class ImeDoneListener implements TextView.OnEditorActionListener {
 
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(@NonNull TextView v, int actionId, @Nullable KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
                 String inputSecondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();

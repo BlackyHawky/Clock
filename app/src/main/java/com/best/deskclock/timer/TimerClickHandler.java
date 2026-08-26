@@ -9,6 +9,7 @@ package com.best.deskclock.timer;
 import android.content.Context;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 
 import com.best.deskclock.R;
@@ -21,12 +22,12 @@ import com.best.deskclock.utils.LogUtils;
 /**
  * Click handler for a timer item.
  */
-public record TimerClickHandler(TimerFragment mTimerFragment, DataModel mDataModel) {
+public record TimerClickHandler(@NonNull TimerFragment mTimerFragment, @NonNull DataModel mDataModel) {
 
     public static final String TAG = "TimerClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
 
-    public void onPlayPauseClicked(Timer timer) {
+    public void onPlayPauseClicked(@NonNull Timer timer) {
         if (timer.isPaused() || timer.isReset()) {
             Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
             mDataModel.startTimer(timer);
@@ -49,7 +50,7 @@ public record TimerClickHandler(TimerFragment mTimerFragment, DataModel mDataMod
         }
     }
 
-    public void onCircleClicked(Timer timer) {
+    public void onCircleClicked(@NonNull Timer timer) {
         if (timer.isPaused() || timer.isReset()) {
             Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
             mDataModel.startTimer(timer);
@@ -59,12 +60,12 @@ public record TimerClickHandler(TimerFragment mTimerFragment, DataModel mDataMod
         }
     }
 
-    public void onResetClicked(Timer timer) {
+    public void onResetClicked(@NonNull Timer timer) {
         Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
         mDataModel.resetTimer(timer, R.string.label_deskclock);
     }
 
-    public void onAddTimeClicked(Timer timer, View v) {
+    public void onAddTimeClicked(@NonNull Timer timer, @NonNull View v) {
         Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
         mDataModel.addCustomTimeToTimer(timer);
 
@@ -80,7 +81,7 @@ public record TimerClickHandler(TimerFragment mTimerFragment, DataModel mDataMod
         }
     }
 
-    public void displayBottomSheetDialog(Timer timer) {
+    public void displayBottomSheetDialog(@NonNull Timer timer) {
         TimerEditBottomSheetFragment fragment = TimerEditBottomSheetFragment.newInstance(timer.getId(), mTimerFragment.getTag());
 
         TimerEditBottomSheetFragment.show(mTimerFragment.getParentFragmentManager(), fragment);

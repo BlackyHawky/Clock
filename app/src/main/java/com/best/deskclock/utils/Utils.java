@@ -34,6 +34,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -95,7 +97,7 @@ public class Utils {
      * @param intent  an Intent describing the service to be started
      * @return a PendingIntent that will start a service
      */
-    public static PendingIntent pendingServiceIntent(Context context, Intent intent) {
+    public static PendingIntent pendingServiceIntent(@NonNull Context context, @NonNull Intent intent) {
         return PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     }
 
@@ -107,7 +109,7 @@ public class Utils {
      * @param intent      an Intent describing the service to be started
      * @param requestCode a unique identifier to differentiate between multiple PendingIntents
      */
-    public static PendingIntent pendingServiceIntent(Context context, Intent intent, int requestCode) {
+    public static PendingIntent pendingServiceIntent(@NonNull Context context, @NonNull Intent intent, int requestCode) {
         return PendingIntent.getService(context, requestCode, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     }
 
@@ -118,7 +120,7 @@ public class Utils {
      * @param intent  an Intent describing the activity to be started
      * @return a PendingIntent that will start an activity
      */
-    public static PendingIntent pendingActivityIntent(Context context, Intent intent) {
+    public static PendingIntent pendingActivityIntent(@NonNull Context context, @NonNull Intent intent) {
         // explicitly set the flag here, as getActivity() documentation states we must do so
         return PendingIntent.getActivity(context, 0, intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
@@ -129,7 +131,7 @@ public class Utils {
      *
      * @param context The context required to stop the service.
      */
-    public static void stopService(Context context, Class<?> cls) {
+    public static void stopService(@NonNull Context context, @NonNull Class<?> cls) {
         Intent serviceIntent = new Intent(context, cls);
         context.stopService(serviceIntent);
     }
@@ -145,7 +147,7 @@ public class Utils {
      * @param fragment the DialogFragment instance to show
      * @param tag      the unique tag identifying this dialog in the FragmentManager
      */
-    public static void showDialogFragment(FragmentManager manager, DialogFragment fragment, String tag) {
+    public static void showDialogFragment(@Nullable FragmentManager manager, @NonNull DialogFragment fragment, @NonNull String tag) {
         if (manager == null || manager.isDestroyed()) {
             return;
         }
@@ -197,7 +199,7 @@ public class Utils {
      * @return A new Context whose configuration applies the selected Locale.
      */
     @SuppressLint("AppBundleLocaleChanges")
-    public static Context getLocalizedContext(Context context) {
+    public static Context getLocalizedContext(@NonNull Context context) {
         Locale locale = null;
 
         LocaleListCompat appLocales = AppCompatDelegate.getApplicationLocales();
@@ -249,7 +251,7 @@ public class Utils {
      * @param context        the context used to access shared preferences
      * @param isResettingApp true if the app is resetting to default settings, false if restoring from a backup
      */
-    public static void applyAppLanguage(Context context, boolean isResettingApp) {
+    public static void applyAppLanguage(@NonNull Context context, boolean isResettingApp) {
         if (isResettingApp) {
             if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(DEBUG_LANGUAGE_CODE));
@@ -275,7 +277,7 @@ public class Utils {
      * @param context the base context
      * @return a context suitable for accessing device-protected storage
      */
-    public static Context getSafeStorageContext(Context context) {
+    public static Context getSafeStorageContext(@NonNull Context context) {
         return SdkUtils.isAtLeastAndroid7()
             ? context.createDeviceProtectedStorageContext()
             : context;
@@ -287,7 +289,7 @@ public class Utils {
      * @param context      to define whether the device is equipped with a vibrator.
      * @param milliseconds Hours to display (if any)
      */
-    public static void setVibrationTime(Context context, long milliseconds) {
+    public static void setVibrationTime(@NonNull Context context, long milliseconds) {
         final boolean isVibrationsEnabled = SettingsDAO.isVibrationsEnabled(getDefaultSharedPreferences(context));
         final Vibrator vibrator = context.getSystemService(Vibrator.class);
         if (isVibrationsEnabled) {
@@ -306,7 +308,7 @@ public class Utils {
      * @param view             The view from which the action is triggered.
      * @param feedbackConstant The constant of type {@link android.view.HapticFeedbackConstants}.
      */
-    public static void performHapticFeedback(View view, int feedbackConstant) {
+    public static void performHapticFeedback(@Nullable View view, int feedbackConstant) {
         if (view != null && SettingsDAO.isVibrationsEnabled(getDefaultSharedPreferences(view.getContext()))) {
             view.performHapticFeedback(feedbackConstant);
         }
@@ -319,7 +321,8 @@ public class Utils {
      * @return a long array representing the vibration pattern durations in milliseconds;
      * if the pattern key is unknown, returns a default vibration pattern
      */
-    public static long[] getVibrationPatternForKey(String patternKey) {
+    @NonNull
+    public static long[] getVibrationPatternForKey(@NonNull String patternKey) {
         return switch (patternKey) {
             case VIBRATION_PATTERN_SOFT -> new long[]{500, 200, 500};
             case VIBRATION_PATTERN_STRONG -> new long[]{500, 1000};
@@ -340,7 +343,8 @@ public class Utils {
      * @param getter Function that returns the value for a given key.
      * @return A map of preference keys to their current values.
      */
-    public static Map<String, Object> initCachedValues(List<String> keys, Function<String, Object> getter) {
+    @NonNull
+    public static Map<String, Object> initCachedValues(@NonNull List<String> keys, @NonNull Function<String, Object> getter) {
         Map<String, Object> cached = new HashMap<>();
         for (String key : keys) {
             cached.put(key, getter.apply(key));
@@ -353,7 +357,10 @@ public class Utils {
      *
      * <p>Note: Clicking the "OK" button will no longer display this dialog box.</p>
      */
-    public static AlertDialog displayKeepAndroidOpenDialog(Context context, SharedPreferences prefs, boolean isCancelable) {
+    @NonNull
+    public static AlertDialog displayKeepAndroidOpenDialog(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                                           boolean isCancelable) {
+
         Spanned message = HtmlCompat.fromHtml(context.getString(R.string.keep_android_open_message_italic)
                 + context.getString(R.string.keep_android_open_message), HtmlCompat.FROM_HTML_MODE_LEGACY);
 
@@ -405,8 +412,9 @@ public class Utils {
      * @param millis  the timer duration in milliseconds.
      * @return the timer's default label.
      */
+    @NonNull
     @SuppressWarnings("SizeReplaceableByIsEmpty")
-    public static String buildDefaultTimerLabel(Context context, long millis) {
+    public static String buildDefaultTimerLabel(@NonNull Context context, long millis) {
         long seconds = (millis / DateUtils.SECOND_IN_MILLIS) % 60;
         long minutes = (millis / DateUtils.MINUTE_IN_MILLIS) % 60;
         long hours = millis / DateUtils.HOUR_IN_MILLIS;
@@ -446,7 +454,7 @@ public class Utils {
     public static final class CircleTouchListener implements View.OnTouchListener {
         @SuppressLint("ClickableViewAccessibility")
         @Override
-        public boolean onTouch(View view, MotionEvent event) {
+        public boolean onTouch(@NonNull View view, @NonNull MotionEvent event) {
             final int actionMasked = event.getActionMasked();
             if (actionMasked != MotionEvent.ACTION_DOWN) {
                 return false;

@@ -17,6 +17,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.Utils;
 
@@ -64,7 +66,7 @@ public final class MoveScreensaverRunnable implements Runnable {
      * @param contentView contains the {@code saverView}
      * @param saverView   a child view of {@code contentView} that periodically moves around
      */
-    public MoveScreensaverRunnable(View contentView, View saverView, UiDataModel uiDataModel) {
+    public MoveScreensaverRunnable(@NonNull View contentView, @NonNull View saverView, @NonNull UiDataModel uiDataModel) {
         mContentView = contentView;
         mSaverView = saverView;
         mUiDataModel = uiDataModel;
@@ -146,7 +148,7 @@ public final class MoveScreensaverRunnable implements Runnable {
                 .with(getScaleAnimator(mSaverView, 0.85f, 1f));
             show.addListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationStart(Animator animation) {
+                public void onAnimationStart(@NonNull Animator animation) {
                     mSaverView.setX(newX);
                     mSaverView.setY(newY);
                 }

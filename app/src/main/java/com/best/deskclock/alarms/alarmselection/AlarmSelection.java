@@ -6,9 +6,11 @@
 
 package com.best.deskclock.alarms.alarmselection;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.provider.Alarm;
 
-public record AlarmSelection(Alarm mAlarm) {
+public record AlarmSelection(@NonNull Alarm mAlarm) {
 
     /**
      * Created a new selectable item with a visual label and an id.

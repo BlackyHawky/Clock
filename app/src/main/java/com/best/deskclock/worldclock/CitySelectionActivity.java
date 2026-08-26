@@ -116,12 +116,12 @@ public final class CitySelectionActivity extends BaseActivity {
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(@NonNull String query) {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
+            public boolean onQueryTextChange(@NonNull String query) {
                 mCitiesAdapter.filter(query);
                 updateFastScrolling();
                 return true;
@@ -188,7 +188,7 @@ public final class CitySelectionActivity extends BaseActivity {
 
     @SuppressLint("AlwaysShowAction")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         menu.add(Menu.NONE, 0, Menu.NONE, getMenuTitle()).setIcon(R.drawable.ic_sort).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         mBinding.toolbar.post(() -> ThemeUtils.applyToolbarTooltips(mBinding.toolbar));
@@ -197,7 +197,7 @@ public final class CitySelectionActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Save the new sort order.
         getDataModel().toggleCitySort();
 

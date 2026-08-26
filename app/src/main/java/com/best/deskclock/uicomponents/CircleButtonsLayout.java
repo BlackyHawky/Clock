@@ -13,6 +13,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.R;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -24,11 +27,11 @@ public class CircleButtonsLayout extends FrameLayout {
     private final float mDiamOffset;
 
     @SuppressWarnings("unused")
-    public CircleButtonsLayout(Context context) {
+    public CircleButtonsLayout(@NonNull Context context) {
         this(context, null);
     }
 
-    public CircleButtonsLayout(Context context, AttributeSet attrs) {
+    public CircleButtonsLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         final float strokeSize = dpToPx(6, getResources().getDisplayMetrics());

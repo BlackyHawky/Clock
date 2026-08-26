@@ -13,6 +13,8 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import android.content.Context;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.FormattedTextUtils;
 
@@ -28,7 +30,7 @@ public final class StopwatchTextController {
 
     private boolean mAreMillisecondsDisplayed = true;
 
-    public StopwatchTextController(TextView mainTextView, TextView hundredthsTextView) {
+    public StopwatchTextController(@NonNull TextView mainTextView, @NonNull TextView hundredthsTextView) {
         mMainTextView = mainTextView;
         mHundredthsTextView = hundredthsTextView;
     }

@@ -138,7 +138,7 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public boolean onPreferenceChange(Preference pref, Object newValue) {
+    public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_SW_DISPLAY_MILLISECONDS -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 

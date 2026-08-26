@@ -10,6 +10,9 @@ import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.R;
 
 import java.text.NumberFormat;
@@ -30,7 +33,7 @@ public class FormattedTextUtils {
      * @param span the span to apply
      * @return the text with the span applied
      */
-    public static CharSequence formatText(CharSequence text, Object span) {
+    public static CharSequence formatText(@Nullable CharSequence text, @NonNull Object span) {
         if (text == null) {
             return null;
         }
@@ -43,7 +46,8 @@ public class FormattedTextUtils {
     /**
      * Capitalizes the first letter of a string of characters according to the locale.
      */
-    public static String capitalizeFirstLetter(String text, Locale locale) {
+    @NonNull
+    public static String capitalizeFirstLetter(@Nullable String text, @NonNull Locale locale) {
 
         if (text == null || text.isEmpty()) {
             return text != null ? text : "";
@@ -69,7 +73,8 @@ public class FormattedTextUtils {
      * @param quantity the number used to evaluate the plural rule and to format into the string
      * @return the fully resolved and formatted plural string
      */
-    public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
+    @NonNull
+    public static String getNumberFormattedQuantityString(@NonNull Context context, int id, int quantity) {
         final String localizedQuantity = NumberFormat.getInstance().format(quantity);
         return context.getResources().getQuantityString(id, quantity, localizedQuantity);
     }
@@ -81,7 +86,8 @@ public class FormattedTextUtils {
      * @param seconds Seconds to display
      * @return Provided time formatted as a String
      */
-    public static String getTimeString(Context context, int hours, int minutes, int seconds) {
+    @NonNull
+    public static String getTimeString(@NonNull Context context, int hours, int minutes, int seconds) {
         if (hours != 0) {
             return context.getString(R.string.hours_minutes_seconds, hours, minutes, seconds);
         }

@@ -7,6 +7,8 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRA
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
 
 import com.best.deskclock.R;
@@ -25,7 +27,7 @@ public class VibrationPatternPreference extends DialogPreference {
      * @param context The application context.
      * @param attrs   The attribute set containing custom XML attributes.
      */
-    public VibrationPatternPreference(Context context, AttributeSet attrs) {
+    public VibrationPatternPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setPersistent(true);
     }
@@ -61,7 +63,7 @@ public class VibrationPatternPreference extends DialogPreference {
      *
      * @param patternKey The key of the vibration pattern to store.
      */
-    public void setPattern(String patternKey) {
+    public void setPattern(@NonNull String patternKey) {
         persistString(patternKey);
         notifyChanged();
     }

@@ -30,6 +30,9 @@ import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.R;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -89,7 +92,7 @@ public final class RingtoneModel {
      */
     private List<CustomRingtone> mCustomRingtones;
 
-    public RingtoneModel(Context context, SharedPreferences prefs) {
+    public RingtoneModel(@NonNull Context context, @NonNull SharedPreferences prefs) {
         mContext = Utils.getSafeStorageContext(context.getApplicationContext());
 
         mPrefs = prefs;
@@ -113,7 +116,7 @@ public final class RingtoneModel {
         }
     }
 
-    Uri customRingtoneToAdd(Uri uri, String title) {
+    Uri customRingtoneToAdd(@NonNull Uri uri, @NonNull String title) {
         // If the new ringtone is already present in an existing ringtone, do nothing.
         long size = FileUtils.getFileSize(mContext, uri);
 
@@ -151,7 +154,7 @@ public final class RingtoneModel {
         return uri;
     }
 
-    void removeCustomRingtone(Uri uri) {
+    void removeCustomRingtone(@NonNull Uri uri) {
         final List<CustomRingtone> ringtones = getMutableCustomRingtones();
         for (CustomRingtone ringtone : ringtones) {
             if (ringtone.getUri().equals(uri)) {
@@ -175,13 +178,14 @@ public final class RingtoneModel {
         }
     }
 
-    Uri customRingtoneAlreadyAdded(String name, long size) {
+    @Nullable
+    Uri customRingtoneAlreadyAdded(@NonNull String name, long size) {
         for (CustomRingtone ringtone : getMutableCustomRingtones()) {
             String ringtoneName = ringtone.getTitle();
             Uri ringtoneUri = ringtone.getUri();
 
             // Compare the name
-            if (ringtoneName != null && ringtoneName.equalsIgnoreCase(name)) {
+            if (ringtoneName.equalsIgnoreCase(name)) {
                 // If the name is the same, try to compare the size
                 if (FileUtils.getFileSize(mContext, ringtoneUri) == size) {
                     return ringtoneUri;
@@ -192,7 +196,8 @@ public final class RingtoneModel {
         return null;
     }
 
-    private CustomRingtone getCustomRingtone(Uri uri) {
+    @Nullable
+    private CustomRingtone getCustomRingtone(@NonNull Uri uri) {
         for (CustomRingtone ringtone : getMutableCustomRingtones()) {
             if (ringtone.getUri().equals(uri)) {
                 return ringtone;
@@ -202,6 +207,7 @@ public final class RingtoneModel {
         return null;
     }
 
+    @NonNull
     public List<CustomRingtone> getCustomRingtones() {
         return Collections.unmodifiableList(getMutableCustomRingtones());
     }
@@ -247,7 +253,7 @@ public final class RingtoneModel {
         }
     }
 
-    String getRingtoneTitle(Uri uri) {
+    String getRingtoneTitle(@NonNull Uri uri) {
         final Context localizedContext = Utils.getLocalizedContext(mContext);
 
         // Special case: no ringtone has a title of "random" or "random_custom.
@@ -337,7 +343,7 @@ public final class RingtoneModel {
      */
     private final class LocaleChangedReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             // Titles such as "Default ringtone (Oxygen)" are wrong after locale changes.
             mRingtoneTitles.clear();
         }

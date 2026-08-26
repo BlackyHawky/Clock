@@ -37,6 +37,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.DeskClock;
@@ -138,7 +139,7 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private void ensureTabIsVisible(String requiredTabStr) {
+    private void ensureTabIsVisible(@NonNull String requiredTabStr) {
         Set<String> visibleTabs = SettingsDAO.getVisibleTabs(mPrefs);
 
         if (!visibleTabs.contains(requiredTabStr)) {
@@ -152,7 +153,7 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private void handleDismissAlarm(Intent intent) {
+    private void handleDismissAlarm(@NonNull Intent intent) {
         // Change to the alarms tab.
         mUiDataModel.setSelectedTab(ALARMS);
 
@@ -162,7 +163,7 @@ public class HandleApiCalls extends Activity {
         new DismissAlarmAsync(mAppContext, intent, this).execute();
     }
 
-    public static void dismissAlarm(Alarm alarm, Context context) {
+    public static void dismissAlarm(@NonNull Alarm alarm, @NonNull Context context) {
 
         final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(context.getContentResolver(), alarm.id);
         if (instance == null) {
@@ -177,7 +178,7 @@ public class HandleApiCalls extends Activity {
         dismissAlarmInstance(instance, context);
     }
 
-    public static void dismissAlarmInstance(AlarmInstance instance, Context context) {
+    public static void dismissAlarmInstance(@NonNull AlarmInstance instance, @NonNull Context context) {
         Utils.enforceNotMainLooper();
 
         final Context appContext = context.getApplicationContext();
@@ -208,13 +209,13 @@ public class HandleApiCalls extends Activity {
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
     }
 
-    private static boolean isAlarmWithin24Hours(AlarmInstance alarmInstance) {
+    private static boolean isAlarmWithin24Hours(@NonNull AlarmInstance alarmInstance) {
         final Calendar nextAlarmTime = alarmInstance.getAlarmTime();
         final long nextAlarmTimeMillis = nextAlarmTime.getTimeInMillis();
         return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
-    private record DismissAlarmAsync(Context mContext, Intent mIntent, Activity mActivity) {
+    private record DismissAlarmAsync(@NonNull Context mContext, @NonNull Intent mIntent, @Nullable Activity mActivity) {
 
         private void execute() {
             final Context appContext = mContext.getApplicationContext();
@@ -270,7 +271,9 @@ public class HandleApiCalls extends Activity {
                         .putExtra(EXTRA_ALARMS, matchingAlarms.toArray(new Parcelable[0]));
                     mContext.startActivity(pickSelectionIntent);
                     final String voiceMessage = mContext.getString(R.string.pick_alarm_to_dismiss);
-                    Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
+                    if (mActivity != null && !mActivity.isDestroyed()) {
+                        Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
+                    }
                     return;
                 }
 
@@ -297,17 +300,17 @@ public class HandleApiCalls extends Activity {
             }
 
             for (AlarmInstance firingAlarmInstance : alarmInstances) {
-                snoozeAlarm(firingAlarmInstance, context, this);
+                snoozeAlarm(firingAlarmInstance, this);
             }
         });
     }
 
-    static void snoozeAlarm(AlarmInstance alarmInstance, Context context, Activity activity) {
+    static void snoozeAlarm(@NonNull AlarmInstance alarmInstance, @NonNull Activity activity) {
         Utils.enforceNotMainLooper();
 
-        final String time = DateFormat.getTimeFormat(context).format(alarmInstance.getAlarmTime().getTime());
-        final String reason = context.getString(R.string.alarm_is_snoozed, time);
-        AlarmStateManager.setSnoozeState(context, alarmInstance, true);
+        final String time = DateFormat.getTimeFormat(activity).format(alarmInstance.getAlarmTime().getTime());
+        final String reason = activity.getString(R.string.alarm_is_snoozed, time);
+        AlarmStateManager.setSnoozeState(activity, alarmInstance, true);
 
         Controller.getController().notifyVoiceSuccess(activity, reason);
         LOGGER.i("Alarm snoozed: " + alarmInstance);
@@ -318,7 +321,7 @@ public class HandleApiCalls extends Activity {
      * Processes the SET_ALARM intent
      * @param intent Intent passed to the app
      */
-    private void handleSetAlarm(Intent intent) {
+    private void handleSetAlarm(@NonNull Intent intent) {
         // Validate the hour, if one was given.
         int hour = -1;
         if (intent.hasExtra(AlarmClock.EXTRA_HOUR)) {
@@ -406,7 +409,7 @@ public class HandleApiCalls extends Activity {
         Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
     }
 
-    private void handleDismissTimer(Intent intent) {
+    private void handleDismissTimer(@NonNull Intent intent) {
         final Uri dataUri = intent.getData();
         if (dataUri != null) {
             final Timer selectedTimer = getSelectedTimer(dataUri);
@@ -451,7 +454,8 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private Timer getSelectedTimer(Uri dataUri) {
+    @Nullable
+    private Timer getSelectedTimer(@NonNull Uri dataUri) {
         try {
             final int timerId = (int) ContentUris.parseId(dataUri);
             return mDataModel.getTimer(timerId);
@@ -490,7 +494,7 @@ public class HandleApiCalls extends Activity {
         startActivity(showTimersIntent);
     }
 
-    private void handleSetTimer(Intent intent) {
+    private void handleSetTimer(@NonNull Intent intent) {
         // If no length is supplied, show the timer setup view.
         if (!intent.hasExtra(AlarmClock.EXTRA_LENGTH)) {
             // Change to the timers tab.
@@ -573,7 +577,7 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private void setupInstance(AlarmInstance instance, boolean skipUi) {
+    private void setupInstance(@NonNull AlarmInstance instance, boolean skipUi) {
         instance.addInstance(this.getContentResolver());
         AlarmStateManager.registerInstance(this, instance, true);
         AlarmUtils.popAlarmSetToast(this, instance.getAlarmTime().getTimeInMillis());
@@ -593,7 +597,7 @@ public class HandleApiCalls extends Activity {
      * @param alarm  the alarm to be updated
      * @param intent the intent containing new alarm field values to merge into the {@code alarm}
      */
-    private static void updateAlarmFromIntent(Alarm alarm, Intent intent) {
+    private static void updateAlarmFromIntent(@NonNull Alarm alarm, @NonNull Intent intent) {
         alarm.label = getLabelFromIntent(intent, alarm.label);
         alarm.hour = intent.getIntExtra(AlarmClock.EXTRA_HOUR, alarm.hour);
         alarm.minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, alarm.minutes);
@@ -613,7 +617,7 @@ public class HandleApiCalls extends Activity {
      * @param alarm the {@link Alarm} object to which default settings will be applied
      * @param prefs the {@link SharedPreferences} containing the user's default alarm preferences
      */
-    private static void applyAlarmSettings(Alarm alarm, Context context, SharedPreferences prefs) {
+    private static void applyAlarmSettings(@NonNull Alarm alarm, @NonNull Context context, @NonNull SharedPreferences prefs) {
         AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         alarm.enabled = true;
@@ -631,12 +635,13 @@ public class HandleApiCalls extends Activity {
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(prefs);
     }
 
-    private static String getLabelFromIntent(Intent intent, String defaultLabel) {
+    @NonNull
+    private static String getLabelFromIntent(@NonNull Intent intent, @Nullable String defaultLabel) {
         final String message = Objects.requireNonNull(intent.getExtras()).getString(AlarmClock.EXTRA_MESSAGE, defaultLabel);
         return message == null ? "" : message;
     }
 
-    private static Weekdays getDaysFromIntent(Intent intent, Weekdays defaultWeekdays) {
+    private static Weekdays getDaysFromIntent(@NonNull Intent intent, @NonNull Weekdays defaultWeekdays) {
         if (!intent.hasExtra(AlarmClock.EXTRA_DAYS)) {
             return defaultWeekdays;
         }
@@ -658,7 +663,7 @@ public class HandleApiCalls extends Activity {
         return defaultWeekdays;
     }
 
-    private static Uri getAlertFromIntent(Intent intent, Uri defaultUri) {
+    private static Uri getAlertFromIntent(@NonNull Intent intent, @NonNull Uri defaultUri) {
         final String alert = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE);
         if (alert == null) {
             return defaultUri;
@@ -687,12 +692,9 @@ public class HandleApiCalls extends Activity {
      * @param selection an out parameter containing a SQL where clause
      * @param args      an out parameter containing the values to substitute into the {@code selection}
      */
-    private void setSelectionFromIntent(
-        Intent intent,
-        int hour,
-        int minutes,
-        StringBuilder selection,
-        List<String> args) {
+    private void setSelectionFromIntent(@NonNull Intent intent, int hour, int minutes, @NonNull StringBuilder selection,
+                                        @NonNull List<String> args) {
+
         selection.append(Alarm.HOUR).append("=?");
         args.add(String.valueOf(hour));
         selection.append(" AND ").append(Alarm.MINUTES).append("=?");

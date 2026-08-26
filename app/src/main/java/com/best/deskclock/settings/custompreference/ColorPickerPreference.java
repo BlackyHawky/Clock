@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceViewHolder;
 
@@ -27,7 +28,7 @@ import com.rarepebble.colorpicker.ColorPreference;
  */
 public class ColorPickerPreference extends ColorPreference {
 
-    public ColorPickerPreference(Context context, AttributeSet attrs) {
+    public ColorPickerPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 

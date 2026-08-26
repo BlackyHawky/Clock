@@ -22,6 +22,8 @@ import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -80,11 +82,11 @@ public class TimerItem extends ConstraintLayout {
      */
     private Timer.State mLastState;
 
-    public TimerItem(Context context) {
+    public TimerItem(@NonNull Context context) {
         this(context, null);
     }
 
-    public TimerItem(Context context, AttributeSet attrs) {
+    public TimerItem(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -118,7 +120,7 @@ public class TimerItem extends ConstraintLayout {
         mBinding.timerTimeText.setTextColor(timeTextColor);
     }
 
-    public void setGeneralFonts(Typeface regular, Typeface bold) {
+    public void setGeneralFonts(@NonNull Typeface regular, @NonNull Typeface bold) {
         mBinding.timerLabel.setTypeface(bold);
 
         mBinding.timerAddTimeButton.setTypeface(bold);
@@ -126,11 +128,11 @@ public class TimerItem extends ConstraintLayout {
         mBinding.timerEndTime.setTypeface(regular, Typeface.ITALIC);
     }
 
-    public void setTimerTimeFont(Typeface timerTime) {
+    public void setTimerTimeFont(@NonNull Typeface timerTime) {
         mBinding.timerTimeText.setTypeface(timerTime);
     }
 
-    public void setTimerEndTimeFormatPattern(CharSequence formatPattern) {
+    public void setTimerEndTimeFormatPattern(@NonNull CharSequence formatPattern) {
         mTimerEndTimeFormatPattern = formatPattern;
     }
 
@@ -174,7 +176,7 @@ public class TimerItem extends ConstraintLayout {
     /**
      * Dynamically updates the {@code timer} display based on its current state.
      */
-    void updateTimeDisplay(Timer timer, boolean animateProgress) {
+    void updateTimeDisplay(@NonNull Timer timer, boolean animateProgress) {
         final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
 
         mTimerTextController.setTimeString(timer.getRemainingTime());
@@ -233,14 +235,14 @@ public class TimerItem extends ConstraintLayout {
     /**
      * Initializes the {@code timer} static visual elements when binding to a ViewHolder.
      */
-    public void bindTimer(Timer timer, boolean animate) {
+    public void bindTimer(@NonNull Timer timer, boolean animate) {
         // Initialize the label
         final String label = timer.getLabel();
 
-        if (!label.equals(mLastLabel)) {
+        if (!TextUtils.equals(label, mLastLabel)) {
             mLastLabel = label;
 
-            if (label.isEmpty()) {
+            if (TextUtils.isEmpty(label)) {
                 mBinding.timerLabel.setVisibility(GONE);
             } else {
                 mBinding.timerLabel.setText(label);
@@ -327,7 +329,7 @@ public class TimerItem extends ConstraintLayout {
         updateTimeDisplay(timer, animate);
     }
 
-    private void updateAddTimeButtonDisplay(Timer.State state) {
+    private void updateAddTimeButtonDisplay(@NonNull Timer.State state) {
         if (state == Timer.State.RESET || mIsAddTimeZero) {
             mBinding.timerAddTimeButton.setVisibility(INVISIBLE);
             return;
@@ -338,7 +340,7 @@ public class TimerItem extends ConstraintLayout {
         mBinding.timerAddTimeButton.setVisibility(VISIBLE);
     }
 
-    private void updateIndicator(Timer.State state) {
+    private void updateIndicator(@NonNull Timer.State state) {
         if (!mIsIndicatorStateDisplayed) {
             mBinding.timerIndicatorState.setVisibility(GONE);
             return;
@@ -361,7 +363,7 @@ public class TimerItem extends ConstraintLayout {
         mBinding.timerIndicatorState.setVisibility(VISIBLE);
     }
 
-    private void updateEndTimeDisplay(Timer timer) {
+    private void updateEndTimeDisplay(@NonNull Timer timer) {
         if (!mIsTimerEndTimeDisplayed) {
             mBinding.timerEndTime.setVisibility(GONE);
             return;

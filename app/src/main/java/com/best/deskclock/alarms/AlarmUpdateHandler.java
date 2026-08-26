@@ -12,6 +12,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 
 import com.best.deskclock.R;
@@ -44,7 +46,7 @@ public final class AlarmUpdateHandler {
 
     private String mSyncToastLabel = null;
 
-    public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler, ViewGroup snackbarAnchor) {
+    public AlarmUpdateHandler(@NonNull Context context, @Nullable ScrollHandler scrollHandler, @Nullable ViewGroup snackbarAnchor) {
         mAppContext = context.getApplicationContext();
         mScrollHandler = scrollHandler;
         mSnackbarAnchor = snackbarAnchor;
@@ -55,7 +57,7 @@ public final class AlarmUpdateHandler {
      *
      * @param alarm The alarm to be added.
      */
-    public void asyncAddAlarm(final Alarm alarm) {
+    public void asyncAddAlarm(@NonNull Alarm alarm) {
         asyncAddAlarm(alarm, true, null);
     }
 
@@ -66,7 +68,7 @@ public final class AlarmUpdateHandler {
      * @param listener A callback invoked on the main thread once the alarm has been successfully saved, providing the newly created alarm
      *                 with its generated database ID. Can be null.
      */
-    public void asyncAddAlarm(final Alarm alarm, final boolean showSnackbar, final OnAlarmSavedListener listener) {
+    public void asyncAddAlarm(@Nullable Alarm alarm, boolean showSnackbar, @Nullable OnAlarmSavedListener listener) {
         AppExecutors.getDiskIO().execute(() -> {
             AlarmInstance instance = null;
             Alarm newAlarm = null;
@@ -112,7 +114,7 @@ public final class AlarmUpdateHandler {
      * @param popToast    whether a toast should be displayed when done.
      * @param minorUpdate if true, don't affect any currently snoozed instances.
      */
-    public void asyncUpdateAlarm(final Alarm alarm, final boolean popToast, final boolean minorUpdate) {
+    public void asyncUpdateAlarm(@NonNull Alarm alarm, boolean popToast, boolean minorUpdate) {
         AppExecutors.getDiskIO().execute(() -> {
             ContentResolver cr = mAppContext.getContentResolver();
 
@@ -206,7 +208,7 @@ public final class AlarmUpdateHandler {
      *
      * @param alarm The alarm to be deleted.
      */
-    public void asyncDeleteAlarm(final Alarm alarm) {
+    public void asyncDeleteAlarm(@Nullable Alarm alarm) {
         AppExecutors.getDiskIO().execute(() -> {
             // Activity may be closed at this point , make sure data is still valid
             if (alarm == null) {
@@ -236,7 +238,7 @@ public final class AlarmUpdateHandler {
      *
      * @param label the label of the synchronized alarm group to calculate the next upcoming time for
      */
-    public void useSyncToastForLabel(String label) {
+    public void useSyncToastForLabel(@NonNull String label) {
         mSyncToastLabel = label;
     }
 
@@ -290,7 +292,8 @@ public final class AlarmUpdateHandler {
         SnackbarManager.show(snackbar);
     }
 
-    private AlarmInstance setupAlarmInstance(Alarm alarm) {
+    @NonNull
+    private AlarmInstance setupAlarmInstance(@NonNull Alarm alarm) {
         final ContentResolver cr = mAppContext.getContentResolver();
         AlarmInstance newInstance = alarm.createInstanceAfter(Calendar.getInstance());
         newInstance.addInstance(cr);
@@ -309,7 +312,7 @@ public final class AlarmUpdateHandler {
          *
          * @param savedAlarm The newly saved alarm, including its generated database ID.
          */
-        void onAlarmSaved(Alarm savedAlarm);
+        void onAlarmSaved(@NonNull Alarm savedAlarm);
     }
 
 }

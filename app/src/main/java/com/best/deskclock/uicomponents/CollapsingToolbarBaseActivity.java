@@ -112,17 +112,17 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
     }
 
     @Override
-    public void setContentView(View view) {
+    public void setContentView(@NonNull View view) {
         mBaseBinding.contentFrame.addView(view);
     }
 
     @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
+    public void setContentView(@NonNull View view, @NonNull ViewGroup.LayoutParams params) {
         mBaseBinding.contentFrame.addView(view, params);
     }
 
     @Override
-    public void setTitle(CharSequence title) {
+    public void setTitle(@NonNull CharSequence title) {
         mBaseBinding.collapsingToolbar.setTitle(title);
     }
 

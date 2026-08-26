@@ -7,6 +7,8 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRA
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
 
 import com.best.deskclock.R;
@@ -23,7 +25,7 @@ public class VibrationStartDelayPreference extends DialogPreference {
      * @param context The application context in which this preference is used.
      * @param attrs   The attribute set from XML that may include custom parameters.
      */
-    public VibrationStartDelayPreference(Context context, AttributeSet attrs) {
+    public VibrationStartDelayPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setPersistent(true);
     }

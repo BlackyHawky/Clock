@@ -17,6 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,8 +63,9 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public int mItemPosition = 0;
     public int mTotalCount = 0;
 
-    public AlarmItemViewHolder(AlarmItemBinding binding, AlarmAdapter alarmAdapter, SharedPreferences prefs, Typeface generalTypeface,
-                               Typeface generalBoldTypeface, Locale locale, String datePattern, String datePatternWithYear) {
+    public AlarmItemViewHolder(@NonNull AlarmItemBinding binding, @NonNull AlarmAdapter alarmAdapter, @NonNull SharedPreferences prefs,
+                               @NonNull Typeface generalTypeface, @NonNull Typeface generalBoldTypeface, @NonNull Locale locale,
+                               @NonNull String datePattern, @NonNull String datePatternWithYear) {
 
         super(binding.getRoot());
 
@@ -107,11 +110,11 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         return mItemHolder;
     }
 
-    public void updateAlarmFont(Typeface alarmTypeface) {
+    public void updateAlarmFont(@NonNull Typeface alarmTypeface) {
         mBinding.digitalClock.setTypeface(alarmTypeface);
     }
 
-    public void bind(final AlarmItemHolder itemHolder) {
+    public void bind(@NonNull final AlarmItemHolder itemHolder) {
         this.mItemHolder = itemHolder;
         final Alarm alarm = itemHolder.item;
         final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
@@ -166,7 +169,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void bindAlarmLabel(Context context, Alarm alarm) {
+    private void bindAlarmLabel(@NonNull Context context, @NonNull Alarm alarm) {
         if (alarm.label == null || alarm.label.isEmpty()) {
             mBinding.alarmLabel.setVisibility(GONE);
             return;
@@ -180,7 +183,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.alarmLabel.setContentDescription(context.getString(R.string.label_description) + " " + alarm.label);
     }
 
-    private void bindOnOffSwitch(Alarm alarm) {
+    private void bindOnOffSwitch(@NonNull Alarm alarm) {
         if (RingtoneUtils.RINGTONE_SILENT.equals(alarm.alert)) {
             mBinding.onOffButton.setThumbIconResource(R.drawable.ic_ringtone_silent_filled);
         } else {
@@ -202,12 +205,12 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    private void bindClock(Alarm alarm) {
+    private void bindClock(@NonNull Alarm alarm) {
         mBinding.digitalClock.refreshFormat();
         mBinding.digitalClock.setTime(alarm.hour, alarm.minutes);
     }
 
-    private void bindRepeatText(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+    private void bindRepeatText(@NonNull Context context, @NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
         if (alarmInstance != null
             && alarm.canPreemptivelyDismiss(context)
             && alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
@@ -223,7 +226,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void bindUpcomingDate(Alarm alarm, AlarmInstance alarmInstance) {
+    private void bindUpcomingDate(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
         if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()) {
             mBinding.upcomingDate.setVisibility(GONE);
             mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
@@ -251,7 +254,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, hasLabel ? 32 : 48);
     }
 
-    private void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+    private void bindPreemptiveDismissButton(@NonNull Context context, @NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
         if (AlarmVisualCache.isDismissed(alarm.id) && !SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(mPrefs)) {
             mBinding.preemptiveDismissButton.setVisibility(GONE);
             return;
@@ -272,7 +275,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.preemptiveDismissButton.setVisibility(VISIBLE);
     }
 
-    private void bindAlphaAnimation(Alarm alarm) {
+    private void bindAlphaAnimation(@NonNull Alarm alarm) {
         float targetAlpha = alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA;
 
         mBinding.alarmLabel.animate().cancel();
@@ -303,7 +306,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         bindExpressiveCardBackground();
     }
 
-    private void setRepeatingDaysDescription(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+    private void setRepeatingDaysDescription(@NonNull Context context, @NonNull Alarm alarm, @NonNull AlarmInstance alarmInstance) {
         Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);
         String contentDesc = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
         CharSequence styledDaysText;
@@ -334,7 +337,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.daysOfWeek.setContentDescription(contentDesc);
     }
 
-    private boolean isPauseEffectivelyActive(Alarm alarm, AlarmInstance nextInstance) {
+    private boolean isPauseEffectivelyActive(@NonNull Alarm alarm, @Nullable AlarmInstance nextInstance) {
         if (!alarm.enabled || !alarm.isPauseSet() || nextInstance == null) {
             return false;
         }
@@ -348,7 +351,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         return nextInstance.getAlarmTime().getTimeInMillis() > alarm.pauseEndDate;
     }
 
-    private void setNonRepeatingDefaultDescription(Context context, Alarm alarm) {
+    private void setNonRepeatingDefaultDescription(@NonNull Context context, @NonNull Alarm alarm) {
         mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
 
         if (alarm.isTomorrow(mLocalCalendar)) {
@@ -358,7 +361,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void setSpecifiedDateDescription(Context context, Alarm alarm) {
+    private void setSpecifiedDateDescription(@NonNull Context context, @NonNull Alarm alarm) {
         mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
 
         if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
@@ -370,12 +373,13 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void setDaysOfWeekText(CharSequence text) {
+    private void setDaysOfWeekText(@NonNull CharSequence text) {
         mBinding.daysOfWeek.setTypeface(mGeneralTypeface);
         mBinding.daysOfWeek.setText(text);
     }
 
-    private String getTodayOrTomorrowBasedOnTime(Context context, Alarm alarm, Calendar now) {
+    @NonNull
+    private String getTodayOrTomorrowBasedOnTime(@NonNull Context context, @NonNull Alarm alarm, @NonNull Calendar now) {
         // Used when the date has passed, the new alarm will be scheduled either the same day
         // or the next day depending on the time.
         // The text is therefore updated accordingly.

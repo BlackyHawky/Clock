@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.PowerManager;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -21,7 +22,7 @@ public class PermissionUtils {
      * @return {@code true} when Ignore Battery Optimizations permission is granted;
      * {@code false} otherwise.
      */
-    public static boolean isIgnoringBatteryOptimizations(Context context) {
+    public static boolean isIgnoringBatteryOptimizations(@NonNull Context context) {
         final PowerManager powerManager = context.getApplicationContext().getSystemService(PowerManager.class);
         return powerManager.isIgnoringBatteryOptimizations(context.getPackageName());
     }
@@ -29,7 +30,7 @@ public class PermissionUtils {
     /**
      * @return {@code true} when Notifications permission is granted; {@code false} otherwise.
      */
-    public static boolean areNotificationsEnabled(Context context) {
+    public static boolean areNotificationsEnabled(@NonNull Context context) {
         if (SdkUtils.isAtLeastAndroid13()) {
             return ContextCompat.checkSelfPermission(context, POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
         } else {
@@ -41,7 +42,7 @@ public class PermissionUtils {
      * @return {@code true} when Full Screen Notifications permission is granted for Android 14+;
      * {@code false} otherwise.
      */
-    public static boolean areFullScreenNotificationsEnabled(Context context) {
+    public static boolean areFullScreenNotificationsEnabled(@NonNull Context context) {
         if (SdkUtils.isAtLeastAndroid14()) {
             final NotificationManager notificationManager = context.getApplicationContext().getSystemService(NotificationManager.class);
             return notificationManager.canUseFullScreenIntent();
@@ -53,7 +54,7 @@ public class PermissionUtils {
     /**
      * @return {@code true} when essential permissions are not granted; {@code false} otherwise.
      */
-    public static boolean areEssentialPermissionsNotGranted(Context context) {
+    public static boolean areEssentialPermissionsNotGranted(@NonNull Context context) {
         return !isIgnoringBatteryOptimizations(context)
             || !areNotificationsEnabled(context)
             || SdkUtils.isAtLeastAndroid14() && !areFullScreenNotificationsEnabled(context);
@@ -62,7 +63,7 @@ public class PermissionUtils {
     /**
      * Grant or revoke Power-off alarm permission (available only on specific devices).
      */
-    public static void grantPowerOffAlarmPermission(FragmentActivity activity) {
+    public static void grantPowerOffAlarmPermission(@NonNull FragmentActivity activity) {
         int powerOffAlarmCode = 1001;
 
         if (activity.checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED) {

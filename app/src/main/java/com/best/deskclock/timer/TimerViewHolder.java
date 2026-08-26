@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,8 +36,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     private final boolean mIsTablet;
     private final boolean mIsLandscape;
 
-    public TimerViewHolder(View view, TimerAdapter timerAdapter, TimerClickHandler timerClickHandler, int viewType, Typeface regular,
-                           Typeface bold, boolean isTablet, boolean isLandscape) {
+    public TimerViewHolder(@NonNull View view, @NonNull TimerAdapter timerAdapter, @NonNull TimerClickHandler timerClickHandler,
+                           int viewType, @NonNull Typeface regular, @NonNull Typeface bold, boolean isTablet, boolean isLandscape) {
 
         super(view);
 
@@ -110,7 +111,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void applySettings(TimerSettings settings) {
+    public void applySettings(@NonNull TimerSettings settings) {
         if (mTimerItem != null) {
             mTimerItem.setTimerTimeFont(settings.timerTimeTypeface);
             mTimerItem.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);

@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -57,6 +58,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
 
+    @NonNull
     public static TimerSetNewDurationDialogFragment newInstance(int timerId, long durationMillis) {
         final Bundle args = new Bundle();
 
@@ -78,7 +80,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     /**
      * Displays {@link TimerSetNewDurationDialogFragment}.
      */
-    public static void show(FragmentManager manager, TimerSetNewDurationDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull TimerSetNewDurationDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -93,7 +95,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final Context context = requireContext();
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
@@ -240,7 +242,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        public void onTextChanged(@Nullable CharSequence charSequence, int start, int before, int count) {
             if (!mMaxLengthReduce) {
                 mBinding.editHours.setFilters(new InputFilter[]{
                     new InputFilter.LengthFilter(2)
@@ -256,11 +258,11 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        public void beforeTextChanged(@Nullable CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(@Nullable Editable editable) {
         }
     }
 
@@ -270,7 +272,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private class ImeDoneListener implements TextView.OnEditorActionListener {
 
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(@NonNull TextView v, int actionId, @Nullable KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 setNewDuration();
                 dismiss();

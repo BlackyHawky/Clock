@@ -13,6 +13,8 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.R;
@@ -23,9 +25,9 @@ public class TimerStringFormatter {
     /**
      * Format "7 hours 52 minutes 14 seconds remaining"
      */
+    @Nullable
     @SuppressLint("StringFormatInvalid")
-    public static String formatTimeRemaining(Context context, long remainingTime,
-                                             boolean shouldShowSeconds) {
+    public static String formatTimeRemaining(@NonNull Context context, long remainingTime, boolean shouldShowSeconds) {
         int roundedHours = (int) (remainingTime / HOUR_IN_MILLIS);
         int roundedMinutes = (int) (remainingTime / MINUTE_IN_MILLIS % 60);
         int roundedSeconds = (int) (remainingTime / SECOND_IN_MILLIS % 60);
@@ -104,7 +106,8 @@ public class TimerStringFormatter {
         return String.format(context.getString(formatStringId), hourSeq, minSeq, remainingSuffix, secSeq);
     }
 
-    public static String formatString(Context context, @StringRes int stringResId, String buttonTime, long currentTime,
+    @NonNull
+    public static String formatString(@NonNull Context context, @StringRes int stringResId, @NonNull String buttonTime, long currentTime,
                                       boolean shouldShowSeconds) {
 
         return String.format(context.getString(stringResId), buttonTime, formatTimeRemaining(context, currentTime, shouldShowSeconds));

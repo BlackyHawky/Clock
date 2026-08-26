@@ -6,6 +6,8 @@
 
 package com.best.deskclock.data;
 
+import androidx.annotation.NonNull;
+
 /**
  * The interface through which interested parties are notified of changes to one of the timers.
  */
@@ -14,16 +16,16 @@ public interface TimerListener {
     /**
      * @param timer the timer that was added
      */
-    void timerAdded(Timer timer);
+    void timerAdded(@NonNull Timer timer);
 
     /**
      * @param before the timer state before the update
      * @param after  the timer state after the update
      */
-    void timerUpdated(Timer before, Timer after);
+    void timerUpdated(@NonNull Timer before, @NonNull Timer after);
 
     /**
      * @param timer the timer that was removed
      */
-    void timerRemoved(Timer timer);
+    void timerRemoved(@NonNull Timer timer);
 }

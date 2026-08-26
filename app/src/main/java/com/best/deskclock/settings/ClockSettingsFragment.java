@@ -161,7 +161,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public boolean onPreferenceChange(Preference pref, Object newValue) {
+    public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_CLOCK_STYLE -> {
                 final int clockIndex = mClockStylePref.findIndexOfValue((String) newValue);

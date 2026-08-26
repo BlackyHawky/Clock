@@ -8,6 +8,9 @@ package com.best.deskclock.ringtone;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.utils.RingtoneUtils;
 
@@ -18,7 +21,7 @@ public abstract class RingtoneHolder implements RingtoneAdapter.RingtoneItem {
     private boolean mSelected;
     private boolean mPlaying;
 
-    RingtoneHolder(Uri uri, String name) {
+    RingtoneHolder(@NonNull Uri uri, @Nullable String name) {
         mUri = uri;
         mName = name;
     }

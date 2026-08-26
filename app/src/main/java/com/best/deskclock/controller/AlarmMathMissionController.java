@@ -14,6 +14,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.best.deskclock.R;
@@ -30,13 +32,13 @@ public class AlarmMathMissionController {
     private final Typeface mGeneralBoldTypeface;
     private AlertDialog mCurrentDialog;
 
-    public AlarmMathMissionController(Context context, Callback callback, Typeface generalBoldTypeface) {
+    public AlarmMathMissionController(@NonNull Context context, @NonNull Callback callback, @NonNull Typeface generalBoldTypeface) {
         mContext = context;
         mCallback = callback;
         mGeneralBoldTypeface = generalBoldTypeface;
     }
 
-    public void requestMissionAction(int action, String mathHardnessLevel, Random random) {
+    public void requestMissionAction(int action, @NonNull String mathHardnessLevel, @NonNull Random random) {
         if (mCurrentDialog != null && mCurrentDialog.isShowing()) {
             return;
         }
@@ -60,13 +62,13 @@ public class AlarmMathMissionController {
         binding.answerInput.requestFocus();
         binding.answerInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(@Nullable Editable s) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(@Nullable CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(@Nullable CharSequence s, int start, int before, int count) {
                 if (binding.mathChallengeError.getVisibility() != INVISIBLE) {
                     binding.mathChallengeError.setVisibility(INVISIBLE);
                 }
@@ -123,8 +125,8 @@ public class AlarmMathMissionController {
         mCurrentDialog.show();
     }
 
-    private void validateAnswer(EditText answerInput, AlarmMathChallenge challenge, TextView mathChallengeError, AlertDialog dialog,
-                                int action) {
+    private void validateAnswer(@NonNull EditText answerInput, @NonNull AlarmMathChallenge challenge, @NonNull TextView mathChallengeError,
+                                @NonNull AlertDialog dialog, int action) {
 
         final String answerText = answerInput.getText() == null ? "" : answerInput.getText().toString().trim();
 

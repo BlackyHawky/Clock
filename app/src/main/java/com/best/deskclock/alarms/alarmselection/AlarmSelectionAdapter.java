@@ -40,7 +40,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
     private final Weekdays.Order mWeekdayOrder;
     private final SimpleDateFormat mDateFormat;
 
-    public AlarmSelectionAdapter(Context context, List<AlarmSelection> alarms, OnAlarmClickListener listener) {
+    public AlarmSelectionAdapter(@NonNull Context context, @NonNull List<AlarmSelection> alarms, @NonNull OnAlarmClickListener listener) {
         this.alarms = alarms;
         this.listener = listener;
 
@@ -87,8 +87,8 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
             this.binding = binding;
         }
 
-        public void bind(@NonNull Alarm alarm, Typeface regularTypeface, Typeface alarmBoldTypeface, Weekdays.Order weekdayOrder,
-                         SimpleDateFormat dateFormat) {
+        public void bind(@NonNull Alarm alarm, @NonNull Typeface regularTypeface, @NonNull Typeface alarmBoldTypeface,
+                         @NonNull Weekdays.Order weekdayOrder, @NonNull SimpleDateFormat dateFormat) {
 
             Context context = itemView.getContext();
 
@@ -143,7 +143,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
     }
 
     public interface OnAlarmClickListener {
-        void onAlarmClick(Alarm alarm);
+        void onAlarmClick(@NonNull Alarm alarm);
     }
 
 }

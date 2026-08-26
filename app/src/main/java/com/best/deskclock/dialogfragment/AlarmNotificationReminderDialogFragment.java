@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -70,7 +71,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
      * @param key                      The shared preference key used to identify the setting.
      * @param notificationReminderTime The notification reminder time in minutes.
      */
-    public static AlarmNotificationReminderDialogFragment newInstance(String key, int notificationReminderTime) {
+    @NonNull
+    public static AlarmNotificationReminderDialogFragment newInstance(@NonNull String key, int notificationReminderTime) {
 
         Bundle args = new Bundle();
 
@@ -89,7 +91,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     /**
      * Displays {@link AlarmNotificationReminderDialogFragment}.
      */
-    public static void show(FragmentManager manager, AlarmNotificationReminderDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull AlarmNotificationReminderDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -109,7 +111,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
@@ -291,7 +293,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
      * </ul>
      * {@code false} otherwise.
      */
-    private boolean isInvalidInput(String hoursText, String minutesText) {
+    private boolean isInvalidInput(@NonNull String hoursText, @NonNull String minutesText) {
         int hours = 0;
         int minutes = 0;
 
@@ -383,7 +385,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     /**
      * @return {@code true} if the alarm notification reminder time is not the default value; {@code false} otherwise.
      */
-    private boolean isNotDefaultNotificationReminderTime(String hoursText, String minutesText) {
+    private boolean isNotDefaultNotificationReminderTime(@NonNull String hoursText, @NonNull String minutesText) {
         int hours = hoursText.isEmpty() ? 0 : Integer.parseInt(hoursText);
         int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
 
@@ -401,7 +403,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        public void onTextChanged(@Nullable CharSequence charSequence, int start, int before, int count) {
             String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
             String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
@@ -436,11 +438,11 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        public void beforeTextChanged(@Nullable CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(@Nullable Editable editable) {
         }
     }
 
@@ -450,7 +452,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     private class ImeDoneListener implements TextView.OnEditorActionListener {
 
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(@NonNull TextView v, int actionId, @Nullable KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String inputHoursText = Objects.requireNonNull(mBinding.editHours.getText()).toString();
                 String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();

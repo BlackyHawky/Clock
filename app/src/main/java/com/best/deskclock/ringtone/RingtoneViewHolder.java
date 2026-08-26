@@ -12,6 +12,7 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,7 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
     private final Drawable mSilentIcon;
     private final Drawable mRandomIcon;
 
-    public RingtoneViewHolder(View itemView, RingtoneAdapter adapter) {
+    public RingtoneViewHolder(@NonNull View itemView, @NonNull RingtoneAdapter adapter) {
         super(itemView);
 
         mBinding = RingtoneItemSoundBinding.bind(itemView);
@@ -63,7 +64,7 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
         mBinding.ringtoneName.setSelected(true);
     }
 
-    public void bind(RingtoneHolder itemHolder, RingtoneAdapter.OnRingtoneClickListener listener) {
+    public void bind(@NonNull RingtoneHolder itemHolder, @NonNull RingtoneAdapter.OnRingtoneClickListener listener) {
         mBinding.ringtoneName.setText(itemHolder.getName());
 
         final boolean isSelected = itemHolder.isSelected();
@@ -100,7 +101,7 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> listener.onRingtoneClick(itemHolder));
     }
 
-    private void setupIcon(RingtoneHolder itemHolder) {
+    private void setupIcon(@NonNull RingtoneHolder itemHolder) {
         if (getItemViewType() == RingtoneAdapter.VIEW_TYPE_CUSTOM_SOUND) {
             CustomRingtoneHolder customHolder = (CustomRingtoneHolder) itemHolder;
             if (customHolder.isReadable()) {

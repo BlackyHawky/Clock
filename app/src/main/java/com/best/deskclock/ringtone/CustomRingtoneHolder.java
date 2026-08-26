@@ -6,13 +6,15 @@
 
 package com.best.deskclock.ringtone;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.data.CustomRingtone;
 
 public class CustomRingtoneHolder extends RingtoneHolder {
 
     private final boolean mIsReadable;
 
-    CustomRingtoneHolder(CustomRingtone ringtone, boolean isReadable) {
+    CustomRingtoneHolder(@NonNull CustomRingtone ringtone, boolean isReadable) {
         super(ringtone.getUri(), ringtone.getTitle());
         mIsReadable = isReadable;
     }

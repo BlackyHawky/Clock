@@ -36,7 +36,9 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final Drawable.ConstantState mBgSelectedState;
     private final Drawable.ConstantState mBgUnselectedState;
 
-    public RingtoneAdapter(Context context, Typeface generalTypeface, boolean isAmoledDarkMode, OnRingtoneClickListener listener) {
+    public RingtoneAdapter(@NonNull Context context, @NonNull Typeface generalTypeface, boolean isAmoledDarkMode,
+                           @NonNull OnRingtoneClickListener listener) {
+
         mListener = listener;
 
         mGeneralTypeface = generalTypeface;
@@ -108,9 +110,9 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public interface OnRingtoneClickListener {
-        void onRingtoneClick(RingtoneHolder holder);
+        void onRingtoneClick(@NonNull RingtoneHolder holder);
 
-        void onRemoveRingtoneClick(RingtoneHolder holder);
+        void onRemoveRingtoneClick(@NonNull RingtoneHolder holder);
     }
 
 }

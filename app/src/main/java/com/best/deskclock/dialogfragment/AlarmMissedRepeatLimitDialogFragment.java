@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -47,6 +48,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
      *
      * @param missedRepeatLimit The number of times a missed alarm can be repeated.
      */
+    @NonNull
     public static AlarmMissedRepeatLimitDialogFragment newInstance(int missedRepeatLimit) {
         final Bundle args = new Bundle();
 
@@ -60,7 +62,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
     /**
      * Displays {@link AlarmMissedRepeatLimitDialogFragment}.
      */
-    public static void show(FragmentManager manager, AlarmMissedRepeatLimitDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull AlarmMissedRepeatLimitDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -74,7 +76,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 

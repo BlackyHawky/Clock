@@ -80,8 +80,7 @@ public final class Events {
      * @param action   resource id of event action
      * @param label    resource id of event label
      */
-    public static void sendEvent(@StringRes int category, @StringRes int action,
-                                 @StringRes int label) {
+    public static void sendEvent(@StringRes int category, @StringRes int action, @StringRes int label) {
         Controller.getController().sendEvent(category, action, label);
     }
 }

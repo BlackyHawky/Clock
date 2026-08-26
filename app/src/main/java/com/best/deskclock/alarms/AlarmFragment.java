@@ -152,7 +152,7 @@ public final class AlarmFragment extends DeskClockFragment
 
     private final BroadcastReceiver mVolumeReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (RingtoneUtils.VOLUME_CHANGED_ACTION.equals(intent.getAction())) {
                 updateWarningBannerVisibility();
             }
@@ -175,9 +175,10 @@ public final class AlarmFragment extends DeskClockFragment
         }
     }
 
+    @NonNull
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         mBinding = AlarmFragmentBinding.inflate(inflater, container, false);
@@ -437,12 +438,12 @@ public final class AlarmFragment extends DeskClockFragment
 
     @NonNull
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return Alarm.getAlarmsCursorLoader(getActivity());
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        return Alarm.getAlarmsCursorLoader(requireContext());
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<Cursor> cursorLoader, Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> cursorLoader, @NonNull Cursor data) {
         final List<AlarmItemHolder> itemHolders = new ArrayList<>(data.getCount());
 
         // Convert each row in the cursor into an AlarmItemHolder.
@@ -598,13 +599,13 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     @Override
-    public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
+    public void onRowSelected(@NonNull RecyclerView.ViewHolder viewHolder) {
         // Draw a shadow under the alarm card when it's dragging
         viewHolder.itemView.setTranslationZ(dpToPx(6, getDisplayMetrics()));
     }
 
     @Override
-    public void onRowClear(RecyclerView.ViewHolder viewHolder) {
+    public void onRowClear(@NonNull RecyclerView.ViewHolder viewHolder) {
         // Remove the shadow under the alarm card when the drag is complete.
         viewHolder.itemView.setTranslationZ(0f);
     }
@@ -616,7 +617,7 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     @Override
-    public void onRowSwiped(RecyclerView.ViewHolder viewHolder) {
+    public void onRowSwiped(@NonNull RecyclerView.ViewHolder viewHolder) {
         AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
         AlarmItemHolder itemHolder = alarmHolder.getItemHolder();
 
@@ -638,6 +639,7 @@ public final class AlarmFragment extends DeskClockFragment
         mBinding.alarmRecyclerView.smoothScrollToPosition(position);
     }
 
+    @NonNull
     private LinearLayoutManager getLayoutManager() {
         if (isTablet() && isLandscape()) {
             return new GridLayoutManager(requireContext(), 3);
@@ -742,7 +744,7 @@ public final class AlarmFragment extends DeskClockFragment
      * @param updateToken a monotonically increasing value used to preserve ordering of deferred
      *                    updates
      */
-    private void setAdapterItems(final List<AlarmItemHolder> items, final long updateToken) {
+    private void setAdapterItems(@NonNull List<AlarmItemHolder> items, final long updateToken) {
         if (mBinding == null || !isAdded() || mIsReordering) {
             return;
         }
@@ -875,7 +877,7 @@ public final class AlarmFragment extends DeskClockFragment
      *
      * <p>It handles potential race conditions between the database Loader and the async callback.</p>
      */
-    public void setPendingAlarmToEdit(Alarm newAlarm) {
+    public void setPendingAlarmToEdit(@NonNull Alarm newAlarm) {
         // Check if the database Loader has already updated the adapter before this callback.
         boolean alreadyInList = false;
         for (int i = 0; i < mItemAdapter.getItemCount(); i++) {
@@ -906,7 +908,7 @@ public final class AlarmFragment extends DeskClockFragment
     /**
      * Waits for the RecyclerView's smooth scrolling to finish before proceeding.
      */
-    private void openBottomSheetWhenIdle(Alarm alarm) {
+    private void openBottomSheetWhenIdle(@NonNull Alarm alarm) {
         // Check if the list scrolls to the new alarm.
         if (mBinding.alarmRecyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
             mBinding.alarmRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -927,7 +929,7 @@ public final class AlarmFragment extends DeskClockFragment
     /**
      * Waits for both global UI transitions (EmptyView) and RecyclerView item animations to finish.
      */
-    private void checkAnimatorAndOpen(Alarm alarm) {
+    private void checkAnimatorAndOpen(@NonNull Alarm alarm) {
         // Check if a global layout transition (like Fade IN/OUT of the empty view) is running.
         if (mIsUiTransitioning) {
             // Check again on the next rendering frame.
@@ -948,13 +950,13 @@ public final class AlarmFragment extends DeskClockFragment
     /**
      * Final trigger to safely display the BottomSheet.
      */
-    private void displayBottomSheet(Alarm alarm) {
+    private void displayBottomSheet(@NonNull Alarm alarm) {
         if (isAdded()) {
             mAlarmTimeClickHandler.displayBottomSheetDialog(alarm, true);
         }
     }
 
-    public void removeItem(AlarmItemHolder itemHolder) {
+    public void removeItem(@NonNull AlarmItemHolder itemHolder) {
         mItemAdapter.removeItem(itemHolder);
     }
 
@@ -1130,7 +1132,7 @@ public final class AlarmFragment extends DeskClockFragment
         private final int bottomMargin;
         private final boolean mIsRTL;
 
-        public GridSpacingItemDecoration(Context context, DisplayMetrics displayMetrics) {
+        public GridSpacingItemDecoration(@NonNull Context context, @NonNull DisplayMetrics displayMetrics) {
             this.margin = (int) dpToPx(10, displayMetrics);
             this.bottomMargin = (int) dpToPx(2, displayMetrics);
             this.mIsRTL = ThemeUtils.isRTL(context);

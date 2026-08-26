@@ -11,6 +11,9 @@ import static com.best.deskclock.data.Timer.State.RESET;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.data.Timer.State;
 
 import java.util.ArrayList;
@@ -121,7 +124,8 @@ public final class TimerDAO {
     /**
      * @return the timers from permanent storage
      */
-    static List<Timer> getTimers(SharedPreferences prefs, Uri defaultUri) {
+    @NonNull
+    static List<Timer> getTimers(@NonNull SharedPreferences prefs, @Nullable Uri defaultUri) {
         // Read the set of timer ids.
         final Set<String> timerIds = prefs.getStringSet(TIMER_IDS, Collections.emptySet());
         final List<Timer> timers = new ArrayList<>(timerIds.size());
@@ -179,7 +183,8 @@ public final class TimerDAO {
     /**
      * @param timer the timer to be added
      */
-    static Timer addTimer(SharedPreferences prefs, Timer timer) {
+    @NonNull
+    static Timer addTimer(@NonNull SharedPreferences prefs, @NonNull Timer timer) {
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Fetch the next timer id.
@@ -225,7 +230,7 @@ public final class TimerDAO {
     /**
      * @param timer the timer to be updated
      */
-    static void updateTimer(SharedPreferences prefs, Timer timer) {
+    static void updateTimer(@NonNull SharedPreferences prefs, @NonNull Timer timer) {
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Record the fields of the timer.
@@ -256,7 +261,7 @@ public final class TimerDAO {
     /**
      * @param timer the timer to be removed
      */
-    static void removeTimer(SharedPreferences prefs, Timer timer) {
+    static void removeTimer(@NonNull SharedPreferences prefs, @NonNull Timer timer) {
         final SharedPreferences.Editor editor = prefs.edit();
 
         final int id = timer.getId();
@@ -292,7 +297,7 @@ public final class TimerDAO {
         editor.apply();
     }
 
-    private static Set<String> getTimerIds(SharedPreferences prefs) {
+    private static Set<String> getTimerIds(@NonNull SharedPreferences prefs) {
         return prefs.getStringSet(TIMER_IDS, Collections.emptySet());
     }
 }

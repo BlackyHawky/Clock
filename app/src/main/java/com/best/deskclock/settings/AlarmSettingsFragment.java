@@ -315,7 +315,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public boolean onPreferenceChange(Preference pref, Object newValue) {
+    public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_ENABLE_ALARM_FAB_LONG_PRESS,
                  KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
@@ -606,7 +606,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             VibrationStartDelayDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof AlarmMathHardnessLevelPreference alarmMathHardnessLevelPreference) {
             String currentValue = alarmMathHardnessLevelPreference.getMathHardnessLevel();
-            AlarmMathHardnessLevelDialogFragment dialogFragment = AlarmMathHardnessLevelDialogFragment.newInstance(pref.getKey(), currentValue);
+            AlarmMathHardnessLevelDialogFragment dialogFragment =
+                AlarmMathHardnessLevelDialogFragment.newInstance(pref.getKey(), currentValue);
             AlarmMathHardnessLevelDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof AlarmNotificationReminderPreference alarmNotificationReminderPreference) {
             int currentValue = alarmNotificationReminderPreference.getAlarmNotificationReminderTime();
@@ -818,7 +819,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 String key = bundle.getString(VibrationPatternDialogFragment.RESULT_PREF_KEY);
                 String newValue = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
 
-                if (key != null) {
+                if (key != null && newValue != null) {
                     VibrationPatternPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setPattern(newValue);
@@ -856,7 +857,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 String key = bundle.getString(AlarmMathHardnessLevelDialogFragment.RESULT_PREF_KEY);
                 String newValue = bundle.getString(AlarmMathHardnessLevelDialogFragment.RESULT_MATH_HARDNESS_LEVEL);
 
-                if (key != null) {
+                if (key != null && newValue != null) {
                     AlarmMathHardnessLevelPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setMathHardnessLevel(newValue);
@@ -905,7 +906,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mRepeatMissedAlarmPref.setVisible(isVisible);
     }
 
-    private void triggerDisableSettingDialog(String prefKey) {
+    private void triggerDisableSettingDialog(@NonNull String prefKey) {
         AppExecutors.getDiskIO().execute(() -> {
             boolean hasAlarms = false;
 
@@ -991,8 +992,9 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         });
     }
 
-    private void showDisablePerAlarmSettingDialog(@StringRes int messageResId, String prefKey, SwitchPreferenceCompat switchPref,
-                                                  @Nullable Preference dependentPref, AlarmUpdater alarmUpdater) {
+    private void showDisablePerAlarmSettingDialog(@StringRes int messageResId, @NonNull String prefKey,
+                                                  @NonNull SwitchPreferenceCompat switchPref, @Nullable Preference dependentPref,
+                                                  @NonNull AlarmUpdater alarmUpdater) {
 
         String confirmAction = getString(R.string.confirm_action_prompt);
 
@@ -1037,7 +1039,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         mAudioDeviceCallback = new AudioDeviceCallback() {
             @Override
-            public void onAudioDevicesAdded(AudioDeviceInfo[] addedDevices) {
+            public void onAudioDevicesAdded(@NonNull AudioDeviceInfo[] addedDevices) {
                 super.onAudioDevicesAdded(addedDevices);
 
                 mAlarmVolumePref.stopRingtonePreview();
@@ -1053,7 +1055,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             @Override
-            public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
+            public void onAudioDevicesRemoved(@NonNull AudioDeviceInfo[] removedDevices) {
                 mExternalAudioDeviceVolumePref.stopRingtonePreviewForExternalAudioDevices();
 
                 for (AudioDeviceInfo device : removedDevices) {
@@ -1130,7 +1132,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
      * that appears when the "per alarm" settings are disabled.
      */
     private interface AlarmUpdater {
-        void update(Alarm alarm);
+        void update(@NonNull Alarm alarm);
     }
 
 }

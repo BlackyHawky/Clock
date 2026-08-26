@@ -22,6 +22,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
 import androidx.loader.content.CursorLoader;
 
@@ -318,11 +319,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     // Used to back up/restore the alarm
-    public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate, String vibrationPattern,
-                 boolean flash, Weekdays daysOfWeek, String label, boolean syncByLabel, String alert, boolean deleteAfterUse,
-                 int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration, int alarmVolume,
-                 int manualSortOrder, long pauseStartDate, long pauseEndDate, String backgroundImage, int blurIntensity,
-                 String mathHardnessLevel) {
+    public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate,
+                 @NonNull String vibrationPattern, boolean flash, @NonNull Weekdays daysOfWeek, @NonNull String label, boolean syncByLabel,
+                 @NonNull String alert, boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit,
+                 int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
+                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel) {
 
         this.id = id;
         this.enabled = enabled;
@@ -353,7 +354,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     // Used to create a clone of the given alarm
-    public Alarm(Alarm original) {
+    public Alarm(@NonNull Alarm original) {
         this.id = original.id;
         this.enabled = original.enabled;
         this.year = original.year;
@@ -383,7 +384,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.mathHardnessLevel = original.mathHardnessLevel;
     }
 
-    public Alarm(Cursor c) {
+    public Alarm(@NonNull Cursor c) {
         id = c.getLong(ID_INDEX);
         enabled = c.getInt(ENABLED_INDEX) == 1;
         year = c.getInt(YEAR_INDEX);
@@ -423,7 +424,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     }
 
-    Alarm(Parcel p) {
+    Alarm(@NonNull Parcel p) {
         id = p.readLong();
         enabled = p.readInt() == 1;
         year = p.readInt();
@@ -452,6 +453,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         mathHardnessLevel = p.readString();
     }
 
+    @NonNull
     public ContentValues createContentValues() {
         ContentValues values = new ContentValues(COLUMN_COUNT);
         if (id != INVALID_ID) {
@@ -493,7 +495,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return values;
     }
 
-    public void writeToParcel(Parcel p, int flags) {
+    public void writeToParcel(@NonNull Parcel p, int flags) {
         p.writeLong(id);
         p.writeInt(enabled ? 1 : 0);
         p.writeInt(year);
@@ -526,15 +528,17 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return 0;
     }
 
-    public static Intent createIntent(Context context, Class<?> cls, long alarmId) {
+    @NonNull
+    public static Intent createIntent(@NonNull Context context, @NonNull Class<?> cls, long alarmId) {
         return new Intent(context, cls).setData(getContentUri(alarmId));
     }
 
+    @NonNull
     public static Uri getContentUri(long alarmId) {
         return ContentUris.withAppendedId(CONTENT_URI, alarmId);
     }
 
-    public static long getId(Uri contentUri) {
+    public static long getId(@NonNull Uri contentUri) {
         return ContentUris.parseId(contentUri);
     }
 
@@ -544,7 +548,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param context to query the database.
      * @return cursor loader with all the alarms.
      */
-    public static CursorLoader getAlarmsCursorLoader(Context context) {
+    @NonNull
+    public static CursorLoader getAlarmsCursorLoader(@NonNull Context context) {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         boolean areEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(prefs);
 
@@ -602,7 +607,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param alarmId for the desired alarm.
      * @return alarm if found, null otherwise
      */
-    public static Alarm getAlarm(ContentResolver cr, long alarmId) {
+    @Nullable
+    public static Alarm getAlarm(@NonNull ContentResolver cr, long alarmId) {
         try (Cursor cursor = cr.query(getContentUri(alarmId), QUERY_COLUMNS, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 return new Alarm(cursor);
@@ -624,8 +630,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      *                      appear in the selection. The values will be bound as Strings.
      * @return list of alarms matching where clause or empty list if none found.
      */
-    public static List<Alarm> getAlarms(ContentResolver cr, String selection,
-                                        String... selectionArgs) {
+    @NonNull
+    public static List<Alarm> getAlarms(@NonNull ContentResolver cr, @Nullable String selection, @NonNull String... selectionArgs) {
         final List<Alarm> result = new LinkedList<>();
         try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
@@ -641,20 +647,26 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * @return a list of enabled alarms.
      */
-    public static List<Alarm> getEnabledAlarms(Context context) {
+    @NonNull
+    public static List<Alarm> getEnabledAlarms(@NonNull Context context) {
         final String selection = String.format("%s=?", Alarm.ENABLED);
         final String[] args = {"1"};
         return Alarm.getAlarms(context.getContentResolver(), selection, args);
     }
 
-    public Alarm addAlarm(ContentResolver contentResolver) {
+    public Alarm addAlarm(@NonNull ContentResolver contentResolver) {
         ContentValues values = createContentValues();
         Uri uri = contentResolver.insert(CONTENT_URI, values);
+
+        if (uri == null) {
+            throw new IllegalStateException("Failed to insert alarm into ContentResolver");
+        }
+
         id = getId(uri);
         return this;
     }
 
-    public void updateAlarm(ContentResolver contentResolver) {
+    public void updateAlarm(@NonNull ContentResolver contentResolver) {
         if (id == Alarm.INVALID_ID) {
             return;
         }
@@ -662,7 +674,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         contentResolver.update(getContentUri(id), values, null, null);
     }
 
-    public static boolean deleteAlarm(ContentResolver contentResolver, long alarmId) {
+    public static boolean deleteAlarm(@NonNull ContentResolver contentResolver, long alarmId) {
         if (alarmId == INVALID_ID) {
             return false;
         }
@@ -674,7 +686,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return !daysOfWeek.isRepeating() && deleteAfterUse;
     }
 
-    public String getLabelOrDefault(Context context) {
+    public String getLabelOrDefault(@NonNull Context context) {
         return label.isEmpty() ? context.getString(R.string.default_label) : label;
     }
 
@@ -691,7 +703,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param context the context used to access shared preferences
      * @return {@code true} if the alarm can show a preemptive dismiss button; {@code false} otherwise.
      */
-    public boolean canPreemptivelyDismiss(Context context) {
+    public boolean canPreemptivelyDismiss(@NonNull Context context) {
         if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getDefaultSharedPreferences(context))) {
             return enabled || instanceState == AlarmInstance.SNOOZE_STATE;
         } else {
@@ -703,14 +715,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @return {@code true} if the styled repeat day display is enabled for this alarm;
      * {@code false} otherwise.
      */
-    public boolean isRepeatDayStyleEnabled(SharedPreferences prefs) {
+    public boolean isRepeatDayStyleEnabled(@NonNull SharedPreferences prefs) {
         return prefs.getBoolean(KEY_SHOW_STYLED_REPEAT_DAY + id, false);
     }
 
     /**
      * Enables the styled repeat day display for this alarm only if all days are selected.
      */
-    public void enableRepeatDayStyleIfAllDaysSelected(SharedPreferences prefs) {
+    public void enableRepeatDayStyleIfAllDaysSelected(@NonNull SharedPreferences prefs) {
         if (!daysOfWeek.isAllDaysSelected()) {
             return;
         }
@@ -722,7 +734,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * Removes the styled repeat day display preference for this alarm.
      * This disables the styled repeat day behavior.
      */
-    public void removeRepeatDayStyle(SharedPreferences prefs) {
+    public void removeRepeatDayStyle(@NonNull SharedPreferences prefs) {
         prefs.edit().remove(KEY_SHOW_STYLED_REPEAT_DAY + id).apply();
     }
 
@@ -734,7 +746,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param other The original alarm to compare against.
      * @return {@code true} if a major time-related field has changed, {@code false} otherwise.
      */
-    public boolean hasTimeChanged(Alarm other) {
+    public boolean hasTimeChanged(@Nullable Alarm other) {
         if (other == null) {
             return false;
         }
@@ -757,7 +769,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param other The original alarm to compare against.
      * @return {@code true} if a minor behavior-related field has changed, {@code false} otherwise.
      */
-    public boolean hasMinorFieldsChanged(Alarm other) {
+    public boolean hasMinorFieldsChanged(@Nullable Alarm other) {
         if (other == null) return false;
 
         return !Objects.equals(label, other.label)
@@ -777,7 +789,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || !Objects.equals(mathHardnessLevel, other.mathHardnessLevel);
     }
 
-    public boolean isTomorrow(Calendar now) {
+    public boolean isTomorrow(@NonNull Calendar now) {
         if (instanceState == AlarmInstance.SNOOZE_STATE) {
             return false;
         }
@@ -826,14 +838,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH);
     }
 
-    public boolean isTimeBeforeOrEqual(Calendar referenceTime) {
+    public boolean isTimeBeforeOrEqual(@NonNull Calendar referenceTime) {
         int currentHour = referenceTime.get(Calendar.HOUR_OF_DAY);
         int currentMinute = referenceTime.get(Calendar.MINUTE);
 
         return hour < currentHour || (hour == currentHour && minutes <= currentMinute);
     }
 
-    public boolean isScheduledForToday(Calendar reference) {
+    public boolean isScheduledForToday(@NonNull Calendar reference) {
         int currentMonth = reference.get(Calendar.MONTH);
         return year == reference.get(Calendar.YEAR)
             && month == currentMonth
@@ -844,7 +856,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return pauseStartDate > 0 && pauseEndDate > 0;
     }
 
-    private boolean isDatePaused(Calendar instanceTime) {
+    private boolean isDatePaused(@NonNull Calendar instanceTime) {
         if (!isPauseSet()) {
             return false;
         }
@@ -869,7 +881,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     }
 
-    public AlarmInstance createInstanceAfter(Calendar time) {
+    public AlarmInstance createInstanceAfter(@NonNull Calendar time) {
         Calendar nextInstanceTime = getNextAlarmTime(time);
         AlarmInstance result = new AlarmInstance(nextInstanceTime, id);
         result.mVibrate = vibrate;
@@ -894,7 +906,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param currentTime the current time
      * @return previous firing time, or null if this is a one-time alarm.
      */
-    public Calendar getPreviousAlarmTime(Calendar currentTime) {
+    @Nullable
+    public Calendar getPreviousAlarmTime(@NonNull Calendar currentTime) {
         final Calendar previousInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
         previousInstanceTime.set(Calendar.YEAR, year);
         previousInstanceTime.set(Calendar.MONTH, month);
@@ -926,7 +939,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * <p>- For one-time alarms: the configured date and time, or the following day if the
      * specified time has already passed relative to {@code currentTime}.</p>
      */
-    public Calendar getNextAlarmTime(Calendar currentTime) {
+    @NonNull
+    public Calendar getNextAlarmTime(@NonNull Calendar currentTime) {
         final Calendar nextInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
         nextInstanceTime.set(Calendar.SECOND, 0);
         nextInstanceTime.set(Calendar.MILLISECOND, 0);
@@ -997,7 +1011,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param alarmInstance the current {@link AlarmInstance}, or null if not yet created
      * @return the day of the week (e.g., {@link Calendar#MONDAY}, {@link Calendar#TUESDAY}, ...)
      */
-    public int getNextAlarmDayOfWeek(AlarmInstance alarmInstance) {
+    public int getNextAlarmDayOfWeek(@NonNull AlarmInstance alarmInstance) {
         return getNextAlarmTimeCalendar(alarmInstance).get(Calendar.DAY_OF_WEEK);
     }
 
@@ -1013,7 +1027,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @param alarmInstance the current {@link AlarmInstance} associated with this alarm, or null.
      * @return a {@link Calendar} object representing the next valid upcoming alarm time.
      */
-    public Calendar getNextAlarmTimeCalendar(AlarmInstance alarmInstance) {
+    public Calendar getNextAlarmTimeCalendar(@Nullable AlarmInstance alarmInstance) {
         Calendar referenceTime = Calendar.getInstance();
         if (alarmInstance != null && alarmInstance.getAlarmTime().after(referenceTime)) {
             return alarmInstance.getAlarmTime();
@@ -1025,7 +1039,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * Returns the next alarm time for sorting purposes.
      */
-    public Calendar getSortableNextAlarmTime(AlarmInstance instance, Calendar now) {
+    public Calendar getSortableNextAlarmTime(@Nullable AlarmInstance instance, @NonNull Calendar now) {
         Calendar result = Calendar.getInstance(now.getTimeZone());
         result.set(Calendar.SECOND, 0);
         result.set(Calendar.MILLISECOND, 0);
@@ -1081,7 +1095,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (!(o instanceof final Alarm other)) return false;
         return id == other.id;
     }

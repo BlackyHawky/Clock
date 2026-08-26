@@ -7,6 +7,8 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
 
 import com.best.deskclock.R;
@@ -17,7 +19,7 @@ import com.best.deskclock.R;
  */
 public class AlarmMathHardnessLevelPreference extends DialogPreference {
 
-    public AlarmMathHardnessLevelPreference(Context context, AttributeSet attrs) {
+    public AlarmMathHardnessLevelPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setPersistent(true);
     }
@@ -52,7 +54,7 @@ public class AlarmMathHardnessLevelPreference extends DialogPreference {
      *
      * @param mathHardnessLevelKey The key of the math hardness to store.
      */
-    public void setMathHardnessLevel(String mathHardnessLevelKey) {
+    public void setMathHardnessLevel(@NonNull String mathHardnessLevelKey) {
         persistString(mathHardnessLevelKey);
         notifyChanged();
     }

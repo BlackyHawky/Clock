@@ -12,6 +12,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextClock;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.Calendar;
 
 /**
@@ -22,15 +25,15 @@ public class AutoSizingTextClock extends TextClock {
     private final TextSizeHelper mTextSizeHelper;
     private boolean mSuppressLayout = false;
 
-    public AutoSizingTextClock(Context context) {
+    public AutoSizingTextClock(@NonNull Context context) {
         this(context, null);
     }
 
-    public AutoSizingTextClock(Context context, AttributeSet attrs) {
+    public AutoSizingTextClock(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public AutoSizingTextClock(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AutoSizingTextClock(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mTextSizeHelper = new TextSizeHelper(this);
     }
@@ -42,7 +45,7 @@ public class AutoSizingTextClock extends TextClock {
     }
 
     @Override
-    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
+    protected void onTextChanged(@NonNull CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         if (mTextSizeHelper != null) {
             if (lengthBefore != lengthAfter) {
@@ -55,7 +58,7 @@ public class AutoSizingTextClock extends TextClock {
     }
 
     @Override
-    public void setText(CharSequence text, BufferType type) {
+    public void setText(@NonNull CharSequence text, @NonNull BufferType type) {
         mSuppressLayout = true;
         super.setText(text, type);
         mSuppressLayout = false;

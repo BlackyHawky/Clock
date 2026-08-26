@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,7 @@ import com.google.android.material.color.MaterialColors;
 
 public class AddButtonTipViewHolder extends RecyclerView.ViewHolder {
 
-    public AddButtonTipViewHolder(View itemView, RingtoneAdapter adapter) {
+    public AddButtonTipViewHolder(@NonNull View itemView, @NonNull RingtoneAdapter adapter) {
         super(itemView);
 
         final Context context = itemView.getContext();

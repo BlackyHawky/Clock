@@ -42,6 +42,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.session.MediaSession;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -161,7 +162,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             final String action = intent.getAction();
             LOGGER.v("Received broadcast: %s", action);
 
@@ -182,7 +183,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     private final BroadcastReceiver mPowerBtnReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             final String action = intent.getAction();
             LOGGER.v("Received broadcast: %s", action);
 
@@ -317,8 +318,16 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     protected void onResume() {
         super.onResume();
 
+        final Uri dataUri = getIntent().getData();
+
+        if (dataUri == null) {
+            LOGGER.e("No data URI provided in intent");
+            finish();
+            return;
+        }
+
         // Re-query for AlarmInstance in case the state has changed externally
-        final long instanceId = AlarmInstance.getId(getIntent().getData());
+        final long instanceId = AlarmInstance.getId(dataUri);
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
 
         if (mAlarmInstance == null) {
@@ -449,7 +458,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(@NonNull View view) {
         if (mAlarmHandled) {
             LOGGER.v("onClick ignored: %s", view);
             return;
@@ -499,7 +508,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public boolean onTouch(View view, MotionEvent event) {
+    public boolean onTouch(@NonNull View view, @NonNull MotionEvent event) {
         if (mAlarmHandled) {
             LOGGER.v("onTouch ignored: %s", event);
             return false;
@@ -599,7 +608,16 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void initAlarmAndInstance() {
-        final long instanceId = AlarmInstance.getId(getIntent().getData());
+        final Intent intent = getIntent();
+        final Uri dataUri = intent != null ? intent.getData() : null;
+
+        if (dataUri == null) {
+            LOGGER.e("No data URI provided in intent: %s", intent);
+            finish();
+            return;
+        }
+
+        final long instanceId = AlarmInstance.getId(dataUri);
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
         if (mAlarmInstance == null) {
             // The alarm was deleted before the activity got created, so just finish()
@@ -877,14 +895,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 private boolean wasCancelled = false;
 
                 @Override
-                public void onAnimationCancel(Animator animation) {
+                public void onAnimationCancel(@NonNull Animator animation) {
                     mBinding.pill.setFillColor(Color.TRANSPARENT);
 
                     wasCancelled = true;
                 }
 
                 @Override
-                public void onAnimationEnd(Animator animation) {
+                public void onAnimationEnd(@NonNull Animator animation) {
                     if (!wasCancelled && mTranslationAnimator == animation) {
                         mTranslationAnimator.start();
                     }
@@ -1093,6 +1111,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         button.setIconTint(ColorStateList.valueOf(enabled ? symbolColor : Color.parseColor("#60E6E0E9")));
     }
 
+    @NonNull
     private String buildTimeString(int totalMinutes) {
         int hour = totalMinutes / 60;
         int minute = totalMinutes % 60;
@@ -1149,7 +1168,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     /**
      * Helper method to create a translation animation.
      */
-    private Animator translationAnimator(View view, float targetWidth, float targetCenterX) {
+    @NonNull
+    private Animator translationAnimator(@NonNull View view, float targetWidth, float targetCenterX) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
             PropertyValuesHolder.ofFloat(PillView.PILL_WIDTH, targetWidth),
             PropertyValuesHolder.ofFloat(PillView.PILL_CENTER_X, targetCenterX));
@@ -1158,7 +1178,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     /**
      * Helper method to create an alpha color change animation.
      */
-    private Animator alphaAnimator(View view, int alphaColor) {
+    @NonNull
+    private Animator alphaAnimator(@NonNull View view, int alphaColor) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
             PropertyValuesHolder.ofObject(PillView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR, alphaColor));
     }
@@ -1421,7 +1442,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     /**
      * Display a message after snoozing or dismissing the alarm.
      */
-    private void displayAlarmActionMessage(final int titleResId, final String descriptionText, final String accessibilityText) {
+    private void displayAlarmActionMessage(int titleResId, @Nullable String descriptionText, @NonNull String accessibilityText) {
         if (SettingsDAO.isAlarmActionMessageHidden(getPrefs())) {
             finish();
             return;

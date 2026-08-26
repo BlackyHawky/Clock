@@ -6,6 +6,8 @@
 
 package com.best.deskclock.uidata;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.uidata.UiDataModel.Tab;
 
 /**
@@ -16,5 +18,5 @@ public interface TabListener {
     /**
      * @param newSelectedTab an enumerated value indicating the newly selected tab
      */
-    void selectedTabChanged(Tab newSelectedTab);
+    void selectedTabChanged(@NonNull Tab newSelectedTab);
 }

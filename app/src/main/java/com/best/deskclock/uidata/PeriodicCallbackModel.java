@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.utils.LogUtils;
@@ -45,7 +46,7 @@ final class PeriodicCallbackModel {
     private static Handler sHandler;
     private final List<PeriodicRunnable> mPeriodicRunnable = new CopyOnWriteArrayList<>();
 
-    PeriodicCallbackModel(Context context) {
+    PeriodicCallbackModel(@NonNull Context context) {
         // Reschedules callbacks when the device time changes.
         final IntentFilter timeChangedBroadcastFilter = new IntentFilter();
         timeChangedBroadcastFilter.addAction(ACTION_TIME_CHANGED);
@@ -71,7 +72,7 @@ final class PeriodicCallbackModel {
      * @return the time delay from {@code now} to schedule the callback
      */
     @VisibleForTesting
-    static long getDelay(long now, Period period, long offset) {
+    static long getDelay(long now, @NonNull Period period, long offset) {
         final long periodStart = now - offset;
 
         switch (period) {
@@ -116,7 +117,7 @@ final class PeriodicCallbackModel {
      * @param runnable to be called every 30 seconds
      * @param offset   an offset applied to the minute to control when the callback occurs
      */
-    void addHalfMinuteCallback(Runnable runnable, long offset) {
+    void addHalfMinuteCallback(@NonNull Runnable runnable, long offset) {
         addPeriodicCallback(runnable, Period.HALF_MINUTE, offset);
     }
 
@@ -124,7 +125,7 @@ final class PeriodicCallbackModel {
      * @param runnable to be called every quarter-hour
      * @param offset   an offset applied to the quarter-hour to control when the callback occurs
      */
-    void addQuarterHourCallback(Runnable runnable, long offset) {
+    void addQuarterHourCallback(@NonNull Runnable runnable, long offset) {
         addPeriodicCallback(runnable, Period.QUARTER_HOUR, offset);
     }
 
@@ -132,14 +133,14 @@ final class PeriodicCallbackModel {
      * @param runnable to be called every midnight
      * @param offset   an offset applied to the midnight to control when the callback occurs
      */
-    void addMidnightCallback(Runnable runnable, long offset) {
+    void addMidnightCallback(@NonNull Runnable runnable, long offset) {
         addPeriodicCallback(runnable, Period.MIDNIGHT, offset);
     }
 
     /**
      * @param runnable to be called periodically
      */
-    private void addPeriodicCallback(Runnable runnable, Period period, long offset) {
+    private void addPeriodicCallback(@NonNull Runnable runnable, @NonNull Period period, long offset) {
         final PeriodicRunnable periodicRunnable = new PeriodicRunnable(runnable, period, offset);
         mPeriodicRunnable.add(periodicRunnable);
         periodicRunnable.schedule();
@@ -148,7 +149,7 @@ final class PeriodicCallbackModel {
     /**
      * @param runnable to no longer be called periodically
      */
-    void removePeriodicCallback(Runnable runnable) {
+    void removePeriodicCallback(@NonNull Runnable runnable) {
         for (PeriodicRunnable periodicRunnable : mPeriodicRunnable) {
             if (periodicRunnable.mDelegate == runnable) {
                 periodicRunnable.unSchedule();
@@ -164,7 +165,7 @@ final class PeriodicCallbackModel {
     /**
      * Schedules the execution of the given delegate Runnable at the next callback time.
      */
-    private record PeriodicRunnable(Runnable mDelegate, Period mPeriod, long mOffset) implements Runnable {
+    private record PeriodicRunnable(@NonNull Runnable mDelegate, @NonNull Period mPeriod, long mOffset) implements Runnable {
 
         @Override
         public void run() {
@@ -195,7 +196,7 @@ final class PeriodicCallbackModel {
      */
     private final class TimeChangedReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             for (PeriodicRunnable periodicRunnable : mPeriodicRunnable) {
                 periodicRunnable.runAndReschedule();
             }

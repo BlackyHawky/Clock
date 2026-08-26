@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -34,6 +35,8 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
     public static final String RESULT_PREF_KEY = "result_pref_key";
     private static final String MATH_HARDNESS_LEVEL = "math_hardness_level";
 
+    AlarmMathHardnessLevelDialogBinding mBinding;
+
     private String mPrefKey;
     private String mSelectedMathHardnessLevelKey;
 
@@ -45,7 +48,8 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
      * @param mathHardnessLevel The currently selected math hardness key, which will be preselected in the dialog.
      * @return A configured instance of {@link AlarmMathHardnessLevelDialogFragment}.
      */
-    public static AlarmMathHardnessLevelDialogFragment newInstance(String key, String mathHardnessLevel) {
+    @NonNull
+    public static AlarmMathHardnessLevelDialogFragment newInstance(@NonNull String key, @NonNull String mathHardnessLevel) {
         Bundle args = new Bundle();
         args.putString(ARG_PREF_KEY, key);
         args.putString(MATH_HARDNESS_LEVEL, mathHardnessLevel);
@@ -61,7 +65,8 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
      *
      * @param mathHardnessLevel The math hardness.
      */
-    public static AlarmMathHardnessLevelDialogFragment newInstance(String mathHardnessLevel) {
+    @NonNull
+    public static AlarmMathHardnessLevelDialogFragment newInstance(@NonNull String mathHardnessLevel) {
         final Bundle args = new Bundle();
 
         args.putString(MATH_HARDNESS_LEVEL, mathHardnessLevel);
@@ -74,7 +79,7 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
     /**
      * Displays {@link AlarmMathHardnessLevelDialogFragment}.
      */
-    public static void show(FragmentManager manager, AlarmMathHardnessLevelDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull AlarmMathHardnessLevelDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -86,7 +91,7 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Context context = requireContext();
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
@@ -100,10 +105,10 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
             mSelectedMathHardnessLevelKey = savedInstanceState.getString(MATH_HARDNESS_LEVEL, mSelectedMathHardnessLevelKey);
         }
 
-        AlarmMathHardnessLevelDialogBinding binding = AlarmMathHardnessLevelDialogBinding.inflate(getLayoutInflater());
+        mBinding = AlarmMathHardnessLevelDialogBinding.inflate(getLayoutInflater());
 
         RadioButton[] buttons = {
-            binding.mathHardnessLevelOff, binding.mathHardnessLevelEasy, binding.mathHardnessLevelNormal, binding.mathHardnessLevelHard
+            mBinding.mathHardnessLevelOff, mBinding.mathHardnessLevelEasy, mBinding.mathHardnessLevelNormal, mBinding.mathHardnessLevelHard
         };
 
         String[] values = context.getResources().getStringArray(R.array.math_hardness_level_values);
@@ -117,7 +122,7 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
             }
         }
 
-        binding.mathHardnessLevelRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+        mBinding.mathHardnessLevelRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton rb = group.findViewById(checkedId);
             if (rb != null) {
                 mSelectedMathHardnessLevelKey = (String) rb.getTag();
@@ -132,7 +137,7 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
             mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_calculate),
             getString(R.string.math_hardness_level_title),
             null,
-            binding.getRoot(),
+            mBinding.getRoot(),
             null,
             null,
             getString(android.R.string.cancel),
@@ -144,12 +149,19 @@ public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
         );
     }
 
+    @Override
+    public void onDestroyView() {
+        mBinding = null;
+
+        super.onDestroyView();
+    }
+
     /**
      * Saves the selected math hardness level by posting a fragment result.
      *
      * @param mathHardnessLevel The selected math mission hardness.
      */
-    private void saveMathHardnessLevel(String mathHardnessLevel) {
+    private void saveMathHardnessLevel(@NonNull String mathHardnessLevel) {
         Bundle result = new Bundle();
         result.putString(RESULT_MATH_HARDNESS_LEVEL, mathHardnessLevel);
 

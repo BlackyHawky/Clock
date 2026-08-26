@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,8 +42,8 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
     private final SelectedCitiesAdapter mAdapter;
     private boolean mIsDigitalClock;
 
-    public CityViewHolder(WorldClockItemBinding binding, SelectedCitiesAdapter adapter, Typeface regularTypeface, Typeface boldTypeface,
-                          boolean hasBlackAccentColor) {
+    public CityViewHolder(@NonNull WorldClockItemBinding binding, @NonNull SelectedCitiesAdapter adapter, @NonNull Typeface regularTypeface,
+                          @NonNull Typeface boldTypeface, boolean hasBlackAccentColor) {
 
         super(binding.getRoot());
 
@@ -63,7 +64,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void applySettings(ClockSettings settings) {
+    public void applySettings(@NonNull ClockSettings settings) {
         mSettings = settings;
         mIsDigitalClock = settings.clockStyle == DataModel.ClockStyle.DIGITAL;
 
@@ -84,7 +85,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(City city) {
+    public void bind(@NonNull City city) {
         final String cityTimeZoneId = city.getTimeZone().getID();
 
         updateBackground();
@@ -182,7 +183,8 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
      * @param minutesDifferent the number of minutes the time is ahead/behind
      * @return String describing the hours/minutes ahead or behind
      */
-    public static String createHoursDifferentString(Context context, boolean displayMinutes, boolean isAhead, int hoursDifferent,
+    @NonNull
+    public static String createHoursDifferentString(@NonNull Context context, boolean displayMinutes, boolean isAhead, int hoursDifferent,
                                                     int minutesDifferent) {
 
         String timeString;

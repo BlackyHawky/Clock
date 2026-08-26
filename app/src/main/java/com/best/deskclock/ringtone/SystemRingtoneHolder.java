@@ -8,8 +8,11 @@ package com.best.deskclock.ringtone;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public class SystemRingtoneHolder extends RingtoneHolder {
-    SystemRingtoneHolder(Uri uri, String name) {
+    SystemRingtoneHolder(@NonNull Uri uri, @Nullable String name) {
         super(uri, name);
     }
 

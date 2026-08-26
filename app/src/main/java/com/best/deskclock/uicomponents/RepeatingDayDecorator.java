@@ -96,17 +96,19 @@ public class RepeatingDayDecorator extends DayViewDecorator {
         return mTopSpacer;
     }
 
-    protected RepeatingDayDecorator(Parcel in) {
+    protected RepeatingDayDecorator(@NonNull Parcel in) {
         mRepeatingBits = in.readInt();
         initTransients();
     }
 
     public static final Creator<RepeatingDayDecorator> CREATOR = new Creator<>() {
+        @NonNull
         @Override
-        public RepeatingDayDecorator createFromParcel(Parcel in) {
+        public RepeatingDayDecorator createFromParcel(@NonNull Parcel in) {
             return new RepeatingDayDecorator(in);
         }
 
+        @NonNull
         @Override
         public RepeatingDayDecorator[] newArray(int size) {
             return new RepeatingDayDecorator[size];
@@ -119,10 +121,11 @@ public class RepeatingDayDecorator extends DayViewDecorator {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(mRepeatingBits);
     }
 
+    @NonNull
     private Drawable createIndicatorDrawable(int dotSize, int marginBottom, @ColorInt int color) {
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.OVAL);
@@ -133,6 +136,7 @@ public class RepeatingDayDecorator extends DayViewDecorator {
         return insetDrawable;
     }
 
+    @NonNull
     private Drawable createSpacerDrawable(int dotSize, int marginBottom) {
         Drawable spacer = new ColorDrawable(Color.TRANSPARENT);
         spacer.setBounds(0, 0, dotSize, dotSize + marginBottom);

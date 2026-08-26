@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.IntentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -85,12 +86,12 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
     }
 
     @Override
-    public void onAlarmClick(Alarm alarm) {
+    public void onAlarmClick(@NonNull Alarm alarm) {
         processAlarmActionAsync(alarm);
         finish();
     }
 
-    void processAlarmActionAsync(Alarm alarm) {
+    void processAlarmActionAsync(@NonNull Alarm alarm) {
         final Context appContext = getApplicationContext();
         final int action = mAction;
 

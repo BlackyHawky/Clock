@@ -23,6 +23,7 @@ import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
@@ -31,6 +32,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ServiceCompat;
 
 import com.best.deskclock.R;
@@ -137,7 +139,7 @@ public class AlarmService extends Service {
 
     private final BroadcastReceiver mActionsReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             final String action = intent.getAction();
             LogUtils.i("AlarmService received intent %s", action);
             if (mCurrentAlarm == null || mCurrentAlarm.mAlarmState != AlarmInstance.FIRED_STATE) {
@@ -182,7 +184,7 @@ public class AlarmService extends Service {
         private int mSampleIndex;
 
         @Override
-        public void onAccuracyChanged(Sensor sensor, int acc) {
+        public void onAccuracyChanged(@NonNull Sensor sensor, int acc) {
         }
 
         @Override
@@ -202,7 +204,7 @@ public class AlarmService extends Service {
         }
 
         @Override
-        public void onSensorChanged(SensorEvent event) {
+        public void onSensorChanged(@NonNull SensorEvent event) {
             // Add a sample overwriting the oldest one. Several samples are used to avoid
             // the erroneous values the sensor sometimes returns.
             float z = event.values[2];
@@ -247,7 +249,7 @@ public class AlarmService extends Service {
         private boolean mInitialized = false;
 
         @Override
-        public void onAccuracyChanged(Sensor sensor, int acc) {
+        public void onAccuracyChanged(@NonNull Sensor sensor, int acc) {
         }
 
         @Override
@@ -259,7 +261,7 @@ public class AlarmService extends Service {
             Arrays.fill(gravity, 0f);
         }
 
-        public void onSensorChanged(SensorEvent event) {
+        public void onSensorChanged(@NonNull SensorEvent event) {
             if (mStopped) {
                 return;
             }
@@ -299,14 +301,15 @@ public class AlarmService extends Service {
         }
     };
 
+    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(@NonNull Intent intent) {
         mIsBound = true;
         return mBinder;
     }
 
     @Override
-    public boolean onUnbind(Intent intent) {
+    public boolean onUnbind(@NonNull Intent intent) {
         mIsBound = false;
         return super.onUnbind(intent);
     }
@@ -369,13 +372,21 @@ public class AlarmService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         LogUtils.v("AlarmService.onStartCommand() with %s", intent);
         if (intent == null) {
             return Service.START_NOT_STICKY;
         }
 
-        final long instanceId = AlarmInstance.getId(intent.getData());
+        final Uri dataUri = intent.getData();
+
+        if (dataUri == null) {
+            LogUtils.e("AlarmService started without data URI");
+            stopSelf();
+            return Service.START_NOT_STICKY;
+        }
+
+        final long instanceId = AlarmInstance.getId(dataUri);
         switch (Objects.requireNonNull(intent.getAction())) {
             case AlarmStateManager.CHANGE_STATE_ACTION -> {
                 AlarmStateManager.handleIntent(this, intent);
@@ -452,7 +463,7 @@ public class AlarmService extends Service {
         }
     }
 
-    private void startAlarm(AlarmInstance instance) {
+    private void startAlarm(@NonNull AlarmInstance instance) {
         LogUtils.v("AlarmService.start with instance: " + instance.mId);
         if (mCurrentAlarm != null) {
             AlarmStateManager.setMissedState(this, mCurrentAlarm);
@@ -598,7 +609,7 @@ public class AlarmService extends Service {
      * @param context  application context
      * @param instance you are trying to stop
      */
-    public static void stopAlarm(Context context, AlarmInstance instance) {
+    public static void stopAlarm(@NonNull Context context, @NonNull AlarmInstance instance) {
         final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId).setAction(STOP_ALARM_ACTION);
 
         // We don't need a wake lock here, since we are trying to kill an alarm
@@ -612,7 +623,7 @@ public class AlarmService extends Service {
      * @param context  application context
      * @param instance you are trying to stop
      */
-    public static void stopAlarmWithDoubleVibration(Context context, AlarmInstance instance) {
+    public static void stopAlarmWithDoubleVibration(@NonNull Context context, @NonNull AlarmInstance instance) {
         final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
         intent.setAction(STOP_ALARM_WITH_DOUBLE_VIBRATION_ACTION);
 
@@ -627,7 +638,7 @@ public class AlarmService extends Service {
      * @param context  application context
      * @param instance you are trying to stop
      */
-    public static void stopAlarmWithSingleVibration(Context context, AlarmInstance instance) {
+    public static void stopAlarmWithSingleVibration(@NonNull Context context, @NonNull AlarmInstance instance) {
         final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
         intent.setAction(STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION);
 

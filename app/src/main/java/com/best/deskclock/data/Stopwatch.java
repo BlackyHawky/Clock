@@ -12,6 +12,8 @@ import static com.best.deskclock.data.Stopwatch.State.RUNNING;
 import static com.best.deskclock.utils.Utils.now;
 import static com.best.deskclock.utils.Utils.wallClock;
 
+import androidx.annotation.NonNull;
+
 /**
  * A read-only domain object representing a stopwatch.
  *
@@ -20,7 +22,7 @@ import static com.best.deskclock.utils.Utils.wallClock;
  * @param mLastStartWallClockTime The time since epoch at which the stopwatch was last started.
  * @param mAccumulatedTime        Elapsed time in ms this stopwatch has accumulated while running.
  */
-public record Stopwatch(State mState, long mLastStartTime, long mLastStartWallClockTime, long mAccumulatedTime) {
+public record Stopwatch(@NonNull State mState, long mLastStartTime, long mLastStartWallClockTime, long mAccumulatedTime) {
 
     static final long UNUSED = Long.MIN_VALUE;
     /**

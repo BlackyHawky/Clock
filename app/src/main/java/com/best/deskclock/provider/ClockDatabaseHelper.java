@@ -13,6 +13,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.utils.LogUtils;
 
 import java.util.Calendar;
@@ -30,11 +33,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 27;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
-    public ClockDatabaseHelper(Context context) {
+    public ClockDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    private static void createAlarmsTable(SQLiteDatabase db, String alarmsTableName) {
+    private static void createAlarmsTable(@NonNull SQLiteDatabase db, @NonNull String alarmsTableName) {
         db.execSQL("CREATE TABLE " + alarmsTableName + " (" +
             ClockContract.AlarmsColumns._ID + " INTEGER PRIMARY KEY," +
             ClockContract.AlarmsColumns.YEAR + " INTEGER NOT NULL, " +
@@ -66,7 +69,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         LogUtils.i("Alarms Table created");
     }
 
-    private static void createInstanceTable(SQLiteDatabase db, String instanceTableName) {
+    private static void createInstanceTable(@NonNull SQLiteDatabase db, @NonNull String instanceTableName) {
         db.execSQL("CREATE TABLE " + instanceTableName + " (" +
             ClockContract.InstancesColumns._ID + " INTEGER PRIMARY KEY," +
             ClockContract.InstancesColumns.YEAR + " INTEGER NOT NULL, " +
@@ -95,13 +98,13 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(@NonNull SQLiteDatabase db) {
         createAlarmsTable(db, ALARMS_TABLE_NAME);
         createInstanceTable(db, INSTANCES_TABLE_NAME);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int currentVersion) {
+    public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int currentVersion) {
         if (oldVersion < MINIMUM_SUPPORTED_VERSION) {
             throw new IllegalStateException(
                 "Database version too old (" + oldVersion + "). Minimum supported version is " + MINIMUM_SUPPORTED_VERSION + "."
@@ -294,7 +297,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    long fixAlarmInsert(ContentValues values) {
+    long fixAlarmInsert(@Nullable ContentValues values) {
         // Why are we doing this? Is this not a programming bug if we try to
         // insert an already used id?
         final SQLiteDatabase db = getWritableDatabase();
@@ -302,7 +305,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         long rowId;
         try {
             // Check if we are trying to re-use an existing id.
-            final Object value = values.get(ClockContract.AlarmsColumns._ID);
+            final ContentValues nonNullValues = values != null ? values : new ContentValues();
+            final Object value = nonNullValues.get(ClockContract.AlarmsColumns._ID);
             if (value != null) {
                 long id = (Long) value;
                 if (id > -1) {
@@ -312,13 +316,13 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     try (Cursor cursor = db.query(ALARMS_TABLE_NAME, columns, selection, selectionArgs, null, null, null)) {
                         if (cursor.moveToFirst()) {
                             // Record exists. Remove the id so sqlite can generate a new one.
-                            values.putNull(ClockContract.AlarmsColumns._ID);
+                            nonNullValues.putNull(ClockContract.AlarmsColumns._ID);
                         }
                     }
                 }
             }
 
-            rowId = db.insert(ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.RINGTONE, values);
+            rowId = db.insert(ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.RINGTONE, nonNullValues);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();

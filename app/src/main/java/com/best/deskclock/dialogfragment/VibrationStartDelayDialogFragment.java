@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -74,7 +75,8 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
      * @param key          The shared preference key used to identify the setting.
      * @param totalSeconds The crescendo duration in seconds.
      */
-    public static VibrationStartDelayDialogFragment newInstance(String key, int totalSeconds, boolean isNone) {
+    @NonNull
+    public static VibrationStartDelayDialogFragment newInstance(@NonNull String key, int totalSeconds, boolean isNone) {
         Bundle args = new Bundle();
 
         int minutes = totalSeconds / 60;
@@ -91,7 +93,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     /**
      * Displays {@link VibrationStartDelayDialogFragment}.
      */
-    public static void show(FragmentManager manager, VibrationStartDelayDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull VibrationStartDelayDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -108,7 +110,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
@@ -292,7 +294,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     /**
      * @return {@code true} if minutes are less than 0 or greater than 10; {@code false} otherwise.
      */
-    private boolean isInvalidInput(String minutesText) {
+    private boolean isInvalidInput(@NonNull String minutesText) {
         int minutes = 0;
 
         if (!minutesText.isEmpty()) {
@@ -367,7 +369,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
      * @return {@code true} if the alarm vibration start delay is not the default value;
      * {@code false} otherwise.
      */
-    private boolean isNotDefaultVibrationStartDelay(String minutesText) {
+    private boolean isNotDefaultVibrationStartDelay(@NonNull String minutesText) {
         int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
 
         int vibrationStartDelay = minutes * 60;
@@ -383,7 +385,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        public void onTextChanged(@Nullable CharSequence charSequence, int start, int before, int count) {
             if (mBinding.vibrationStartDelayNoneCheckbox.isChecked()) {
                 updateDialogForValidInput();
                 return;
@@ -400,11 +402,11 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        public void beforeTextChanged(@Nullable CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(@Nullable Editable editable) {
         }
     }
 
@@ -414,7 +416,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     private class ImeDoneListener implements TextView.OnEditorActionListener {
 
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(@NonNull TextView v, int actionId, @Nullable KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
                 if (isInvalidInput(inputMinutesText)) {

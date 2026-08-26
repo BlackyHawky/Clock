@@ -30,6 +30,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
@@ -71,8 +73,8 @@ public class BackupAndRestoreUtils {
     /**
      * Read and export values in SharedPreferences to a file.
      */
-    public static void settingsToJsonStream(Context context, SharedPreferences prefs, Map<String, ?> settings, OutputStream out)
-        throws JSONException, IOException {
+    public static void settingsToJsonStream(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Map<String, ?> settings,
+                                            @NonNull OutputStream out) throws JSONException, IOException {
 
         Map<String, Boolean> booleans = new HashMap<>();
         Map<String, String> strings = new HashMap<>();
@@ -219,7 +221,8 @@ public class BackupAndRestoreUtils {
     /**
      * Helper method to convert a Map to JSONObject.
      */
-    private static JSONObject convertMapToJsonObject(Map<String, ?> map) throws JSONException {
+    @NonNull
+    private static JSONObject convertMapToJsonObject(@NonNull Map<String, ?> map) throws JSONException {
         JSONObject jsonObject = new JSONObject();
         for (Map.Entry<String, ?> entry : map.entrySet()) {
             Object value = entry.getValue();
@@ -246,7 +249,7 @@ public class BackupAndRestoreUtils {
      * Read and apply values to restore in SharedPreferences.
      */
     @SuppressLint("ApplySharedPref")
-    public static void readJson(Context context, SharedPreferences prefs, InputStream inputStream)
+    public static void readJson(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull InputStream inputStream)
         throws IOException, JSONException {
 
         SharedPreferences.Editor editor = prefs.edit();
@@ -381,8 +384,8 @@ public class BackupAndRestoreUtils {
      * Restore alarm data.
      * If the alarm is enabled, a future instance will be scheduled.
      */
-    private static void restoreAlarm(Context context, SharedPreferences prefs, ContentResolver contentResolver,
-                                     JSONObject alarmObject, boolean hasSpecifiedDate) throws JSONException {
+    private static void restoreAlarm(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull ContentResolver contentResolver,
+                                     @NonNull JSONObject alarmObject, boolean hasSpecifiedDate) throws JSONException {
 
         AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
@@ -469,7 +472,7 @@ public class BackupAndRestoreUtils {
     /**
      * @return {@code true} if a key matches a ringtone key. {@code false} otherwise.
      */
-    private static boolean isRingtoneKey(String key) {
+    private static boolean isRingtoneKey(@NonNull String key) {
         return KEY_TIMER_RINGTONE.equals(key) || key.startsWith(TIMER_RINGTONE) || KEY_DEFAULT_ALARM_RINGTONE.equals(key);
     }
 
@@ -477,7 +480,7 @@ public class BackupAndRestoreUtils {
      * @return {@code true} if a ringtone is available in the device. {@code false} otherwise.
      * Useful when restoring between different devices.
      */
-    private static boolean isRingtoneAvailable(Context context, String ringtoneUriString) {
+    private static boolean isRingtoneAvailable(@NonNull Context context, @NonNull String ringtoneUriString) {
         Uri ringtoneUri = Uri.parse(ringtoneUriString);
 
         // Check if the URI is of type "content" or "file"

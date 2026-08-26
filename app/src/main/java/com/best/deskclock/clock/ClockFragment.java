@@ -114,9 +114,10 @@ public final class ClockFragment extends DeskClockFragment {
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
     }
 
+    @NonNull
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         mBinding = ClockFragmentBinding.inflate(inflater, container, false);
@@ -411,7 +412,9 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final boolean mIsRTL;
 
-        public CitySpacingItemDecoration(Context context, DisplayMetrics displayMetrics, boolean isPortrait, boolean isTablet) {
+        public CitySpacingItemDecoration(@NonNull Context context, @NonNull DisplayMetrics displayMetrics, boolean isPortrait,
+                                         boolean isTablet) {
+
             boolean isPhoneInLandscapeMode = !isTablet && !isPortrait;
 
             this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, displayMetrics);
@@ -468,7 +471,7 @@ public final class ClockFragment extends DeskClockFragment {
      */
     private final class AlarmChangedBroadcastReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             refreshAlarm();
         }
     }

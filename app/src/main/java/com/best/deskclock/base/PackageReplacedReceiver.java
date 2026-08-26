@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimerDAO;
@@ -37,7 +39,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @SuppressLint({"WakelockTimeout", "Wakelock"})
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         if (!Intent.ACTION_MY_PACKAGE_REPLACED.equals(intent.getAction())) {
             return;
         }
@@ -67,7 +69,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("ApplySharedPref")
-    private void updateTimerKeys(Context context) {
+    private void updateTimerKeys(@NonNull Context context) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         Map<String, ?> allEntries = prefs.getAll();
@@ -108,7 +110,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("ApplySharedPref")
-    private void migrateBlurSettings(Context context) {
+    private void migrateBlurSettings(@NonNull Context context) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         boolean hasChanges = false;

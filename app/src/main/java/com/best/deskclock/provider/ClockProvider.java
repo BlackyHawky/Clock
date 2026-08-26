@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -189,8 +190,10 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(@NonNull Uri uri, String[] projectionIn, String selection,
-                        String[] selectionArgs, String sort) {
+    @Nullable
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projectionIn, @Nullable String selection, @Nullable String[] selectionArgs,
+                        @Nullable String sort) {
+
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 
@@ -229,6 +232,7 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
+    @Nullable
     public String getType(@NonNull Uri uri) {
         int match = sURIMatcher.match(uri);
         return switch (match) {
@@ -241,7 +245,7 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, ContentValues values, String where, String[] whereArgs) {
+    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String where, @Nullable String[] whereArgs) {
         int count;
         String alarmId;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
@@ -258,12 +262,13 @@ public class ClockProvider extends ContentProvider {
         }
 
         LogUtils.v("*** notifyChange() id: " + alarmId + " url " + uri);
-        notifyChange(Objects.requireNonNull(getContext()).getContentResolver(), uri);
+        notifyChange(uri);
         return count;
     }
 
     @Override
-    public Uri insert(@NonNull Uri uri, ContentValues initialValues) {
+    @Nullable
+    public Uri insert(@NonNull Uri uri, @Nullable ContentValues initialValues) {
         long rowId;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         rowId = switch (sURIMatcher.match(uri)) {
@@ -273,12 +278,12 @@ public class ClockProvider extends ContentProvider {
         };
 
         Uri uriResult = ContentUris.withAppendedId(uri, rowId);
-        notifyChange(Objects.requireNonNull(getContext()).getContentResolver(), uriResult);
+        notifyChange(uriResult);
         return uriResult;
     }
 
     @Override
-    public int delete(@NonNull Uri uri, String where, String[] whereArgs) {
+    public int delete(@NonNull Uri uri, @Nullable String where, @Nullable String[] whereArgs) {
         int count;
         String primaryKey;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
@@ -306,20 +311,23 @@ public class ClockProvider extends ContentProvider {
             default -> throw new IllegalArgumentException("Cannot delete from URI: " + uri);
         }
 
-        notifyChange(Objects.requireNonNull(getContext()).getContentResolver(), uri);
+        notifyChange(uri);
         return count;
     }
 
     /**
      * Notify affected URIs of changes.
      */
-    private void notifyChange(ContentResolver resolver, Uri uri) {
-        resolver.notifyChange(uri, null);
+    private void notifyChange(@NonNull Uri uri) {
+        final Context context = getContext();
+        if (context != null) {
+            final ContentResolver resolver = context.getContentResolver();
+            resolver.notifyChange(uri, null);
 
-        final int match = sURIMatcher.match(uri);
-        // Also notify the joined table of changes to instances or alarms.
-        if (match == ALARMS || match == INSTANCES || match == ALARMS_ID || match == INSTANCES_ID) {
-            resolver.notifyChange(AlarmsColumns.ALARMS_WITH_INSTANCES_URI, null);
+            final int match = sURIMatcher.match(uri);
+            if (match == ALARMS || match == INSTANCES || match == ALARMS_ID || match == INSTANCES_ID) {
+                resolver.notifyChange(AlarmsColumns.ALARMS_WITH_INSTANCES_URI, null);
+            }
         }
     }
 }

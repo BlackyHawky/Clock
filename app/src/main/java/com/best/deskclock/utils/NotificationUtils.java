@@ -16,6 +16,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -123,7 +124,7 @@ public class NotificationUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static void createChannel(Context context, String id) {
+    public static void createChannel(@NonNull Context context, @NonNull String id) {
         if (!CHANNEL_PROPS.containsKey(id)) {
             Log.e(TAG, "Invalid channel requested: " + id);
             return;
@@ -158,7 +159,7 @@ public class NotificationUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private static void deleteChannel(NotificationManagerCompat nm, String channelId) {
+    private static void deleteChannel(@NonNull NotificationManagerCompat nm, @NonNull String channelId) {
         NotificationChannel channel = nm.getNotificationChannel(channelId);
         if (channel != null) {
             nm.deleteNotificationChannel(channelId);
@@ -166,7 +167,7 @@ public class NotificationUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static void updateNotificationChannels(Context context) {
+    public static void updateNotificationChannels(@NonNull Context context) {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         // Whenever a channel's properties are updated, we must first delete the old channel ID,
@@ -185,7 +186,7 @@ public class NotificationUtils {
     /**
      * Clear all notifications. Useful after a restore or reset, for example.
      */
-    public static void clearAllNotifications(Context context) {
+    public static void clearAllNotifications(@NonNull Context context) {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.cancelAll();
     }
@@ -193,7 +194,7 @@ public class NotificationUtils {
     /**
      * Updates alarm notifications. Useful when changing languages, for example.
      */
-    public static void updateAlarmNotifications(Context appContext) {
+    public static void updateAlarmNotifications(@NonNull Context appContext) {
         AppExecutors.getDiskIO().execute(() -> {
             final ContentResolver contentResolver = appContext.getContentResolver();
             final List<AlarmInstance> activeInstances = new ArrayList<>();

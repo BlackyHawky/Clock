@@ -14,6 +14,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -65,7 +67,7 @@ public final class AsyncRingtonePlayer {
 
     private MediaPlayerPlaybackDelegate mPlaybackDelegate;
 
-    public AsyncRingtonePlayer(Context context) {
+    public AsyncRingtonePlayer(@NonNull Context context) {
         // Use a DirectBoot compatible context if supported
         mContext = Utils.getSafeStorageContext(context);
     }
@@ -73,7 +75,7 @@ public final class AsyncRingtonePlayer {
     /**
      * Plays the ringtone.
      */
-    public void play(Uri ringtoneUri, long crescendoDuration) {
+    public void play(@NonNull Uri ringtoneUri, long crescendoDuration) {
         LOGGER.d("Executing play");
         mExecutor.execute(() -> {
             if (getPlaybackDelegate().play(mContext, ringtoneUri, crescendoDuration)) {
@@ -155,7 +157,7 @@ public final class AsyncRingtonePlayer {
         private long mCrescendoStopTime = 0;
 
         @Override
-        public boolean play(Context context, Uri ringtoneUri, long crescendoDuration) {
+        public boolean play(@NonNull Context context, @NonNull Uri ringtoneUri, long crescendoDuration) {
             mCrescendoDuration = crescendoDuration;
 
             mAudioManager = context.getApplicationContext().getSystemService(AudioManager.class);

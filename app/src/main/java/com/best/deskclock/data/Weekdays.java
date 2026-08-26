@@ -26,6 +26,7 @@ import android.text.style.StyleSpan;
 import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
@@ -84,6 +85,7 @@ public record Weekdays(int mBits) {
      * @param bits {@link #getBits bits} representing the encoded weekly repeat schedule
      * @return a Weekdays instance representing the same repeat schedule as the {@code bits}
      */
+    @NonNull
     public static Weekdays fromBits(int bits) {
         return new Weekdays(bits);
     }
@@ -101,7 +103,8 @@ public record Weekdays(int mBits) {
      *                     </ul>
      * @return a Weekdays instance representing the given {@code calendarDays}
      */
-    public static Weekdays fromCalendarDays(int... calendarDays) {
+    @NonNull
+    public static Weekdays fromCalendarDays(@NonNull int... calendarDays) {
         int bits = 0;
         for (int calendarDay : calendarDays) {
             final Integer bit = sCalendarDayToBit.get(calendarDay);
@@ -184,7 +187,7 @@ public record Weekdays(int mBits) {
      * @return the number of days between the given {@code time} and the previous enabled weekday
      * which is always between 1 and 7 inclusive; {@code -1} if no weekdays are enabled
      */
-    public int getDistanceToPreviousDay(Calendar time) {
+    public int getDistanceToPreviousDay(@NonNull Calendar time) {
         int calendarDay = time.get(DAY_OF_WEEK);
         for (int count = 1; count <= 7; count++) {
             calendarDay--;
@@ -207,7 +210,7 @@ public record Weekdays(int mBits) {
      * @return the number of days between the given {@code time} and the next enabled weekday which
      * is always between 0 and 6 inclusive; {@code -1} if no weekdays are enabled
      */
-    public int getDistanceToNextDay(Calendar time) {
+    public int getDistanceToNextDay(@NonNull Calendar time) {
         int calendarDay = time.get(DAY_OF_WEEK);
         for (int count = 0; count < 7; count++) {
             if (isBitOn(calendarDay)) {
@@ -224,7 +227,7 @@ public record Weekdays(int mBits) {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -267,7 +270,7 @@ public record Weekdays(int mBits) {
      * @param order   the order in which to present the weekdays
      * @return the enabled weekdays in the given {@code order}
      */
-    public String toString(Context context, Order order) {
+    public String toString(@NonNull Context context, @NonNull Order order) {
         return toString(context, order, false);
     }
 
@@ -277,7 +280,7 @@ public record Weekdays(int mBits) {
      * @return the enabled weekdays in the given {@code order} in a manner that
      * is most appropriate for talk-back
      */
-    public String toAccessibilityString(Context context, Order order) {
+    public String toAccessibilityString(@NonNull Context context, @NonNull Order order) {
         return toString(context, order, true);
     }
 
@@ -298,7 +301,7 @@ public record Weekdays(int mBits) {
      * @param forceLongNames if {@code true} the un-abbreviated weekdays are used
      * @return the enabled weekdays in the given {@code order}
      */
-    private String toString(Context context, Order order, boolean forceLongNames) {
+    private String toString(@NonNull Context context, @NonNull Order order, boolean forceLongNames) {
         if (!isRepeating()) {
             return "";
         }
@@ -342,7 +345,8 @@ public record Weekdays(int mBits) {
      *                       if matched, that day will be styled in bold
      * @return a {@link CharSequence} with the formatted and styled weekday names
      */
-    public CharSequence toStyledString(Context context, Order order, boolean forceLongNames, int nextAlarmDay) {
+    @NonNull
+    public CharSequence toStyledString(@NonNull Context context, @NonNull Order order, boolean forceLongNames, int nextAlarmDay) {
         if (!isRepeating()) {
             return "";
         }
@@ -386,7 +390,7 @@ public record Weekdays(int mBits) {
 
         private final List<Integer> mCalendarDays;
 
-        Order(Integer... calendarDays) {
+        Order(@NonNull Integer... calendarDays) {
             mCalendarDays = Arrays.asList(calendarDays);
         }
 

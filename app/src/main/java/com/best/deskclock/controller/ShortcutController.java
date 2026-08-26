@@ -18,6 +18,7 @@ import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.provider.AlarmClock;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
@@ -110,6 +111,7 @@ class ShortcutController {
         }
     }
 
+    @NonNull
     private ShortcutInfo createNewAlarmShortcut() {
         Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
@@ -129,6 +131,7 @@ class ShortcutController {
             .build();
     }
 
+    @NonNull
     private ShortcutInfo createNewTimerShortcut() {
         Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
@@ -148,6 +151,7 @@ class ShortcutController {
             .build();
     }
 
+    @NonNull
     private ShortcutInfo createStopwatchShortcut() {
         Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
@@ -174,6 +178,7 @@ class ShortcutController {
         return shortcut.setIntent(intent).build();
     }
 
+    @NonNull
     private ShortcutInfo createScreensaverShortcut() {
         Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
@@ -195,7 +200,7 @@ class ShortcutController {
 
     private class StopwatchWatcher implements StopwatchListener {
         @Override
-        public void stopwatchUpdated(Stopwatch after) {
+        public void stopwatchUpdated(@NonNull Stopwatch after) {
             Context context = DeskClockApplication.getAppContext();
 
             if (!DeviceUtils.isUserUnlocked(context)) {

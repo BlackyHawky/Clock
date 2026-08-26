@@ -5,17 +5,16 @@ package com.best.deskclock.settings.custompreference;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,8 +22,8 @@ import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.DialogMultiListPreferenceCustomBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -71,7 +70,8 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
      *             Its configuration and current value will be used to initialize the dialog.
      * @return A fully configured instance of {@link CustomListPreferenceDialogFragment} ready to be displayed.
      */
-    public static CustomMultiSelectListPreferenceDialogFragment newInstance(MultiSelectListPreference pref) {
+    @NonNull
+    public static CustomMultiSelectListPreferenceDialogFragment newInstance(@NonNull MultiSelectListPreference pref) {
         Bundle args = new Bundle();
         args.putString(ARG_PREF_KEY, pref.getKey());
         args.putCharSequence(ARG_TITLE, pref.getTitle());
@@ -87,7 +87,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
     /**
      * Displays {@link CustomMultiSelectListPreferenceDialogFragment}.
      */
-    public static void show(FragmentManager manager, CustomMultiSelectListPreferenceDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull CustomMultiSelectListPreferenceDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -100,7 +100,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Context context = requireContext();
         resolvePreferenceIfNeeded();
 
@@ -130,9 +130,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
-        @SuppressLint("InflateParams")
-        View listView = getLayoutInflater().inflate(R.layout.dialog_multi_list_preference_custom, null);
-        LinearLayout linearLayout = listView.findViewById(R.id.multi_selection_list_options);
+        DialogMultiListPreferenceCustomBinding binding = DialogMultiListPreferenceCustomBinding.inflate(getLayoutInflater());
 
         final List<MaterialCheckBox> checkBoxes = new ArrayList<>();
 
@@ -162,7 +160,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             });
 
             checkBoxes.add(checkBox);
-            linearLayout.addView(checkBox);
+            binding.multiSelectionListOptions.addView(checkBox);
         }
 
         updateCheckBoxesState(checkBoxes);
@@ -173,7 +171,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             null,
             title,
             null,
-            listView,
+            binding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> {
                 if (preference.callChangeListener(mNewValues)) {
@@ -216,7 +214,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
     /**
      * Locks the last checkbox selected to prevent the user from unchecking it, and unlocks all checkboxes if there is more than one.
      */
-    private void updateCheckBoxesState(List<MaterialCheckBox> checkBoxes) {
+    private void updateCheckBoxesState(@NonNull List<MaterialCheckBox> checkBoxes) {
         boolean isOnlyOneChecked = (mNewValues.size() == 1);
 
         for (MaterialCheckBox checkBox : checkBoxes) {

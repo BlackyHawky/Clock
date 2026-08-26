@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -68,7 +69,8 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
      * @return A fully configured instance of {@link CustomListPreferenceDialogFragment}
      * ready to be displayed.
      */
-    public static CustomListPreferenceDialogFragment newInstance(ListPreference pref) {
+    @NonNull
+    public static CustomListPreferenceDialogFragment newInstance(@NonNull ListPreference pref) {
         Bundle args = new Bundle();
         args.putString(ARG_PREF_KEY, pref.getKey());
         args.putCharSequence(ARG_TITLE, pref.getTitle());
@@ -84,13 +86,13 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
     /**
      * Displays {@link CustomListPreferenceDialogFragment}.
      */
-    public static void show(FragmentManager manager, CustomListPreferenceDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull CustomListPreferenceDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Context context = requireContext();
 
         resolvePreferenceIfNeeded();

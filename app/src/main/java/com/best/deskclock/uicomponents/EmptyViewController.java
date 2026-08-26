@@ -9,6 +9,7 @@ package com.best.deskclock.uicomponents;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.transition.Fade;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
@@ -31,7 +32,7 @@ public final class EmptyViewController {
      * @param contentView The view that should be displayed when empty view is hidden.
      * @param emptyView   The view that should be displayed when main view is empty.
      */
-    public EmptyViewController(ViewGroup mainLayout, View contentView, View emptyView) {
+    public EmptyViewController(@NonNull ViewGroup mainLayout, @NonNull View contentView, @NonNull View emptyView) {
         mMainLayout = mainLayout;
         mContentView = contentView;
         mEmptyView = emptyView;

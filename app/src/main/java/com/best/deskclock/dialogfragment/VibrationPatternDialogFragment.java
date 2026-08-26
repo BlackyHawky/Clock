@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
@@ -57,7 +58,8 @@ public class VibrationPatternDialogFragment extends DialogFragment {
      *                         which will be preselected in the dialog.
      * @return A configured instance of {@link VibrationPatternDialogFragment}.
      */
-    public static VibrationPatternDialogFragment newInstance(String key, String vibrationPattern) {
+    @NonNull
+    public static VibrationPatternDialogFragment newInstance(@NonNull String key, @NonNull String vibrationPattern) {
         Bundle args = new Bundle();
         args.putString(ARG_PREF_KEY, key);
         args.putString(VIBRATION_PATTERN, vibrationPattern);
@@ -73,7 +75,8 @@ public class VibrationPatternDialogFragment extends DialogFragment {
      *
      * @param vibrationPattern The vibration pattern.
      */
-    public static VibrationPatternDialogFragment newInstance(String vibrationPattern) {
+    @NonNull
+    public static VibrationPatternDialogFragment newInstance(@NonNull String vibrationPattern) {
         final Bundle args = new Bundle();
 
         args.putString(VIBRATION_PATTERN, vibrationPattern);
@@ -90,7 +93,8 @@ public class VibrationPatternDialogFragment extends DialogFragment {
      * @param timerId          The {@link Timer} id whose vibration pattern will be edited.
      * @param vibrationPattern The vibration pattern.
      */
-    public static VibrationPatternDialogFragment newInstance(int timerId, String vibrationPattern) {
+    @NonNull
+    public static VibrationPatternDialogFragment newInstance(int timerId, @NonNull String vibrationPattern) {
         final Bundle args = new Bundle();
 
         args.putInt(ARG_TIMER_ID, timerId);
@@ -104,7 +108,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
     /**
      * Displays {@link VibrationPatternDialogFragment}.
      */
-    public static void show(FragmentManager manager, VibrationPatternDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull VibrationPatternDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -116,7 +120,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Context context = requireContext();
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
@@ -216,7 +220,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
      *
      * @param patternKey The key representing the selected vibration pattern.
      */
-    private void savePattern(String patternKey) {
+    private void savePattern(@NonNull String patternKey) {
         Bundle result = new Bundle();
         result.putString(RESULT_PATTERN_KEY, patternKey);
 

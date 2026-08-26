@@ -42,6 +42,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
@@ -194,7 +195,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private SharedPreferences.OnSharedPreferenceChangeListener mPrefListener;
 
     @Override
-    public void onNewIntent(Intent newIntent) {
+    public void onNewIntent(@NonNull Intent newIntent) {
         super.onNewIntent(newIntent);
 
         // Fragments may query the latest intent for information, so update the intent.
@@ -339,7 +340,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
     @SuppressLint("AlwaysShowAction")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         menu.add(0, Menu.NONE, 1, R.string.settings).setIcon(R.drawable.ic_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         if (PermissionUtils.areEssentialPermissionsNotGranted(this)) {
@@ -356,7 +357,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == 0) {
             final Intent settingIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingIntent);
@@ -375,12 +376,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * respond to key presses even if they are not currently focused.
      */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         return getSelectedDeskClockFragment().onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
         return getSelectedDeskClockFragment().onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event);
     }
 
@@ -497,7 +498,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
      *
      * @param key The preference key to retrieve.
      */
-    private Object getPreferenceValue(String key) {
+    @Nullable
+    private Object getPreferenceValue(@NonNull String key) {
         return switch (key) {
             // Interface
             case KEY_TOOLBAR_TITLE -> SettingsDAO.isToolbarTitleDisplayed(getPrefs());
@@ -606,12 +608,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         hideFabAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(@NonNull Animator animation) {
                 mBinding.fab.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(@NonNull Animator animation) {
                 mBinding.fab.setLayerType(View.LAYER_TYPE_NONE, null);
 
                 getSelectedDeskClockFragment().onUpdateFab(mBinding.fab);
@@ -620,25 +622,25 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         showFabAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(@NonNull Animator animation) {
                 mBinding.fab.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(@NonNull Animator animation) {
                 mBinding.fab.setLayerType(View.LAYER_TYPE_NONE, null);
             }
         });
 
         leftHideAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(@NonNull Animator animation) {
                 mBinding.leftButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 mBinding.rightButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(@NonNull Animator animation) {
                 mBinding.leftButton.setLayerType(View.LAYER_TYPE_NONE, null);
                 mBinding.rightButton.setLayerType(View.LAYER_TYPE_NONE, null);
 
@@ -648,13 +650,13 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         leftShowAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(@NonNull Animator animation) {
                 mBinding.leftButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 mBinding.rightButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(@NonNull Animator animation) {
                 mBinding.leftButton.setLayerType(View.LAYER_TYPE_NONE, null);
                 mBinding.rightButton.setLayerType(View.LAYER_TYPE_NONE, null);
             }
@@ -891,7 +893,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * <p>This method synchronizes the BottomNavigationView items and the ViewPager. If the currently active tab is hidden by the new
      * preferences, it automatically falls back to the first available tab.</p>
      */
-    private void refreshTabsVisibility(UiDataModel.Tab oldTab, boolean tabsChanged) {
+    private void refreshTabsVisibility(@NonNull UiDataModel.Tab oldTab, boolean tabsChanged) {
         // Update the menu icons
         Menu menu = mBinding.deskClockBottomMenu.getMenu();
         boolean menuChanged = false;
@@ -1041,7 +1043,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * @param oldTab the previously selected tab
      * @param newTab the newly selected tab
      */
-    private void updateTabRunnable(UiDataModel.Tab oldTab, UiDataModel.Tab newTab) {
+    private void updateTabRunnable(@Nullable UiDataModel.Tab oldTab, @Nullable UiDataModel.Tab newTab) {
         // Stop the runnable from the previous tab (if it exists and is still visible)
         if (oldTab != null) {
             int oldIndex = getUiDataModel().getTabIndex(oldTab);
@@ -1068,6 +1070,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
     /**
      * @return the DeskClockFragment that is currently selected according to UiDataModel
      */
+    @NonNull
     private DeskClockFragment getSelectedDeskClockFragment() {
         for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
             final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
@@ -1082,6 +1085,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
     /**
      * @return a Snackbar that displays the message with the given id for 5 seconds
      */
+    @NonNull
     private Snackbar createSnackbar(@StringRes int messageId) {
         return Snackbar.make(mBinding.contentView, messageId, 5000);
     }
@@ -1172,7 +1176,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private final class AutoStartShowListener extends AnimatorListenerAdapter {
         @Override
-        public void onAnimationEnd(Animator animation) {
+        public void onAnimationEnd(@NonNull Animator animation) {
             // Prepare the hide animation for its next use; by default do not auto-show after hide.
             mHideAnimation.removeListener(mAutoStartShowListener);
 
@@ -1192,7 +1196,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private final class SilentSettingChangeWatcher implements OnSilentSettingsListener {
         @Override
-        public void onSilentSettingsChange(SilentSetting after) {
+        public void onSilentSettingsChange(@Nullable SilentSetting after) {
             if (mShowSilentSettingSnackbarRunnable != null) {
                 mBinding.contentView.removeCallbacks(mShowSilentSettingSnackbarRunnable);
                 mShowSilentSettingSnackbarRunnable = null;
@@ -1214,7 +1218,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         private final SilentSetting mSilentSetting;
 
-        private ShowSilentSettingSnackbarRunnable(SilentSetting silentSetting) {
+        private ShowSilentSettingSnackbarRunnable(@NonNull SilentSetting silentSetting) {
             mSilentSetting = silentSetting;
         }
 
@@ -1240,7 +1244,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         private UiDataModel.Tab mPreviousTab = null;
 
         @Override
-        public void selectedTabChanged(UiDataModel.Tab newSelectedTab) {
+        public void selectedTabChanged(@NonNull UiDataModel.Tab newSelectedTab) {
             if (mPreviousTab == null) {
                 mPreviousTab = getUiDataModel().getSelectedTab();
             }

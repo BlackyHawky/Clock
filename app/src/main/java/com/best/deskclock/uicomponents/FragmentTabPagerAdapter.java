@@ -55,7 +55,7 @@ public final class FragmentTabPagerAdapter extends PagerAdapter {
      */
     private Fragment mCurrentPrimaryItem;
 
-    public FragmentTabPagerAdapter(@NonNull DeskClock deskClock, UiDataModel uiDataModel) {
+    public FragmentTabPagerAdapter(@NonNull DeskClock deskClock, @NonNull UiDataModel uiDataModel) {
         mDeskClock = deskClock;
         mUiDataModel = uiDataModel;
         mFragmentCache = new ArrayMap<>(getCount());
@@ -71,6 +71,7 @@ public final class FragmentTabPagerAdapter extends PagerAdapter {
      * @param position the left-to-right index of the fragment to be returned
      * @return the fragment displayed at the given {@code position}
      */
+    @NonNull
     public DeskClockFragment getDeskClockFragment(int position) {
         // Fetch the tab the UiDataModel reports for the position.
         final UiDataModel.Tab tab = mUiDataModel.getTabAt(position);
@@ -101,7 +102,7 @@ public final class FragmentTabPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public void startUpdate(ViewGroup container) {
+    public void startUpdate(@NonNull ViewGroup container) {
         if (container.getId() == View.NO_ID) {
             throw new IllegalStateException("ViewPager with adapter " + this + " has no id");
         }

@@ -7,6 +7,8 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 /**
  * This interface abstracts away the differences between playing ringtones via {@link Ringtone}
  * vs {@link MediaPlayer}.
@@ -19,7 +21,7 @@ public interface PlaybackDelegate {
      * @return {@code true} if a {@link #adjustVolume volume adjustment} should be scheduled.
      * {@code false} otherwise.
      */
-    boolean play(Context context, Uri ringtoneUri, long crescendoDuration);
+    boolean play(@NonNull Context context, @NonNull Uri ringtoneUri, long crescendoDuration);
 
     /**
      * Stop any ongoing ringtone playback.

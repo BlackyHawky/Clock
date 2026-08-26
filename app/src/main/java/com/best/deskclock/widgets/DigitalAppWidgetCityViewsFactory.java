@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 
@@ -15,7 +17,7 @@ import com.best.deskclock.data.WidgetDAO;
  */
 public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityViewsFactory {
 
-    public DigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
+    public DigitalAppWidgetCityViewsFactory(@NonNull Context context, @NonNull Intent intent) {
         super(context, intent);
     }
 
@@ -195,42 +197,42 @@ public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityVi
     }
 
     @Override
-    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
+    protected boolean isTextUppercaseDisplayed(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs);
     }
 
     @Override
-    protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
+    protected boolean isTextShadowDisplayed(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isTextShadowDisplayedOnDigitalWidget(prefs);
     }
 
     @Override
-    protected boolean isDefaultCityClockColor(SharedPreferences prefs) {
+    protected boolean isDefaultCityClockColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetDefaultCityClockColor(prefs);
     }
 
     @Override
-    protected int getCityClockColor(SharedPreferences prefs) {
+    protected int getCityClockColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.getDigitalWidgetCustomCityClockColor(prefs);
     }
 
     @Override
-    protected boolean isDefaultCityNameColor(SharedPreferences prefs) {
+    protected boolean isDefaultCityNameColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetDefaultCityNameColor(prefs);
     }
 
     @Override
-    protected int getCityNameColor(SharedPreferences prefs) {
+    protected int getCityNameColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.getDigitalWidgetCustomCityNameColor(prefs);
     }
 
     @Override
-    protected boolean isDefaultCityNoteColor(SharedPreferences prefs) {
+    protected boolean isDefaultCityNoteColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetDefaultCityNoteColor(prefs);
     }
 
     @Override
-    protected int getCityNoteColor(SharedPreferences prefs) {
+    protected int getCityNoteColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.getDigitalWidgetCustomCityNoteColor(prefs);
     }
 
