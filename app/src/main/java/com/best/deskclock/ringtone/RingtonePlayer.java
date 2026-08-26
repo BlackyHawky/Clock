@@ -20,6 +20,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.media3.common.AudioAttributes;
 import androidx.media3.common.C;
@@ -97,7 +99,7 @@ public final class RingtonePlayer {
         new SharedPreferences.OnSharedPreferenceChangeListener() {
 
             @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences, @Nullable String key) {
                 if (KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE.equals(key)) {
                     mIsAutoRoutingToExternalAudioDevice =
                         SettingsDAO.isAutoRoutingToExternalAudioDevice(sharedPreferences);
@@ -123,7 +125,7 @@ public final class RingtonePlayer {
      * <p>This initializes the audio manager and registers an {@link AudioDeviceCallback}
      * to dynamically respond to changes in audio output devices, such as Bluetooth connections.</p>
      */
-    public RingtonePlayer(Context context) {
+    public RingtonePlayer(@NonNull Context context) {
         mContext = context;
 
         mAudioManager = context.getApplicationContext().getSystemService(AudioManager.class);
@@ -190,7 +192,7 @@ public final class RingtonePlayer {
      *     <li>The current media volume is saved and restored later in {@link #stop()}.</li>
      * </ul>
      */
-    public void play(Uri ringtoneUri, long crescendoDuration) {
+    public void play(@NonNull Uri ringtoneUri, long crescendoDuration) {
         if (mExoPlayer != null) {
             stopSystemMediaVolumeCrescendo();
             stop();
@@ -350,7 +352,7 @@ public final class RingtonePlayer {
 
         mAudioDeviceCallback = new AudioDeviceCallback() {
             @Override
-            public void onAudioDevicesAdded(AudioDeviceInfo[] addedDevices) {
+            public void onAudioDevicesAdded(@NonNull AudioDeviceInfo[] addedDevices) {
                 for (AudioDeviceInfo device : addedDevices) {
                     if (RingtoneUtils.isExternalAudioDevice(device)) {
                         LOGGER.v("External audio device connected: forcing playback to it");
@@ -371,7 +373,7 @@ public final class RingtonePlayer {
             }
 
             @Override
-            public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
+            public void onAudioDevicesRemoved(@NonNull AudioDeviceInfo[] removedDevices) {
                 for (AudioDeviceInfo device : removedDevices) {
                     if (RingtoneUtils.isExternalAudioDevice(device)) {
                         LOGGER.v("External audio device disconnected: switching back to speaker");
@@ -478,6 +480,7 @@ public final class RingtonePlayer {
      * to enable playback. Otherwise, {@link C#USAGE_ALARM} is used to ensure the ringtone plays
      * over system alarm audio.</p>
      */
+    @NonNull
     private AudioAttributes buildAudioAttributes(boolean externalAudioDeviceConnected) {
         return new AudioAttributes.Builder()
             .setUsage(externalAudioDeviceConnected ? C.USAGE_MEDIA : C.USAGE_ALARM)
@@ -556,6 +559,7 @@ public final class RingtonePlayer {
      * <p>Iterates through all available output audio devices to find one that matches
      * known Bluetooth device types (A2DP or SCO).</p>
      */
+    @Nullable
     private AudioDeviceInfo findExternalAudioDevice() {
         if (!mIsAutoRoutingToExternalAudioDevice) {
             return null;
@@ -573,7 +577,8 @@ public final class RingtonePlayer {
     /**
      * Searches for and returns the built-in speaker output device.
      */
-    private AudioDeviceInfo findSpeakerDevice(AudioManager audioManager) {
+    @Nullable
+    private AudioDeviceInfo findSpeakerDevice(@NonNull AudioManager audioManager) {
         for (AudioDeviceInfo device : audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
             if (device.getType() == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER) {
                 return device;

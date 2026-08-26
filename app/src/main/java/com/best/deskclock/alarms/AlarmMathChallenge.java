@@ -6,6 +6,9 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.MATH_HARDNESS
 import static com.best.deskclock.settings.PreferencesDefaultValues.MATH_HARDNESS_LEVEL_HARD;
 import static com.best.deskclock.settings.PreferencesDefaultValues.MATH_HARDNESS_LEVEL_NORMAL;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.Random;
 
 public record AlarmMathChallenge(int left, int right) {
@@ -14,7 +17,7 @@ public record AlarmMathChallenge(int left, int right) {
         return left + right;
     }
 
-    public boolean matches(String answer) {
+    public boolean matches(@Nullable String answer) {
         final String normalizedAnswer = answer == null ? "" : answer.trim();
 
         try {
@@ -24,7 +27,8 @@ public record AlarmMathChallenge(int left, int right) {
         }
     }
 
-    public static AlarmMathChallenge create(String hardness, Random random) {
+    @NonNull
+    public static AlarmMathChallenge create(@NonNull String hardness, @NonNull Random random) {
         final int min;
         final int range;
 

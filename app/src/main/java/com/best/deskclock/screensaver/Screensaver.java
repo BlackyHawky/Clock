@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 
+import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -65,7 +66,7 @@ public final class Screensaver extends DreamService {
      */
     private final BroadcastReceiver mAlarmChangedReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
         }
     };
@@ -75,7 +76,7 @@ public final class Screensaver extends DreamService {
      */
     private final BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
                 ScreensaverUtils.updateBatteryText(mBinding.saverContainer, intent);
             }
@@ -188,7 +189,7 @@ public final class Screensaver extends DreamService {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         LOGGER.v("Screensaver configuration changed");
         super.onConfigurationChanged(newConfig);
 

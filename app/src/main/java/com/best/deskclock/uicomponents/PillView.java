@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
 
@@ -22,39 +23,42 @@ public class PillView extends View {
 
     public static final Property<PillView, Float> PILL_CENTER_X =
         new Property<>(Float.class, "pillCenterX") {
+            @NonNull
             @Override
-            public Float get(PillView view) {
+            public Float get(@NonNull PillView view) {
                 return view.getPillCenterX();
             }
 
             @Override
-            public void set(PillView view, Float value) {
+            public void set(@NonNull PillView view, @NonNull Float value) {
                 view.setPillCenterX(value);
             }
         };
 
     public static final Property<PillView, Float> PILL_WIDTH =
         new Property<>(Float.class, "pillWidth") {
+            @NonNull
             @Override
-            public Float get(PillView view) {
+            public Float get(@NonNull PillView view) {
                 return view.getPillWidth();
             }
 
             @Override
-            public void set(PillView view, Float value) {
+            public void set(@NonNull PillView view, @NonNull Float value) {
                 view.setPillWidth(value);
             }
         };
 
     public static final Property<PillView, Integer> FILL_COLOR =
         new Property<>(Integer.class, "pillFillColor") {
+            @NonNull
             @Override
-            public Integer get(PillView view) {
+            public Integer get(@NonNull PillView view) {
                 return view.getFillColor();
             }
 
             @Override
-            public void set(PillView view, Integer value) {
+            public void set(@NonNull PillView view, @NonNull Integer value) {
                 view.setFillColor(value);
             }
         };
@@ -67,18 +71,18 @@ public class PillView extends View {
     private float mWidth;
     private float mHeight;
 
-    public PillView(Context context) {
+    public PillView(@NonNull Context context) {
         this(context, null);
     }
 
-    public PillView(Context context, AttributeSet attrs) {
+    public PillView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     /**
      * @noinspection resource
      */
-    public PillView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PillView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PillView, defStyleAttr, 0);

@@ -255,7 +255,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     }
 
     @Override
-    public boolean onPreferenceChange(Preference pref, Object newValue) {
+    public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_ALARM_CLOCK_STYLE -> {
                 boolean isAnalogClock = newValue.equals(mAnalogClock);
@@ -529,7 +529,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         });
     }
 
-    private void showDisablePerAlarmSettingDialog(CustomizationState state) {
+    private void showDisablePerAlarmSettingDialog(@NonNull CustomizationState state) {
         String confirmAction = getString(R.string.confirm_action_prompt);
         String dialogMessage;
 
@@ -617,7 +617,8 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     /**
      * Checks which specific customizations are applied to the alarms background images and the blur intensity.
      */
-    private CustomizationState getAlarmCustomizationsState(Context context) {
+    @NonNull
+    private CustomizationState getAlarmCustomizationsState(@NonNull Context context) {
         CustomizationState state = new CustomizationState();
 
         try {

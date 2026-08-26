@@ -75,8 +75,8 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private boolean mIsTouchingItem = false;
     private boolean mIsTouchingClock = false;
 
-    public AlarmItemTouchHelper(Context context, AlarmTouchContract contract, RecyclerView recyclerView, boolean isTablet,
-                                boolean isLandscape) {
+    public AlarmItemTouchHelper(@NonNull Context context, @NonNull AlarmTouchContract contract, @NonNull RecyclerView recyclerView,
+                                boolean isTablet, boolean isLandscape) {
 
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.END);
 

@@ -31,8 +31,8 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
     private final boolean mIsLandscape;
     private boolean mIsManualSorting;
 
-    public TimerItemTouchHelper(ItemTouchHelperContract contract, RecyclerView recyclerView, boolean isTablet, boolean isLandscape,
-                                boolean isManualSorting) {
+    public TimerItemTouchHelper(@NonNull ItemTouchHelperContract contract, @NonNull RecyclerView recyclerView, boolean isTablet,
+                                boolean isLandscape, boolean isManualSorting) {
 
         mContract = contract;
         mIsTablet = isTablet;

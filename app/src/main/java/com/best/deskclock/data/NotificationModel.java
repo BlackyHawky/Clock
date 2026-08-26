@@ -6,6 +6,8 @@
 
 package com.best.deskclock.data;
 
+import androidx.annotation.NonNull;
+
 /**
  * Data that must be coordinated across all notifications is accessed via this model.
  */
@@ -84,6 +86,7 @@ final class NotificationModel {
     /**
      * @return the group key for the stopwatch notification
      */
+    @NonNull
     @SuppressWarnings("SameReturnValue")
     String getStopwatchNotificationGroupKey() {
         return "3";
@@ -92,6 +95,7 @@ final class NotificationModel {
     /**
      * @return the group key for the timer notification
      */
+    @NonNull
     @SuppressWarnings("SameReturnValue")
     String getTimerNotificationGroupKey() {
         return "2";
@@ -104,6 +108,7 @@ final class NotificationModel {
     /**
      * @return the sort key for the missed timer notification
      */
+    @NonNull
     @SuppressWarnings("SameReturnValue")
     String getTimerNotificationMissedSortKey() {
         return "0";
@@ -112,10 +117,10 @@ final class NotificationModel {
     /**
      * @return the sort key for the timer notification
      */
+    @NonNull
     @SuppressWarnings("SameReturnValue")
     String getTimerNotificationSortKey() {
         return "1";
     }
-
 
 }

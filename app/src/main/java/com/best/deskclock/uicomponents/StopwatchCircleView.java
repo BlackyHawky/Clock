@@ -18,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
@@ -47,11 +48,11 @@ public final class StopwatchCircleView extends View {
     private final DisplayMetrics mDisplayMetrics;
     private final DataModel mDataModel;
 
-    public StopwatchCircleView(Context context) {
+    public StopwatchCircleView(@NonNull Context context) {
         this(context, null);
     }
 
-    public StopwatchCircleView(Context context, AttributeSet attrs) {
+    public StopwatchCircleView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         mDataModel = DataModel.getDataModel();
@@ -169,6 +170,7 @@ public final class StopwatchCircleView extends View {
         return mDataModel.getStopwatch();
     }
 
+    @NonNull
     private List<Lap> getLaps() {
         return mDataModel.getLaps();
     }

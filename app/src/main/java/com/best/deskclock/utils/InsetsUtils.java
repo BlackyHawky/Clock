@@ -27,7 +27,7 @@ public class InsetsUtils {
     /**
      * Method to apply insets to a view.
      */
-    public static void doOnApplyWindowInsets(View view, OnApplyWindowInsetsListener listener) {
+    public static void doOnApplyWindowInsets(@NonNull View view, @NonNull OnApplyWindowInsetsListener listener) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             listener.onApply(v, insets);
             return WindowInsetsCompat.CONSUMED;
@@ -40,13 +40,13 @@ public class InsetsUtils {
      * Interface for the inset listener.
      */
     public interface OnApplyWindowInsetsListener {
-        void onApply(View v, WindowInsetsCompat insets);
+        void onApply(@NonNull View v, @NonNull WindowInsetsCompat insets);
     }
 
     /**
      * Request insets to be applied when the view is attached.
      */
-    private static void requestApplyInsetsWhenAttached(View view) {
+    private static void requestApplyInsetsWhenAttached(@NonNull View view) {
         if (view.isAttachedToWindow()) {
             // If the view is already attached, the insets are applied immediately
             ViewCompat.requestApplyInsets(view);

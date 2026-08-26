@@ -24,6 +24,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
 import android.service.notification.StatusBarNotification;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.ServiceCompat;
@@ -84,8 +86,8 @@ public final class AlarmNotifications {
      */
     private static final int ALARM_FIRING_NOTIFICATION_ID = Integer.MAX_VALUE - 7;
 
-    private static boolean isGroupSummary(Notification n) {
-        return (n.flags & Notification.FLAG_GROUP_SUMMARY) == Notification.FLAG_GROUP_SUMMARY;
+    private static boolean isGroupSummary(@NonNull Notification notification) {
+        return (notification.flags & Notification.FLAG_GROUP_SUMMARY) == Notification.FLAG_GROUP_SUMMARY;
     }
 
     /**
@@ -101,8 +103,8 @@ public final class AlarmNotifications {
      * @param postedNotification     The notification that was just posted
      * @return The first active notification for the group
      */
-    private static Notification getFirstActiveNotification(Context context, String group, int canceledNotificationId,
-                                                           Notification postedNotification) {
+    private static Notification getFirstActiveNotification(@NonNull Context context, @NonNull String group, int canceledNotificationId,
+                                                           @Nullable Notification postedNotification) {
 
         final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final StatusBarNotification[] notifications = nm.getActiveNotifications();
@@ -127,7 +129,8 @@ public final class AlarmNotifications {
         return firstActiveNotification;
     }
 
-    private static Notification getActiveGroupSummaryNotification(Context context, String group) {
+    @Nullable
+    private static Notification getActiveGroupSummaryNotification(@NonNull Context context, @NonNull String group) {
         final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final StatusBarNotification[] notifications = nm.getActiveNotifications();
 
@@ -141,7 +144,9 @@ public final class AlarmNotifications {
         return null;
     }
 
-    private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
+    private static void updateUpcomingAlarmGroupNotification(@NonNull Context context, int canceledNotificationId,
+                                                             @Nullable Notification postedNotification) {
+
         final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final Notification firstUpcoming = getFirstActiveNotification(
             context, UPCOMING_GROUP_KEY, canceledNotificationId, postedNotification);
@@ -176,7 +181,9 @@ public final class AlarmNotifications {
         }
     }
 
-    public static void updateMissedAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
+    public static void updateMissedAlarmGroupNotification(@NonNull Context context, int canceledNotificationId,
+                                                          @Nullable Notification postedNotification) {
+
         final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final Notification firstMissed = getFirstActiveNotification(context, MISSED_GROUP_KEY,
             canceledNotificationId, postedNotification);
@@ -213,7 +220,7 @@ public final class AlarmNotifications {
         }
     }
 
-    public static synchronized void showUpcomingNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showUpcomingNotification(@NonNull Context context, @NonNull AlarmInstance instance) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
@@ -276,7 +283,7 @@ public final class AlarmNotifications {
         updateUpcomingAlarmGroupNotification(context, -1, notification);
     }
 
-    public static synchronized void showSnoozeNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showSnoozeNotification(@NonNull Context context, @NonNull AlarmInstance instance) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
@@ -338,7 +345,7 @@ public final class AlarmNotifications {
     }
 
     @SuppressLint("LaunchActivityFromNotification")
-    static synchronized void showMissedNotification(Context context, AlarmInstance instance) {
+    static synchronized void showMissedNotification(@NonNull Context context, @NonNull AlarmInstance instance) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
@@ -396,7 +403,7 @@ public final class AlarmNotifications {
     }
 
     @SuppressLint("FullScreenIntentPolicy")
-    static synchronized void showAlarmNotification(Context context, AlarmInstance instance) {
+    static synchronized void showAlarmNotification(@NonNull Context context, @NonNull AlarmInstance instance) {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
 
         final Context localizedContext = Utils.getLocalizedContext(context);
@@ -418,8 +425,8 @@ public final class AlarmNotifications {
             viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Setup up dismiss action
-        Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
-            AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
+        Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
+            context, AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
         dismissIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
         PendingIntent dismissPendingIntent = PendingIntent.getService(context,
             ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -487,7 +494,7 @@ public final class AlarmNotifications {
         }
     }
 
-    public static synchronized void clearNotification(Context context, AlarmInstance instance) {
+    public static synchronized void clearNotification(@NonNull Context context, @NonNull AlarmInstance instance) {
         LogUtils.v("Clearing notifications for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final int id = instance.hashCode();
@@ -499,7 +506,7 @@ public final class AlarmNotifications {
     /**
      * Updates the notification for an existing alarm.
      */
-    public static void updateNotification(Context context, AlarmInstance instance) {
+    public static void updateNotification(@NonNull Context context, @NonNull AlarmInstance instance) {
         switch (instance.mAlarmState) {
             case AlarmInstance.NOTIFICATION_STATE -> showUpcomingNotification(context, instance);
             case AlarmInstance.FIRED_STATE -> showAlarmNotification(context, instance);
@@ -509,7 +516,8 @@ public final class AlarmNotifications {
         }
     }
 
-    static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
+    @NonNull
+    static Intent createViewAlarmIntent(@NonNull Context context, @NonNull AlarmInstance instance) {
         final long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         return Alarm.createIntent(context, DeskClock.class, alarmId)
             .putExtra(AlarmFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
@@ -524,7 +532,8 @@ public final class AlarmNotifications {
      * @param instance the alarm instance for which the notification is generated
      * @return the sort key that specifies the order of this alarm notification
      */
-    private static String createSortKey(AlarmInstance instance) {
+    @NonNull
+    private static String createSortKey(@NonNull AlarmInstance instance) {
         final String timeKey = SORT_KEY_FORMAT.format(instance.getAlarmTime().getTime());
         final boolean missedAlarm = instance.mAlarmState == AlarmInstance.MISSED_STATE;
         return missedAlarm ? ("MISSED " + timeKey) : timeKey;

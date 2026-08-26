@@ -11,6 +11,7 @@ import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.DeskClockApplication;
@@ -78,6 +79,7 @@ public final class UiDataModel {
      * @return the {@code value} formatted as a String in the current locale
      * @throws IllegalArgumentException if {@code value} is negative
      */
+    @NonNull
     public String getFormattedNumber(int value) {
         enforceMainLooper();
         return mFormattedStringModel.getFormattedNumber(value);
@@ -94,6 +96,7 @@ public final class UiDataModel {
      * requested {@code length}
      * @throws IllegalArgumentException if {@code value} is negative
      */
+    @NonNull
     public String getFormattedNumber(int value, int length) {
         enforceMainLooper();
         return mFormattedStringModel.getFormattedNumber(value, length);
@@ -150,7 +153,7 @@ public final class UiDataModel {
     /**
      * @param tabListener to be notified when the selected tab changes
      */
-    public void addTabListener(TabListener tabListener) {
+    public void addTabListener(@NonNull TabListener tabListener) {
         enforceMainLooper();
         mTabModel.addTabListener(tabListener);
     }
@@ -158,7 +161,7 @@ public final class UiDataModel {
     /**
      * @param tabListener to no longer be notified when the selected tab changes
      */
-    public void removeTabListener(TabListener tabListener) {
+    public void removeTabListener(@NonNull TabListener tabListener) {
         enforceMainLooper();
         mTabModel.removeTabListener(tabListener);
     }
@@ -184,7 +187,7 @@ public final class UiDataModel {
      * @param tab the tab to find
      * @return the current dynamic index of the tab, or -1 if hidden
      */
-    public int getTabIndex(Tab tab) {
+    public int getTabIndex(@NonNull Tab tab) {
         enforceMainLooper();
         return mTabModel.getTabIndex(tab);
     }
@@ -193,7 +196,7 @@ public final class UiDataModel {
      * @param tab The tab to check
      * @return true if the tab is currently visible in the bottom navigation menu
      */
-    public boolean isTabVisible(Tab tab) {
+    public boolean isTabVisible(@NonNull Tab tab) {
         return getTabIndex(tab) != DEFAULT_TAB_TO_DISPLAY_INTEGER;
     }
 
@@ -208,7 +211,7 @@ public final class UiDataModel {
     /**
      * @param tab an enumerated value indicating the newly selected primary tab
      */
-    public void setSelectedTab(Tab tab) {
+    public void setSelectedTab(@NonNull Tab tab) {
         enforceMainLooper();
         mTabModel.setSelectedTab(tab);
     }
@@ -222,6 +225,7 @@ public final class UiDataModel {
      * @param action   the desired action to perform
      * @return the id of the shortcut
      */
+    @NonNull
     public String getShortcutId(@StringRes int category, @StringRes int action) {
         Context appContext = DeskClockApplication.getAppContext();
 
@@ -239,7 +243,7 @@ public final class UiDataModel {
      * @param runnable to be called every minute
      * @param offset   an offset applied to the minute to control when the callback occurs
      */
-    public void addHalfMinuteCallback(Runnable runnable, long offset) {
+    public void addHalfMinuteCallback(@NonNull Runnable runnable, long offset) {
         enforceMainLooper();
         mPeriodicCallbackModel.addHalfMinuteCallback(runnable, offset);
     }
@@ -248,7 +252,7 @@ public final class UiDataModel {
      * @param runnable to be called every quarter-hour
      * @param offset   an offset applied to the quarter-hour to control when the callback occurs
      */
-    public void addQuarterHourCallback(Runnable runnable, long offset) {
+    public void addQuarterHourCallback(@NonNull Runnable runnable, long offset) {
         enforceMainLooper();
         mPeriodicCallbackModel.addQuarterHourCallback(runnable, offset);
     }
@@ -257,7 +261,7 @@ public final class UiDataModel {
      * @param runnable to be called every midnight
      * @param offset   an offset applied to the midnight to control when the callback occurs
      */
-    public void addMidnightCallback(Runnable runnable, long offset) {
+    public void addMidnightCallback(@NonNull Runnable runnable, long offset) {
         enforceMainLooper();
         mPeriodicCallbackModel.addMidnightCallback(runnable, offset);
     }
@@ -265,7 +269,7 @@ public final class UiDataModel {
     /**
      * @param runnable to no longer be called periodically
      */
-    public void removePeriodicCallback(Runnable runnable) {
+    public void removePeriodicCallback(@NonNull Runnable runnable) {
         enforceMainLooper();
         mPeriodicCallbackModel.removePeriodicCallback(runnable);
     }
@@ -287,7 +291,7 @@ public final class UiDataModel {
         private final int mPageResId;
         private final int mLabelResId;
 
-        Tab(Class<?> fragmentClass, int pageResId, @StringRes int labelResId) {
+        Tab(@NonNull Class<?> fragmentClass, int pageResId, @StringRes int labelResId) {
             mFragmentClassName = fragmentClass.getName();
             mPageResId = pageResId;
             mLabelResId = labelResId;

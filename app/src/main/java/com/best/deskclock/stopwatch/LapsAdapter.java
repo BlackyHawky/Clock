@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,7 +76,9 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     private final int mMinLapColor;
     private final int mMaxLapColor;
 
-    LapsAdapter(Context context, DataModel dataModel, UiDataModel uiDataModel, Typeface regularTypeface, Typeface boldTypeface) {
+    LapsAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull UiDataModel uiDataModel, @NonNull Typeface regularTypeface,
+                @NonNull Typeface boldTypeface) {
+
         mContext = context;
         mDataModel = dataModel;
         mUiDataModel = uiDataModel;
@@ -152,6 +155,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
         return mDataModel.getStopwatch();
     }
 
+    @NonNull
     private List<Lap> getLaps() {
         return mDataModel.getLaps();
     }
@@ -193,7 +197,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      * @param lap     the Lap object, or null if this is the current (running) lap
      * @param lapTime the duration of the lap in milliseconds
      */
-    private void applyLapColor(LapItemHolder holder, Lap lap, long lapTime) {
+    private void applyLapColor(@NonNull LapItemHolder holder, @Nullable Lap lap, long lapTime) {
         // Current lap or only one recorded lap → always default color
         if (lap == null || getLaps().size() <= 1) {
             setColor(holder, mDefaultLapColor);
@@ -227,7 +231,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      * @param holder the ViewHolder whose TextViews should be updated
      * @param color  the color value to apply
      */
-    private void setColor(LapItemHolder holder, int color) {
+    private void setColor(@NonNull LapItemHolder holder, int color) {
         TextView[] views = {
             holder.binding.lapNumber,
             holder.binding.lapTime,
@@ -243,7 +247,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      * @param rv        the RecyclerView that contains the {@code childView}
      * @param totalTime time accumulated for the current lap and all prior laps
      */
-    public void updateCurrentLap(RecyclerView rv, long totalTime) {
+    public void updateCurrentLap(@NonNull RecyclerView rv, long totalTime) {
         // If no laps exist there is nothing to do.
         if (getItemCount() == 0) {
             return;
@@ -364,6 +368,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      *                  set changes; they are not allowed to occur during bind
      * @return a formatted version of the lap time
      */
+    @NonNull
     private String formatLapTime(long lapTime, boolean isBinding) {
         // The longest lap dictates the way the given lapTime must be formatted.
         final long longestLapTime = Math.max(mDataModel.getLongestLapTime(), lapTime);
@@ -385,6 +390,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      *                        set changes; they are not allowed to occur during bind
      * @return a formatted version of the accumulated time
      */
+    @NonNull
     private String formatAccumulatedTime(long accumulatedTime, boolean isBinding) {
         final long totalTime = getStopwatch().getTotalTime();
         final long longestAccumulatedTime = Math.max(totalTime, accumulatedTime);
@@ -406,8 +412,9 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      * @param separator displayed between hours and minutes as well as minutes and seconds
      * @return a formatted version of the time
      */
+    @NonNull
     @VisibleForTesting
-    private String formatTime(long maxTime, long time, String separator) {
+    private String formatTime(long maxTime, long time, @NonNull String separator) {
         final int hours, minutes, seconds, hundredths;
         if (time <= 0) {
             // A negative time should be impossible, but is tolerated to avoid crashing the app.
@@ -462,7 +469,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
 
         final LapViewBinding binding;
 
-        LapItemHolder(LapViewBinding binding, Typeface regular, Typeface bold) {
+        LapItemHolder(@NonNull LapViewBinding binding, @NonNull Typeface regular, @NonNull Typeface bold) {
             super(binding.getRoot());
 
             this.binding = binding;

@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -69,7 +70,7 @@ public class ScreensaverUtils {
      * @param prefs User preferences containing the brightness setting.
      * @param color Optional base color used for analog clock tinting.
      */
-    private static void applyBrightness(View view, SharedPreferences prefs, @Nullable Integer color,
+    private static void applyBrightness(@NonNull View view, @NonNull SharedPreferences prefs, @Nullable Integer color,
                                         @Nullable Drawable drawable) {
 
         int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
@@ -149,7 +150,7 @@ public class ScreensaverUtils {
      * @param prefs SharedPreferences containing the user's screensaver clock settings
      * @return a Typeface object representing the chosen font with the applied style
      */
-    public static Typeface getScreensaverClockTypeface(SharedPreferences prefs) {
+    public static Typeface getScreensaverClockTypeface(@NonNull SharedPreferences prefs) {
         Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
         int style = resolveTypefaceStyle(
             SettingsDAO.isScreensaverDigitalClockInBold(prefs),
@@ -168,7 +169,7 @@ public class ScreensaverUtils {
      *
      * @param batteryText Battery text to format
      */
-    private static void setScreensaverBatteryFormat(SharedPreferences prefs, TextView batteryText) {
+    private static void setScreensaverBatteryFormat(@NonNull SharedPreferences prefs, @NonNull TextView batteryText) {
         int style = resolveTypefaceStyle(
             SettingsDAO.isScreensaverBatteryInBold(prefs),
             SettingsDAO.isScreensaverBatteryInItalic(prefs)
@@ -184,7 +185,7 @@ public class ScreensaverUtils {
      * @param intent the Intent carrying battery status information (ACTION_BATTERY_CHANGED)
      */
     @SuppressLint("SetTextI18n")
-    public static void updateBatteryText(View view, Intent intent) {
+    public static void updateBatteryText(@NonNull View view, @NonNull Intent intent) {
         SharedPreferences prefs = getDefaultSharedPreferences(view.getContext());
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
@@ -206,7 +207,7 @@ public class ScreensaverUtils {
      * @param view    the root view containing the battery indicator TextView
      * @param percent the current battery level as a percentage
      */
-    public static void updateBatteryIcon(View view, int percent, boolean isCharging) {
+    public static void updateBatteryIcon(@NonNull View view, int percent, boolean isCharging) {
         Context context = view.getContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
 
@@ -258,7 +259,7 @@ public class ScreensaverUtils {
      *
      * @param date Date to format
      */
-    private static void setScreensaverDateFormat(SharedPreferences prefs, TextView date) {
+    private static void setScreensaverDateFormat(@NonNull SharedPreferences prefs, @NonNull TextView date) {
         int style = resolveTypefaceStyle(
             SettingsDAO.isScreensaverDateInBold(prefs),
             SettingsDAO.isScreensaverDateInItalic(prefs)
@@ -272,7 +273,7 @@ public class ScreensaverUtils {
      *
      * @param nextAlarm Next alarm to format
      */
-    private static void setScreensaverNextAlarmFormat(SharedPreferences prefs, TextView nextAlarm) {
+    private static void setScreensaverNextAlarmFormat(@NonNull SharedPreferences prefs, @NonNull TextView nextAlarm) {
         int style = resolveTypefaceStyle(
             SettingsDAO.isScreensaverNextAlarmInBold(prefs),
             SettingsDAO.isScreensaverNextAlarmInItalic(prefs)
@@ -303,7 +304,7 @@ public class ScreensaverUtils {
     /**
      * Applies the general font to the given {@link TextView}.
      */
-    private static void applyGeneralTypeface(SharedPreferences prefs, TextView textView, int style) {
+    private static void applyGeneralTypeface(@NonNull SharedPreferences prefs, @NonNull TextView textView, int style) {
         Typeface base = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         textView.setTypeface(base, style);
@@ -321,7 +322,8 @@ public class ScreensaverUtils {
      * @param alarmTime the time of the next scheduled alarm
      * @return the formatted alarm text, optionally wrapped with thin spaces
      */
-    public static String getScreensaverFormattedTime(Context context, Calendar alarmTime) {
+    @NonNull
+    public static String getScreensaverFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime) {
         String base = AlarmUtils.getFormattedTime(context, alarmTime);
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -341,7 +343,7 @@ public class ScreensaverUtils {
     /**
      * Clock views can call this to refresh their date.
      **/
-    public static void updateScreensaverDate(String dateSkeleton, String descriptionSkeleton, View clock) {
+    public static void updateScreensaverDate(@NonNull String dateSkeleton, @NonNull String descriptionSkeleton, @NonNull View clock) {
         final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
         final TextView dateDisplay = clock.findViewById(R.id.date);
         if (dateDisplay == null) {
@@ -373,7 +375,7 @@ public class ScreensaverUtils {
     /**
      * For screensaver, set the margins and the clock style.
      */
-    public static void setScreensaverClockStyle(View view) {
+    public static void setScreensaverClockStyle(@NonNull View view) {
         final Context context = view.getContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final View mainClockView = view.findViewById(R.id.main_clock);

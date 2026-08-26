@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -60,6 +61,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      * @param hours   The alarm hours.
      * @param minutes The alarm minutes.
      */
+    @NonNull
     public static SpinnerTimePickerDialogFragment newInstance(int hours, int minutes) {
         final Bundle args = new Bundle();
         args.putInt(ARG_HOURS, hours);
@@ -73,7 +75,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
     /**
      * Displays {@link SpinnerTimePickerDialogFragment}.
      */
-    public static void show(FragmentManager manager, SpinnerTimePickerDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull SpinnerTimePickerDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -93,7 +95,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final Bundle args = requireArguments();
         int hourValue = args.getInt(ARG_HOURS, 0);
         int minuteValue = args.getInt(ARG_MINUTES, 0);
@@ -270,6 +272,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      * (if available) are used when applicable. If no narrow forms are available, the standard AM/PM strings
      * are returned.
      */
+    @NonNull
     private String[] getAmPmStrings() {
         DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.getDefault());
         String[] amPm = dfs.getAmPmStrings();
@@ -324,7 +327,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      * This method is used to customize the keyboard input handling in a NumberPicker of type EditText for a time picker.
      * It configures the keyboard and validation behavior when the user changes the hour, minute, or AM/PM.
      */
-    private void setupEditTextInput(NumberPicker numberPicker, int inputType, int imeOptions) {
+    private void setupEditTextInput(@NonNull NumberPicker numberPicker, int inputType, int imeOptions) {
         int count = numberPicker.getChildCount();
         for (int i = 0; i < count; i++) {
             View child = numberPicker.getChildAt(i);

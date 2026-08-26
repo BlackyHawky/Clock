@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -23,7 +25,7 @@ public class DailyWidgetUpdateReceiver extends BroadcastReceiver {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("WidgetUpdateReceiver");
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         LOGGER.i("onReceive:" + intent);
 
         WidgetUtils.updateWidget(context, DigitalAppWidgetProvider.class);

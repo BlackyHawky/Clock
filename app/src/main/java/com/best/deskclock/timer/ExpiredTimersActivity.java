@@ -110,8 +110,8 @@ public class ExpiredTimersActivity extends BaseActivity {
 
     private final BroadcastReceiver mPowerBtnReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent != null && intent.getAction() != null) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
+            if (intent.getAction() != null) {
                 if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     // Ignore immediate screen-off events to prevent the proximity sensor from instantly dismissing
                     // the timer if the device wakes up in a pocket or face down.
@@ -427,7 +427,7 @@ public class ExpiredTimersActivity extends BaseActivity {
     /**
      * Create and add a new view that corresponds with the given {@code timer}.
      */
-    private void addTimer(Timer timer) {
+    private void addTimer(@NonNull Timer timer) {
         TransitionManager.beginDelayedTransition(mExpiredTimersScrollView);
 
         final int timerId = timer.getId();
@@ -511,7 +511,7 @@ public class ExpiredTimersActivity extends BaseActivity {
     /**
      * Remove an existing view that corresponds with the given {@code timer}.
      */
-    private void removeTimer(Timer timer) {
+    private void removeTimer(@NonNull Timer timer) {
         TransitionManager.beginDelayedTransition(mExpiredTimersScrollView);
 
         final int timerId = timer.getId();
@@ -625,14 +625,14 @@ public class ExpiredTimersActivity extends BaseActivity {
      */
     private class TimerChangeWatcher implements TimerListener {
         @Override
-        public void timerAdded(Timer timer) {
+        public void timerAdded(@NonNull Timer timer) {
             if (timer.isExpired()) {
                 addTimer(timer);
             }
         }
 
         @Override
-        public void timerUpdated(Timer before, Timer after) {
+        public void timerUpdated(@NonNull Timer before, @NonNull Timer after) {
             if (!before.isExpired() && after.isExpired()) {
                 addTimer(after);
             } else if (before.isExpired() && !after.isExpired()) {
@@ -641,7 +641,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         @Override
-        public void timerRemoved(Timer timer) {
+        public void timerRemoved(@NonNull Timer timer) {
             if (timer.isExpired()) {
                 removeTimer(timer);
             }

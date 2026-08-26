@@ -16,6 +16,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -48,7 +50,7 @@ public final class AlarmTimeClickHandler {
     private final AlarmUpdateHandler mAlarmUpdateHandler;
     private Alarm mSelectedAlarm;
 
-    public AlarmTimeClickHandler(AlarmFragment alarmFragment, AlarmUpdateHandler alarmUpdateHandler) {
+    public AlarmTimeClickHandler(@NonNull AlarmFragment alarmFragment, @NonNull AlarmUpdateHandler alarmUpdateHandler) {
         mAlarmFragment = alarmFragment;
         mContext = mAlarmFragment.requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
@@ -59,11 +61,11 @@ public final class AlarmTimeClickHandler {
         return mSelectedAlarm;
     }
 
-    public void setSelectedAlarm(Alarm selectedAlarm) {
+    public void setSelectedAlarm(@Nullable Alarm selectedAlarm) {
         mSelectedAlarm = selectedAlarm;
     }
 
-    public void displayBottomSheetDialog(Alarm alarm, boolean isNewAlarm) {
+    public void displayBottomSheetDialog(@NonNull Alarm alarm, boolean isNewAlarm) {
         AlarmEditBottomSheetFragment fragment =
             AlarmEditBottomSheetFragment.newInstance(alarm, alarm.id, mAlarmFragment.getTag(), isNewAlarm);
 
@@ -71,7 +73,7 @@ public final class AlarmTimeClickHandler {
         LOGGER.v("Opening BottomSheet to edit alarm: " + alarm.id);
     }
 
-    public void setAlarmEnabled(Alarm alarm, boolean newState) {
+    public void setAlarmEnabled(@NonNull Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
 
@@ -121,7 +123,7 @@ public final class AlarmTimeClickHandler {
      * @param sourceAlarm the alarm whose label and sync settings define the group
      * @param newState    the enabled state to apply to all matching alarms
      */
-    private void syncAlarmsWithSameLabel(Alarm sourceAlarm, boolean newState) {
+    private void syncAlarmsWithSameLabel(@NonNull Alarm sourceAlarm, boolean newState) {
         if (sourceAlarm.label == null || sourceAlarm.label.trim().isEmpty()) {
             // No label: nothing to synchronize
             return;
@@ -158,7 +160,7 @@ public final class AlarmTimeClickHandler {
      *
      * @param alarm the alarm whose date should be validated and corrected
      */
-    private void fixAlarmDateIfPast(Alarm alarm) {
+    private void fixAlarmDateIfPast(@NonNull Alarm alarm) {
         if (alarm.daysOfWeek.isRepeating()) {
             return;
         }
@@ -171,7 +173,7 @@ public final class AlarmTimeClickHandler {
         }
     }
 
-    public void dismissAlarmInstance(AlarmItemHolder itemHolder, AlarmInstance alarmInstance) {
+    public void dismissAlarmInstance(@NonNull AlarmItemHolder itemHolder, @NonNull AlarmInstance alarmInstance) {
         final Alarm alarm = itemHolder.item;
 
         // For occasional alarms, handle in the same way as the Delete button.
@@ -190,7 +192,7 @@ public final class AlarmTimeClickHandler {
         mContext.startService(dismissIntent);
     }
 
-    public void onClockClicked(Alarm alarm) {
+    public void onClockClicked(@NonNull Alarm alarm) {
         mSelectedAlarm = alarm;
 
         if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
@@ -200,7 +202,7 @@ public final class AlarmTimeClickHandler {
         }
     }
 
-    public void onClockLongClicked(Alarm alarm) {
+    public void onClockLongClicked(@NonNull Alarm alarm) {
         mSelectedAlarm = alarm;
         showAlarmDelayPickerDialog();
     }
@@ -275,6 +277,7 @@ public final class AlarmTimeClickHandler {
         }
     }
 
+    @NonNull
     private Alarm buildNewAlarm(int hour, int minute) {
         final Alarm alarm = new Alarm();
         final AudioManager audioManager = mContext.getApplicationContext().getSystemService(AudioManager.class);

@@ -76,12 +76,12 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         super.onDestroy();
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         // By default, return false so event continues to propagate
         return false;
     }
 
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
         // By default, return false so event continues to propagate
         return false;
     }
@@ -97,7 +97,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     /**
      * @param fabContainer the container that houses the fab and its left and right buttons
      */
-    public final void setFabContainer(FabContainer fabContainer) {
+    public final void setFabContainer(@Nullable FabContainer fabContainer) {
         mFabContainer = fabContainer;
     }
 

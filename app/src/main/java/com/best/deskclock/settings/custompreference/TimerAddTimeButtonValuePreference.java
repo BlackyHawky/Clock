@@ -7,13 +7,15 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
 
 import com.best.deskclock.R;
 
 public class TimerAddTimeButtonValuePreference extends DialogPreference {
 
-    public TimerAddTimeButtonValuePreference(Context context, AttributeSet attrs) {
+    public TimerAddTimeButtonValuePreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setPersistent(true);
     }

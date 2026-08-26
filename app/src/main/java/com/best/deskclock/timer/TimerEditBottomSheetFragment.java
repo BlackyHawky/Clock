@@ -109,7 +109,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
 
     private boolean mIsDeleted;
 
-    public static TimerEditBottomSheetFragment newInstance(int timerId, String tag) {
+    @NonNull
+    public static TimerEditBottomSheetFragment newInstance(int timerId, @Nullable String tag) {
 
         final Bundle args = new Bundle();
 
@@ -121,7 +122,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         return fragment;
     }
 
-    public static void show(FragmentManager manager, TimerEditBottomSheetFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull TimerEditBottomSheetFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -184,7 +185,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
         Window window = dialog.getWindow();
@@ -693,6 +694,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     /**
      * @return the timer currently being edited.
      */
+    @Nullable
     private Timer getTimer() {
         if (mTimerId < 0) {
             return null;
@@ -812,7 +814,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         );
     }
 
-    private void nullifyClickListeners(View... views) {
+    private void nullifyClickListeners(@NonNull View... views) {
         for (View view : views) {
             if (view != null) {
                 view.setOnClickListener(null);

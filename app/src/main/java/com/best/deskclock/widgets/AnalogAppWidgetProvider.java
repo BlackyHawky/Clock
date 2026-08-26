@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
@@ -31,7 +32,7 @@ import com.best.deskclock.utils.SdkUtils;
 public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
 
     @Override
-    protected int getLayoutId(SharedPreferences prefs) {
+    protected int getLayoutId(@NonNull SharedPreferences prefs) {
         if (SdkUtils.isAtLeastAndroid12()) {
             return R.layout.appwidget_analog_default;
         }
@@ -52,7 +53,7 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
     }
 
     @Override
-    protected Icon getDialIcon(Context context, SharedPreferences prefs) {
+    protected Icon getDialIcon(@NonNull Context context, @NonNull SharedPreferences prefs) {
         return switch (WidgetDAO.getAnalogWidgetClockDial(prefs)) {
             case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS -> Icon.createWithResource(context, R.drawable.analog_clock_dial_with_numbers);
             case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS -> Icon.createWithResource(context, R.drawable.analog_clock_dial_without_numbers);
@@ -64,7 +65,7 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
     }
 
     @Override
-    protected Icon getHourHandIcon(Context context, SharedPreferences prefs) {
+    protected Icon getHourHandIcon(@NonNull Context context, @NonNull SharedPreferences prefs) {
         return switch (WidgetDAO.getAnalogWidgetClockDial(prefs)) {
             case ANALOG_WIDGET_CLOCK_DIAL_SUN, ANALOG_WIDGET_CLOCK_DIAL_FLOWER ->
                 Icon.createWithResource(context, R.drawable.analog_clock_hour_rounded);
@@ -74,7 +75,7 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
     }
 
     @Override
-    protected Icon getMinuteHandIcon(Context context, SharedPreferences prefs) {
+    protected Icon getMinuteHandIcon(@NonNull Context context, @NonNull SharedPreferences prefs) {
         return switch (WidgetDAO.getAnalogWidgetClockDial(prefs)) {
             case ANALOG_WIDGET_CLOCK_DIAL_SUN, ANALOG_WIDGET_CLOCK_DIAL_FLOWER ->
                 Icon.createWithResource(context, R.drawable.analog_clock_minute_rounded);
@@ -84,7 +85,7 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
     }
 
     @Override
-    protected Icon getSecondHandIcon(Context context, SharedPreferences prefs) {
+    protected Icon getSecondHandIcon(@NonNull Context context, @NonNull SharedPreferences prefs) {
         String clockDial = WidgetDAO.getAnalogWidgetClockDial(prefs);
 
         if (clockDial.equals(ANALOG_WIDGET_CLOCK_DIAL_SUN) || clockDial.equals(ANALOG_WIDGET_CLOCK_DIAL_FLOWER)) {
@@ -99,40 +100,40 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
     }
 
     @Override
-    protected boolean isSecondHandDisplayed(SharedPreferences prefs) {
+    protected boolean isSecondHandDisplayed(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isSecondHandDisplayedOnAnalogWidget(prefs);
     }
 
     @Override
-    protected void applyDialColor(Icon dialIcon, SharedPreferences prefs) {
+    protected void applyDialColor(@NonNull Icon dialIcon, @NonNull SharedPreferences prefs) {
         if (!WidgetDAO.isAnalogWidgetDefaultDialColor(prefs)) {
             dialIcon.setTint(WidgetDAO.getAnalogWidgetDialColor(prefs));
         }
     }
 
     @Override
-    protected void applyHourHandColor(Icon hourHandIcon, SharedPreferences prefs) {
+    protected void applyHourHandColor(@NonNull Icon hourHandIcon, @NonNull SharedPreferences prefs) {
         if (!WidgetDAO.isAnalogWidgetDefaultHourHandColor(prefs)) {
             hourHandIcon.setTint(WidgetDAO.getAnalogWidgetHourHandColor(prefs));
         }
     }
 
     @Override
-    protected void applyMinuteHandColor(Icon minuteHandIcon, SharedPreferences prefs) {
+    protected void applyMinuteHandColor(@NonNull Icon minuteHandIcon, @NonNull SharedPreferences prefs) {
         if (!WidgetDAO.isAnalogWidgetDefaultMinuteHandColor(prefs)) {
             minuteHandIcon.setTint(WidgetDAO.getAnalogWidgetMinuteHandColor(prefs));
         }
     }
 
     @Override
-    protected void applySecondHandColor(Icon secondHandIcon, SharedPreferences prefs) {
+    protected void applySecondHandColor(@NonNull Icon secondHandIcon, @NonNull SharedPreferences prefs) {
         if (!WidgetDAO.isAnalogWidgetDefaultSecondHandColor(prefs)) {
             secondHandIcon.setTint(WidgetDAO.getAnalogWidgetSecondHandColor(prefs));
         }
     }
 
     @Keep
-    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+    public static void updateAppWidget(@NonNull Context context, @NonNull AppWidgetManager wm, int widgetId) {
         new AnalogAppWidgetProvider().updateAnalogWidget(context, wm, widgetId);
     }
 

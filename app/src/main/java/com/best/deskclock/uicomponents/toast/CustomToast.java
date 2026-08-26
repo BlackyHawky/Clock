@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.R;
@@ -39,7 +40,8 @@ public class CustomToast {
      * @param message the text to display inside the toast
      * @return a fully configured toast layout view
      */
-    private static View createLayout(Context context, String message) {
+    @NonNull
+    private static View createLayout(@NonNull Context context, @NonNull String message) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Context themedContext = ThemeUtils.getThemedContext(context, prefs);
 
@@ -74,7 +76,8 @@ public class CustomToast {
      * @param duration the toast duration (e.g., Toast.LENGTH_SHORT or Toast.LENGTH_LONG)
      * @return a configured Toast instance ready to be shown
      */
-    private static Toast buildToast(Context context, View layout, int duration) {
+    @NonNull
+    private static Toast buildToast(@NonNull Context context, @NonNull View layout, int duration) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Context themedContext = ThemeUtils.getThemedContext(context, prefs);
 
@@ -89,14 +92,14 @@ public class CustomToast {
     /**
      * Displays a short custom toast using a string resource.
      */
-    public static void show(Context context, @StringRes int messageRes) {
+    public static void show(@NonNull Context context, @StringRes int messageRes) {
         show(context, context.getString(messageRes));
     }
 
     /**
      * Displays a short custom toast with the given text.
      */
-    public static void show(Context context, String message) {
+    public static void show(@NonNull Context context, @NonNull String message) {
         View layout = createLayout(context, message);
         buildToast(context, layout, Toast.LENGTH_SHORT).show();
     }
@@ -104,7 +107,7 @@ public class CustomToast {
     /**
      * Displays a long-duration custom toast with the given text.
      */
-    public static void showLong(Context context, String message) {
+    public static void showLong(@NonNull Context context, @NonNull String message) {
         View layout = createLayout(context, message);
         buildToast(context, layout, Toast.LENGTH_LONG).show();
     }
@@ -116,7 +119,7 @@ public class CustomToast {
      * <p>This is useful in situations where multiple toasts may be triggered in
      * quick succession, such as alarm snooze actions.</p>
      */
-    public static void showLongWithManager(Context context, String message) {
+    public static void showLongWithManager(@NonNull Context context, @NonNull String message) {
         View layout = createLayout(context, message);
         Toast toast = buildToast(context, layout, Toast.LENGTH_LONG);
 

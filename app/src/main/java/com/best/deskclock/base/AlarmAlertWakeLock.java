@@ -10,6 +10,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.PowerManager;
 
+import androidx.annotation.NonNull;
+
 /**
  * Utility class to hold wake lock in app.
  */
@@ -19,13 +21,13 @@ public class AlarmAlertWakeLock {
 
     private static PowerManager.WakeLock sCpuWakeLock;
 
-    public static PowerManager.WakeLock createPartialWakeLock(Context context) {
+    public static PowerManager.WakeLock createPartialWakeLock(@NonNull Context context) {
         PowerManager pm = context.getApplicationContext().getSystemService(PowerManager.class);
         return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
     }
 
     @SuppressLint("WakelockTimeout")
-    public static void acquireCpuWakeLock(Context context) {
+    public static void acquireCpuWakeLock(@NonNull Context context) {
         if (sCpuWakeLock != null) {
             return;
         }

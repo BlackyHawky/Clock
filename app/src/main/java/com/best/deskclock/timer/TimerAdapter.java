@@ -66,8 +66,9 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Drawable.ConstantState mBgMiddle; // Middle
     private final Drawable.ConstantState mBgEnd;    // Bottom (Portrait) or Right (Landscape)
 
-    public TimerAdapter(Context context, SharedPreferences sharedPreferences, DataModel dataModel, TimerClickHandler timerClickHandler,
-                        boolean isTablet, boolean isLandscape, Typeface regularTypeface, Typeface boldTypeface, TimerSettings settings) {
+    public TimerAdapter(@NonNull Context context, @NonNull SharedPreferences sharedPreferences, @NonNull DataModel dataModel,
+                        @NonNull TimerClickHandler timerClickHandler, boolean isTablet, boolean isLandscape,
+                        @NonNull Typeface regularTypeface, @NonNull Typeface boldTypeface, @NonNull TimerSettings settings) {
 
         mContext = context;
         mPrefs = sharedPreferences;
@@ -221,7 +222,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void timerAdded(Timer timer) {
+    public void timerAdded(@NonNull Timer timer) {
         refreshTimersCache();
         saveTimerList();
 
@@ -244,7 +245,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void timerRemoved(Timer timer) {
+    public void timerRemoved(@NonNull Timer timer) {
         mAnimatedTimerIds.delete(timer.getId());
 
         int positionToRemove = getTimerPosition(timer.getId());
@@ -269,7 +270,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void timerUpdated(Timer before, Timer after) {
+    public void timerUpdated(@NonNull Timer before, @NonNull Timer after) {
         int oldPosition = getTimerPosition(before.getId());
 
         refreshTimersCache();
@@ -307,13 +308,13 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
+    public void onRowSelected(@NonNull RecyclerView.ViewHolder viewHolder) {
         // Draw a shadow under the timer card when it's dragging.
         viewHolder.itemView.setTranslationZ(dpToPx(6, mContext.getResources().getDisplayMetrics()));
     }
 
     @Override
-    public void onRowClear(RecyclerView.ViewHolder viewHolder) {
+    public void onRowClear(@NonNull RecyclerView.ViewHolder viewHolder) {
         // Remove the shadow under the city card when the drag is complete.
         viewHolder.itemView.setTranslationZ(0f);
     }
@@ -333,7 +334,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return RecyclerView.NO_POSITION;
     }
 
-    public void updateSettings(TimerSettings settings) {
+    public void updateSettings(@NonNull TimerSettings settings) {
         mSettings = settings;
 
         refreshTimersCache();
@@ -391,7 +392,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mCachedTimers;
     }
 
-    private List<Timer> buildSortedTimerList(List<Timer> sourceTimers) {
+    private List<Timer> buildSortedTimerList(@NonNull List<Timer> sourceTimers) {
         if (!mSettings.timerSorting.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
             Collections.sort(sourceTimers, Timer.createTimerStateComparator(mContext));
             return sourceTimers;

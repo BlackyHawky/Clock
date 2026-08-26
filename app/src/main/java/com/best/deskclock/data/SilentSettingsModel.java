@@ -21,6 +21,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.utils.SdkUtils;
@@ -62,7 +64,7 @@ final class SilentSettingsModel {
      */
     private CheckSilenceSettingsTask mCheckSilenceSettingsTask;
 
-    SilentSettingsModel(Context context, NotificationModel notificationModel) {
+    SilentSettingsModel(@NonNull Context context, @NonNull NotificationModel notificationModel) {
         mContext = context.getApplicationContext();
         mNotificationModel = notificationModel;
 
@@ -184,7 +186,7 @@ final class SilentSettingsModel {
      */
     private final class DoNotDisturbChangeReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             updateSilentState();
         }
     }

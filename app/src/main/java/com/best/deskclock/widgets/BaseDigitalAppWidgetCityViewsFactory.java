@@ -20,6 +20,8 @@ import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
@@ -95,17 +97,17 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
     protected abstract int getCitySpacerId();
 
-    protected abstract boolean isTextUppercaseDisplayed(SharedPreferences prefs);
-    protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
+    protected abstract boolean isTextUppercaseDisplayed(@NonNull SharedPreferences prefs);
+    protected abstract boolean isTextShadowDisplayed(@NonNull SharedPreferences prefs);
 
-    protected abstract boolean isDefaultCityClockColor(SharedPreferences prefs);
-    protected abstract int getCityClockColor(SharedPreferences prefs);
+    protected abstract boolean isDefaultCityClockColor(@NonNull SharedPreferences prefs);
+    protected abstract int getCityClockColor(@NonNull SharedPreferences prefs);
 
-    protected abstract boolean isDefaultCityNameColor(SharedPreferences prefs);
-    protected abstract int getCityNameColor(SharedPreferences prefs);
+    protected abstract boolean isDefaultCityNameColor(@NonNull SharedPreferences prefs);
+    protected abstract int getCityNameColor(@NonNull SharedPreferences prefs);
 
-    protected abstract boolean isDefaultCityNoteColor(SharedPreferences prefs);
-    protected abstract int getCityNoteColor(SharedPreferences prefs);
+    protected abstract boolean isDefaultCityNoteColor(@NonNull SharedPreferences prefs);
+    protected abstract int getCityNoteColor(@NonNull SharedPreferences prefs);
 
     private final Intent mFillInIntent = new Intent();
 
@@ -122,7 +124,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     private boolean mShowHomeClock;
     private List<City> mCities = Collections.emptyList();
 
-    protected BaseDigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
+    protected BaseDigitalAppWidgetCityViewsFactory(@NonNull Context context, @NonNull Intent intent) {
         mContext = context;
         mDataModel = DataModel.getDataModel();
         mPrefs = getDefaultSharedPreferences(mContext);
@@ -274,7 +276,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         mFontScale = WidgetUtils.getScaleRatio(mContext, null, mWidgetId, mCities.size());
     }
 
-    private void update(RemoteViews rv, City city, int clockWithShadowId, int clockNoShadowId,
+    private void update(@NonNull RemoteViews rv, @NonNull City city, int clockWithShadowId, int clockNoShadowId,
                         int clockForCustomColorId, int clockNoShadowForCustomColorId,
                         int nameWithShadowId, int nameNoShadowId,
                         int nameForCustomColorId, int nameNoShadowForCustomColorId,
@@ -374,7 +376,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         rv.setViewVisibility(noteId, displayCityNote ? VISIBLE : GONE);
     }
 
-    private void hide(RemoteViews clock,
+    private void hide(@NonNull RemoteViews clock,
                       int clockWithShadowId, int clockNoShadowId,
                       int clockForCustomColorId, int clockNoShadowForCustomColorId,
                       int nameWithShadowId, int nameNoShadowId,
@@ -384,7 +386,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
                       int noteWithShadowId, int noteNoShadowId,
                       int noteForCustomColorId, int noteNoShadowForCustomColorId) {
 
-        // On regroupe tous les IDs dans un tableau pour les cacher d'un seul coup
+        // Group all the IDs into an array to hide them all at once.
         int[] allIdsToHide = {
             clockWithShadowId, clockNoShadowId, clockForCustomColorId, clockNoShadowForCustomColorId,
             nameWithShadowId, nameNoShadowId, nameForCustomColorId, nameNoShadowForCustomColorId,
@@ -408,7 +410,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         private List<City> mCities;
         private boolean mShowHomeClock;
 
-        public RefreshRunnable(Context context) {
+        public RefreshRunnable(@NonNull Context context) {
             this.mContext = context;
         }
 

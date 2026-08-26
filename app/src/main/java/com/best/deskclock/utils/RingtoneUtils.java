@@ -19,6 +19,7 @@ import android.view.KeyEvent;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.IntentCompat;
 
 import com.best.deskclock.DeskClockApplication;
@@ -74,7 +75,7 @@ public class RingtoneUtils {
      * {@code false} otherwise.
      * <p>This excludes custom ringtones that cause problems during restoration.</p>
      */
-    public static boolean isSystemRingtone(Uri uri) {
+    public static boolean isSystemRingtone(@NonNull Uri uri) {
         String uriString = uri.toString().toLowerCase();
         return (uriString.startsWith("content://media/external/audio/") ||
             uriString.startsWith("content://media/internal/audio/") ||
@@ -86,14 +87,14 @@ public class RingtoneUtils {
     /**
      * @return {@code true} if the URI represents a random ringtone; {@code false} otherwise.
      */
-    public static boolean isRandomRingtone(Uri uri) {
+    public static boolean isRandomRingtone(@NonNull Uri uri) {
         return RANDOM_RINGTONE.equals(uri);
     }
 
     /**
      * @return {@code true} if the URI represents a random custom ringtone; {@code false} otherwise.
      */
-    public static boolean isRandomCustomRingtone(Uri uri) {
+    public static boolean isRandomCustomRingtone(@NonNull Uri uri) {
         return RANDOM_CUSTOM_RINGTONE.equals(uri);
     }
 
@@ -101,7 +102,7 @@ public class RingtoneUtils {
      * @param resourceId identifies an application resource
      * @return the Uri by which the application resource is accessed
      */
-    public static Uri getResourceUri(Context context, @AnyRes int resourceId) {
+    public static Uri getResourceUri(@NonNull Context context, @AnyRes int resourceId) {
         return new Uri.Builder()
             .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
             .authority(context.getPackageName())
@@ -113,7 +114,7 @@ public class RingtoneUtils {
      * @return {@code true} if the given URI of a ringtone is readable by the application.
      * {@code false} otherwise.
      */
-    public static boolean isRingtoneUriReadable(Context context, Uri uri) {
+    public static boolean isRingtoneUriReadable(@NonNull Context context, @NonNull Uri uri) {
         if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(uri)) {
             uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
         }
@@ -134,7 +135,8 @@ public class RingtoneUtils {
      * @param onAction   Callback executed when a Play/Pause/Stop button is pressed
      * @return the active MediaSession
      */
-    public static MediaSession createMediaSession(Context context, String sessionTag, Runnable onAction) {
+    @NonNull
+    public static MediaSession createMediaSession(@NonNull Context context, @NonNull String sessionTag, @NonNull Runnable onAction) {
         MediaSession mediaSession = new MediaSession(context, sessionTag);
 
         PlaybackState state = new PlaybackState.Builder()
@@ -157,9 +159,7 @@ public class RingtoneUtils {
                         keyCode == KeyEvent.KEYCODE_MEDIA_PLAY ||
                         keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
 
-                        if (onAction != null) {
-                            onAction.run();
-                        }
+                        onAction.run();
 
                         return true;
                     }
@@ -180,7 +180,8 @@ public class RingtoneUtils {
      * @return A prepared {@link MediaPlayer} instance if successful,
      * or {@code null} if preparation fails.
      */
-    public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
+    @Nullable
+    public static MediaPlayer createPreparedMediaPlayer(@NonNull Context context, @NonNull Uri... ringtoneUris) {
         // Use a DirectBoot aware context if supported
         Context storageContext = Utils.getSafeStorageContext(context);
 
@@ -214,7 +215,7 @@ public class RingtoneUtils {
     /**
      * @return the duration of the ringtone.
      */
-    public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
+    public static int getRingtoneDuration(@NonNull Context context, @NonNull Uri ringtoneUri) {
         MediaPlayer player = createPreparedMediaPlayer(context, ringtoneUri, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
 
         if (player == null) {
@@ -287,7 +288,7 @@ public class RingtoneUtils {
     /**
      * @return {@code true} if an external audio device is connected. {@code false} otherwise.
      */
-    public static boolean hasExternalAudioDeviceConnected(Context context, SharedPreferences prefs) {
+    public static boolean hasExternalAudioDeviceConnected(@NonNull Context context, @NonNull SharedPreferences prefs) {
         if (!SettingsDAO.isAutoRoutingToExternalAudioDevice(prefs)) {
             return false;
         }
@@ -308,7 +309,7 @@ public class RingtoneUtils {
      * @return {@code true} if the device is an external audio output device
      * (Bluetooth A2DP/SCO or wired headphones/headset). {@code false} otherwise.
      */
-    public static boolean isExternalAudioDevice(AudioDeviceInfo device) {
+    public static boolean isExternalAudioDevice(@NonNull AudioDeviceInfo device) {
         int type = device.getType();
 
         if (type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP
@@ -329,7 +330,7 @@ public class RingtoneUtils {
     /**
      * @return {@code true} if the device is currently in a telephone call. {@code false} otherwise.
      */
-    public static boolean isInTelephoneCall(AudioManager audioManager) {
+    public static boolean isInTelephoneCall(@NonNull AudioManager audioManager) {
         final int audioMode = audioManager.getMode();
         if (SdkUtils.isAtLeastAndroid13()) {
             return audioMode == AudioManager.MODE_IN_COMMUNICATION
@@ -345,14 +346,14 @@ public class RingtoneUtils {
     /**
      * @return Uri of the ringtone to play when the user is in a telephone call
      */
-    public static Uri getInCallRingtoneUri(Context context) {
+    public static Uri getInCallRingtoneUri(@NonNull Context context) {
         return getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**
      * @return Uri of the ringtone to play when the chosen ringtone fails to play
      */
-    public static Uri getFallbackRingtoneUri(Context context) {
+    public static Uri getFallbackRingtoneUri(@NonNull Context context) {
         return getResourceUri(context, R.raw.alarm_expire);
     }
 
@@ -384,7 +385,7 @@ public class RingtoneUtils {
      * to retrieve the actual minimum volume for {@link AudioManager#STREAM_ALARM}.
      * On earlier versions, where this API is not available, it defaults to {@code 0}.
      */
-    public static int getAlarmMinVolume(AudioManager audioManager) {
+    public static int getAlarmMinVolume(@NonNull AudioManager audioManager) {
         return SdkUtils.isAtLeastAndroid9() ? audioManager.getStreamMinVolume(AudioManager.STREAM_ALARM) : 0;
     }
 
@@ -393,7 +394,7 @@ public class RingtoneUtils {
      *
      * @return {@code true} if the alarm volume is too low, {@code false} otherwise or if an error occurs.
      */
-    public static boolean isAlarmStreamLow(Context context) {
+    public static boolean isAlarmStreamLow(@NonNull Context context) {
         AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         try {
@@ -413,7 +414,7 @@ public class RingtoneUtils {
      *
      * @param context The context used to retrieve the audio service.
      */
-    public static void fixAlarmStreamLow(Context context) {
+    public static void fixAlarmStreamLow(@NonNull Context context) {
         AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         final int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);

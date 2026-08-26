@@ -27,7 +27,7 @@ public class CustomTypefaceSpan extends TypefaceSpan {
 
     private final Typeface newTypeFace;
 
-    public CustomTypefaceSpan(Typeface typeface) {
+    public CustomTypefaceSpan(@NonNull Typeface typeface) {
         super("");
         newTypeFace = typeface;
     }
@@ -42,7 +42,7 @@ public class CustomTypefaceSpan extends TypefaceSpan {
         applyCustomTypeFace(textPaint, newTypeFace);
     }
 
-    private static void applyCustomTypeFace(Paint paint, Typeface typeface) {
+    private static void applyCustomTypeFace(@NonNull Paint paint, Typeface typeface) {
         paint.setTypeface(typeface);
     }
 

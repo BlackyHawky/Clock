@@ -15,6 +15,7 @@ import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.best.deskclock.DeskClock;
@@ -66,7 +67,7 @@ public class AlarmTileService extends TileService {
         updateTile(getQsTile());
     }
 
-    private void updateTile(Tile tile) {
+    private void updateTile(@Nullable Tile tile) {
         if (tile == null) {
             return;
         }

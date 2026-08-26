@@ -34,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
@@ -286,7 +287,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     /**
      * Create and add a new view that corresponds with the given {@code timer}.
      */
-    private void addTimer(Timer timer) {
+    private void addTimer(@NonNull Timer timer) {
         final int timerId = timer.getId();
         final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(getPrefs()) && !SettingsDAO.isSingleTimerModeEnabled(getPrefs());
         final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;

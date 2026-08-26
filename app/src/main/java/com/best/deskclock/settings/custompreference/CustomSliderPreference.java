@@ -204,7 +204,7 @@ public class CustomSliderPreference extends Preference {
      * Sets the slider value base on the current preference (screensaver brightness, widget font size, etc.)
      * and updates the slider summary to reflect this value.
      */
-    private void setSliderProgress(TextView sliderSummary) {
+    private void setSliderProgress(@NonNull TextView sliderSummary) {
         int currentProgress = mPrefs.getInt(getKey(), getDefaultSliderValue());
         int safeProgress = getSafeSliderValue(currentProgress);
 
@@ -218,7 +218,7 @@ public class CustomSliderPreference extends Preference {
     /**
      * Updates the slider summary.
      */
-    private void updateSliderSummary(TextView sliderSummary, int progress) {
+    private void updateSliderSummary(@NonNull TextView sliderSummary, int progress) {
         if ((isAlarmBlurIntensityPreference()
             || isTimerBlurIntensityPreference()
             || isScreensaverBlurIntensityPreference())
@@ -280,7 +280,7 @@ public class CustomSliderPreference extends Preference {
      * The interface is updated with the new value and saved in the preferences.
      * Sends a broadcast if it concerns buttons related to widget settings (widget font size).
      */
-    private void setupSliderButton(ImageView button, final int delta, final TextView sliderSummary) {
+    private void setupSliderButton(@NonNull ImageView button, int delta, @NonNull TextView sliderSummary) {
         button.setOnClickListener(v -> {
             int newSliderValue = getNewSliderValue(delta);
             mBinding.slider.setValue(newSliderValue);

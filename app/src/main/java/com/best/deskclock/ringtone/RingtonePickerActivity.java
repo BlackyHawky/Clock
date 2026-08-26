@@ -209,7 +209,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * @return an intent that launches the ringtone picker to edit the ringtone of the given
      * {@code alarm}
      */
-    public static Intent createAlarmRingtonePickerIntent(Context context, Alarm alarm) {
+    @NonNull
+    public static Intent createAlarmRingtonePickerIntent(@NonNull Context context, @NonNull Alarm alarm) {
         return new Intent(context, RingtonePickerActivity.class)
             .putExtra(EXTRA_TITLE, R.string.alarm_sound)
             .putExtra(EXTRA_RINGTONE_URI, alarm.alert)
@@ -221,7 +222,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     /**
      * @return an intent that launches the ringtone picker to edit the ringtone of a specific timer
      */
-    public static Intent createPerTimerRingtonePickerIntent(Context context, Uri currentTimerUri) {
+    @NonNull
+    public static Intent createPerTimerRingtonePickerIntent(@NonNull Context context, @NonNull Uri currentTimerUri) {
         return new Intent(context, RingtonePickerActivity.class)
             .putExtra(EXTRA_TITLE, R.string.timer_sound)
             .putExtra(EXTRA_RINGTONE_URI, currentTimerUri)
@@ -233,7 +235,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     /**
      * @return an intent that launches the ringtone picker to edit the ringtone of all timers in the settings
      */
-    public static Intent createTimerRingtonePickerIntentForSettings(Context context) {
+    @NonNull
+    public static Intent createTimerRingtonePickerIntentForSettings(@NonNull Context context) {
         final DataModel dataModel = DataModel.getDataModel();
         return new Intent(context, RingtonePickerActivity.class)
             .putExtra(EXTRA_TITLE, R.string.timer_sound)
@@ -245,7 +248,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     /**
      * @return an intent that launches the ringtone picker to edit the ringtone of all alarms in the settings
      */
-    public static Intent createAlarmRingtonePickerIntentForSettings(Context context) {
+    @NonNull
+    public static Intent createAlarmRingtonePickerIntentForSettings(@NonNull Context context) {
         final DataModel dataModel = DataModel.getDataModel();
         return new Intent(context, RingtonePickerActivity.class)
             .putExtra(EXTRA_TITLE, R.string.default_alarm_ringtone_title)
@@ -337,7 +341,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             new RingtoneAdapter.OnRingtoneClickListener() {
 
             @Override
-            public void onRingtoneClick(RingtoneHolder newSelection) {
+            public void onRingtoneClick(@NonNull RingtoneHolder newSelection) {
                 final RingtoneHolder oldSelection = getSelectedRingtoneHolder();
 
                 if (oldSelection == newSelection) {
@@ -353,7 +357,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             @Override
-            public void onRemoveRingtoneClick(RingtoneHolder toRemove) {
+            public void onRemoveRingtoneClick(@NonNull RingtoneHolder toRemove) {
                 ConfirmRemoveCustomRingtoneDialogFragment.show(mFragmentManager, toRemove.getUri());
             }
         });
@@ -411,13 +415,13 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     @NonNull
     @Override
-    public Loader<List<RingtoneAdapter.RingtoneItem>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<RingtoneAdapter.RingtoneItem>> onCreateLoader(int id, @Nullable Bundle args) {
         return new RingtoneLoader(getApplicationContext(), mDataModel, mDefaultRingtoneUri, mDefaultRingtoneTitle);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<RingtoneAdapter.RingtoneItem>> loader,
-                               List<RingtoneAdapter.RingtoneItem> itemHolders) {
+                               @NonNull List<RingtoneAdapter.RingtoneItem> itemHolders) {
 
         // Update the adapter with fresh data.
         mRingtoneAdapter.setItems(itemHolders);
@@ -468,11 +472,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         });
     }
 
-    private int findPositionByHolder(RingtoneAdapter.RingtoneItem holder) {
+    private int findPositionByHolder(@NonNull RingtoneAdapter.RingtoneItem holder) {
         return mRingtoneAdapter.getItems().indexOf(holder);
     }
 
-    private RingtoneHolder getRingtoneHolder(Uri uri) {
+    private RingtoneHolder getRingtoneHolder(@Nullable Uri uri) {
         if (uri == null) {
             return null;
         }
@@ -497,7 +501,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      *
      * @param ringtone the ringtone to be played
      */
-    private void startPlayingRingtone(RingtoneHolder ringtone) {
+    private void startPlayingRingtone(@NonNull RingtoneHolder ringtone) {
         Uri ringtoneUri = ringtone.getUri();
         if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
             ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
@@ -531,7 +535,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * @param deselect {@code true} indicates the ringtone should also be deselected;
      *                 {@code false} indicates its selection state should remain unchanged
      */
-    private void stopPlayingRingtone(RingtoneHolder ringtone, boolean deselect) {
+    private void stopPlayingRingtone(@Nullable RingtoneHolder ringtone, boolean deselect) {
         if (ringtone == null) {
             return;
         }
@@ -561,7 +565,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         private static final String ARG_RINGTONE_URI_TO_REMOVE = "arg_ringtone_uri_to_remove";
 
-        static void show(FragmentManager manager, Uri toRemove) {
+        static void show(@NonNull FragmentManager manager, @NonNull Uri toRemove) {
             if (manager.isDestroyed()) {
                 return;
             }
@@ -576,9 +580,14 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         @NonNull
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
             final Bundle arguments = requireArguments();
             final Uri toRemove = BundleCompat.getParcelable(arguments, ARG_RINGTONE_URI_TO_REMOVE, Uri.class);
+
+            if (toRemove == null) {
+                dismiss();
+                return super.onCreateDialog(savedInstanceState);
+            }
 
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
                 ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
@@ -610,7 +619,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * This task locates a displayable string in the background that is fit for use as the title of
      * the audio content. It adds a custom ringtone using the uri and title on the main thread.
      */
-    private void addCustomRingtoneAsync(Uri uri) {
+    private void addCustomRingtoneAsync(@NonNull Uri uri) {
         final Context appContext = getApplicationContext();
 
         AppExecutors.getDiskIO().execute(() -> {
@@ -669,7 +678,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * This task locates a displayable string in the background that is fit for use as the title of
      * the audio content. It adds a custom ringtone using the uri and title on the main thread.
      */
-    private void addCustomRingtonesFromFolderAsync(Uri treeUri) {
+    private void addCustomRingtonesFromFolderAsync(@NonNull Uri treeUri) {
         final Context appContext = getApplicationContext();
 
         AppExecutors.getDiskIO().execute(() -> {
@@ -723,7 +732,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 Uri fileUri = file.getUri();
 
                 String name = file.getName();
-                if (name != null && name.contains(".")) {
+                if (name == null || name.trim().isEmpty()) {
+                    name = getString(R.string.unknown_ringtone_title) + "_" + System.currentTimeMillis();
+                } else if (name.contains(".")) {
                     name = name.substring(0, name.lastIndexOf("."));
                 }
 
@@ -776,7 +787,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * Android system default alarm ringtone. If the application's timer ringtone is being removed,
      * it is reset to the application's default timer ringtone.
      */
-    private void removeCustomRingtoneAsync(Uri removeUri) {
+    private void removeCustomRingtoneAsync(@NonNull Uri removeUri) {
         final Context appContext = getApplicationContext();
 
         AppExecutors.getDiskIO().execute(() -> {

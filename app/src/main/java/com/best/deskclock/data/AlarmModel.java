@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.provider.Settings;
 
+import androidx.annotation.NonNull;
+
 /**
  * All alarm data will eventually be accessed via this model.
  */
@@ -37,7 +39,7 @@ final class AlarmModel {
      */
     private String mAlarmRingtoneTitle;
 
-    AlarmModel(SharedPreferences prefs, RingtoneModel ringtoneModel) {
+    AlarmModel(@NonNull SharedPreferences prefs, @NonNull RingtoneModel ringtoneModel) {
         mPrefs = prefs;
         mRingtoneModel = ringtoneModel;
     }
@@ -76,7 +78,7 @@ final class AlarmModel {
     /**
      * @param uri the uri of the ringtone from the settings to play for all alarms
      */
-    void setAlarmRingtoneUriFromSettings(Uri uri) {
+    void setAlarmRingtoneUriFromSettings(@NonNull Uri uri) {
         SettingsDAO.setAlarmRingtoneUriFromSettings(mPrefs, uri);
 
         mAlarmRingtoneUriFromSettings = null;

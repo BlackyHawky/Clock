@@ -54,7 +54,7 @@ public class DigitalWidgetSizes {
         mSmallestFontSizePx = 1;
     }
 
-    private static void append(StringBuilder builder, String format, Object... args) {
+    private static void append(@NonNull StringBuilder builder, @NonNull String format, @NonNull Object... args) {
         builder.append(String.format(Locale.ENGLISH, format, args));
     }
 

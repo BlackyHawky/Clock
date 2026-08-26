@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -76,7 +77,8 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * @param key            The shared preference key used to identify the setting.
      * @param snoozeDuration The snooze duration in minutes.
      */
-    public static AlarmSnoozeDurationDialogFragment newInstance(String key, int snoozeDuration) {
+    @NonNull
+    public static AlarmSnoozeDurationDialogFragment newInstance(@NonNull String key, int snoozeDuration) {
 
         Bundle args = new Bundle();
 
@@ -106,6 +108,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      *
      * @param snoozeDuration The snooze duration in minutes.
      */
+    @NonNull
     public static AlarmSnoozeDurationDialogFragment newInstance(int snoozeDuration) {
         final Bundle args = new Bundle();
 
@@ -131,7 +134,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     /**
      * Displays {@link AlarmSnoozeDurationDialogFragment}.
      */
-    public static void show(FragmentManager manager, AlarmSnoozeDurationDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull AlarmSnoozeDurationDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -153,7 +156,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
@@ -395,7 +398,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * </ul>
      * {@code false} otherwise.
      */
-    private boolean isInvalidInput(String hoursText, String minutesText) {
+    private boolean isInvalidInput(@NonNull String hoursText, @NonNull String minutesText) {
         int hours = 0;
         int minutes = 0;
 
@@ -498,7 +501,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * @return {@code true} if the alarm snooze duration is not the default value;
      * {@code false} otherwise.
      */
-    private boolean isNotDefaultAlarmSnoozeDuration(String hoursText, String minutesText) {
+    private boolean isNotDefaultAlarmSnoozeDuration(@NonNull String hoursText, @NonNull String minutesText) {
         int hours = hoursText.isEmpty() ? 0 : Integer.parseInt(hoursText);
         int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
 
@@ -515,7 +518,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        public void onTextChanged(@Nullable CharSequence charSequence, int start, int before, int count) {
             if (mBinding.snoozeDurationNoneCheckbox.isChecked()) {
                 updateDialogForValidInput();
                 return;
@@ -555,11 +558,11 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        public void beforeTextChanged(@Nullable CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(@Nullable Editable editable) {
         }
     }
 
@@ -569,7 +572,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private class ImeDoneListener implements TextView.OnEditorActionListener {
 
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(@NonNull TextView v, int actionId, @Nullable KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String inputHoursText = Objects.requireNonNull(mBinding.editHours.getText()).toString();
                 String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();

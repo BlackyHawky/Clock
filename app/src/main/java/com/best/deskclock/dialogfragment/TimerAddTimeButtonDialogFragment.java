@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -79,7 +80,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
      * @param totalDuration The default duration in seconds to pre-fill the dialog with.
      *                      This value is split into minutes and seconds internally.
      */
-    public static TimerAddTimeButtonDialogFragment newInstance(String key, int totalDuration) {
+    @NonNull
+    public static TimerAddTimeButtonDialogFragment newInstance(@NonNull String key, int totalDuration) {
         final Bundle args = new Bundle();
 
         int minutesButtonTime = totalDuration / 60;
@@ -101,6 +103,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
      *
      * @param timerId the {@link Timer} id whose current button time will be edited.
      */
+    @NonNull
     public static TimerAddTimeButtonDialogFragment newInstance(int timerId, int totalDuration) {
         final Bundle args = new Bundle();
 
@@ -119,7 +122,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     /**
      * Displays {@link TimerAddTimeButtonDialogFragment}.
      */
-    public static void show(FragmentManager manager, TimerAddTimeButtonDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull TimerAddTimeButtonDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -133,7 +136,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
@@ -301,7 +304,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
      * </ul>
      * {@code false} otherwise.
      */
-    private boolean isInvalidInput(String minutesText, String secondsText) {
+    private boolean isInvalidInput(@NonNull String minutesText, @NonNull String secondsText) {
         int minutes = 0;
         int seconds = 0;
 
@@ -405,7 +408,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
      * @return {@code true} if the duration in the timer add button is not the default value;
      * {@code false} otherwise.
      */
-    private boolean isNotDefaultDuration(String minutesText, String secondsText) {
+    private boolean isNotDefaultDuration(@NonNull String minutesText, @NonNull String secondsText) {
         int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
         int seconds = secondsText.isEmpty() ? 0 : Integer.parseInt(secondsText);
 
@@ -422,7 +425,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        public void onTextChanged(@Nullable CharSequence charSequence, int start, int before, int count) {
             String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
             String secondsText = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
 
@@ -457,11 +460,11 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        public void beforeTextChanged(@Nullable CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(@Nullable Editable editable) {
         }
     }
 
@@ -471,7 +474,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     private class ImeDoneListener implements TextView.OnEditorActionListener {
 
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(@NonNull TextView v, int actionId, @Nullable KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
                 String inputSecondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();

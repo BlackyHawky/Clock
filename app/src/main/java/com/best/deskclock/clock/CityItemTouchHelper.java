@@ -24,7 +24,7 @@ public class CityItemTouchHelper extends ItemTouchHelper.Callback {
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
 
-    public CityItemTouchHelper(ItemTouchHelperContract contract, boolean showHomeClock) {
+    public CityItemTouchHelper(@NonNull ItemTouchHelperContract contract, boolean showHomeClock) {
         mContract = contract;
         mShowHomeClock = showHomeClock;
     }

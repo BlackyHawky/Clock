@@ -8,6 +8,8 @@ package com.best.deskclock.uicomponents.toast;
 
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 public final class ToastManager {
 
     private static Toast sToast = null;
@@ -15,7 +17,7 @@ public final class ToastManager {
     private ToastManager() {
     }
 
-    public static void setToast(Toast toast) {
+    public static void setToast(@NonNull Toast toast) {
         if (sToast != null)
             sToast.cancel();
         sToast = toast;

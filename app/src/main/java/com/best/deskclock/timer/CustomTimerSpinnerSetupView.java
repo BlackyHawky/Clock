@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.data.SettingsDAO;
@@ -29,7 +30,7 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
     @Nullable
     OnValueChangeListener mOnValueChangeListener;
 
-    public CustomTimerSpinnerSetupView(Context context, @Nullable AttributeSet attrs) {
+    public CustomTimerSpinnerSetupView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -66,7 +67,7 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
         mBinding.secondPicker.setOnValueChangedListener(listener);
     }
 
-    public void setValue(DurationObject value) {
+    public void setValue(@NonNull DurationObject value) {
         mBinding.hourPicker.setValue(value.hour());
         mBinding.minutePicker.setValue(value.minute());
         mBinding.secondPicker.setValue(value.second());
@@ -80,7 +81,7 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
         return new DurationObject(mBinding.hourPicker.getValue(), mBinding.minutePicker.getValue(), mBinding.secondPicker.getValue());
     }
 
-    public void setOnChangeListener(OnValueChangeListener onValueChangeListener) {
+    public void setOnChangeListener(@Nullable OnValueChangeListener onValueChangeListener) {
         mOnValueChangeListener = onValueChangeListener;
     }
 

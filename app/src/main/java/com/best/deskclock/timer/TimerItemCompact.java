@@ -17,6 +17,8 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -75,11 +77,11 @@ public class TimerItemCompact extends ConstraintLayout {
      */
     private Timer.State mLastState;
 
-    public TimerItemCompact(Context context) {
+    public TimerItemCompact(@NonNull Context context) {
         this(context, null);
     }
 
-    public TimerItemCompact(Context context, AttributeSet attrs) {
+    public TimerItemCompact(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -113,7 +115,7 @@ public class TimerItemCompact extends ConstraintLayout {
         mBinding.timerTimeText.setTextColor(timeTextColor);
     }
 
-    public void setGeneralFonts(Typeface regular, Typeface bold) {
+    public void setGeneralFonts(@NonNull Typeface regular, @NonNull Typeface bold) {
         mBinding.timerLabel.setTypeface(bold);
 
         mBinding.timerAddTimeButton.setTypeface(bold);
@@ -121,11 +123,11 @@ public class TimerItemCompact extends ConstraintLayout {
         mBinding.timerEndTime.setTypeface(regular, Typeface.ITALIC);
     }
 
-    public void setTimerTimeFont(Typeface timerTime) {
+    public void setTimerTimeFont(@NonNull Typeface timerTime) {
         mBinding.timerTimeText.setTypeface(timerTime);
     }
 
-    public void setTimerEndTimeFormatPattern(CharSequence formatPattern) {
+    public void setTimerEndTimeFormatPattern(@NonNull CharSequence formatPattern) {
         mTimerEndTimeFormatPattern = formatPattern;
     }
 
@@ -158,7 +160,7 @@ public class TimerItemCompact extends ConstraintLayout {
     /**
      * Dynamically updates the {@code timer} display based on its current state.
      */
-    void updateTimeDisplay(Timer timer, boolean animateProgress) {
+    void updateTimeDisplay(@NonNull Timer timer, boolean animateProgress) {
         final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
 
         mTimerTextController.setTimeString(timer.getRemainingTime());
@@ -215,14 +217,14 @@ public class TimerItemCompact extends ConstraintLayout {
     /**
      * Initializes the {@code timer} static visual elements when binding to a ViewHolder.
      */
-    public void bindTimer(Timer timer, boolean animate) {
+    public void bindTimer(@NonNull Timer timer, boolean animate) {
         // Initialize the label
         final String label = timer.getLabel();
 
-        if (!label.equals(mLastLabel)) {
+        if (!TextUtils.equals(label, mLastLabel)) {
             mLastLabel = label;
 
-            if (label.isEmpty()) {
+            if (TextUtils.isEmpty(label)) {
                 mBinding.timerLabel.setVisibility(GONE);
             } else {
                 mBinding.timerLabel.setText(label);
@@ -308,7 +310,7 @@ public class TimerItemCompact extends ConstraintLayout {
         updateTimeDisplay(timer, animate);
     }
 
-    private void updateAddTimeButtonDisplay(Timer.State state) {
+    private void updateAddTimeButtonDisplay(@NonNull Timer.State state) {
         if (state == Timer.State.RESET || mIsAddTimeZero) {
             mBinding.timerAddTimeButton.setVisibility(GONE);
             return;
@@ -319,7 +321,7 @@ public class TimerItemCompact extends ConstraintLayout {
         mBinding.timerAddTimeButton.setVisibility(VISIBLE);
     }
 
-    private void updateIndicator(Timer.State state) {
+    private void updateIndicator(@NonNull Timer.State state) {
         if (!mIsIndicatorStateDisplayed) {
             mBinding.timerIndicatorState.setVisibility(GONE);
             return;
@@ -350,7 +352,7 @@ public class TimerItemCompact extends ConstraintLayout {
         }
     }
 
-    private void updateEndTimeDisplay(Timer timer) {
+    private void updateEndTimeDisplay(@NonNull Timer timer) {
         if (!mIsTimerEndTimeDisplayed) {
             mBinding.timerEndTime.setVisibility(GONE);
             return;

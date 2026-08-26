@@ -32,6 +32,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class CustomDialog {
 
+    @NonNull
     public static AlertDialog create(
         @NonNull Context context,
         @Nullable @StyleRes Integer styleRes,
@@ -163,7 +164,7 @@ public class CustomDialog {
         return dialog;
     }
 
-    private static void configureScrollView(View dialogView) {
+    private static void configureScrollView(@NonNull View dialogView) {
         NestedScrollView scrollView = dialogView.findViewById(R.id.scroll_view);
 
         boolean scrollable = scrollView.canScrollVertically(1) || scrollView.canScrollVertically(-1);
@@ -189,7 +190,7 @@ public class CustomDialog {
     }
 
     public interface OnDialogReady {
-        void onReady(AlertDialog dialog);
+        void onReady(@NonNull AlertDialog dialog);
     }
 
     public enum SoftInputMode {

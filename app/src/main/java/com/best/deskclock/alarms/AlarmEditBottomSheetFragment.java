@@ -125,7 +125,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private boolean mIsNewAlarm;
     private boolean mIsDeleted;
 
-    public static AlarmEditBottomSheetFragment newInstance(Alarm alarm, long alarmId, String tag, boolean isNewAlarm) {
+    @NonNull
+    public static AlarmEditBottomSheetFragment newInstance(@NonNull Alarm alarm, long alarmId, @Nullable String tag, boolean isNewAlarm) {
 
         final Bundle args = new Bundle();
 
@@ -139,7 +140,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         return fragment;
     }
 
-    public static void show(FragmentManager manager, AlarmEditBottomSheetFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull AlarmEditBottomSheetFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -262,7 +263,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
         Window window = dialog.getWindow();
@@ -856,7 +857,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         View.OnClickListener openMathHardnessLevelDialogFragment = v -> {
             Events.sendAlarmEvent(R.string.action_set_math_hardness_level, R.string.label_deskclock);
 
-            final AlarmMathHardnessLevelDialogFragment fragment = AlarmMathHardnessLevelDialogFragment.newInstance(mAlarm.mathHardnessLevel);
+            final AlarmMathHardnessLevelDialogFragment fragment =
+                AlarmMathHardnessLevelDialogFragment.newInstance(mAlarm.mathHardnessLevel);
             AlarmMathHardnessLevelDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
@@ -1361,7 +1363,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindDeleteOccasionalAlarmAfterUse();
     }
 
-    private void updateDaysOfWeekButtonVisuals(MaterialButton dayButton, boolean isSelected) {
+    private void updateDaysOfWeekButtonVisuals(@NonNull MaterialButton dayButton, boolean isSelected) {
         final int backgroundColor = isSelected
             ? MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorTertiary, Color.BLACK)
             : Color.TRANSPARENT;
@@ -1485,7 +1487,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         updateFourthGroup();
     }
 
-    private void nullifyClickListeners(View... views) {
+    private void nullifyClickListeners(@NonNull View... views) {
         mBinding.digitalClock.setOnLongClickListener(null);
 
         for (View view : views) {

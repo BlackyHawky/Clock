@@ -18,6 +18,9 @@ import android.content.SharedPreferences;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.settings.PreferencesKeys;
 import com.best.deskclock.utils.SdkUtils;
 
@@ -63,7 +66,7 @@ final class FormattedStringModel {
     private Map<Integer, String> mLongWeekdayNames;
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    FormattedStringModel(Context context) {
+    FormattedStringModel(@NonNull Context context) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
@@ -91,6 +94,7 @@ final class FormattedStringModel {
      * @return the {@code value} formatted as a String in the current locale
      * @throws IllegalArgumentException if {@code value} is negative
      */
+    @NonNull
     String getFormattedNumber(int value) {
         final int length = value == 0 ? 1 : ((int) Math.log10(value) + 1);
         return getFormattedNumber(value, length);
@@ -109,6 +113,7 @@ final class FormattedStringModel {
      * requested {@code length}
      * @throws IllegalArgumentException if {@code value} is negative
      */
+    @NonNull
     String getFormattedNumber(int value, int length) {
         if (value < 0) {
             throw new IllegalArgumentException("value may not be negative: " + value);
@@ -194,7 +199,7 @@ final class FormattedStringModel {
      */
     private final class LocaleChangedReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             mNumberFormatCache.clear();
             mShortWeekdayNames = null;
             mLongWeekdayNames = null;
@@ -203,7 +208,7 @@ final class FormattedStringModel {
 
     private final class PreferenceListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+        public void onSharedPreferenceChanged(@NonNull SharedPreferences prefs, @Nullable String key) {
             if (PreferencesKeys.KEY_LANGUAGE_CODE.equals(key)) {
                 mNumberFormatCache.clear();
                 mShortWeekdayNames = null;

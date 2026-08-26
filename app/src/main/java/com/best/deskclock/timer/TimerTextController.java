@@ -12,12 +12,14 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.utils.FormattedTextUtils;
 
 /**
  * A controller which will format a provided time in millis to display as a timer.
  */
-public record TimerTextController(TextView mTextView) {
+public record TimerTextController(@NonNull TextView mTextView) {
 
     public void setTimeString(long remainingTime) {
         boolean isNegative = false;

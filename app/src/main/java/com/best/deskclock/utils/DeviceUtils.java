@@ -10,6 +10,9 @@ import android.os.Build;
 import android.os.UserManager;
 import android.os.Vibrator;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,7 +36,7 @@ public class DeviceUtils {
      * @return {@code true} if the user is unlocked and the SDK version is at least Android 7.0;
      * {@code false} otherwise.
      */
-    public static boolean isUserUnlocked(Context context) {
+    public static boolean isUserUnlocked(@NonNull Context context) {
         // Direct Boot doesn't exist before Android 7
         if (!SdkUtils.isAtLeastAndroid7()) {
             return true;
@@ -78,7 +81,8 @@ public class DeviceUtils {
     /**
      * Private method to get the value of a system property.
      */
-    private static String getProperty(String property) {
+    @Nullable
+    private static String getProperty(@NonNull String property) {
         BufferedReader reader = null;
         try {
             Process process = Runtime.getRuntime().exec("getprop " + property);
@@ -106,7 +110,7 @@ public class DeviceUtils {
     /**
      * @return {@code true} if a vibrator is available on the device. {@code false} otherwise.
      */
-    public static boolean hasVibrator(Context context) {
+    public static boolean hasVibrator(@NonNull Context context) {
         Vibrator vibrator = context.getSystemService(Vibrator.class);
         return vibrator != null && vibrator.hasVibrator();
     }
@@ -114,7 +118,7 @@ public class DeviceUtils {
     /**
      * @return {@code true} if the device has a back flash. {@code false} otherwise.
      */
-    public static boolean hasBackFlash(Context context) {
+    public static boolean hasBackFlash(@NonNull Context context) {
         CameraManager cameraManager = context.getApplicationContext().getSystemService(CameraManager.class);
         try {
             for (String cameraId : cameraManager.getCameraIdList()) {

@@ -11,6 +11,8 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
@@ -25,7 +27,7 @@ public final class SnackbarManager {
 
     private static WeakReference<Snackbar> sSnackbar = null;
 
-    public static void show(Snackbar snackbar) {
+    public static void show(@NonNull Snackbar snackbar) {
         sSnackbar = new WeakReference<>(snackbar);
         if (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) {
             snackbar.setAnchorView(R.id.desk_clock_button_layout);

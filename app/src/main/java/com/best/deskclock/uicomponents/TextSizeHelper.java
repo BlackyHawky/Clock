@@ -15,6 +15,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 /**
  * A TextView which automatically re-sizes its text to fit within its boundaries.
  */
@@ -38,7 +40,7 @@ public final class TextSizeHelper {
     // When {@code true} calls to {@link #requestLayout()} should be ignored.
     private boolean mIgnoreRequestLayout;
 
-    public TextSizeHelper(TextView view) {
+    public TextSizeHelper(@NonNull TextView view) {
         mTextView = view;
         mMaxTextSize = view.getTextSize();
     }

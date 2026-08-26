@@ -10,6 +10,7 @@ import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.events.EventTracker;
@@ -60,7 +61,7 @@ public final class Controller {
     /**
      * @param eventTracker to be registered for tracking application events
      */
-    public void addEventTracker(EventTracker eventTracker) {
+    public void addEventTracker(@NonNull EventTracker eventTracker) {
         enforceMainLooper();
         mEventController.addEventTracker(eventTracker);
     }
@@ -81,11 +82,11 @@ public final class Controller {
     // Voice Interaction
     //
 
-    public void notifyVoiceSuccess(Activity activity, String message) {
+    public void notifyVoiceSuccess(@NonNull Activity activity, @NonNull String message) {
         mVoiceController.notifyVoiceSuccess(activity, message);
     }
 
-    public void notifyVoiceFailure(Activity activity, String message) {
+    public void notifyVoiceFailure(@NonNull Activity activity, @NonNull String message) {
         mVoiceController.notifyVoiceFailure(activity, message);
     }
 

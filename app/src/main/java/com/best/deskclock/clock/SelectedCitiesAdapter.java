@@ -60,9 +60,9 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final Drawable.ConstantState mBgMiddle;
     private final Drawable.ConstantState mBgBottom;
 
-    public SelectedCitiesAdapter(Context context, SharedPreferences prefs, DataModel dataModel, List<City> cities,
-                                 boolean hasBlackAccentColor, Typeface regularTypeface, Typeface boldTypeface,
-                                 ClockSettings clockSettings) {
+    public SelectedCitiesAdapter(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull DataModel dataModel,
+                                 @NonNull List<City> cities, boolean hasBlackAccentColor, @NonNull Typeface regularTypeface,
+                                 @NonNull Typeface boldTypeface, @NonNull ClockSettings clockSettings) {
 
         mContext = context;
         mPrefs = prefs;
@@ -159,13 +159,13 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @Override
-    public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
+    public void onRowSelected(@NonNull RecyclerView.ViewHolder viewHolder) {
         // Draw a shadow under the city card when it's dragging
         viewHolder.itemView.setTranslationZ(dpToPx(6, mContext.getResources().getDisplayMetrics()));
     }
 
     @Override
-    public void onRowClear(RecyclerView.ViewHolder viewHolder) {
+    public void onRowClear(@NonNull RecyclerView.ViewHolder viewHolder) {
         // Remove the shadow under the city card when the drag is complete.
         viewHolder.itemView.setTranslationZ(0f);
     }
@@ -202,12 +202,12 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return RecyclerView.NO_POSITION;
     }
 
-    public void updateSettings(ClockSettings settings) {
+    public void updateSettings(@NonNull ClockSettings settings) {
         mSettings = settings;
         notifyDataSetChanged();
     }
 
-    public void setCityNote(String cityId, String note) {
+    public void setCityNote(@NonNull String cityId, @NonNull String note) {
         SharedPreferences.Editor editor = mPrefs.edit();
         String key = KEY_CITY_NOTE + cityId;
 

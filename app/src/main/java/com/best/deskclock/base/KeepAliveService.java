@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
 import android.os.IBinder;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -56,7 +57,7 @@ public class KeepAliveService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         LogUtils.v("KeepAliveService.onStartCommand() with %s", intent);
 
         Notification notification = buildNotification(this);
@@ -82,11 +83,12 @@ public class KeepAliveService extends Service {
 
     @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(@NonNull Intent intent) {
         return null;
     }
 
-    private static Notification buildNotification(Context context) {
+    @NonNull
+    private static Notification buildNotification(@NonNull Context context) {
         final Context localizedContext = Utils.getLocalizedContext(context);
 
         Intent notificationIntent = new Intent(context, DeskClock.class);
@@ -108,7 +110,7 @@ public class KeepAliveService extends Service {
             .build();
     }
 
-    public static void updateKeepAliveServiceNotification(Context appContext) {
+    public static void updateKeepAliveServiceNotification(@NonNull Context appContext) {
         if (!sIsRunning) {
             return;
         }

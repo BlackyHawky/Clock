@@ -20,6 +20,8 @@ import android.widget.CompoundButton;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 
 import com.best.deskclock.R;
@@ -138,7 +140,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     private Comparator<City> mCachedComparator;
     private DataModel.CitySort mCachedCitySort;
 
-    public CityAdapter(Context context, DataModel dataModel) {
+    public CityAdapter(@NonNull Context context, @NonNull DataModel dataModel) {
         mContext = context;
         mDataModel = dataModel;
         mPrefs = getDefaultSharedPreferences(context);
@@ -194,7 +196,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         final int itemViewType = getItemViewType(position);
 
         switch (itemViewType) {
@@ -285,7 +287,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton b, boolean checked) {
+    public void onCheckedChanged(@NonNull CompoundButton b, boolean checked) {
         final City city = (City) b.getTag();
 
         if (checked) {
@@ -301,7 +303,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(@NonNull View v) {
         if (v.getTag() instanceof CityItemHolder holder) {
             holder.binding().cityOnOffCheckbox.toggle();
         }
@@ -378,7 +380,8 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
      * @param useShortForm Whether to return a short form of the header that rounds to the
      *                     nearest hour and excludes the "GMT" prefix
      */
-    public static String getGMTHourOffset(TimeZone timezone, boolean useShortForm, long now) {
+    @NonNull
+    public static String getGMTHourOffset(@NonNull TimeZone timezone, boolean useShortForm, long now) {
         final int gmtOffset = timezone.getOffset(now);
 
         final int absGmtOffset = Math.abs(gmtOffset);
@@ -427,7 +430,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     /**
      * Filter the cities using the given {@code queryText}.
      */
-    public void filter(String queryText) {
+    public void filter(@NonNull String queryText) {
         mCurrentQueryText = queryText;
 
         final String query = City.removeSpecialCharacters(queryText.toUpperCase());
@@ -481,7 +484,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
         return mCachedComparator;
     }
 
-    private CharSequence getTimeCharSequence(TimeZone timeZone) {
+    private CharSequence getTimeCharSequence(@NonNull TimeZone timeZone) {
         mCalendar.setTimeZone(timeZone);
         return DateFormat.format(mIs24HoursMode ? mPattern24 : mPattern12, mCalendar);
     }
@@ -524,7 +527,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     /**
      * Cache the child views of each city item view.
      */
-    private record CityItemHolder(CityListItemBinding binding) {
+    private record CityItemHolder(@NonNull CityListItemBinding binding) {
     }
 
 }

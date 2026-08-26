@@ -107,7 +107,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_APPBAR_EXPANDED)) {
@@ -424,7 +424,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mActiveDialog.show();
         }
 
-        private void backupPreferences(Context context, Uri uri) throws IOException, JSONException {
+        private void backupPreferences(@NonNull Context context, @NonNull Uri uri) throws IOException, JSONException {
             try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
                  ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
                 // The JSON file that contains all the settings
@@ -455,7 +455,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void appendFileToZip(ZipOutputStream zipOutputStream, String filePath) throws IOException {
+        private void appendFileToZip(@NonNull ZipOutputStream zipOutputStream, @Nullable String filePath) throws IOException {
             if (filePath == null) {
                 return;
             }
@@ -480,7 +480,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         @SuppressLint("ApplySharedPref")
-        private void wipeCustomMediaBeforeRestore(Context context) {
+        private void wipeCustomMediaBeforeRestore(@NonNull Context context) {
             SharedPreferences.Editor editor = getPrefs().edit();
             editor.remove(KEY_GENERAL_FONT);
             editor.remove(KEY_ALARM_FONT);
@@ -496,7 +496,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             FileUtils.wipeAllCustomFiles(context);
         }
 
-        private void restorePreferences(Context context, Uri uri) throws IOException, JSONException {
+        private void restorePreferences(@NonNull Context context, @NonNull Uri uri) throws IOException, JSONException {
             try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
                  ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
 
@@ -514,7 +514,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName) throws IOException {
+        private void restoreFileFromZip(@NonNull Context context, @NonNull ZipInputStream zipInputStream, @NonNull String fileName)
+            throws IOException {
 
             final Context safeContext = Utils.getSafeStorageContext(context);
             File outputFile = new File(safeContext.getFilesDir(), fileName);
@@ -540,7 +541,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void applySettingsAfterRestore(Context context) {
+        private void applySettingsAfterRestore(@NonNull Context context) {
             // Required to update the timer list.
             getDataModel().loadTimers();
 

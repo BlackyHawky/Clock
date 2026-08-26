@@ -46,6 +46,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
@@ -209,7 +210,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(@NonNull View view) {
         // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective buttons.
         if (!mIsSwipeActionEnabled) {
             if (view == mBinding.snoozeButton) {
@@ -240,7 +241,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public boolean onTouch(View view, MotionEvent event) {
+    public boolean onTouch(@NonNull View view, @NonNull MotionEvent event) {
         final int action = event.getActionMasked();
 
         if (action == MotionEvent.ACTION_DOWN) {
@@ -565,14 +566,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
                 private boolean wasCancelled = false;
 
                 @Override
-                public void onAnimationCancel(Animator animation) {
+                public void onAnimationCancel(@NonNull Animator animation) {
                     mBinding.pill.setFillColor(Color.TRANSPARENT);
 
                     wasCancelled = true;
                 }
 
                 @Override
-                public void onAnimationEnd(Animator animation) {
+                public void onAnimationEnd(@NonNull Animator animation) {
                     if (!wasCancelled && mTranslationAnimator == animation) {
                         mTranslationAnimator.start();
                     }
@@ -714,7 +715,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * @param symbolColor     the symbol color when enabled
      * @param enabled         true to enable the button, false to disable it
      */
-    private void styleSnoozeButton(MaterialButton button, int backgroundColor, int symbolColor, boolean enabled) {
+    private void styleSnoozeButton(@NonNull MaterialButton button, int backgroundColor, int symbolColor, boolean enabled) {
         button.setEnabled(enabled);
         button.setBackgroundTintList(ColorStateList.valueOf(enabled ? backgroundColor : Color.parseColor("#80808080")));
         button.setIconTint(ColorStateList.valueOf(enabled ? symbolColor : Color.parseColor("#60E6E0E9")));
@@ -753,7 +754,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     /**
      * Helper method to create a translation animation.
      */
-    private Animator translationAnimator(View view, float targetWidth, float targetCenterX) {
+    @NonNull
+    private Animator translationAnimator(@NonNull View view, float targetWidth, float targetCenterX) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
             PropertyValuesHolder.ofFloat(PillView.PILL_WIDTH, targetWidth),
             PropertyValuesHolder.ofFloat(PillView.PILL_CENTER_X, targetCenterX));
@@ -762,7 +764,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     /**
      * Helper method to create an alpha color change animation.
      */
-    private Animator alphaAnimator(View view, int alphaColor) {
+    @NonNull
+    private Animator alphaAnimator(@NonNull View view, int alphaColor) {
         return ObjectAnimator.ofPropertyValuesHolder(view, PropertyValuesHolder.ofObject(
             PillView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR, alphaColor));
     }
@@ -939,7 +942,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     /**
      * Display a message after snoozing or dismissing the alarm.
      */
-    private void displayAlarmActionMessage(final int titleResId, final String descriptionText) {
+    private void displayAlarmActionMessage(int titleResId, @Nullable String descriptionText) {
         if (SettingsDAO.isAlarmActionMessageHidden(getPrefs())) {
             finishActivity();
             return;

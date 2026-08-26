@@ -14,7 +14,10 @@ import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.DeskClockApplication;
+import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
@@ -68,7 +71,7 @@ public final class TimerKlaxon {
         }
     }
 
-    public static void start(Timer timer) {
+    public static void start(@NonNull Timer timer) {
         // Make sure we are stopped before starting
         stop();
         LogUtils.i("TimerKlaxon.start()");
@@ -77,6 +80,10 @@ public final class TimerKlaxon {
         SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
         TimerKlaxon instance = getInstance();
         Uri uri = timer.getRingtoneUri();
+
+        if (uri == null) {
+            uri = RingtoneUtils.getResourceUri(appContext, R.raw.timer_expire);
+        }
 
         // Look up user-selected timer ringtone.
         if (RingtoneUtils.RINGTONE_SILENT.equals(uri)) {

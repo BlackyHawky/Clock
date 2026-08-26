@@ -6,6 +6,8 @@
 
 package com.best.deskclock.alarms;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 
@@ -16,7 +18,9 @@ public class AlarmItemHolder {
     private final AlarmTimeClickHandler mAlarmTimeClickHandler;
     private final AlarmInstance mAlarmInstance;
 
-    public AlarmItemHolder(Alarm alarm, AlarmInstance alarmInstance, AlarmTimeClickHandler alarmTimeClickHandler) {
+    public AlarmItemHolder(@NonNull Alarm alarm, @NonNull AlarmInstance alarmInstance,
+                           @NonNull AlarmTimeClickHandler alarmTimeClickHandler) {
+
         this.item = alarm;
         this.itemId = alarm.id;
         mAlarmTimeClickHandler = alarmTimeClickHandler;

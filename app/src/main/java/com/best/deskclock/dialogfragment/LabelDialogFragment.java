@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
@@ -83,7 +84,8 @@ public class LabelDialogFragment extends DialogFragment {
      *
      * @param alarmLabel the current label of the alarm, or an empty string if none
      */
-    public static LabelDialogFragment newInstance(String alarmLabel, boolean syncAlarmByLabel) {
+    @NonNull
+    public static LabelDialogFragment newInstance(@NonNull String alarmLabel, boolean syncAlarmByLabel) {
 
         final Bundle args = new Bundle();
         args.putBoolean(ARG_IS_ALARM, true);
@@ -100,7 +102,8 @@ public class LabelDialogFragment extends DialogFragment {
      *
      * @param timerId the {@link Timer} id whose label will be edited.
      */
-    public static LabelDialogFragment newInstance(int timerId, String label) {
+    @NonNull
+    public static LabelDialogFragment newInstance(int timerId, @NonNull String label) {
         final Bundle args = new Bundle();
         args.putInt(ARG_TIMER_ID, timerId);
         args.putString(ARG_LABEL, label);
@@ -117,7 +120,8 @@ public class LabelDialogFragment extends DialogFragment {
      * @param cityName    the name of the {@link City} to display in the dialog title
      * @param currentNote the existing note for the city, or an empty string if none
      */
-    public static LabelDialogFragment newInstance(String cityId, String cityName, String currentNote) {
+    @NonNull
+    public static LabelDialogFragment newInstance(@NonNull String cityId, @NonNull String cityName, @Nullable String currentNote) {
 
         LabelDialogFragment fragment = new LabelDialogFragment();
         Bundle args = new Bundle();
@@ -132,7 +136,7 @@ public class LabelDialogFragment extends DialogFragment {
     /**
      * Displays {@link LabelDialogFragment} with the given {@code fragment}.
      */
-    public static void show(FragmentManager manager, LabelDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull LabelDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -149,7 +153,7 @@ public class LabelDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final Bundle args = requireArguments();
         mIsAlarm = args.getBoolean(ARG_IS_ALARM, false);
         String label = args.getString(ARG_LABEL);
@@ -299,7 +303,7 @@ public class LabelDialogFragment extends DialogFragment {
     /**
      * Apply the label.
      */
-    private void applyLabel(String label) {
+    private void applyLabel(@NonNull String label) {
         String trimmedLabel = label.trim();
 
         if (isTimer()) {
@@ -367,6 +371,7 @@ public class LabelDialogFragment extends DialogFragment {
     /**
      * @return the timer for which the label is being edited.
      */
+    @Nullable
     private Timer getTimer() {
         if (mTimerId < 0) {
             return null;
@@ -382,7 +387,7 @@ public class LabelDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        public void onTextChanged(@Nullable CharSequence charSequence, int start, int before, int count) {
             mBinding.syncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
 
             if (!isLabelNotEmpty()) {
@@ -395,11 +400,11 @@ public class LabelDialogFragment extends DialogFragment {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        public void beforeTextChanged(@Nullable CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(@Nullable Editable editable) {
         }
     }
 

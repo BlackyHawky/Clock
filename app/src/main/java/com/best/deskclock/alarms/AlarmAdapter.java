@@ -42,8 +42,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private final Drawable.ConstantState mBgBottom;
     private final Drawable.ConstantState mBgStandard;
 
-    public AlarmAdapter(Context context, SharedPreferences prefs, Typeface generalTypeface, Typeface generalBoldTypeface,
-                        Typeface alarmClockTypeface) {
+    public AlarmAdapter(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Typeface generalTypeface,
+                        @NonNull Typeface generalBoldTypeface, @NonNull Typeface alarmClockTypeface) {
 
         setHasStableIds(true);
 
@@ -117,7 +117,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         return mItems.get(position).itemId;
     }
 
-    public void updateAlarmFont(Typeface alarmTypeface) {
+    public void updateAlarmFont(@NonNull Typeface alarmTypeface) {
         mAlarmClockTypeface = alarmTypeface;
         notifyDataSetChanged();
     }
@@ -143,7 +143,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void removeItem(AlarmItemHolder itemHolder) {
+    public void removeItem(@NonNull AlarmItemHolder itemHolder) {
         int position = mItems.indexOf(itemHolder);
         if (position != -1) {
             mItems.remove(position);

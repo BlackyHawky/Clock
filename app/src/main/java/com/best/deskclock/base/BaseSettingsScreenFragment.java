@@ -144,7 +144,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         CollapsingToolbarBaseActivity activity = (CollapsingToolbarBaseActivity) requireActivity();
@@ -300,7 +300,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             /**
              * Calculates the preference's position within its group and returns the appropriate background.
              */
-            private Drawable.ConstantState getCardBackgroundState(Preference pref) {
+            private Drawable.ConstantState getCardBackgroundState(@NonNull Preference pref) {
                 int visibleCount = 1;
                 int visibleIndex = 0;
 
@@ -396,7 +396,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         super.onDestroy();
     }
 
-    private boolean isCardPreference(Preference preference) {
+    private boolean isCardPreference(@Nullable Preference preference) {
         return preference != null
             && !(preference instanceof PreferenceCategory)
             && !(preference instanceof CustomAboutTitlePreference);
@@ -429,7 +429,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
      *
      * @param fragment The new fragment to be displayed.
      */
-    protected void animateAndShowFragment(Fragment fragment) {
+    protected void animateAndShowFragment(@NonNull Fragment fragment) {
         FragmentTransaction fragmentTransaction =
             requireActivity().getSupportFragmentManager().beginTransaction();
 
@@ -449,7 +449,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             .commit();
     }
 
-    protected void nullifyPreferenceListeners(Preference... preferences) {
+    protected void nullifyPreferenceListeners(@NonNull Preference... preferences) {
         for (Preference pref : preferences) {
             if (pref != null) {
                 pref.setOnPreferenceClickListener(null);
@@ -458,7 +458,8 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         }
     }
 
-    protected void restoreCustomFileDialogIfNeeded(String targetPrefKey, Preference pref, ActivityResultLauncher<Intent> launcher,
+    protected void restoreCustomFileDialogIfNeeded(@NonNull String targetPrefKey, @NonNull Preference pref,
+                                                   @NonNull ActivityResultLauncher<Intent> launcher,
                                                    @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 
         if (mPendingFilePrefKey != null && mPendingFilePrefKey.equals(targetPrefKey)) {
@@ -468,8 +469,9 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         }
     }
 
-    protected void selectCustomFile(Preference pref, ActivityResultLauncher<Intent> launcher, String fontPath, String prefKey,
-                                    boolean isFontFile, @Nullable OnPreferenceDeleted onPreferenceDeleted) {
+    protected void selectCustomFile(@NonNull Preference pref, @NonNull ActivityResultLauncher<Intent> launcher,
+                                    @Nullable String fontPath, @NonNull String prefKey, boolean isFontFile,
+                                    @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 
         if (fontPath == null) {
             FileUtils.selectFile(launcher, isFontFile);
@@ -521,7 +523,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     /**
      * @return a dialog to be displayed after a restore or reset.
      */
-    protected AlertDialog restartAppDialog(Context appContext, boolean isResettingApp) {
+    protected AlertDialog restartAppDialog(@NonNull Context appContext, boolean isResettingApp) {
         final AlertDialog dialog = CustomDialog.create(
             requireActivity(),
             null,

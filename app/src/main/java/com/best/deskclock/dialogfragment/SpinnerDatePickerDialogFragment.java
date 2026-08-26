@@ -45,6 +45,7 @@ public class SpinnerDatePickerDialogFragment extends DialogFragment {
      * @param month The selected month.
      * @param day   The selected day.
      */
+    @NonNull
     public static SpinnerDatePickerDialogFragment newInstance(long minDate, int year, int month, int day) {
         Bundle args = new Bundle();
         args.putLong(ARG_MIN_DATE, minDate);
@@ -60,7 +61,7 @@ public class SpinnerDatePickerDialogFragment extends DialogFragment {
     /**
      * Displays {@link SpinnerDatePickerDialogFragment}.
      */
-    public static void show(FragmentManager manager, SpinnerDatePickerDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull SpinnerDatePickerDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 

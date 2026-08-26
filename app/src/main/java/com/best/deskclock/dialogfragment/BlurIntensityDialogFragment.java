@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
@@ -49,6 +50,7 @@ public class BlurIntensityDialogFragment extends DialogFragment {
      *
      * @param blurIntensityValue The blur intensity value.
      */
+    @NonNull
     public static BlurIntensityDialogFragment newInstance(int blurIntensityValue) {
         final Bundle args = new Bundle();
         args.putInt(ARG_ALARM_BLUR_INTENSITY_VALUE, blurIntensityValue);
@@ -61,7 +63,7 @@ public class BlurIntensityDialogFragment extends DialogFragment {
     /**
      * Displays {@link BlurIntensityDialogFragment}.
      */
-    public static void show(FragmentManager manager, BlurIntensityDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull BlurIntensityDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -74,7 +76,7 @@ public class BlurIntensityDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 

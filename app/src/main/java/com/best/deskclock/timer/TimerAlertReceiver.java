@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -18,7 +19,7 @@ import androidx.core.content.ContextCompat;
  */
 public class TimerAlertReceiver extends BroadcastReceiver {
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         Intent serviceIntent = new Intent(intent);
         serviceIntent.setClass(context, TimerService.class);
 

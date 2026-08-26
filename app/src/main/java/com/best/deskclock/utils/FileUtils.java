@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.provider.OpenableColumns;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
@@ -35,7 +37,8 @@ public class FileUtils {
      * @param title     a title used to generate a safe filename
      * @return a URI pointing to the copied file in device-protected storage, or null if the copy failed
      */
-    public static Uri copyFileToDeviceProtectedStorage(Context context, Uri sourceUri, String title) {
+    @Nullable
+    public static Uri copyFileToDeviceProtectedStorage(@NonNull Context context, @NonNull Uri sourceUri, @NonNull String title) {
         final Context storageContext = Utils.getSafeStorageContext(context);
 
         long sourceSize = getFileSize(storageContext, sourceUri);
@@ -82,7 +85,7 @@ public class FileUtils {
      * <p>File pickers usually use {@code content://} but files stored in DeviceProtected storage
      * use {@code file://}.</p>
      */
-    public static long getFileSize(Context context, Uri uri) {
+    public static long getFileSize(@NonNull Context context, @NonNull Uri uri) {
         long size = -1;
 
         String scheme = uri.getScheme();
@@ -136,7 +139,8 @@ public class FileUtils {
      * @param title The file title, possibly containing accents or special characters.
      * @return A sanitized string that can be safely used as a filename in app storage.
      */
-    public static String toSafeFileName(String title) {
+    @NonNull
+    public static String toSafeFileName(@NonNull String title) {
         // Normalize accented characters to their base form (é → e, ü → u, etc.) and remove diacritical marks
         String normalized = Normalizer.normalize(title, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
 
@@ -150,7 +154,7 @@ public class FileUtils {
      * @param launcher   The ActivityResultLauncher used to start the document picker.
      * @param isFontFile True to filter for font files, false to filter for image files.
      */
-    public static void selectFile(ActivityResultLauncher<Intent> launcher, boolean isFontFile) {
+    public static void selectFile(@NonNull ActivityResultLauncher<Intent> launcher, boolean isFontFile) {
         final String type = isFontFile ? "*/*" : "image/*";
         final String[] mimeTypes = isFontFile
             ? new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"}
@@ -170,7 +174,7 @@ public class FileUtils {
      * @param path       The absolute path of the file to delete.
      * @param isFontFile True if the deleted file is a font, false if it is an image.
      */
-    public static void deleteCustomFile(Context context, String path, boolean isFontFile) {
+    public static void deleteCustomFile(@NonNull Context context, @NonNull String path, boolean isFontFile) {
         AppExecutors.getDiskIO().execute(() -> {
             clearFile(path);
 
@@ -186,7 +190,7 @@ public class FileUtils {
      *
      * @param path The absolute path of the file to delete.
      */
-    public static void clearFile(String path) {
+    public static void clearFile(@Nullable String path) {
         if (path != null) {
             File file = new File(path);
             if (file.exists() && file.isFile()) {
@@ -206,7 +210,7 @@ public class FileUtils {
      *
      * @param context The context used to access the application's storage directories.
      */
-    public static void wipeAllCustomFiles(Context context) {
+    public static void wipeAllCustomFiles(@NonNull Context context) {
         File[] directoriesToScan = new File[] {
             context.getFilesDir(),
             Utils.getSafeStorageContext(context).getFilesDir()
@@ -233,7 +237,8 @@ public class FileUtils {
      * @param fileName The name of the file to check.
      * @return The associated preference key, or null if the file is not a recognized custom media file.
      */
-    public static String getCustomFilePrefKey(String fileName) {
+    @Nullable
+    public static String getCustomFilePrefKey(@NonNull String fileName) {
         if (fileName.startsWith(FILE_GENERAL_FONT)) {
             return KEY_GENERAL_FONT;
         } else if (fileName.startsWith(FILE_ALARM_FONT)) {

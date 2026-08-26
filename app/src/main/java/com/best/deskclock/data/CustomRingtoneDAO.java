@@ -8,6 +8,9 @@ package com.best.deskclock.data;
 
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +49,8 @@ public final class CustomRingtoneDAO {
      * @param title the title of the audio content at the given {@code uri}
      * @return the newly added custom ringtone
      */
-    static CustomRingtone addCustomRingtone(SharedPreferences prefs, Uri uri, String title) {
+    @NonNull
+    static CustomRingtone addCustomRingtone(@NonNull SharedPreferences prefs, @NonNull Uri uri, @NonNull String title) {
         final long id = prefs.getLong(NEXT_RINGTONE_ID, 0);
         final Set<String> ids = getRingtoneIds(prefs);
         ids.add(String.valueOf(id));
@@ -64,7 +68,7 @@ public final class CustomRingtoneDAO {
     /**
      * @param id identifies the ringtone to be removed
      */
-    static void removeCustomRingtone(SharedPreferences prefs, long id) {
+    static void removeCustomRingtone(@NonNull SharedPreferences prefs, long id) {
         final Set<String> ids = getRingtoneIds(prefs);
         ids.remove(String.valueOf(id));
 
@@ -83,21 +87,34 @@ public final class CustomRingtoneDAO {
     /**
      * @return a list of all known custom ringtones
      */
-    static List<CustomRingtone> getCustomRingtones(SharedPreferences prefs) {
+    @NonNull
+    static List<CustomRingtone> getCustomRingtones(@NonNull SharedPreferences prefs) {
         final Set<String> ids = prefs.getStringSet(RINGTONE_IDS, Collections.emptySet());
         final List<CustomRingtone> ringtones = new ArrayList<>(ids.size());
 
         for (String id : ids) {
             final long idLong = Long.parseLong(id);
-            final Uri uri = Uri.parse(prefs.getString(RINGTONE_URI + id, null));
-            final String title = prefs.getString(RINGTONE_TITLE + id, null);
+
+            final String uriString = prefs.getString(RINGTONE_URI + id, null);
+            if (TextUtils.isEmpty(uriString)) {
+                continue;
+            }
+
+            final Uri uri = Uri.parse(uriString);
+
+            String title = prefs.getString(RINGTONE_TITLE + id, null);
+            if (TextUtils.isEmpty(title)) {
+                title = "Custom_Ringtone_" + idLong;
+            }
+
             ringtones.add(new CustomRingtone(idLong, uri, title, true));
         }
 
         return ringtones;
     }
 
-    private static Set<String> getRingtoneIds(SharedPreferences prefs) {
+    @NonNull
+    private static Set<String> getRingtoneIds(@NonNull SharedPreferences prefs) {
         return new HashSet<>(prefs.getStringSet(RINGTONE_IDS, Collections.emptySet()));
     }
 }

@@ -6,6 +6,7 @@
 
 package com.best.deskclock.controller;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.events.EventTracker;
@@ -17,7 +18,7 @@ class EventController {
 
     private final Collection<EventTracker> mEventTrackers = new ArrayList<>();
 
-    void addEventTracker(EventTracker eventTracker) {
+    void addEventTracker(@NonNull EventTracker eventTracker) {
         mEventTrackers.add(eventTracker);
     }
 

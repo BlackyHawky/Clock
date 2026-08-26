@@ -21,6 +21,7 @@ import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -54,7 +55,7 @@ public class ScreensaverActivity extends BaseActivity {
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             LOGGER.v("ScreensaverActivity onReceive, action: " + intent.getAction());
 
             switch (Objects.requireNonNull(intent.getAction())) {
@@ -72,7 +73,7 @@ public class ScreensaverActivity extends BaseActivity {
      */
     private final BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
                 ScreensaverUtils.updateBatteryText(mBinding.saverContainer, intent);
             }

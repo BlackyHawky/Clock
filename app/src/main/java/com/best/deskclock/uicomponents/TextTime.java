@@ -19,6 +19,8 @@ import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -62,21 +64,21 @@ public class TextTime extends AppCompatTextView {
         }
 
         @Override
-        public void onChange(boolean selfChange, Uri uri) {
+        public void onChange(boolean selfChange, @Nullable Uri uri) {
             chooseFormat();
             updateTime();
         }
     };
 
-    public TextTime(Context context) {
+    public TextTime(@NonNull Context context) {
         this(context, null);
     }
 
-    public TextTime(Context context, AttributeSet attrs) {
+    public TextTime(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TextTime(Context context, AttributeSet attrs, int defStyle) {
+    public TextTime(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         if (isInEditMode()) {
@@ -88,14 +90,14 @@ public class TextTime extends AppCompatTextView {
         chooseFormat();
     }
 
-    public void setFormat12Hour(CharSequence format) {
+    public void setFormat12Hour(@NonNull CharSequence format) {
         mFormat12 = format;
 
         chooseFormat();
         updateTime();
     }
 
-    public void setFormat24Hour(CharSequence format) {
+    public void setFormat24Hour(@NonNull CharSequence format) {
         mFormat24 = format;
 
         chooseFormat();

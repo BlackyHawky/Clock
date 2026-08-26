@@ -6,6 +6,7 @@
 
 package com.best.deskclock.events;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.DeskClockApplication;
@@ -27,6 +28,7 @@ public record LogEventTracker() implements EventTracker {
     /**
      * @return Resource string represented by a given resource id, null if resId is invalid (0).
      */
+    @Nullable
     private String safeGetString(@StringRes int resId) {
         return resId == 0 ? null : DeskClockApplication.getAppContext().getString(resId);
     }

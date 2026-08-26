@@ -7,6 +7,7 @@
 package com.best.deskclock.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.text.Collator;
 import java.util.Comparator;
@@ -77,7 +78,9 @@ public final class City {
      */
     private String mEnglishNameUpperCaseNoSpecialCharacters;
 
-    City(String id, int index, String indexString, String name, String englishName, String phoneticName, TimeZone tz) {
+    City(@NonNull String id, int index, @Nullable String indexString, @NonNull String name, @NonNull String englishName,
+         @NonNull String phoneticName, @NonNull TimeZone tz) {
+
         mId = id;
         mIndex = index;
         mIndexString = indexString;
@@ -94,7 +97,8 @@ public final class City {
      * @param token a city name or search term
      * @return the given {@code token} without any characters considered optional when matching
      */
-    public static String removeSpecialCharacters(String token) {
+    @NonNull
+    public static String removeSpecialCharacters(@NonNull String token) {
         return token.replaceAll("[ -.']", "");
     }
 
@@ -167,7 +171,7 @@ public final class City {
      *                                          to match against the upper case city name
      * @return {@code true} if the name of this city starts with the given query
      */
-    public boolean matches(String upperCaseQueryNoSpecialCharacters) {
+    public boolean matches(@NonNull String upperCaseQueryNoSpecialCharacters) {
         // By removing all special characters, prefix matching becomes more liberal, and it is easier
         // to locate the desired city. e.g. "St. Lucia" is matched by "StL", "St.L", "St L", "St. L"
         return getNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters)
@@ -183,7 +187,7 @@ public final class City {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) {
             return true;
         }
@@ -223,7 +227,7 @@ public final class City {
 
         private final Comparator<City> mDelegate2 = new NameComparator();
 
-        public int compare(City c1, City c2) {
+        public int compare(@NonNull City c1, @NonNull City c2) {
             int result = mDelegate1.compare(c1, c2);
 
             if (result == 0) {
@@ -243,7 +247,7 @@ public final class City {
      */
     public static final class UtcOffsetIndexComparator implements Comparator<City> {
 
-        public int compare(City c1, City c2) {
+        public int compare(@NonNull City c1, @NonNull City c2) {
             final long now = System.currentTimeMillis();
             final int utcOffset1 = c1.getTimeZone().getOffset(now);
             final int utcOffset2 = c2.getTimeZone().getOffset(now);
@@ -268,7 +272,7 @@ public final class City {
         private final Collator mNameCollator = Collator.getInstance();
 
         @Override
-        public int compare(City c1, City c2) {
+        public int compare(@NonNull City c1, @NonNull City c2) {
             int result = mDelegate.compare(c1, c2);
 
             if (result == 0) {
@@ -293,7 +297,7 @@ public final class City {
         private final Collator mNameCollator = Collator.getInstance();
 
         @Override
-        public int compare(City c1, City c2) {
+        public int compare(@NonNull City c1, @NonNull City c2) {
             int result = Integer.compare(c1.getIndex(), c2.getIndex());
 
             if (result == 0) {

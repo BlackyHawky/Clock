@@ -104,7 +104,7 @@ public class WidgetUtils {
     /**
      * Calculate the scale factor of the fonts in the widget
      */
-    public static float getScaleRatio(Context context, Bundle options, int id, int cityCount) {
+    public static float getScaleRatio(@NonNull Context context, @Nullable Bundle options, int id, int cityCount) {
         if (options == null) {
             AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
             if (widgetManager == null) {
@@ -145,7 +145,7 @@ public class WidgetUtils {
     /**
      * Calculate the scale factor of the fonts in the list of  the widget using the widget height
      */
-    private static float getHeightScaleRatio(Context context, Bundle options, int id) {
+    private static float getHeightScaleRatio(@NonNull Context context, @Nullable Bundle options, int id) {
         if (options == null) {
             AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
             if (widgetManager == null) {
@@ -199,7 +199,7 @@ public class WidgetUtils {
      * @param city the City object to derive the stable id from (can be null)
      * @return a long representing the stable id extracted from the city id (or 1L as fallback)
      */
-    public static long getStableIdForCity(City city) {
+    public static long getStableIdForCity(@Nullable City city) {
         if (city == null) {
             return 1L;
         }
@@ -215,7 +215,7 @@ public class WidgetUtils {
      * @param count               the number of widgets of the given type
      * @return the delta between the new count and the old count
      */
-    public static int updateWidgetCount(SharedPreferences prefs, Class<?> widgetProviderClass, int count) {
+    public static int updateWidgetCount(@NonNull SharedPreferences prefs, @NonNull Class<?> widgetProviderClass, int count) {
         final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT;
         final int oldCount = prefs.getInt(key, 0);
         if (count == 0) {
@@ -231,7 +231,9 @@ public class WidgetUtils {
      * @param count           the number of widgets of the given type
      * @param eventCategoryId identifies the category of event to send
      */
-    public static void updateWidgetCount(Context context, Class<?> widgetClass, int count, @StringRes int eventCategoryId) {
+    public static void updateWidgetCount(@NonNull Context context, @NonNull Class<?> widgetClass, int count,
+                                         @StringRes int eventCategoryId) {
+
         int delta = updateWidgetCount(getDefaultSharedPreferences(context), widgetClass, count);
         for (; delta > 0; delta--) {
             Events.sendEvent(eventCategoryId, R.string.action_create, 0);
@@ -244,7 +246,7 @@ public class WidgetUtils {
     /**
      * @return {@code true} if the widget is being hosted in a container where tapping is allowed
      */
-    public static boolean isWidgetClickable(AppWidgetManager widgetManager, int widgetId) {
+    public static boolean isWidgetClickable(@NonNull AppWidgetManager widgetManager, int widgetId) {
         final Bundle wo = widgetManager.getAppWidgetOptions(widgetId);
         return wo != null && wo.getInt(OPTION_APPWIDGET_HOST_CATEGORY, -1) != WIDGET_CATEGORY_KEYGUARD;
     }
@@ -254,7 +256,8 @@ public class WidgetUtils {
      *
      * @return a Bitmap containing an image of the {@code view} at its current size
      */
-    public static Bitmap createBitmap(View view) {
+    @NonNull
+    public static Bitmap createBitmap(@NonNull View view) {
         final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), ARGB_8888);
         final Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
@@ -274,6 +277,7 @@ public class WidgetUtils {
      * @param radius the corner radius in pixels to apply to all four corners
      * @return an {@link Icon} containing the rounded bitmap
      */
+    @NonNull
     public static Icon createRoundedIcon(int width, int height, int color, int radius) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -289,7 +293,7 @@ public class WidgetUtils {
     /**
      * @return the default background color for day mode.
      */
-    public static int getBackgroundColorDay(Context context) {
+    public static int getBackgroundColorDay(@NonNull Context context) {
         return SdkUtils.isAtLeastAndroid12()
             ? ContextCompat.getColor(context, android.R.color.system_accent2_50)
             : Color.TRANSPARENT;
@@ -298,7 +302,7 @@ public class WidgetUtils {
     /**
      * @return the default background color for night mode.
      */
-    public static int getBackgroundColorNight(Context context) {
+    public static int getBackgroundColorNight(@NonNull Context context) {
         return SdkUtils.isAtLeastAndroid12()
             ? ContextCompat.getColor(context, android.R.color.system_accent2_800)
             : Color.TRANSPARENT;
@@ -307,7 +311,7 @@ public class WidgetUtils {
     /**
      * @return "11:59" or "23:59" in the current locale
      */
-    public static CharSequence getLongestTimeString(TextClock clock) {
+    public static CharSequence getLongestTimeString(@NonNull TextClock clock) {
         final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
         boolean includeSeconds = WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
         final CharSequence format = clock.is24HourModeEnabled()
@@ -328,7 +332,7 @@ public class WidgetUtils {
      * @param amPmRatio   am/pm ratio for 12h format
      * @param showSeconds whether seconds should be shown
      */
-    public static void applyClockFormat(RemoteViews rv, Context context, int clockViewId, float amPmRatio,
+    public static void applyClockFormat(@Nullable RemoteViews rv, @NonNull Context context, int clockViewId, float amPmRatio,
                                         boolean showSeconds) {
 
         if (rv == null || clockViewId == 0) {
@@ -347,14 +351,15 @@ public class WidgetUtils {
     /**
      * @return the ratio to use for the AM/PM part on the digital widgets.
      */
-    public static float getAmPmRatio(SharedPreferences prefs) {
+    public static float getAmPmRatio(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs) ? 0 : 0.4f;
     }
 
     /**
      * @return The locale-specific date pattern.
      */
-    public static String getDateFormat(Context context) {
+    @NonNull
+    public static String getDateFormat(@NonNull Context context) {
         Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
@@ -366,7 +371,7 @@ public class WidgetUtils {
     /**
      * Schedule alarm for daily widget update at midnight.
      */
-    public static void scheduleDailyWidgetUpdate(Context context, Class<? extends BroadcastReceiver> receiverClass) {
+    public static void scheduleDailyWidgetUpdate(@NonNull Context context, @NonNull Class<? extends BroadcastReceiver> receiverClass) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -389,7 +394,7 @@ public class WidgetUtils {
     /**
      * Helper method to cancel daily widget update.
      */
-    public static void cancelDailyWidgetUpdate(Context context, Class<? extends BroadcastReceiver> receiverClass) {
+    public static void cancelDailyWidgetUpdate(@NonNull Context context, @NonNull Class<? extends BroadcastReceiver> receiverClass) {
         Intent intent = new Intent(context, receiverClass);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent,
@@ -409,7 +414,7 @@ public class WidgetUtils {
      * @param context The Context used to access the system service.
      * @return The AlarmManager system service instance, which can be used to set, cancel, or query alarms.
      */
-    public static AlarmManager getAlarmManager(Context context) {
+    public static AlarmManager getAlarmManager(@NonNull Context context) {
         return context.getApplicationContext().getSystemService(AlarmManager.class);
     }
 
@@ -418,7 +423,7 @@ public class WidgetUtils {
      * <p>Note: The widget provider class must declare a public static method named
      * {@code updateAppWidget(Context, AppWidgetManager, int)}.</p>
      */
-    public static void updateWidget(Context context, Class<?> widgetProviderClass) {
+    public static void updateWidget(@NonNull Context context, @NonNull Class<?> widgetProviderClass) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName widget = new ComponentName(context, widgetProviderClass);
         int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
@@ -437,7 +442,7 @@ public class WidgetUtils {
     /**
      * Helper method to update a specific widget with a 600ms delay.
      */
-    public static void scheduleWidgetUpdate(Context context, Class<?> widgetProviderClass) {
+    public static void scheduleWidgetUpdate(@NonNull Context context, @NonNull Class<?> widgetProviderClass) {
         AppExecutors.getMainThread().postDelayed(() ->
             updateWidget(context, widgetProviderClass), 600);
     }
@@ -445,7 +450,7 @@ public class WidgetUtils {
     /**
      * Helper method to update all widgets.
      */
-    public static void updateAllWidgets(Context context) {
+    public static void updateAllWidgets(@NonNull Context context) {
         Class<?>[] widgetProviders = {
             AnalogAppWidgetProvider.class,
             DigitalAppWidgetProvider.class,
@@ -461,7 +466,7 @@ public class WidgetUtils {
     /**
      * Helper method to update all digital widgets.
      */
-    public static void updateAllDigitalWidgets(Context context) {
+    public static void updateAllDigitalWidgets(@NonNull Context context) {
         Class<?>[] widgetProviders = {
             DigitalAppWidgetProvider.class,
             NextAlarmAppWidgetProvider.class,

@@ -19,6 +19,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.util.ArraySet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.settings.PreferencesKeys;
@@ -89,7 +92,7 @@ final class CityModel {
     private City mHomeCity;
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    CityModel(Context context, SharedPreferences prefs) {
+    CityModel(@NonNull Context context, @NonNull SharedPreferences prefs) {
         mContext = context.getApplicationContext();
         mPrefs = prefs;
 
@@ -111,11 +114,11 @@ final class CityModel {
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
 
-    void addCityListener(CityListener cityListener) {
+    void addCityListener(@NonNull CityListener cityListener) {
         mCityListeners.add(cityListener);
     }
 
-    void removeCityListener(CityListener cityListener) {
+    void removeCityListener(@NonNull CityListener cityListener) {
         mCityListeners.remove(cityListener);
     }
 
@@ -181,7 +184,8 @@ final class CityModel {
     /**
      * Creates a new instance of {@link ArraySet} containing all the elements of the provided collection.
      */
-    public static <E> ArraySet<E> newArraySet(Collection<E> collection) {
+    @NonNull
+    public static <E> ArraySet<E> newArraySet(@NonNull Collection<E> collection) {
         final ArraySet<E> arraySet = new ArraySet<>(collection.size());
         arraySet.addAll(collection);
         return arraySet;
@@ -216,7 +220,7 @@ final class CityModel {
     /**
      * @param cities the new collection of cities selected for display by the user
      */
-    void setSelectedCities(Collection<City> cities) {
+    void setSelectedCities(@NonNull Collection<City> cities) {
         CityDAO.setSelectedCities(mPrefs, cities);
 
         // Clear caches affected by this update.
@@ -233,7 +237,7 @@ final class CityModel {
      *
      * @param newOrder the new list of selected cities, in the desired order
      */
-    void updateSelectedCitiesOrder(List<City> newOrder) {
+    void updateSelectedCitiesOrder(@NonNull List<City> newOrder) {
         CityDAO.saveSelectedCitiesOrder(mPrefs, newOrder);
 
         // Clean cache to force a clean reload
@@ -245,6 +249,7 @@ final class CityModel {
     /**
      * @return a comparator used to locate index positions
      */
+    @NonNull
     Comparator<City> getCityIndexComparator() {
         final CitySort citySort = SettingsDAO.getCitySort(mPrefs);
         if (citySort == CitySort.NAME) {
@@ -274,6 +279,7 @@ final class CityModel {
         return mCityMap;
     }
 
+    @NonNull
     private Comparator<City> getCitySortComparator() {
         final CitySort citySort = SettingsDAO.getCitySort(mPrefs);
         if (citySort == CitySort.NAME) {
@@ -303,7 +309,7 @@ final class CityModel {
      */
     private final class LocaleChangedReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             mCityMap = null;
             mHomeCity = null;
             mAllCities = null;
@@ -320,7 +326,7 @@ final class CityModel {
      */
     private final class PreferenceListener implements OnSharedPreferenceChangeListener {
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+        public void onSharedPreferenceChanged(@NonNull SharedPreferences prefs, @Nullable String key) {
             if (key != null) {
                 switch (key) {
                     case PreferencesKeys.KEY_LANGUAGE_CODE:

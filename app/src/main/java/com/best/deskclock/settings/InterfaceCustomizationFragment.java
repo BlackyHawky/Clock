@@ -199,7 +199,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public boolean onPreferenceChange(Preference pref, Object newValue) {
+    public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY,
                  KEY_TAB_ANIMATION -> {
@@ -392,7 +392,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         mLanguageCodePref.setOnPreferenceChangeListener(this);
     }
 
-    private void sortListPreference(ListPreference listPreference) {
+    private void sortListPreference(@Nullable ListPreference listPreference) {
         if (listPreference != null) {
 
             CharSequence[] entries = listPreference.getEntries();
@@ -443,7 +443,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
      *
      * @param selectedTabs A set containing the string values of the currently visible tabs.
      */
-    private void updateVisibleTabsSummary(Set<String> selectedTabs) {
+    private void updateVisibleTabsSummary(@NonNull Set<String> selectedTabs) {
         if (mVisibleTabsPref == null) return;
 
         List<String> labels = new ArrayList<>();
@@ -481,7 +481,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
      *
      * @param visibleTabs A set containing the string values of the currently visible tabs.
      */
-    private void updateTabToDisplayPreference(Set<String> visibleTabs) {
+    private void updateTabToDisplayPreference(@NonNull Set<String> visibleTabs) {
         // Scenario where only one tab is visible.
         if (visibleTabs.size() <= 1) {
             mTabToDisplayPref.setVisible(false);
@@ -576,7 +576,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     /**
      * Internal class to store entry/value pairs
      */
-    private record Pair(CharSequence entry, CharSequence value) {
+    private record Pair(@NonNull CharSequence entry, @NonNull CharSequence value) {
     }
 
 }

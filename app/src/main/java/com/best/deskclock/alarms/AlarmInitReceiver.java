@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.base.AlarmAlertWakeLock;
@@ -67,7 +68,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
     @SuppressLint({"WakelockTimeout", "Wakelock"})
     @Override
-    public void onReceive(final Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         final String action = intent.getAction();
         LogUtils.i("AlarmInitReceiver " + action);
 

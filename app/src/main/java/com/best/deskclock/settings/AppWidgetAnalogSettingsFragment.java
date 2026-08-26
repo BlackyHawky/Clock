@@ -13,6 +13,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
@@ -114,7 +115,7 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
     }
 
     @Override
-    public boolean onPreferenceChange(Preference pref, Object newValue) {
+    public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_ANALOG_WIDGET_CLOCK_DIAL -> {
                 final int index = mClockDialPref.findIndexOfValue((String) newValue);

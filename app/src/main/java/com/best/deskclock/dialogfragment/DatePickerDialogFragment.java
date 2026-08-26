@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
@@ -35,7 +36,8 @@ public class DatePickerDialogFragment {
     public static final String TAG_DATE_PICKER = "DatePickerDialog";
     public static final String TAG_DATE_RANGE_PICKER = "DateRangePickerDialog";
 
-    public static void show(FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm, OnDateSelectedListener listener) {
+    public static void show(@NonNull FragmentManager fragmentManager, @NonNull SharedPreferences prefs, @NonNull Alarm alarm,
+                            @NonNull OnDateSelectedListener listener) {
 
         if (SettingsDAO.getMaterialDatePickerStyle(prefs).equals(SPINNER_DATE_PICKER_STYLE)) {
             showSpinnerDatePicker(fragmentManager, alarm);
@@ -44,7 +46,7 @@ public class DatePickerDialogFragment {
         }
     }
 
-    private static void showSpinnerDatePicker(FragmentManager fragmentManager, Alarm alarm) {
+    private static void showSpinnerDatePicker(@NonNull FragmentManager fragmentManager, @NonNull Alarm alarm) {
         if (fragmentManager.findFragmentByTag(SpinnerDatePickerDialogFragment.TAG) != null) {
             return;
         }
@@ -96,8 +98,8 @@ public class DatePickerDialogFragment {
         SpinnerDatePickerDialogFragment.show(fragmentManager, fragment);
     }
 
-    private static void showMaterialDatePicker(FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm,
-                                               OnDateSelectedListener listener) {
+    private static void showMaterialDatePicker(@NonNull FragmentManager fragmentManager, @NonNull SharedPreferences prefs,
+                                               @NonNull Alarm alarm, OnDateSelectedListener listener) {
 
         if (fragmentManager.findFragmentByTag(TAG_DATE_PICKER) != null) {
             return;
@@ -205,8 +207,8 @@ public class DatePickerDialogFragment {
         });
     }
 
-    public static void showMaterialDateRangePicker(FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm,
-                                                   OnDateRangeSelectedListener listener) {
+    public static void showMaterialDateRangePicker(@NonNull FragmentManager fragmentManager, @NonNull SharedPreferences prefs,
+                                                   @NonNull Alarm alarm, @NonNull OnDateRangeSelectedListener listener) {
 
         if (fragmentManager.findFragmentByTag(TAG_DATE_RANGE_PICKER) != null) {
             return;
@@ -272,7 +274,7 @@ public class DatePickerDialogFragment {
         applyCustomFontToDatePicker(materialDatePicker, prefs);
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
-            if (listener != null && selection.first != null && selection.second != null) {
+            if (selection.first != null && selection.second != null) {
                 listener.onDateRangeSet(selection.first, selection.second);
             }
         });
@@ -280,7 +282,7 @@ public class DatePickerDialogFragment {
         materialDatePicker.show(fragmentManager, TAG_DATE_RANGE_PICKER);
     }
 
-    private static void applyCustomFontToDatePicker(MaterialDatePicker<?> picker, SharedPreferences prefs) {
+    private static void applyCustomFontToDatePicker(@NonNull MaterialDatePicker<?> picker, @NonNull SharedPreferences prefs) {
         picker.getViewLifecycleOwnerLiveData().observeForever(new Observer<>() {
             @Override
             public void onChanged(LifecycleOwner owner) {

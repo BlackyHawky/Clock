@@ -25,6 +25,8 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
@@ -120,7 +122,7 @@ public final class DataModel {
     /**
      * Convenience for {@code run(runnable, 0)}, i.e. waits indefinitely.
      */
-    public void run(Runnable runnable) {
+    public void run(@NonNull Runnable runnable) {
         try {
             run(runnable, 0);
         } catch (InterruptedException ignored) {
@@ -151,7 +153,7 @@ public final class DataModel {
      *
      * @noinspection SynchronizationOnLocalVariableOrMethodParameter
      */
-    public void run(Runnable runnable, long waitMillis) throws InterruptedException {
+    public void run(@NonNull Runnable runnable, long waitMillis) throws InterruptedException {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run();
             return;
@@ -251,7 +253,7 @@ public final class DataModel {
     /**
      * @param cities the new collection of cities selected for display by the user
      */
-    public void setSelectedCities(Collection<City> cities) {
+    public void setSelectedCities(@NonNull Collection<City> cities) {
         enforceMainLooper();
         mCityModel.setSelectedCities(cities);
     }
@@ -261,7 +263,7 @@ public final class DataModel {
      *
      * @param newOrder the new list of selected cities, in the desired order
      */
-    public void updateSelectedCitiesOrder(List<City> newOrder) {
+    public void updateSelectedCitiesOrder(@NonNull List<City> newOrder) {
         enforceMainLooper();
         mCityModel.updateSelectedCitiesOrder(newOrder);
     }
@@ -269,6 +271,7 @@ public final class DataModel {
     /**
      * @return a comparator used to locate index positions
      */
+    @NonNull
     public Comparator<City> getCityIndexComparator() {
         enforceMainLooper();
         return mCityModel.getCityIndexComparator();
@@ -285,7 +288,7 @@ public final class DataModel {
     /**
      * @param cityListener listener to be notified when the world city list changes
      */
-    public void addCityListener(CityListener cityListener) {
+    public void addCityListener(@NonNull CityListener cityListener) {
         enforceMainLooper();
         mCityModel.addCityListener(cityListener);
     }
@@ -293,7 +296,7 @@ public final class DataModel {
     /**
      * @param cityListener listener that no longer needs to be notified of world city list changes
      */
-    public void removeCityListener(CityListener cityListener) {
+    public void removeCityListener(@NonNull CityListener cityListener) {
         enforceMainLooper();
         mCityModel.removeCityListener(cityListener);
     }
@@ -301,7 +304,7 @@ public final class DataModel {
     /**
      * @param timerListener to be notified when timers are added, updated and removed
      */
-    public void addTimerListener(TimerListener timerListener) {
+    public void addTimerListener(@NonNull TimerListener timerListener) {
         enforceMainLooper();
         mTimerModel.addTimerListener(timerListener);
     }
@@ -309,7 +312,7 @@ public final class DataModel {
     /**
      * @param timerListener to no longer be notified when timers are added, updated and removed
      */
-    public void removeTimerListener(TimerListener timerListener) {
+    public void removeTimerListener(@NonNull TimerListener timerListener) {
         enforceMainLooper();
         mTimerModel.removeTimerListener(timerListener);
     }
@@ -386,8 +389,10 @@ public final class DataModel {
      * @param deleteAfterUse    {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    public Timer addTimer(long length, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
-                          boolean isVibrate, String vibrationPattern, boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
+    @NonNull
+    public Timer addTimer(long length, @Nullable String label, @NonNull String buttonTime, @Nullable Uri ringtone, int autoSilence,
+                          int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern, boolean isFlashOn,
+                          boolean turnOffMedia, boolean deleteAfterUse) {
 
         enforceMainLooper();
 
@@ -401,7 +406,7 @@ public final class DataModel {
      *
      * @param timer the timer to be removed
      */
-    public void removeTimer(Timer timer, @StringRes int eventLabelId) {
+    public void removeTimer(@NonNull Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
         mTimerModel.removeTimer(timer, eventLabelId);
     }
@@ -409,7 +414,7 @@ public final class DataModel {
     /**
      * @param timer the timer to be started
      */
-    public void startTimer(Timer timer) {
+    public void startTimer(@NonNull Timer timer) {
         startTimer(null, timer);
     }
 
@@ -417,7 +422,7 @@ public final class DataModel {
      * @param service used to start foreground notifications for expired timers
      * @param timer   the timer to be started
      */
-    public void startTimer(Service service, Timer timer) {
+    public void startTimer(@Nullable Service service, @NonNull Timer timer) {
         enforceMainLooper();
         final Timer started = timer.start();
         mTimerModel.updateTimer(started);
@@ -436,7 +441,7 @@ public final class DataModel {
     /**
      * @param timer the timer to be paused
      */
-    public void pauseTimer(Timer timer) {
+    public void pauseTimer(@NonNull Timer timer) {
         enforceMainLooper();
         mTimerModel.updateTimer(timer.pause());
     }
@@ -445,7 +450,7 @@ public final class DataModel {
      * @param service used to start foreground notifications for expired timers
      * @param timer   the timer to be expired
      */
-    public void expireTimer(Service service, Timer timer) {
+    public void expireTimer(@NonNull Service service, @NonNull Timer timer) {
         enforceMainLooper();
         mTimerModel.expireTimer(service, timer);
     }
@@ -456,7 +461,7 @@ public final class DataModel {
      * @param timer        the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
-    public void resetTimer(Timer timer, @StringRes int eventLabelId) {
+    public void resetTimer(@NonNull Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
         mTimerModel.resetTimer(timer, eventLabelId);
     }
@@ -484,7 +489,7 @@ public final class DataModel {
     /**
      * @param timer the timer to which minutes or hours should be added to the remaining time
      */
-    public void addCustomTimeToTimer(Timer timer) {
+    public void addCustomTimeToTimer(@NonNull Timer timer) {
         enforceMainLooper();
         mTimerModel.updateTimer(timer.addCustomTime());
     }
@@ -493,7 +498,7 @@ public final class DataModel {
      * @param timer     the timer to which the new {@code newLength} belongs
      * @param newLength the new duration to store for the {@code timer}
      */
-    public void setNewTimerDuration(Timer timer, long newLength) {
+    public void setNewTimerDuration(@NonNull Timer timer, long newLength) {
         enforceMainLooper();
 
         if (timer.getLength() == newLength) {
@@ -519,9 +524,9 @@ public final class DataModel {
      * @param turnOffMedia      {@code true} to turn off media upon expiration, {@code false} otherwise.
      * @param deleteAfterUse    {@code true} to automatically delete the timer after use, {@code false} otherwise
      */
-    public void updateAllTimerSettings(Timer timer, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
-                                       boolean isVibrate, String vibrationPattern, boolean isFlashOn, boolean turnOffMedia,
-                                       boolean deleteAfterUse) {
+    public void updateAllTimerSettings(@NonNull Timer timer, @Nullable String label, @NonNull String buttonTime, @Nullable Uri ringtone,
+                                       int autoSilence, int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern,
+                                       boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
 
         enforceMainLooper();
 
@@ -570,7 +575,7 @@ public final class DataModel {
     /**
      * @param uri the uri of the ringtone to play for all timers
      */
-    public void setTimerRingtoneUri(Uri uri) {
+    public void setTimerRingtoneUri(@NonNull Uri uri) {
         enforceMainLooper();
         mTimerModel.setTimerRingtoneUri(uri);
     }
@@ -610,7 +615,7 @@ public final class DataModel {
     /**
      * @param uri the uri of the ringtone from the settings to play for all alarms
      */
-    public void setAlarmRingtoneUriFromSettings(Uri uri) {
+    public void setAlarmRingtoneUriFromSettings(@NonNull Uri uri) {
         enforceMainLooper();
         mAlarmModel.setAlarmRingtoneUriFromSettings(uri);
     }
@@ -618,7 +623,7 @@ public final class DataModel {
     /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
-    public void addStopwatchListener(StopwatchListener stopwatchListener) {
+    public void addStopwatchListener(@NonNull StopwatchListener stopwatchListener) {
         enforceMainLooper();
         mStopwatchModel.addStopwatchListener(stopwatchListener);
     }
@@ -626,7 +631,7 @@ public final class DataModel {
     /**
      * @param stopwatchListener to no longer be notified when stopwatch changes or laps are added
      */
-    public void removeStopwatchListener(StopwatchListener stopwatchListener) {
+    public void removeStopwatchListener(@NonNull StopwatchListener stopwatchListener) {
         enforceMainLooper();
         mStopwatchModel.removeStopwatchListener(stopwatchListener);
     }
@@ -666,6 +671,7 @@ public final class DataModel {
     /**
      * @return the laps recorded for this stopwatch
      */
+    @NonNull
     public List<Lap> getLaps() {
         enforceMainLooper();
         return (mStopwatchModel != null) ? mStopwatchModel.getLaps() : new ArrayList<>();
@@ -728,6 +734,7 @@ public final class DataModel {
     /**
      * @return a new calendar object initialized to the {@link #currentTimeMillis()}
      */
+    @NonNull
     public Calendar getCalendar() {
         final Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -756,7 +763,7 @@ public final class DataModel {
      * @param uri the uri of a ringtone
      * @return the title of the ringtone with the {@code uri}; {@code null} if it cannot be fetched
      */
-    public String getRingtoneTitle(Uri uri) {
+    public String getRingtoneTitle(@NonNull Uri uri) {
         enforceMainLooper();
         return mRingtoneModel.getRingtoneTitle(uri);
     }
@@ -765,7 +772,7 @@ public final class DataModel {
      * @param uri   the uri of an audio file to use as a ringtone
      * @param title the title of the audio content at the given {@code uri}
      */
-    public Uri customRingtoneToAdd(Uri uri, String title) {
+    public Uri customRingtoneToAdd(@NonNull Uri uri, @NonNull String title) {
         enforceMainLooper();
         return mRingtoneModel.customRingtoneToAdd(uri, title);
     }
@@ -773,7 +780,7 @@ public final class DataModel {
     /**
      * @param uri identifies the ringtone to remove
      */
-    public void removeCustomRingtone(Uri uri) {
+    public void removeCustomRingtone(@NonNull Uri uri) {
         enforceMainLooper();
         mRingtoneModel.removeCustomRingtone(uri);
     }
@@ -782,13 +789,14 @@ public final class DataModel {
      * @return {@code true} if a custom ringtone with a given name and size is already present
      * to avoid adding duplicates. {@code false} otherwise.
      */
-    public boolean isCustomRingtoneAlreadyAdded(String name, long size) {
+    public boolean isCustomRingtoneAlreadyAdded(@NonNull String name, long size) {
         return mRingtoneModel.customRingtoneAlreadyAdded(name, size) != null;
     }
 
     /**
      * @return all available custom ringtones
      */
+    @NonNull
     public List<CustomRingtone> getCustomRingtones() {
         enforceMainLooper();
         return mRingtoneModel.getCustomRingtones();
@@ -798,7 +806,7 @@ public final class DataModel {
     /**
      * @param silentSettingsListener to be notified when alarm-silencing settings change
      */
-    public void addSilentSettingsListener(OnSilentSettingsListener silentSettingsListener) {
+    public void addSilentSettingsListener(@NonNull OnSilentSettingsListener silentSettingsListener) {
         enforceMainLooper();
         mSilentSettingsModel.addSilentSettingsListener(silentSettingsListener);
     }
@@ -806,7 +814,7 @@ public final class DataModel {
     /**
      * @param silentSettingsListener to no longer be notified when alarm-silencing settings change
      */
-    public void removeSilentSettingsListener(OnSilentSettingsListener silentSettingsListener) {
+    public void removeSilentSettingsListener(@NonNull OnSilentSettingsListener silentSettingsListener) {
         enforceMainLooper();
         mSilentSettingsModel.removeSilentSettingsListener(silentSettingsListener);
     }
@@ -867,7 +875,7 @@ public final class DataModel {
             return mActionResId != 0;
         }
 
-        public void executeAction(Context context) {
+        public void executeAction(@NonNull Context context) {
             if (this == SILENT_RINGTONE) {
                 try {
                     context.startActivity(new Intent(ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -886,7 +894,7 @@ public final class DataModel {
         private final Runnable mDelegate;
         private boolean mExecuted;
 
-        private ExecutedRunnable(Runnable delegate) {
+        private ExecutedRunnable(@NonNull Runnable delegate) {
             this.mDelegate = delegate;
         }
 

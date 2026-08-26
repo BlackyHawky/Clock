@@ -22,6 +22,8 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
@@ -72,7 +74,7 @@ public class AnalogClock extends FrameLayout {
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (mTimeZone == null && Intent.ACTION_TIMEZONE_CHANGED.equals(intent.getAction())) {
                 final String tz = intent.getStringExtra("time-zone");
                 mTime = Calendar.getInstance(TimeZone.getTimeZone(tz));
@@ -93,15 +95,15 @@ public class AnalogClock extends FrameLayout {
         }
     };
 
-    public AnalogClock(Context context) {
+    public AnalogClock(@NonNull Context context) {
         this(context, null);
     }
 
-    public AnalogClock(Context context, AttributeSet attrs) {
+    public AnalogClock(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public AnalogClock(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AnalogClock(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         if (isInEditMode()) {
@@ -190,8 +192,8 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to apply clock components (dial, hour hand and minute hand).
      */
-    private void applyClockComponentStyle(ImageView component, String accentColor, String componentType, int alarmClockColor,
-                                          int defaultClockColor) {
+    private void applyClockComponentStyle(@NonNull ImageView component, @NonNull String accentColor, @NonNull String componentType,
+                                          int alarmClockColor, int defaultClockColor) {
 
         if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
             int drawableResId = getMaterialAnalogDrawableResId(componentType);
@@ -217,7 +219,7 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to apply the second hand style with a specific color logic.
      */
-    private void applySecondHandStyle(ImageView secondHand, String accentColor, int alarmSecondHandColor) {
+    private void applySecondHandStyle(@NonNull ImageView secondHand, @NonNull String accentColor, int alarmSecondHandColor) {
         if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
             Drawable drawable = AppCompatResources.getDrawable(getContext(), R.drawable.analog_clock_second_circle);
 
@@ -267,7 +269,7 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to get the drawable resource ID for material analog components.
      */
-    private int getMaterialAnalogDrawableResId(String componentType) {
+    private int getMaterialAnalogDrawableResId(@NonNull String componentType) {
         return switch (componentType) {
             case DIAL -> mAnalogDialMaterialPref.equals(DEFAULT_CLOCK_DIAL_MATERIAL)
                 ? R.drawable.analog_clock_dial_sun
@@ -296,7 +298,7 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to get the drawable resource ID for analog components (non-material).
      */
-    private int getAnalogDrawableResId(String componentType) {
+    private int getAnalogDrawableResId(@NonNull String componentType) {
         final boolean isDefaultStyle = mAnalogDialPref.equals(DEFAULT_CLOCK_DIAL);
         final boolean isRomanStyle = mAnalogDialPref.equals(CLOCK_DIAL_WITH_ROMAN_NUMBERS);
 
@@ -356,7 +358,7 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to get the accent color to apply to the second hand of the analog clock.
      */
-    private int getAccentColor(boolean isAutoNightAccentColorEnabled, String accentColor, String nightAccentColor) {
+    private int getAccentColor(boolean isAutoNightAccentColorEnabled, @NonNull String accentColor, @NonNull String nightAccentColor) {
         String colorKey = ThemeUtils.isNight(getResources()) && !isAutoNightAccentColorEnabled
             ? nightAccentColor
             : accentColor;
@@ -380,7 +382,7 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to get colors to apply to the Material analog clock.
      */
-    private int getMaterialAnalogClockColor(String accentColor, String componentType) {
+    private int getMaterialAnalogClockColor(@NonNull String accentColor, @NonNull String componentType) {
         int colorResId = switch (accentColor) {
             case BLACK_ACCENT_COLOR -> getColorResourceForComponent(
                 R.color.blackColorGray1,
@@ -462,8 +464,8 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to centralize the logic to determine the color of each type of Material analog clock component.
      */
-    private int getColorResourceForComponent(int dialColorRes, int hourHandColorRes, int minuteHandColorRes,
-                                             int secondHandColorRes, String componentType) {
+    private int getColorResourceForComponent(int dialColorRes, int hourHandColorRes, int minuteHandColorRes, int secondHandColorRes,
+                                             @NonNull String componentType) {
 
         return switch (componentType) {
             case DIAL -> dialColorRes;
@@ -509,7 +511,7 @@ public class AnalogClock extends FrameLayout {
         invalidate();
     }
 
-    public void setTimeZone(String id) {
+    public void setTimeZone(@NonNull String id) {
         mTimeZone = TimeZone.getTimeZone(id);
         mTime.setTimeZone(mTimeZone);
         onTimeChanged();

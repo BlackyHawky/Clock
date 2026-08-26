@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.loader.content.AsyncTaskLoader;
 
 import com.best.deskclock.R;
@@ -37,7 +38,9 @@ public class RingtoneLoader extends AsyncTaskLoader<List<RingtoneAdapter.Rington
     private final String mDefaultRingtoneTitle;
     private List<CustomRingtone> mCustomRingtones;
 
-    RingtoneLoader(Context context, DataModel dataModel, Uri defaultRingtoneUri, String defaultRingtoneTitle) {
+    RingtoneLoader(@NonNull Context context, @NonNull DataModel dataModel, @NonNull Uri defaultRingtoneUri,
+                   @NonNull String defaultRingtoneTitle) {
+
         super(context);
 
         mDataModel = dataModel;

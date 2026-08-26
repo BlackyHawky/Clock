@@ -2,6 +2,7 @@
 
 package com.best.deskclock.uicomponents;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -20,12 +21,12 @@ public interface ItemTouchHelperContract {
     /**
      * Called when the item is released.
      */
-    void onRowSelected(RecyclerView.ViewHolder myViewHolder);
+    void onRowSelected(@NonNull RecyclerView.ViewHolder myViewHolder);
 
     /**
      * Called to remove visual effects.
      */
-    void onRowClear(RecyclerView.ViewHolder myViewHolder);
+    void onRowClear(@NonNull RecyclerView.ViewHolder myViewHolder);
 
     /**
      * Called to save the list.

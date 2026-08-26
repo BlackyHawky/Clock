@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
@@ -52,7 +53,7 @@ public class AlarmVolumePreference extends Preference {
     private Runnable mRingtoneStopRunnable;
     private boolean mIsPreviewPlaying = false;
 
-    public AlarmVolumePreference(Context context, AttributeSet attrs) {
+    public AlarmVolumePreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         mPrefs = getDefaultSharedPreferences(context);
@@ -140,7 +141,7 @@ public class AlarmVolumePreference extends Preference {
     /**
      * Updates the summary text view to show the current alarm volume as a percentage.
      */
-    private void updateSliderSummary(TextView sliderSummary) {
+    private void updateSliderSummary(@NonNull TextView sliderSummary) {
         int currentVolume = mAudioManager.getStreamVolume(STREAM_ALARM);
         int maxVolume = mAudioManager.getStreamMaxVolume(STREAM_ALARM);
         int volumePercentage = (int) (((float) currentVolume / maxVolume) * 100);
@@ -187,7 +188,7 @@ public class AlarmVolumePreference extends Preference {
             && !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), mPrefs));
     }
 
-    private void updateVolume(AudioManager audioManager) {
+    private void updateVolume(@NonNull AudioManager audioManager) {
         int newVolume = (int) mBinding.slider.getValue() + mMinVolume;
         audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
     }

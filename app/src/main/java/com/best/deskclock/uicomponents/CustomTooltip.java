@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CustomTooltipBinding;
 import com.best.deskclock.utils.ThemeUtils;
@@ -38,7 +40,7 @@ public class CustomTooltip {
      * @param anchor the view above which the tooltip should appear
      * @param text   the text to display inside the tooltip
      */
-    public static void showAbove(View anchor, String text, boolean isFab) {
+    public static void showAbove(@NonNull View anchor, @NonNull String text, boolean isFab) {
         show(anchor, text, Position.ABOVE, isFab);
     }
 
@@ -51,7 +53,7 @@ public class CustomTooltip {
      * @param anchor the view under which the tooltip should appear
      * @param text   the text to display inside the tooltip
      */
-    public static void showBelow(View anchor, String text) {
+    public static void showBelow(@NonNull View anchor, @NonNull String text) {
         show(anchor, text, Position.BELOW, false);
     }
 
@@ -65,7 +67,7 @@ public class CustomTooltip {
      * @param text     the text to display inside the tooltip
      * @param position whether the tooltip should appear above or below the anchor
      */
-    private static void show(View anchor, String text, Position position, boolean isFab) {
+    private static void show(@NonNull View anchor, @NonNull String text, @NonNull Position position, boolean isFab) {
         Context context = anchor.getContext();
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));

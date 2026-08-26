@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
@@ -50,7 +52,7 @@ public final class RingtonePreviewKlaxon {
         getInstance().getAsyncRingtonePlayer().stop();
     }
 
-    public static void start(Uri uri) {
+    public static void start(@NonNull Uri uri) {
         stop();
         LogUtils.i("RingtonePreviewKlaxon.start()");
 
@@ -64,7 +66,7 @@ public final class RingtonePreviewKlaxon {
         }
     }
 
-    public static void startPreviewOnlyFromSpeakers(Uri uri) {
+    public static void startPreviewOnlyFromSpeakers(@NonNull Uri uri) {
         stopPreviewFromSpeakers();
         LogUtils.i("RingtonePreviewKlaxon.start()");
         getInstance().getAsyncRingtonePlayer().play(uri, 0);

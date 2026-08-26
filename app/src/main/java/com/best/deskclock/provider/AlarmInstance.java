@@ -28,6 +28,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
@@ -123,12 +124,12 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     // Alarm volume level in steps; not a percentage
     public int mAlarmVolume;
 
-    public AlarmInstance(Calendar calendar, Long alarmId) {
+    public AlarmInstance(@NonNull Calendar calendar, @NonNull Long alarmId) {
         this(calendar);
         mAlarmId = alarmId;
     }
 
-    public AlarmInstance(Calendar calendar) {
+    public AlarmInstance(@NonNull Calendar calendar) {
         mId = INVALID_ID;
         setAlarmTime(calendar);
         mLabel = "";
@@ -146,7 +147,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAlarmVolume = DEFAULT_ALARM_VOLUME;
     }
 
-    public AlarmInstance(AlarmInstance instance) {
+    public AlarmInstance(@NonNull AlarmInstance instance) {
         this.mId = instance.mId;
         this.mYear = instance.mYear;
         this.mMonth = instance.mMonth;
@@ -169,7 +170,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mAlarmVolume = instance.mAlarmVolume;
     }
 
-    public AlarmInstance(Cursor c, boolean joinedTable) {
+    public AlarmInstance(@NonNull Cursor c, boolean joinedTable) {
         if (joinedTable) {
             mId = c.getLong(Alarm.INSTANCE_ID_INDEX);
             mYear = c.getInt(Alarm.INSTANCE_YEAR_INDEX);
@@ -221,6 +222,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAlarmState = c.getInt(ALARM_STATE_INDEX);
     }
 
+    @NonNull
     public ContentValues createContentValues() {
         ContentValues values = new ContentValues(COLUMN_COUNT);
         if (mId != INVALID_ID) {
@@ -256,17 +258,19 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return values;
     }
 
-    public static Intent createIntent(Context context, Class<?> cls, long instanceId) {
+    @NonNull
+    public static Intent createIntent(@NonNull Context context, @NonNull Class<?> cls, long instanceId) {
         return new Intent(context, cls).setData(getContentUri(instanceId));
     }
 
-    public static long getId(Uri contentUri) {
+    public static long getId(@NonNull Uri contentUri) {
         return ContentUris.parseId(contentUri);
     }
 
     /**
      * @return the {@link Uri} identifying the alarm instance
      */
+    @NonNull
     public static Uri getContentUri(long instanceId) {
         return ContentUris.withAppendedId(CONTENT_URI, instanceId);
     }
@@ -278,7 +282,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @param instanceId for the desired instance.
      * @return instance if found, null otherwise
      */
-    public static AlarmInstance getInstance(ContentResolver cr, long instanceId) {
+    @Nullable
+    public static AlarmInstance getInstance(@NonNull ContentResolver cr, long instanceId) {
         try (Cursor cursor = cr.query(getContentUri(instanceId), QUERY_COLUMNS, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 return new AlarmInstance(cursor, false);
@@ -295,7 +300,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @param alarmId         of instances desired.
      * @return list of alarms instances that are owned by alarmId.
      */
-    public static List<AlarmInstance> getInstancesByAlarmId(ContentResolver contentResolver, long alarmId) {
+    @NonNull
+    public static List<AlarmInstance> getInstancesByAlarmId(@NonNull ContentResolver contentResolver, long alarmId) {
         return getInstances(contentResolver, ALARM_ID + "=" + alarmId);
     }
 
@@ -306,7 +312,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @param alarmId         of instance desired
      * @return the next instance of an alarm by alarmId.
      */
-    public static AlarmInstance getNextUpcomingInstanceByAlarmId(ContentResolver contentResolver, long alarmId) {
+    @Nullable
+    public static AlarmInstance getNextUpcomingInstanceByAlarmId(@NonNull ContentResolver contentResolver, long alarmId) {
         final List<AlarmInstance> alarmInstances = getInstancesByAlarmId(contentResolver, alarmId);
         if (alarmInstances.isEmpty()) {
             return null;
@@ -331,7 +338,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @param targetLabel     the label used to filter the synchronized alarms
      * @return the next upcoming {@link AlarmInstance} matching the label, or {@code null} if none exists
      */
-    public static AlarmInstance getNextAlarmInstanceByLabel(ContentResolver contentResolver, String targetLabel) {
+    @Nullable
+    public static AlarmInstance getNextAlarmInstanceByLabel(@NonNull ContentResolver contentResolver, @NonNull String targetLabel) {
         final String selection = LABEL + "=?";
         final String[] args = {targetLabel};
         List<AlarmInstance> instances = AlarmInstance.getInstances(contentResolver, selection, args);
@@ -354,7 +362,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Get alarm instances in the specified state.
      */
-    public static List<AlarmInstance> getInstancesByState(ContentResolver contentResolver, int state) {
+    @NonNull
+    public static List<AlarmInstance> getInstancesByState(@NonNull ContentResolver contentResolver, int state) {
         return getInstances(contentResolver, ALARM_STATE + "=" + state);
     }
 
@@ -362,7 +371,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * Returns the alarm instance for the given alarm that is either currently firing
      * or snoozed. If no such instance exists, {@code null} is returned.
      */
-    public static AlarmInstance getFiredOrSnoozedInstanceForAlarm(ContentResolver cr, long alarmId) {
+    @Nullable
+    public static AlarmInstance getFiredOrSnoozedInstanceForAlarm(@NonNull ContentResolver cr, long alarmId) {
         final String selection = ALARM_ID + "=? AND " + ALARM_STATE + " IN (?, ?)";
         final String[] args = {
             String.valueOf(alarmId),
@@ -391,7 +401,10 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *                      appear in the selection. The values will be bound as Strings.
      * @return list of alarms matching where clause or empty list if none found.
      */
-    public static List<AlarmInstance> getInstances(ContentResolver cr, String selection, String... selectionArgs) {
+    @NonNull
+    public static List<AlarmInstance> getInstances(@NonNull ContentResolver cr, @Nullable String selection,
+                                                   @NonNull String... selectionArgs) {
+
         final List<AlarmInstance> result = new LinkedList<>();
         try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
@@ -404,7 +417,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return result;
     }
 
-    public void addInstance(ContentResolver contentResolver) {
+    public void addInstance(@NonNull ContentResolver contentResolver) {
         // Make sure we are not adding a duplicate instances. This is not a
         // fix and should never happen. This is only a safeguard against bad code, and you
         // should fix the root issue if you see the error message.
@@ -421,21 +434,26 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
 
         ContentValues values = createContentValues();
         Uri uri = contentResolver.insert(CONTENT_URI, values);
+        if (uri == null) {
+            throw new IllegalStateException("Failed to insert alarm into ContentResolver");
+        }
         mId = getId(uri);
     }
 
-    public void updateInstance(ContentResolver contentResolver) {
+    public void updateInstance(@NonNull ContentResolver contentResolver) {
         if (mId == INVALID_ID) return;
         ContentValues values = createContentValues();
         contentResolver.update(getContentUri(mId), values, null, null);
     }
 
-    public static void deleteInstance(ContentResolver contentResolver, long instanceId) {
+    public static void deleteInstance(@NonNull ContentResolver contentResolver, long instanceId) {
         if (instanceId == INVALID_ID) return;
         contentResolver.delete(getContentUri(instanceId), "", null);
     }
 
-    public static void deleteOtherInstances(Context context, ContentResolver contentResolver, long alarmId, long instanceId) {
+    public static void deleteOtherInstances(@NonNull Context context, @NonNull ContentResolver contentResolver, long alarmId,
+                                            long instanceId) {
+
         final List<AlarmInstance> instances = getInstancesByAlarmId(contentResolver, alarmId);
         for (AlarmInstance instance : instances) {
             if (instance.mId != instanceId) {
@@ -445,7 +463,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         }
     }
 
-    public String getLabelOrDefault(Context context) {
+    public String getLabelOrDefault(@NonNull Context context) {
         return mLabel.isEmpty() ? context.getString(R.string.default_label) : mLabel;
     }
 
@@ -454,6 +472,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time
      */
+    @NonNull
     public Calendar getAlarmTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, mYear);
@@ -466,7 +485,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return calendar;
     }
 
-    public void setAlarmTime(Calendar calendar) {
+    public void setAlarmTime(@NonNull Calendar calendar) {
         mYear = calendar.get(Calendar.YEAR);
         mMonth = calendar.get(Calendar.MONTH);
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -479,7 +498,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time
      */
-    public Calendar getNotificationTime(Context context) {
+    @NonNull
+    public Calendar getNotificationTime(@NonNull Context context) {
         Calendar calendar = getAlarmTime();
         int getAlarmNotificationReminderTime = SettingsDAO.getAlarmNotificationReminderTime(getDefaultSharedPreferences(context));
         calendar.add(Calendar.MINUTE, -getAlarmNotificationReminderTime);
@@ -491,6 +511,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time
      */
+    @NonNull
     public Calendar getMissedTimeToLive() {
         Calendar calendar = getAlarmTime();
         calendar.add(Calendar.HOUR, MISSED_TIME_TO_LIVE_HOUR_OFFSET);
@@ -502,7 +523,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time when alarm should be silence, or null if never
      */
-    public Calendar getTimeout(Context context, Alarm alarm) {
+    @Nullable
+    public Calendar getTimeout(@NonNull Context context, @Nullable Alarm alarm) {
         Calendar calendar = getAlarmTime();
 
         if (mAutoSilenceDuration == TIMEOUT_NEVER) {
@@ -538,7 +560,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (!(o instanceof final AlarmInstance other)) return false;
         return mId == other.mId;
     }

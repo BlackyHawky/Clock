@@ -2,6 +2,7 @@
 
 package com.best.deskclock.alarms;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.uicomponents.ItemTouchHelperContract;
@@ -36,7 +37,7 @@ public interface AlarmTouchContract extends ItemTouchHelperContract {
      *
      * @param viewHolder The {@link androidx.recyclerview.widget.RecyclerView.ViewHolder} that was swiped.
      */
-    void onRowSwiped(RecyclerView.ViewHolder viewHolder);
+    void onRowSwiped(@NonNull RecyclerView.ViewHolder viewHolder);
 
     /**
      * Called when the user initially moves the item horizontally, starting the swipe animation.

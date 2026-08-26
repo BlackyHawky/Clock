@@ -76,7 +76,8 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class AboutFragment extends BaseSettingsScreenFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class AboutFragment extends BaseSettingsScreenFragment
+    implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final String KEY_SHOW_RESET_SETTINGS_DIALOG = "show_reset_settings_dialog";
     private static final String KEY_PENDING_LINK_DIALOG = "pending_link_dialog";
@@ -131,7 +132,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
     Preference mTranslatePref;
     Preference mReadLicencePref;
     Preference mKeepAndroidOpenPref;
-    PreferenceCategory mDebugCategoryPref;
+    PreferenceCategory mDebugCategory;
     SwitchPreferenceCompat mEnableLocalLoggingPref;
 
     private AlertDialog mRestartDialog;
@@ -160,7 +161,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
         mTranslatePref = findPreference(KEY_ABOUT_TRANSLATE);
         mReadLicencePref = findPreference(KEY_ABOUT_READ_LICENCE);
         mKeepAndroidOpenPref = findPreference(KEY_ABOUT_KEEP_ANDROID_OPEN);
-        mDebugCategoryPref = findPreference(KEY_DEBUG_CATEGORY);
+        mDebugCategory = findPreference(KEY_DEBUG_CATEGORY);
         mEnableLocalLoggingPref = findPreference(KEY_ENABLE_LOCAL_LOGGING);
 
         if (savedInstanceState != null) {
@@ -260,7 +261,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
     @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mTitlePref, mVersionPref, mWhatsNewPref, mAboutFeaturesPref, mViewOnGitHubPref, mTranslatePref,
-            mReadLicencePref, mKeepAndroidOpenPref, mDebugCategoryPref, mEnableLocalLoggingPref
+            mReadLicencePref, mKeepAndroidOpenPref, mDebugCategory, mEnableLocalLoggingPref
         );
 
         nullifyAllPrefs();
@@ -294,7 +295,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
     }
 
     @Override
-    public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
+    public boolean onPreferenceChange(@NonNull Preference preference, @NonNull Object newValue) {
         if (KEY_ENABLE_LOCAL_LOGGING.equals(preference.getKey())) {
             Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
@@ -337,7 +338,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
         mActiveDialog.show();
     }
 
-    private void triggerLinkDialog(String prefKey) {
+    private void triggerLinkDialog(@NonNull String prefKey) {
         mPendingLinkDialogPrefKey = prefKey;
 
         int iconId, titleId, messageId;
@@ -389,7 +390,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
         displayLinkDialog(iconId, titleId, messageId, link);
     }
 
-    private void displayLinkDialog(int iconId, int titleId, int messageId, String link) {
+    private void displayLinkDialog(int iconId, int titleId, int messageId, @NonNull String link) {
         final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
 
         mActiveDialog = CustomDialog.create(
@@ -442,7 +443,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
         mReadLicencePref.setOnPreferenceClickListener(this);
         mKeepAndroidOpenPref.setOnPreferenceClickListener(this);
 
-        mDebugCategoryPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(getPrefs()));
+        mDebugCategory.setVisible(SettingsDAO.isDebugSettingsDisplayed(getPrefs()));
         mEnableLocalLoggingPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(getPrefs()));
         mEnableLocalLoggingPref.setOnPreferenceChangeListener(this);
     }
@@ -533,7 +534,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
     /**
      * Applies the default accent color and locale for debug and nightly builds.
      */
-    private void applyDebugAndNightlyDefaults(SharedPreferences.Editor editor) {
+    private void applyDebugAndNightlyDefaults(@NonNull SharedPreferences.Editor editor) {
         if (BuildConfig.IS_DEBUG_BUILD) {
             editor.putString(KEY_ACCENT_COLOR, RED_ACCENT_COLOR);
         } else if (BuildConfig.IS_NIGHTLY_BUILD) {
@@ -591,7 +592,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
      * - logcat_logs.txt: system logs retrieved via logcat
      * - local_logs.txt: custom logs saved via LogUtils
      */
-    private void exportLogsAsZip(Context context, Uri zipUri) {
+    private void exportLogsAsZip(@NonNull Context context, @NonNull Uri zipUri) {
         try {
             // Temp files
             File logcatFile = new File(context.getCacheDir(), "logcat_logs.txt");
@@ -642,7 +643,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
     /**
      * Helper method to add a given file into a ZIP archive under a specific entry name.
      */
-    private void addFileToZip(File file, String entryName, ZipOutputStream zipOut) throws IOException {
+    private void addFileToZip(@NonNull File file, @NonNull String entryName, @NonNull ZipOutputStream zipOut) throws IOException {
         byte[] buffer = new byte[1024];
         FileInputStream fileInputStream = new FileInputStream(file);
         ZipEntry zipEntry = new ZipEntry(entryName);
@@ -696,7 +697,7 @@ public class AboutFragment extends BaseSettingsScreenFragment implements Prefere
         mTranslatePref = null;
         mReadLicencePref = null;
         mKeepAndroidOpenPref = null;
-        mDebugCategoryPref = null;
+        mDebugCategory = null;
         mEnableLocalLoggingPref = null;
     }
 

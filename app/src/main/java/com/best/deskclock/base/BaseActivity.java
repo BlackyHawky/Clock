@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -118,7 +119,7 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * Apply the AMOLED theme to the activities if the device is set to night mode.
      */
-    private void applyAmoledTheme(String theme, String darkMode) {
+    private void applyAmoledTheme(@NonNull String theme, @NonNull String darkMode) {
         if (darkMode.equals(AMOLED_DARK_MODE) && !theme.equals(SYSTEM_THEME) && !theme.equals(LIGHT_THEME)) {
             setTheme(R.style.AmoledTheme);
         }
@@ -134,8 +135,8 @@ public class BaseActivity extends AppCompatActivity {
      * @param accentColor                   The regular accent color value.
      * @param nightAccentColor              The night accent color value.
      */
-    private void applyAccentColor(boolean isAutoNightAccentColorEnabled, String accentColor,
-                                  String nightAccentColor, String darkMode) {
+    private void applyAccentColor(boolean isAutoNightAccentColorEnabled, @NonNull String accentColor, @NonNull String nightAccentColor,
+                                  @NonNull String darkMode) {
 
         String color = isAutoNightAccentColorEnabled
             ? accentColor
@@ -164,7 +165,7 @@ public class BaseActivity extends AppCompatActivity {
      * Applies a color to the navigation bar for activities.
      */
     @SuppressWarnings("deprecation")
-    private void applyNavigationBarColor(String darkMode) {
+    private void applyNavigationBarColor(@NonNull String darkMode) {
         if (SdkUtils.isAtLeastAndroid10()) {
             if (this instanceof DeskClock) {
                 EdgeToEdge.enable(this);
@@ -196,7 +197,7 @@ public class BaseActivity extends AppCompatActivity {
      *
      * @param theme The theme value (corresponding to {@code KEY_THEME}) to apply.
      */
-    private void applySystemNightMode(String theme) {
+    private void applySystemNightMode(@NonNull String theme) {
         switch (theme) {
             case SYSTEM_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -284,7 +285,8 @@ public class BaseActivity extends AppCompatActivity {
      *
      * @param key The preference key to retrieve.
      */
-    private Object getPreferenceValue(String key) {
+    @Nullable
+    private Object getPreferenceValue(@NonNull String key) {
         return switch (key) {
             case KEY_THEME -> SettingsDAO.getTheme(mPrefs);
             case KEY_DARK_MODE -> SettingsDAO.getDarkMode(mPrefs);
