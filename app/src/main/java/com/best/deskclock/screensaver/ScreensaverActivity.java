@@ -33,7 +33,6 @@ import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DeskClockSaverBinding;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
@@ -50,8 +49,6 @@ public class ScreensaverActivity extends BaseActivity {
 
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private boolean mIsScreensaverTextUppercase;
-    private String mDateFormat;
-    private String mDateFormatForAccessibility;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -63,7 +60,7 @@ public class ScreensaverActivity extends BaseActivity {
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
                 case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK ->
-                    AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
+                    ScreensaverUtils.refreshAlarmAndDate(mBinding, getPrefs(), mIsScreensaverTextUppercase);
             }
         }
     };
@@ -80,13 +77,10 @@ public class ScreensaverActivity extends BaseActivity {
         }
     };
 
-    // Runs every midnight or when the time changes and refreshes the date.
-    private final Runnable mMidnightUpdater = new Runnable() {
-        @Override
-        public void run() {
-            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
-        }
-    };
+    /**
+     * Runs every midnight or when the time changes and refreshes the date.
+     */
+    private final Runnable mMidnightUpdater = () -> ScreensaverUtils.refreshAlarmAndDate(mBinding, getPrefs(), mIsScreensaverTextUppercase);
 
     private MoveScreensaverRunnable mPositionUpdater;
     private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
@@ -98,8 +92,6 @@ public class ScreensaverActivity extends BaseActivity {
         mBinding = DeskClockSaverBinding.inflate(getLayoutInflater());
 
         mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(getPrefs());
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ThemeUtils.allowDisplayCutout(getWindow());
@@ -149,8 +141,7 @@ public class ScreensaverActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
-        AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
+        ScreensaverUtils.refreshAlarmAndDate(mBinding, getPrefs(), mIsScreensaverTextUppercase);
 
         startPositionUpdater();
         if (mBackgroundAnimator != null) {

@@ -11,6 +11,7 @@ public class ClockSettings {
     public DataModel.ClockStyle clockStyle;
     public boolean is24HourFormat;
     public boolean showSeconds;
+    public boolean isNextAlarmDisplayed;
     public boolean isTextUppercase;
 
     // Digital clock

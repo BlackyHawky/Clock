@@ -359,9 +359,12 @@ public class WidgetUtils {
      * @return The locale-specific date pattern.
      */
     @NonNull
-    public static String getDateFormat(@NonNull Context context) {
+    public static String getDateFormat(@NonNull Context context, boolean isAlarmVisible) {
         Locale locale = Locale.getDefault();
-        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
+        final String skeleton = context.getString(isAlarmVisible
+            ? R.string.abbrev_wday_month_day_no_year
+            : R.string.full_wday_month_day_no_year
+        );
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
         String formattedDate = simpleDateFormat.format(new Date());
 

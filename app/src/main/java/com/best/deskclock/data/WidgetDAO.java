@@ -197,7 +197,7 @@ public final class WidgetDAO {
      */
     public static boolean isNextAlarmDisplayedOnDigitalWidget(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM, DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM, DEFAULT_DISPLAY_NEXT_ALARM);
     }
 
     /**
@@ -418,7 +418,7 @@ public final class WidgetDAO {
      */
     public static boolean isNextAlarmDisplayedOnVerticalWidget(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_vertical_widget.xml
-        return prefs.getBoolean(KEY_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM, DEFAULT_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM);
+        return prefs.getBoolean(KEY_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM, DEFAULT_DISPLAY_NEXT_ALARM);
     }
 
     /**

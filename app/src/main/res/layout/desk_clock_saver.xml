@@ -68,7 +68,8 @@
             tools:text="12:34"
             tools:ignore="TextContrastCheck" />
 
-        <include layout="@layout/date_and_next_alarm_time" />
+        <include layout="@layout/date_and_next_alarm_time"
+            android:id="@+id/date_and_next_alarm_time" />
 
     </LinearLayout>
 

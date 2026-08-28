@@ -71,6 +71,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_display_next_alarm"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_next_alarm_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <Preference
             android:key="key_digital_clock_font"
             android:layout="@layout/settings_preference_layout"
@@ -90,6 +98,7 @@
             android:key="key_display_text_uppercase"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_text_uppercase_title"
+            android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

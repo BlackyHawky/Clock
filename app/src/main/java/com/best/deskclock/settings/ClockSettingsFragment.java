@@ -47,6 +47,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     CustomSliderPreference mAnalogClockSizePref;
     SwitchPreferenceCompat mDisplayClockSecondsPref;
     ListPreference mClockSecondHandPref;
+    SwitchPreferenceCompat mDisplayNextAlarmPref;
     Preference mDigitalClockFontPref;
     SwitchPreferenceCompat mDisplayTextUppercasePref;
     CustomSliderPreference mDigitalClockFontSizePref;
@@ -125,6 +126,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mAnalogClockSizePref = findPreference(KEY_ANALOG_CLOCK_SIZE);
         mDisplayClockSecondsPref = findPreference(KEY_DISPLAY_CLOCK_SECONDS);
         mClockSecondHandPref = findPreference(KEY_CLOCK_SECOND_HAND);
+        mDisplayNextAlarmPref = findPreference(KEY_DISPLAY_NEXT_ALARM);
         mDigitalClockFontPref = findPreference(KEY_DIGITAL_CLOCK_FONT);
         mDisplayTextUppercasePref = findPreference(KEY_DISPLAY_TEXT_UPPERCASE);
         mDigitalClockFontSizePref = findPreference(KEY_DIGITAL_CLOCK_FONT_SIZE);
@@ -152,8 +154,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mClockStylePref, mClockDialPref, mClockDialMaterialPref, mAnalogClockSizePref, mDisplayClockSecondsPref,
-            mClockSecondHandPref, mDigitalClockFontPref, mDisplayTextUppercasePref, mDigitalClockFontSizePref, mSortCitiesPref,
-            mEnableCityNotePref, mAutoHomeClockPref, mHomeTimeZonePref, mDateTimePref);
+            mClockSecondHandPref, mDisplayNextAlarmPref, mDigitalClockFontPref, mDisplayTextUppercasePref, mDigitalClockFontSizePref,
+            mSortCitiesPref, mEnableCityNotePref, mAutoHomeClockPref, mHomeTimeZonePref, mDateTimePref);
 
         nullifyAllPrefs();
 
@@ -196,7 +198,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
                 mHomeTimeZonePref.setEnabled((boolean) newValue);
             }
 
-            case KEY_DISPLAY_TEXT_UPPERCASE -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            case KEY_DISPLAY_NEXT_ALARM, KEY_DISPLAY_TEXT_UPPERCASE ->
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ENABLE_CITY_NOTE -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -248,6 +251,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
         mClockSecondHandPref.setOnPreferenceChangeListener(this);
 
+        mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
+
         mDigitalClockFontPref.setVisible(isDigitalClock);
         mDigitalClockFontPref.setTitle(getString(SettingsDAO.getDigitalClockFont(getPrefs()) == null
             ? R.string.custom_font_title
@@ -283,6 +288,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mAnalogClockSizePref = null;
         mDisplayClockSecondsPref = null;
         mClockSecondHandPref = null;
+        mDisplayNextAlarmPref = null;
         mDigitalClockFontPref = null;
         mDisplayTextUppercasePref = null;
         mDigitalClockFontSizePref = null;
