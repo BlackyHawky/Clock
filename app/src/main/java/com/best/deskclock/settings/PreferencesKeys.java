@@ -71,6 +71,7 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_CLOCK_FONT_SIZE = "key_digital_clock_font_size";
     public static final String KEY_DISPLAY_CLOCK_SECONDS = "key_display_clock_seconds";
     public static final String KEY_CLOCK_SECOND_HAND = "key_clock_second_hand";
+    public static final String KEY_DISPLAY_NEXT_ALARM = "key_display_next_alarm";
     public static final String KEY_DIGITAL_CLOCK_FONT = "key_digital_clock_font";
     public static final String KEY_SORT_CITIES = "key_sort_cities";
     public static final String KEY_ENABLE_CITY_NOTE = "key_enable_city_note";
@@ -226,6 +227,7 @@ public class PreferencesKeys {
     public static final String KEY_SCREENSAVER_ANALOG_CLOCK_SIZE = "key_screensaver_analog_clock_size";
     public static final String KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS = "key_display_screensaver_clock_seconds";
     public static final String KEY_SCREENSAVER_CLOCK_SECOND_HAND = "key_screensaver_clock_second_hand";
+    public static final String KEY_SCREENSAVER_DISPLAY_NEXT_ALARM = "key_screensaver_display_next_alarm";
     public static final String KEY_DISPLAY_SCREENSAVER_BATTERY = "key_display_screensaver_battery";
     public static final String KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS = "key_screensaver_clock_dynamic_colors";
     public static final String KEY_SCREENSAVER_CLOCK_COLOR_PICKER = "key_screensaver_clock_color_picker";

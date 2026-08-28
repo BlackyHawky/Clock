@@ -300,7 +300,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
-        String dateFormat = WidgetUtils.getDateFormat(context);
+        String dateFormat = WidgetUtils.getDateFormat(context, true);
         String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
         if (WidgetDAO.isVerticalWidgetDefaultDateColor(prefs)) {
@@ -424,7 +424,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
-        String dateFormat = WidgetUtils.getDateFormat(context);
+        String dateFormat = WidgetUtils.getDateFormat(context, true);
         String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
         if (WidgetDAO.isVerticalWidgetDefaultDateColor(prefs)) {

@@ -225,6 +225,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_CLOCK_SECOND_HAND = "default";
     public static final String CLOCK_SECOND_HAND_VINTAGE = "second_hand_vintage";
     public static final String CLOCK_SECOND_HAND_LOLLIPOP = "second_hand_lollipop";
+    public static final boolean DEFAULT_DISPLAY_NEXT_ALARM = true;
     public static final int TIMEOUT_NEVER = -1;
     public static final int TIMEOUT_END_OF_RINGTONE = -2;
     public static final int DEFAULT_VOLUME_CRESCENDO_DURATION = 0;
@@ -263,13 +264,11 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_DATE = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_TOP_DATE = false;
-    public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
 
     // Vertical Widget
     public static final boolean DEFAULT_VERTICAL_WIDGET_DISPLAY_DATE = true;
-    public static final boolean DEFAULT_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM = true;
 
     // Common widget values
     public static final boolean DEFAULT_WIDGET_TEXT_UPPERCASE_DISPLAYED = false;

@@ -27,11 +27,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DeskClockSaverBinding;
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
@@ -44,22 +42,18 @@ public final class Screensaver extends DreamService {
 
     private DeskClockSaverBinding mBinding;
 
+    private SharedPreferences mPrefs;
     private UiDataModel mUiDataModel;
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private MoveScreensaverRunnable mPositionUpdater;
     private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
 
     private boolean mIsScreensaverTextUppercase;
-    private String mDateFormat;
-    private String mDateFormatForAccessibility;
 
-    // Runs every midnight or when the time changes and refreshes the date.
-    private final Runnable mMidnightUpdater = new Runnable() {
-        @Override
-        public void run() {
-            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
-        }
-    };
+    /**
+     * Runs every midnight or when the time changes and refreshes the date.
+     */
+    private final Runnable mMidnightUpdater = () -> ScreensaverUtils.refreshAlarmAndDate(mBinding, mPrefs, mIsScreensaverTextUppercase);
 
     /**
      * Receiver to alarm clock changes.
@@ -67,7 +61,7 @@ public final class Screensaver extends DreamService {
     private final BroadcastReceiver mAlarmChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(@NonNull Context context, @NonNull Intent intent) {
-            AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
+            ScreensaverUtils.refreshAlarmAndDate(mBinding, mPrefs, mIsScreensaverTextUppercase);
         }
     };
 
@@ -88,11 +82,9 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver created");
         super.onCreate();
 
-        SharedPreferences prefs = getDefaultSharedPreferences(this);
-        mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs);
+        mPrefs = getDefaultSharedPreferences(this);
+        mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(mPrefs);
         mUiDataModel = UiDataModel.getUiDataModel();
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -133,8 +125,7 @@ public final class Screensaver extends DreamService {
             registerReceiver(mAlarmChangedReceiver, filter);
         }
 
-        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
-        AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
+        ScreensaverUtils.refreshAlarmAndDate(mBinding, mPrefs, mIsScreensaverTextUppercase);
 
         startPositionUpdater();
         mUiDataModel.addMidnightCallback(mMidnightUpdater, 100);

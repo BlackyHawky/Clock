@@ -81,6 +81,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_screensaver_display_next_alarm"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_next_alarm_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_display_screensaver_battery"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_battery_title"
@@ -114,14 +122,6 @@
             app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
-            android:key="key_screensaver_battery_color_picker"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/battery_color_title"
-            android:defaultValue="#FFFFFF"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_screensaver_date_color_picker"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/date_color_title"
@@ -133,6 +133,14 @@
             android:key="key_screensaver_next_alarm_color_picker"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/next_alarm_color_title"
+            android:defaultValue="#FFFFFF"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
+            android:key="key_screensaver_battery_color_picker"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/battery_color_title"
             android:defaultValue="#FFFFFF"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />

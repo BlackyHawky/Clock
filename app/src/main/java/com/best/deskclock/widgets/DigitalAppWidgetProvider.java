@@ -302,9 +302,11 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String nextAlarmTime = getNextAlarmTime(context);
+        boolean isAlarmVisible = WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) && !TextUtils.isEmpty(nextAlarmTime);
         boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
         boolean isDefaultDateColor = WidgetDAO.isDigitalWidgetDefaultDateColor(prefs);
-        String dateFormat = WidgetUtils.getDateFormat(context);
+        String dateFormat = WidgetUtils.getDateFormat(context, isAlarmVisible);
         String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
         if (isTopDateDisplayed) {
@@ -478,9 +480,11 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String nextAlarmTime = getNextAlarmTime(context);
+        boolean isAlarmVisible = WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) && !TextUtils.isEmpty(nextAlarmTime);
         boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
         boolean isDefaultDateColor = WidgetDAO.isDigitalWidgetDefaultDateColor(prefs);
-        String dateFormat = WidgetUtils.getDateFormat(context);
+        String dateFormat = WidgetUtils.getDateFormat(context, isAlarmVisible);
         String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
         if (isTopDateDisplayed) {

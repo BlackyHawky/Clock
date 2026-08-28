@@ -74,6 +74,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         ListPreference mClockDialMaterialPref;
         ListPreference mClockSecondHandPref;
         SwitchPreferenceCompat mDisplaySecondsPref;
+        SwitchPreferenceCompat mDisplayNextAlarmPref;
         SwitchPreferenceCompat mDisplayBatteryPref;
         CustomSliderPreference mDigitalClockFontSizePref;
         SwitchPreferenceCompat mDisplayTextUppercasePref;
@@ -222,6 +223,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mAnalogClockSizePref = findPreference(KEY_SCREENSAVER_ANALOG_CLOCK_SIZE);
             mDisplaySecondsPref = findPreference(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS);
             mClockSecondHandPref = findPreference(KEY_SCREENSAVER_CLOCK_SECOND_HAND);
+            mDisplayNextAlarmPref = findPreference(KEY_SCREENSAVER_DISPLAY_NEXT_ALARM);
             mDisplayBatteryPref = findPreference(KEY_DISPLAY_SCREENSAVER_BATTERY);
             mClockDynamicColorPref = findPreference(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS);
             mClockColorPref = findPreference(KEY_SCREENSAVER_CLOCK_COLOR_PICKER);
@@ -264,9 +266,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
         @Override
         public void onDestroy() {
-            nullifyPreferenceListeners(mClockColorPref, mBatteryColorPref, mDateColorPref, mNextAlarmColorPref, mClockStylePref,
-                mClockDialPref, mClockDialMaterialPref, mClockSecondHandPref, mDisplaySecondsPref, mDisplayBatteryPref,
-                mDigitalClockFontSizePref, mDisplayTextUppercasePref, mBoldDigitalClockPref, mClockDynamicColorPref,
+            nullifyPreferenceListeners(mClockStylePref, mClockDialPref, mClockDialMaterialPref, mClockSecondHandPref, mDisplaySecondsPref,
+                mDisplayNextAlarmPref, mDisplayBatteryPref, mClockDynamicColorPref, mClockColorPref, mDateColorPref, mNextAlarmColorPref,
+                mBatteryColorPref, mDigitalClockFontSizePref, mDisplayTextUppercasePref, mBoldDigitalClockPref,
                 mItalicDigitalClockPref, mBoldBatteryPref, mItalicBatteryPref, mBoldDatePref, mItalicDatePref, mBoldNextAlarmPref,
                 mItalicNextAlarmPref, mAnalogClockSizePref, mDigitalClockFontPref, mKeepScreenOnPref, mScreensaverBackgroundImagePref,
                 mScreensaverBlurIntensityPref, mScreensaverPreviewPref, mScreensaverMainSettingsPref);
@@ -287,19 +289,18 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     boolean isMaterialAnalogClock = newValue.equals(mMaterialAnalogClock);
                     boolean isDigitalClock = newValue.equals(mDigitalClock);
                     boolean areDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(getPrefs());
+                    boolean isNextAlarmDisplayed = SettingsDAO.isScreensaverNextAlarmDisplayed(getPrefs());
                     boolean isBatteryDisplayed = SettingsDAO.isScreensaverBatteryDisplayed(getPrefs());
+                    boolean displayGeneralColors = !SdkUtils.isAtLeastAndroid12() || !areDynamicColors || isMaterialAnalogClock;
 
                     if (SdkUtils.isAtLeastAndroid12()) {
                         mClockDynamicColorPref.setVisible(!isMaterialAnalogClock);
-                        mClockColorPref.setVisible(!isMaterialAnalogClock && !areDynamicColors);
-                        if (areDynamicColors) {
-                            mBatteryColorPref.setVisible(isBatteryDisplayed && isMaterialAnalogClock);
-                            mDateColorPref.setVisible(isMaterialAnalogClock);
-                            mNextAlarmColorPref.setVisible(isMaterialAnalogClock);
-                        }
-                    } else {
-                        mClockColorPref.setVisible(!isMaterialAnalogClock);
                     }
+
+                    mClockColorPref.setVisible(!isMaterialAnalogClock && (!SdkUtils.isAtLeastAndroid12() || !areDynamicColors));
+                    mDateColorPref.setVisible(displayGeneralColors);
+                    mNextAlarmColorPref.setVisible(isNextAlarmDisplayed && displayGeneralColors);
+                    mBatteryColorPref.setVisible(isBatteryDisplayed && displayGeneralColors);
 
                     mClockDialPref.setVisible(isAnalogClock);
                     mClockDialMaterialPref.setVisible(isMaterialAnalogClock);
@@ -312,12 +313,28 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mItalicDigitalClockPref.setVisible(isDigitalClock);
                 }
 
+                case KEY_SCREENSAVER_DISPLAY_NEXT_ALARM -> {
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                    boolean isNextAlarmDisplayed = (boolean) newValue;
+                    boolean areDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(getPrefs());
+                    boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
+                    boolean displayGeneralColors = !SdkUtils.isAtLeastAndroid12() || !areDynamicColors || isMaterialAnalogClock;
+
+                    mNextAlarmColorPref.setVisible(isNextAlarmDisplayed && displayGeneralColors);
+                    mBoldNextAlarmPref.setVisible(isNextAlarmDisplayed);
+                    mItalicNextAlarmPref.setVisible(isNextAlarmDisplayed);
+                }
+
                 case KEY_DISPLAY_SCREENSAVER_BATTERY -> {
                     Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                     boolean isBatteryVisible = (boolean) newValue;
+                    boolean areDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(getPrefs());
+                    boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
+                    boolean displayGeneralColors = !SdkUtils.isAtLeastAndroid12() || !areDynamicColors || isMaterialAnalogClock;
 
-                    mBatteryColorPref.setVisible(isBatteryVisible);
+                    mBatteryColorPref.setVisible(isBatteryVisible && displayGeneralColors);
                     mBoldBatteryPref.setVisible(isBatteryVisible);
                     mItalicBatteryPref.setVisible(isBatteryVisible);
                 }
@@ -342,12 +359,16 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 case KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS -> {
                     Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                    boolean areNotDynamicColors = !(boolean) newValue;
+                    boolean areDynamicColors = (boolean) newValue;
+                    boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
+                    boolean isNextAlarmDisplayed = SettingsDAO.isScreensaverNextAlarmDisplayed(getPrefs());
+                    boolean isBatteryDisplayed = SettingsDAO.isScreensaverBatteryDisplayed(getPrefs());
+                    boolean displayGeneralColors = !areDynamicColors || isMaterialAnalogClock;
 
-                    mClockColorPref.setVisible(areNotDynamicColors);
-                    mBatteryColorPref.setVisible(areNotDynamicColors);
-                    mDateColorPref.setVisible(areNotDynamicColors);
-                    mNextAlarmColorPref.setVisible(areNotDynamicColors);
+                    mClockColorPref.setVisible(!isMaterialAnalogClock && !areDynamicColors);
+                    mDateColorPref.setVisible(displayGeneralColors);
+                    mNextAlarmColorPref.setVisible(isNextAlarmDisplayed && displayGeneralColors);
+                    mBatteryColorPref.setVisible(isBatteryDisplayed && displayGeneralColors);
                 }
             }
 
@@ -383,8 +404,11 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             final boolean isAnalogClock = mClockStylePref.getValue().equals(mAnalogClock);
             final boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
             final boolean isDigitalClock = mClockStylePref.getValue().equals(mDigitalClock);
+            final boolean isNextAlarmDisplayed = SettingsDAO.isScreensaverNextAlarmDisplayed(getPrefs());
             final boolean isBatteryDisplayed = SettingsDAO.isScreensaverBatteryDisplayed(getPrefs());
             final String screensaverBackgroundImage = SettingsDAO.getScreensaverBackgroundImage(getPrefs());
+            final boolean areDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(getPrefs());
+            final boolean displayGeneralColors = !SdkUtils.isAtLeastAndroid12() || !areDynamicColors || isMaterialAnalogClock;
 
             mClockStylePref.setSummary(mClockStylePref.getEntry());
             mClockStylePref.setOnPreferenceChangeListener(this);
@@ -413,19 +437,22 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
             mClockSecondHandPref.setOnPreferenceChangeListener(this);
 
+            mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
+
             mDisplayBatteryPref.setOnPreferenceChangeListener(this);
 
             if (SdkUtils.isAtLeastAndroid12()) {
-                final boolean areScreensaverClockDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(getPrefs());
                 mClockDynamicColorPref.setVisible(!isMaterialAnalogClock);
                 mClockDynamicColorPref.setOnPreferenceChangeListener(this);
-                mClockColorPref.setVisible(!areScreensaverClockDynamicColors && !isMaterialAnalogClock);
-                mBatteryColorPref.setVisible(isBatteryDisplayed && (!areScreensaverClockDynamicColors || isMaterialAnalogClock));
-                mDateColorPref.setVisible(!areScreensaverClockDynamicColors || isMaterialAnalogClock);
-                mNextAlarmColorPref.setVisible(!areScreensaverClockDynamicColors || isMaterialAnalogClock);
-            } else {
-                mClockColorPref.setVisible(!isMaterialAnalogClock);
             }
+
+            mClockColorPref.setVisible(!isMaterialAnalogClock && (!SdkUtils.isAtLeastAndroid12() || !areDynamicColors));
+
+            mDateColorPref.setVisible(displayGeneralColors);
+
+            mNextAlarmColorPref.setVisible(isNextAlarmDisplayed && displayGeneralColors);
+
+            mBatteryColorPref.setVisible(isBatteryDisplayed && displayGeneralColors);
 
             mDigitalClockFontSizePref.setVisible(isDigitalClock);
 
@@ -447,8 +474,10 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
             mItalicDatePref.setOnPreferenceChangeListener(this);
 
+            mBoldNextAlarmPref.setVisible(isNextAlarmDisplayed);
             mBoldNextAlarmPref.setOnPreferenceChangeListener(this);
 
+            mItalicNextAlarmPref.setVisible(isNextAlarmDisplayed);
             mItalicNextAlarmPref.setOnPreferenceChangeListener(this);
 
             mKeepScreenOnPref.setOnPreferenceChangeListener(this);
@@ -475,6 +504,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockDialMaterialPref = null;
             mClockSecondHandPref = null;
             mDisplaySecondsPref = null;
+            mDisplayNextAlarmPref = null;
             mDisplayBatteryPref = null;
             mDigitalClockFontSizePref = null;
             mDisplayTextUppercasePref = null;

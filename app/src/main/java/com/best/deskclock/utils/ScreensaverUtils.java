@@ -37,6 +37,7 @@ import androidx.core.content.ContextCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.DeskClockSaverBinding;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 
@@ -341,10 +342,40 @@ public class ScreensaverUtils {
     }
 
     /**
+     * Refreshes the next alarm and date displayed on the screensaver.
+     * The date format automatically expands when the next alarm is hidden or unavailable.
+     *
+     * @param binding     The binding containing the screensaver views. If null, no action is performed.
+     * @param prefs       The shared preferences to retrieve user display settings.
+     * @param isUppercase True if the text should be displayed in uppercase, false otherwise.
+     */
+    public static void refreshAlarmAndDate(@Nullable DeskClockSaverBinding binding, @NonNull SharedPreferences prefs, boolean isUppercase) {
+        if (binding != null) {
+            Context context = binding.getRoot().getContext();
+            String shortDateFormat = context.getString(R.string.abbrev_wday_month_day_no_year);
+            String longDateFormat = context.getString(R.string.full_wday_month_day_no_year);
+
+            boolean isAlarmVisible = false;
+
+            if (SettingsDAO.isScreensaverNextAlarmDisplayed(prefs)) {
+                isAlarmVisible = AlarmUtils.refreshAlarm(binding.saverContainer, true, isUppercase);
+            } else {
+                binding.dateAndNextAlarmTime.nextAlarmIcon.setVisibility(View.GONE);
+                binding.dateAndNextAlarmTime.nextAlarm.setVisibility(View.GONE);
+            }
+
+            String datePattern = isAlarmVisible ? shortDateFormat : longDateFormat;
+
+            updateScreensaverDate(datePattern, longDateFormat, binding.saverContainer, prefs);
+        }
+    }
+
+    /**
      * Clock views can call this to refresh their date.
      **/
-    public static void updateScreensaverDate(@NonNull String dateSkeleton, @NonNull String descriptionSkeleton, @NonNull View clock) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
+    public static void updateScreensaverDate(@NonNull String dateSkeleton, @NonNull String descriptionSkeleton, @NonNull View clock,
+                                             @NonNull SharedPreferences prefs) {
+
         final TextView dateDisplay = clock.findViewById(R.id.date);
         if (dateDisplay == null) {
             return;

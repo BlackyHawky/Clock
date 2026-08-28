@@ -179,21 +179,26 @@ public class AlarmUtils {
 
     /**
      * Clock views can call this to refresh their alarm to the next upcoming value.
+     *
+     * @param clock         The view containing the alarm elements.
+     * @param isScreensaver True if the calling view is the screensaver, false otherwise.
+     * @param isUppercase   True if the alarm text should be displayed in uppercase.
+     * @return {@code true} if an upcoming alarm is active and currently displayed; {@code false} otherwise.
      */
-    public static void refreshAlarm(@NonNull View clock, boolean isScreensaver, boolean isUppercase) {
+    public static boolean refreshAlarm(@NonNull View clock, boolean isScreensaver, boolean isUppercase) {
         final Context context = clock.getContext();
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
 
         if (nextAlarmView == null) {
-            return;
+            return false;
         }
 
         AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
         if (instance == null) {
             nextAlarmIconView.setVisibility(View.GONE);
             nextAlarmView.setVisibility(View.GONE);
-            return;
+            return false;
         }
 
         Calendar alarmCalendar = Calendar.getInstance();
@@ -206,6 +211,7 @@ public class AlarmUtils {
         if (TextUtils.isEmpty(alarmFormattedTime)) {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
+            return false;
         } else {
             String description = context.getString(R.string.next_alarm_description, alarmFormattedTime);
             nextAlarmView.setAllCaps(isUppercase);
@@ -214,6 +220,7 @@ public class AlarmUtils {
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setContentDescription(description);
+            return true;
         }
     }
 

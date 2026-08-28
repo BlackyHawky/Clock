@@ -241,6 +241,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the next alarm is displayed in the clock tab; {@code false} otherwise.
+     */
+    public static boolean isNextAlarmDisplayed(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getBoolean(KEY_DISPLAY_NEXT_ALARM, DEFAULT_DISPLAY_NEXT_ALARM);
+    }
+
+    /**
      * @return the font applied to the digital clock in the Clock tab.
      */
     public static String getDigitalClockFont(@NonNull SharedPreferences prefs) {
@@ -248,8 +256,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the text is displayed in uppercase in the clock tab;
-     * {@code false} otherwise.
+     * @return {@code true} if the text is displayed in uppercase in the clock tab; {@code false} otherwise.
      */
     public static boolean isTextUppercaseDisplayed(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_clock.xml
@@ -484,6 +491,14 @@ public final class SettingsDAO {
     public static String getScreensaverClockSecondHand(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getString(KEY_SCREENSAVER_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
+    }
+
+    /**
+     * @return {@code true} if the next alarm is displayed in the screensaver; {@code false} otherwise.
+     */
+    public static boolean isScreensaverNextAlarmDisplayed(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
+        return prefs.getBoolean(KEY_SCREENSAVER_DISPLAY_NEXT_ALARM, DEFAULT_DISPLAY_NEXT_ALARM);
     }
 
     /**
