@@ -135,9 +135,9 @@ public class TimerItemCompact extends ConstraintLayout {
         mIsTimerEndTimeDisplayed = isTimerEndTimeDisplayed;
     }
 
-    public void setButtonPosition(boolean areTimerButtonPositionsInverted) {
+    public void setButtonPosition(boolean areTimerButtonPositionsInverted, boolean isRtl) {
         if (areTimerButtonPositionsInverted) {
-            mBinding.timerControlsContainer.setLayoutDirection(ThemeUtils.isRTL(getContext())
+            mBinding.timerControlsContainer.setLayoutDirection(isRtl
                 ? LAYOUT_DIRECTION_LTR
                 : LAYOUT_DIRECTION_RTL
             );

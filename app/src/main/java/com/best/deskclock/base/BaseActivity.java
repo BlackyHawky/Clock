@@ -77,6 +77,7 @@ public class BaseActivity extends AppCompatActivity {
     private UiDataModel mUiDataModel;
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private boolean mIsRtl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class BaseActivity extends AppCompatActivity {
         mUiDataModel = UiDataModel.getUiDataModel();
         mPrefs = getDefaultSharedPreferences(Utils.getSafeStorageContext(this));
         mDisplayMetrics = getResources().getDisplayMetrics();
+        mIsRtl = ThemeUtils.isRTL(this);
 
         applyThemeAndAccentColor();
 
@@ -315,6 +317,10 @@ public class BaseActivity extends AppCompatActivity {
 
     protected final DisplayMetrics getDisplayMetrics() {
         return mDisplayMetrics;
+    }
+
+    protected final boolean isRtl() {
+        return mIsRtl;
     }
 
 }

@@ -134,7 +134,7 @@ public final class ClockFragment extends DeskClockFragment {
         mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         mBinding.cityRecyclerView.addItemDecoration(
-            new CitySpacingItemDecoration(requireContext(), getDisplayMetrics(), isPortrait(), isTablet())
+            new CitySpacingItemDecoration(getDisplayMetrics(), isPortrait(), isTablet(), isRtl())
         );
 
         if (isPortrait()) {
@@ -430,16 +430,14 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final boolean mIsRTL;
 
-        public CitySpacingItemDecoration(@NonNull Context context, @NonNull DisplayMetrics displayMetrics, boolean isPortrait,
-                                         boolean isTablet) {
-
+        public CitySpacingItemDecoration(@NonNull DisplayMetrics displayMetrics, boolean isPortrait, boolean isTablet, boolean isRtl) {
             boolean isPhoneInLandscapeMode = !isTablet && !isPortrait;
 
             this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, displayMetrics);
             this.rightMargin = (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, displayMetrics);
             this.spacing = (int) dpToPx(2, displayMetrics);
             this.bottomMargin = (int) dpToPx(10, displayMetrics);
-            this.mIsRTL = ThemeUtils.isRTL(context);
+            this.mIsRTL = isRtl;
         }
 
         @Override
