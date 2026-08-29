@@ -176,9 +176,7 @@ public class AnalogClock extends FrameLayout {
         mAnalogDialMaterialPref = getMaterialAnalogDialPreference();
         mAnalogSecondHandPref = getAnalogSecondHandPreference();
 
-        final String accentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)
-            ? SettingsDAO.getNightAccentColor(mPrefs)
-            : SettingsDAO.getAccentColor(mPrefs);
+        final String accentColor = ThemeUtils.getActiveAccentColor(getContext(), mPrefs);
         final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
         final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, getContext());
         final int defaultClockColor = MaterialColors.getColor(getContext(), android.R.attr.textColorPrimary, Color.BLACK);

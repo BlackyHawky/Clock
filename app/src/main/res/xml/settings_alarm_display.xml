@@ -99,7 +99,6 @@
             android:key="key_alarm_background_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
-            android:defaultValue="#FF191C1E"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
