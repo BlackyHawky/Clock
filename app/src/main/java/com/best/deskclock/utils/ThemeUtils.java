@@ -340,6 +340,21 @@ public class ThemeUtils {
     }
 
     /**
+     * Resolves the currently active accent color based on the current theme (day/night)
+     * and user preferences for automatic night accent colors.
+     *
+     * @param context The context used to determine if night mode is active.
+     * @param prefs   The shared preferences containing the user's color choices.
+     * @return The resolved accent color string identifier.
+     */
+    @NonNull
+    public static String getActiveAccentColor(@NonNull Context context, @NonNull SharedPreferences prefs) {
+        return isNight(context.getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(prefs)
+            ? SettingsDAO.getNightAccentColor(prefs)
+            : SettingsDAO.getAccentColor(prefs);
+    }
+
+    /**
      * Creates a themed context applying the user's selected accent color style.
      *
      * <p>This ensures that custom toasts correctly resolve Material color attributes

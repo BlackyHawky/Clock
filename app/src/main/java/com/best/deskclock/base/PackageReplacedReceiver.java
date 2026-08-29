@@ -3,6 +3,7 @@
 package com.best.deskclock.base;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
@@ -12,6 +13,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
@@ -60,6 +62,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                 // Update the blur setting keys stored in SharedPreferences
                 migrateBlurSettings(context);
+
+                // Update the default alarm background color stored in SharedPreferences
+                migrateAlarmBackgroundColor(context);
             } finally {
                 result.finish();
                 wl.release();
@@ -148,6 +153,26 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         if (hasChanges) {
             editor.commit();
             LogUtils.i("PackageReplacedReceiver - Blur settings migrated successfully");
+        }
+    }
+
+    @SuppressLint("ApplySharedPref")
+    private void migrateAlarmBackgroundColor(@NonNull Context context) {
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        String key = KEY_ALARM_BACKGROUND_COLOR;
+
+        if (prefs.contains(key)) {
+            int savedColor = prefs.getInt(key, 0);
+            int oldDefaultColor = Color.parseColor("#FF191C1E");
+
+            if (savedColor == oldDefaultColor) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.remove(key);
+                editor.commit();
+
+                LogUtils.i("PackageReplacedReceiver - Alarm background color setting migrated successfully");
+            }
         }
     }
 }

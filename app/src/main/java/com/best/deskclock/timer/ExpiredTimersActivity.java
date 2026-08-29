@@ -192,9 +192,7 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         setContentView(mBinding.getRoot());
 
-        String activeAccentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(getPrefs())
-            ? SettingsDAO.getNightAccentColor(getPrefs())
-            : SettingsDAO.getAccentColor(getPrefs());
+        String activeAccentColor = ThemeUtils.getActiveAccentColor(this, getPrefs());
 
         getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
 

@@ -432,6 +432,10 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
         mAlarmClockColorPref.setVisible(!isMaterialAnalogClock);
 
+        String activeAccentColor = ThemeUtils.getActiveAccentColor(requireContext(), getPrefs());
+        int defaultBackgroundColor = ThemeUtils.getNightBackgroundColor(requireContext(), activeAccentColor);
+        mBackgroundColorPref.setDefaultValue(defaultBackgroundColor);
+
         mAnalogClockSizePref.setVisible(!isDigitalClock);
 
         mDisplaySecondsPref.setVisible(!isDigitalClock);

@@ -145,7 +145,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DISPLAY_ALARM_SECOND_HAND = true;
     public static final boolean DEFAULT_SWIPE_ACTION = true;
     public static final boolean DEFAULT_DISPLAY_SNOOZE_SELECTOR = false;
-    public static final int DEFAULT_ALARM_BACKGROUND_COLOR = Color.parseColor("#FF191C1E");
     public static final int DEFAULT_ALARM_BACKGROUND_AMOLED_COLOR = Color.BLACK;
     public static final int DEFAULT_SLIDE_ZONE_COLOR = Color.parseColor("#FF2E3337");
     public static final int DEFAULT_ALARM_CLOCK_COLOR = Color.WHITE;

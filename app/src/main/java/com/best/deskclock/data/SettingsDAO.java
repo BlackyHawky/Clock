@@ -19,6 +19,7 @@ import static java.util.Calendar.SUNDAY;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.icu.text.TimeZoneNames;
 import android.net.Uri;
 
@@ -31,6 +32,7 @@ import com.best.deskclock.data.DataModel.HeadphonesButtonBehavior;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -1395,9 +1397,13 @@ public final class SettingsDAO {
     /**
      * @return a value indicating the alarm background color.
      */
-    public static int getAlarmBackgroundColor(@NonNull SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_BACKGROUND_COLOR, DEFAULT_ALARM_BACKGROUND_COLOR);
+    public static int getAlarmBackgroundColor(@NonNull SharedPreferences prefs, @NonNull Context context) {
+        if (prefs.contains(KEY_ALARM_BACKGROUND_COLOR)) {
+            return prefs.getInt(KEY_ALARM_BACKGROUND_COLOR, Color.WHITE);
+        }
+
+        String activeAccentColor = ThemeUtils.getActiveAccentColor(context, prefs);
+        return ThemeUtils.getNightBackgroundColor(context, activeAccentColor);
     }
 
     /**

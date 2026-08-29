@@ -665,7 +665,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
-            : SettingsDAO.getAlarmBackgroundColor(getPrefs());
+            : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
         final boolean isPerAlarmBackgroundImageEnable = SettingsDAO.isPerAlarmBackgroundImageEnable(getPrefs());
         String imagePath = SettingsDAO.getAlarmBackgroundImage(getPrefs());
 

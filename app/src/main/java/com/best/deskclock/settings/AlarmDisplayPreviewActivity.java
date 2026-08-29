@@ -342,7 +342,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
-            : SettingsDAO.getAlarmBackgroundColor(getPrefs());
+            : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
 
         String previewImage = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE);
         final String imagePath = TextUtils.isEmpty(previewImage)
