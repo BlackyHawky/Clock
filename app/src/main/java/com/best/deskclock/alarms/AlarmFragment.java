@@ -210,7 +210,7 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding.alarmRecyclerView.setLayoutManager(getLayoutManager());
 
-        mBinding.alarmRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), getDisplayMetrics()));
+        mBinding.alarmRecyclerView.addItemDecoration(new GridSpacingItemDecoration(getDisplayMetrics(), isRtl()));
 
         RecyclerView.ItemAnimator animator = mBinding.alarmRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -242,7 +242,8 @@ public final class AlarmFragment extends DeskClockFragment
         mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
         AlarmItemTouchHelper callback =
-            new AlarmItemTouchHelper(requireContext(), this, mBinding.alarmRecyclerView, isTablet(), isLandscape());
+            new AlarmItemTouchHelper(requireContext(), getPrefs(), this, mBinding.alarmRecyclerView, getDisplayMetrics(),
+                isTablet(), isLandscape(), isRtl());
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
@@ -1132,10 +1133,10 @@ public final class AlarmFragment extends DeskClockFragment
         private final int bottomMargin;
         private final boolean mIsRTL;
 
-        public GridSpacingItemDecoration(@NonNull Context context, @NonNull DisplayMetrics displayMetrics) {
+        public GridSpacingItemDecoration(@NonNull DisplayMetrics displayMetrics, boolean isRtl) {
             this.margin = (int) dpToPx(10, displayMetrics);
             this.bottomMargin = (int) dpToPx(2, displayMetrics);
-            this.mIsRTL = ThemeUtils.isRTL(context);
+            this.mIsRTL = isRtl;
         }
 
         @Override

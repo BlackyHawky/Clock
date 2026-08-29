@@ -3,7 +3,6 @@
 package com.best.deskclock.alarms;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,8 +50,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private final boolean mIsVibrationEnabled;
     private final boolean mIsTablet;
     private final boolean mIsLandscape;
-    private final boolean mIsRtl;
-
+    private final int mTouchSlop;
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
     private final Rect mClipBounds = new Rect();
@@ -75,18 +74,17 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private boolean mIsTouchingItem = false;
     private boolean mIsTouchingClock = false;
 
-    public AlarmItemTouchHelper(@NonNull Context context, @NonNull AlarmTouchContract contract, @NonNull RecyclerView recyclerView,
-                                boolean isTablet, boolean isLandscape) {
+    public AlarmItemTouchHelper(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmTouchContract contract,
+                                @NonNull RecyclerView recyclerView, @NonNull DisplayMetrics displayMetrics, boolean isTablet,
+                                boolean isLandscape, boolean isRtl) {
 
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.END);
 
         mContract = contract;
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
         mIsVibrationEnabled = SettingsDAO.isVibrationsEnabled(prefs);
         mIsTablet = isTablet;
         mIsLandscape = isLandscape;
-        mIsRtl = ThemeUtils.isRTL(context);
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
         mLargeRadius = dpToPx(18, displayMetrics);
         mSmallRadius = dpToPx(4, displayMetrics);
@@ -105,11 +103,10 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         mDeleteTextPaint = new TextPaint();
         mDeleteTextPaint.setAntiAlias(true);
-        mDeleteTextPaint.setTextSize(TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP, 16, context.getResources().getDisplayMetrics()));
+        mDeleteTextPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, displayMetrics));
         mDeleteTextPaint.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnError, Color.BLACK));
         mDeleteTextPaint.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs)));
-        mDeleteTextPaint.setTextAlign(mIsRtl ? Paint.Align.RIGHT : Paint.Align.LEFT);
+        mDeleteTextPaint.setTextAlign(isRtl ? Paint.Align.RIGHT : Paint.Align.LEFT);
 
         mTopRadii = new float[]{
             mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius,
@@ -135,6 +132,10 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                         mIsTouchingItem = (child != null);
 
                         if (child != null) {
+                            if (rv.getParent() != null) {
+                                rv.getParent().requestDisallowInterceptTouchEvent(true);
+                            }
+
                             RecyclerView.ViewHolder holder = rv.getChildViewHolder(child);
 
                             if (holder instanceof AlarmItemViewHolder alarmItemViewHolder) {
@@ -169,11 +170,16 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
                         float dx = e.getX() - mStartX;
                         float dy = Math.abs(e.getY() - mStartY);
-                        boolean isSwipeToDeleteDirection = mIsRtl ? (dx < 0) : (dx > 0);
+                        boolean isSwipeToDeleteDirection = isRtl ? (dx < 0) : (dx > 0);
 
-                        if (isSwipeToDeleteDirection && Math.abs(dx) > dy) {
-                            if (rv.getParent() != null) {
+                        if (rv.getParent() != null) {
+                            if (isSwipeToDeleteDirection) {
+                                // Confirm that the ViewPager is blocked if the user swipes in the correct direction to delete an alarm.
                                 rv.getParent().requestDisallowInterceptTouchEvent(true);
+                            } else if (Math.abs(dx) > dy && Math.abs(dx) > mTouchSlop) {
+                                // The user intentionally swiped in the opposite direction for a distance greater
+                                // than the official Android TouchSlop.
+                                rv.getParent().requestDisallowInterceptTouchEvent(false);
                             }
                         }
                     }
@@ -199,6 +205,22 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
             }
         });
+    }
+
+    @Override
+    public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
+        View itemView = viewHolder.itemView;
+
+        if (itemView.getParent() instanceof RecyclerView recyclerView) {
+            // The width ratio between the alarm card and the full grid.
+            float widthRatio = (float) itemView.getWidth() / recyclerView.getWidth();
+
+            // Returns 50% of the alarm card width.
+            return 0.5f * widthRatio;
+        }
+
+        // Fallback value
+        return 0.5f;
     }
 
     @Override

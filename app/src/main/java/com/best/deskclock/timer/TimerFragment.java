@@ -163,7 +163,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         });
 
         mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
-        mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), getDisplayMetrics()));
+        mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(getDisplayMetrics(), isRtl()));
 
         RecyclerView.ItemAnimator animator = mBinding.timerRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -246,7 +246,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(boldTypeface);
 
         mAdapter = new TimerAdapter(requireContext(), getPrefs(), getDataModel(), new TimerClickHandler(this, getDataModel()),
-            isTablet(), isLandscape(), regularTypeface, boldTypeface, mSettings);
+            isTablet(), isLandscape(), isRtl(), regularTypeface, boldTypeface, mSettings);
 
         mBinding.timerRecyclerView.setAdapter(mAdapter);
         mAdapter.loadTimersAsync();
@@ -909,10 +909,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         private final int spacing;
         private final boolean mIsRTL;
 
-        public GridSpacingItemDecoration(@NonNull Context context, @NonNull DisplayMetrics displayMetrics) {
+        public GridSpacingItemDecoration(@NonNull DisplayMetrics displayMetrics, boolean isRtl) {
             this.margin = (int) dpToPx(10, displayMetrics);
             this.spacing = (int) dpToPx(2, displayMetrics);
-            this.mIsRTL = ThemeUtils.isRTL(context);
+            this.mIsRTL = isRtl;
         }
 
         @Override

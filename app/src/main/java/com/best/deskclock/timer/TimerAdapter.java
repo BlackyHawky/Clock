@@ -60,6 +60,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private RecyclerView mRecyclerView;
     private final boolean mIsTablet;
     private final boolean mIsLandscape;
+    private final boolean mIsRtl;
 
     private final Drawable.ConstantState mBgStandard;
     private final Drawable.ConstantState mBgStart;  // Top (Portrait) or Left (Landscape)
@@ -67,7 +68,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Drawable.ConstantState mBgEnd;    // Bottom (Portrait) or Right (Landscape)
 
     public TimerAdapter(@NonNull Context context, @NonNull SharedPreferences sharedPreferences, @NonNull DataModel dataModel,
-                        @NonNull TimerClickHandler timerClickHandler, boolean isTablet, boolean isLandscape,
+                        @NonNull TimerClickHandler timerClickHandler, boolean isTablet, boolean isLandscape, boolean isRtl,
                         @NonNull Typeface regularTypeface, @NonNull Typeface boldTypeface, @NonNull TimerSettings settings) {
 
         mContext = context;
@@ -76,6 +77,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mTimerClickHandler = timerClickHandler;
         mIsTablet = isTablet;
         mIsLandscape = isLandscape;
+        mIsRtl = isRtl;
         mRegularTypeface = regularTypeface;
         mBoldTypeface = boldTypeface;
         mSettings = settings;
@@ -183,7 +185,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         return new TimerViewHolder(
-            view, this, mTimerClickHandler, viewType, mRegularTypeface, mBoldTypeface, mIsTablet, mIsLandscape);
+            view, this, mTimerClickHandler, viewType, mRegularTypeface, mBoldTypeface, mIsTablet, mIsLandscape, mIsRtl);
     }
 
     @Override

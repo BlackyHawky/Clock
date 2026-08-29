@@ -300,7 +300,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
                 getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = compactBinding.getRoot();
-            ((TimerItemCompact) view).setButtonPosition(mAreTimerButtonPositionsInverted);
+            ((TimerItemCompact) view).setButtonPosition(mAreTimerButtonPositionsInverted, isRtl());
             ((TimerItemCompact) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
             ((TimerItemCompact) view).setTimerTimeFont(mTimerTimeTypeface);
             ((TimerItemCompact) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
@@ -320,7 +320,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
-            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, mIsTablet, !mIsPortrait, false);
+            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, mIsTablet, !mIsPortrait, false, isRtl());
             ((TimerItem) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
             ((TimerItem) view).setTimerTimeFont(mTimerTimeTypeface);
             ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);

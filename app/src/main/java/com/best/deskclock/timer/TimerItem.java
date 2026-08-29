@@ -140,12 +140,11 @@ public class TimerItem extends ConstraintLayout {
         mIsTimerEndTimeDisplayed = isTimerEndTimeDisplayed;
     }
 
-    public void setButtonPosition(boolean areTimerButtonPositionsInverted, boolean isTablet, boolean isLandscape, boolean isSingleTimer) {
+    public void setButtonPosition(boolean areTimerButtonPositionsInverted, boolean isTablet, boolean isLandscape, boolean isSingleTimer,
+                                  boolean isRtl) {
+
         if (areTimerButtonPositionsInverted) {
-            mBinding.getRoot().setLayoutDirection(ThemeUtils.isRTL(getContext())
-                ? LAYOUT_DIRECTION_LTR
-                : LAYOUT_DIRECTION_RTL
-            );
+            mBinding.getRoot().setLayoutDirection(isRtl ? LAYOUT_DIRECTION_LTR : LAYOUT_DIRECTION_RTL);
         } else {
             mBinding.getRoot().setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
         }

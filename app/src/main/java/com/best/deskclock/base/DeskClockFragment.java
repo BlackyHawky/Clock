@@ -43,6 +43,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     private boolean mIsTablet;
     private boolean mIsPortrait;
     private boolean mIsLandscape;
+    private boolean mIsRtl;
 
     public DeskClockFragment(Tab tab) {
         mTab = tab;
@@ -59,6 +60,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         mIsTablet = ThemeUtils.isTablet();
         mIsPortrait = ThemeUtils.isPortrait();
         mIsLandscape = ThemeUtils.isLandscape();
+        mIsRtl = ThemeUtils.isRTL(requireContext());
     }
 
     @Override
@@ -155,5 +157,9 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
 
     protected final boolean isLandscape() {
         return mIsLandscape;
+    }
+
+    protected final boolean isRtl() {
+        return mIsRtl;
     }
 }

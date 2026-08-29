@@ -35,9 +35,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     private final int mViewType;
     private final boolean mIsTablet;
     private final boolean mIsLandscape;
+    private final boolean mIsRtl;
 
     public TimerViewHolder(@NonNull View view, @NonNull TimerAdapter timerAdapter, @NonNull TimerClickHandler timerClickHandler,
-                           int viewType, @NonNull Typeface regular, @NonNull Typeface bold, boolean isTablet, boolean isLandscape) {
+                           int viewType, @NonNull Typeface regular, @NonNull Typeface bold, boolean isTablet, boolean isLandscape,
+                           boolean isRtl) {
 
         super(view);
 
@@ -45,6 +47,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         mViewType = viewType;
         mIsTablet = isTablet;
         mIsLandscape = isLandscape;
+        mIsRtl = isRtl;
 
         final MaterialButton playPauseButton;
         final MaterialButton resetButton;
@@ -117,14 +120,14 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             mTimerItem.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
             mTimerItem.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
             mTimerItem.setButtonPosition(
-                settings.areTimerButtonPositionsInverted, mIsTablet, mIsLandscape, mViewType == TimerAdapter.SINGLE_TIMER);
+                settings.areTimerButtonPositionsInverted, mIsTablet, mIsLandscape, mViewType == TimerAdapter.SINGLE_TIMER, mIsRtl);
             mTimerItem.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
             mTimerItem.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
         } else if (mTimerItemCompact != null) {
             mTimerItemCompact.setTimerTimeFont(settings.timerTimeTypeface);
             mTimerItemCompact.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
             mTimerItemCompact.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
-            mTimerItemCompact.setButtonPosition(settings.areTimerButtonPositionsInverted);
+            mTimerItemCompact.setButtonPosition(settings.areTimerButtonPositionsInverted, mIsRtl);
             mTimerItemCompact.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
             mTimerItemCompact.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
         }
