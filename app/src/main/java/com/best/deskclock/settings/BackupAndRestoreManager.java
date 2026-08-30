@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package com.best.deskclock.utils;
+package com.best.deskclock.settings;
 
 import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
@@ -40,6 +40,10 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,7 +69,7 @@ import java.util.Set;
 /**
  * This class lists all settings that can be backed up or restored.
  */
-public class BackupAndRestoreUtils {
+public class BackupAndRestoreManager {
 
     public static boolean isRestoringBackupOrIsResettingApp = false;
     public static boolean appNeedsRestart = false;
@@ -357,7 +361,7 @@ public class BackupAndRestoreUtils {
         // Clear the alarm list before restoring to avoid adding duplicates
         final List<Alarm> alarms = Alarm.getAlarms(contentResolver, null);
         for (Alarm alarm : alarms) {
-            AlarmStateManager.deleteAllInstances(context, alarm.id);
+            AlarmStateManager.deleteAllInstances(context, prefs, alarm.id);
             Alarm.deleteAlarm(contentResolver, alarm.id);
         }
 
@@ -464,8 +468,8 @@ public class BackupAndRestoreUtils {
         if (restoredAlarm.enabled) {
             AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance());
             alarmInstance.addInstance(contentResolver);
-            AlarmStateManager.registerInstance(context, alarmInstance, false);
-            LogUtils.i("BackupAndRestoreUtils scheduled alarm instance: %s", alarmInstance);
+            AlarmStateManager.registerInstance(context, prefs, alarmInstance, false);
+            LogUtils.i("BackupAndRestoreManager scheduled alarm instance: %s", alarmInstance);
         }
     }
 

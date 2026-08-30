@@ -6,11 +6,9 @@
 
 package com.best.deskclock.provider;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
@@ -22,7 +20,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -31,8 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
-import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 
@@ -451,18 +446,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         contentResolver.delete(getContentUri(instanceId), "", null);
     }
 
-    public static void deleteOtherInstances(@NonNull Context context, @NonNull ContentResolver contentResolver, long alarmId,
-                                            long instanceId) {
-
-        final List<AlarmInstance> instances = getInstancesByAlarmId(contentResolver, alarmId);
-        for (AlarmInstance instance : instances) {
-            if (instance.mId != instanceId) {
-                AlarmStateManager.unregisterInstance(context, instance);
-                deleteInstance(contentResolver, instance.mId);
-            }
-        }
-    }
-
     public String getLabelOrDefault(@NonNull Context context) {
         return mLabel.isEmpty() ? context.getString(R.string.default_label) : mLabel;
     }
@@ -499,10 +482,9 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return the time
      */
     @NonNull
-    public Calendar getNotificationTime(@NonNull Context context) {
+    public Calendar getNotificationTime(int notificationReminderTime) {
         Calendar calendar = getAlarmTime();
-        int getAlarmNotificationReminderTime = SettingsDAO.getAlarmNotificationReminderTime(getDefaultSharedPreferences(context));
-        calendar.add(Calendar.MINUTE, -getAlarmNotificationReminderTime);
+        calendar.add(Calendar.MINUTE, -notificationReminderTime);
         return calendar;
     }
 
@@ -524,7 +506,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return the time when alarm should be silence, or null if never
      */
     @Nullable
-    public Calendar getTimeout(@NonNull Context context, @Nullable Alarm alarm) {
+    public Calendar getTimeout(@NonNull Context context, boolean hasMathMission) {
         Calendar calendar = getAlarmTime();
 
         if (mAutoSilenceDuration == TIMEOUT_NEVER) {
@@ -541,14 +523,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         } else {
             durationSeconds = mAutoSilenceDuration;
         }
-
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-
-        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs) || alarm == null
-            ? SettingsDAO.getAlarmMathHardnessLevel(prefs)
-            : alarm.mathHardnessLevel;
-
-        boolean hasMathMission = !mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL);
 
         if (hasMathMission) {
             durationSeconds = Math.max(durationSeconds, DEFAULT_AUTO_SILENCE_DURATION);

@@ -254,7 +254,7 @@ public final class RingtoneModel {
     }
 
     String getRingtoneTitle(@NonNull Uri uri) {
-        final Context localizedContext = Utils.getLocalizedContext(mContext);
+        final Context localizedContext = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs));
 
         // Special case: no ringtone has a title of "random" or "random_custom.
         if (RANDOM_RINGTONE.equals(uri) || RANDOM_CUSTOM_RINGTONE.equals(uri)) {

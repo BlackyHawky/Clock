@@ -26,7 +26,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
@@ -50,6 +48,7 @@ import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
 import com.best.deskclock.timer.TimerItem;
 import com.best.deskclock.timer.TimerItemCompact;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -62,18 +61,16 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
     private ExpiredTimersActivityBinding mBinding;
 
-    private Typeface mRegularTypeface;
-    private Typeface mBoldTypeface;
+    private UiConfig.CardStyle mCardStyleConfig;
+    private boolean mIsFadeTransition;
+    private String mTimerFontPath;
     private Typeface mTimerTimeTypeface;
-    private DisplayMetrics mDisplayMetrics;
     private boolean mAreTimerButtonPositionsInverted;
     private boolean mIsIndicatorStateDisplayed;
     private int mColorPaused;
     private int mColorRunning;
     private int mColorExpired;
     private int mColorMissed;
-    private boolean mIsPortrait;
-    private boolean mIsTablet;
     private int mMargin10;
 
     /**
@@ -87,34 +84,26 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         mBinding = ExpiredTimersActivityBinding.inflate(getLayoutInflater());
 
+        mCardStyleConfig = getCardStyleConfig();
+
+        mTimerFontPath = SettingsDAO.getTimerDurationFont(getPrefs());
+        mIsFadeTransition = SettingsDAO.isFadeTransitionsEnabled(getPrefs());
         mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
         mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());
         mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(getPrefs());
         mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(getPrefs());
         mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(getPrefs());
         mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(getPrefs());
-        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
-        mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(getPrefs()));
-        mDisplayMetrics = getResources().getDisplayMetrics();
-        mIsPortrait = ThemeUtils.isPortrait();
-        mIsTablet = ThemeUtils.isTablet();
-        mMargin10 = (int) dpToPx(10, mDisplayMetrics);
-
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        mMargin10 = (int) dpToPx(10, getDisplayMetrics());
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (mIsPortrait) {
+        if (isPortrait()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
         setContentView(mBinding.getRoot());
 
-        String activeAccentColor = ThemeUtils.getActiveAccentColor(this, getPrefs());
-
-        getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
+        getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, getActiveAccentColor())));
 
         if (mBinding.expiredTimersScrollVertical != null) {
             mExpiredTimersScrollView = mBinding.expiredTimersScrollVertical;
@@ -201,13 +190,24 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        mRegularTypeface = null;
-        mBoldTypeface = null;
         mTimerTimeTypeface = null;
 
         mBinding = null;
 
         super.onDestroy();
+    }
+
+    @NonNull
+    @Override
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(
+            getGeneralTypeface(),
+            getGeneralBoldTypeface(),
+            null,
+            getTimerTypeface(),
+            null,
+            null
+        );
     }
 
     /**
@@ -218,7 +218,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         final Drawable iconRingtone = silent
             ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
             : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int iconRingtoneSize = (int) dpToPx(24, mDisplayMetrics);
+        int iconRingtoneSize = (int) dpToPx(24, getDisplayMetrics());
         final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(getPrefs());
         final int shadowOffset = SettingsDAO.getTimerShadowOffset(getPrefs());
         final float shadowRadius = shadowOffset * 0.5f;
@@ -262,7 +262,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         }
 
         mBinding.ringtoneTitle.setText(getDataModel().getTimerRingtoneTitle());
-        mBinding.ringtoneTitle.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs())));
+        mBinding.ringtoneTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "expired_timers_activity.xml" file)
         mBinding.ringtoneTitle.setSelected(true);
@@ -288,7 +288,9 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     private void addTimer(@NonNull Timer timer) {
         final int timerId = timer.getId();
         final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(getPrefs()) && !SettingsDAO.isSingleTimerModeEnabled(getPrefs());
-        final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
+        final boolean useCompactLayout = isPortrait() && isCompact;
+        UiConfig.Fonts fonts = getFontsConfig();
+        Typeface timerFont = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
 
         final View view;
         final TextView labelView;
@@ -301,8 +303,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
             view = compactBinding.getRoot();
             ((TimerItemCompact) view).setButtonPosition(mAreTimerButtonPositionsInverted, isRtl());
-            ((TimerItemCompact) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
-            ((TimerItemCompact) view).setTimerTimeFont(mTimerTimeTypeface);
+            ((TimerItemCompact) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
+            ((TimerItemCompact) view).setTimerTimeFont(timerFont);
             ((TimerItemCompact) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
             ((TimerItemCompact) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
             ((TimerItemCompact) view).bindTimer(timer, false);
@@ -320,9 +322,9 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
-            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, mIsTablet, !mIsPortrait, false, isRtl());
-            ((TimerItem) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
-            ((TimerItem) view).setTimerTimeFont(mTimerTimeTypeface);
+            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, isTablet(), !isPortrait(), false, isRtl());
+            ((TimerItem) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
+            ((TimerItem) view).setTimerTimeFont(timerFont);
             ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
             ((TimerItem) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
             ((TimerItem) view).bindTimer(timer, false);
@@ -369,9 +371,10 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     private void setTimerBackground() {
         View child = mBinding.expiredTimersList.getChildAt(0);
 
-        child.setBackground(ThemeUtils.cardBackground(this));
+        child.setBackground(ThemeUtils.cardBackground(this, getDisplayMetrics(), mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(), mCardStyleConfig.isAmoledDarkMode()));
 
-        final boolean isTabletOrPortrait = mIsTablet || mIsPortrait;
+        final boolean isTabletOrPortrait = isTablet() || isPortrait();
 
         if (isTabletOrPortrait && child.getLayoutParams() instanceof ViewGroup.MarginLayoutParams layoutParams) {
             layoutParams.leftMargin = mMargin10;
@@ -381,7 +384,20 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Lazy loading for the bold timer font.
+     *
+     * @return the bold timer font.
+     */
+    protected final Typeface getTimerTypeface() {
+        if (mTimerTimeTypeface == null) {
+            mTimerTimeTypeface = ThemeUtils.boldTypeface(mTimerFontPath);
+        }
+
+        return mTimerTimeTypeface;
+    }
+
     private void finishActivity() {
-        ThemeUtils.finishActivityWithTransition(this);
+        ThemeUtils.finishActivityWithTransition(this, mIsFadeTransition);
     }
 }

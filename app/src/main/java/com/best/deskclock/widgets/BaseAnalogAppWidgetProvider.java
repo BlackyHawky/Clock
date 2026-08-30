@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -119,9 +120,10 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
         }
 
         ComponentName provider = new ComponentName(context, getClass());
-        int widgetIds = wm.getAppWidgetIds(provider).length;
+        int widgetCount = wm.getAppWidgetIds(provider).length;
+        int delta = WidgetDAO.updateWidgetCount(getDefaultSharedPreferences(context), getClass(), widgetCount);
 
-        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds, R.string.category_analog_widget);
+        WidgetUtils.updateWidgetCount(delta, R.string.category_analog_widget);
     }
 }
 

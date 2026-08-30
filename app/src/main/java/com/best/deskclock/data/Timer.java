@@ -7,7 +7,6 @@
 package com.best.deskclock.data;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.MISSED;
 import static com.best.deskclock.data.Timer.State.PAUSED;
@@ -19,7 +18,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_TIMER_BY
 import static com.best.deskclock.utils.Utils.now;
 import static com.best.deskclock.utils.Utils.wallClock;
 
-import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -79,7 +77,7 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
      * For reset timers, sorting is based on the setting selected in timer settings.
      */
     @NonNull
-    public static Comparator<Timer> createTimerStateComparator(@NonNull Context context) {
+    public static Comparator<Timer> createTimerStateComparator(@NonNull String timerSortingPreference) {
         return new Comparator<>() {
             private final List<State> sortingStatus = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED, RESET);
 
@@ -91,7 +89,6 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
 
                 if (sorting == 0) {
                     final State state = timer1.getState();
-                    final String timerSortingPreference = SettingsDAO.getTimerSortingPreference(getDefaultSharedPreferences(context));
 
                     if (state == RESET) {
                         switch (timerSortingPreference) {

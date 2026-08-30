@@ -112,7 +112,7 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean displayBackground = (boolean) newValue;
                 boolean isCustomColor = !WidgetDAO.isNextAlarmWidgetDefaultBackgroundColor(getPrefs());
@@ -129,16 +129,16 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
             }
 
             case KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW,
                  KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isCustomColor = !(boolean) newValue;
                 boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(getPrefs());
@@ -153,17 +153,17 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mCustomTitleColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mCustomAlarmTitleColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mCustomAlarmColorPref.setVisible(!(boolean) newValue);
             }
         }

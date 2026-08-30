@@ -3,37 +3,40 @@
 package com.best.deskclock.alarms;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.databinding.AlarmItemBinding;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uidata.UiConfig;
+import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
 
-    private final SharedPreferences mPrefs;
-    private final Typeface mGeneralTypeface;
-    private final Typeface mGeneralBoldTypeface;
-    private Typeface mAlarmClockTypeface;
-    private final Locale mLocale;
-    private final String mDatePattern;
-    private final String mDatePatternWithYear;
+    private UiConfig.Fonts mFonts;
+    private final UiConfig.DateFormat mDateFormat;
+    private final UiConfig.Screen mScreen;
+    private final UiConfig.Haptics mHaptics;
     private List<AlarmItemHolder> mItems = new ArrayList<>();
+    private final AlarmStateProvider mStateProvider;
+    private Weekdays.Order mWeekdayOrder;
+    private boolean mIs24HourMode;
+    private CharSequence mFormat12;
+    private CharSequence mFormat24;
     private final boolean mUseExpressiveBackground;
 
     private final Drawable.ConstantState mBgSingle;
@@ -42,52 +45,69 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private final Drawable.ConstantState mBgBottom;
     private final Drawable.ConstantState mBgStandard;
 
-    public AlarmAdapter(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Typeface generalTypeface,
-                        @NonNull Typeface generalBoldTypeface, @NonNull Typeface alarmClockTypeface) {
+    public AlarmAdapter(@NonNull Context context, @NonNull UiConfig.Fonts fonts, @NonNull UiConfig.DateFormat dateConfig,
+                        @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle, @NonNull UiConfig.Haptics haptics,
+                        @NonNull Weekdays.Order weekdayOrder, boolean is24HourMode, @NonNull AlarmStateProvider stateProvider) {
 
         setHasStableIds(true);
 
-        mPrefs = prefs;
-        mGeneralTypeface = generalTypeface;
-        mGeneralBoldTypeface = generalBoldTypeface;
-        mAlarmClockTypeface = alarmClockTypeface;
-        mLocale = Locale.getDefault();
-        mDatePattern = DateFormat.getBestDateTimePattern(mLocale, AlarmItemViewHolder.SKELETON);
-        mDatePatternWithYear = DateFormat.getBestDateTimePattern(mLocale, AlarmItemViewHolder.SKELETON_WITH_YEAR);
-        mUseExpressiveBackground = !ThemeUtils.isTablet() && !ThemeUtils.isLandscape();
+        mFonts = fonts;
+        mDateFormat = dateConfig;
+        mScreen = screen;
+        mHaptics = haptics;
+        mWeekdayOrder = weekdayOrder;
+        mStateProvider = stateProvider;
+        mIs24HourMode = is24HourMode;
+        mUseExpressiveBackground = !screen.isTablet() && !screen.isLandscape();
 
         if (mUseExpressiveBackground) {
             // Phone in portrait mode: generate the 4 expressive shapes with their ripple effect
-            mBgSingle = ThemeUtils.rippleDrawable(
-                context, ThemeUtils.expressiveCardBackground(context, 0, 1)).getConstantState();
-            mBgTop = ThemeUtils.rippleDrawable(
-                context, ThemeUtils.expressiveCardBackground(context, 0, 3)).getConstantState();
-            mBgMiddle = ThemeUtils.rippleDrawable(
-                context, ThemeUtils.expressiveCardBackground(context, 1, 3)).getConstantState();
-            mBgBottom = ThemeUtils.rippleDrawable(
-                context, ThemeUtils.expressiveCardBackground(context, 2, 3)).getConstantState();
+            mBgSingle = ThemeUtils.rippleDrawable(context,
+                ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+                    cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 0, 1)).getConstantState();
+            mBgTop = ThemeUtils.rippleDrawable(context,
+                ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+                    cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 0, 3)).getConstantState();
+            mBgMiddle = ThemeUtils.rippleDrawable(context,
+                ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+                    cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 1, 3)).getConstantState();
+            mBgBottom = ThemeUtils.rippleDrawable(context,
+                ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+                    cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 2, 3)).getConstantState();
             mBgStandard = null;
         } else {
             // Tablet / Landscape: all cards are standard
-            mBgStandard = ThemeUtils.rippleDrawable(context, ThemeUtils.cardBackground(context)).getConstantState();
+            mBgStandard = ThemeUtils.rippleDrawable(
+                context, ThemeUtils.cardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+                    cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode())).getConstantState();
             mBgSingle = mBgTop = mBgMiddle = mBgBottom = null;
         }
+
+        generateTimeFormats();
     }
 
+    public boolean is24HourFormat() { return mIs24HourMode; }
+    public UiConfig.Fonts getFonts() { return mFonts; }
+    public UiConfig.DateFormat getDateFormat() { return mDateFormat; }
+    public UiConfig.Screen getScreen() { return mScreen; }
+    public UiConfig.Haptics getHaptics() { return mHaptics; }
+    public Weekdays.Order getWeekdayOrder() { return mWeekdayOrder; }
+    public AlarmStateProvider getStateProvider() { return mStateProvider; }
     public boolean isUseExpressiveBackground() { return mUseExpressiveBackground; }
     public Drawable.ConstantState getBgSingle() { return mBgSingle; }
     public Drawable.ConstantState getBgTop() { return mBgTop; }
     public Drawable.ConstantState getBgMiddle() { return mBgMiddle; }
     public Drawable.ConstantState getBgBottom() { return mBgBottom; }
     public Drawable.ConstantState getBgStandard() { return mBgStandard; }
+    public CharSequence getFormat12() { return mFormat12; }
+    public CharSequence getFormat24() { return mFormat24; }
 
     @NonNull
     @Override
     public AlarmItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AlarmItemBinding binding = AlarmItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        return new AlarmItemViewHolder(binding, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mLocale, mDatePattern,
-            mDatePatternWithYear);
+        return new AlarmItemViewHolder(binding, this);
     }
 
     @Override
@@ -101,8 +121,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AlarmItemViewHolder holder, int position) {
-        holder.updateAlarmFont(mAlarmClockTypeface);
-
         AlarmItemHolder itemHolder = mItems.get(position);
         holder.bind(itemHolder);
     }
@@ -117,9 +135,30 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         return mItems.get(position).itemId;
     }
 
-    public void updateAlarmFont(@NonNull Typeface alarmTypeface) {
-        mAlarmClockTypeface = alarmTypeface;
+    public void updateFonts(@NonNull UiConfig.Fonts fonts) {
+        mFonts = fonts;
+        generateTimeFormats();
         notifyDataSetChanged();
+    }
+
+    public void updateTimeFormat(boolean is24HourMode) {
+        if (mIs24HourMode != is24HourMode) {
+            mIs24HourMode = is24HourMode;
+            notifyDataSetChanged();
+        }
+    }
+
+    public void updateWeekdayOrder(@NonNull Weekdays.Order weekdayOrder) {
+        if (mWeekdayOrder != weekdayOrder) {
+            mWeekdayOrder = weekdayOrder;
+            notifyDataSetChanged();
+        }
+    }
+
+    private void generateTimeFormats() {
+        Typeface alarmFont = mFonts.alarmClockFont() != null ? mFonts.alarmClockFont() : mFonts.bold();
+        mFormat12 = ClockUtils.get12ModeFormat(false, 0.5f, alarmFont, "sans-serif", Typeface.BOLD, false);
+        mFormat24 = ClockUtils.get24ModeFormat(false, false);
     }
 
     public void setItems(@NonNull List<AlarmItemHolder> items) {
@@ -168,6 +207,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     public List<AlarmItemHolder> getItems() {
         return mItems;
+    }
+
+    public interface AlarmStateProvider {
+        boolean isRepeatDayStyleEnabled(long alarmId);
+        boolean canPreemptivelyDismiss(@NonNull Alarm alarm);
+        boolean isDismissButtonDisplayed();
     }
 
 }

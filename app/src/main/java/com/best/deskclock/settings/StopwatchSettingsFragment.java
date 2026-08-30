@@ -13,6 +13,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTIO
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -57,12 +59,15 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
             }
 
             final Context appContext = requireContext().getApplicationContext();
+            final int style = getAccentStyle();
+            final Typeface font = getGeneralTypeface();
+            final SharedPreferences prefs = getPrefs();
 
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_STOPWATCH_FONT);
-            String oldFontPath = getPrefs().getString(KEY_SW_FONT, null);
+            String oldFontPath = prefs.getString(KEY_SW_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -76,14 +81,14 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    getPrefs().edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
+                    prefs.edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
                     if (copiedUri != null) {
-                        CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                        CustomToast.show(appContext, style, font, R.string.custom_font_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing font");
+                        CustomToast.show(appContext, style, font, R.string.font_message_error);
                     }
 
                     if (!isAdded() || mStopwatchFontPref == null) {
@@ -140,7 +145,8 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
-            case KEY_SW_DISPLAY_MILLISECONDS -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            case KEY_SW_DISPLAY_MILLISECONDS ->
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
                  KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS -> {

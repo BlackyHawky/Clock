@@ -114,6 +114,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     private final Context mContext;
     private final DataModel mDataModel;
     private final SharedPreferences mPrefs;
+    private final DisplayMetrics mDisplayMetrics;
     private final float m12HourFontSize;
     private final float m24HourFontSize;
     private final float mCityAndDayFontSize;
@@ -128,13 +129,13 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         mContext = context;
         mDataModel = DataModel.getDataModel();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mDisplayMetrics = context.getResources().getDisplayMetrics();
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
         final boolean isTablet = ThemeUtils.isTablet();
-        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        m12HourFontSize = dpToPx(isTablet ? 52 : 32, displayMetrics);
-        m24HourFontSize = dpToPx(isTablet ? 65 : 40, displayMetrics);
-        mCityAndDayFontSize = dpToPx(isTablet ? 20 : 14, displayMetrics);
+        m12HourFontSize = dpToPx(isTablet ? 52 : 32, mDisplayMetrics);
+        m24HourFontSize = dpToPx(isTablet ? 65 : 40, mDisplayMetrics);
+        mCityAndDayFontSize = dpToPx(isTablet ? 20 : 14, mDisplayMetrics);
     }
 
     @Override
@@ -266,14 +267,14 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     @Override
     public synchronized void onDataSetChanged() {
         // Fetch the data on the main Looper.
-        final RefreshRunnable refreshRunnable = new RefreshRunnable(mContext);
+        final RefreshRunnable refreshRunnable = new RefreshRunnable(mContext, mPrefs);
         mDataModel.run(refreshRunnable);
 
         // Store the data in local variables.
         mHomeCity = refreshRunnable.mHomeCity;
         mCities = refreshRunnable.mCities;
         mShowHomeClock = refreshRunnable.mShowHomeClock;
-        mFontScale = WidgetUtils.getScaleRatio(mContext, null, mWidgetId, mCities.size());
+        mFontScale = WidgetUtils.getScaleRatio(mContext, mDisplayMetrics, null, mWidgetId, mCities.size());
     }
 
     private void update(@NonNull RemoteViews rv, @NonNull City city, int clockWithShadowId, int clockNoShadowId,
@@ -327,7 +328,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         }
 
         // Time format
-        WidgetUtils.applyClockFormat(rv, mContext, clockId, 0.4f, false);
+        WidgetUtils.applyClockFormat(rv, clockId, 0.4f, false);
 
         rv.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
         rv.setString(clockId, METHOD_SET_TIME_ZONE, city.getTimeZone().getID());
@@ -406,12 +407,14 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     private static final class RefreshRunnable implements Runnable {
 
         private final Context mContext;
+        private final SharedPreferences mPrefs;
         private City mHomeCity;
         private List<City> mCities;
         private boolean mShowHomeClock;
 
-        public RefreshRunnable(@NonNull Context context) {
+        public RefreshRunnable(@NonNull Context context, @NonNull SharedPreferences prefs) {
             this.mContext = context;
+            this.mPrefs = prefs;
         }
 
         @Override
@@ -419,7 +422,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
             DataModel dataModel = DataModel.getDataModel();
             mHomeCity = dataModel.getHomeCity();
             mCities = new ArrayList<>(dataModel.getSelectedCities());
-            mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, getDefaultSharedPreferences(mContext));
+            mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
         }
     }
 

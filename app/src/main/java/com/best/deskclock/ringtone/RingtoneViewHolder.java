@@ -7,20 +7,17 @@
 package com.best.deskclock.ringtone;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-
 import com.best.deskclock.databinding.RingtoneItemSoundBinding;
-import com.google.android.material.color.MaterialColors;
+import com.best.deskclock.uidata.UiConfig;
 
 public class RingtoneViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,33 +30,21 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
     private final Drawable mSilentIcon;
     private final Drawable mRandomIcon;
 
-    public RingtoneViewHolder(@NonNull View itemView, @NonNull RingtoneAdapter adapter) {
+    public RingtoneViewHolder(@NonNull View itemView, @NonNull RingtoneAdapter adapter, @NonNull UiConfig.Fonts fonts) {
         super(itemView);
 
         mBinding = RingtoneItemSoundBinding.bind(itemView);
         Context context = mBinding.getRoot().getContext();
         mAdapter = adapter;
 
+        // Do not move the animated icon into the adapter, because each row needs its own instance to animate without affecting the others.
         mRingtoneIcon = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_active_animated);
-        mRandomIcon = AppCompatResources.getDrawable(context, R.drawable.ic_random);
 
-        Drawable error = AppCompatResources.getDrawable(context, R.drawable.ic_error);
-        if (error != null) {
-            mErrorIcon = error.mutate();
-            mErrorIcon.setTint(ContextCompat.getColor(context, android.R.color.holo_red_light));
-        } else {
-            mErrorIcon = null;
-        }
+        mRandomIcon = adapter.getRandomIcon();
+        mErrorIcon = adapter.getErrorIcon();
+        mSilentIcon = adapter.getSilentIcon();
 
-        Drawable silent = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent);
-        if (silent != null) {
-            mSilentIcon = silent.mutate();
-            mSilentIcon.setTint(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
-        } else {
-            mSilentIcon = null;
-        }
-
-        mBinding.ringtoneName.setTypeface(adapter.getGeneralTypeface());
+        mBinding.ringtoneName.setTypeface(fonts.general());
         // Allow text scrolling (all other attributes are indicated in the "ringtone_item_sound.xml" file)
         mBinding.ringtoneName.setSelected(true);
     }

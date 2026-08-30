@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.uicomponents.ItemTouchHelperContract;
+import com.best.deskclock.uidata.UiConfig;
 
 /**
  * Custom {@link androidx.recyclerview.widget.ItemTouchHelper.Callback} for managing drag & drop of timer items in a RecyclerView.
@@ -24,19 +25,17 @@ import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract mContract;
+    private final UiConfig.Screen mScreen;
     private boolean mIsTimerTimeActivated = false;
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
-    private final boolean mIsTablet;
-    private final boolean mIsLandscape;
     private boolean mIsManualSorting;
 
-    public TimerItemTouchHelper(@NonNull ItemTouchHelperContract contract, @NonNull RecyclerView recyclerView, boolean isTablet,
-                                boolean isLandscape, boolean isManualSorting) {
+    public TimerItemTouchHelper(@NonNull ItemTouchHelperContract contract, @NonNull RecyclerView recyclerView,
+                                @NonNull UiConfig.Screen screen, boolean isManualSorting) {
 
         mContract = contract;
-        mIsTablet = isTablet;
-        mIsLandscape = isLandscape;
+        mScreen = screen;
         mIsManualSorting = isManualSorting;
 
         // Prevent the timer from dragging if the "Add minute" button is long-pressed
@@ -95,9 +94,9 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
         }
 
         final int dragFlags;
-        if (mIsTablet) {
+        if (mScreen.isTablet()) {
             dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
-        } else if (mIsLandscape) {
+        } else if (mScreen.isLandscape()) {
             dragFlags = ItemTouchHelper.START | ItemTouchHelper.END;
         } else {
             dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;

@@ -7,6 +7,7 @@
 package com.best.deskclock.alarms;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -40,6 +41,7 @@ import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -137,6 +139,14 @@ public class AlarmService extends Service {
 
     private AlarmInstance mCurrentAlarm = null;
 
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
+        (sharedPreferences, key) -> {
+            if (KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE.equals(key)) {
+                boolean enabled = SettingsDAO.isAutoRoutingToExternalAudioDevice(sharedPreferences);
+                AlarmKlaxon.setAutoRoutingEnabled(enabled);
+            }
+        };
+
     private final BroadcastReceiver mActionsReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(@NonNull Context context, @NonNull Intent intent) {
@@ -158,12 +168,12 @@ public class AlarmService extends Service {
                         // Set the alarm state to snooze.
                         // If this broadcast receiver is handling the snooze intent then AlarmActivity
                         // must not be showing, so always show snooze toast.
-                        AlarmStateManager.setSnoozeState(context, mCurrentAlarm, true);
+                        AlarmStateManager.setSnoozeState(context, mPrefs, mCurrentAlarm, true);
                         Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
                     }
                     case ALARM_DISMISS_ACTION -> {
                         // Set the alarm state to dismissed.
-                        AlarmStateManager.deleteInstanceAndUpdateParent(context, mCurrentAlarm, true);
+                        AlarmStateManager.deleteInstanceAndUpdateParent(context, mPrefs, mCurrentAlarm, true);
                         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
                     }
                 }
@@ -320,6 +330,9 @@ public class AlarmService extends Service {
         super.onCreate();
 
         mPrefs = getDefaultSharedPreferences(this);
+
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
+
         // Register the broadcast receiver
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
@@ -389,7 +402,7 @@ public class AlarmService extends Service {
         final long instanceId = AlarmInstance.getId(dataUri);
         switch (Objects.requireNonNull(intent.getAction())) {
             case AlarmStateManager.CHANGE_STATE_ACTION -> {
-                AlarmStateManager.handleIntent(this, intent);
+                AlarmStateManager.handleIntent(this, mPrefs, intent);
 
                 // If state is changed to firing, actually fire the alarm!
                 final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
@@ -447,6 +460,11 @@ public class AlarmService extends Service {
     public void onDestroy() {
         LogUtils.v("AlarmService.onDestroy() called");
         super.onDestroy();
+
+        if (mPrefs != null) {
+            mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+        }
+
         if (mCurrentAlarm != null) {
             stopCurrentAlarm();
         }
@@ -466,7 +484,7 @@ public class AlarmService extends Service {
     private void startAlarm(@NonNull AlarmInstance instance) {
         LogUtils.v("AlarmService.start with instance: " + instance.mId);
         if (mCurrentAlarm != null) {
-            AlarmStateManager.setMissedState(this, mCurrentAlarm);
+            AlarmStateManager.setMissedState(this, mPrefs, mCurrentAlarm);
             stopCurrentAlarm();
         }
 
@@ -474,8 +492,25 @@ public class AlarmService extends Service {
 
         mCurrentAlarm = instance;
 
-        AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
-        AlarmKlaxon.start(mCurrentAlarm);
+        AlarmNotifications.showAlarmNotification(
+            this, mCurrentAlarm, SettingsDAO.getLanguageCode(mPrefs), SettingsDAO.getGlobalIntentId(mPrefs));
+
+        RingtonePlayer.Config playerConfig = new RingtonePlayer.Config(
+            SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs),
+            SettingsDAO.shouldUseCustomMediaVolume(mPrefs),
+            SettingsDAO.getExternalAudioDeviceVolumeValue(mPrefs)
+        );
+
+        AlarmKlaxon.Config klaxonConfig = new AlarmKlaxon.Config(
+            SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs),
+            SettingsDAO.isPerAlarmVolumeEnabled(mPrefs),
+            SettingsDAO.getVibrationStartDelay(mPrefs),
+            SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs),
+            SettingsDAO.getVibrationPattern(mPrefs),
+            playerConfig
+        );
+
+        AlarmKlaxon.start(klaxonConfig, mCurrentAlarm);
 
         if (mCurrentAlarm.mFlash) {
             if (mIsUserFlashlightOn) {
@@ -551,7 +586,8 @@ public class AlarmService extends Service {
         stopFlash();
 
         AlarmKlaxon.stop();
-        AlarmKlaxon.deactivateRingtonePlayback();
+
+        AlarmKlaxon.releaseResources();
 
         Intent intent = new Intent(ALARM_DONE_ACTION);
         intent.setPackage(getPackageName());
@@ -674,10 +710,20 @@ public class AlarmService extends Service {
     private void handleAction(int action) {
         if (action == ALARM_SNOOZE) { // Setup Snooze Action
             startService(AlarmStateManager.createStateChangeIntent(
-                this, AlarmStateManager.ALARM_SNOOZE_TAG, mCurrentAlarm, AlarmInstance.SNOOZE_STATE));
+                this,
+                mCurrentAlarm,
+                AlarmStateManager.ALARM_SNOOZE_TAG,
+                AlarmInstance.SNOOZE_STATE,
+                SettingsDAO.getGlobalIntentId(mPrefs))
+            );
         } else if (action == ALARM_DISMISS) { // Setup Dismiss Action
             startService(AlarmStateManager.createStateChangeIntent(
-                this, AlarmStateManager.ALARM_DISMISS_TAG, mCurrentAlarm, AlarmInstance.DISMISSED_STATE));
+                this,
+                mCurrentAlarm,
+                AlarmStateManager.ALARM_DISMISS_TAG,
+                AlarmInstance.DISMISSED_STATE,
+                SettingsDAO.getGlobalIntentId(mPrefs))
+            );
         }
     }
 

@@ -7,12 +7,12 @@
 package com.best.deskclock.uidata;
 
 import static android.view.View.LAYOUT_DIRECTION_RTL;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.uidata.UiDataModel.Tab;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -25,6 +25,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +52,9 @@ final class TabModel {
 
     private final List<Tab> mActiveTabs = new ArrayList<>();
 
-    TabModel(@NonNull Context context) {
+    TabModel(@NonNull Context context, @NonNull SharedPreferences prefs) {
         mContext = context;
-        mPrefs = getDefaultSharedPreferences(context);
+        mPrefs = prefs;
         updateActiveTabs();
     }
 
@@ -114,7 +115,10 @@ final class TabModel {
         // Disable alarms if the Alarm tab is not visible
         if (recentlyHiddenTabs.contains(Tab.ALARMS)) {
             AppExecutors.getDiskIO().execute(() -> {
-                final AlarmUpdateHandler alarmUpdateHandler = new AlarmUpdateHandler(mContext, null, null);
+                final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+                final boolean isVibrationsEnabled = SettingsDAO.isVibrationsEnabled(mPrefs);
+                final AlarmUpdateHandler alarmUpdateHandler = new AlarmUpdateHandler(
+                    mContext, mPrefs, font, null, null, isVibrationsEnabled);
                 final List<Alarm> alarms = Alarm.getAlarms(mContext.getContentResolver(), null);
 
                 for (Alarm alarm : alarms) {

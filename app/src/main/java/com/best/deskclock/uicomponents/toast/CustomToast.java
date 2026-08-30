@@ -2,22 +2,20 @@
 
 package com.best.deskclock.uicomponents.toast;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 
 /**
@@ -36,23 +34,27 @@ public class CustomToast {
      * applies the appropriate background and font, and returns the fully
      * prepared view ready to be used inside a Toast.</p>
      *
-     * @param context the base context used to resolve theme and resources
-     * @param message the text to display inside the toast
+     * @param context     the base context used to resolve theme and resources
+     * @param accentStyle the resolved accent color (taking auto night mode into account).
+     * @param typeface    the {@link Typeface} applied to the text
+     * @param message     the text to display inside the toast
      * @return a fully configured toast layout view
      */
     @NonNull
-    private static View createLayout(@NonNull Context context, @NonNull String message) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        Context themedContext = ThemeUtils.getThemedContext(context, prefs);
+    private static View createLayout(@NonNull Context context, int accentStyle, @Nullable Typeface typeface, @NonNull String message) {
+
+        Context themedContext = ThemeUtils.getThemedContext(context, accentStyle);
+        DisplayMetrics displayMetrics = themedContext.getResources().getDisplayMetrics();
 
         @SuppressLint("InflateParams")
         View layout = LayoutInflater.from(themedContext).inflate(R.layout.custom_toast, null);
 
         TextView text = layout.findViewById(R.id.toast_text);
-        text.setBackground(ThemeUtils.pillBackgroundFromAttr(themedContext, com.google.android.material.R.attr.colorSecondary));
+        text.setBackground(
+            ThemeUtils.pillBackgroundFromAttr(themedContext, displayMetrics, com.google.android.material.R.attr.colorSecondary)
+        );
         text.setText(message);
 
-        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
         if (typeface != null) {
             text.setTypeface(typeface);
         }
@@ -71,17 +73,13 @@ public class CustomToast {
      * indeed, apps targeting API level 30 or higher that are in the background will
      * not have custom toast views displayed.</p>
      *
-     * @param context  the base context used to apply theming
      * @param layout   the custom layout to display inside the toast
      * @param duration the toast duration (e.g., Toast.LENGTH_SHORT or Toast.LENGTH_LONG)
      * @return a configured Toast instance ready to be shown
      */
     @NonNull
-    private static Toast buildToast(@NonNull Context context, @NonNull View layout, int duration) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        Context themedContext = ThemeUtils.getThemedContext(context, prefs);
-
-        Toast toast = new Toast(themedContext);
+    private static Toast buildToast(@NonNull View layout, int duration) {
+        Toast toast = new Toast(layout.getContext());
         toast.setDuration(duration);
         //noinspection deprecation
         toast.setView(layout);
@@ -92,24 +90,17 @@ public class CustomToast {
     /**
      * Displays a short custom toast using a string resource.
      */
-    public static void show(@NonNull Context context, @StringRes int messageRes) {
-        show(context, context.getString(messageRes));
-    }
-
-    /**
-     * Displays a short custom toast with the given text.
-     */
-    public static void show(@NonNull Context context, @NonNull String message) {
-        View layout = createLayout(context, message);
-        buildToast(context, layout, Toast.LENGTH_SHORT).show();
+    public static void show(@NonNull Context context, int accentStyle, @Nullable Typeface typeface, @StringRes int messageRes) {
+        View layout = createLayout(context, accentStyle, typeface, context.getString(messageRes));
+        buildToast(layout, Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Displays a long-duration custom toast with the given text.
      */
-    public static void showLong(@NonNull Context context, @NonNull String message) {
-        View layout = createLayout(context, message);
-        buildToast(context, layout, Toast.LENGTH_LONG).show();
+    public static void showLong(@NonNull Context context, int accentStyle, @Nullable Typeface typeface, @NonNull String message) {
+        View layout = createLayout(context, accentStyle, typeface, message);
+        buildToast(layout, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -119,9 +110,11 @@ public class CustomToast {
      * <p>This is useful in situations where multiple toasts may be triggered in
      * quick succession, such as alarm snooze actions.</p>
      */
-    public static void showLongWithManager(@NonNull Context context, @NonNull String message) {
-        View layout = createLayout(context, message);
-        Toast toast = buildToast(context, layout, Toast.LENGTH_LONG);
+    public static void showLongWithManager(@NonNull Context context, int accentStyle, @Nullable Typeface typeface,
+                                           @NonNull String message) {
+
+        View layout = createLayout(context, accentStyle, typeface, message);
+        Toast toast = buildToast(layout, Toast.LENGTH_LONG);
 
         ToastManager.setToast(toast);
         toast.show();

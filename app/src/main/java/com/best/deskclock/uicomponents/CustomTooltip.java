@@ -1,10 +1,8 @@
 package com.best.deskclock.uicomponents;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CustomTooltipBinding;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -35,26 +33,34 @@ public class CustomTooltip {
      * Displays a custom tooltip above the given anchor view.
      *
      * <p>This is a convenience method that delegates to the internal
-     * {@link #show(View, String, Position, boolean)} method using the ABOVE position.</p>
+     * {@link #show(View, Typeface, DisplayMetrics, String, Position, boolean)} method using the ABOVE position.</p>
      *
-     * @param anchor the view above which the tooltip should appear
-     * @param text   the text to display inside the tooltip
+     * @param anchor         the view above which the tooltip should appear
+     * @param typeface       the {@link Typeface} applied to the text
+     * @param displayMetrics the display metrics containing screen size and density
+     * @param text           the text to display inside the tooltip
      */
-    public static void showAbove(@NonNull View anchor, @NonNull String text, boolean isFab) {
-        show(anchor, text, Position.ABOVE, isFab);
+    public static void showAbove(@NonNull View anchor, @Nullable Typeface typeface, @NonNull DisplayMetrics displayMetrics,
+                                 @NonNull String text, boolean isFab) {
+
+        show(anchor, typeface, displayMetrics, text, Position.ABOVE, isFab);
     }
 
     /**
      * Displays a custom tooltip below the given anchor view.
      *
      * <p>This is a convenience method that delegates to the internal
-     * {@link #show(View, String, Position, boolean)} method using the BELOW position.</p>
+     * {@link #show(View, Typeface, DisplayMetrics, String, Position, boolean)} method using the BELOW position.</p>
      *
-     * @param anchor the view under which the tooltip should appear
-     * @param text   the text to display inside the tooltip
+     * @param anchor         the view under which the tooltip should appear
+     * @param typeface       the {@link Typeface} applied to the text
+     * @param displayMetrics the display metrics containing screen size and density
+     * @param text           the text to display inside the tooltip
      */
-    public static void showBelow(@NonNull View anchor, @NonNull String text) {
-        show(anchor, text, Position.BELOW, false);
+    public static void showBelow(@NonNull View anchor, @Nullable Typeface typeface,  @NonNull DisplayMetrics displayMetrics,
+                                 @NonNull String text) {
+
+        show(anchor, typeface, displayMetrics, text, Position.BELOW, false);
     }
 
     /**
@@ -63,14 +69,16 @@ public class CustomTooltip {
      * <p>The tooltip is horizontally centered relative to the anchor and positioned
      * either above or below it depending on the specified {@link Position}.</p>
      *
-     * @param anchor   the view used as the reference point for positioning
-     * @param text     the text to display inside the tooltip
-     * @param position whether the tooltip should appear above or below the anchor
+     * @param anchor         the view used as the reference point for positioning
+     * @param typeface       the {@link Typeface} applied to the text
+     * @param displayMetrics the display metrics containing screen size and density
+     * @param text           the text to display inside the tooltip
+     * @param position       whether the tooltip should appear above or below the anchor
      */
-    private static void show(@NonNull View anchor, @NonNull String text, @NonNull Position position, boolean isFab) {
+    private static void show(@NonNull View anchor, @Nullable Typeface typeface, @NonNull DisplayMetrics displayMetrics,
+                             @NonNull String text, @NonNull Position position, boolean isFab) {
+
         Context context = anchor.getContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         CustomTooltipBinding binding = CustomTooltipBinding.inflate(LayoutInflater.from(context));
 
@@ -85,7 +93,9 @@ public class CustomTooltip {
             false
         );
 
-        popup.setBackgroundDrawable(ThemeUtils.pillBackgroundFromAttr(context, com.google.android.material.R.attr.colorSecondary));
+        popup.setBackgroundDrawable(
+            ThemeUtils.pillBackgroundFromAttr(context, displayMetrics, com.google.android.material.R.attr.colorSecondary)
+        );
         popup.setOutsideTouchable(true);
 
         // Position

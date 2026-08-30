@@ -44,7 +44,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.transition.TransitionManager;
 
@@ -56,6 +55,7 @@ import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.databinding.ExpiredTimersActivityBinding;
 import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -76,8 +76,8 @@ public class ExpiredTimersActivity extends BaseActivity {
 
     private ExpiredTimersActivityBinding mBinding;
 
-    private Typeface mRegularTypeface;
-    private Typeface mBoldTypeface;
+    private UiConfig.CardStyle mCardStyleConfig;
+    private String mTimerFontPath;
     private Typeface mTimerTimeTypeface;
     private boolean mAreTimerButtonPositionsInverted;
     private boolean mIsIndicatorStateDisplayed;
@@ -85,8 +85,6 @@ public class ExpiredTimersActivity extends BaseActivity {
     private int mColorRunning;
     private int mColorExpired;
     private int mColorMissed;
-    private boolean mIsPortrait;
-    private boolean mIsTablet;
     private int mMargin10;
     private int mMargin2;
     private long mActivityStartTime;
@@ -134,23 +132,17 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         mBinding = ExpiredTimersActivityBinding.inflate(getLayoutInflater());
 
+        mCardStyleConfig = getCardStyleConfig();
+
+        mTimerFontPath = SettingsDAO.getTimerDurationFont(getPrefs());
         mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
         mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());
         mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(getPrefs());
         mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(getPrefs());
         mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(getPrefs());
         mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(getPrefs());
-        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
-        mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(getPrefs()));
-        mIsPortrait = ThemeUtils.isPortrait();
-        mIsTablet = ThemeUtils.isTablet();
         mMargin10 = (int) dpToPx(10, getDisplayMetrics());
         mMargin2 = (int) dpToPx(2, getDisplayMetrics());
-
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Register Power button (screen off) intent receiver
         if (SettingsDAO.isExpiredTimerResetWithPowerButton(getPrefs())) {
@@ -186,15 +178,13 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (mIsPortrait) {
+        if (isPortrait()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
         setContentView(mBinding.getRoot());
 
-        String activeAccentColor = ThemeUtils.getActiveAccentColor(this, getPrefs());
-
-        getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
+        getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, getActiveAccentColor())));
 
         if (mBinding.expiredTimersScrollVertical != null) {
             mExpiredTimersScrollView = mBinding.expiredTimersScrollVertical;
@@ -276,8 +266,6 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         getDataModel().removeTimerListener(mTimerChangeWatcher);
 
-        mRegularTypeface = null;
-        mBoldTypeface = null;
         mTimerTimeTypeface = null;
 
         mExpiredTimersScrollView = null;
@@ -320,6 +308,19 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         return super.dispatchKeyEvent(event);
+    }
+
+    @NonNull
+    @Override
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(
+            getGeneralTypeface(),
+            getGeneralBoldTypeface(),
+            null,
+            getTimerTypeface(),
+            null,
+            null
+        );
     }
 
     private void initHeadphonesButton() {
@@ -400,7 +401,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         mBinding.ringtoneTitle.setText(getDataModel().getTimerRingtoneTitle());
-        mBinding.ringtoneTitle.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs())));
+        mBinding.ringtoneTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "expired_timers_activity.xml" file)
         mBinding.ringtoneTitle.setSelected(true);
@@ -430,7 +431,9 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         final int timerId = timer.getId();
         final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(getPrefs()) && !SettingsDAO.isSingleTimerModeEnabled(getPrefs());
-        final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
+        final boolean useCompactLayout = isPortrait() && isCompact;
+        UiConfig.Fonts fonts = getFontsConfig();
+        Typeface timerFont = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
 
         final View view;
         final TextView labelView;
@@ -444,8 +447,8 @@ public class ExpiredTimersActivity extends BaseActivity {
 
             view = compactBinding.getRoot();
             ((TimerItemCompact) view).setButtonPosition(mAreTimerButtonPositionsInverted, isRtl());
-            ((TimerItemCompact) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
-            ((TimerItemCompact) view).setTimerTimeFont(mTimerTimeTypeface);
+            ((TimerItemCompact) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
+            ((TimerItemCompact) view).setTimerTimeFont(timerFont);
             ((TimerItemCompact) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
             ((TimerItemCompact) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
             ((TimerItemCompact) view).bindTimer(timer, false);
@@ -458,9 +461,9 @@ public class ExpiredTimersActivity extends BaseActivity {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
-            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, mIsTablet, !mIsPortrait, false, isRtl());
-            ((TimerItem) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
-            ((TimerItem) view).setTimerTimeFont(mTimerTimeTypeface);
+            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, isTablet(), !isPortrait(), false, isRtl());
+            ((TimerItem) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
+            ((TimerItem) view).setTimerTimeFont(timerFont);
             ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
             ((TimerItem) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
             ((TimerItem) view).bindTimer(timer, false);
@@ -558,14 +561,29 @@ public class ExpiredTimersActivity extends BaseActivity {
             return;
         }
 
-        final boolean isPhoneInLandscapeMode = !mIsTablet && !mIsPortrait;
-        final boolean isTabletOrPortrait = mIsTablet || mIsPortrait;
+        final boolean isPhoneInLandscapeMode = !isTablet() && !isPortrait();
+        final boolean isTabletOrPortrait = isTablet() || isPortrait();
 
         for (int i = 0; i < totalCount; i++) {
             View child = mBinding.expiredTimersList.getChildAt(i);
             child.setBackground(isPhoneInLandscapeMode
-                ? ThemeUtils.expressiveCardBackgroundForLandscape(this, i, totalCount)
-                : ThemeUtils.expressiveCardBackground(this, i, totalCount));
+                ? ThemeUtils.expressiveCardBackgroundForLandscape(
+                    this,
+                    getDisplayMetrics(),
+                    mCardStyleConfig.isBackgroundDisplayed(),
+                    mCardStyleConfig.isBorderDisplayed(),
+                    mCardStyleConfig.isAmoledDarkMode(),
+                    i,
+                    totalCount)
+                : ThemeUtils.expressiveCardBackground(
+                    this,
+                    getDisplayMetrics(),
+                    mCardStyleConfig.isBackgroundDisplayed(),
+                    mCardStyleConfig.isBorderDisplayed(),
+                    mCardStyleConfig.isAmoledDarkMode(),
+                    i,
+                    totalCount)
+            );
 
             if (child.getLayoutParams() instanceof ViewGroup.MarginLayoutParams layoutParams) {
                 if (isTabletOrPortrait) {
@@ -583,6 +601,19 @@ public class ExpiredTimersActivity extends BaseActivity {
                 child.setLayoutParams(layoutParams);
             }
         }
+    }
+
+    /**
+     * Lazy loading for the bold timer font.
+     *
+     * @return the bold timer font.
+     */
+    protected final Typeface getTimerTypeface() {
+        if (mTimerTimeTypeface == null) {
+            mTimerTimeTypeface = ThemeUtils.boldTypeface(mTimerFontPath);
+        }
+
+        return mTimerTimeTypeface;
     }
 
     private List<Timer> getExpiredTimers() {

@@ -6,7 +6,6 @@
 
 package com.best.deskclock.uidata;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static java.util.Calendar.JULY;
 
 import android.annotation.SuppressLint;
@@ -66,8 +65,7 @@ final class FormattedStringModel {
     private Map<Integer, String> mLongWeekdayNames;
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    FormattedStringModel(@NonNull Context context) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
+    FormattedStringModel(@NonNull Context context, @NonNull SharedPreferences prefs) {
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
         // Clear caches affected by locale when locale changes.

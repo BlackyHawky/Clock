@@ -55,15 +55,16 @@ public class DeskClockApplication extends Application implements Application.Act
         sInstance = this;
         mDataModel = DataModel.getDataModel();
         Controller controller = Controller.getController();
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
 
-        initDebugAndNightlyDefaults();
+        initDebugAndNightlyDefaults(prefs);
 
-        String theme = SettingsDAO.getTheme(getDefaultSharedPreferences(this));
+        String theme = SettingsDAO.getTheme(prefs);
         applySystemNightMode(theme);
 
-        mDataModel.init();
-        UiDataModel.getUiDataModel().init();
-        controller.init();
+        mDataModel.init(prefs);
+        UiDataModel.getUiDataModel().init(prefs);
+        controller.init(this, prefs);
         controller.addEventTracker(new LogEventTracker());
         controller.updateShortcuts();
 
@@ -103,9 +104,7 @@ public class DeskClockApplication extends Application implements Application.Act
     @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
     @Override public void onActivityDestroyed(@NonNull Activity activity) {}
 
-    private void initDebugAndNightlyDefaults() {
-        SharedPreferences prefs = getDefaultSharedPreferences(this);
-
+    private void initDebugAndNightlyDefaults(@NonNull SharedPreferences prefs) {
         if (!prefs.contains(KEY_ACCENT_COLOR)) {
             if (BuildConfig.IS_DEBUG_BUILD) {
                 prefs.edit().putString(KEY_ACCENT_COLOR, RED_ACCENT_COLOR).apply();

@@ -76,13 +76,13 @@ final class CityDAO {
     }
 
     /**
-     * Saves the selected cities in the given order into SharedPreferences.
+     * Saves the selected cities in the given order into {@link SharedPreferences}.
      * <p>
      * If the new list is shorter than the previously saved one, any excess
      * keys are removed to avoid leftover data.
      * <p>
      *
-     * @param prefs  the SharedPreferences instance where cities are saved
+     * @param prefs  the {@link SharedPreferences} instance where cities are saved
      * @param cities the list of selected cities, in the desired order
      */
     static void saveSelectedCitiesOrder(@NonNull SharedPreferences prefs, @NonNull List<City> cities) {
@@ -129,8 +129,8 @@ final class CityDAO {
      */
     @NonNull
     @SuppressLint("AppBundleLocaleChanges")
-    static Map<String, City> getCities(@NonNull Context context) {
-        final Resources resources = Utils.getLocalizedContext(context).getResources();
+    static Map<String, City> getCities(@NonNull Context context, @NonNull SharedPreferences prefs) {
+        final Resources resources = Utils.getLocalizedContext(context, SettingsDAO.getLanguageCode(prefs)).getResources();
         final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
 
         // Create a forced context in English.

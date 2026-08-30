@@ -28,6 +28,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -60,6 +61,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
@@ -160,10 +162,10 @@ public class HandleApiCalls extends Activity {
         // Open DeskClock which is now positioned on the alarms tab.
         startActivity(new Intent(mAppContext, DeskClock.class));
 
-        new DismissAlarmAsync(mAppContext, intent, this).execute();
+        new DismissAlarmAsync(mAppContext, mPrefs, intent, this).execute();
     }
 
-    public static void dismissAlarm(@NonNull Alarm alarm, @NonNull Context context) {
+    public static void dismissAlarm(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Alarm alarm) {
 
         final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(context.getContentResolver(), alarm.id);
         if (instance == null) {
@@ -175,10 +177,10 @@ public class HandleApiCalls extends Activity {
             return;
         }
 
-        dismissAlarmInstance(instance, context);
+        dismissAlarmInstance(context, prefs, instance);
     }
 
-    public static void dismissAlarmInstance(@NonNull AlarmInstance instance, @NonNull Context context) {
+    public static void dismissAlarmInstance(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         Utils.enforceNotMainLooper();
 
         final Context appContext = context.getApplicationContext();
@@ -187,10 +189,10 @@ public class HandleApiCalls extends Activity {
 
         if (instance.mAlarmState == FIRED_STATE || instance.mAlarmState == SNOOZE_STATE) {
             // Always dismiss alarms that are fired or snoozed.
-            AlarmStateManager.deleteInstanceAndUpdateParent(appContext, instance, true);
+            AlarmStateManager.deleteInstanceAndUpdateParent(appContext, prefs, instance, true);
         } else if (isAlarmWithin24Hours(instance)) {
             // Upcoming alarms are always pre-dismissed.
-            AlarmStateManager.setPreDismissState(appContext, instance, true);
+            AlarmStateManager.setPreDismissState(appContext, prefs, instance, true);
         } else {
             // Otherwise the alarm cannot be dismissed at this time.
             final String reason = context.getString(R.string.alarm_cant_be_dismissed_still_more_than_24_hours_away, time);
@@ -215,7 +217,8 @@ public class HandleApiCalls extends Activity {
         return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
-    private record DismissAlarmAsync(@NonNull Context mContext, @NonNull Intent mIntent, @Nullable Activity mActivity) {
+    private record DismissAlarmAsync(@NonNull Context mContext, @NonNull SharedPreferences mPrefs, @NonNull Intent mIntent,
+                                     @Nullable Activity mActivity) {
 
         private void execute() {
             final Context appContext = mContext.getApplicationContext();
@@ -280,7 +283,7 @@ public class HandleApiCalls extends Activity {
                 // Apply the action to the matching alarms
                 for (Alarm alarm : matchingAlarms) {
                     Context bestContext = (mActivity != null && !mActivity.isDestroyed()) ? mActivity : appContext;
-                    dismissAlarm(alarm, bestContext);
+                    dismissAlarm(bestContext, mPrefs, alarm);
                     LOGGER.i("Alarm dismissed: " + alarm);
                 }
             });
@@ -300,17 +303,17 @@ public class HandleApiCalls extends Activity {
             }
 
             for (AlarmInstance firingAlarmInstance : alarmInstances) {
-                snoozeAlarm(firingAlarmInstance, this);
+                snoozeAlarm(mPrefs, firingAlarmInstance, this);
             }
         });
     }
 
-    static void snoozeAlarm(@NonNull AlarmInstance alarmInstance, @NonNull Activity activity) {
+    static void snoozeAlarm(@NonNull SharedPreferences prefs, @NonNull AlarmInstance alarmInstance, @NonNull Activity activity) {
         Utils.enforceNotMainLooper();
 
         final String time = DateFormat.getTimeFormat(activity).format(alarmInstance.getAlarmTime().getTime());
         final String reason = activity.getString(R.string.alarm_is_snoozed, time);
-        AlarmStateManager.setSnoozeState(activity, alarmInstance, true);
+        AlarmStateManager.setSnoozeState(activity, prefs, alarmInstance, true);
 
         Controller.getController().notifyVoiceSuccess(activity, reason);
         LOGGER.i("Alarm snoozed: " + alarmInstance);
@@ -383,7 +386,7 @@ public class HandleApiCalls extends Activity {
             alarm.updateAlarm(cr);
 
             // Delete all old instances.
-            AlarmStateManager.deleteAllInstances(this, alarm.id);
+            AlarmStateManager.deleteAllInstances(this, mPrefs, alarm.id);
 
             Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
             LOGGER.i("Updated alarm: " + alarm);
@@ -537,13 +540,12 @@ public class HandleApiCalls extends Activity {
 
         // Create a new timer if one could not be reused.
         if (timer == null) {
-            SharedPreferences prefs = getDefaultSharedPreferences(mAppContext);
-            String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(prefs));
-            String vibrationPattern = SettingsDAO.getTimerVibrationPattern(prefs);
+            String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
+            String vibrationPattern = SettingsDAO.getTimerVibrationPattern(mPrefs);
             Uri ringtoneUri = mDataModel.getTimerRingtoneUri();
-            int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(prefs);
+            int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
             int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
-            boolean isVibrate = SettingsDAO.isTimerVibrate(prefs);
+            boolean isVibrate = SettingsDAO.isTimerVibrate(mPrefs);
             boolean isFlashOn = SettingsDAO.shouldTurnOnBackFlashForExpiredTimer(mPrefs);
 
             timer = mDataModel.addTimer(lengthMillis,
@@ -579,8 +581,16 @@ public class HandleApiCalls extends Activity {
 
     private void setupInstance(@NonNull AlarmInstance instance, boolean skipUi) {
         instance.addInstance(this.getContentResolver());
-        AlarmStateManager.registerInstance(this, instance, true);
-        AlarmUtils.popAlarmSetToast(this, instance.getAlarmTime().getTimeInMillis());
+        AlarmStateManager.registerInstance(this, mPrefs, instance, true);
+
+        final int style = ThemeUtils.getAccentStyle(this,
+            SettingsDAO.isAutoNightAccentColorEnabled(mPrefs),
+            SettingsDAO.getAccentColor(mPrefs),
+            SettingsDAO.getNightAccentColor(mPrefs));
+        final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+
+        AlarmUtils.popAlarmSetToast(this, style, font, instance.getAlarmTime().getTimeInMillis());
+
         if (!skipUi) {
             // Change to the alarms tab.
             mUiDataModel.setSelectedTab(ALARMS);

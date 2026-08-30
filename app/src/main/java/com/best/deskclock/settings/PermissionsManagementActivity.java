@@ -165,7 +165,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         @Override
         public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
             if (pref.getKey().equals(KEY_ENABLE_FOREGROUND_SERVICE)) {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     showForegroundServiceDialog();

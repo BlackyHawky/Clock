@@ -7,6 +7,8 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioDeviceCallback;
@@ -116,12 +118,15 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             }
 
             final Context appContext = requireContext().getApplicationContext();
+            final int style = getAccentStyle();
+            final Typeface font = getGeneralTypeface();
+            final SharedPreferences prefs = getPrefs();
 
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_TIMER_FONT);
-            String oldFontPath = getPrefs().getString(KEY_TIMER_DURATION_FONT, null);
+            String oldFontPath = prefs.getString(KEY_TIMER_DURATION_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -135,14 +140,14 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    getPrefs().edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
+                    prefs.edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
                     if (copiedUri != null) {
-                        CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                        CustomToast.show(appContext, style, font, R.string.custom_font_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing font");
+                        CustomToast.show(appContext, style, font, R.string.font_message_error);
                     }
 
                     if (!isAdded() || mTimerDurationFontPref == null) {
@@ -199,7 +204,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
         if (mIsAlarmTabHidden) {
             mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
-            mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), getPrefs());
+            mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(
+                requireContext(), SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()));
         }
 
         if (savedInstanceState != null) {
@@ -297,7 +303,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(getDataModel().getTimerRingtoneTitle());
 
             case KEY_ENABLE_PER_TIMER_AUTO_SILENCE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 List<Timer> timerList = getDataModel().getTimers();
 
@@ -324,7 +330,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 List<Timer> timerList = getDataModel().getTimers();
 
@@ -353,7 +359,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 stopRingtonePreview();
 
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isAdvancedAudioPlaybackEnabled = (boolean) newValue;
 
@@ -368,7 +374,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
                 stopRingtonePreview();
 
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isAutoRoutingToExternalAudioDevice = (boolean) newValue;
 
@@ -380,17 +386,17 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
             case KEY_SYSTEM_MEDIA_VOLUME -> {
                 stopRingtonePreview();
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mExternalAudioDeviceVolumePref.setVisible(!(boolean) newValue);
             }
 
             case KEY_TIMER_SHAKE_ACTION -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mTimerShakeIntensityPref.setVisible((boolean) newValue);
             }
 
             case KEY_TIMER_VIBRATE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 List<Timer> timerList = getDataModel().getTimers();
 
@@ -417,7 +423,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 List<Timer> timerList = getDataModel().getTimers();
 
@@ -444,7 +450,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_SINGLE_TIMER_MODE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean newValueBool = (boolean) newValue;
 
@@ -462,7 +468,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 List<Timer> timerList = getDataModel().getTimers();
 
@@ -485,7 +491,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
             case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_HEADPHONES_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
                  KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         return true;

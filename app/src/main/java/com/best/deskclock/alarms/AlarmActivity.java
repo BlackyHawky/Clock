@@ -63,7 +63,6 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
@@ -79,7 +78,9 @@ import com.best.deskclock.databinding.AlarmActivityBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.PillView;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
@@ -122,7 +123,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     };
 
     private AlarmActivityBinding mBinding;
-    private Typeface mGeneralBoldTypeface;
+
+    private String mAlarmFontPath;
+    private Typeface mAlarmTypeface;
+    private Typeface mAlarmBoldTypeface;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private Alarm mAlarm;
     private AlarmInstance mAlarmInstance;
@@ -216,7 +220,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
-        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs()));
         mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(getPrefs());
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(getPrefs());
         mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(getPrefs());
@@ -226,7 +229,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             } else {
                 dismiss();
             }
-        }, mGeneralBoldTypeface);
+        }, getGeneralBoldTypeface());
 
         // Register Power button (screen off) intent receiver
         if (mPowerBehavior != PowerButtonBehavior.NOTHING) {
@@ -250,9 +253,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
 
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
         if (SdkUtils.isAtLeastAndroid81()) {
@@ -264,7 +264,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (ThemeUtils.isPortrait()) {
+        if (isPortrait()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -272,6 +272,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         initAlarmBackground();
 
+        mAlarmFontPath = SettingsDAO.getAlarmFont(getPrefs());
         mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
         mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(getPrefs());
         mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(getPrefs());
@@ -595,6 +596,19 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         return true;
     }
 
+    @NonNull
+    @Override
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(
+            getGeneralTypeface(),
+            getGeneralBoldTypeface(),
+            getAlarmTypeface(),
+            null,
+            null,
+            null
+        );
+    }
+
     /**
      * This method adjusts the space occupied by the status bar, and adjust the display of the clock layout accordingly.
      */
@@ -662,7 +676,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private void initAlarmBackground() {
         final String darkMode = SettingsDAO.getDarkMode(getPrefs());
-        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
+        final boolean isAmoledMode = isNight() && darkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
             : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
@@ -715,11 +729,27 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final int alarmClockColor = SettingsDAO.getAlarmClockColor(getPrefs());
         final float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(getPrefs());
 
-        ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, mBinding.analogClock);
+        AnalogClock analogClock = mBinding.analogClock;
+
+        analogClock.configure(
+            alarmClockStyle,
+            SettingsDAO.getAlarmClockDial(getPrefs()),
+            SettingsDAO.getAlarmClockDialMaterial(getPrefs()),
+            SettingsDAO.getAlarmClockSecondHand(getPrefs()),
+            getActiveAccentColor(),
+            alarmClockColor,
+            SettingsDAO.getAlarmSecondHandColor(getPrefs(), this),
+            true
+        );
+
+        ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, analogClock);
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
-            ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(getPrefs()));
-            ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.4f, false, true, false, false, false);
+            UiConfig.Fonts fonts = getFontsConfig();
+            Typeface alarmFont = fonts.alarmClockFont() != null ? fonts.alarmClockFont() : fonts.general();
+            Typeface amPmTypeface = getAlarmBoldTypeface();
+            mBinding.digitalClock.setTypeface(alarmFont);
+            ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, false, 0.4f, amPmTypeface, "sans-serif", Typeface.BOLD, false);
             mBinding.digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             mBinding.digitalClock.setTextColor(alarmClockColor);
 
@@ -728,7 +758,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 mBinding.digitalClock.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             }
         } else {
-            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(getPrefs()));
+            ClockUtils.adjustAnalogClockSize(
+                mBinding.analogClock, getDisplayMetrics(), SettingsDAO.getAlarmAnalogClockSize(getPrefs()), isLandscape());
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
         }
     }
@@ -738,7 +769,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private void initAlarmTitle() {
         mBinding.alarmTitle.setText(mAlarmInstance.getLabelOrDefault(this));
-        mBinding.alarmTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.alarmTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.alarmTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.alarmTitle.setTextColor(mAlarmTitleColor);
 
@@ -814,7 +845,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             : R.string.description_direction_both)
         ));
 
-        mBinding.snoozeText.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeText.setTypeface(getGeneralBoldTypeface());
         mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(getPrefs()));
         int snoozeTextRes = isSnoozeDisabledForAlarmInstance()
             ? (isOccasionalAlarmDeletedAfterUse()
@@ -828,7 +859,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             ? R.string.delete
             : R.string.button_action_dismiss
         ));
-        mBinding.dismissText.setTypeface(mGeneralBoldTypeface);
+        mBinding.dismissText.setTypeface(getGeneralBoldTypeface());
         mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(getPrefs()));
     }
 
@@ -937,7 +968,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mBinding.dismissButton.setVisibility(GONE);
 
         mBinding.dismissOnlyButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(getPrefs(), this));
-        mBinding.dismissOnlyButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.dismissOnlyButton.setTypeface(getGeneralBoldTypeface());
         mBinding.dismissOnlyButton.setText(getString(isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss));
         mBinding.dismissOnlyButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
             ? R.string.description_dismiss_button_for_occasional_alarm
@@ -958,14 +989,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(getPrefs(), this));
         mBinding.snoozeButton.setText(getString(R.string.button_action_snooze));
-        mBinding.snoozeButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeButton.setTypeface(getGeneralBoldTypeface());
         mBinding.snoozeButton.setContentDescription(getString(R.string.description_snooze_button));
         mBinding.snoozeButton.setVisibility(VISIBLE);
         mBinding.snoozeButton.setOnClickListener(this);
 
         mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(getPrefs(), this));
         mBinding.dismissButton.setText(getString(isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss));
-        mBinding.dismissButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.dismissButton.setTypeface(getGeneralBoldTypeface());
         mBinding.dismissButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
             ? R.string.description_dismiss_button_for_occasional_alarm
             : R.string.description_dismiss_button
@@ -1023,7 +1054,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(getPrefs());
 
         mBinding.snoozeSelectorText.setBackgroundTintList(ColorStateList.valueOf(snoozeZoneColor));
-        mBinding.snoozeSelectorText.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeSelectorText.setTypeface(getGeneralBoldTypeface());
         mBinding.snoozeSelectorText.setTextColor(snoozeTextColor);
 
         styleSnoozeButton(mBinding.snoozeSelectorMinus, mSnoozeMinusButtonColor, mSnoozeMinusSymbolColor, true);
@@ -1056,6 +1087,30 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         } else {
             mBinding.ringtoneLayout.setVisibility(GONE);
         }
+    }
+
+    /**
+     * Lazy loading for the standard alarm font.
+     *
+     * @return the alarm font.
+     */
+    protected final Typeface getAlarmTypeface() {
+        if (mAlarmTypeface == null) {
+            mAlarmTypeface = ThemeUtils.loadFont(mAlarmFontPath);
+        }
+        return mAlarmTypeface;
+    }
+
+    /**
+     * Lazy loading for the bold alarm font (used for AM/PM).
+     *
+     * @return the bold alarm font.
+     */
+    protected final Typeface getAlarmBoldTypeface() {
+        if (mAlarmBoldTypeface == null) {
+            mAlarmBoldTypeface = ThemeUtils.boldTypeface(mAlarmFontPath);
+        }
+        return mAlarmBoldTypeface;
     }
 
     /**
@@ -1284,7 +1339,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             displayAlarmActionMessage(titleResId, null, getString(titleResId));
 
-            AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance, false);
+            AlarmStateManager.deleteInstanceAndUpdateParent(this, getPrefs(), mAlarmInstance, false);
 
             Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
@@ -1295,7 +1350,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, descriptionText, accessibilityText);
 
-            AlarmStateManager.setSnoozeState(this, mAlarmInstance, false);
+            AlarmStateManager.setSnoozeState(this, getPrefs(), mAlarmInstance, false);
 
             Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
         }
@@ -1324,7 +1379,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         displayAlarmActionMessage(titleResId, null, getString(titleResId));
 
-        AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance, false);
+        AlarmStateManager.deleteInstanceAndUpdateParent(this, getPrefs(), mAlarmInstance, false);
 
         Events.sendAlarmEvent(action, R.string.label_deskclock);
 
@@ -1433,7 +1488,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         mBinding.ringtoneTitle.setText(title);
-        mBinding.ringtoneTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.ringtoneTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
         mBinding.ringtoneTitle.setSelected(true);
@@ -1453,13 +1508,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mBinding.actionMessageView.setVisibility(VISIBLE);
 
         mBinding.actionTitle.setText(titleResId);
-        mBinding.actionTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.actionTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.actionTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.actionTitle.setTextColor(mAlarmTitleColor);
 
         if (descriptionText != null) {
             mBinding.actionDescription.setVisibility(VISIBLE);
-            mBinding.actionDescription.setTypeface(mGeneralBoldTypeface);
+            mBinding.actionDescription.setTypeface(getGeneralBoldTypeface());
             mBinding.actionDescription.setText(descriptionText);
             mBinding.actionDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
             mBinding.actionDescription.setTextColor(mAlarmTitleColor);

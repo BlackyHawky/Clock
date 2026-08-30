@@ -11,7 +11,6 @@ import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.app.Dialog;
@@ -19,15 +18,12 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.DisplayMetrics;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -40,7 +36,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.IntentCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.os.BundleCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.DialogFragment;
@@ -66,7 +61,6 @@ import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -145,6 +139,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      */
     private int mTitleResourceId;
 
+    private boolean mIsVibrationsEnabled;
+    private boolean mIsAdvancedAudioPlaybackEnabled;
     private boolean mReturnResultOnly;
 
     private RingtonePickerBinding mRingtonePickerBinding;
@@ -153,7 +149,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     private DataModel mDataModel;
     private FragmentManager mFragmentManager;
-    private DisplayMetrics mDisplayMetrics;
     private AlertDialog mProgressDialog;
 
     /**
@@ -269,13 +264,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         mDataModel = DataModel.getDataModel();
         mRingtonePickerBinding = RingtonePickerBinding.inflate(getLayoutInflater(), mBaseBinding.contentFrame);
-
-        SharedPreferences prefs = getDefaultSharedPreferences(this);
-        mDisplayMetrics = getResources().getDisplayMetrics();
+        mIsVibrationsEnabled = SettingsDAO.isVibrationsEnabled(getPrefs());
+        mIsAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs());
         mFragmentManager = getSupportFragmentManager();
-
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
@@ -321,7 +312,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         });
 
         mDialogProgressBinding = DialogProgressBinding.inflate(getLayoutInflater());
-        mDialogProgressBinding.dialogProgressText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
+        mDialogProgressBinding.dialogProgressText.setTypeface(getGeneralTypeface());
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
             .setView(mDialogProgressBinding.getRoot())
@@ -331,13 +322,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         applyWindowInsets();
 
-        String generalFontPath = SettingsDAO.getGeneralFont(prefs);
-        boolean isAmoledDarkMode = AMOLED_DARK_MODE.equals(SettingsDAO.getDarkMode(prefs));
-        Typeface generalTypeface = ThemeUtils.loadFont(generalFontPath);
+        boolean isAmoledDarkMode = AMOLED_DARK_MODE.equals(SettingsDAO.getDarkMode(getPrefs()));
 
-        mDialogProgressBinding.dialogProgressText.setTypeface(generalTypeface);
+        mDialogProgressBinding.dialogProgressText.setTypeface(getGeneralTypeface());
 
-        mRingtoneAdapter = new RingtoneAdapter(this, generalTypeface, isAmoledDarkMode,
+        mRingtoneAdapter = new RingtoneAdapter(this, getFontsConfig(), getScreenConfig(), isAmoledDarkMode,
             new RingtoneAdapter.OnRingtoneClickListener() {
 
             @Override
@@ -439,7 +428,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
         } else {
             // Clear the selection since it does not exist in the data.
-            RingtonePreviewKlaxon.stop();
+            RingtonePreviewKlaxon.stop(mIsAdvancedAudioPlaybackEnabled);
             mSelectedRingtoneUri = null;
             mIsPlaying = false;
         }
@@ -465,7 +454,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 int buttonHeight = mAddButtonBinding.addRingtoneButton.getHeight();
                 int bottomButtonMargin =
                     ((CoordinatorLayout.LayoutParams) mAddButtonBinding.addRingtoneButton.getLayoutParams()).bottomMargin;
-                int safetyPadding = (int) dpToPx(10, mDisplayMetrics);
+                int safetyPadding = (int) dpToPx(10, getDisplayMetrics());
 
                 mRingtonePickerBinding.ringtoneContent.setPadding(0, 0, 0, buttonHeight + bottomButtonMargin + safetyPadding);
             });
@@ -511,7 +500,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         if (!ringtone.isPlaying() && !ringtone.isSilent()) {
             if (RingtoneUtils.isRingtoneUriReadable(this, ringtoneUri)) {
-                RingtonePreviewKlaxon.start(ringtoneUri);
+                RingtonePlayer.Config playerConfig = new RingtonePlayer.Config(
+                    SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()),
+                    SettingsDAO.shouldUseCustomMediaVolume(getPrefs()),
+                    SettingsDAO.getExternalAudioDeviceVolumeValue(getPrefs())
+                );
+
+                RingtonePreviewKlaxon.Config klaxonConfig = new RingtonePreviewKlaxon.Config(
+                    mIsAdvancedAudioPlaybackEnabled,
+                    playerConfig
+                );
+
+                RingtonePreviewKlaxon.start(ringtoneUri, klaxonConfig);
                 ringtone.setPlaying(true);
                 mIsPlaying = true;
             } else {
@@ -541,7 +541,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         }
 
         if (ringtone.isPlaying()) {
-            RingtonePreviewKlaxon.stop();
+            RingtonePreviewKlaxon.stop(mIsAdvancedAudioPlaybackEnabled);
+            RingtonePreviewKlaxon.releaseResources();
             ringtone.setPlaying(false);
             mIsPlaying = false;
         }
@@ -800,7 +801,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 if (removeUri.equals(alarm.alert)) {
                     alarm.alert = systemDefaultRingtoneUri;
                     // Start a second background task to persist the updated alarm.
-                    new AlarmUpdateHandler(appContext, null, null).asyncUpdateAlarm(alarm, false, true);
+                    AlarmUpdateHandler alarmUpdateHandler = new AlarmUpdateHandler(
+                        appContext, getPrefs(), getGeneralTypeface(), null, null, mIsVibrationsEnabled);
+
+                    alarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                 }
             }
 

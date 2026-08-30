@@ -121,7 +121,7 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_VERTICAL_WIDGET_DISPLAY_BACKGROUND -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean displayBackground = (boolean) newValue;
                 boolean isCustomColor = !WidgetDAO.isVerticalWidgetDefaultBackgroundColor(getPrefs());
@@ -138,19 +138,19 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
             }
 
             case KEY_VERTICAL_WIDGET_DISPLAY_DATE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mDefaultDateColorPref.setVisible((boolean) newValue);
                 mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
                     && !WidgetDAO.isVerticalWidgetDefaultDateColor(getPrefs()));
             }
 
             case KEY_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mDefaultNextAlarmColorPref.setVisible((boolean) newValue);
                 mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
                     && !WidgetDAO.isVerticalWidgetDefaultNextAlarmColor(getPrefs()));
@@ -159,10 +159,10 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
             case KEY_VERTICAL_WIDGET_DISPLAY_TEXT_UPPERCASE,
                  KEY_VERTICAL_WIDGET_DISPLAY_TEXT_SHADOW,
                  KEY_VERTICAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_VERTICAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isCustomColor = !(boolean) newValue;
                 boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnVerticalWidget(getPrefs());
@@ -177,22 +177,22 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_VERTICAL_WIDGET_DEFAULT_HOURS_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mCustomHoursColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_VERTICAL_WIDGET_DEFAULT_MINUTES_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mCustomMinutesColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_VERTICAL_WIDGET_DEFAULT_DATE_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mCustomDateColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_VERTICAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
             }
         }

@@ -4,19 +4,12 @@ package com.best.deskclock.base;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
@@ -25,19 +18,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.WindowCompat;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.BackupAndRestoreManager;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -65,7 +61,7 @@ public class BaseActivity extends AppCompatActivity {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         KEY_THEME, KEY_DARK_MODE, KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_NIGHT_ACCENT_COLOR,
-        KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS
+        KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_VIBRATIONS, KEY_FADE_TRANSITIONS
     );
 
     /**
@@ -77,7 +73,18 @@ public class BaseActivity extends AppCompatActivity {
     private UiDataModel mUiDataModel;
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private String mGeneralFontPath;
+    private Typeface mGeneralTypeface;
+    private Typeface mGeneralBoldTypeface;
+    private Locale mLocale;
+    private boolean mIsTablet;
+    private boolean mIsPortrait;
+    private boolean mIsLandscape;
     private boolean mIsRtl;
+    private boolean mIsNight;
+    private boolean mIsCardBackgroundDisplayed;
+    private boolean mIsCardBorderDisplayed;
+    private boolean mIsAmoled;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,9 +92,26 @@ public class BaseActivity extends AppCompatActivity {
         mUiDataModel = UiDataModel.getUiDataModel();
         mPrefs = getDefaultSharedPreferences(Utils.getSafeStorageContext(this));
         mDisplayMetrics = getResources().getDisplayMetrics();
+        mGeneralFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mLocale = Locale.getDefault();
+        mIsTablet = ThemeUtils.isTablet();
+        mIsPortrait = ThemeUtils.isPortrait();
+        mIsLandscape = ThemeUtils.isLandscape();
         mIsRtl = ThemeUtils.isRTL(this);
+        mIsNight = ThemeUtils.isNight(getResources());
+        mIsCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+        mIsCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
+        mIsAmoled = SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE);
+
+        ThemeUtils.setActivityEnterTransition(this, SettingsDAO.isFadeTransitionsEnabled(mPrefs));
 
         applyThemeAndAccentColor();
+
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        // Display within the cutout area
+        ThemeUtils.allowDisplayCutout(getWindow());
 
         super.onCreate(savedInstanceState);
 
@@ -142,7 +166,7 @@ public class BaseActivity extends AppCompatActivity {
 
         String color = isAutoNightAccentColorEnabled
             ? accentColor
-            : (ThemeUtils.isNight(getResources()) ? nightAccentColor : accentColor);
+            : (mIsNight ? nightAccentColor : accentColor);
 
         switch (color) {
             case BLACK_ACCENT_COLOR -> setTheme(R.style.BlackAccentColor);
@@ -158,7 +182,7 @@ public class BaseActivity extends AppCompatActivity {
             case YELLOW_ACCENT_COLOR -> setTheme(R.style.YellowAccentColor);
         }
 
-        if (ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+        if (mIsNight && darkMode.equals(AMOLED_DARK_MODE)) {
             getWindow().getDecorView().setBackgroundColor(Color.BLACK);
         }
     }
@@ -174,10 +198,10 @@ public class BaseActivity extends AppCompatActivity {
                 getWindow().setNavigationBarContrastEnforced(false);
             }
         } else {
-            boolean isPhoneInLandscapeMode = !ThemeUtils.isTablet() && ThemeUtils.isLandscape();
+            boolean isPhoneInLandscapeMode = !mIsTablet && mIsLandscape;
             boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
 
-            if (ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+            if (mIsNight && darkMode.equals(AMOLED_DARK_MODE)) {
                 getWindow().setNavigationBarColor(Color.BLACK);
             } else if (this instanceof DeskClock) {
                 getWindow().setNavigationBarColor(MaterialColors.getColor(this, isPhoneInLandscapeMode || !isCardBackgroundDisplayed
@@ -226,7 +250,7 @@ public class BaseActivity extends AppCompatActivity {
         Map<String, Object> cachedValues = Utils.initCachedValues(SUPPORTED_PREF_KEYS, this::getPreferenceValue);
 
         SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences, key) -> {
-            if (BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp
+            if (BackupAndRestoreManager.isRestoringBackupOrIsResettingApp
                 || key == null
                 || !cachedValues.containsKey(key)) {
                 return;
@@ -253,7 +277,7 @@ public class BaseActivity extends AppCompatActivity {
                 case KEY_GENERAL_FONT, KEY_ACCENT_COLOR -> recreate();
 
                 case KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR -> {
-                    if (ThemeUtils.isNight(getResources())) {
+                    if (mIsNight) {
                         recreate();
                     }
                 }
@@ -298,6 +322,7 @@ public class BaseActivity extends AppCompatActivity {
             case KEY_NIGHT_ACCENT_COLOR -> SettingsDAO.getNightAccentColor(mPrefs);
             case KEY_CARD_BACKGROUND -> SettingsDAO.isCardBackgroundDisplayed(mPrefs);
             case KEY_CARD_BORDER -> SettingsDAO.isCardBorderDisplayed(mPrefs);
+            case KEY_VIBRATIONS -> SettingsDAO.isVibrationsEnabled(mPrefs);
             case KEY_FADE_TRANSITIONS -> SettingsDAO.isFadeTransitionsEnabled(mPrefs);
             default -> null;
         };
@@ -319,8 +344,95 @@ public class BaseActivity extends AppCompatActivity {
         return mDisplayMetrics;
     }
 
+    protected final Locale getLocale() {
+        return mLocale;
+    }
+
+    /**
+     * Gets the general typeface using lazy loading.
+     * We load it only when requested to prevent blocking the main thread during app startup.
+     * By the time this is called, DeskClock has usually already preloaded it asynchronously into the cache.
+     *
+     * @return The general Typeface.
+     */
+    protected final Typeface getGeneralTypeface() {
+        if (mGeneralTypeface == null) {
+            mGeneralTypeface = ThemeUtils.loadFont(mGeneralFontPath);
+        }
+        return mGeneralTypeface;
+    }
+
+    /**
+     * Gets the bold general typeface using lazy loading.
+     * We load it only when requested to prevent blocking the main thread during app startup.
+     * By the time this is called, DeskClock has usually already preloaded it asynchronously into the cache.
+     *
+     * @return The bold general Typeface.
+     */
+    protected final Typeface getGeneralBoldTypeface() {
+        if (mGeneralBoldTypeface == null) {
+            mGeneralBoldTypeface = ThemeUtils.boldTypeface(mGeneralFontPath);
+        }
+
+        return mGeneralBoldTypeface;
+    }
+
+    protected final boolean isTablet() {
+        return mIsTablet;
+    }
+
+    protected final boolean isPortrait() {
+        return mIsPortrait;
+    }
+
+    protected final boolean isLandscape() {
+        return mIsLandscape;
+    }
+
     protected final boolean isRtl() {
         return mIsRtl;
+    }
+
+    protected final boolean isNight() {
+        return mIsNight;
+    }
+
+    protected String getActiveAccentColor() {
+        return ThemeUtils.getActiveAccentColor(
+            this,
+            SettingsDAO.isAutoNightAccentColorEnabled(mPrefs),
+            SettingsDAO.getNightAccentColor(mPrefs),
+            SettingsDAO.getAccentColor(mPrefs)
+        );
+    }
+
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(
+            getGeneralTypeface(),
+            getGeneralBoldTypeface(),
+            null,
+            null,
+            null,
+            null
+        );
+    }
+
+    protected UiConfig.Screen getScreenConfig() {
+        return new UiConfig.Screen(
+            mDisplayMetrics,
+            mIsTablet,
+            mIsPortrait,
+            mIsLandscape,
+            mIsRtl
+        );
+    }
+
+    protected UiConfig.CardStyle getCardStyleConfig() {
+        return new UiConfig.CardStyle(
+            mIsCardBackgroundDisplayed,
+            mIsCardBorderDisplayed,
+            mIsAmoled
+        );
     }
 
 }

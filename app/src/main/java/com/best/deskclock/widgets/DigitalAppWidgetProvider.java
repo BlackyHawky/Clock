@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Space;
@@ -273,19 +274,20 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureClock(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs) {
+    protected void configureClock(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs) {
+        boolean areSecondsDisplayed = WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
+        float amPmRatio = WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs) ? 0 : 0.4f;
+
         if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
             rv.setViewVisibility(getClockViewId(), VISIBLE);
             rv.setViewVisibility(getClockCustomViewId(), GONE);
 
-            WidgetUtils.applyClockFormat(rv, context, getClockViewId(), WidgetUtils.getAmPmRatio(prefs),
-                WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
+            WidgetUtils.applyClockFormat(rv, getClockViewId(), amPmRatio, areSecondsDisplayed);
         } else {
             rv.setViewVisibility(getClockViewId(), GONE);
             rv.setViewVisibility(getClockCustomViewId(), VISIBLE);
 
-            WidgetUtils.applyClockFormat(rv, context, getClockCustomViewId(), WidgetUtils.getAmPmRatio(prefs),
-                WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
+            WidgetUtils.applyClockFormat(rv, getClockCustomViewId(), amPmRatio, areSecondsDisplayed);
 
             rv.setTextColor(getClockCustomViewId(), WidgetDAO.getDigitalWidgetCustomClockColor(prefs));
         }
@@ -412,7 +414,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureBackground(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                       int widthPx, int heightPx) {
+                                       @NonNull DisplayMetrics displayMetrics, int widthPx, int heightPx) {
 
         if (!WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
@@ -421,7 +423,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         int radius = (int) dpToPx(WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
             ? WidgetDAO.getDigitalWidgetBackgroundCornerRadius(prefs)
-            : DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS, context.getResources().getDisplayMetrics());
+            : DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS, displayMetrics);
 
         int color = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
 
@@ -454,6 +456,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     protected void configureSizerClock(@NonNull View sizer, @NonNull SharedPreferences prefs) {
         final TextClock clock = sizer.findViewById(getClockViewId());
         final TextClock clockForCustomColor = sizer.findViewById(getClockCustomViewId());
+
         if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
             clock.setVisibility(VISIBLE);
             clockForCustomColor.setVisibility(GONE);
@@ -608,15 +611,18 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     protected void configureClockForMeasurement(@NonNull View sizer, @NonNull DigitalWidgetSizes measuredSizes,
                                                 @NonNull SharedPreferences prefs) {
 
+        boolean areSecondsDisplayed = WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
+        boolean isAmPmHidden = WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs);
+
         if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
             TextClock clock = sizer.findViewById(getClockViewId());
-            clock.setText(WidgetUtils.getLongestTimeString(clock));
+            clock.setText(WidgetUtils.getLongestTimeString(clock, areSecondsDisplayed, isAmPmHidden));
             clock.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mWidgetFontSizePx);
         } else {
             final TextClock clockForCustomColor = sizer.findViewById(getClockCustomViewId());
-            clockForCustomColor.setText(WidgetUtils.getLongestTimeString(clockForCustomColor));
+            clockForCustomColor.setText(WidgetUtils.getLongestTimeString(clockForCustomColor, areSecondsDisplayed, isAmPmHidden));
             clockForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mWidgetFontSizePx);
-            clockForCustomColor.setText(WidgetUtils.getLongestTimeString(clockForCustomColor));
+            clockForCustomColor.setText(WidgetUtils.getLongestTimeString(clockForCustomColor, areSecondsDisplayed, isAmPmHidden));
             clockForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mWidgetFontSizePx);
         }
     }

@@ -959,14 +959,14 @@ public final class SettingsDAO {
     /**
      * @param uri the uri of the ringtone to play for all timers
      */
-    static void setTimerRingtoneUri(@NonNull SharedPreferences prefs, @NonNull Uri uri) {
+    public static void setTimerRingtoneUri(@NonNull SharedPreferences prefs, @NonNull Uri uri) {
         prefs.edit().putString(KEY_TIMER_RINGTONE, uri.toString()).apply();
     }
 
     /**
      * @return the uri of the ringtone from the settings to play for all alarms
      */
-    static Uri getAlarmRingtoneUriFromSettings(@NonNull SharedPreferences prefs, Uri defaultUri) {
+    public static Uri getAlarmRingtoneUriFromSettings(@NonNull SharedPreferences prefs, Uri defaultUri) {
         final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
@@ -974,7 +974,7 @@ public final class SettingsDAO {
     /**
      * @param uri the uri of the ringtone from the settings to play for all alarms
      */
-    static void setAlarmRingtoneUriFromSettings(@NonNull SharedPreferences prefs, @NonNull Uri uri) {
+    public static void setAlarmRingtoneUriFromSettings(@NonNull SharedPreferences prefs, @NonNull Uri uri) {
         prefs.edit().putString(KEY_DEFAULT_ALARM_RINGTONE, uri.toString()).apply();
     }
 
@@ -1116,6 +1116,18 @@ public final class SettingsDAO {
             case MONDAY -> MON_TO_SUN;
             default -> throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
         };
+    }
+
+    /**
+     * @return The first day of the week as a Calendar constant (e.g., Calendar.SUNDAY).
+     */
+    public static int getFirstDayOfWeek(@NonNull SharedPreferences prefs) {
+        String weekStartPref = prefs.getString(KEY_WEEK_START, DEFAULT_WEEK_START);
+        try {
+            return Integer.parseInt(weekStartPref);
+        } catch (NumberFormatException e) {
+            return Calendar.getInstance().getFirstDayOfWeek();
+        }
     }
 
     /**
@@ -1319,6 +1331,27 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the styled repeat day display is enabled for a specific alarm. {@code false} otherwise.
+     */
+    public static boolean isRepeatDayStyleEnabled(@NonNull SharedPreferences prefs, long alarmId) {
+        return prefs.getBoolean(KEY_SHOW_STYLED_REPEAT_DAY + alarmId, false);
+    }
+
+    /**
+     * Enables the styled repeat day display for this alarm only if all days are selected.
+     */
+    public static void enableRepeatDayStyleIfAllDaysSelected(@NonNull SharedPreferences prefs, long alarmId) {
+        prefs.edit().putBoolean(KEY_SHOW_STYLED_REPEAT_DAY + alarmId, true).apply();
+    }
+
+    /**
+     * Removes the styled repeat day display for a specific alarm.
+     */
+    public static void removeRepeatDayStyle(@NonNull SharedPreferences prefs, long alarmId) {
+        prefs.edit().remove(KEY_SHOW_STYLED_REPEAT_DAY + alarmId).apply();
+    }
+
+    /**
      * @return the time picker style.
      */
     public static String getMaterialTimePickerStyle(@NonNull SharedPreferences prefs) {
@@ -1402,7 +1435,9 @@ public final class SettingsDAO {
             return prefs.getInt(KEY_ALARM_BACKGROUND_COLOR, Color.WHITE);
         }
 
-        String activeAccentColor = ThemeUtils.getActiveAccentColor(context, prefs);
+        String activeAccentColor = ThemeUtils.getActiveAccentColor(
+            context, isAutoNightAccentColorEnabled(prefs), getNightAccentColor(prefs), getAccentColor(prefs));
+
         return ThemeUtils.getNightBackgroundColor(context, activeAccentColor);
     }
 
@@ -1684,6 +1719,16 @@ public final class SettingsDAO {
     public static String getVolumeDownActionAfterLongPressForStopwatch(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_stopwatch.xml
         return prefs.getString(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, DEFAULT_SW_ACTION);
+    }
+
+    public static boolean isKeepAndroidOpenDialogDisplayed(@NonNull SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, true);
+    }
+
+    public static void setKeepAndroidOpenDialogDisplayed(@NonNull SharedPreferences prefs) {
+        if (prefs.getBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, true)) {
+            prefs.edit().putBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, false).apply();
+        }
     }
 
     /**

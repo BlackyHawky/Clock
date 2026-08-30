@@ -7,7 +7,6 @@
 package com.best.deskclock.timer;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.VibrationAttributes;
@@ -18,7 +17,6 @@ import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePlayer;
@@ -31,6 +29,11 @@ import com.best.deskclock.utils.Utils;
  * Manages playing the timer ringtone and vibrating the device.
  */
 public final class TimerKlaxon {
+
+    public record Config(
+        boolean isAdvancedAudioPlaybackEnabled,
+        @NonNull RingtonePlayer.Config ringtonePlayerConfig
+    ) {}
 
     private static TimerKlaxon sInstance;
 
@@ -71,13 +74,12 @@ public final class TimerKlaxon {
         }
     }
 
-    public static void start(@NonNull Timer timer) {
+    public static void start(@NonNull Timer timer, @NonNull Config config) {
         // Make sure we are stopped before starting
         stop();
         LogUtils.i("TimerKlaxon.start()");
 
         Context appContext = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
         TimerKlaxon instance = getInstance();
         Uri uri = timer.getRingtoneUri();
 
@@ -99,8 +101,8 @@ public final class TimerKlaxon {
             // Crescendo duration always in milliseconds
             final int crescendoDuration = timer.getVolumeCrescendoDuration() * 1000;
 
-            if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-                instance.getRingtonePlayer().play(uri, crescendoDuration);
+            if (config.isAdvancedAudioPlaybackEnabled()) {
+                instance.getRingtonePlayer(config.ringtonePlayerConfig()).play(uri, crescendoDuration);
             } else {
                 instance.getAsyncRingtonePlayer().play(uri, crescendoDuration);
             }
@@ -135,9 +137,25 @@ public final class TimerKlaxon {
         instance.mStarted = true;
     }
 
-    public static void deactivateRingtonePlayback() {
-        stopListeningToPreferences();
-        releaseResources();
+    public static void setAutoRoutingEnabled(boolean enabled) {
+        TimerKlaxon instance = getInstance();
+        if (instance.mRingtonePlayer != null) {
+            instance.mRingtonePlayer.setAutoRoutingEnabled(enabled);
+        }
+    }
+
+    public static synchronized void releaseResources() {
+        if (sInstance != null) {
+            if (sInstance.mAsyncRingtonePlayer != null) {
+                sInstance.mAsyncRingtonePlayer.shutdown();
+                sInstance.mAsyncRingtonePlayer = null;
+            }
+
+            if (sInstance.mRingtonePlayer != null) {
+                sInstance.mRingtonePlayer.stop();
+                sInstance.mRingtonePlayer = null;
+            }
+        }
     }
 
     // MediaPlayer
@@ -149,26 +167,13 @@ public final class TimerKlaxon {
         return mAsyncRingtonePlayer;
     }
 
-    public static synchronized void releaseResources() {
-        if (sInstance != null && sInstance.mAsyncRingtonePlayer != null) {
-            sInstance.mAsyncRingtonePlayer.shutdown();
-            sInstance.mAsyncRingtonePlayer = null;
-        }
-    }
-
     // ExoPlayer
-    private RingtonePlayer getRingtonePlayer() {
+    private RingtonePlayer getRingtonePlayer(@NonNull RingtonePlayer.Config config) {
         if (mRingtonePlayer == null) {
-            mRingtonePlayer = new RingtonePlayer(DeskClockApplication.getAppContext());
+            mRingtonePlayer = new RingtonePlayer(DeskClockApplication.getAppContext(), config);
         }
 
         return mRingtonePlayer;
     }
 
-    public static synchronized void stopListeningToPreferences() {
-        if (sInstance != null && sInstance.mRingtonePlayer != null) {
-            sInstance.mRingtonePlayer.stopListeningToPreferences();
-            sInstance.mRingtonePlayer = null;
-        }
-    }
 }

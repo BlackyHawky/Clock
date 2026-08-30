@@ -7,6 +7,7 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 
@@ -171,14 +172,19 @@ public class FileUtils {
     /**
      * Deletes a file from storage and removes its associated preference entry.
      *
-     * @param path       The absolute path of the file to delete.
-     * @param isFontFile True if the deleted file is a font, false if it is an image.
+     * @param context     Application context.
+     * @param accentStyle The resolved accent color (taking auto night mode into account).
+     * @param font        The font used for the Toast message.
+     * @param path        The absolute path of the file to delete.
+     * @param isFontFile  True if the deleted file is a font, false if it is an image.
      */
-    public static void deleteCustomFile(@NonNull Context context, @NonNull String path, boolean isFontFile) {
+    public static void deleteCustomFile(@NonNull Context context, int accentStyle, @Nullable Typeface font, @NonNull String path,
+                                        boolean isFontFile) {
+
         AppExecutors.getDiskIO().execute(() -> {
             clearFile(path);
 
-            AppExecutors.getMainThread().post(() -> CustomToast.show(context, isFontFile
+            AppExecutors.getMainThread().post(() -> CustomToast.show(context, accentStyle, font, isFontFile
                 ? R.string.custom_font_toast_message_deleted
                 : R.string.background_image_toast_message_deleted)
             );

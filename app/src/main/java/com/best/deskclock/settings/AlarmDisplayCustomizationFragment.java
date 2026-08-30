@@ -9,7 +9,9 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -110,12 +112,15 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             final Context appContext = requireContext().getApplicationContext();
+            final int style = getAccentStyle();
+            final Typeface font = getGeneralTypeface();
+            final SharedPreferences prefs = getPrefs();
 
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_ALARM_BACKGROUND);
-            String oldImagePath = getPrefs().getString(KEY_ALARM_BACKGROUND_IMAGE, null);
+            String oldImagePath = prefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old image if it exists
@@ -126,14 +131,14 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
                 // Save the new path
                 if (copiedUri != null) {
-                    getPrefs().edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                    prefs.edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
                     if (copiedUri != null) {
-                        CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                        CustomToast.show(appContext, style, font, R.string.background_image_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing image");
+                        CustomToast.show(appContext, style, font, R.string.image_message_error);
                     }
 
                     if (!isAdded()
@@ -162,7 +167,8 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
+        mAlarmUpdateHandler = new AlarmUpdateHandler(
+            requireContext(), getPrefs(), getGeneralTypeface(), null, null, isVibrationsEnabled());
 
         addPreferencesFromResource(R.xml.settings_alarm_display);
 
@@ -283,7 +289,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_DISPLAY_ALARM_SECOND_HAND -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isSecondHandDisplayed = (boolean) newValue;
                 ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(getPrefs());
@@ -293,7 +299,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_SWIPE_ACTION -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isSwipeActionEnabled = (boolean) newValue;
 
@@ -306,7 +312,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_DISPLAY_SNOOZE_SELECTOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isSnoozeSelectorDisplayed = (boolean) newValue;
 
@@ -319,7 +325,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_ALARM_DISPLAY_TEXT_SHADOW -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isTextShadowDisplayed = (boolean) newValue;
                 mShadowColorPref.setVisible(isTextShadowDisplayed);
@@ -327,13 +333,13 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_DISPLAY_RINGTONE_TITLE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 mRingtoneTitleColorPref.setVisible((boolean) newValue);
             }
 
             case KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -351,7 +357,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_DISPLAY_ALARM_ACTION_MESSAGE, KEY_DISPLAY_ALARM_TITLE_ON_SINGLE_LINE ->
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         return true;
@@ -359,11 +365,6 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
     @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
-        final Context context = getActivity();
-        if (context == null) {
-            return false;
-        }
-
         switch (pref.getKey()) {
             case KEY_ALARM_BACKGROUND_IMAGE -> selectCustomFile(mAlarmBackgroundImagePref, imagePickerLauncher,
                 SettingsDAO.getAlarmBackgroundImage(getPrefs()), KEY_ALARM_BACKGROUND_IMAGE, false, () -> {
@@ -392,13 +393,13 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             });
 
             case KEY_ALARM_PREVIEW -> {
-                Intent previewIntent = new Intent(context, AlarmDisplayPreviewActivity.class);
+                Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
                 Calendar now = Calendar.getInstance();
 
                 previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, now.get(Calendar.HOUR_OF_DAY));
                 previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, now.get(Calendar.MINUTE));
 
-                ThemeUtils.startActivityWithTransition(context, previewIntent);
+                ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
             }
         }
 
@@ -432,7 +433,12 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
         mAlarmClockColorPref.setVisible(!isMaterialAnalogClock);
 
-        String activeAccentColor = ThemeUtils.getActiveAccentColor(requireContext(), getPrefs());
+        String activeAccentColor = ThemeUtils.getActiveAccentColor(
+            requireContext(),
+            SettingsDAO.isAutoNightAccentColorEnabled(getPrefs()),
+            SettingsDAO.getNightAccentColor(getPrefs()),
+            SettingsDAO.getAccentColor(getPrefs())
+        );
         int defaultBackgroundColor = ThemeUtils.getNightBackgroundColor(requireContext(), activeAccentColor);
         mBackgroundColorPref.setDefaultValue(defaultBackgroundColor);
 
@@ -570,7 +576,8 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
                     }
 
                     AppExecutors.getMainThread().post(() -> {
-                        CustomToast.show(appContext, R.string.background_image_toast_message_deleted);
+                        CustomToast.show(
+                            appContext, getAccentStyle(), getGeneralTypeface(), R.string.background_image_toast_message_deleted);
                         updateBlurPreferenceVisibility();
                     });
                 });

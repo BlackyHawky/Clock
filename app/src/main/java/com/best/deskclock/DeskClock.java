@@ -19,7 +19,14 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_GATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_ZOOM_OUT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
-import static com.best.deskclock.settings.PreferencesKeys.*;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_IS_FIRST_LAUNCH;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_ANIMATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TOOLBAR_TITLE;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
@@ -51,7 +58,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -81,6 +87,7 @@ import com.best.deskclock.uicomponents.pagetransformers.DepthPageTransformer;
 import com.best.deskclock.uicomponents.pagetransformers.FlipPageTransformer;
 import com.best.deskclock.uicomponents.pagetransformers.GatePageTransformer;
 import com.best.deskclock.uicomponents.pagetransformers.ZoomOutPageTransformer;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
@@ -110,7 +117,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
     private DeskClockBinding mBinding;
 
-    private Typeface mRegularTypeface;
+    private Typeface mGeneralTypeface;
     private String mFontPath;
     private boolean mIsToolBarDisplayed;
     private long mLastFabClickTime = 0;
@@ -182,8 +189,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         // Interface
-        KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS,
-        KEY_KEEP_SCREEN_ON,
+        KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_KEEP_SCREEN_ON,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -214,7 +220,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             }
 
             if (intent.getBooleanExtra(EXTRA_UPDATE_ALARM_NOTIFICATIONS, false)) {
-                NotificationUtils.updateAlarmNotifications(this);
+                NotificationUtils.updateAlarmNotifications(
+                    this, SettingsDAO.getLanguageCode(getPrefs()), SettingsDAO.getGlobalIntentId(getPrefs()));
                 intent.removeExtra(EXTRA_UPDATE_ALARM_NOTIFICATIONS);
             }
         }
@@ -228,11 +235,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
         mFontPath = SettingsDAO.getGeneralFont(getPrefs());
         mIsToolBarDisplayed = SettingsDAO.isToolbarTitleDisplayed(getPrefs());
 
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
-        ThemeUtils.allowDisplayCutout(getWindow());
-
         setContentView(mBinding.getRoot());
 
         applyWindowInsets();
@@ -245,8 +247,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         registerPrefListener();
 
+        // Asynchronously preload all fonts into ThemeUtils's memory cache.
+        // This prevents UI freezing (jank) on the main thread at startup, and allows BaseActivity
+        // and Fragments to instantly retrieve these fonts later without heavy disk I/O.
         AppExecutors.getDiskIO().execute(() -> {
-            mRegularTypeface = ThemeUtils.loadFont(mFontPath);
+            mGeneralTypeface = ThemeUtils.loadFont(mFontPath);
             ThemeUtils.boldTypeface(mFontPath);
             ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(getPrefs()));
             ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(getPrefs()));
@@ -351,7 +356,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label).setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
-        mBinding.toolbar.post(() -> ThemeUtils.applyToolbarTooltips(mBinding.toolbar));
+        mBinding.toolbar.post(() -> ThemeUtils.applyToolbarTooltips(mBinding.toolbar, mGeneralTypeface, getDisplayMetrics()));
 
         return true;
     }
@@ -434,11 +439,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * <p>Note: Clicking the "OK" button will no longer display this dialog box.</p>
      */
     private void displayKeepAndroidOpenDialogIfUnread() {
-        if (!getPrefs().getBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, true)) {
+        if (!SettingsDAO.isKeepAndroidOpenDialogDisplayed(getPrefs())) {
             return;
         }
 
-        mKeepAndroidOpenDialog = Utils.displayKeepAndroidOpenDialog(this, getPrefs(), false);
+        mKeepAndroidOpenDialog = Utils.displayKeepAndroidOpenDialog(this, false, () ->
+            SettingsDAO.setKeepAndroidOpenDialogDisplayed(getPrefs()));
 
         mKeepAndroidOpenDialog.show();
     }
@@ -474,7 +480,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             cachedValues.put(key, newValue);
 
             switch (key) {
-                case KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS,
+                case KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION,
                      KEY_KEEP_SCREEN_ON, KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
 
             }
@@ -507,7 +513,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_TAB_INDICATOR -> SettingsDAO.isTabIndicatorDisplayed(getPrefs());
             case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(getPrefs());
             case KEY_TAB_ANIMATION -> SettingsDAO.getTabAnimation(getPrefs());
-            case KEY_VIBRATIONS -> SettingsDAO.isVibrationsEnabled(getPrefs());
             case KEY_KEEP_SCREEN_ON -> SettingsDAO.shouldScreenRemainOn(getPrefs());
             // Permission
             case KEY_ESSENTIAL_PERMISSIONS_GRANTED -> getPrefs().getBoolean(key, false);
@@ -564,7 +569,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         setSupportActionBar(mBinding.toolbar);
 
         if (mIsToolBarDisplayed) {
-            ThemeUtils.applyTypeface(mBinding.toolbar, mRegularTypeface);
+            ThemeUtils.applyTypeface(mBinding.toolbar, mGeneralTypeface);
         }
     }
 
@@ -587,12 +592,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
         });
 
         mBinding.leftButton.setOnLongClickListener(v -> {
-            CustomTooltip.showAbove(v, mBinding.leftButton.getContentDescription().toString(), true);
+            CustomTooltip.showAbove(
+                v, mGeneralTypeface, getDisplayMetrics(), mBinding.leftButton.getContentDescription().toString(), true);
             return true;
         });
 
         mBinding.rightButton.setOnLongClickListener(v -> {
-            CustomTooltip.showAbove(v, mBinding.rightButton.getContentDescription().toString(), true);
+            CustomTooltip.showAbove(
+                v, mGeneralTypeface, getDisplayMetrics(), mBinding.rightButton.getContentDescription().toString(), true);
             return true;
         });
 
@@ -778,7 +785,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
             new int[]{primaryColor, primaryColor, onBackgroundColor}));
 
-        if (ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(getPrefs()).equals(AMOLED_DARK_MODE)) {
+        if (isNight() && SettingsDAO.getDarkMode(getPrefs()).equals(AMOLED_DARK_MODE)) {
             mBinding.deskClockBottomMenu.setBackgroundColor(Color.BLACK);
             mBinding.deskClockBottomMenu.setItemTextColor(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
@@ -806,7 +813,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     @SuppressLint("RestrictedApi")
     private void updateBottomNavTypeface() {
-        if (mRegularTypeface == null) {
+        if (mGeneralTypeface == null) {
             return;
         }
 
@@ -815,7 +822,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         for (int i = 0; i < menuView.getChildCount(); i++) {
             View itemView = menuView.getChildAt(i);
 
-            ThemeUtils.applyTypeface(itemView, mRegularTypeface);
+            ThemeUtils.applyTypeface(itemView, mGeneralTypeface);
         }
     }
 
@@ -845,7 +852,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                         if (item != null) {
                             title = item.getTitle();
                             if (title != null) {
-                                CustomTooltip.showAbove(v, title.toString(), false);
+                                CustomTooltip.showAbove(v, mGeneralTypeface, getDisplayMetrics(), title.toString(), false);
                             }
                         }
 
@@ -1229,10 +1236,23 @@ public class DeskClock extends BaseActivity implements FabContainer {
             // Set the associated corrective action if one exists.
             if (mSilentSetting.isActionEnabled()) {
                 final int actionResId = mSilentSetting.getActionResId();
-                snackbar.setAction(actionResId, v -> mSilentSetting.executeAction(v.getContext()));
+
+                snackbar.setAction(actionResId, v -> {
+                    boolean success = mSilentSetting.executeAction(v.getContext());
+
+                    if (!success) {
+                        SharedPreferences prefs = getPrefs();
+                        final int style = ThemeUtils.getAccentStyle(DeskClock.this,
+                            SettingsDAO.isAutoNightAccentColorEnabled(prefs),
+                            SettingsDAO.getAccentColor(prefs),
+                            SettingsDAO.getNightAccentColor(prefs));
+
+                        CustomToast.show(DeskClock.this, style, mGeneralTypeface, R.string.app_message_error);
+                    }
+                });
             }
 
-            SnackbarManager.show(snackbar);
+            SnackbarManager.show(snackbar, mGeneralTypeface);
         }
     }
 

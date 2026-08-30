@@ -8,7 +8,6 @@ package com.best.deskclock.utils;
 
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SYSTEM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
@@ -16,13 +15,11 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PAT
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_STRONG;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_TICK_TOCK;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Looper;
@@ -51,7 +48,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CustomDialog;
 
 import java.util.HashMap;
@@ -130,6 +126,7 @@ public class Utils {
      * Convenience method to stop a service.
      *
      * @param context The context required to stop the service.
+     * @param cls     The class that handles the service shutdown.
      */
     public static void stopService(@NonNull Context context, @NonNull Class<?> cls) {
         Intent serviceIntent = new Intent(context, cls);
@@ -195,21 +192,21 @@ public class Utils {
      * <p>If the user selected the system default language, the system Locale is used.
      * Otherwise, a Locale is built from the stored custom language code.</p>
      *
-     * @param context The base context used to read preferences and resources.
+     * @param context       The base context used to read resources.
+     * @param languageCode  The custom language code to set the {@link Locale}.
      * @return A new Context whose configuration applies the selected Locale.
      */
     @SuppressLint("AppBundleLocaleChanges")
-    public static Context getLocalizedContext(@NonNull Context context) {
+    public static Context getLocalizedContext(@NonNull Context context, @Nullable String languageCode) {
         Locale locale = null;
 
         LocaleListCompat appLocales = AppCompatDelegate.getApplicationLocales();
 
         if (appLocales.isEmpty()) {
-            String customLanguageCode = SettingsDAO.getLanguageCode(getDefaultSharedPreferences(context));
-            if (customLanguageCode != null
-                && !DEFAULT_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)
-                && !customLanguageCode.isEmpty()) {
-                locale = Locale.forLanguageTag(customLanguageCode);
+            if (languageCode != null
+                && !DEFAULT_SYSTEM_LANGUAGE_CODE.equals(languageCode)
+                && !languageCode.isEmpty()) {
+                locale = Locale.forLanguageTag(languageCode);
             }
         } else {
             locale = appLocales.get(0);
@@ -248,10 +245,10 @@ public class Utils {
      * <p>If the app is being reset, it applies the default language (or a specific language for debug/nightly builds).
      * If the app is being restored, it reads the saved language from shared preferences and applies it.</p>
      *
-     * @param context        the context used to access shared preferences
-     * @param isResettingApp true if the app is resetting to default settings, false if restoring from a backup
+     * @param languageCode   The custom language code to set the {@link Locale}
+     * @param isResettingApp {code true} if the app is resetting to default settings, {@code false} if restoring from a backup
      */
-    public static void applyAppLanguage(@NonNull Context context, boolean isResettingApp) {
+    public static void applyAppLanguage(@NonNull String languageCode, boolean isResettingApp) {
         if (isResettingApp) {
             if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(DEBUG_LANGUAGE_CODE));
@@ -259,13 +256,11 @@ public class Utils {
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
             }
         } else {
-            SharedPreferences prefs = getDefaultSharedPreferences(context);
-            String customLanguageCode = SettingsDAO.getLanguageCode(prefs);
 
-            if (customLanguageCode.equals(DEFAULT_SYSTEM_LANGUAGE_CODE)) {
+            if (DEFAULT_SYSTEM_LANGUAGE_CODE.equals(languageCode)) {
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
             } else {
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(customLanguageCode));
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
             }
         }
     }
@@ -286,11 +281,11 @@ public class Utils {
     /**
      * Set the vibration duration if the device is equipped with a vibrator and if vibration is enabled in the settings.
      *
-     * @param context      to define whether the device is equipped with a vibrator.
-     * @param milliseconds Hours to display (if any)
+     * @param context             to define whether the device is equipped with a vibrator.
+     * @param isVibrationsEnabled {@code true} if vibrations are enabled; {@code false} otherwise.
+     * @param milliseconds        Hours to display (if any)
      */
-    public static void setVibrationTime(@NonNull Context context, long milliseconds) {
-        final boolean isVibrationsEnabled = SettingsDAO.isVibrationsEnabled(getDefaultSharedPreferences(context));
+    public static void setVibrationTime(@NonNull Context context, boolean isVibrationsEnabled, long milliseconds) {
         final Vibrator vibrator = context.getSystemService(Vibrator.class);
         if (isVibrationsEnabled) {
             if (SdkUtils.isAtLeastAndroid8()) {
@@ -305,11 +300,12 @@ public class Utils {
     /**
      * Triggers haptic feedback if system or app settings allow it.
      *
-     * @param view             The view from which the action is triggered.
-     * @param feedbackConstant The constant of type {@link android.view.HapticFeedbackConstants}.
+     * @param view                The view from which the action is triggered.
+     * @param isVibrationsEnabled {@code true} if vibrations are enabled; {@code false} otherwise.
+     * @param feedbackConstant    The constant of type {@link android.view.HapticFeedbackConstants}.
      */
-    public static void performHapticFeedback(@Nullable View view, int feedbackConstant) {
-        if (view != null && SettingsDAO.isVibrationsEnabled(getDefaultSharedPreferences(view.getContext()))) {
+    public static void performHapticFeedback(@Nullable View view, boolean isVibrationsEnabled, int feedbackConstant) {
+        if (view != null && isVibrationsEnabled) {
             view.performHapticFeedback(feedbackConstant);
         }
     }
@@ -358,8 +354,7 @@ public class Utils {
      * <p>Note: Clicking the "OK" button will no longer display this dialog box.</p>
      */
     @NonNull
-    public static AlertDialog displayKeepAndroidOpenDialog(@NonNull Context context, @NonNull SharedPreferences prefs,
-                                                           boolean isCancelable) {
+    public static AlertDialog displayKeepAndroidOpenDialog(@NonNull Context context, boolean isCancelable, @Nullable Runnable onOkClicked) {
 
         Spanned message = HtmlCompat.fromHtml(context.getString(R.string.keep_android_open_message_italic)
                 + context.getString(R.string.keep_android_open_message), HtmlCompat.FROM_HTML_MODE_LEGACY);
@@ -373,8 +368,8 @@ public class Utils {
             null,
             context.getString(android.R.string.ok),
             (d, w) -> {
-                if (prefs.getBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, true)) {
-                    prefs.edit().putBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, false).apply();
+                if (onOkClicked != null) {
+                    onOkClicked.run();
                 }
 
                 d.dismiss();

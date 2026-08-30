@@ -2,6 +2,8 @@
 
 package com.best.deskclock.utils;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import android.media.RingtoneManager;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
 import android.net.Uri;
+import android.os.Looper;
 import android.view.KeyEvent;
 
 import androidx.annotation.AnyRes;
@@ -25,8 +28,8 @@ import androidx.core.content.IntentCompat;
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.data.CustomRingtone;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.RingtoneModel;
-import com.best.deskclock.data.SettingsDAO;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -269,14 +272,24 @@ public class RingtoneUtils {
 
         List<Uri> uris = new ArrayList<>();
 
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
-        RingtoneModel ringtoneModel = new RingtoneModel(context, prefs);
-        for (CustomRingtone custom : ringtoneModel.getCustomRingtones()) {
-            if (custom.hasPermissions()) {
-                uris.add(custom.getUri());
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            for (CustomRingtone custom : DataModel.getDataModel().getCustomRingtones()) {
+                if (custom.hasPermissions()) {
+                    uris.add(custom.getUri());
+                }
             }
+        } else {
+            SharedPreferences prefs = getDefaultSharedPreferences(context);
+            RingtoneModel ringtoneModel = new RingtoneModel(context, prefs);
+
+            for (CustomRingtone custom : ringtoneModel.getCustomRingtones()) {
+                if (custom.hasPermissions()) {
+                    uris.add(custom.getUri());
+                }
+            }
+
+            ringtoneModel.releaseResources();
         }
-        ringtoneModel.releaseResources();
 
         if (uris.isEmpty()) {
             return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
@@ -288,8 +301,8 @@ public class RingtoneUtils {
     /**
      * @return {@code true} if an external audio device is connected. {@code false} otherwise.
      */
-    public static boolean hasExternalAudioDeviceConnected(@NonNull Context context, @NonNull SharedPreferences prefs) {
-        if (!SettingsDAO.isAutoRoutingToExternalAudioDevice(prefs)) {
+    public static boolean hasExternalAudioDeviceConnected(@NonNull Context context, boolean isAutoRoutingToExternalAudioDevice) {
+        if (!isAutoRoutingToExternalAudioDevice) {
             return false;
         }
 

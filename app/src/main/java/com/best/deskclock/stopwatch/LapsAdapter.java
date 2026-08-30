@@ -8,7 +8,6 @@ package com.best.deskclock.stopwatch;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.databinding.LapViewBinding;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.uidata.UiDataModel;
 import com.google.android.material.color.MaterialColors;
 
@@ -55,6 +55,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     private final Context mContext;
     private final DataModel mDataModel;
     private final UiDataModel mUiDataModel;
+    private UiConfig.Fonts mFonts;
 
     /**
      * Used to determine when the time format for the lap time column has changed length.
@@ -69,21 +70,17 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     private long minLapTime = Long.MAX_VALUE;
     private long maxLapTime = Long.MIN_VALUE;
 
-    private final Typeface mRegularTypeface;
-    private final Typeface mBoldTypeface;
     private final String mDecimalSeparator;
     private final int mDefaultLapColor;
     private final int mMinLapColor;
     private final int mMaxLapColor;
 
-    LapsAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull UiDataModel uiDataModel, @NonNull Typeface regularTypeface,
-                @NonNull Typeface boldTypeface) {
+    LapsAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull UiDataModel uiDataModel, @NonNull UiConfig.Fonts fonts) {
 
         mContext = context;
         mDataModel = dataModel;
         mUiDataModel = uiDataModel;
-        mRegularTypeface = regularTypeface;
-        mBoldTypeface = boldTypeface;
+        mFonts = fonts;
         mDecimalSeparator = String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
         mDefaultLapColor = MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
         mMinLapColor = ContextCompat.getColor(context, android.R.color.holo_green_light);
@@ -94,11 +91,13 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
         setHasStableIds(true);
     }
 
+    public UiConfig.Fonts getFonts() { return mFonts; }
+
     @NonNull
     @Override
     public LapItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final LapViewBinding binding = LapViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new LapItemHolder(binding, mRegularTypeface, mBoldTypeface);
+        return new LapItemHolder(binding, this);
     }
 
     @Override
@@ -158,6 +157,11 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     @NonNull
     private List<Lap> getLaps() {
         return mDataModel.getLaps();
+    }
+
+    public void updateFonts(@NonNull UiConfig.Fonts fonts) {
+        mFonts = fonts;
+        notifyDataSetChanged();
     }
 
     /**
@@ -469,16 +473,18 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
 
         final LapViewBinding binding;
 
-        LapItemHolder(@NonNull LapViewBinding binding, @NonNull Typeface regular, @NonNull Typeface bold) {
+        LapItemHolder(@NonNull LapViewBinding binding, @NonNull LapsAdapter adapter) {
             super(binding.getRoot());
 
             this.binding = binding;
 
-            binding.lapNumber.setTypeface(bold);
+            UiConfig.Fonts fonts = adapter.getFonts();
 
-            binding.lapTime.setTypeface(regular);
+            binding.lapNumber.setTypeface(fonts.bold());
 
-            binding.lapTotal.setTypeface(regular);
+            binding.lapTime.setTypeface(fonts.general());
+
+            binding.lapTotal.setTypeface(fonts.general());
         }
     }
 }

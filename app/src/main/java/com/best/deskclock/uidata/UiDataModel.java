@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_T
 import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -58,12 +59,12 @@ public final class UiDataModel {
     /**
      * The context may be set precisely once during the application life.
      */
-    public void init() {
+    public void init(@NonNull SharedPreferences prefs) {
         Context appContext = DeskClockApplication.getAppContext();
 
         mPeriodicCallbackModel = new PeriodicCallbackModel(appContext);
-        mFormattedStringModel = new FormattedStringModel(appContext);
-        mTabModel = new TabModel(appContext);
+        mFormattedStringModel = new FormattedStringModel(appContext, prefs);
+        mTabModel = new TabModel(appContext, prefs);
     }
 
     // ***********************

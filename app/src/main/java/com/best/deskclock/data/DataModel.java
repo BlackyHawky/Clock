@@ -34,7 +34,6 @@ import androidx.core.content.ContextCompat;
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.timer.TimerService;
-import com.best.deskclock.uicomponents.toast.CustomToast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -99,9 +98,8 @@ public final class DataModel {
     /**
      * Initializes the data model with the context and shared preferences to be used.
      */
-    public void init() {
+    public void init(@NonNull SharedPreferences prefs) {
         Context appContext = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
 
         final String themeValue = prefs.getString(KEY_THEME, SYSTEM_THEME);
         switch (themeValue) {
@@ -875,14 +873,17 @@ public final class DataModel {
             return mActionResId != 0;
         }
 
-        public void executeAction(@NonNull Context context) {
+        public boolean executeAction(@NonNull Context context) {
             if (this == SILENT_RINGTONE) {
                 try {
                     context.startActivity(new Intent(ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    return true;
                 } catch (ActivityNotFoundException ex) {
-                    CustomToast.show(context, "application_not_found");
+                    return false;
                 }
             }
+
+            return true;
         }
     }
 

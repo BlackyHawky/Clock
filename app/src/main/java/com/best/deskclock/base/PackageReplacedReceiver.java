@@ -48,6 +48,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         LogUtils.i("MY_PACKAGE_REPLACED received");
 
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
@@ -55,16 +56,16 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         AppExecutors.getDiskIO().execute(() -> {
             try {
                 // Update all the alarm instances
-                AlarmStateManager.fixAlarmInstances(context);
+                AlarmStateManager.fixAlarmInstances(context, prefs);
 
                 // Update all the timer keys stored in SharedPreferences
-                updateTimerKeys(context);
+                updateTimerKeys(prefs);
 
                 // Update the blur setting keys stored in SharedPreferences
-                migrateBlurSettings(context);
+                migrateBlurSettings(prefs);
 
                 // Update the default alarm background color stored in SharedPreferences
-                migrateAlarmBackgroundColor(context);
+                migrateAlarmBackgroundColor(prefs);
             } finally {
                 result.finish();
                 wl.release();
@@ -74,8 +75,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("ApplySharedPref")
-    private void updateTimerKeys(@NonNull Context context) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
+    private void updateTimerKeys(@NonNull SharedPreferences prefs) {
         SharedPreferences.Editor editor = prefs.edit();
         Map<String, ?> allEntries = prefs.getAll();
         boolean hasChanges = false;
@@ -115,8 +115,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("ApplySharedPref")
-    private void migrateBlurSettings(@NonNull Context context) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
+    private void migrateBlurSettings(@NonNull SharedPreferences prefs) {
         SharedPreferences.Editor editor = prefs.edit();
         boolean hasChanges = false;
 
@@ -157,9 +156,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("ApplySharedPref")
-    private void migrateAlarmBackgroundColor(@NonNull Context context) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-
+    private void migrateAlarmBackgroundColor(@NonNull SharedPreferences prefs) {
         String key = KEY_ALARM_BACKGROUND_COLOR;
 
         if (prefs.contains(key)) {
