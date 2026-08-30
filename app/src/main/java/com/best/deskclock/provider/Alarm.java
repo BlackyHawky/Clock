@@ -6,7 +6,6 @@
 
 package com.best.deskclock.provider;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.content.ContentResolver;
@@ -14,7 +13,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -28,7 +26,6 @@ import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -45,17 +42,13 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public static final long INVALID_ID = -1;
 
-    /**
-     * SharedPreferences key used to indicate whether the styled repeat day display is enabled
-     * for a specific alarm. Used to customize how repeat days are shown in the UI.
-     */
-    private static final String KEY_SHOW_STYLED_REPEAT_DAY = "show_styled_repeat_day_";
-
     public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<>() {
-        public Alarm createFromParcel(Parcel p) {
+        @NonNull
+        public Alarm createFromParcel(@NonNull Parcel p) {
             return new Alarm(p);
         }
 
+        @NonNull
         public Alarm[] newArray(int size) {
             return new Alarm[size];
         }
@@ -545,16 +538,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * Get alarm cursor loader for all alarms.
      *
-     * @param context to query the database.
+     * @param context               to query the database.
+     * @param areEnabledAlarmsFirst {@code true} if enabled alarms are placed at the top of the list; {@code false} otherwise.
+     * @param sortingPref           the alarm sorting.
      * @return cursor loader with all the alarms.
      */
     @NonNull
-    public static CursorLoader getAlarmsCursorLoader(@NonNull Context context) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        boolean areEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(prefs);
-
+    public static CursorLoader getAlarmsCursorLoader(@NonNull Context context, boolean areEnabledAlarmsFirst, @NonNull String sortingPref) {
         String sortOrder = DEFAULT_SORT_ORDER;
-        String sortingPref = SettingsDAO.getAlarmSorting(prefs);
 
         switch (sortingPref) {
             case DEFAULT_SORT_BY_ALARM_TIME -> {
@@ -700,42 +691,15 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      *      <li>Otherwise, it returns true only if the alarm is in SNOOZE_STATE or NOTIFICATION_STATE.</li>
      * </ul>
      *
-     * @param context the context used to access shared preferences
+     * @param isDismissButtonDisplayed {@code true} if the "Dismiss" button is displayed; {@code false} otherwise.
      * @return {@code true} if the alarm can show a preemptive dismiss button; {@code false} otherwise.
      */
-    public boolean canPreemptivelyDismiss(@NonNull Context context) {
-        if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getDefaultSharedPreferences(context))) {
+    public boolean canPreemptivelyDismiss(boolean isDismissButtonDisplayed) {
+        if (isDismissButtonDisplayed) {
             return enabled || instanceState == AlarmInstance.SNOOZE_STATE;
         } else {
             return instanceState == AlarmInstance.SNOOZE_STATE || instanceState == AlarmInstance.NOTIFICATION_STATE;
         }
-    }
-
-    /**
-     * @return {@code true} if the styled repeat day display is enabled for this alarm;
-     * {@code false} otherwise.
-     */
-    public boolean isRepeatDayStyleEnabled(@NonNull SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_SHOW_STYLED_REPEAT_DAY + id, false);
-    }
-
-    /**
-     * Enables the styled repeat day display for this alarm only if all days are selected.
-     */
-    public void enableRepeatDayStyleIfAllDaysSelected(@NonNull SharedPreferences prefs) {
-        if (!daysOfWeek.isAllDaysSelected()) {
-            return;
-        }
-
-        prefs.edit().putBoolean(KEY_SHOW_STYLED_REPEAT_DAY + id, true).apply();
-    }
-
-    /**
-     * Removes the styled repeat day display preference for this alarm.
-     * This disables the styled repeat day behavior.
-     */
-    public void removeRepeatDayStyle(@NonNull SharedPreferences prefs) {
-        prefs.edit().remove(KEY_SHOW_STYLED_REPEAT_DAY + id).apply();
     }
 
     /**
@@ -881,6 +845,24 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     }
 
+    /**
+     * Ensures that an alarm scheduled for a specific date is not set in the past.
+     * If it is, the date is reset to today.
+     */
+    public void fixDateIfPast() {
+        if (daysOfWeek.isRepeating()) {
+            return;
+        }
+
+        if (this.isDateInThePast()) {
+            Calendar currentCalendar = Calendar.getInstance();
+            year = currentCalendar.get(Calendar.YEAR);
+            month = currentCalendar.get(Calendar.MONTH);
+            day = currentCalendar.get(Calendar.DAY_OF_MONTH);
+        }
+    }
+
+    @NonNull
     public AlarmInstance createInstanceAfter(@NonNull Calendar time) {
         Calendar nextInstanceTime = getNextAlarmTime(time);
         AlarmInstance result = new AlarmInstance(nextInstanceTime, id);

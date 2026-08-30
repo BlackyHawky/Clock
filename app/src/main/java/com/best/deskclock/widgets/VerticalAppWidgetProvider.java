@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextClock;
@@ -272,7 +273,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureClock(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs) {
+    protected void configureClock(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs) {
         if (WidgetDAO.isVerticalWidgetDefaultHoursColor(prefs)) {
             rv.setViewVisibility(getClockHoursViewId(), VISIBLE);
             rv.setViewVisibility(getClockHoursCustomViewId(), GONE);
@@ -352,7 +353,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureBackground(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                       int widthPx, int heightPx) {
+                                       @NonNull DisplayMetrics displayMetrics, int widthPx, int heightPx) {
 
         if (!WidgetDAO.isBackgroundDisplayedOnVerticalWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
@@ -361,7 +362,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         int radius = (int) dpToPx(WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(prefs)
             ? WidgetDAO.getVerticalWidgetBackgroundCornerRadius(prefs)
-            : DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS, context.getResources().getDisplayMetrics());
+            : DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS, displayMetrics);
 
         int color = WidgetDAO.getVerticalWidgetBackgroundColor(prefs);
 

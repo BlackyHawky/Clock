@@ -19,6 +19,23 @@ import androidx.annotation.NonNull;
  */
 public final class WidgetDAO {
 
+    /**
+     * @param prefs               the {@link SharedPreferences} containing the user's default préférences
+     * @param widgetProviderClass indicates the type of widget being counted
+     * @param count               the number of widgets of the given type
+     * @return the delta between the new count and the old count
+     */
+    public static int updateWidgetCount(@NonNull SharedPreferences prefs, @NonNull Class<?> widgetProviderClass, int count) {
+        final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT;
+        final int oldCount = prefs.getInt(key, 0);
+        if (count == 0) {
+            prefs.edit().remove(key).apply();
+        } else {
+            prefs.edit().putInt(key, count).apply();
+        }
+        return count - oldCount;
+    }
+
     // *******************
     // ** ANALOG WIDGET **
     // *******************

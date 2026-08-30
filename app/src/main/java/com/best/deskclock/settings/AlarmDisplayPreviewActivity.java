@@ -52,7 +52,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
@@ -61,7 +60,9 @@ import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.AlarmActivityBinding;
+import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.PillView;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -87,8 +88,11 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
     private AlarmActivityBinding mBinding;
 
-    private Typeface mGeneralBoldTypeface;
+    private String mAlarmFontPath;
+    private Typeface mAlarmTypeface;
+    private Typeface mAlarmBoldTypeface;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private boolean mIsFadeTransition;
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mAlarmButtonColor;
@@ -121,17 +125,13 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
-        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getPrefs()));
         mVibrator = getSystemService(Vibrator.class);
         mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getPrefs());
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (ThemeUtils.isPortrait()) {
+        if (isPortrait()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
-
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         initDefaultSnoozeValue();
 
@@ -139,6 +139,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         initAlarmBackground();
 
+        mAlarmFontPath = SettingsDAO.getAlarmFont(getPrefs());
+        mIsFadeTransition = SettingsDAO.isFadeTransitionsEnabled(getPrefs());
         mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
         mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(getPrefs());
         mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(getPrefs());
@@ -201,8 +203,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         mTranslationAnimator = null;
         mVibrator = null;
-
-        mGeneralBoldTypeface = null;
 
         mBinding = null;
 
@@ -317,6 +317,19 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         return true;
     }
 
+    @NonNull
+    @Override
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(
+            getGeneralTypeface(),
+            getGeneralBoldTypeface(),
+            getAlarmTypeface(),
+            null,
+            null,
+            null
+        );
+    }
+
     /**
      * This method adjusts the space occupied by the status bar, and adjust the display of the clock layout accordingly.
      */
@@ -339,7 +352,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      */
     private void initAlarmBackground() {
         final String getDarkMode = SettingsDAO.getDarkMode(getPrefs());
-        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
+        final boolean isAmoledMode = isNight() && getDarkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
             : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
@@ -392,14 +405,30 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         int alarmClockColor = SettingsDAO.getAlarmClockColor(getPrefs());
         float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(getPrefs());
 
-        ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, mBinding.analogClock);
+        AnalogClock analogClock = mBinding.analogClock;
+
+        analogClock.configure(
+            alarmClockStyle,
+            SettingsDAO.getAlarmClockDial(getPrefs()),
+            SettingsDAO.getAlarmClockDialMaterial(getPrefs()),
+            SettingsDAO.getAlarmClockSecondHand(getPrefs()),
+            getActiveAccentColor(),
+            alarmClockColor,
+            SettingsDAO.getAlarmSecondHandColor(getPrefs(), this),
+            true
+        );
+
+        ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, analogClock);
 
         int previewHour = getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, -1);
         int previewMinute = getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, -1);
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
-            ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(getPrefs()));
-            ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.4f, false, true, false, false, false);
+            UiConfig.Fonts fonts = getFontsConfig();
+            Typeface alarmFont = fonts.alarmClockFont() != null ? fonts.alarmClockFont() : fonts.general();
+            Typeface amPmTypeface = getAlarmBoldTypeface();
+            mBinding.digitalClock.setTypeface(alarmFont);
+            ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, false, 0.4f, amPmTypeface, "sans-serif", Typeface.BOLD, false);
             mBinding.digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             mBinding.digitalClock.setTextColor(alarmClockColor);
 
@@ -412,7 +441,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
                 mBinding.digitalClock.setStaticTime(previewHour, previewMinute);
             }
         } else {
-            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(getPrefs()));
+            ClockUtils.adjustAnalogClockSize(
+                mBinding.analogClock, getDisplayMetrics(), SettingsDAO.getAlarmAnalogClockSize(getPrefs()), isLandscape());
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
 
             if (previewHour != -1 && previewMinute != -1) {
@@ -428,7 +458,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         String previewLabel = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_LABEL);
 
         mBinding.alarmTitle.setText(TextUtils.isEmpty(previewLabel) ? getString(R.string.app_label) : previewLabel);
-        mBinding.alarmTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.alarmTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.alarmTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.alarmTitle.setTextColor(mAlarmTitleColor);
 
@@ -494,11 +524,11 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     private void initSlideTexts() {
         mBinding.alarmButton.setContentDescription(getString(R.string.description_direction_both));
 
-        mBinding.snoozeText.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeText.setTypeface(getGeneralBoldTypeface());
         mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(getPrefs()));
         mBinding.snoozeText.setText(getString(R.string.button_action_snooze));
 
-        mBinding.dismissText.setTypeface(mGeneralBoldTypeface);
+        mBinding.dismissText.setTypeface(getGeneralBoldTypeface());
         mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(getPrefs()));
         mBinding.dismissText.setText(getString(R.string.button_action_dismiss));
     }
@@ -609,14 +639,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     private void initSnoozeAndDismissButtons() {
         mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(getPrefs(), this));
         mBinding.snoozeButton.setText(getString(R.string.button_action_snooze));
-        mBinding.snoozeButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeButton.setTypeface(getGeneralBoldTypeface());
         mBinding.snoozeButton.setContentDescription(getString(R.string.description_snooze_button));
         mBinding.snoozeButton.setVisibility(VISIBLE);
         mBinding.snoozeButton.setOnClickListener(this);
 
         mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(getPrefs(), this));
         mBinding.dismissButton.setText(getString(R.string.button_action_dismiss));
-        mBinding.dismissButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.dismissButton.setTypeface(getGeneralBoldTypeface());
         mBinding.dismissButton.setContentDescription(getString(R.string.description_dismiss_button));
         mBinding.dismissButton.setVisibility(VISIBLE);
         mBinding.dismissButton.setOnClickListener(this);
@@ -659,7 +689,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(getPrefs());
 
         mBinding.snoozeSelectorText.setBackgroundTintList(ColorStateList.valueOf(snoozeZoneColor));
-        mBinding.snoozeSelectorText.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeSelectorText.setTypeface(getGeneralBoldTypeface());
         mBinding.snoozeSelectorText.setTextColor(snoozeTextColor);
 
         styleSnoozeButton(mBinding.snoozeSelectorMinus, mSnoozeMinusButtonColor, mSnoozeMinusSymbolColor, true);
@@ -692,6 +722,31 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         } else {
             mBinding.ringtoneLayout.setVisibility(GONE);
         }
+    }
+
+    /**
+     * Lazy loading for the standard alarm font.
+     *
+     * @return the alarm font.
+     */
+    protected final Typeface getAlarmTypeface() {
+        if (mAlarmTypeface == null) {
+            mAlarmTypeface = ThemeUtils.loadFont(mAlarmFontPath);
+        }
+
+        return mAlarmTypeface;
+    }
+
+    /**
+     * Lazy loading for the bold alarm font (used for AM/PM).
+     *
+     * @return the bold alarm font.
+     */
+    protected final Typeface getAlarmBoldTypeface() {
+        if (mAlarmBoldTypeface == null) {
+            mAlarmBoldTypeface = ThemeUtils.boldTypeface(mAlarmFontPath);
+        }
+        return mAlarmBoldTypeface;
     }
 
     /**
@@ -892,7 +947,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
             musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
         }
 
-        int iconSize = (int) dpToPx(24, getResources().getDisplayMetrics());
+        int iconSize = (int) dpToPx(24, getDisplayMetrics());
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(getPrefs());
 
         if (musicIcon != null) {
@@ -933,7 +988,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         }
 
         mBinding.ringtoneTitle.setText(ringtoneTitleText);
-        mBinding.ringtoneTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.ringtoneTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
         mBinding.ringtoneTitle.setSelected(true);
@@ -953,14 +1008,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mBinding.actionMessageView.setVisibility(VISIBLE);
 
         mBinding.actionTitle.setText(titleResId);
-        mBinding.actionTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.actionTitle.setTypeface(getGeneralBoldTypeface());
         mBinding.actionTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.actionTitle.setTextColor(mAlarmTitleColor);
 
         if (descriptionText != null) {
             mBinding.actionDescription.setVisibility(VISIBLE);
             mBinding.actionDescription.setText(descriptionText);
-            mBinding.actionDescription.setTypeface(mGeneralBoldTypeface);
+            mBinding.actionDescription.setTypeface(getGeneralBoldTypeface());
             mBinding.actionDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
             mBinding.actionDescription.setTextColor(mAlarmTitleColor);
         }
@@ -974,7 +1029,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     }
 
     private void finishActivity() {
-        ThemeUtils.finishActivityWithTransition(this);
+        ThemeUtils.finishActivityWithTransition(this, mIsFadeTransition);
     }
 
 }

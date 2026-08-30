@@ -9,6 +9,8 @@ package com.best.deskclock.controller;
 import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -46,11 +48,11 @@ public final class Controller {
         return sController;
     }
 
-    public void init() {
+    public void init(@NonNull Context context, @NonNull SharedPreferences prefs) {
         mEventController = new EventController();
         mVoiceController = new VoiceController();
         if (SdkUtils.isAtLeastAndroid71()) {
-            mShortcutController = new ShortcutController();
+            mShortcutController = new ShortcutController(context, prefs);
         }
     }
 

@@ -57,6 +57,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -187,7 +188,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract void bindDateClickAction(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs,
                                                 @NonNull PendingIntent calendarPendingIntent);
 
-    protected abstract void configureClock(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs);
+    protected abstract void configureClock(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs);
 
     protected abstract void configureDate(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs);
 
@@ -198,7 +199,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                                                     @NonNull String nextAlarmTime, @Nullable String nextAlarmTitle);
 
     protected abstract void configureBackground(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                                int widthPx, int heightPx);
+                                                @NonNull DisplayMetrics displayMetrics, int widthPx, int heightPx);
 
     protected abstract void configureSizerClock(@NonNull View sizer, @NonNull SharedPreferences prefs);
 
@@ -244,6 +245,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      */
     protected void relayoutWidget(@NonNull Context context, @NonNull AppWidgetManager wm, int widgetId, @NonNull Bundle options) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         DataModel dataModel = DataModel.getDataModel();
         final List<City> cities = new ArrayList<>(dataModel.getSelectedCities());
         final City home = dataModel.getHomeCity();
@@ -253,8 +255,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             cities.add(0, home);
         }
 
-        final RemoteViews portrait = buildRemoteViewsForOrientation(context, wm, widgetId, options, true, cities);
-        final RemoteViews landscape = buildRemoteViewsForOrientation(context, wm, widgetId, options, false, cities);
+        final RemoteViews portrait = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, true, cities);
+        final RemoteViews landscape = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, false, cities);
 
         if (SdkUtils.isAtLeastAndroid12()) {
             if (cities.isEmpty()) {
@@ -263,7 +265,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                 return;
             }
 
-            RemoteViews.RemoteCollectionItems items = buildRemoteCollectionItemsForCities(context, prefs, widgetId, cities);
+            RemoteViews.RemoteCollectionItems items = buildRemoteCollectionItemsForCities(context, prefs, displayMetrics, widgetId, cities);
             portrait.setRemoteAdapter(getWorldCityListViewId(), items);
             landscape.setRemoteAdapter(getWorldCityListViewId(), items);
         }
@@ -281,11 +283,12 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     /**
      * Compute optimal font and icon sizes offscreen for the given orientation.
      */
-    protected RemoteViews buildRemoteViewsForOrientation(@NonNull Context context, @NonNull AppWidgetManager wm, int widgetId,
-                                                         @Nullable Bundle options, boolean portrait, @NonNull List<City> cities) {
+    protected RemoteViews buildRemoteViewsForOrientation(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                                         @NonNull DisplayMetrics displayMetrics, @NonNull AppWidgetManager wm,
+                                                         int widgetId, @Nullable Bundle options, boolean portrait,
+                                                         @NonNull List<City> cities) {
 
         // Create a remote view for the digital clock.
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
         RemoteViews rv = new RemoteViews(context.getPackageName(), isTextShadowDisplayed(prefs)
             ? getLayoutWithShadowId()
             : getLayoutWithoutShadowId());
@@ -313,16 +316,15 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
-        final String nextAlarmTime = getNextAlarmTime(Utils.getLocalizedContext(context));
+        final String nextAlarmTime = getNextAlarmTime(Utils.getLocalizedContext(context, SettingsDAO.getLanguageCode(prefs)));
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
 
-        configureClock(rv, context, prefs);
+        configureClock(rv, prefs);
         configureDate(rv, context, prefs);
         configureNextAlarm(rv, context, prefs, nextAlarmTime);
         configureNextAlarmTitle(rv, prefs, nextAlarmTime, nextAlarmTitle);
 
         // Fetch the widget size selected by the user.
-        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         final float density = displayMetrics.density;
         final int minWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_WIDTH));
         final int minHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_HEIGHT));
@@ -336,16 +338,16 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Create a size template that describes the widget bounds.
         final DigitalWidgetSizes template = new DigitalWidgetSizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
-        final DigitalWidgetSizes sizes = optimizeSizes(context, template, nextAlarmTime);
+        final DigitalWidgetSizes sizes = optimizeSizes(context, prefs, displayMetrics, template, nextAlarmTime);
         if (LOGGER.isVerboseLoggable()) {
             LOGGER.v(sizes.toString());
         }
 
         // Apply the computed sizes to the remote views.
-        configureBackground(rv, context, prefs, targetWidthPx, targetHeightPx);
+        configureBackground(rv, context, prefs, displayMetrics, targetWidthPx, targetHeightPx);
         configureSizes(rv, sizes);
         configureBitmaps(rv, sizes);
-        configureWorldCityList(rv, context, prefs, wm, widgetId, sizes, cities);
+        configureWorldCityList(rv, context, prefs, displayMetrics, wm, widgetId, sizes, cities);
 
         return rv;
     }
@@ -390,14 +392,14 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     }
 
     protected void configureWorldCityList(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                          @NonNull AppWidgetManager wm, int widgetId, @NonNull DigitalWidgetSizes sizes,
-                                          @NonNull List<City> cities) {
+                                          @NonNull DisplayMetrics displayMetrics, @NonNull AppWidgetManager wm, int widgetId,
+                                          @NonNull DigitalWidgetSizes sizes, @NonNull List<City> cities) {
 
         if (getCityServiceClass() == null) {
             return;
         }
 
-        final int smallestWorldCityListSizePx = (int) dpToPx(80, context.getResources().getDisplayMetrics());
+        final int smallestWorldCityListSizePx = (int) dpToPx(80, displayMetrics);
         if (!SettingsDAO.isClockTabVisible(prefs)
             || !areWorldCitiesDisplayed(prefs)
             || cities.isEmpty()
@@ -409,7 +411,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setViewVisibility(getWorldCityListViewId(), VISIBLE);
 
         if (SdkUtils.isAtLeastAndroid12()) {
-            RemoteViews.RemoteCollectionItems items = buildRemoteCollectionItemsForCities(context, prefs, widgetId, cities);
+            RemoteViews.RemoteCollectionItems items = buildRemoteCollectionItemsForCities(context, prefs, displayMetrics, widgetId, cities);
             rv.setRemoteAdapter(getWorldCityListViewId(), items);
         } else {
             Intent intent = new Intent(context, getCityServiceClass());
@@ -430,10 +432,10 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * Inflate an offscreen copy of the widget views. Binary search through the range of sizes until
      * the optimal sizes that fit within the widget bounds are located.
      */
-    protected DigitalWidgetSizes optimizeSizes(@NonNull Context context, @NonNull DigitalWidgetSizes template,
+    protected DigitalWidgetSizes optimizeSizes(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                               @NonNull DisplayMetrics displayMetrics, @NonNull DigitalWidgetSizes template,
                                                @NonNull String nextAlarmTime) {
 
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
         // Inflate a test layout to compute sizes at different font sizes.
         LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams")
@@ -441,9 +443,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             ? getSizerLayoutWithShadowId()
             : getSizerLayoutWithoutShadowId(), null);
 
-        int horizontalPadding = (int) dpToPx(isHorizontalPaddingApplied(prefs)
-            ? 20
-            : 0, context.getResources().getDisplayMetrics());
+        int horizontalPadding = (int) dpToPx(isHorizontalPaddingApplied(prefs) ? 20 : 0, displayMetrics);
         sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
 
         configureSizerClock(sizer, prefs);
@@ -524,7 +524,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * object returned to the system.
      *
      * @param context  context used to access resources and services
-     * @param prefs    SharedPreferences containing user preferences
+     * @param prefs    the {@link SharedPreferences} containing user preferences
      * @param widgetId id of the widget for which the collection is built
      * @param cities   list of cities to display (order and possible presence of the home city)
      * @return RemoteViews.RemoteCollectionItems ready to be passed to RemoteViews.setRemoteAdapter(...)
@@ -533,6 +533,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     @RequiresApi(api = Build.VERSION_CODES.S)
     private RemoteViews.RemoteCollectionItems buildRemoteCollectionItemsForCities(@NonNull Context context,
                                                                                   @NonNull SharedPreferences prefs,
+                                                                                  @NonNull DisplayMetrics displayMetrics,
                                                                                   int widgetId, @Nullable List<City> cities) {
 
         RemoteViews.RemoteCollectionItems.Builder builder = new RemoteViews.RemoteCollectionItems.Builder();
@@ -544,7 +545,6 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         final boolean shadowEnabled = isTextShadowDisplayed(prefs);
         final boolean isTextUppercase = isTextUppercase(prefs);
         final boolean is24HourFormat = DateFormat.is24HourFormat(context);
-        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
         final float hour12FontSize = dpToPx(isTablet ? 52 : 32, displayMetrics);
         final float hour24FontSize = dpToPx(isTablet ? 65 : 40, displayMetrics);
@@ -560,7 +560,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             final City right = (i + 1 < cities.size()) ? cities.get(i + 1) : null;
 
             RemoteViews rowRv = new RemoteViews(context.getPackageName(), getCityLayoutId());
-            final float fontScale = WidgetUtils.getScaleRatio(context, null, widgetId, cities.size());
+            final float fontScale = WidgetUtils.getScaleRatio(context, displayMetrics, null, widgetId, cities.size());
 
             if (right != null) {
                 rowRv.setViewVisibility(R.id.twoColumnContainer, View.VISIBLE);
@@ -738,7 +738,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         showActiveVariant(rowRv, noteId, noteIdsGroup);
 
         // Time format
-        WidgetUtils.applyClockFormat(rowRv, context, clockId, 0.4f, false);
+        WidgetUtils.applyClockFormat(rowRv, clockId, 0.4f, false);
 
         rowRv.setString(clockId, METHOD_SET_TIME_ZONE, city.getTimeZone().getID());
         rowRv.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, (is24HourFormat ? hour24FontSize : hour12FontSize) * fontScale);
@@ -866,7 +866,10 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_digital_widget);
+        int widgetCount = widgetIds.length;
+        int delta = WidgetDAO.updateWidgetCount(getDefaultSharedPreferences(context), getClass(), widgetCount);
+
+        WidgetUtils.updateWidgetCount(delta, R.string.category_digital_widget);
 
         if (widgetIds.length > 0) {
             WidgetUtils.scheduleDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);

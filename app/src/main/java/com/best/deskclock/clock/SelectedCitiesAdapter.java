@@ -7,11 +7,8 @@
 package com.best.deskclock.clock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -25,9 +22,8 @@ import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.databinding.WorldClockItemBinding;
 import com.best.deskclock.uicomponents.ItemTouchHelperContract;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.WidgetUtils;
-import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,13 +42,12 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
 
-    private final Context mContext;
-    private final SharedPreferences mPrefs;
     private final DataModel mDataModel;
+    private final CityNoteProvider mNoteProvider;
+    private UiConfig.Fonts mFonts;
+    private final UiConfig.Screen mScreen;
     private ClockSettings mSettings;
     private final List<City> mCities;
-    private final Typeface mRegularTypeface;
-    private final Typeface mBoldTypeface;
     private final boolean mHasBlackAccentColor;
 
     private final Drawable.ConstantState mBgSingle;
@@ -60,28 +55,37 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final Drawable.ConstantState mBgMiddle;
     private final Drawable.ConstantState mBgBottom;
 
-    public SelectedCitiesAdapter(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull DataModel dataModel,
-                                 @NonNull List<City> cities, boolean hasBlackAccentColor, @NonNull Typeface regularTypeface,
-                                 @NonNull Typeface boldTypeface, @NonNull ClockSettings clockSettings) {
+    public SelectedCitiesAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull List<City> cities,
+                                 @NonNull UiConfig.Fonts fonts, @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle,
+                                 @NonNull ClockSettings clockSettings, boolean hasBlackAccentColor,
+                                 @NonNull CityNoteProvider noteProvider) {
 
-        mContext = context;
-        mPrefs = prefs;
         mDataModel = dataModel;
+        mNoteProvider = noteProvider;
         mCities = new ArrayList<>(cities);
+        mFonts = fonts;
+        mScreen = screen;
         mHasBlackAccentColor = hasBlackAccentColor;
-        mRegularTypeface = regularTypeface;
-        mBoldTypeface = boldTypeface;
         mSettings = clockSettings;
 
-        mBgSingle = ThemeUtils.expressiveCardBackground(context, 0, 1).getConstantState();
+        mBgSingle = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 0, 1).getConstantState();
         // position=0, totalCount=3 -> Top
-        mBgTop = ThemeUtils.expressiveCardBackground(context, 0, 3).getConstantState();
+        mBgTop = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 0, 3).getConstantState();
         // position=1, totalCount=3 -> Middle
-        mBgMiddle = ThemeUtils.expressiveCardBackground(context, 1, 3).getConstantState();
+        mBgMiddle = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 1, 3).getConstantState();
         // position=2, totalCount=3 -> Bottom
-        mBgBottom = ThemeUtils.expressiveCardBackground(context, 2, 3).getConstantState();
+        mBgBottom = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 2, 3).getConstantState();
     }
 
+    public UiConfig.Fonts getFonts() { return mFonts; }
+    public UiConfig.Screen getScreen() { return mScreen; }
+    public ClockSettings getSettings() { return mSettings; }
+    public CityNoteProvider getNoteProvider() { return mNoteProvider; }
+    public boolean hasBlackAccentColor() { return mHasBlackAccentColor; }
     public Drawable.ConstantState getBgSingle() { return mBgSingle; }
     public Drawable.ConstantState getBgTop() { return mBgTop; }
     public Drawable.ConstantState getBgMiddle() { return mBgMiddle; }
@@ -92,7 +96,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         WorldClockItemBinding binding = WorldClockItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        return new CityViewHolder(binding, this, mRegularTypeface, mBoldTypeface, mHasBlackAccentColor);
+        return new CityViewHolder(binding, this);
     }
 
     @Override
@@ -106,7 +110,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((CityViewHolder) holder).applySettings(mSettings);
+        ((CityViewHolder) holder).applySettings();
 
         final City city;
 
@@ -161,7 +165,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onRowSelected(@NonNull RecyclerView.ViewHolder viewHolder) {
         // Draw a shadow under the city card when it's dragging
-        viewHolder.itemView.setTranslationZ(dpToPx(6, mContext.getResources().getDisplayMetrics()));
+        viewHolder.itemView.setTranslationZ(dpToPx(6, mScreen.metrics()));
     }
 
     @Override
@@ -207,29 +211,21 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         notifyDataSetChanged();
     }
 
-    public void setCityNote(@NonNull String cityId, @NonNull String note) {
-        SharedPreferences.Editor editor = mPrefs.edit();
-        String key = KEY_CITY_NOTE + cityId;
+    public void updateFonts(@NonNull UiConfig.Fonts fonts) {
+        mFonts = fonts;
+        notifyDataSetChanged();
+    }
 
-        if (note.trim().isEmpty()) {
-            editor.remove(key);
-        } else {
-            editor.putString(key, note);
-        }
-
-        editor.apply();
-
+    public void notifyCityNoteChanged(@NonNull String cityId) {
         int position = getCityPositionById(cityId);
         if (position != RecyclerView.NO_POSITION) {
             notifyItemChanged(position);
-
-            WidgetUtils.updateWidget(mContext, DigitalAppWidgetProvider.class);
         }
     }
 
-    @Nullable
-    public String getCityNote(String cityId) {
-        return mPrefs.getString(KEY_CITY_NOTE + cityId, null);
+    public interface CityNoteProvider {
+        @Nullable
+        String getNote(String cityId);
     }
 
 }

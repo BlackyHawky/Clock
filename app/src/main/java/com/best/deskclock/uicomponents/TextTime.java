@@ -9,13 +9,7 @@ package com.best.deskclock.uicomponents;
 import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MINUTE;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.ContentObserver;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
-import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 
@@ -23,9 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.AppCompatTextView;
-
-import com.best.deskclock.data.DataModel;
-import com.best.deskclock.utils.ClockUtils;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -40,35 +31,13 @@ public class TextTime extends AppCompatTextView {
     static final CharSequence DEFAULT_FORMAT_12_HOUR = "h:mm a";
     @VisibleForTesting()
     static final CharSequence DEFAULT_FORMAT_24_HOUR = "H:mm";
-    /**
-     * UTC does not have DST rules and will not alter the {@link #mHour} and {@link #mMinute}.
-     */
-    private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
+
     private CharSequence mFormat12;
     private CharSequence mFormat24;
     private CharSequence mFormat;
-
-    private boolean mAttached;
-
+    private boolean mIs24HourMode;
     private int mHour;
     private int mMinute;
-
-    private DataModel mDataModel;
-
-    private final ContentObserver mFormatChangeObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
-
-        @Override
-        public void onChange(boolean selfChange) {
-            chooseFormat();
-            updateTime();
-        }
-
-        @Override
-        public void onChange(boolean selfChange, @Nullable Uri uri) {
-            chooseFormat();
-            updateTime();
-        }
-    };
 
     public TextTime(@NonNull Context context) {
         this(context, null);
@@ -80,71 +49,23 @@ public class TextTime extends AppCompatTextView {
 
     public TextTime(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
-        if (isInEditMode()) {
-            return;
-        }
-
-        mDataModel = DataModel.getDataModel();
-        setTimeFormat();
-        chooseFormat();
     }
 
-    public void setFormat12Hour(@NonNull CharSequence format) {
-        mFormat12 = format;
-
-        chooseFormat();
-        updateTime();
-    }
-
-    public void setFormat24Hour(@NonNull CharSequence format) {
-        mFormat24 = format;
+    public void configure(boolean is24HourMode, CharSequence format12, CharSequence format24) {
+        mIs24HourMode = is24HourMode;
+        mFormat12 = format12;
+        mFormat24 = format24;
 
         chooseFormat();
         updateTime();
     }
 
     private void chooseFormat() {
-        final boolean format24Requested = mDataModel.is24HourFormat();
-        if (format24Requested) {
+        if (mIs24HourMode) {
             mFormat = mFormat24 == null ? DEFAULT_FORMAT_24_HOUR : mFormat24;
         } else {
             mFormat = mFormat12 == null ? DEFAULT_FORMAT_12_HOUR : mFormat12;
         }
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-
-        if (isInEditMode()) {
-            return;
-        }
-
-        if (!mAttached) {
-            mAttached = true;
-            registerObserver();
-            updateTime();
-        }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (mAttached) {
-            unregisterObserver();
-            mAttached = false;
-        }
-    }
-
-    private void registerObserver() {
-        final ContentResolver resolver = getContext().getContentResolver();
-        resolver.registerContentObserver(Settings.System.CONTENT_URI, true, mFormatChangeObserver);
-    }
-
-    private void unregisterObserver() {
-        final ContentResolver resolver = getContext().getContentResolver();
-        resolver.unregisterContentObserver(mFormatChangeObserver);
     }
 
     public void setTime(int hour, int minute) {
@@ -157,27 +78,14 @@ public class TextTime extends AppCompatTextView {
         updateTime();
     }
 
-    public void refreshFormat() {
-        setTimeFormat();
-        chooseFormat();
-    }
-
-    private void setTimeFormat() {
-        CharSequence format12 = ClockUtils.get12ModeFormat(getContext(), 0.5f, false, true, false, false, false);
-        setFormat12Hour(format12);
-
-        CharSequence format24 = ClockUtils.get24ModeFormat(false, false);
-        setFormat24Hour(format24);
-    }
-
     private void updateTime() {
         if (isInEditMode()) {
             return;
         }
 
         // Format the time relative to UTC to ensure hour and minute are not adjusted for DST.
-        final Calendar calendar = mDataModel.getCalendar();
-        calendar.setTimeZone(UTC);
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
         calendar.set(HOUR_OF_DAY, mHour);
         calendar.set(MINUTE, mMinute);
         final CharSequence text = DateFormat.format(mFormat, calendar);

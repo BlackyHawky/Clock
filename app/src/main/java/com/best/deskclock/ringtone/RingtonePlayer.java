@@ -3,12 +3,9 @@
 package com.best.deskclock.ringtone;
 
 import static androidx.media3.common.Player.REPEAT_MODE_ONE;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 import static com.best.deskclock.utils.RingtoneUtils.IN_CALL_VOLUME;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.media.AudioDeviceCallback;
 import android.media.AudioDeviceInfo;
 import android.media.AudioFocusRequest;
@@ -30,7 +27,6 @@ import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
 
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -63,17 +59,22 @@ import com.best.deskclock.utils.SdkUtils;
 @OptIn(markerClass = UnstableApi.class)
 public final class RingtonePlayer {
 
+    public record Config(
+        boolean isAutoRoutingEnabled,
+        boolean shouldUseCustomMediaVolume,
+        int externalVolumePercentage // de 0 à 100
+    ) {}
+
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("RingtonePlayer");
 
     private final Context mContext;
-    private final SharedPreferences mPrefs;
+    private Config mConfig;
     private ExoPlayer mExoPlayer;
     private final AudioManager mAudioManager;
     private AudioDeviceCallback mAudioDeviceCallback;
 
     private android.media.AudioFocusRequest mAudioFocusRequest;
 
-    private boolean mIsAutoRoutingToExternalAudioDevice;
     private long mCrescendoDuration = 0;
     private long mCrescendoStopTime = 0;
     private int mOriginalMediaVolume = -1;
@@ -92,48 +93,18 @@ public final class RingtonePlayer {
     };
 
     /**
-     * Allows to detect when the preference related to automatic routing to external audio devices
-     * changes, in order to dynamically update the behavior of the ringtone player.
-     */
-    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
-        new SharedPreferences.OnSharedPreferenceChangeListener() {
-
-            @Override
-            public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences, @Nullable String key) {
-                if (KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE.equals(key)) {
-                    mIsAutoRoutingToExternalAudioDevice =
-                        SettingsDAO.isAutoRoutingToExternalAudioDevice(sharedPreferences);
-
-                    if (mIsAutoRoutingToExternalAudioDevice) {
-                        if (mAudioDeviceCallback == null) {
-                            initAudioDeviceCallback();
-                        }
-                    } else {
-                        if (mAudioDeviceCallback != null) {
-                            mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
-                            mAudioDeviceCallback = null;
-                        }
-                    }
-                }
-            }
-        };
-
-    /**
      * Constructs a new {@link RingtonePlayer} instance responsible for managing alarm playback,
      * volume control, and audio routing logic.
      *
      * <p>This initializes the audio manager and registers an {@link AudioDeviceCallback}
      * to dynamically respond to changes in audio output devices, such as Bluetooth connections.</p>
      */
-    public RingtonePlayer(@NonNull Context context) {
+    public RingtonePlayer(@NonNull Context context, @NonNull Config config) {
         mContext = context;
 
         mAudioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
-        mPrefs = getDefaultSharedPreferences(mContext);
-        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
-
-        mIsAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
+        mConfig = config;
     }
 
     /**
@@ -198,7 +169,7 @@ public final class RingtonePlayer {
             stop();
         }
 
-        if (mIsAutoRoutingToExternalAudioDevice && mAudioDeviceCallback == null) {
+        if (mConfig.isAutoRoutingEnabled() && mAudioDeviceCallback == null) {
             initAudioDeviceCallback();
         }
 
@@ -207,8 +178,8 @@ public final class RingtonePlayer {
         boolean isExternalAudioDevice = false;
         AudioDeviceInfo preferredDevice = null;
 
-        if (mIsAutoRoutingToExternalAudioDevice) {
-            isExternalAudioDevice = RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs);
+        if (mConfig.isAutoRoutingEnabled()) {
+            isExternalAudioDevice = RingtoneUtils.hasExternalAudioDeviceConnected(mContext, true);
             preferredDevice = findExternalAudioDevice();
         }
 
@@ -217,7 +188,7 @@ public final class RingtonePlayer {
         mOriginalMediaVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         if (isExternalAudioDevice) {
-            if (SettingsDAO.shouldUseCustomMediaVolume(mPrefs)) {
+            if (mConfig.shouldUseCustomMediaVolume()) {
                 setMediaVolumeForExternalAudioDevices(getExternalAudioDeviceVolumeFromPrefs());
             }
         } else {
@@ -301,7 +272,7 @@ public final class RingtonePlayer {
         }
         mOriginalMediaVolume = -1;
 
-        if (mIsAutoRoutingToExternalAudioDevice && mAudioDeviceCallback != null) {
+        if (mConfig.isAutoRoutingEnabled() && mAudioDeviceCallback != null) {
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
             mAudioDeviceCallback = null;
         }
@@ -313,7 +284,7 @@ public final class RingtonePlayer {
      * @return {@code true} if volume was adjusted and the crescendo is still ongoing;
      * {@code false} if the crescendo is complete or playback is not active.
      */
-    public boolean adjustVolume() {
+    private boolean adjustVolume() {
         if (mExoPlayer == null) {
             return false;
         }
@@ -346,7 +317,7 @@ public final class RingtonePlayer {
      * removed, playback is redirected to the built-in speaker, and the media volume is restored.</p>
      */
     private void initAudioDeviceCallback() {
-        if (!mIsAutoRoutingToExternalAudioDevice || mAudioDeviceCallback != null) {
+        if (!mConfig.isAutoRoutingEnabled() || mAudioDeviceCallback != null) {
             return;
         }
 
@@ -364,7 +335,7 @@ public final class RingtonePlayer {
                             requestAudioFocus(true);
 
                             // Set the media volume for exernal audio devices
-                            if (SettingsDAO.shouldUseCustomMediaVolume(mPrefs) && mAudioManager != null) {
+                            if (mConfig.shouldUseCustomMediaVolume() && mAudioManager != null) {
                                 setMediaVolumeForExternalAudioDevices(getExternalAudioDeviceVolumeFromPrefs());
                             }
                         }
@@ -400,7 +371,7 @@ public final class RingtonePlayer {
             }
         };
 
-        mAudioManager.registerAudioDeviceCallback(mAudioDeviceCallback, new Handler(Looper.getMainLooper()));
+        mAudioManager.registerAudioDeviceCallback(mAudioDeviceCallback, null);
     }
 
     /**
@@ -548,9 +519,8 @@ public final class RingtonePlayer {
      * @return the volume value when an external audio device is connected.
      */
     private int getExternalAudioDeviceVolumeFromPrefs() {
-        int userVolume = SettingsDAO.getExternalAudioDeviceVolumeValue(mPrefs);
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        return (int) (maxVolume * (userVolume / 100f));
+        return (int) (maxVolume * (mConfig.externalVolumePercentage() / 100f));
     }
 
     /**
@@ -561,7 +531,7 @@ public final class RingtonePlayer {
      */
     @Nullable
     private AudioDeviceInfo findExternalAudioDevice() {
-        if (!mIsAutoRoutingToExternalAudioDevice) {
+        if (!mConfig.isAutoRoutingEnabled()) {
             return null;
         }
 
@@ -588,15 +558,23 @@ public final class RingtonePlayer {
         return null;
     }
 
-    /**
-     * Unregisters the preference change listener used to monitor changes
-     * in user settings related to audio routing.
-     *
-     * <p>This should be called when the ringtone player is no longer needed
-     * or when the surrounding component (e.g. Activity or Service) is being stopped,
-     * to avoid memory leaks and unnecessary listener callbacks.</p>
-     */
-    public void stopListeningToPreferences() {
-        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+    public void setAutoRoutingEnabled(boolean enabled) {
+        if (mConfig.isAutoRoutingEnabled() == enabled) {
+            return;
+        }
+
+        mConfig = new Config(enabled, mConfig.shouldUseCustomMediaVolume(), mConfig.externalVolumePercentage());
+
+        if (enabled) {
+            if (mAudioDeviceCallback == null) {
+                initAudioDeviceCallback();
+            }
+        } else {
+            if (mAudioDeviceCallback != null) {
+                mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
+                mAudioDeviceCallback = null;
+            }
+        }
     }
+
 }

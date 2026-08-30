@@ -135,7 +135,7 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
             }
 
             case KEY_ANALOG_WIDGET_WITH_SECOND_HAND -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 final boolean isSecondHandDisplayed = (boolean) newValue;
                 final String clockDial = WidgetDAO.getAnalogWidgetClockDial(getPrefs());
@@ -148,22 +148,22 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_DIAL_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mDialColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mHourHandColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mMinuteHandColorPref.setVisible(!(boolean) newValue);
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mSecondHandColorPref.setVisible(!(boolean) newValue && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(getPrefs()));
             }
         }

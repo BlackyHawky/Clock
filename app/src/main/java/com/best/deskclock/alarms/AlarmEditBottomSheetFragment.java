@@ -76,8 +76,10 @@ import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.toast.CustomToast;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -113,15 +115,27 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     public static final String REQUEST_KEY = "alarm_saved";
 
     private AlarmEditBottomSheetBinding mBinding;
+    private boolean mIsFadeTransition;
     private SharedPreferences mPrefs;
+    private UiConfig.CardStyle mCardStyleConfig;
     private Typeface mGeneralTypeface;
+    private Typeface mAlarmFont;
     private Typeface mAlarmBoldTypeface;
+    private boolean mIsVibrationEnabled;
+    private int mAccentStyle;
     private DisplayMetrics mDisplayMetrics;
+    private DataModel mDataModel;
     private UiDataModel mUiDataModel;
     private Alarm mAlarm;
     private Alarm mOriginalAlarm;
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private String mTag;
+    private CharSequence mFormat12;
+    private CharSequence mFormat24;
+    private boolean mIs24HourFormat;
+    private String mMaterialTimePickerStyle;
+    private String mMaterialDatePickerStyle;
+    private int mFirstDayOfWeek;
     private boolean mIsNewAlarm;
     private boolean mIsDeleted;
 
@@ -192,9 +206,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
                 AppExecutors.getMainThread().post(() -> {
                     if (copiedUri != null) {
-                        CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                        CustomToast.show(appContext, mAccentStyle, mGeneralTypeface, R.string.background_image_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing image");
+                        CustomToast.show(appContext, mAccentStyle, mGeneralTypeface, R.string.image_message_error);
                     }
 
                     if (!isAdded() || mBinding == null) {
@@ -218,10 +232,33 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mIsNewAlarm = requireArguments().getBoolean(ARG_IS_NEW_ALARM, false);
 
         mPrefs = getDefaultSharedPreferences(requireContext());
+        mIsVibrationEnabled = SettingsDAO.isVibrationsEnabled(mPrefs);
+        mIsFadeTransition = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+        mAlarmFont = ThemeUtils.loadFont(SettingsDAO.getAlarmFont(mPrefs));
         mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
+
+        mAccentStyle = ThemeUtils.getAccentStyle(requireContext(),
+            SettingsDAO.isAutoNightAccentColorEnabled(mPrefs),
+            SettingsDAO.getAccentColor(mPrefs),
+            SettingsDAO.getNightAccentColor(mPrefs));
+
+        mCardStyleConfig = new UiConfig.CardStyle(
+            SettingsDAO.isCardBackgroundDisplayed(mPrefs),
+            SettingsDAO.isCardBorderDisplayed(mPrefs),
+            SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)
+        );
+
+        mDataModel = DataModel.getDataModel();
         mUiDataModel = UiDataModel.getUiDataModel();
         mDisplayMetrics = getResources().getDisplayMetrics();
+
+        mFormat12 = ClockUtils.get12ModeFormat(false, 0.5f, mAlarmBoldTypeface, "sans-serif", Typeface.BOLD, false);
+        mFormat24 = ClockUtils.get24ModeFormat(false, false);
+
+        mMaterialTimePickerStyle = SettingsDAO.getMaterialTimePickerStyle(mPrefs);
+        mMaterialDatePickerStyle = SettingsDAO.getMaterialDatePickerStyle(mPrefs);
+        mFirstDayOfWeek = SettingsDAO.getFirstDayOfWeek(mPrefs);
 
         setupFragmentResultListeners();
     }
@@ -233,7 +270,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         DeskClock activity = (DeskClock) requireActivity();
         DeskClockBinding activityBinding = activity.getDeskClockBinding();
 
-        mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, activityBinding.contentView);
+        mAlarmUpdateHandler = new AlarmUpdateHandler(
+            requireContext(), mPrefs, mGeneralTypeface, null, activityBinding.contentView, mIsVibrationEnabled);
     }
 
     @Override
@@ -352,6 +390,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     public void onResume() {
         super.onResume();
 
+        boolean isSystem24Hour = mDataModel.is24HourFormat();
+
+        if (mIs24HourFormat != isSystem24Hour) {
+            mIs24HourFormat = mDataModel.is24HourFormat();
+            mBinding.digitalClock.configure(mIs24HourFormat, mFormat12, mFormat24);
+        }
+
         restoreMaterialTimePickerListener();
         restoreMaterialDatePickerListener();
         restoreMaterialDateRangePickerListener();
@@ -390,26 +435,37 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.dragHandle.setOnLongClickListener(v -> {
             if (!tooltipText.isEmpty()) {
-                CustomTooltip.showBelow(v, tooltipText);
+                CustomTooltip.showBelow(v, mGeneralTypeface, mDisplayMetrics, tooltipText);
             }
             return true;
         });
     }
 
     private void bindClock() {
-        mBinding.digitalClock.setBackground(ThemeUtils.pillRippleDrawable(requireContext(), Color.TRANSPARENT));
+        mIs24HourFormat = mDataModel.is24HourFormat();
+
+        mBinding.digitalClock.configure(mIs24HourFormat, mFormat12, mFormat24);
+        mBinding.digitalClock.setBackground(ThemeUtils.pillRippleDrawable(requireContext(), mDisplayMetrics, Color.TRANSPARENT));
         mBinding.digitalClock.setTime(mAlarm.hour, mAlarm.minutes);
         mBinding.digitalClock.setTypeface(mAlarmBoldTypeface);
 
         mBinding.digitalClock.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
 
-            if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
+            if (mMaterialTimePickerStyle.equals(SPINNER_TIME_PICKER_STYLE)) {
                 final SpinnerTimePickerDialogFragment fragment = SpinnerTimePickerDialogFragment.newInstance(mAlarm.hour, mAlarm.minutes);
                 SpinnerTimePickerDialogFragment.show(getChildFragmentManager(), fragment);
             } else {
                 MaterialTimePickerDialogFragment.show(
-                    requireContext(), getChildFragmentManager(), TAG, mAlarm.hour, mAlarm.minutes, mPrefs);
+                    requireContext(),
+                    getChildFragmentManager(),
+                    TAG,
+                    mAlarm.hour,
+                    mAlarm.minutes,
+                    mMaterialTimePickerStyle,
+                    mAlarmFont,
+                    mGeneralTypeface
+                );
             }
         });
 
@@ -455,7 +511,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.repeatDaysGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             for (int i = 0; i < dayButtons.length; i++) {
                 if (dayButtons[i].getId() == checkedId) {
-                    Utils.performHapticFeedback(dayButtons[i], HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                    Utils.performHapticFeedback(dayButtons[i], mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                     int weekday = weekdays.get(i);
                     mAlarm.daysOfWeek = mAlarm.daysOfWeek.setBit(weekday, isChecked);
@@ -496,8 +552,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.scheduleAlarmLayout.setOnClickListener(v -> DatePickerDialogFragment.show(
             getChildFragmentManager(),
-            mPrefs,
             mAlarm,
+            mMaterialDatePickerStyle,
+            mFirstDayOfWeek,
+            mGeneralTypeface,
             this::applyDate)
         );
 
@@ -550,8 +608,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         if (isRepeating) {
             mBinding.pauseAlarmLayout.setOnClickListener(v -> DatePickerDialogFragment.showMaterialDateRangePicker(
                 getChildFragmentManager(),
-                mPrefs,
                 mAlarm,
+                mFirstDayOfWeek,
+                mGeneralTypeface,
                 (start, end) -> {
                     mAlarm.pauseStartDate = start;
                     mAlarm.pauseEndDate = end;
@@ -631,7 +690,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             bindVibrationPattern();
             updateSecondGroup();
             if (isChecked) {
-                Utils.setVibrationTime(requireContext(), 300);
+                Utils.setVibrationTime(requireContext(), mIsVibrationEnabled, 300);
             }
         });
     }
@@ -677,7 +736,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.flashOnOff.setOnCheckedChangeListener(null);
         mBinding.flashOnOff.setChecked(mAlarm.flash);
         mBinding.flashOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Utils.performHapticFeedback(buttonView, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             Events.sendAlarmEvent(R.string.action_toggle_flash, R.string.label_deskclock);
             mAlarm.flash = isChecked;
         });
@@ -692,7 +751,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.deleteOccasionalAlarmAfterUse.setChecked(!isRepeating && mAlarm.deleteAfterUse);
 
         mBinding.deleteOccasionalAlarmAfterUse.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Utils.performHapticFeedback(buttonView, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mAlarm.deleteAfterUse = isChecked;
         });
     }
@@ -980,9 +1039,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         });
 
         mBinding.alarmBackgroundImageButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-            FileUtils.deleteCustomFile(requireContext().getApplicationContext(), mAlarm.backgroundImage, false);
+            final Context appContext = requireContext().getApplicationContext();
+            final int style = mAccentStyle;
+            final Typeface font = mGeneralTypeface;
+
+            FileUtils.deleteCustomFile(appContext, style, font, mAlarm.backgroundImage, false);
             mAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
             bindAlarmBackgroundImage();
             bindBlurIntensity();
@@ -1037,7 +1100,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void bindDeleteButton() {
         mBinding.deleteButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mIsDeleted = true;
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncDeleteAlarm(mAlarm);
@@ -1047,7 +1110,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void bindDuplicateButton() {
         mBinding.duplicateButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             Events.sendAlarmEvent(R.string.action_duplicate, R.string.label_deskclock);
 
@@ -1095,7 +1158,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void bindPreviewButton() {
         mBinding.previewButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
             previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, mAlarm.hour);
@@ -1111,13 +1174,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert.toString());
             }
 
-            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent);
+            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, mIsFadeTransition);
         });
     }
 
     private void bindSaveButton() {
         mBinding.saveButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             Events.sendAlarmEvent(R.string.action_save, R.string.label_deskclock);
 
@@ -1435,7 +1498,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void updateSecondGroup() {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
-            mPrefs,
+            mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(),
+            mCardStyleConfig.isAmoledDarkMode(),
             mBinding.vibrateOnOff,
             mBinding.vibrationPatternLayout,
             mBinding.flashOnOff,
@@ -1446,7 +1512,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void updateThirdGroup() {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
-            mPrefs,
+            mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(),
+            mCardStyleConfig.isAmoledDarkMode(),
             mBinding.autoSilenceDurationLayout,
             mBinding.snoozeDurationLayout,
             mBinding.missedAlarmRepeatLimitLayout,
@@ -1459,7 +1528,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void updateFourthGroup() {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
-            mPrefs,
+            mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(),
+            mCardStyleConfig.isAmoledDarkMode(),
             mBinding.alarmBackgroundImageLayout,
             mBinding.alarmBlurIntensityLayout
         );
@@ -1468,14 +1540,20 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void updateAllGroupBackgrounds() {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
-            mPrefs,
+            mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(),
+            mCardStyleConfig.isAmoledDarkMode(),
             mBinding.scheduleAlarmLayout,
             mBinding.pauseAlarmLayout
         );
 
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
-            mPrefs,
+            mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(),
+            mCardStyleConfig.isAmoledDarkMode(),
             mBinding.editLabel,
             mBinding.chooseRingtone
         );

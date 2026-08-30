@@ -6,15 +6,10 @@
 
 package com.best.deskclock.alarms;
 
-import static android.media.AudioManager.STREAM_ALARM;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.AudioManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +18,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
@@ -31,10 +25,10 @@ import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.LogUtils;
 
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Click handler for an alarm time item.
@@ -44,17 +38,23 @@ public final class AlarmTimeClickHandler {
     public static final String TAG = "AlarmTimeClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
 
+    public record Config(@NonNull String timePickerStyle, @NonNull UiConfig.Fonts fonts, int globalIntentId) {}
+
     private final AlarmFragment mAlarmFragment;
     private final Context mContext;
-    private final SharedPreferences mPrefs;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
+    private final Config mConfig;
+    private final AlarmFactory mAlarmFactory;
     private Alarm mSelectedAlarm;
 
-    public AlarmTimeClickHandler(@NonNull AlarmFragment alarmFragment, @NonNull AlarmUpdateHandler alarmUpdateHandler) {
+    public AlarmTimeClickHandler(@NonNull AlarmFragment alarmFragment, @NonNull AlarmUpdateHandler alarmUpdateHandler,
+                                 @NonNull Config config, @NonNull AlarmFactory alarmFactory) {
+
         mAlarmFragment = alarmFragment;
         mContext = mAlarmFragment.requireContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
         mAlarmUpdateHandler = alarmUpdateHandler;
+        mConfig = config;
+        mAlarmFactory = alarmFactory;
     }
 
     public Alarm getSelectedAlarm() {
@@ -83,13 +83,13 @@ public final class AlarmTimeClickHandler {
 
             // If the alarm is set for a specific date and that date is already in the past,
             // update it to the current date. An alarm cannot be scheduled in the past.
-            fixAlarmDateIfPast(alarm);
+            alarm.fixDateIfPast();
 
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
             // When enabling a synchronized alarm, enable all alarms sharing the same label.
             if (alarm.syncByLabel && newState) {
-                syncAlarmsWithSameLabel(alarm, true);
+                mAlarmUpdateHandler.asyncSyncAlarmsWithSameLabel(alarm, true);
                 mAlarmUpdateHandler.useSyncToastForLabel(alarm.label);
             }
 
@@ -108,68 +108,11 @@ public final class AlarmTimeClickHandler {
                 // If the alarm is not active (neither firing nor snoozed),
                 // propagate the disabled state to the whole group.
                 if (activeInstance == null) {
-                    syncAlarmsWithSameLabel(alarm, false);
+                    mAlarmUpdateHandler.asyncSyncAlarmsWithSameLabel(alarm, false);
                 }
             }
 
             LOGGER.d("Updating alarm enabled state to " + newState);
-        }
-    }
-
-    /**
-     * Synchronizes the enabled state of all alarms sharing the same label and
-     * synchronization setting as the given source alarm.
-     *
-     * @param sourceAlarm the alarm whose label and sync settings define the group
-     * @param newState    the enabled state to apply to all matching alarms
-     */
-    private void syncAlarmsWithSameLabel(@NonNull Alarm sourceAlarm, boolean newState) {
-        if (sourceAlarm.label == null || sourceAlarm.label.trim().isEmpty()) {
-            // No label: nothing to synchronize
-            return;
-        }
-
-        AppExecutors.getDiskIO().execute(() -> {
-            List<Alarm> alarms = Alarm.getAlarms(mContext.getContentResolver(), null);
-
-            for (Alarm alarm : alarms) {
-                if (alarm.id != sourceAlarm.id
-                    && sourceAlarm.label.equals(alarm.label)
-                    && sourceAlarm.syncByLabel == alarm.syncByLabel) {
-
-                    if (alarm.enabled != newState) {
-                        alarm.enabled = newState;
-
-                        fixAlarmDateIfPast(alarm);
-
-                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
-                        LOGGER.d("Sync alarm " + alarm.id + " with label " + alarm.label);
-                    }
-                }
-            }
-        });
-    }
-
-    /**
-     * Ensures that the alarm's scheduled date is not in the past.
-     *
-     * <p>If the alarm is configured for a specific calendar date and that date has
-     * already passed, this method updates the alarm's year, month, and day fields
-     * to the current date. This prevents the creation of alarm instances that
-     * would immediately be considered expired.</p>
-     *
-     * @param alarm the alarm whose date should be validated and corrected
-     */
-    private void fixAlarmDateIfPast(@NonNull Alarm alarm) {
-        if (alarm.daysOfWeek.isRepeating()) {
-            return;
-        }
-
-        if (alarm.isDateInThePast()) {
-            Calendar currentCalendar = Calendar.getInstance();
-            alarm.year = currentCalendar.get(Calendar.YEAR);
-            alarm.month = currentCalendar.get(Calendar.MONTH);
-            alarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
         }
     }
 
@@ -188,14 +131,19 @@ public final class AlarmTimeClickHandler {
 
         // Otherwise, standard behavior: disable the alarm.
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
-            mContext, AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
+            mContext, alarmInstance,
+            AlarmStateManager.ALARM_DISMISS_TAG,
+            AlarmInstance.PREDISMISSED_STATE,
+            mConfig.globalIntentId()
+        );
+
         mContext.startService(dismissIntent);
     }
 
     public void onClockClicked(@NonNull Alarm alarm) {
         mSelectedAlarm = alarm;
 
-        if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
+        if (mConfig.timePickerStyle().equals(SPINNER_TIME_PICKER_STYLE)) {
             showSpinnerTimePickerDialog(alarm.hour, alarm.minutes);
         } else {
             showMaterialTimePicker(alarm.hour, alarm.minutes);
@@ -231,12 +179,21 @@ public final class AlarmTimeClickHandler {
 
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
 
-        MaterialTimePickerDialogFragment.show(mContext, fragmentManager, TAG, hours, minutes, mPrefs);
+        MaterialTimePickerDialogFragment.show(
+            mContext,
+            fragmentManager,
+            TAG,
+            hours,
+            minutes,
+            mConfig.timePickerStyle(),
+            mConfig.fonts().alarmClockFont(),
+            mConfig.fonts().general()
+        );
     }
 
     public void setAlarm(int hour, int minute) {
         if (mSelectedAlarm == null) {
-            Alarm newAlarm = buildNewAlarm(hour, minute);
+            Alarm newAlarm = mAlarmFactory.createDefaultAlarm(hour, minute);
 
             AlarmVisualCache.invalidate(newAlarm.id);
 
@@ -261,7 +218,7 @@ public final class AlarmTimeClickHandler {
         int m = alarmTime.get(Calendar.MINUTE);
 
         if (mSelectedAlarm == null) {
-            Alarm newAlarm = buildNewAlarm(h, m);
+            Alarm newAlarm = mAlarmFactory.createDefaultAlarm(h, m);
 
             AlarmVisualCache.invalidate(newAlarm.id);
 
@@ -275,31 +232,6 @@ public final class AlarmTimeClickHandler {
         } else {
             updateExistingAlarm(h, m, true);
         }
-    }
-
-    @NonNull
-    private Alarm buildNewAlarm(int hour, int minute) {
-        final Alarm alarm = new Alarm();
-        final AudioManager audioManager = mContext.getApplicationContext().getSystemService(AudioManager.class);
-
-        alarm.hour = hour;
-        alarm.minutes = minute;
-        alarm.syncByLabel = false;
-        alarm.enabled = true;
-        alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
-        alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs);
-        alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs);
-        alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
-        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs);
-        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs);
-        alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
-        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
-        alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
-        alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
-        alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
-        alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs);
-
-        return alarm;
     }
 
     private void updateExistingAlarm(int hour, int minute, boolean isFromDelay) {
@@ -332,6 +264,11 @@ public final class AlarmTimeClickHandler {
 
         mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
         mSelectedAlarm = null;
+    }
+
+    @SuppressWarnings("unused")
+    public interface AlarmFactory {
+        Alarm createDefaultAlarm(int hour, int minute);
     }
 
 }

@@ -13,7 +13,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.text.HtmlCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.BuildConfig;
@@ -24,7 +23,6 @@ import com.best.deskclock.databinding.FirstLaunchActivityBinding;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -37,11 +35,6 @@ public class FirstLaunch extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         mBinding = FirstLaunchActivityBinding.inflate(getLayoutInflater());
-
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
-        ThemeUtils.allowDisplayCutout(getWindow());
 
         setContentView(mBinding.getRoot());
 

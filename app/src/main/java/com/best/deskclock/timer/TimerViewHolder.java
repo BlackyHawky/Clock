@@ -19,6 +19,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
@@ -31,23 +32,17 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     public final MaterialButton addTimeButton;
     public final View circleContainer;
     public final TextView timerTimeText;
-
     private final int mViewType;
-    private final boolean mIsTablet;
-    private final boolean mIsLandscape;
-    private final boolean mIsRtl;
 
-    public TimerViewHolder(@NonNull View view, @NonNull TimerAdapter timerAdapter, @NonNull TimerClickHandler timerClickHandler,
-                           int viewType, @NonNull Typeface regular, @NonNull Typeface bold, boolean isTablet, boolean isLandscape,
-                           boolean isRtl) {
+    public TimerViewHolder(@NonNull View view, @NonNull TimerAdapter timerAdapter, int viewType) {
 
         super(view);
 
         mAdapter = timerAdapter;
         mViewType = viewType;
-        mIsTablet = isTablet;
-        mIsLandscape = isLandscape;
-        mIsRtl = isRtl;
+        UiConfig.Fonts fonts = mAdapter.getFonts();
+        UiConfig.Haptics haptics = mAdapter.getHaptics();
+        TimerClickHandler timerClickHandler = mAdapter.getTimerClickHandler();
 
         final MaterialButton playPauseButton;
         final MaterialButton resetButton;
@@ -55,7 +50,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         switch (viewType) {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
                 mTimerItem = (TimerItem) view;
-                mTimerItem.setGeneralFonts(regular, bold);
+                mTimerItem.setGeneralFonts(fonts.general(), fonts.bold());
 
                 TimerItemBinding binding = TimerItemBinding.bind(view);
 
@@ -67,7 +62,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             }
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 mTimerItemCompact = (TimerItemCompact) view;
-                mTimerItemCompact.setGeneralFonts(regular, bold);
+                mTimerItemCompact.setGeneralFonts(fonts.general(), fonts.bold());
 
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
 
@@ -83,12 +78,12 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> timerClickHandler.displayBottomSheetDialog(getTimer()));
 
         View.OnClickListener circleListener = v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             timerClickHandler.onCircleClicked(getTimer());
         };
 
         resetButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             timerClickHandler.onResetClicked(getTimer());
         });
 
@@ -97,7 +92,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 return;
             }
 
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
             timerClickHandler.onAddTimeClicked(getTimer(), v);
         });
 
@@ -109,25 +104,30 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         }
 
         playPauseButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             timerClickHandler.onPlayPauseClicked(getTimer());
         });
     }
 
-    public void applySettings(@NonNull TimerSettings settings) {
+    public void applySettings() {
+        TimerSettings settings = mAdapter.getSettings();
+        UiConfig.Fonts fonts = mAdapter.getFonts();
+        UiConfig.Screen screen = mAdapter.getScreen();
+        Typeface typeface = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
+
         if (mTimerItem != null) {
-            mTimerItem.setTimerTimeFont(settings.timerTimeTypeface);
+            mTimerItem.setTimerTimeFont(typeface);
             mTimerItem.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
             mTimerItem.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
-            mTimerItem.setButtonPosition(
-                settings.areTimerButtonPositionsInverted, mIsTablet, mIsLandscape, mViewType == TimerAdapter.SINGLE_TIMER, mIsRtl);
+            mTimerItem.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isTablet(), screen.isLandscape(),
+                mViewType == TimerAdapter.SINGLE_TIMER, screen.isRtl());
             mTimerItem.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
             mTimerItem.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
         } else if (mTimerItemCompact != null) {
-            mTimerItemCompact.setTimerTimeFont(settings.timerTimeTypeface);
+            mTimerItemCompact.setTimerTimeFont(typeface);
             mTimerItemCompact.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
             mTimerItemCompact.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
-            mTimerItemCompact.setButtonPosition(settings.areTimerButtonPositionsInverted, mIsRtl);
+            mTimerItemCompact.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isRtl());
             mTimerItemCompact.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
             mTimerItemCompact.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
         }
@@ -155,7 +155,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             int totalCount = mAdapter.getItemCount();
             Drawable.ConstantState bgState;
 
-            if (mAdapter.isTablet() || totalCount <= 1) {
+            if (mAdapter.getScreen().isTablet() || totalCount <= 1) {
                 bgState = mAdapter.getBgStandard();
             } else if (position == 0) {
                 bgState = mAdapter.getBgStart();

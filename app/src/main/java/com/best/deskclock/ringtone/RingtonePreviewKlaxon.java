@@ -6,17 +6,19 @@
 
 package com.best.deskclock.ringtone;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClockApplication;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 
 public final class RingtonePreviewKlaxon {
+
+    public record Config(
+        boolean isAdvancedAudioPlaybackEnabled,
+        @NonNull RingtonePlayer.Config ringtonePlayerConfig
+    ) {}
 
     private static RingtonePreviewKlaxon sInstance;
 
@@ -34,33 +36,33 @@ public final class RingtonePreviewKlaxon {
         return sInstance;
     }
 
-    public static void stop() {
+    public static void stop(boolean isAdvancedAudioPlaybackEnabled) {
         LogUtils.i("RingtonePreviewKlaxon.stop()");
 
-        Context appContext = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
-
-        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-            getInstance().getRingtonePlayer().stop();
+        if (isAdvancedAudioPlaybackEnabled) {
+            if (getInstance().mRingtonePlayer != null) {
+                getInstance().mRingtonePlayer.stop();
+            }
         } else {
-            getInstance().getAsyncRingtonePlayer().stop();
+            if (getInstance().mAsyncRingtonePlayer != null) {
+                getInstance().mAsyncRingtonePlayer.stop();
+            }
         }
     }
 
     public static void stopPreviewFromSpeakers() {
         LogUtils.i("RingtonePreviewKlaxon.stop()");
-        getInstance().getAsyncRingtonePlayer().stop();
+        if (getInstance().mAsyncRingtonePlayer != null) {
+            getInstance().mAsyncRingtonePlayer.stop();
+        }
     }
 
-    public static void start(@NonNull Uri uri) {
-        stop();
+    public static void start(@NonNull Uri uri, @NonNull Config config) {
+        stop(config.isAdvancedAudioPlaybackEnabled());
         LogUtils.i("RingtonePreviewKlaxon.start()");
 
-        Context appContext = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
-
-        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-            getInstance().getRingtonePlayer().play(uri, 0);
+        if (config.isAdvancedAudioPlaybackEnabled()) {
+            getInstance().getRingtonePlayer(config.ringtonePlayerConfig()).play(uri, 0);
         } else {
             getInstance().getAsyncRingtonePlayer().play(uri, 0);
         }
@@ -73,16 +75,16 @@ public final class RingtonePreviewKlaxon {
     }
 
     public static synchronized void releaseResources() {
-        if (sInstance != null && sInstance.mAsyncRingtonePlayer != null) {
-            sInstance.mAsyncRingtonePlayer.shutdown();
-            sInstance.mAsyncRingtonePlayer = null;
-        }
-    }
+        if (sInstance != null) {
+            if (sInstance.mAsyncRingtonePlayer != null) {
+                sInstance.mAsyncRingtonePlayer.shutdown();
+                sInstance.mAsyncRingtonePlayer = null;
+            }
 
-    public static synchronized void stopListeningToPreferences() {
-        if (sInstance != null && sInstance.mRingtonePlayer != null) {
-            sInstance.mRingtonePlayer.stopListeningToPreferences();
-            sInstance.mRingtonePlayer = null;
+            if (sInstance.mRingtonePlayer != null) {
+                sInstance.mRingtonePlayer.stop();
+                sInstance.mRingtonePlayer = null;
+            }
         }
     }
 
@@ -96,9 +98,9 @@ public final class RingtonePreviewKlaxon {
     }
 
     // ExoPlayer
-    private RingtonePlayer getRingtonePlayer() {
+    private RingtonePlayer getRingtonePlayer(@NonNull RingtonePlayer.Config config) {
         if (mRingtonePlayer == null) {
-            mRingtonePlayer = new RingtonePlayer(DeskClockApplication.getAppContext());
+            mRingtonePlayer = new RingtonePlayer(DeskClockApplication.getAppContext(), config);
         }
 
         return mRingtonePlayer;

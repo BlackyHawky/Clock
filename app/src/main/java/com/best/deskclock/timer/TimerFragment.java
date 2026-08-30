@@ -62,6 +62,7 @@ import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.databinding.TimerFragmentBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uicomponents.CustomTooltip;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -71,6 +72,7 @@ import com.best.deskclock.utils.Utils;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Displays a vertical list of timers in all states.
@@ -103,6 +105,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private TimerFragmentBinding mBinding;
 
     private final TimerSettings mSettings = new TimerSettings();
+    private String mTimerFontPath;
+    private Typeface mTimerTimeTypeface;
     private boolean mIsManualSorting;
     private Serializable mTimerSetupState;
     private TimerAdapter mAdapter;
@@ -150,6 +154,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         super(TIMERS);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        refreshSettings();
+    }
+
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -158,7 +169,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mBinding = TimerFragmentBinding.inflate(inflater, container, false);
 
         mBinding.timerVolumeBanner.volumeWarningButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(v, isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             RingtoneUtils.fixAlarmStreamLow(requireContext());
         });
 
@@ -234,19 +245,23 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
-        Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
-        Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        mBinding.timerSetupView.updateTimerSetupTimeFont(getTimerBoldTypeface());
 
-        refreshSettings();
+        mBinding.timerVolumeBanner.volumeWarningText.setTypeface(getGeneralBoldTypeface());
+        mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(getGeneralBoldTypeface());
 
-        mBinding.timerSetupView.updateTimerSetupTimeFont(mSettings.timerTimeTypeface);
+        mAdapter = new TimerAdapter(requireContext(), getDataModel(), new TimerClickHandler(this, getDataModel()),
+            getFontsConfig(), getScreenConfig(), getCardStyleConfig(), getHapticsConfig(), mSettings, newOrder -> {
+                SharedPreferences.Editor editor = getPrefs().edit();
+                if (newOrder == null) {
+                    editor.remove(KEY_TIMER_ORDER);
+                } else {
+                    editor.putString(KEY_TIMER_ORDER, newOrder);
+                }
+                editor.apply();
 
-        mBinding.timerVolumeBanner.volumeWarningText.setTypeface(boldTypeface);
-        mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(boldTypeface);
-
-        mAdapter = new TimerAdapter(requireContext(), getPrefs(), getDataModel(), new TimerClickHandler(this, getDataModel()),
-            isTablet(), isLandscape(), isRtl(), regularTypeface, boldTypeface, mSettings);
+                mSettings.savedTimerOrder = newOrder;
+            });
 
         mBinding.timerRecyclerView.setAdapter(mAdapter);
         mAdapter.loadTimersAsync();
@@ -254,7 +269,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         getDataModel().addTimerListener(mTimerWatcher);
 
-        mTouchHelperCallback = new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, isTablet(), isLandscape(), mIsManualSorting);
+        mTouchHelperCallback = new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, getScreenConfig(), mIsManualSorting);
         mItemTouchHelper = new ItemTouchHelper(mTouchHelperCallback);
         handleItemTouchHelper();
 
@@ -379,7 +394,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         updateFab(fab);
 
         fab.setOnLongClickListener(v -> {
-            CustomTooltip.showAbove(v, fab.getContentDescription().toString(), true);
+            CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), fab.getContentDescription().toString(), true);
             return true;
         });
     }
@@ -405,7 +420,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {
-                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
+                Utils.performHapticFeedback(v, isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
                 resetTimerCreationViews();
                 animateToView(mBinding.timerContentView, false);
                 ViewCompat.setStateDescription(left, getString(R.string.timer_canceled));
@@ -420,7 +435,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 List<Timer> timers = getDataModel().getTimers();
 
                 if (!getDataModel().getTimers().isEmpty()) {
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                    Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                     getDataModel().removeTimer(timers.get(0), R.string.label_deskclock);
                 }
@@ -431,7 +446,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             mCreatingTimer = true;
 
             try {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 // Create the new timer.
                 final long timerLength = getTimeInMillis();
@@ -478,6 +493,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             return mBinding.timerSetupView.onKeyDown(keyCode, event);
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @NonNull
+    @Override
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(getGeneralTypeface(), getGeneralBoldTypeface(), null, getTimerBoldTypeface(), null, null);
     }
 
     /**
@@ -703,15 +724,23 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private void refreshSettings() {
-        String timerFontPath = SettingsDAO.getTimerDurationFont(getPrefs());
-        mSettings.timerTimeTypeface = ThemeUtils.boldTypeface(timerFontPath);
+        String newFontPath = SettingsDAO.getTimerDurationFont(getPrefs());
+
+        if (!Objects.equals(mTimerFontPath, newFontPath)) {
+            mTimerFontPath = newFontPath;
+            mTimerTimeTypeface = null;
+        }
 
         mSettings.is24HourFormat = getDataModel().is24HourFormat();
+
+        Typeface amPmTypeface = Typeface.create(getGeneralTypeface(), Typeface.ITALIC);
         mSettings.timerEndTimeFormatPattern = mSettings.is24HourFormat
             ? ClockUtils.get24ModeFormat(false, false)
-            : ClockUtils.get12ModeFormat(requireContext(), 0.8f, false, false, false, true, false);
+            : ClockUtils.get12ModeFormat(false, 0.8f, amPmTypeface, "sans-serif", Typeface.ITALIC, false);
 
         mSettings.isSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(getPrefs());
+        mSettings.isCompactTimersDisplayed = SettingsDAO.isCompactTimersDisplayed(getPrefs());
+        mSettings.savedTimerOrder = getPrefs().getString(KEY_TIMER_ORDER, null);
         mSettings.isTimerEndTimeDisplayed = SettingsDAO.isTimerEndTimeDisplayed(getPrefs());
         mSettings.areTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
         mSettings.isIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());
@@ -730,10 +759,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         if (mAdapter != null) {
             mAdapter.updateSettings(mSettings);
+            mAdapter.updateFonts(getFontsConfig());
         }
 
         if (mBinding != null) {
-            mBinding.timerSetupView.updateTimerSetupTimeFont(mSettings.timerTimeTypeface);
+            mBinding.timerSetupView.updateTimerSetupTimeFont(getTimerBoldTypeface());
         }
 
         if (mTouchHelperCallback != null) {
@@ -741,6 +771,19 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
 
         mAreSettingsChanged = false;
+    }
+
+    /**
+     * Lazy loading for the timer font.
+     *
+     * @return the bold timer font.
+     */
+    private Typeface getTimerBoldTypeface() {
+        if (mTimerTimeTypeface == null) {
+            mTimerTimeTypeface = ThemeUtils.boldTypeface(mTimerFontPath);
+        }
+
+        return mTimerTimeTypeface;
     }
 
     private boolean hasTimers() {

@@ -6,7 +6,10 @@
 
 package com.best.deskclock.base;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -18,11 +21,15 @@ import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.FabContainer;
 import com.best.deskclock.uicomponents.FabController;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
 import com.best.deskclock.utils.ThemeUtils;
+
+import java.util.Locale;
 
 public abstract class DeskClockFragment extends Fragment implements FabContainer, FabController {
 
@@ -40,10 +47,17 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     private final UiDataModel mUiDataModel;
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private Typeface mGeneralTypeface;
+    private Typeface mGeneralBoldTypeface;
+    private Locale mLocale;
     private boolean mIsTablet;
     private boolean mIsPortrait;
     private boolean mIsLandscape;
     private boolean mIsRtl;
+    private boolean mIsCardBackgroundDisplayed;
+    private boolean mIsCardBorderDisplayed;
+    private boolean mIsAmoled;
+    private boolean mIsVibrationEnabled;
 
     public DeskClockFragment(Tab tab) {
         mTab = tab;
@@ -57,10 +71,18 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
 
         mPrefs = DeskClockApplication.getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        mLocale = Locale.getDefault();
         mIsTablet = ThemeUtils.isTablet();
         mIsPortrait = ThemeUtils.isPortrait();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsRtl = ThemeUtils.isRTL(requireContext());
+        mIsCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+        mIsCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
+        mIsAmoled = SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE);
+        mIsVibrationEnabled = SettingsDAO.isVibrationsEnabled(mPrefs);
     }
 
     @Override
@@ -147,6 +169,18 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         return mDisplayMetrics;
     }
 
+    protected final Locale getLocale() {
+        return mLocale;
+    }
+
+    protected final Typeface getGeneralTypeface() {
+        return mGeneralTypeface;
+    }
+
+    protected final Typeface getGeneralBoldTypeface() {
+        return mGeneralBoldTypeface;
+    }
+
     protected final boolean isTablet() {
         return mIsTablet;
     }
@@ -162,4 +196,42 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     protected final boolean isRtl() {
         return mIsRtl;
     }
+
+    protected final boolean isVibrationsEnabled() {
+        return mIsVibrationEnabled;
+    }
+
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(
+            mGeneralTypeface,
+            mGeneralBoldTypeface,
+            null,
+            null,
+            null,
+            null
+        );
+    }
+
+    protected UiConfig.Screen getScreenConfig() {
+        return new UiConfig.Screen(
+            mDisplayMetrics,
+            mIsTablet,
+            mIsPortrait,
+            mIsLandscape,
+            mIsRtl
+        );
+    }
+
+    protected UiConfig.CardStyle getCardStyleConfig() {
+        return new UiConfig.CardStyle(
+            mIsCardBackgroundDisplayed,
+            mIsCardBorderDisplayed,
+            mIsAmoled
+        );
+    }
+
+    protected UiConfig.Haptics getHapticsConfig() {
+        return new UiConfig.Haptics(mIsVibrationEnabled);
+    }
+
 }

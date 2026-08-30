@@ -31,6 +31,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.SettingsPreferenceSliderLayoutBinding;
+import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -68,12 +69,14 @@ public class CustomSliderPreference extends Preference {
 
     private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
     private Runnable mRingtoneStopRunnable;
+    private final boolean mIsAdvancedAudioPlaybackEnabled;
     private boolean mIsPreviewPlaying = false;
 
     public CustomSliderPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         mPrefs = getDefaultSharedPreferences(context);
+        mIsAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
         mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
     }
 
@@ -583,7 +586,8 @@ public class CustomSliderPreference extends Preference {
      * external audio device connected.
      */
     private void startRingtonePreviewForExternalAudioDevices() {
-        if (!isExternalAudioDeviceVolumePreference() || !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), mPrefs)) {
+        if (!isExternalAudioDeviceVolumePreference()
+            || !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs))) {
             return;
         }
 
@@ -599,7 +603,19 @@ public class CustomSliderPreference extends Preference {
             ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
         }
 
-        RingtonePreviewKlaxon.start(ringtoneUri);
+        RingtonePlayer.Config playerConfig = new RingtonePlayer.Config(
+            SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs),
+            SettingsDAO.shouldUseCustomMediaVolume(mPrefs),
+            SettingsDAO.getExternalAudioDeviceVolumeValue(mPrefs)
+        );
+
+        RingtonePreviewKlaxon.Config klaxonConfig = new RingtonePreviewKlaxon.Config(
+            mIsAdvancedAudioPlaybackEnabled,
+            playerConfig
+        );
+
+        RingtonePreviewKlaxon.start(ringtoneUri, klaxonConfig);
+
         mIsPreviewPlaying = true;
 
         mRingtoneStopRunnable = this::stopRingtonePreviewForExternalAudioDevices;
@@ -620,8 +636,7 @@ public class CustomSliderPreference extends Preference {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
 
-        RingtonePreviewKlaxon.stop();
-        RingtonePreviewKlaxon.stopListeningToPreferences();
+        RingtonePreviewKlaxon.stop(mIsAdvancedAudioPlaybackEnabled);
 
         mIsPreviewPlaying = false;
     }

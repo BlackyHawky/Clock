@@ -124,6 +124,12 @@ public class PreferencesKeys {
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING = "key_display_low_alarm_volume_warning";
 
+    /**
+     * SharedPreferences key used to indicate whether the styled repeat day display is enabled
+     * for a specific alarm. Used to customize how repeat days are shown in the UI.
+     */
+    public static final String KEY_SHOW_STYLED_REPEAT_DAY = "show_styled_repeat_day_";
+
     // Alarm Display Customization
     public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";
     public static final String KEY_ALARM_CLOCK_DIAL = "key_alarm_clock_dial";
@@ -261,6 +267,8 @@ public class PreferencesKeys {
     // **************
     // ** WIDGETS **
     // **************
+
+    public static final String WIDGET_COUNT = "_widget_count";
 
     // Widget settings
     public static final String KEY_ANALOG_WIDGET_CUSTOMIZATION = "key_analog_widget_customization";

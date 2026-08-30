@@ -10,6 +10,8 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -113,12 +115,15 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 }
 
                 final Context appContext = requireContext().getApplicationContext();
+                final int style = getAccentStyle();
+                final Typeface font = getGeneralTypeface();
+                final SharedPreferences prefs = getPrefs();
 
                 // Take persistent permission
                 appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 String safeTitle = FileUtils.toSafeFileName(FILE_SCREENSAVER_DIGITAL_CLOCK_FONT);
-                String oldFontPath = getPrefs().getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null);
+                String oldFontPath = prefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null);
 
                 AppExecutors.getDiskIO().execute(() -> {
                     // Delete the old font if it exists
@@ -132,14 +137,14 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                     // Save the new path
                     if (copiedUri != null) {
-                        getPrefs().edit().putString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
+                        prefs.edit().putString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
                     }
 
                     AppExecutors.getMainThread().post(() -> {
                         if (copiedUri != null) {
-                            CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                            CustomToast.show(appContext, style, font, R.string.custom_font_toast_message_selected);
                         } else {
-                            CustomToast.show(appContext, "Error importing font");
+                            CustomToast.show(appContext, style, font, R.string.font_message_error);
                         }
 
                         if (!isAdded() || mDigitalClockFontPref == null) {
@@ -168,12 +173,15 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 }
 
                 final Context appContext = requireContext().getApplicationContext();
+                final int style = getAccentStyle();
+                final Typeface font = getGeneralTypeface();
+                final SharedPreferences prefs = getPrefs();
 
                 // Take persistent permission
                 appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 String safeTitle = FileUtils.toSafeFileName(FILE_SCREENSAVER_BACKGROUND);
-                String oldImagePath = getPrefs().getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null);
+                String oldImagePath = prefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null);
 
                 AppExecutors.getDiskIO().execute(() -> {
                     // Delete the old image if it exists
@@ -191,13 +199,13 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                         // Save the new path
                         if (copiedUri != null) {
-                            getPrefs().edit().putString(KEY_SCREENSAVER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                            prefs.edit().putString(KEY_SCREENSAVER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
                             mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
                             mScreensaverBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12());
 
-                            CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                            CustomToast.show(appContext, style, font, R.string.background_image_toast_message_selected);
                         } else {
-                            CustomToast.show(appContext, "Error importing image");
+                            CustomToast.show(appContext, style, font, R.string.image_message_error);
                             mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title));
                             mScreensaverBlurIntensityPref.setVisible(false);
                         }
@@ -307,14 +315,13 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mAnalogClockSizePref.setVisible(!isDigitalClock);
                     mClockSecondHandPref.setVisible(isAnalogClock
                         && SettingsDAO.areScreensaverClockSecondsDisplayed(getPrefs()));
-                    mDigitalClockFontPref.setVisible(isDigitalClock);
                     mDigitalClockFontSizePref.setVisible(isDigitalClock);
                     mBoldDigitalClockPref.setVisible(isDigitalClock);
                     mItalicDigitalClockPref.setVisible(isDigitalClock);
                 }
 
                 case KEY_SCREENSAVER_DISPLAY_NEXT_ALARM -> {
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                    Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                     boolean isNextAlarmDisplayed = (boolean) newValue;
                     boolean areDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(getPrefs());
@@ -327,7 +334,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 }
 
                 case KEY_DISPLAY_SCREENSAVER_BATTERY -> {
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                    Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                     boolean isBatteryVisible = (boolean) newValue;
                     boolean areDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(getPrefs());
@@ -346,7 +353,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 }
 
                 case KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS -> {
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                    Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                     mClockSecondHandPref.setVisible((boolean) newValue
                         && SettingsDAO.getScreensaverClockStyle(getPrefs()) == DataModel.ClockStyle.ANALOG);
                 }
@@ -354,10 +361,11 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 case KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
                      KEY_SCREENSAVER_BATTERY_IN_BOLD, KEY_SCREENSAVER_BATTERY_IN_ITALIC, KEY_SCREENSAVER_DATE_IN_BOLD,
                      KEY_SCREENSAVER_DATE_IN_ITALIC, KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC,
-                     KEY_SCREENSAVER_KEEP_SCREEN_ON -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                     KEY_SCREENSAVER_KEEP_SCREEN_ON ->
+                    Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 case KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS -> {
-                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                    Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                     boolean areDynamicColors = (boolean) newValue;
                     boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
@@ -421,7 +429,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockDialMaterialPref.setSummary(mClockDialMaterialPref.getEntry());
             mClockDialMaterialPref.setOnPreferenceChangeListener(this);
 
-            mDigitalClockFontPref.setVisible(isDigitalClock);
             mDigitalClockFontPref.setTitle(getString(SettingsDAO.getScreensaverDigitalClockFont(getPrefs()) == null
                 ? R.string.custom_font_title
                 : R.string.custom_font_title_variant));

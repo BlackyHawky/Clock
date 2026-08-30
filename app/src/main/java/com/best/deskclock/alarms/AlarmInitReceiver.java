@@ -128,7 +128,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 if (alarmInstance != null) {
                     // Update alarm status if the alarm instance is not null
                     if (alarmStatus == DISMISS_STATUS) {
-                        AlarmStateManager.setDismissState(context, alarmInstance);
+                        AlarmStateManager.setDismissState(context, prefs, alarmInstance);
                     } else if (alarmStatus == SNOOZE_STATUS) {
                         long snoozeTime = intent.getLongExtra(SNOOZE_TIME, 0L);
                         if (snoozeTime > System.currentTimeMillis()) {
@@ -147,7 +147,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         AppExecutors.getDiskIO().execute(() -> {
             try {
                 // Update all the alarm instances
-                AlarmStateManager.fixAlarmInstances(context);
+                AlarmStateManager.fixAlarmInstances(context, prefs);
             } finally {
                 result.finish();
                 wl.release();

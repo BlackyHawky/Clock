@@ -8,6 +8,8 @@ package com.best.deskclock.base;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
@@ -55,6 +57,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
 import com.best.deskclock.settings.AboutFragment;
+import com.best.deskclock.settings.BackupAndRestoreManager;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.ColorPreferenceDialogFragment;
@@ -63,7 +66,7 @@ import com.best.deskclock.settings.custompreference.CustomListPreferenceDialogFr
 import com.best.deskclock.settings.custompreference.CustomMultiSelectListPreferenceDialogFragment;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.utils.BackupAndRestoreUtils;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.NotificationUtils;
@@ -87,11 +90,14 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
     private CollapsingToolbarBaseLayoutBinding mActivityBinding;
 
-    private DataModel mDataModel;
     private SharedPreferences mPrefs;
+    private DataModel mDataModel;
+    private UiConfig.CardStyle mCardStyleConfig;
     private DisplayMetrics mDisplayMetrics;
-    private Typeface mRegularTypeface;
-    private Typeface mBoldTypeface;
+    private Typeface mGeneralTypeface;
+    private Typeface mGeneralBoldTypeface;
+    private boolean mIsVibrationEnabled;
+    private int mAccentStyle;
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -121,8 +127,20 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
         String fontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mRegularTypeface = ThemeUtils.loadFont(fontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
+        mGeneralTypeface = ThemeUtils.loadFont(fontPath);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(fontPath);
+        mIsVibrationEnabled = SettingsDAO.isVibrationsEnabled(mPrefs);
+
+        mAccentStyle = ThemeUtils.getAccentStyle(requireContext(),
+            SettingsDAO.isAutoNightAccentColorEnabled(mPrefs),
+            SettingsDAO.getAccentColor(mPrefs),
+            SettingsDAO.getNightAccentColor(mPrefs));
+
+        mCardStyleConfig = new UiConfig.CardStyle(
+            SettingsDAO.isCardBackgroundDisplayed(mPrefs),
+            SettingsDAO.isCardBorderDisplayed(mPrefs),
+            SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)
+        );
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(requireActivity().getWindow(), false);
@@ -173,7 +191,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
                 if (mActivityBinding != null) {
                     mActivityBinding.actionBar.post(() -> {
                         if (mActivityBinding != null) {
-                            ThemeUtils.applyToolbarTooltips(mActivityBinding.actionBar);
+                            ThemeUtils.applyToolbarTooltips(mActivityBinding.actionBar, mGeneralTypeface, mDisplayMetrics);
                         }
                     });
                 }
@@ -241,14 +259,18 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     protected RecyclerView.Adapter<?> onCreateAdapter(@NonNull PreferenceScreen preferenceScreen) {
         final Context context = preferenceScreen.getContext();
 
-        final Drawable.ConstantState bgSingle = ThemeUtils.rippleDrawable(
-            context, ThemeUtils.expressiveCardBackground(context, 0, 1)).getConstantState();
-        final Drawable.ConstantState bgTop = ThemeUtils.rippleDrawable(
-            context, ThemeUtils.expressiveCardBackground(context, 0, 3)).getConstantState();
-        final Drawable.ConstantState bgMiddle = ThemeUtils.rippleDrawable(
-            context, ThemeUtils.expressiveCardBackground(context, 1, 3)).getConstantState();
-        final Drawable.ConstantState bgBottom = ThemeUtils.rippleDrawable(
-            context, ThemeUtils.expressiveCardBackground(context, 2, 3)).getConstantState();
+        final Drawable.ConstantState bgSingle = ThemeUtils.rippleDrawable(context,
+            ThemeUtils.expressiveCardBackground(context, mDisplayMetrics, mCardStyleConfig.isBackgroundDisplayed(),
+                mCardStyleConfig.isBorderDisplayed(), mCardStyleConfig.isAmoledDarkMode(), 0, 1)).getConstantState();
+        final Drawable.ConstantState bgTop = ThemeUtils.rippleDrawable(context,
+            ThemeUtils.expressiveCardBackground(context, mDisplayMetrics, mCardStyleConfig.isBackgroundDisplayed(),
+                mCardStyleConfig.isBorderDisplayed(), mCardStyleConfig.isAmoledDarkMode(), 0, 3)).getConstantState();
+        final Drawable.ConstantState bgMiddle = ThemeUtils.rippleDrawable(context,
+            ThemeUtils.expressiveCardBackground(context, mDisplayMetrics, mCardStyleConfig.isBackgroundDisplayed(),
+                mCardStyleConfig.isBorderDisplayed(), mCardStyleConfig.isAmoledDarkMode(), 1, 3)).getConstantState();
+        final Drawable.ConstantState bgBottom = ThemeUtils.rippleDrawable(context,
+            ThemeUtils.expressiveCardBackground(context, mDisplayMetrics, mCardStyleConfig.isBackgroundDisplayed(),
+                mCardStyleConfig.isBorderDisplayed(), mCardStyleConfig.isAmoledDarkMode(), 2, 3)).getConstantState();
 
         return new PreferenceGroupAdapter(preferenceScreen) {
             @Override
@@ -271,7 +293,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
                 // Categories
                 if (pref instanceof PreferenceCategory) {
                     if (title != null) {
-                        title.setTypeface(mBoldTypeface);
+                        title.setTypeface(mGeneralBoldTypeface);
                         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                     }
                     return;
@@ -279,10 +301,10 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
                 // Normal preferences
                 if (title != null) {
-                    title.setTypeface(mRegularTypeface);
+                    title.setTypeface(mGeneralTypeface);
                 }
                 if (summary != null) {
-                    summary.setTypeface(mRegularTypeface);
+                    summary.setTypeface(mGeneralTypeface);
                 }
 
                 View cardView = holder.itemView.findViewById(R.id.pref_card_view);
@@ -389,8 +411,8 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     @Override
     public void onDestroy() {
         if (getActivity() == null || !getActivity().isChangingConfigurations()) {
-            BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = false;
-            BackupAndRestoreUtils.appNeedsRestart = false;
+            BackupAndRestoreManager.isRestoringBackupOrIsResettingApp = false;
+            BackupAndRestoreManager.appNeedsRestart = false;
         }
 
         super.onDestroy();
@@ -510,7 +532,17 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
                         onPreferenceDeleted.onDeleted();
                     }
 
-                    FileUtils.deleteCustomFile(requireContext().getApplicationContext(), fontPath, isFontFile);
+                    final Context appContext = requireContext().getApplicationContext();
+                    final int style = getAccentStyle();
+                    final Typeface toastFont;
+
+                    if (KEY_GENERAL_FONT.equals(prefKey)) {
+                        toastFont = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+                    } else {
+                        toastFont = getGeneralTypeface();
+                    }
+
+                    FileUtils.deleteCustomFile(appContext, style, toastFont, fontPath, isFontFile);
                 },
                 (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingFilePrefKey = null)),
                 CustomDialog.SoftInputMode.NONE
@@ -535,7 +567,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             (d, w) -> {
                 NotificationUtils.clearAllNotifications(appContext);
 
-                Utils.applyAppLanguage(appContext, isResettingApp);
+                Utils.applyAppLanguage(SettingsDAO.getLanguageCode(mPrefs), isResettingApp);
 
                 Intent restartIntent = new Intent(appContext, DeskClock.class);
                 restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -565,6 +597,18 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
     protected final SharedPreferences getPrefs() {
         return mPrefs;
+    }
+
+    protected final Typeface getGeneralTypeface() {
+        return mGeneralTypeface;
+    }
+
+    protected final boolean isVibrationsEnabled() {
+        return mIsVibrationEnabled;
+    }
+
+    protected final int getAccentStyle() {
+        return mAccentStyle;
     }
 
     /**

@@ -41,10 +41,12 @@ import java.util.List;
  */
 class StopwatchNotificationBuilder {
 
-    public Notification build(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Stopwatch stopwatch) {
+    public Notification build(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Stopwatch stopwatch,
+                              @NonNull String languageCode) {
+
         @StringRes final int eventLabel = R.string.label_notification;
 
-        final Context localizedContext = Utils.getLocalizedContext(context);
+        final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
 
         // Intent to load the app when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)

@@ -12,6 +12,7 @@ import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -45,6 +46,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.timer.TimerAlertReceiver;
 import com.best.deskclock.timer.TimerKlaxon;
@@ -76,6 +78,15 @@ final class TimerModel {
     private final SharedPreferences mPrefs;
     private final Handler mMainHandler = new Handler(Looper.getMainLooper());
     private Runnable mAutoSilenceRunnable;
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
+        (sharedPreferences, key) -> {
+            if (KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE.equals(key)) {
+                boolean enabled = SettingsDAO.isAutoRoutingToExternalAudioDevice(sharedPreferences);
+                TimerKlaxon.setAutoRoutingEnabled(enabled);
+            }
+        };
 
     /**
      * The alarm manager system service that calls back when timers expire.
@@ -167,6 +178,8 @@ final class TimerModel {
         mNotificationModel = notificationModel;
         mNotificationManager = mContext.getSystemService(NotificationManager.class);
         mAlarmManager = mContext.getSystemService(AlarmManager.class);
+
+        prefs.registerOnSharedPreferenceChangeListener(mPrefListener);
 
         // Update timer notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter();
@@ -542,7 +555,8 @@ final class TimerModel {
                     mExpiredTimers.add(timer);
                 }
             }
-            Collections.sort(mExpiredTimers, Timer.createTimerStateComparator(mContext));
+
+            Collections.sort(mExpiredTimers, Timer.createTimerStateComparator(SettingsDAO.getTimerSortingPreference(mPrefs)));
         }
 
         return mExpiredTimers;
@@ -557,7 +571,8 @@ final class TimerModel {
                     mMissedTimers.add(timer);
                 }
             }
-            Collections.sort(mMissedTimers, Timer.createTimerStateComparator(mContext));
+
+            Collections.sort(mMissedTimers, Timer.createTimerStateComparator(SettingsDAO.getTimerSortingPreference(mPrefs)));
         }
 
         return mMissedTimers;
@@ -790,7 +805,18 @@ final class TimerModel {
                 AlarmAlertWakeLock.acquireCpuWakeLock(mContext);
             }
 
-            TimerKlaxon.start(after);
+            RingtonePlayer.Config playerConfig = new RingtonePlayer.Config(
+                SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs),
+                SettingsDAO.shouldUseCustomMediaVolume(mPrefs),
+                SettingsDAO.getExternalAudioDeviceVolumeValue(mPrefs)
+            );
+
+            TimerKlaxon.Config klaxonConfig = new TimerKlaxon.Config(
+                SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs),
+                playerConfig
+            );
+
+            TimerKlaxon.start(after, klaxonConfig);
 
             stopRingtoneAfterDelay(after);
         }
@@ -798,7 +824,7 @@ final class TimerModel {
         // If the expired timer was the last to reset, stop ringing.
         if (beforeState == EXPIRED && mRingingIds.remove(before.getId()) && mRingingIds.isEmpty()) {
             TimerKlaxon.stop();
-            TimerKlaxon.deactivateRingtonePlayback();
+            TimerKlaxon.releaseResources();
             AlarmAlertWakeLock.releaseCpuLock();
 
             if (mAutoSilenceRunnable != null) {
@@ -832,7 +858,7 @@ final class TimerModel {
 
         mAutoSilenceRunnable = () -> {
             TimerKlaxon.stop();
-            TimerKlaxon.deactivateRingtonePlayback();
+            TimerKlaxon.releaseResources();
             markExpiredTimersAsMissed();
             AlarmAlertWakeLock.releaseCpuLock();
         };
@@ -872,7 +898,8 @@ final class TimerModel {
 
             // Notifications should be displayed if the app is not open and the timer is unexpired.
             if (!inForeground && (timer.isRunning() || timer.isPaused())) {
-                Notification notification = mNotificationBuilder.build(mContext, mNotificationModel, timer);
+                Notification notification = mNotificationBuilder.build(
+                    mContext, mNotificationModel, timer, SettingsDAO.getLanguageCode(mPrefs));
                 mNotificationManager.notify(notificationId, notification);
             } else {
                 mNotificationManager.cancel(notificationId);
@@ -900,7 +927,8 @@ final class TimerModel {
 
             // Notifications should be displayed if the app is not open and the timer is missed.
             if (!inForeground && timer.isMissed()) {
-                Notification notification = mNotificationBuilder.buildMissed(mContext, mNotificationModel, timer);
+                Notification notification = mNotificationBuilder.buildMissed(
+                    mContext, mNotificationModel, timer, SettingsDAO.getLanguageCode(mPrefs), SettingsDAO.isSingleTimerModeEnabled(mPrefs));
                 mNotificationManager.notify(notificationId, notification);
             } else {
                 mNotificationManager.cancel(notificationId);
@@ -949,7 +977,8 @@ final class TimerModel {
         }
 
         // Otherwise build and post a foreground notification reflecting the latest expired timers.
-        final Notification notification = mNotificationBuilder.buildHeadsUp(mContext, expired);
+        final Notification notification = mNotificationBuilder.buildHeadsUp(
+            mContext, expired, SettingsDAO.getLanguageCode(mPrefs), SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
         int foregroundServiceType = 0;
 

@@ -10,7 +10,6 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.core.app.NotificationCompat.Action;
 import static androidx.core.app.NotificationCompat.Builder;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MISSED_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
@@ -21,7 +20,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -92,8 +90,9 @@ class TimerNotificationBuilder {
     /**
      * @return the notification for running timers.
      */
-    public Notification build(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Timer timer) {
-        final Context localizedContext = Utils.getLocalizedContext(context);
+    public Notification build(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Timer timer, @NonNull String languageCode) {
+
+        final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
         final boolean running = timer.isRunning();
         final long base = getChronometerBase(timer);
         final List<Action> actions = new ArrayList<>(2);
@@ -255,9 +254,10 @@ class TimerNotificationBuilder {
     /**
      * @return the notification for expired timers.
      */
-    Notification buildHeadsUp(@NonNull Context context, @NonNull List<Timer> expired) {
-        final Context localizedContext = Utils.getLocalizedContext(context);
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+    Notification buildHeadsUp(@NonNull Context context, @NonNull List<Timer> expired, @NonNull String languageCode,
+                              boolean isSingleTimerMode) {
+
+        final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
         final Timer timer = expired.get(0);
         final int timerId = timer.getId();
 
@@ -283,7 +283,7 @@ class TimerNotificationBuilder {
             stateText = localizedContext.getString(R.string.timer_times_up);
 
             // Left button: Reset single timer
-            final CharSequence title1 = localizedContext.getString(SettingsDAO.isSingleTimerModeEnabled(prefs) || timer.getDeleteAfterUse()
+            final CharSequence title1 = localizedContext.getString(isSingleTimerMode || timer.getDeleteAfterUse()
                 ? R.string.delete
                 : R.string.timer_stop);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
@@ -372,9 +372,10 @@ class TimerNotificationBuilder {
     /**
      * @return the notification for missed timers.
      */
-    Notification buildMissed(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Timer timer) {
-        final Context localizedContext = Utils.getLocalizedContext(context);
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+    Notification buildMissed(@NonNull Context context, @NonNull NotificationModel nm, @NonNull Timer timer, @NonNull String languageCode,
+                             boolean isSingleTimerMode) {
+
+        final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
         final int timerId = timer.getId();
         final long base = getChronometerBase(timer);
         final Action action;
@@ -406,7 +407,7 @@ class TimerNotificationBuilder {
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
         @DrawableRes final int icon = R.drawable.ic_reset;
-        final CharSequence title = localizedContext.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) || timer.getDeleteAfterUse()
+        final CharSequence title = localizedContext.getText(isSingleTimerMode || timer.getDeleteAfterUse()
             ? R.string.delete
             : R.string.reset);
         final PendingIntent intent = Utils.pendingServiceIntent(context, reset);

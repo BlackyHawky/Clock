@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -262,7 +264,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureClock(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs) {
+    protected void configureClock(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs) {
     }
 
     @Override
@@ -273,7 +275,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     protected void configureNextAlarm(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
                                       @NonNull String nextAlarmTime) {
 
-        final Context localizedContext = Utils.getLocalizedContext(context);
+        final Context localizedContext = Utils.getLocalizedContext(context, SettingsDAO.getLanguageCode(prefs));
         final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
         final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
 
@@ -351,7 +353,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureBackground(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                       int widthPx, int heightPx) {
+                                       @NonNull DisplayMetrics displayMetrics, int widthPx, int heightPx) {
 
         if (!WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
@@ -360,7 +362,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         int radius = (int) dpToPx(WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(prefs)
             ? WidgetDAO.getNextAlarmWidgetBackgroundCornerRadius(prefs)
-            : DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS, context.getResources().getDisplayMetrics());
+            : DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS, displayMetrics);
 
         int color = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
 
@@ -400,7 +402,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     protected void configureSizerNextAlarm(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
                                            @NonNull String nextAlarmTime) {
 
-        final Context localizedContext = Utils.getLocalizedContext(context);
+        final Context localizedContext = Utils.getLocalizedContext(context, SettingsDAO.getLanguageCode(prefs));
         final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
         final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());

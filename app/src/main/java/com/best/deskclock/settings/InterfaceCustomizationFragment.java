@@ -9,6 +9,8 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -89,12 +91,15 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
             }
 
             final Context appContext = requireContext().getApplicationContext();
+            final int style = getAccentStyle();
+            final Typeface font = getGeneralTypeface();
+            final SharedPreferences prefs = getPrefs();
 
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_GENERAL_FONT);
-            String oldFontPath = getPrefs().getString(KEY_GENERAL_FONT, null);
+            String oldFontPath = prefs.getString(KEY_GENERAL_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -108,14 +113,15 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    getPrefs().edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
+                    prefs.edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
                     if (copiedUri != null) {
-                        CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                        Typeface newFont = ThemeUtils.loadFont(copiedUri.getPath());
+                        CustomToast.show(appContext, style, newFont, R.string.custom_font_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing font");
+                        CustomToast.show(appContext, style, font, R.string.font_message_error);
                     }
 
                     if (!isAdded() || mGeneralFontPref == null) {
@@ -180,8 +186,13 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         if (isLanguageChanged) {
             WidgetUtils.updateAllDigitalWidgets(requireContext());
             Controller.getController().updateShortcuts();
-            NotificationUtils.updateAlarmNotifications(requireContext().getApplicationContext());
-            KeepAliveService.updateKeepAliveServiceNotification(requireContext().getApplicationContext());
+            NotificationUtils.updateAlarmNotifications(
+                requireContext().getApplicationContext(),
+                SettingsDAO.getLanguageCode(getPrefs()),
+                SettingsDAO.getGlobalIntentId(getPrefs())
+            );
+            KeepAliveService.updateKeepAliveServiceNotification(
+                requireContext().getApplicationContext(), SettingsDAO.getLanguageCode(getPrefs()));
             isLanguageChanged = false;
         }
     }
@@ -208,8 +219,11 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
                 listPreference.setSummary(listPreference.getEntries()[index]);
             }
 
-            case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE,
-                 KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            case KEY_VIBRATIONS -> Utils.performHapticFeedback(getView(), true, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS, KEY_TOOLBAR_TITLE,
+                 KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON ->
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_LANGUAGE_CODE -> {
                 final int index = mLanguageCodePref.findIndexOfValue((String) newValue);

@@ -59,11 +59,14 @@ import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.databinding.StopwatchFragmentBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uicomponents.CustomTooltip;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
+
+import java.util.Objects;
 
 /**
  * Fragment that shows the stopwatch and recorded laps.
@@ -119,6 +122,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         super(STOPWATCH);
     }
 
+    private String mStopwatchFontPath;
     private Typeface mStopwatchTypeface;
     private boolean mAreMillisecondsDisplayed;
     private String mVolumeUpAction;
@@ -170,7 +174,10 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mBinding.stopwatchTimeLayout.stopwatchTimeText.setTextColor(timeTextColor);
         mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTextColor(timeTextColor);
 
-        mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(requireContext()));
+        UiConfig.CardStyle cardStyle = getCardStyleConfig();
+
+        mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(requireContext(), getDisplayMetrics(),
+            cardStyle.isBackgroundDisplayed(), cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode()));
 
         RecyclerView.ItemAnimator animator = mBinding.lapsList.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -188,10 +195,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
-        Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
-        Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-
         refreshSettings();
 
         applyStopwatchFont();
@@ -205,7 +208,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             mBinding.lapHeaderLayout.totalTitle
         };
         for (TextView tv : titles) {
-            tv.setTypeface(boldTypeface);
+            tv.setTypeface(getGeneralBoldTypeface());
         }
 
         // Timer text serves as a virtual start/stop button.
@@ -214,7 +217,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         mStopwatchTextController.setMillisecondsDisplayed(mAreMillisecondsDisplayed);
 
-        mLapsAdapter = new LapsAdapter(requireContext(), getDataModel(), getUiDataModel(), regularTypeface, boldTypeface);
+        mLapsAdapter = new LapsAdapter(requireContext(), getDataModel(), getUiDataModel(), getFontsConfig());
         mBinding.lapsList.setAdapter(mLapsAdapter);
 
         getDataModel().addStopwatchListener(mStopwatchWatcher);
@@ -396,8 +399,13 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private void refreshSettings() {
-        String stopwatchFontPath = SettingsDAO.getStopwatchFont(getPrefs());
-        mStopwatchTypeface = ThemeUtils.loadFont(stopwatchFontPath);
+        String newFontPath = SettingsDAO.getStopwatchFont(getPrefs());
+
+        if (!Objects.equals(mStopwatchFontPath, newFontPath)) {
+            mStopwatchFontPath = newFontPath;
+            mStopwatchTypeface = null;
+        }
+
         mAreMillisecondsDisplayed = SettingsDAO.areMillisecondsDisplayed(getPrefs());
         mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(getPrefs());
         mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(getPrefs());
@@ -406,8 +414,20 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private void applyStopwatchFont() {
-        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTypeface(mStopwatchTypeface);
-        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTypeface(mStopwatchTypeface);
+        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTypeface(getStopwatchTypeface());
+        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTypeface(getStopwatchTypeface());
+    }
+
+    /**
+     * Lazy loading for the standard stopwatch font.
+     *
+     * @return the stopwatch font.
+     */
+    private Typeface getStopwatchTypeface() {
+        if (mStopwatchTypeface == null) {
+            mStopwatchTypeface = ThemeUtils.loadFont(mStopwatchFontPath);
+        }
+        return mStopwatchTypeface;
     }
 
     private void applyMillisecondsVisibility() {
@@ -423,6 +443,10 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         applyStopwatchFont();
         applyMillisecondsVisibility();
         updateTime();
+
+        if (mLapsAdapter != null) {
+            mLapsAdapter.updateFonts(getFontsConfig());
+        }
 
         mAreSettingsChanged = false;
     }
@@ -443,7 +467,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         }
 
         fab.setOnLongClickListener(v -> {
-            CustomTooltip.showAbove(v, fab.getContentDescription().toString(), true);
+            CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), fab.getContentDescription().toString(), true);
             return true;
         });
 
@@ -454,7 +478,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * Start the stopwatch.
      */
     private void doStart() {
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         getDataModel().startStopwatch();
     }
@@ -463,7 +487,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * Pause the stopwatch.
      */
     private void doPause() {
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         getDataModel().pauseStopwatch();
     }
@@ -472,7 +496,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * Reset the stopwatch.
      */
     private void doReset() {
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+        Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
 
         final Stopwatch.State priorState = getStopwatch().getState();
         Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
@@ -493,7 +517,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * Send stopwatch time and lap times to an external sharing application.
      */
     private void doShare() {
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+        Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
 
         // Disable the fab buttons to avoid double-taps on the share button.
         updateFab(BUTTONS_DISABLE);
@@ -530,7 +554,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             return;
         }
 
-        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+        Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
 
         // Update button states.
         updateFab(BUTTONS_IMMEDIATE);
@@ -810,7 +834,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private final class TimeClickListener implements View.OnClickListener {
         @Override
         public void onClick(@NonNull View view) {
-            Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(view, isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             if (getStopwatch().isRunning()) {
                 getDataModel().pauseStopwatch();
