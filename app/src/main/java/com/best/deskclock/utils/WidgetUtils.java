@@ -10,7 +10,6 @@ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -19,12 +18,12 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -44,7 +43,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.widgets.AnalogAppWidgetProvider;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
@@ -97,14 +95,11 @@ public class WidgetUtils {
     }
 
     /**
-     * Suffix for a key to a preference that stores the instance count for a given widget type.
-     */
-    private static final String WIDGET_COUNT = "_widget_count";
-
-    /**
      * Calculate the scale factor of the fonts in the widget
      */
-    public static float getScaleRatio(@NonNull Context context, @Nullable Bundle options, int id, int cityCount) {
+    public static float getScaleRatio(@NonNull Context context, @NonNull DisplayMetrics displayMetrics, @Nullable Bundle options,
+                                      int id, int cityCount) {
+
         if (options == null) {
             AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
             if (widgetManager == null) {
@@ -120,11 +115,10 @@ public class WidgetUtils {
                 return 1f;
             }
 
-            final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             float density = displayMetrics.density;
             final int minDigitalWidgetWidth = (int) dpToPx(ThemeUtils.isTablet() ? 300 : 206, displayMetrics);
             float ratio = (density * minWidth) / minDigitalWidgetWidth;
-            ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
+            ratio = Math.min(ratio, getHeightScaleRatio(context, displayMetrics, options, id));
             ratio *= .83f;
 
             if (cityCount > 0) {
@@ -145,7 +139,9 @@ public class WidgetUtils {
     /**
      * Calculate the scale factor of the fonts in the list of  the widget using the widget height
      */
-    private static float getHeightScaleRatio(@NonNull Context context, @Nullable Bundle options, int id) {
+    private static float getHeightScaleRatio(@NonNull Context context, @NonNull DisplayMetrics displayMetrics, @Nullable Bundle options,
+                                             int id) {
+
         if (options == null) {
             AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
             if (widgetManager == null) {
@@ -161,7 +157,6 @@ public class WidgetUtils {
                 return 1f;
             }
 
-            final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             float density = displayMetrics.density;
             final int minDigitalWidgetHeight = (int) dpToPx(ThemeUtils.isTablet() ? 170 : 129, displayMetrics);
             float ratio = density * minHeight / minDigitalWidgetHeight;
@@ -211,30 +206,10 @@ public class WidgetUtils {
     }
 
     /**
-     * @param widgetProviderClass indicates the type of widget being counted
-     * @param count               the number of widgets of the given type
-     * @return the delta between the new count and the old count
-     */
-    public static int updateWidgetCount(@NonNull SharedPreferences prefs, @NonNull Class<?> widgetProviderClass, int count) {
-        final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT;
-        final int oldCount = prefs.getInt(key, 0);
-        if (count == 0) {
-            prefs.edit().remove(key).apply();
-        } else {
-            prefs.edit().putInt(key, count).apply();
-        }
-        return count - oldCount;
-    }
-
-    /**
-     * @param widgetClass     indicates the type of widget being counted
-     * @param count           the number of widgets of the given type
+     * @param delta           the difference between the new and old widget count
      * @param eventCategoryId identifies the category of event to send
      */
-    public static void updateWidgetCount(@NonNull Context context, @NonNull Class<?> widgetClass, int count,
-                                         @StringRes int eventCategoryId) {
-
-        int delta = updateWidgetCount(getDefaultSharedPreferences(context), widgetClass, count);
+    public static void updateWidgetCount(int delta, @StringRes int eventCategoryId) {
         for (; delta > 0; delta--) {
             Events.sendEvent(eventCategoryId, R.string.action_create, 0);
         }
@@ -311,30 +286,27 @@ public class WidgetUtils {
     /**
      * @return "11:59" or "23:59" in the current locale
      */
-    public static CharSequence getLongestTimeString(@NonNull TextClock clock) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
-        boolean includeSeconds = WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
+    public static CharSequence getLongestTimeString(@NonNull TextClock clock, boolean includeSeconds, boolean isAmPmHidden) {
+        float amPmRatio = isAmPmHidden ? 0 : 0.4f;
         final CharSequence format = clock.is24HourModeEnabled()
             ? ClockUtils.get24ModeFormat(includeSeconds, false)
-            : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(prefs),
-            includeSeconds, false, false, false, false);
+            : ClockUtils.get12ModeFormat(includeSeconds, amPmRatio, null, "sans-serif", Typeface.BOLD, false);
         final Calendar longestPMTime = Calendar.getInstance();
+
         longestPMTime.set(0, 0, 0, 23, 59);
+
         return DateFormat.format(format, longestPMTime);
     }
 
     /**
      * Configure the TextClock format on a RemoteViews instance.
      *
-     * @param rv          RemoteViews to update
-     * @param context     context for resources
+     * @param rv          {@link RemoteViews} to update
      * @param clockViewId the TextClock view id
      * @param amPmRatio   am/pm ratio for 12h format
      * @param showSeconds whether seconds should be shown
      */
-    public static void applyClockFormat(@Nullable RemoteViews rv, @NonNull Context context, int clockViewId, float amPmRatio,
-                                        boolean showSeconds) {
-
+    public static void applyClockFormat(@Nullable RemoteViews rv, int clockViewId, float amPmRatio, boolean showSeconds) {
         if (rv == null || clockViewId == 0) {
             return;
         }
@@ -343,16 +315,9 @@ public class WidgetUtils {
             rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_24, ClockUtils.get24ModeFormat(showSeconds, false));
         } else {
             rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_12, ClockUtils.get12ModeFormat(
-                context, amPmRatio, showSeconds, false, false, false, false)
+                showSeconds, amPmRatio, null, "sans-serif", Typeface.BOLD, false)
             );
         }
-    }
-
-    /**
-     * @return the ratio to use for the AM/PM part on the digital widgets.
-     */
-    public static float getAmPmRatio(@NonNull SharedPreferences prefs) {
-        return WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs) ? 0 : 0.4f;
     }
 
     /**

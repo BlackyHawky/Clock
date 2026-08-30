@@ -6,9 +6,8 @@
 
 package com.best.deskclock.utils;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -24,7 +23,6 @@ import androidx.core.view.ViewCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uicomponents.toast.CustomToast;
@@ -82,8 +80,10 @@ public class AlarmUtils {
      */
     public static final String ACTION_NEXT_ALARM_CHANGED_BY_CLOCK = "com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK";
 
-    public static void showDismissToast(@NonNull Context context, @NonNull Alarm alarm, @NonNull AlarmInstance instance) {
-        final Context localizedContext = Utils.getLocalizedContext(context);
+    public static void showDismissToast(@NonNull Context context, @Nullable String customLanguageCode, int accentStyle,
+                                        @Nullable Typeface font, @NonNull Alarm alarm, @NonNull AlarmInstance instance) {
+
+        final Context localizedContext = Utils.getLocalizedContext(context, customLanguageCode);
         final String time = DateFormat.getTimeFormat(context).format(instance.getAlarmTime().getTime());
         final Calendar nextTime = alarm.getNextAlarmTime(instance.getAlarmTime());
         final String date = getDateFormat(context, nextTime);
@@ -98,7 +98,7 @@ public class AlarmUtils {
         }
 
         if (DataModel.getDataModel().isApplicationInForeground()) {
-            CustomToast.showLongWithManager(context, text);
+            CustomToast.showLongWithManager(context, accentStyle, font, text);
         } else {
             Toast.makeText(context, text, Toast.LENGTH_LONG).show();
         }
@@ -180,12 +180,16 @@ public class AlarmUtils {
     /**
      * Clock views can call this to refresh their alarm to the next upcoming value.
      *
-     * @param clock         The view containing the alarm elements.
-     * @param isScreensaver True if the calling view is the screensaver, false otherwise.
-     * @param isUppercase   True if the alarm text should be displayed in uppercase.
-     * @return {@code true} if an upcoming alarm is active and currently displayed; {@code false} otherwise.
+     * @param clock                    The view containing the alarm elements.
+     * @param isUppercase              {@code true} if the alarm text should be displayed in uppercase; {@code false} otherwise.
+     * @param isScreensaver            {@code true} if the calling view is the screensaver; {@code false} otherwise.
+     * @param isScreensaverDateItalic  {@code true} if the screensaver date is in italics; {@code false} otherwise.
+     * @param isScreensaverAlarmItalic {@code true} if the next alarm of the screensaver is in italics; {@code false} otherwise.
+     * @return True if an upcoming alarm is active and currently displayed; false otherwise.
      */
-    public static boolean refreshAlarm(@NonNull View clock, boolean isScreensaver, boolean isUppercase) {
+    public static boolean refreshAlarm(@NonNull View clock, boolean isUppercase, boolean isScreensaver, boolean isScreensaverDateItalic,
+                                       boolean isScreensaverAlarmItalic) {
+
         final Context context = clock.getContext();
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
@@ -205,7 +209,7 @@ public class AlarmUtils {
         long alarmTime = instance.getAlarmTime().getTimeInMillis();
         alarmCalendar.setTimeInMillis(alarmTime);
         String alarmFormattedTime = isScreensaver
-            ? ScreensaverUtils.getScreensaverFormattedTime(context, alarmCalendar)
+            ? ScreensaverUtils.getScreensaverFormattedTime(context, alarmCalendar, isScreensaverDateItalic, isScreensaverAlarmItalic)
             : getFormattedTime(context, alarmCalendar);
 
         if (TextUtils.isEmpty(alarmFormattedTime)) {
@@ -227,15 +231,14 @@ public class AlarmUtils {
     /**
      * Applies a custom bold font to the next alarm.
      */
-    public static void applyBoldNextAlarmTypeface(@NonNull View clock) {
+    public static void applyBoldNextAlarmTypeface(@NonNull View clock, @NonNull Typeface boldTypeface) {
         final TextView nextAlarm = clock.findViewById(R.id.nextAlarm);
 
         if (nextAlarm == null) {
             return;
         }
 
-        nextAlarm.setTypeface(ThemeUtils.boldTypeface(
-            SettingsDAO.getGeneralFont(getDefaultSharedPreferences(clock.getContext()))));
+        nextAlarm.setTypeface(boldTypeface);
     }
 
     @NonNull
@@ -457,16 +460,16 @@ public class AlarmUtils {
         return String.format(formats[index], daySeq, hourSeq, minSeq);
     }
 
-    public static void popAlarmSetToast(@NonNull Context context, long alarmTime) {
+    public static void popAlarmSetToast(@NonNull Context context, int accentStyle, @Nullable Typeface font, long alarmTime) {
         final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
         final String text = formatElapsedTimeUntilAlarm(context, alarmTimeDelta);
-        CustomToast.showLongWithManager(context, text);
+        CustomToast.showLongWithManager(context, accentStyle, font, text);
     }
 
-    public static void popAlarmSetSnackbar(@NonNull View snackbarAnchor, long alarmTime) {
+    public static void popAlarmSetSnackbar(@NonNull View snackbarAnchor, @NonNull Typeface font,  long alarmTime) {
         final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
         final String text = formatElapsedTimeUntilAlarm(snackbarAnchor.getContext(), alarmTimeDelta);
-        SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT));
+        SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT), font);
         ViewCompat.setStateDescription(snackbarAnchor, text);
     }
 

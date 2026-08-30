@@ -2,12 +2,7 @@
 
 package com.best.deskclock.worldclock;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
-
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -27,10 +22,9 @@ import androidx.core.view.ViewCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CityListHeaderBinding;
 import com.best.deskclock.databinding.CityListItemBinding;
-import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.uidata.UiConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -84,21 +78,11 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
 
     private final Context mContext;
     private final DataModel mDataModel;
-    private final SharedPreferences mPrefs;
-    private final Typeface mRegularTypeface;
-    private final Typeface mBoldTypeface;
+    private final CityAdapterProvider mProvider;
+    private final UiConfig.Fonts mFonts;
+    private final UiConfig.TimeFormat mTimeFormat;
 
     private final LayoutInflater mInflater;
-
-    /**
-     * The 12-hour time pattern for the current locale.
-     */
-    private final String mPattern12;
-
-    /**
-     * The 24-hour time pattern for the current locale.
-     */
-    private final String mPattern24;
 
     /**
      * A calendar used to format time in a particular timezone.
@@ -111,7 +95,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     private final Set<City> mUserSelectedCities = new LinkedHashSet<>();
 
     /**
-     * {@code true} time should honor {@link #mPattern24}; {@link #mPattern12} otherwise.
+     * {@code true} if the time is in 24-hour format; 12-hour mode otherwise.
      */
     private boolean mIs24HoursMode;
 
@@ -140,33 +124,19 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     private Comparator<City> mCachedComparator;
     private DataModel.CitySort mCachedCitySort;
 
-    public CityAdapter(@NonNull Context context, @NonNull DataModel dataModel) {
+    public CityAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull UiConfig.Fonts fonts,
+                       @NonNull UiConfig.TimeFormat timeFormat, @NonNull CityAdapterProvider provider) {
+
         mContext = context;
         mDataModel = dataModel;
-        mPrefs = getDefaultSharedPreferences(context);
+        mProvider = provider;
+        mFonts = fonts;
+        mTimeFormat = timeFormat;
+        mIs24HoursMode = timeFormat.is24HoursMode();
         mInflater = LayoutInflater.from(context);
-
-        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mRegularTypeface = ThemeUtils.loadFont(fontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
 
         mCalendar = Calendar.getInstance();
         mCalendar.setTimeInMillis(System.currentTimeMillis());
-
-        final Locale locale = Locale.getDefault();
-
-        mPattern24 = DateFormat.getBestDateTimePattern(locale, "Hm");
-
-        String pattern12 = DateFormat.getBestDateTimePattern(locale, "hma");
-
-        if (TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL) {
-            // There's an RTL layout bug that causes jank when fast-scrolling through
-            // the list in 12-hour mode in an RTL locale. We can work around this by
-            // ensuring the strings are the same length by using "hh" instead of "h".
-            pattern12 = pattern12.replace("h", "hh");
-        }
-
-        mPattern12 = pattern12;
     }
 
     @Override
@@ -208,7 +178,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
                     view = headerBinding.getRoot();
                     view.setOnClickListener(null);
 
-                    headerBinding.cityListHeader.setTypeface(mRegularTypeface);
+                    headerBinding.cityListHeader.setTypeface(mFonts.general());
                     view.setTag(headerBinding);
                 }
 
@@ -230,9 +200,9 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
 
                     view = itemBinding.getRoot();
 
-                    itemBinding.cityIndex.setTypeface(mBoldTypeface);
-                    itemBinding.cityName.setTypeface(mRegularTypeface);
-                    itemBinding.cityTime.setTypeface(mRegularTypeface);
+                    itemBinding.cityIndex.setTypeface(mFonts.bold());
+                    itemBinding.cityName.setTypeface(mFonts.general());
+                    itemBinding.cityTime.setTypeface(mFonts.general());
 
                     holder = new CityItemHolder(itemBinding);
                     view.setTag(holder);
@@ -297,8 +267,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
             mUserSelectedCities.remove(city);
             ViewCompat.setStateDescription(b, mContext.getString(R.string.city_unchecked, city.getName()));
 
-            // Delete the associated note
-            mPrefs.edit().remove(KEY_CITY_NOTE + city.getId()).apply();
+            mProvider.onCityDeselected(city);
         }
     }
 
@@ -408,9 +377,9 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     /**
      * Rebuilds all internal data structures from scratch.
      */
-    public void refresh() {
+    public void refresh(boolean is24HoursMode) {
         // Update the 12/24 hour mode.
-        mIs24HoursMode = DateFormat.is24HourFormat(mContext);
+        mIs24HoursMode = is24HoursMode;
 
         // Refresh the user selections.
         final List<City> selected = mDataModel.getSelectedCities();
@@ -470,7 +439,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     }
 
     private DataModel.CitySort getCitySort() {
-        return SettingsDAO.getCitySort(mPrefs);
+        return mProvider.getCitySort();
     }
 
     private Comparator<City> getCitySortComparator() {
@@ -486,7 +455,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
 
     private CharSequence getTimeCharSequence(@NonNull TimeZone timeZone) {
         mCalendar.setTimeZone(timeZone);
-        return DateFormat.format(mIs24HoursMode ? mPattern24 : mPattern12, mCalendar);
+        return DateFormat.format(mIs24HoursMode ? mTimeFormat.pattern24() : mTimeFormat.pattern12(), mCalendar);
     }
 
     private boolean getShowIndex(int position) {
@@ -522,6 +491,11 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
         final City city = getItem(position);
 
         return getCitySortComparator().compare(priorCity, city) != 0;
+    }
+
+    public interface CityAdapterProvider {
+        DataModel.CitySort getCitySort();
+        void onCityDeselected(@NonNull City city);
     }
 
     /**

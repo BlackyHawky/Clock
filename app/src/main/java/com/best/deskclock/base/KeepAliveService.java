@@ -2,6 +2,7 @@
 
 package com.best.deskclock.base;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.NotificationUtils.FOREGROUND_SERVICE_CHANNEL_ID;
 
 import android.Manifest;
@@ -10,6 +11,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
 import android.os.IBinder;
@@ -23,6 +25,7 @@ import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -45,11 +48,15 @@ public class KeepAliveService extends Service {
 
     private static boolean sIsRunning = false;
 
+    private SharedPreferences mPrefs;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         sIsRunning = true;
+
+        mPrefs = getDefaultSharedPreferences(this);
 
         if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(this, FOREGROUND_SERVICE_CHANNEL_ID);
@@ -60,7 +67,7 @@ public class KeepAliveService extends Service {
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         LogUtils.v("KeepAliveService.onStartCommand() with %s", intent);
 
-        Notification notification = buildNotification(this);
+        Notification notification = buildNotification(this, SettingsDAO.getLanguageCode(mPrefs));
 
         int foregroundServiceType = 0;
 
@@ -88,8 +95,8 @@ public class KeepAliveService extends Service {
     }
 
     @NonNull
-    private static Notification buildNotification(@NonNull Context context) {
-        final Context localizedContext = Utils.getLocalizedContext(context);
+    private static Notification buildNotification(@NonNull Context context, @NonNull String languageCode) {
+        final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
 
         Intent notificationIntent = new Intent(context, DeskClock.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -110,7 +117,7 @@ public class KeepAliveService extends Service {
             .build();
     }
 
-    public static void updateKeepAliveServiceNotification(@NonNull Context appContext) {
+    public static void updateKeepAliveServiceNotification(@NonNull Context appContext, @NonNull String languageCode) {
         if (!sIsRunning) {
             return;
         }
@@ -120,7 +127,7 @@ public class KeepAliveService extends Service {
             return;
         }
 
-        Notification notification = buildNotification(appContext);
+        Notification notification = buildNotification(appContext, languageCode);
 
         NotificationManagerCompat.from(appContext).notify(FOREGROUND_SERVICE_NOTIFICATION_ID, notification);
     }

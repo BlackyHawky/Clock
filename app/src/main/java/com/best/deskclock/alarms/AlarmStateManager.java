@@ -8,6 +8,7 @@ package com.best.deskclock.alarms;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
@@ -22,6 +23,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.service.quicksettings.TileService;
@@ -46,6 +48,7 @@ import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -241,9 +244,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * disable, delete or reschedule parent alarm.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to update parent for
      */
-    private static void updateParentAlarm(@NonNull Context context, @NonNull AlarmInstance instance) {
+    private static void updateParentAlarm(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         ContentResolver cr = context.getContentResolver();
         Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
         if (alarm == null) {
@@ -263,7 +267,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         } else {
             AlarmInstance nextRepeatedInstance;
 
-            if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getDefaultSharedPreferences(context))) {
+            if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(prefs)) {
                 // If the Dismiss button is permanently displayed, create the next instance only from the current instance.
                 nextRepeatedInstance = alarm.createInstanceAfter(instance.getAlarmTime());
             } else {
@@ -280,22 +284,23 @@ public final class AlarmStateManager extends BroadcastReceiver {
             LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
                 AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
             nextRepeatedInstance.addInstance(cr);
-            registerInstance(context, nextRepeatedInstance, true);
+            registerInstance(context, prefs, nextRepeatedInstance, true);
         }
     }
 
     /**
      * Utility method to create a proper change state intent.
      *
-     * @param context  application context
-     * @param tag      used to make intent differ from other state change intents.
-     * @param instance to change state to
-     * @param state    to change to.
-     * @return intent that can be used to change an alarm instance state
+     * @param context        the application context.
+     * @param instance       the alarm instance.
+     * @param tag            used to make intent differ from other state change intents.
+     * @param state          the state to transition to.
+     * @param globalIntentId the id used to discriminate relevant AlarmManager callbacks from defunct ones.
+     * @return intent that can be used to change an alarm instance state.
      */
     @NonNull
-    public static Intent createStateChangeIntent(@NonNull Context context, @NonNull String tag, @NonNull AlarmInstance instance,
-                                                 @Nullable Integer state) {
+    public static Intent createStateChangeIntent(@NonNull Context context, @NonNull AlarmInstance instance, @NonNull String tag,
+                                                 @Nullable Integer state, int globalIntentId) {
         // This intent is directed to AlarmService, though the actual handling of it occurs here
         // in AlarmStateManager. The reason is that evidence exists showing the jump between the
         // broadcast receiver (AlarmStateManager) and service (AlarmService) can be thwarted by the
@@ -305,7 +310,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
         intent.setAction(CHANGE_STATE_ACTION);
         intent.addCategory(tag);
-        intent.putExtra(ALARM_GLOBAL_ID_EXTRA, SettingsDAO.getGlobalIntentId(getDefaultSharedPreferences(context)));
+        intent.putExtra(ALARM_GLOBAL_ID_EXTRA, globalIntentId);
         if (state != null) {
             intent.putExtra(ALARM_STATE_EXTRA, state.intValue());
         }
@@ -316,24 +321,28 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * Schedule alarm instance state changes with {@link AlarmManager}.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param time     to trigger state change
      * @param instance to change state to
      * @param newState to change to
      */
-    private static void scheduleInstanceStateChange(@NonNull Context context, @NonNull Calendar time, @NonNull AlarmInstance instance,
-                                                    int newState) {
+    private static void scheduleInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Calendar time,
+                                                    @NonNull AlarmInstance instance, int newState) {
 
-        sStateChangeScheduler.scheduleInstanceStateChange(context, time, instance, newState);
+        sStateChangeScheduler.scheduleInstanceStateChange(context, prefs, time, instance, newState);
     }
 
     /**
      * Cancel all {@link AlarmManager} timers for instance.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to disable all {@link AlarmManager} timers
      */
-    private static void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull AlarmInstance instance) {
-        sStateChangeScheduler.cancelScheduledInstanceStateChange(context, instance);
+    private static void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                                           @NonNull AlarmInstance instance) {
+
+        sStateChangeScheduler.cancelScheduledInstanceStateChange(context, prefs, instance);
     }
 
     /**
@@ -342,9 +351,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * to occur in the future.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to set state to
      */
-    public static void setSilentState(@NonNull Context context, @NonNull AlarmInstance instance) {
+    public static void setSilentState(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         LogUtils.i("Setting silent state to instance " + instance.mId);
 
         // Update alarm in db
@@ -354,7 +364,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getNotificationTime(context), instance, AlarmInstance.NOTIFICATION_STATE);
+        int notificationReminderTimer = SettingsDAO.getAlarmNotificationReminderTime(prefs);
+        scheduleInstanceStateChange(
+            context, prefs, instance.getNotificationTime(notificationReminderTimer), instance, AlarmInstance.NOTIFICATION_STATE);
     }
 
     /**
@@ -363,9 +375,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * to occur in the future.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to set state to
      */
-    public static void setNotificationState(@NonNull Context context, @NonNull AlarmInstance instance) {
+    public static void setNotificationState(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         LogUtils.i("Setting notification state to instance " + instance.mId);
 
         // Update alarm state in db
@@ -374,8 +387,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.updateInstance(contentResolver);
 
         // Setup instance notification and scheduling timers
-        AlarmNotifications.showUpcomingNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
+        AlarmNotifications.showUpcomingNotification(
+            context, instance, SettingsDAO.getLanguageCode(prefs), SettingsDAO.getGlobalIntentId(prefs));
+        scheduleInstanceStateChange(context, prefs, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
     }
 
     /**
@@ -384,9 +398,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * to occur in the future.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to set state to
      */
-    public static void setFiredState(@NonNull Context context, @NonNull AlarmInstance instance) {
+    public static void setFiredState(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         LogUtils.i("Setting fire state to instance " + instance.mId);
 
         // Update alarm state in db
@@ -408,14 +423,19 @@ public final class AlarmStateManager extends BroadcastReceiver {
         if (instance.mAlarmId != null) {
             // if the time changed *backward* and pushed an instance from missed back to fired,
             // remove any other scheduled instances that may exist
-            AlarmInstance.deleteOtherInstances(context, contentResolver, instance.mAlarmId, instance.mId);
+            deleteOtherInstances(context, prefs, instance.mAlarmId, instance.mId);
         }
 
         Events.sendAlarmEvent(R.string.action_fire, 0);
 
-        Calendar timeout = instance.getTimeout(context, alarm);
+        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs) || alarm == null
+            ? SettingsDAO.getAlarmMathHardnessLevel(prefs)
+            : alarm.mathHardnessLevel;
+        boolean hasMathMission = !mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL);
+
+        Calendar timeout = instance.getTimeout(context, hasMathMission);
         if (timeout != null) {
-            scheduleInstanceStateChange(context, timeout, instance, AlarmInstance.MISSED_STATE);
+            scheduleInstanceStateChange(context, prefs, timeout, instance, AlarmInstance.MISSED_STATE);
         }
 
         // Instance not valid anymore, so find next alarm that will fire and notify system
@@ -428,15 +448,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * to occur in the future.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to set state to
      */
-    public static void setSnoozeState(@NonNull Context context, @NonNull AlarmInstance instance, boolean showToast) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+    public static void setSnoozeState(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance,
+                                      boolean showToast) {
+
         final int snoozeMinutes = instance.mSnoozeDuration;
         Calendar newAlarmTime = Calendar.getInstance();
         // If the "Snooze duration" setting has been set to "None" simply dismiss the alarm.
         if (snoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
-            deleteInstanceAndUpdateParent(context, instance, true);
+            deleteInstanceAndUpdateParent(context, prefs, instance, true);
             return;
         }
 
@@ -459,8 +481,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.updateInstance(context.getContentResolver());
 
         // Setup instance notification and scheduling timers
-        AlarmNotifications.showSnoozeNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
+        AlarmNotifications.showSnoozeNotification(
+            context, instance, SettingsDAO.getLanguageCode(prefs), SettingsDAO.getGlobalIntentId(prefs));
+        scheduleInstanceStateChange(context, prefs, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
 
         // Display the snooze minutes in a toast.
         if (showToast) {
@@ -468,7 +491,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 String displayTime = String.format(
                     context.getResources().getQuantityText(R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
                 if (DataModel.getDataModel().isApplicationInForeground()) {
-                    CustomToast.showLong(context, displayTime);
+                    int style = ThemeUtils.getAccentStyle(context,
+                        SettingsDAO.isAutoNightAccentColorEnabled(prefs),
+                        SettingsDAO.getAccentColor(prefs),
+                        SettingsDAO.getNightAccentColor(prefs));
+
+                    Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+                    CustomToast.showLong(context, style, font, displayTime);
                 } else {
                     Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
                 }
@@ -485,9 +514,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * to occur in the future.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to set state to
      */
-    public static void setMissedState(@NonNull Context context, @NonNull AlarmInstance instance) {
+    public static void setMissedState(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         LogUtils.i("Setting missed state to instance " + instance.mId);
 
         ContentResolver contentResolver = context.getContentResolver();
@@ -501,7 +531,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 || maxMissedAlarmRepeatCount == Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)) {
 
                 LogUtils.i("Alarm auto-silenced. Snoozing");
-                setSnoozeState(context, instance, true);
+                setSnoozeState(context, prefs, instance, true);
                 return;
             }
 
@@ -510,7 +540,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Snooze the alarm until the missed alarm repeat limit is reached.
             if (instance.mMissedAlarmCurrentCount < maxMissedAlarmRepeatCount + 1) {
                 LogUtils.i("Alarm auto-silenced. Snoozing (missedAlarmCurrentCount = " + instance.mMissedAlarmCurrentCount + ")");
-                setSnoozeState(context, instance, true);
+                setSnoozeState(context, prefs, instance, true);
                 return;
             }
         }
@@ -522,7 +552,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Check parent if it needs to reschedule, disable or delete itself
         if (instance.mAlarmId != null) {
-            updateParentAlarm(context, instance);
+            updateParentAlarm(context, prefs, instance);
         }
 
         // Update alarm state
@@ -530,8 +560,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.updateInstance(contentResolver);
 
         // Setup instance notification and scheduling timers
-        AlarmNotifications.showMissedNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
+        AlarmNotifications.showMissedNotification(context, instance, SettingsDAO.getLanguageCode(prefs));
+        scheduleInstanceStateChange(context, prefs, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
 
         cancelPowerOffAlarm(context, instance);
         // Instance is not valid anymore, so find next alarm that will fire and notify system
@@ -543,16 +573,20 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * change to DISMISSED_STATE at the regularly scheduled firing time.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to set state to
      */
-    public static void setPreDismissState(@NonNull Context context, @NonNull AlarmInstance instance, boolean showToast) {
+    public static void setPreDismissState(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance,
+                                          boolean showToast) {
+
         LogUtils.i("Setting pre-dismissed state to instance " + instance.mId);
+
         final boolean alreadyPreDismissed = instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE;
 
         // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
         // to indicate that the alarm is correctly dismissed.
         if (!alreadyPreDismissed
-            && SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getDefaultSharedPreferences(context))) {
+            && SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(prefs)) {
             AlarmService.stopAlarmWithSingleVibration(context, instance);
         }
 
@@ -564,26 +598,32 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getAlarmTime(), instance, AlarmInstance.DISMISSED_STATE);
+        scheduleInstanceStateChange(context, prefs, instance.getAlarmTime(), instance, AlarmInstance.DISMISSED_STATE);
 
         final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
 
         // Display the alarm dismissal warning in a toast
         if (alarm != null && showToast && !alreadyPreDismissed) {
-            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
+            final String customLang = SettingsDAO.getLanguageCode(prefs);
+            final int style = ThemeUtils.getAccentStyle(context,
+                SettingsDAO.isAutoNightAccentColorEnabled(prefs),
+                SettingsDAO.getAccentColor(prefs),
+                SettingsDAO.getNightAccentColor(prefs));
+            final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
+            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, customLang, style, font, alarm, instance));
         }
 
         // Already pre-dismissed instances are only being re-registered. Their parent was
         // rescheduled when the user originally dismissed them.
         if (instance.mAlarmId != null && !alreadyPreDismissed) {
-            updateParentAlarm(context, instance);
+            updateParentAlarm(context, prefs, instance);
         }
 
         // When the alarm is dismissed from the notification and all days of the week are selected,
         // correctly display the next occurrence in the alarm item.
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        if (alarm != null && !alreadyPreDismissed && !alarm.isRepeatDayStyleEnabled(prefs)) {
-            alarm.enableRepeatDayStyleIfAllDaysSelected(prefs);
+        if (alarm != null && !alreadyPreDismissed && !SettingsDAO.isRepeatDayStyleEnabled(prefs, alarm.id)) {
+            SettingsDAO.enableRepeatDayStyleIfAllDaysSelected(prefs, alarm.id);
         }
 
         cancelPowerOffAlarm(context, instance);
@@ -593,7 +633,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * This just sets the alarm instance to DISMISSED_STATE.
      */
-    public static void setDismissState(@NonNull Context context, @NonNull AlarmInstance instance) {
+    public static void setDismissState(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         LogUtils.i("Setting dismissed state to instance " + instance.mId);
         instance.mMissedAlarmCurrentCount = 0;
         instance.mAlarmState = AlarmInstance.DISMISSED_STATE;
@@ -602,9 +642,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Clean up styled repeat day if needed
         Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        if (alarm != null && alarm.isRepeatDayStyleEnabled(prefs)) {
-            alarm.removeRepeatDayStyle(prefs);
+        if (alarm != null && SettingsDAO.isRepeatDayStyleEnabled(prefs, alarm.id)) {
+            SettingsDAO.removeRepeatDayStyle(prefs, alarm.id);
         }
 
         cancelPowerOffAlarm(context, instance);
@@ -615,16 +654,19 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * any state changes that need to occur in the future.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to set state to
      */
-    public static void deleteInstanceAndUpdateParent(@NonNull Context context, @NonNull AlarmInstance instance, boolean showToast) {
+    public static void deleteInstanceAndUpdateParent(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                                     @NonNull AlarmInstance instance, boolean showToast) {
+
         final boolean wasPreDismissed = instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE;
         LogUtils.i("Deleting instance " + instance.mId
             + (wasPreDismissed ? " without updating parent alarm." : " and updating parent alarm."));
 
         // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
         // to indicate that the alarm is correctly dismissed.
-        if (SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getDefaultSharedPreferences(context))) {
+        if (SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(prefs)) {
             AlarmService.stopAlarmWithSingleVibration(context, instance);
         } else {
             // Stop alarm if this instance is firing it
@@ -632,20 +674,27 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
 
         // Remove all other timers and notifications associated to it
-        unregisterInstance(context, instance);
+        unregisterInstance(context, prefs, instance);
 
         final ContentResolver contentResolver = context.getContentResolver();
         Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
         // Display the alarm dismissal warning in a toast
         if (alarm != null && showToast && !wasPreDismissed) {
-            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
+            final String customLang = SettingsDAO.getLanguageCode(prefs);
+            final int style = ThemeUtils.getAccentStyle(context,
+                SettingsDAO.isAutoNightAccentColorEnabled(prefs),
+                SettingsDAO.getAccentColor(prefs),
+                SettingsDAO.getNightAccentColor(prefs));
+            final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
+            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, customLang, style, font, alarm, instance));
         }
 
         // Pre-dismissed instances reschedule their parent when they enter PREDISMISSED_STATE.
         // When their original firing time arrives, only retire the skipped instance. Rescheduling
         // again can recreate the already skipped next occurrence as a normal active instance.
         if (instance.mAlarmId != null && !wasPreDismissed) {
-            updateParentAlarm(context, instance);
+            updateParentAlarm(context, prefs, instance);
         }
 
         // Delete instance as it is not needed anymore
@@ -656,16 +705,41 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
+     * Unregisters and deletes all scheduled instances associated with a specific alarm, except for the currently active instance.
+     *
+     * <p>This is primarily used as a cleanup mechanism (e.g., when the system time changes backward, pushing a missed instance
+     * back to a fired state) to ensure no duplicate or "ghost" instances remain scheduled for the same alarm.</p>
+     *
+     * @param context    The application context.
+     * @param prefs      The SharedPreferences used to unregister the alarm states.
+     * @param alarmId    The ID of the parent alarm whose instances are being cleaned up.
+     * @param instanceId The ID of the current active instance that must be kept.
+     */
+    private static void deleteOtherInstances(@NonNull Context context, @NonNull SharedPreferences prefs, long alarmId, long instanceId) {
+
+        final ContentResolver contentResolver = context.getContentResolver();
+        final List<AlarmInstance> instances = AlarmInstance.getInstancesByAlarmId(contentResolver, alarmId);
+
+        for (AlarmInstance instance : instances) {
+            if (instance.mId != instanceId) {
+                unregisterInstance(context, prefs, instance);
+                AlarmInstance.deleteInstance(contentResolver, instance.mId);
+            }
+        }
+    }
+
+    /**
      * This will set the instance state to DISMISSED_STATE and remove its notifications and
      * alarm timers.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to unregister
      */
-    public static void unregisterInstance(@NonNull Context context, @NonNull AlarmInstance instance) {
+    public static void unregisterInstance(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance) {
         LogUtils.i("Unregistering instance " + instance.mId);
 
-        if (SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getDefaultSharedPreferences(context))) {
+        if (SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(prefs)) {
             // Stop alarm if this instance is firing it; a single vibration will be performed
             // if enabled in settings to indicate that the alarm is correctly dismissed.
             AlarmService.stopAlarmWithSingleVibration(context, instance);
@@ -675,8 +749,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
 
         AlarmNotifications.clearNotification(context, instance);
-        cancelScheduledInstanceStateChange(context, instance);
-        setDismissState(context, instance);
+        cancelScheduledInstanceStateChange(context, prefs, instance);
+        setDismissState(context, prefs, instance);
     }
 
     /**
@@ -701,29 +775,39 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * proper state for the instance.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to register
      */
-    public static void registerInstance(@NonNull Context context, @NonNull AlarmInstance instance, boolean updateNextAlarm) {
+    public static void registerInstance(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull AlarmInstance instance,
+                                        boolean updateNextAlarm) {
+
         LogUtils.i("Registering instance: " + instance.mId);
         final ContentResolver cr = context.getContentResolver();
         final Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
         final Calendar currentTime = getCurrentTime();
         final Calendar alarmTime = instance.getAlarmTime();
-        final Calendar timeoutTime = instance.getTimeout(context, alarm);
-        final Calendar notificationTime = instance.getNotificationTime(context);
+
+        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs) || alarm == null
+            ? SettingsDAO.getAlarmMathHardnessLevel(prefs)
+            : alarm.mathHardnessLevel;
+        boolean hasMathMission = !mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL);
+
+        final Calendar timeoutTime = instance.getTimeout(context, hasMathMission);
+        final int notificationReminderTime = SettingsDAO.getAlarmNotificationReminderTime(prefs);
+        final Calendar notificationTime = instance.getNotificationTime(notificationReminderTime);
         final Calendar missedTTL = instance.getMissedTimeToLive();
 
         // Handle special use cases here
         if (instance.mAlarmState == AlarmInstance.DISMISSED_STATE) {
             // This should never happen, but add a quick check here
             LogUtils.e("Alarm Instance is dismissed, but never deleted");
-            deleteInstanceAndUpdateParent(context, instance, false);
+            deleteInstanceAndUpdateParent(context, prefs, instance, false);
             return;
         } else if (instance.mAlarmState == AlarmInstance.FIRED_STATE) {
             // Keep alarm firing, unless it should be timed out
             boolean hasTimeout = timeoutTime != null && currentTime.after(timeoutTime);
             if (!hasTimeout) {
-                setFiredState(context, instance);
+                setFiredState(context, prefs, instance);
                 return;
             }
         } else if (instance.mAlarmState == AlarmInstance.MISSED_STATE) {
@@ -731,7 +815,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 if (instance.mAlarmId == null) {
                     LogUtils.i("Cannot restore missed instance for one-time alarm");
                     // This instance parent got deleted (i.e. deleteAfterUse), so we should not re-activate it.
-                    deleteInstanceAndUpdateParent(context, instance, false);
+                    deleteInstanceAndUpdateParent(context, prefs, instance, false);
                     return;
                 }
 
@@ -753,9 +837,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
             }
         } else if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
             if (currentTime.before(alarmTime)) {
-                setPreDismissState(context, instance, false);
+                setPreDismissState(context, prefs, instance, false);
             } else {
-                deleteInstanceAndUpdateParent(context, instance, false);
+                deleteInstanceAndUpdateParent(context, prefs, instance, false);
             }
             return;
         }
@@ -763,7 +847,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Fix states that are time-sensitive
         if (currentTime.after(missedTTL)) {
             // Alarm is so old, just dismiss it
-            deleteInstanceAndUpdateParent(context, instance, false);
+            deleteInstanceAndUpdateParent(context, prefs, instance, false);
         } else if (currentTime.after(alarmTime)) {
             // There is a chance that the TIME_SET occurred right when the alarm should go off, so
             // we need to add a check to see if we should fire the alarm instead of marking it missed.
@@ -771,20 +855,21 @@ public final class AlarmStateManager extends BroadcastReceiver {
             alarmBuffer.setTime(alarmTime.getTime());
             alarmBuffer.add(Calendar.SECOND, ALARM_FIRE_BUFFER);
             if (currentTime.before(alarmBuffer)) {
-                setFiredState(context, instance);
+                setFiredState(context, prefs, instance);
             } else {
-                setMissedState(context, instance);
+                setMissedState(context, prefs, instance);
             }
         } else if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
             // We only want to display snooze notification and not update the time,
             // so handle showing the notification directly
-            AlarmNotifications.showSnoozeNotification(context, instance);
-            scheduleInstanceStateChange(context, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
+            AlarmNotifications.showSnoozeNotification(
+                context, instance, SettingsDAO.getLanguageCode(prefs), SettingsDAO.getGlobalIntentId(prefs));
+            scheduleInstanceStateChange(context, prefs, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
         } else if (currentTime.after(notificationTime)) {
-            setNotificationState(context, instance);
+            setNotificationState(context, prefs, instance);
         } else {
             // Alarm is still active, so initialize as a silent alarm
-            setSilentState(context, instance);
+            setSilentState(context, prefs, instance);
         }
 
         // The caller prefers to handle updateNextAlarm for optimization
@@ -798,16 +883,20 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the alarm itself. This should be used whenever modifying or deleting an alarm.
      *
      * @param context application context
+     * @param prefs   the {@link SharedPreferences} containing the user settings
      * @param alarmId to find instances to delete.
      */
-    public static void deleteAllInstances(@NonNull Context context, long alarmId) {
+    public static void deleteAllInstances(@NonNull Context context, @NonNull SharedPreferences prefs, long alarmId) {
         LogUtils.i("Deleting all instances of alarm: " + alarmId);
+
         ContentResolver cr = context.getContentResolver();
         List<AlarmInstance> instances = AlarmInstance.getInstancesByAlarmId(cr, alarmId);
+
         for (AlarmInstance instance : instances) {
-            unregisterInstance(context, instance);
+            unregisterInstance(context, prefs, instance);
             AlarmInstance.deleteInstance(context.getContentResolver(), instance.mId);
         }
+
         updateNextAlarm(context);
     }
 
@@ -815,8 +904,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * Fix and update all alarm instance when a time change event occurs.
      *
      * @param context application context
+     * @param prefs   the {@link SharedPreferences} containing the user settings
      */
-    public static void fixAlarmInstances(@NonNull Context context) {
+    public static void fixAlarmInstances(@NonNull Context context, @NonNull SharedPreferences prefs) {
         LogUtils.i("Fixing alarm instances");
         // Register all instances after major time changes or when phone restarts
         final ContentResolver contentResolver = context.getContentResolver();
@@ -830,7 +920,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         for (AlarmInstance instance : instances) {
             final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
             if (alarm == null) {
-                unregisterInstance(context, instance);
+                unregisterInstance(context, prefs, instance);
                 AlarmInstance.deleteInstance(contentResolver, instance.mId);
                 LogUtils.e("Found instance without matching alarm; deleting instance %s", instance);
                 continue;
@@ -847,9 +937,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 // The time change is so dramatic the AlarmInstance doesn't make any sense;
                 // remove it and schedule the new appropriate instance.
-                deleteInstanceAndUpdateParent(context, instance, false);
+                deleteInstanceAndUpdateParent(context, prefs, instance, false);
             } else {
-                registerInstance(context, instance, false);
+                registerInstance(context, prefs, instance, false);
             }
         }
 
@@ -860,27 +950,30 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * Utility method to set alarm instance state via constants.
      *
      * @param context  application context
+     * @param prefs    the {@link SharedPreferences} containing the user settings
      * @param instance to change state on
      * @param state    to change to
      */
-    private static void setAlarmState(@NonNull Context context, @Nullable AlarmInstance instance, int state) {
+    private static void setAlarmState(@NonNull Context context, @NonNull SharedPreferences prefs, @Nullable AlarmInstance instance,
+                                      int state) {
+
         if (instance == null) {
             LogUtils.e("Null alarm instance while setting state to %d", state);
             return;
         }
         switch (state) {
-            case AlarmInstance.SILENT_STATE -> setSilentState(context, instance);
-            case AlarmInstance.NOTIFICATION_STATE -> setNotificationState(context, instance);
-            case AlarmInstance.FIRED_STATE -> setFiredState(context, instance);
-            case AlarmInstance.SNOOZE_STATE -> setSnoozeState(context, instance, true);
-            case AlarmInstance.MISSED_STATE -> setMissedState(context, instance);
-            case AlarmInstance.PREDISMISSED_STATE -> setPreDismissState(context, instance, true);
-            case AlarmInstance.DISMISSED_STATE -> deleteInstanceAndUpdateParent(context, instance, true);
+            case AlarmInstance.SILENT_STATE -> setSilentState(context, prefs, instance);
+            case AlarmInstance.NOTIFICATION_STATE -> setNotificationState(context, prefs, instance);
+            case AlarmInstance.FIRED_STATE -> setFiredState(context, prefs, instance);
+            case AlarmInstance.SNOOZE_STATE -> setSnoozeState(context, prefs, instance, true);
+            case AlarmInstance.MISSED_STATE -> setMissedState(context, prefs, instance);
+            case AlarmInstance.PREDISMISSED_STATE -> setPreDismissState(context, prefs, instance, true);
+            case AlarmInstance.DISMISSED_STATE -> deleteInstanceAndUpdateParent(context, prefs, instance, true);
             default -> LogUtils.e("Trying to change to unknown alarm state: " + state);
         }
     }
 
-    public static void handleIntent(@NonNull Context context, @NonNull Intent intent) {
+    public static void handleIntent(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Intent intent) {
         final String action = intent.getAction();
         LogUtils.v("AlarmStateManager received intent " + intent);
         if (CHANGE_STATE_ACTION.equals(action)) {
@@ -897,7 +990,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 return;
             }
 
-            int globalId = SettingsDAO.getGlobalIntentId(getDefaultSharedPreferences(context));
+            int globalId = SettingsDAO.getGlobalIntentId(prefs);
             int intentId = intent.getIntExtra(ALARM_GLOBAL_ID_EXTRA, -1);
             int alarmState = intent.getIntExtra(ALARM_STATE_EXTRA, -1);
             if (intentId != globalId) {
@@ -918,7 +1011,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             }
 
             if (alarmState >= 0) {
-                setAlarmState(context, instance, alarmState);
+                setAlarmState(context, prefs, instance, alarmState);
 
                 if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
                     AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
@@ -928,7 +1021,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     AlarmVisualCache.invalidate(instance.mAlarmId);
                 }
             } else {
-                registerInstance(context, instance, true);
+                registerInstance(context, prefs, instance, true);
             }
         } else if (ACTION_DISMISS_MISSED_ALARM.equals(action)) {
             int notificationId = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
@@ -941,7 +1034,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             if (instanceId != -1) {
                 AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(), instanceId);
                 if (instance != null) {
-                    deleteInstanceAndUpdateParent(context, instance, false);
+                    deleteInstanceAndUpdateParent(context, prefs, instance, false);
                 }
             }
         }
@@ -1005,7 +1098,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
         AppExecutors.getDiskIO().execute(() -> {
-            handleIntent(context, intent);
+            handleIntent(context, getDefaultSharedPreferences(context), intent);
             result.finish();
             wl.release();
         });
@@ -1017,9 +1110,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * implementations, such as test case mocks can subvert this behavior.
      */
     interface StateChangeScheduler {
-        void scheduleInstanceStateChange(@NonNull Context context, @NonNull Calendar time, @NonNull AlarmInstance instance, int newState);
+        void scheduleInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Calendar time,
+                                         @NonNull AlarmInstance instance, int newState);
 
-        void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull AlarmInstance instance);
+        void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                                @NonNull AlarmInstance instance);
     }
 
     /**
@@ -1027,13 +1122,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     private static class AlarmManagerStateChangeScheduler implements StateChangeScheduler {
         @Override
-        public void scheduleInstanceStateChange(@NonNull Context context, @NonNull Calendar time, @NonNull AlarmInstance instance,
-                                                int newState) {
+        public void scheduleInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Calendar time,
+                                                @NonNull AlarmInstance instance, int newState) {
 
             final long timeInMillis = time.getTimeInMillis();
             LogUtils.i("Scheduling state change %d to instance %d at %s (%d)", newState,
                 instance.mId, AlarmUtils.getFormattedTime(context, time), timeInMillis);
-            final Intent stateChangeIntent = createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, newState);
+            final Intent stateChangeIntent = createStateChangeIntent(
+                context, instance, ALARM_MANAGER_TAG, newState, SettingsDAO.getGlobalIntentId(prefs));
             // Treat alarm state change as high priority, use foreground broadcasts
             stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
             PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
@@ -1045,12 +1141,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
 
         @Override
-        public void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull AlarmInstance instance) {
+        public void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                                       @NonNull AlarmInstance instance) {
+
             LogUtils.v("Canceling instance " + instance.mId + " timers");
 
             // Create a PendingIntent that will match any one set for this instance
-            PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
-                createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
+            Intent intent = createStateChangeIntent(context, instance, ALARM_MANAGER_TAG, null, SettingsDAO.getGlobalIntentId(prefs));
+
+            PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(), intent,
                 PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
 
             if (pendingIntent != null) {

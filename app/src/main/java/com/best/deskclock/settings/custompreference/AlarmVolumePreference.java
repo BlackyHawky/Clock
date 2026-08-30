@@ -32,7 +32,9 @@ import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.SettingsPreferenceSliderLayoutBinding;
+import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -45,8 +47,8 @@ public class AlarmVolumePreference extends Preference {
     private SettingsPreferenceSliderLayoutBinding mBinding;
 
     private final SharedPreferences mPrefs;
-
     private final AudioManager mAudioManager;
+    private final boolean mIsAdvancedAudioPlaybackEnabled;
     private final int mMinVolume;
     private final int mMaxVolume;
     private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
@@ -57,6 +59,7 @@ public class AlarmVolumePreference extends Preference {
         super(context, attrs);
 
         mPrefs = getDefaultSharedPreferences(context);
+        mIsAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
         mAudioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         // Minimum volume for alarm is not 0, calculate it.
@@ -179,13 +182,14 @@ public class AlarmVolumePreference extends Preference {
         boolean isPrefEnabled = isEnabled();
         int progress = (int) mBinding.slider.getValue();
         int max = (int) mBinding.slider.getValueTo();
+        boolean isAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
 
         ThemeUtils.updateSliderButtonEnabledState(getContext(), mBinding.sliderMinusIcon, isPrefEnabled
             && progress > 0
-            && !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), mPrefs));
+            && !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), isAutoRoutingToExternalAudioDevice));
         ThemeUtils.updateSliderButtonEnabledState(getContext(), mBinding.sliderPlusIcon, isPrefEnabled
             && progress < max
-            && !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), mPrefs));
+            && !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), isAutoRoutingToExternalAudioDevice));
     }
 
     private void updateVolume(@NonNull AudioManager audioManager) {
@@ -206,7 +210,19 @@ public class AlarmVolumePreference extends Preference {
             ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
         }
 
-        RingtonePreviewKlaxon.start(ringtoneUri);
+        RingtonePlayer.Config playerConfig = new RingtonePlayer.Config(
+            SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs),
+            SettingsDAO.shouldUseCustomMediaVolume(mPrefs),
+            SettingsDAO.getExternalAudioDeviceVolumeValue(mPrefs)
+        );
+
+        RingtonePreviewKlaxon.Config klaxonConfig = new RingtonePreviewKlaxon.Config(
+            mIsAdvancedAudioPlaybackEnabled,
+            playerConfig
+        );
+
+        RingtonePreviewKlaxon.start(ringtoneUri, klaxonConfig);
+
         mIsPreviewPlaying = true;
 
         mRingtoneStopRunnable = this::stopRingtonePreview;
@@ -223,7 +239,7 @@ public class AlarmVolumePreference extends Preference {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
 
-        RingtonePreviewKlaxon.stop();
+        RingtonePreviewKlaxon.stop(mIsAdvancedAudioPlaybackEnabled);
         RingtonePreviewKlaxon.releaseResources();
 
         mIsPreviewPlaying = false;

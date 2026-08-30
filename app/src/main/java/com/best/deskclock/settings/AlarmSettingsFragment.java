@@ -11,7 +11,9 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioDeviceCallback;
@@ -138,12 +140,15 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             final Context appContext = requireContext().getApplicationContext();
+            final int style = getAccentStyle();
+            final Typeface font = getGeneralTypeface();
+            final SharedPreferences prefs = getPrefs();
 
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_ALARM_FONT);
-            String oldFontPath = getPrefs().getString(KEY_ALARM_FONT, null);
+            String oldFontPath = prefs.getString(KEY_ALARM_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
@@ -157,14 +162,14 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
                 // Save the new path
                 if (copiedUri != null) {
-                    getPrefs().edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
+                    prefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
                     if (copiedUri != null) {
-                        CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                        CustomToast.show(appContext, style, font, R.string.custom_font_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing font");
+                        CustomToast.show(appContext, style, font, R.string.font_message_error);
                     }
 
                     if (!isAdded() || mAlarmFontPref == null) {
@@ -190,8 +195,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         super.onCreate(savedInstanceState);
 
         mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
-        mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), getPrefs());
-        mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
+        mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(
+            requireContext(), SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()));
+        mAlarmUpdateHandler = new AlarmUpdateHandler(
+            requireContext(), getPrefs(), getGeneralTypeface(), null, null, isVibrationsEnabled());
 
         addPreferencesFromResource(R.xml.settings_alarm);
 
@@ -319,10 +326,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         switch (pref.getKey()) {
             case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_ENABLE_ALARM_FAB_LONG_PRESS,
                  KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ENABLE_PER_ALARM_AUTO_SILENCE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -339,7 +346,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -356,7 +363,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_PER_ALARM_SNOOZE_DURATION -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -373,7 +380,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -407,7 +414,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             case KEY_ENABLE_PER_ALARM_VOLUME -> {
                 stopRingtonePreview();
 
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -424,7 +431,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -441,7 +448,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -460,7 +467,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 stopRingtonePreview();
 
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isAdvancedAudioPlaybackEnabled = (boolean) newValue;
 
@@ -476,7 +483,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
                 stopRingtonePreview();
 
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isAutoRoutingToExternalAudioDevice = (boolean) newValue;
 
@@ -488,12 +495,12 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
             case KEY_SYSTEM_MEDIA_VOLUME -> {
                 stopRingtonePreview();
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mExternalAudioDeviceVolumePref.setVisible(!(boolean) newValue);
             }
 
             case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {
@@ -529,7 +536,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 AppExecutors.getDiskIO().execute(() -> {
                     List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
@@ -541,7 +548,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
                     AppExecutors.getDiskIO().execute(() -> {

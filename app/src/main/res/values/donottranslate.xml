@@ -108,6 +108,11 @@
     <!-- Settings title for the nightly version. -->
     <string name="setting_nightly_title">Settings nightly version</string>
 
+    <!-- Miscellaneous. -->
+    <string name="font_message_error">Error importing font</string>
+    <string name="image_message_error">Error importing image</string>
+    <string name="app_message_error">Application not found</string>
+
     <!-- ************************** -->
     <!-- **     STRING-ARRAY     ** -->
     <!-- ************************** -->

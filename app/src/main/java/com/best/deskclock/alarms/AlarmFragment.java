@@ -6,10 +6,12 @@
 
 package com.best.deskclock.alarms;
 
+import static android.media.AudioManager.STREAM_ALARM;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_MANUALLY;
@@ -28,8 +30,10 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -64,6 +68,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.DeskClockFragment;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.databinding.AlarmFragmentBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
@@ -76,6 +81,7 @@ import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.EmptyViewController;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uicomponents.toast.ToastManager;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -109,13 +115,20 @@ public final class AlarmFragment extends DeskClockFragment
 
     private static final String KEY_SIDE_BUTTONS_VISIBLE = "side_buttons_visible";
 
+    public static final String SKELETON = "EEE MMM d";
+    public static final String SKELETON_WITH_YEAR = "EEE MMM d yyyy";
+
     private AlarmFragmentBinding mBinding;
 
+    private String mAlarmFontPath;
     private Typeface mAlarmTypeface;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
 
+    private Weekdays.Order mWeekdayOrder;
+    private String mSortingPref;
+    private boolean mAreEnabledAlarmsFirst;
     private boolean mIs24HourFormat;
     private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mSideButtonsVisible = false;
@@ -173,6 +186,8 @@ public final class AlarmFragment extends DeskClockFragment
         if (savedInstanceState != null) {
             mSideButtonsVisible = savedInstanceState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
         }
+
+        refreshSettings();
     }
 
     @NonNull
@@ -184,14 +199,23 @@ public final class AlarmFragment extends DeskClockFragment
         mBinding = AlarmFragmentBinding.inflate(inflater, container, false);
 
         mBinding.alarmVolumeWarningBanner.volumeWarningButton.setOnClickListener(v -> {
-                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(v, isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 RingtoneUtils.fixAlarmStreamLow(requireContext());
             }
         );
 
         mEmptyViewController = new EmptyViewController(mBinding.alarmRootView, mBinding.alarmRecyclerView, mBinding.alarmEmptyView);
-        mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), this, mBinding.alarmRootView);
-        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, mAlarmUpdateHandler);
+
+        mAlarmUpdateHandler = new AlarmUpdateHandler(
+            requireContext(), getPrefs(), getGeneralTypeface(), this, mBinding.alarmRootView, isVibrationsEnabled());
+
+        AlarmTimeClickHandler.Config uiConfig = new AlarmTimeClickHandler.Config(
+            SettingsDAO.getMaterialTimePickerStyle(getPrefs()),
+            getFontsConfig(),
+            SettingsDAO.getGlobalIntentId(getPrefs())
+        );
+
+        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, mAlarmUpdateHandler, uiConfig, this::buildNewAlarm);
 
         final GestureDetector gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -229,21 +253,37 @@ public final class AlarmFragment extends DeskClockFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refreshSettings();
-        String generalFontPath = SettingsDAO.getGeneralFont(getPrefs());
-        Typeface generalTypeface = ThemeUtils.loadFont(generalFontPath);
-        Typeface generalBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        String datePattern = DateFormat.getBestDateTimePattern(getLocale(), SKELETON);
+        String datePatternWithYear = DateFormat.getBestDateTimePattern(getLocale(), SKELETON_WITH_YEAR);
 
-        mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(generalBoldTypeface);
-        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(generalBoldTypeface);
+        UiConfig.DateFormat dateConfig = new UiConfig.DateFormat(getLocale(), datePattern, datePatternWithYear);
 
-        mItemAdapter = new AlarmAdapter(requireContext(), getPrefs(), generalTypeface, generalBoldTypeface, mAlarmTypeface);
+        mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(getGeneralBoldTypeface());
+        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(getGeneralBoldTypeface());
+
+        mItemAdapter = new AlarmAdapter(requireContext(), getFontsConfig(), dateConfig, getScreenConfig(), getCardStyleConfig(),
+            getHapticsConfig(), mWeekdayOrder, mIs24HourFormat, new AlarmAdapter.AlarmStateProvider() {
+                @Override
+                public boolean isRepeatDayStyleEnabled(long alarmId) {
+                    return SettingsDAO.isRepeatDayStyleEnabled(getPrefs(), alarmId);
+                }
+
+                @Override
+                public boolean canPreemptivelyDismiss(@NonNull Alarm alarm) {
+                    return alarm.canPreemptivelyDismiss(SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getPrefs()));
+                }
+
+                @Override
+                public boolean isDismissButtonDisplayed() {
+                    return SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getPrefs());
+                }
+            }
+        );
 
         mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
-        AlarmItemTouchHelper callback =
-            new AlarmItemTouchHelper(requireContext(), getPrefs(), this, mBinding.alarmRecyclerView, getDisplayMetrics(),
-                isTablet(), isLandscape(), isRtl());
+        AlarmItemTouchHelper callback = new AlarmItemTouchHelper(
+            requireContext(), this, mBinding.alarmRecyclerView, getFontsConfig(), getScreenConfig(), getHapticsConfig());
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
@@ -337,7 +377,7 @@ public final class AlarmFragment extends DeskClockFragment
                             AppExecutors.getDiskIO().execute(() -> {
                                 AlarmInstance instance = AlarmInstance.getInstance(appContext.getContentResolver(), instanceId);
                                 if (instance != null) {
-                                    AlarmStateManager.deleteInstanceAndUpdateParent(appContext, instance, false);
+                                    AlarmStateManager.deleteInstanceAndUpdateParent(appContext, getPrefs(), instance, false);
                                 }
                             });
                         }
@@ -361,9 +401,7 @@ public final class AlarmFragment extends DeskClockFragment
                 }
 
                 // If the sort order has changed since last time, reload the alarms
-                String currentSortOrder = SettingsDAO.getAlarmSorting(getPrefs())
-                    + "_enabledFirst="
-                    + SettingsDAO.areEnabledAlarmsDisplayedFirst(getPrefs());
+                String currentSortOrder = mSortingPref + "_enabledFirst=" + mAreEnabledAlarmsFirst;
 
                 if (!currentSortOrder.equals(mLastSortOrder)) {
                     mLastSortOrder = currentSortOrder;
@@ -440,7 +478,7 @@ public final class AlarmFragment extends DeskClockFragment
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        return Alarm.getAlarmsCursorLoader(requireContext());
+        return Alarm.getAlarmsCursorLoader(requireContext(), mAreEnabledAlarmsFirst, mSortingPref);
     }
 
     @Override
@@ -458,9 +496,8 @@ public final class AlarmFragment extends DeskClockFragment
             itemHolders.add(itemHolder);
         }
 
-        final boolean wantsSortByNextAlarmTime = SettingsDAO.getAlarmSorting(getPrefs()).equals(SORT_ALARM_BY_NEXT_ALARM_TIME);
-        final boolean wantsSortByName = SettingsDAO.getAlarmSorting(getPrefs()).equals(SORT_ALARM_BY_NAME);
-        final boolean areEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(getPrefs());
+        final boolean wantsSortByNextAlarmTime = mSortingPref.equals(SORT_ALARM_BY_NEXT_ALARM_TIME);
+        final boolean wantsSortByName = mSortingPref.equals(SORT_ALARM_BY_NAME);
 
         // We only need to manually sort in memory for complex calculations that SQL cannot handle natively
         // (like Collator accents or Calendar next alarm times).
@@ -472,7 +509,7 @@ public final class AlarmFragment extends DeskClockFragment
             collator.setStrength(Collator.SECONDARY);
 
             Collections.sort(itemHolders, (h1, h2) -> {
-                if (areEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
+                if (mAreEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
                     return h1.item.enabled ? -1 : 1;
                 }
 
@@ -484,7 +521,7 @@ public final class AlarmFragment extends DeskClockFragment
             // Sort by next alarm time if requested
             Calendar now = Calendar.getInstance();
             Collections.sort(itemHolders, (h1, h2) -> {
-                if (areEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
+                if (mAreEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
                     // Sort enabled alarms before disabled ones: true comes before false
                     return h1.item.enabled ? -1 : 1;
                 }
@@ -542,7 +579,7 @@ public final class AlarmFragment extends DeskClockFragment
             } else {
                 fab.setVisibility(VISIBLE);
                 fab.setOnLongClickListener(v -> {
-                    CustomTooltip.showAbove(v, fab.getContentDescription().toString(), true);
+                    CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), fab.getContentDescription().toString(), true);
                     return true;
                 });
             }
@@ -583,7 +620,7 @@ public final class AlarmFragment extends DeskClockFragment
 
     @Override
     public boolean canDrag() {
-        return SettingsDAO.getAlarmSorting(getPrefs()).equals(SORT_ALARM_MANUALLY);
+        return SORT_ALARM_MANUALLY.equals(mSortingPref);
     }
 
     @Override
@@ -631,6 +668,12 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onSwipeStarted() {
         hideSideButtonsWithFabAnimation();
+    }
+
+    @NonNull
+    @Override
+    protected UiConfig.Fonts getFontsConfig() {
+        return new UiConfig.Fonts(getGeneralTypeface(), getGeneralBoldTypeface(), getAlarmBoldTypeface(), null, null, null);
     }
 
     /**
@@ -827,7 +870,8 @@ public final class AlarmFragment extends DeskClockFragment
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
-            SnackbarManager.show(Snackbar.make(mBinding.alarmRootView, R.string.missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG));
+            SnackbarManager.show(
+                Snackbar.make(mBinding.alarmRootView, R.string.missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG), getGeneralTypeface());
         }
     }
 
@@ -871,6 +915,31 @@ public final class AlarmFragment extends DeskClockFragment
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
         mAlarmTimeClickHandler.showAlarmDelayPickerDialog();
+    }
+
+    @NonNull
+    private Alarm buildNewAlarm(int hour, int minute) {
+        final Alarm alarm = new Alarm();
+        final AudioManager audioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
+
+        alarm.hour = hour;
+        alarm.minutes = minute;
+        alarm.syncByLabel = false;
+        alarm.enabled = true;
+        alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(getPrefs());
+        alarm.vibrationPattern = SettingsDAO.getVibrationPattern(getPrefs());
+        alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(getPrefs());
+        alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(getPrefs());
+        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(getPrefs());
+        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(getPrefs());
+        alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(getPrefs());
+        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(getPrefs());
+        alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
+        alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+        alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
+        alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
+
+        return alarm;
     }
 
     /**
@@ -1098,9 +1167,16 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     private void refreshSettings() {
-        String alarmFontPath = SettingsDAO.getAlarmFont(getPrefs());
-        mAlarmTypeface = ThemeUtils.boldTypeface(alarmFontPath);
+        String newFontPath = SettingsDAO.getAlarmFont(getPrefs());
 
+        if (!Objects.equals(mAlarmFontPath, newFontPath)) {
+            mAlarmFontPath = newFontPath;
+            mAlarmTypeface = null;
+        }
+
+        mWeekdayOrder = SettingsDAO.getWeekdayOrder(getPrefs());
+        mSortingPref = SettingsDAO.getAlarmSorting(getPrefs());
+        mAreEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(getPrefs());
         mIs24HourFormat = getDataModel().is24HourFormat();
 
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(getPrefs());
@@ -1110,12 +1186,27 @@ public final class AlarmFragment extends DeskClockFragment
         refreshSettings();
 
         if (mItemAdapter != null) {
-            mItemAdapter.updateAlarmFont(mAlarmTypeface);
+            mItemAdapter.updateFonts(getFontsConfig());
+            mItemAdapter.updateWeekdayOrder(mWeekdayOrder);
+            mItemAdapter.updateTimeFormat(mIs24HourFormat);
         }
 
         updateWarningBannerVisibility();
 
         mAreSettingsChanged = false;
+    }
+
+    /**
+     * Lazy loading for the alarm font.
+     *
+     * @return the bold alarm font.
+     */
+    private Typeface getAlarmBoldTypeface() {
+        if (mAlarmTypeface == null) {
+            mAlarmTypeface = ThemeUtils.boldTypeface(mAlarmFontPath);
+        }
+
+        return mAlarmTypeface;
     }
 
     /**

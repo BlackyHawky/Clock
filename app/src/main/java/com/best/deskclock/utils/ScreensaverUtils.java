@@ -2,15 +2,12 @@
 
 package com.best.deskclock.utils;
 
-import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,6 +22,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.BatteryManager;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,12 +30,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel.ClockStyle;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DeskClockSaverBinding;
+import com.best.deskclock.screensaver.ScreensaverSettings;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 
@@ -67,14 +65,13 @@ public class ScreensaverUtils {
      * <p>This method ensures consistent brightness behavior across all screensaver elements,
      * while preserving the intended color styling of each clock type.</p>
      *
-     * @param view  The view to update.
-     * @param prefs User preferences containing the brightness setting.
-     * @param color Optional base color used for analog clock tinting.
+     * @param view                 The view to update.
+     * @param brightnessPercentage The brightness applied to the view.
+     * @param color                Optional base color used for analog clock tinting.
+     * @param drawable             The {@link Drawable} used for the {@link TextView}.
      */
-    private static void applyBrightness(@NonNull View view, @NonNull SharedPreferences prefs, @Nullable Integer color,
+    private static void applyBrightness(@NonNull View view, int brightnessPercentage, @Nullable Integer color,
                                         @Nullable Drawable drawable) {
-
-        int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
 
         float factor = 0.1f + (brightnessPercentage / 100f) * 0.9f;
 
@@ -142,52 +139,62 @@ public class ScreensaverUtils {
     }
 
     /**
-     * Returns the Typeface to be used for the digital clock in screensaver mode.
+     * Returns the {@link Typeface} to be used for the digital clock in screensaver mode.
      *
      * <p>This method loads the user-selected font file for the screensaver clock
      * and applies the style options (bold, italic, or bold-italic) based on
-     * the user's preferences stored in SharedPreferences.</p>
+     * the user's preferences.</p>
      *
-     * @param prefs SharedPreferences containing the user's screensaver clock settings
+     * @param font          the {@link Typeface} applied to the screensaver
+     * @param isClockBold   {@code true} if the clock is in bold; {@code false} otherwise
+     * @param isClockItalic {@code true} if the clock is in italics; {@code false} otherwise
      * @return a Typeface object representing the chosen font with the applied style
      */
-    public static Typeface getScreensaverClockTypeface(@NonNull SharedPreferences prefs) {
-        Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
+    public static Typeface getScreensaverClockTypeface(@Nullable Typeface font, boolean isClockBold, boolean isClockItalic) {
         int style = resolveTypefaceStyle(
-            SettingsDAO.isScreensaverDigitalClockInBold(prefs),
-            SettingsDAO.isScreensaverDigitalClockInItalic(prefs)
+            isClockBold,
+            isClockItalic
         );
 
-        if (baseTypeface == null) {
+        if (font == null) {
             return Typeface.create("sans-serif", style);
         }
 
-        return Typeface.create(baseTypeface, style);
+        return Typeface.create(font, style);
     }
 
     /**
      * For screensaver, format the battery text to be bold and/or italic or not.
      *
-     * @param batteryText Battery text to format
+     * @param batteryText     Battery text to format
+     * @param font            the {@link Typeface} applied to the battery text
+     * @param isBatteryBold   {@code true} if the battery text is in bold; {@code false} otherwise
+     * @param isBatteryItalic {@code true} if the battery text is in italics; {@code false} otherwise
      */
-    private static void setScreensaverBatteryFormat(@NonNull SharedPreferences prefs, @NonNull TextView batteryText) {
+    private static void setScreensaverBatteryFormat(@NonNull TextView batteryText, @NonNull Typeface font, boolean isBatteryBold,
+                                                    boolean isBatteryItalic) {
+
         int style = resolveTypefaceStyle(
-            SettingsDAO.isScreensaverBatteryInBold(prefs),
-            SettingsDAO.isScreensaverBatteryInItalic(prefs)
+            isBatteryBold,
+            isBatteryItalic
         );
 
-        applyGeneralTypeface(prefs, batteryText, style);
+        batteryText.setTypeface(font, style);
     }
 
     /**
      * Updates the battery percentage text and icon based on the given battery intent.
      *
-     * @param view   the root view containing the battery indicator TextView
-     * @param intent the Intent carrying battery status information (ACTION_BATTERY_CHANGED)
+     * @param view                 the root view containing the battery indicator TextView
+     * @param intent               the Intent carrying battery status information (ACTION_BATTERY_CHANGED)
+     * @param brightnessPercentage the brightness applied to the view
+     * @param batteryColor         the color applied to the view
+     * @param isBatteryItalic      {@code true} if the battery text is in italics; {@code false} otherwise
      */
     @SuppressLint("SetTextI18n")
-    public static void updateBatteryText(@NonNull View view, @NonNull Intent intent) {
-        SharedPreferences prefs = getDefaultSharedPreferences(view.getContext());
+    public static void updateBatteryText(@NonNull View view, @NonNull Intent intent, int brightnessPercentage, int batteryColor,
+                                         boolean isBatteryItalic) {
+
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         int percent = (int) ((level / (float) scale) * 100);
@@ -195,35 +202,30 @@ public class ScreensaverUtils {
         boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 
         TextView batteryLevel = view.findViewById(R.id.battery_level);
-        CharSequence batteryText = SettingsDAO.isScreensaverBatteryInItalic(prefs) ? percent + "%" + "\u200A" : percent + "%";
+        CharSequence batteryText = isBatteryItalic ? percent + "%" + "\u200A" : percent + "%";
 
         batteryLevel.setText(batteryText);
 
-        updateBatteryIcon(view, percent, isCharging);
+        updateBatteryIcon(view, brightnessPercentage, batteryColor, percent, isCharging);
     }
 
     /**
      * Updates the battery icon displayed next to the battery percentage.
      *
-     * @param view    the root view containing the battery indicator TextView
-     * @param percent the current battery level as a percentage
+     * @param view                 the root view containing the battery indicator TextView
+     * @param brightnessPercentage the brightness applied to the view.
+     * @param batteryColor         the color applied to the view.
+     * @param percent              the current battery level as a percentage
+     * @param isCharging           {@code true} if the device is charging; {@code false} otherwise
      */
-    public static void updateBatteryIcon(@NonNull View view, int percent, boolean isCharging) {
+    public static void updateBatteryIcon(@NonNull View view, int brightnessPercentage, int batteryColor, int percent, boolean isCharging) {
         Context context = view.getContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
 
         final TextView batteryText = view.findViewById(R.id.battery_level);
         int iconRes = getBatteryIconRes(percent, isCharging);
         final Drawable drawable = AppCompatResources.getDrawable(context, iconRes);
 
-        final ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
-        final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
-        final int inversePrimaryColor = ContextCompat.getColor(context, R.color.md_theme_inversePrimary);
-        final int color = isDynamicColors && screensaverClockStyle != ClockStyle.ANALOG_MATERIAL
-            ? inversePrimaryColor
-            : SettingsDAO.getScreensaverBatteryColorPicker(prefs);
-
-        applyBrightness(batteryText, prefs, color, drawable);
+        applyBrightness(batteryText, brightnessPercentage, batteryColor, drawable);
 
         batteryText.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
     }
@@ -232,6 +234,7 @@ public class ScreensaverUtils {
      * Returns the appropriate battery icon resource based on the battery level.
      *
      * @param percent the current battery level as a percentage
+     * @param isCharging {@code true} if the device is charging, {@code false} otherwise
      * @return the drawable resource ID representing the battery state
      */
     private static int getBatteryIconRes(int percent, boolean isCharging) {
@@ -258,36 +261,44 @@ public class ScreensaverUtils {
     /**
      * For screensaver, format the date and the next alarm to be bold and/or italic or not.
      *
-     * @param date Date to format
+     * @param date         Date to format
+     * @param font         the {@link Typeface} applied to the date
+     * @param isDateBold   {@code true} if the date is in bold; {@code false} otherwise
+     * @param isDateItalic {@code true} if the date is in italics; {@code false} otherwise
      */
-    private static void setScreensaverDateFormat(@NonNull SharedPreferences prefs, @NonNull TextView date) {
+    private static void setScreensaverDateFormat(@NonNull TextView date, @NonNull Typeface font, boolean isDateBold, boolean isDateItalic) {
         int style = resolveTypefaceStyle(
-            SettingsDAO.isScreensaverDateInBold(prefs),
-            SettingsDAO.isScreensaverDateInItalic(prefs)
+            isDateBold,
+            isDateItalic
         );
 
-        applyGeneralTypeface(prefs, date, style);
+        date.setTypeface(font, style);
     }
 
     /**
      * For screensaver, format the date and the next alarm to be bold and/or italic or not.
      *
-     * @param nextAlarm Next alarm to format
+     * @param nextAlarm         Next alarm to format
+     * @param font              the {@link Typeface} applied to the next alarm
+     * @param isNextAlarmBold   {@code true} if the date is in bold; {@code false} otherwise
+     * @param isNextAlarmItalic {@code true} if the date is in italics; {@code false} otherwise
      */
-    private static void setScreensaverNextAlarmFormat(@NonNull SharedPreferences prefs, @NonNull TextView nextAlarm) {
+    private static void setScreensaverNextAlarmFormat(@NonNull TextView nextAlarm, @NonNull Typeface font, boolean isNextAlarmBold,
+                                                      boolean isNextAlarmItalic) {
+
         int style = resolveTypefaceStyle(
-            SettingsDAO.isScreensaverNextAlarmInBold(prefs),
-            SettingsDAO.isScreensaverNextAlarmInItalic(prefs)
+            isNextAlarmBold,
+            isNextAlarmItalic
         );
 
-        applyGeneralTypeface(prefs, nextAlarm, style);
+        nextAlarm.setTypeface(font, style);
     }
 
     /**
      * Determines the appropriate Typeface style based on bold and italic flags.
      *
-     * @param isBold   True if the text should be bold.
-     * @param isItalic True if the text should be italic.
+     * @param isBold   {@code true} if the text should be bold; {@code false} otherwise
+     * @param isItalic {@code true} if the text should be italic; {@code false} otherwise
      * @return The corresponding Typeface style constant (NORMAL, BOLD, ITALIC, or BOLD_ITALIC).
      */
     private static int resolveTypefaceStyle(boolean isBold, boolean isItalic) {
@@ -303,15 +314,6 @@ public class ScreensaverUtils {
     }
 
     /**
-     * Applies the general font to the given {@link TextView}.
-     */
-    private static void applyGeneralTypeface(@NonNull SharedPreferences prefs, @NonNull TextView textView, int style) {
-        Typeface base = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-
-        textView.setTypeface(base, style);
-    }
-
-    /**
      * Returns the formatted "next alarm" text for the screensaver.
      * <p>
      * This method wraps the base formatted alarm time with thin spaces when the
@@ -319,22 +321,21 @@ public class ScreensaverUtils {
      * Thin spaces (u2009) prevent the text from being visually cut off on some devices
      * and help maintain proper centering in the screensaver layout.
      *
-     * @param context   the context used to access preferences and formatting utilities
-     * @param alarmTime the time of the next scheduled alarm
+     * @param context           the context used to access preferences and formatting utilities
+     * @param isDateItalic      {@code true} if the date is in italics; {@code false} otherwise
+     * @param isNextAlarmItalic {@code true} if the next alarm is in italics; {@code false} otherwise
+     * @param alarmTime         the time of the next scheduled alarm
      * @return the formatted alarm text, optionally wrapped with thin spaces
      */
     @NonNull
-    public static String getScreensaverFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime) {
+    public static String getScreensaverFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime, boolean isDateItalic,
+                                                     boolean isNextAlarmItalic) {
+
         String base = AlarmUtils.getFormattedTime(context, alarmTime);
 
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-
-        boolean italicDate = SettingsDAO.isScreensaverDateInItalic(prefs);
-        boolean italicAlarm = SettingsDAO.isScreensaverNextAlarmInItalic(prefs);
-
-        if (italicDate) {
+        if (isDateItalic) {
             return "\u2009" + base + "\u2009";
-        } else if (italicAlarm) {
+        } else if (isNextAlarmItalic) {
             return base + "\u2009";
         }
 
@@ -345,11 +346,15 @@ public class ScreensaverUtils {
      * Refreshes the next alarm and date displayed on the screensaver.
      * The date format automatically expands when the next alarm is hidden or unavailable.
      *
-     * @param binding     The binding containing the screensaver views. If null, no action is performed.
-     * @param prefs       The shared preferences to retrieve user display settings.
-     * @param isUppercase True if the text should be displayed in uppercase, false otherwise.
+     * @param binding              The binding containing the screensaver views. If null, no action is performed.
+     * @param isUppercase          {@code true} if the text should be displayed in uppercase; {@code false} otherwise.
+     * @param isNextAlarmDisplayed {@code true} if the next alarm is displayed; {@code false} otherwise.
+     * @param isDateItalic         {@code true} if the date is in italics; {@code false} otherwise
+     * @param isNextAlarmItalic    {@code true} if the next alarm is in italics; {@code false} otherwise
      */
-    public static void refreshAlarmAndDate(@Nullable DeskClockSaverBinding binding, @NonNull SharedPreferences prefs, boolean isUppercase) {
+    public static void refreshAlarmAndDate(@Nullable DeskClockSaverBinding binding, boolean isUppercase, boolean isNextAlarmDisplayed,
+                                           boolean isDateItalic, boolean isNextAlarmItalic) {
+
         if (binding != null) {
             Context context = binding.getRoot().getContext();
             String shortDateFormat = context.getString(R.string.abbrev_wday_month_day_no_year);
@@ -357,8 +362,8 @@ public class ScreensaverUtils {
 
             boolean isAlarmVisible = false;
 
-            if (SettingsDAO.isScreensaverNextAlarmDisplayed(prefs)) {
-                isAlarmVisible = AlarmUtils.refreshAlarm(binding.saverContainer, true, isUppercase);
+            if (isNextAlarmDisplayed) {
+                isAlarmVisible = AlarmUtils.refreshAlarm(binding.saverContainer, isUppercase, true, isDateItalic, isNextAlarmItalic);
             } else {
                 binding.dateAndNextAlarmTime.nextAlarmIcon.setVisibility(View.GONE);
                 binding.dateAndNextAlarmTime.nextAlarm.setVisibility(View.GONE);
@@ -366,15 +371,15 @@ public class ScreensaverUtils {
 
             String datePattern = isAlarmVisible ? shortDateFormat : longDateFormat;
 
-            updateScreensaverDate(datePattern, longDateFormat, binding.saverContainer, prefs);
+            updateScreensaverDate(binding.saverContainer, datePattern, longDateFormat, isUppercase, isDateItalic, isNextAlarmItalic);
         }
     }
 
     /**
      * Clock views can call this to refresh their date.
      **/
-    public static void updateScreensaverDate(@NonNull String dateSkeleton, @NonNull String descriptionSkeleton, @NonNull View clock,
-                                             @NonNull SharedPreferences prefs) {
+    public static void updateScreensaverDate(@NonNull View clock, @NonNull String dateSkeleton, @NonNull String descriptionSkeleton,
+                                             boolean isUppercase, boolean isDateItalic, boolean isNextAlarmItalic) {
 
         final TextView dateDisplay = clock.findViewById(R.id.date);
         if (dateDisplay == null) {
@@ -384,11 +389,11 @@ public class ScreensaverUtils {
         final Locale locale = Locale.getDefault();
         String datePattern = DateFormat.getBestDateTimePattern(locale, dateSkeleton);
 
-        if (SettingsDAO.isScreensaverDateInItalic(prefs)) {
+        if (isDateItalic) {
             // Add a "Thin Space" (\u2009) at the end of the date to prevent its display
             // from being cut off on some devices.
             datePattern = "\u2009" + datePattern + "\u2009";
-        } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
+        } else if (isNextAlarmItalic) {
             datePattern = datePattern + "\u2009";
         }
 
@@ -397,105 +402,128 @@ public class ScreensaverUtils {
         final Date now = new Date();
         String formattedDate = new SimpleDateFormat(datePattern, locale).format(now);
 
-        dateDisplay.setAllCaps(SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs));
+        dateDisplay.setAllCaps(isUppercase);
         dateDisplay.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale));
         dateDisplay.setVisibility(VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));
     }
 
     /**
-     * For screensaver, set the margins and the clock style.
+     * Main entry point to configure the screensaver views, including background and clock styles.
      */
-    public static void setScreensaverClockStyle(@NonNull View view) {
-        final Context context = view.getContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final View mainClockView = view.findViewById(R.id.main_clock);
+    public static void setupScreensaverView(@NonNull View view, @NonNull ScreensaverSettings settings,
+                                            @NonNull DisplayMetrics displayMetrics, boolean isLandscape,
+                                            @Nullable Runnable onImageLoaded) {
+
         final ImageView backgroundImage = view.findViewById(R.id.screensaver_background_image);
-        final String imagePath = SettingsDAO.getScreensaverBackgroundImage(prefs);
+        final View mainClockView = view.findViewById(R.id.main_clock);
 
-        if (imagePath != null) {
-            backgroundImage.setVisibility(VISIBLE);
+        loadBackgroundImage(backgroundImage, settings, onImageLoaded);
 
-            File imageFile = new File(imagePath);
-            if (imageFile.exists()) {
-                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                if (bitmap != null) {
-                    backgroundImage.setImageBitmap(bitmap);
-                    applyBrightness(backgroundImage, prefs, null, null);
+        configureClocks(mainClockView, settings, displayMetrics, isLandscape);
 
-                    float blurIntensity = SettingsDAO.getScreensaverBlurIntensity(prefs);
+        configureSecondaryElements(mainClockView, settings);
+    }
 
-                    if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
-                        RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
-                        backgroundImage.setRenderEffect(blur);
-                    }
-                } else {
-                    LogUtils.e("Bitmap null for path: " + imagePath);
-                    backgroundImage.setVisibility(GONE);
+    /**
+     * Loads and applies the custom background image asynchronously, including optional blur effects.
+     */
+    private static void loadBackgroundImage(@NonNull ImageView backgroundImage, @NonNull ScreensaverSettings settings,
+                                            @Nullable Runnable onImageLoaded) {
+
+        if (settings.backgroundImagePath != null) {
+            AppExecutors.getDiskIO().execute(() -> {
+                File imageFile = new File(settings.backgroundImagePath);
+                if (imageFile.exists()) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
+                    AppExecutors.getMainThread().post(() -> {
+                        if (bitmap != null) {
+                            backgroundImage.setVisibility(View.VISIBLE);
+                            backgroundImage.setImageBitmap(bitmap);
+                            applyBrightness(backgroundImage, settings.brightnessPercentage, null, null);
+
+                            if (SdkUtils.isAtLeastAndroid12() && settings.blurIntensity != DEFAULT_BLUR_INTENSITY) {
+                                RenderEffect blur = RenderEffect.createBlurEffect(
+                                    settings.blurIntensity, settings.blurIntensity, Shader.TileMode.CLAMP);
+                                backgroundImage.setRenderEffect(blur);
+                            }
+
+                            if (onImageLoaded != null) {
+                                onImageLoaded.run();
+                            }
+                        }
+                    });
                 }
-            } else {
-                LogUtils.e("Image file not found: " + imagePath);
-                backgroundImage.setVisibility(GONE);
-            }
+            });
         } else {
-            backgroundImage.setVisibility(GONE);
+            backgroundImage.setVisibility(View.GONE);
         }
+    }
 
-        // Style
-        final ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
+    /**
+     * Sets up the analog or digital clock based on the user's selected style and preferences.
+     */
+    private static void configureClocks(@NonNull View mainClockView, @NonNull ScreensaverSettings settings,
+                                        @NonNull DisplayMetrics displayMetrics, boolean isLandscape) {
+
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
         final AutoSizingTextClock textClock = mainClockView.findViewById(R.id.digital_clock);
-        final boolean areClockSecondsEnabled = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
+
+        analogClock.configure(
+            settings.clockStyle,
+            settings.clockDial,
+            settings.clockDialMaterial,
+            settings.clockSecondHand,
+            settings.activeAccentColor,
+            0, 0, false
+        );
+
+        ClockUtils.setClockStyle(settings.clockStyle, textClock, analogClock);
+
+        if (settings.clockStyle == ClockStyle.DIGITAL) {
+            textClock.setTypeface(settings.screensaverTypeface);
+
+            int style = settings.isDigitalItalic ? Typeface.BOLD_ITALIC : Typeface.BOLD;
+            Typeface amPmTypeface = Typeface.create(settings.screensaverTypeface, style);
+
+            ClockUtils.setDigitalClockTimeFormat(textClock, settings.areClockSecondsEnabled, 0.4f, amPmTypeface, "sans-serif", style, true);
+            textClock.applyUserPreferredTextSizeSp(settings.digitalFontSize);
+
+            applyBrightness(textClock, settings.brightnessPercentage, settings.clockColor, null);
+        } else {
+            ClockUtils.adjustAnalogClockSize(analogClock, displayMetrics, settings.analogClockSize, isLandscape);
+            ClockUtils.setAnalogClockSecondsEnabled(settings.clockStyle, analogClock, settings.areClockSecondsEnabled);
+
+            if (settings.clockStyle == ClockStyle.ANALOG_MATERIAL) {
+                applyBrightness(analogClock, settings.brightnessPercentage, null, null);
+            } else {
+                applyBrightness(analogClock, settings.brightnessPercentage, settings.clockColor, null);
+            }
+        }
+    }
+
+    /**
+     * Configures the visibility, typeface, and color of the battery, date, and next alarm elements.
+     */
+    private static void configureSecondaryElements(@NonNull View mainClockView, @NonNull ScreensaverSettings settings) {
         final TextView batteryText = mainClockView.findViewById(R.id.battery_level);
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
-        final int inversePrimaryColor = ContextCompat.getColor(context, R.color.md_theme_inversePrimary);
-        final boolean isMaterialAnalogClock = screensaverClockStyle == ClockStyle.ANALOG_MATERIAL;
-        final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
 
-        final int screenSaverClockColorPicker = isDynamicColors
-            ? inversePrimaryColor
-            : SettingsDAO.getScreensaverClockColorPicker(prefs);
-        final int screensaverDateColorPicker = isDynamicColors && !isMaterialAnalogClock
-            ? inversePrimaryColor
-            : SettingsDAO.getScreensaverDateColorPicker(prefs);
-        final int screensaverNextAlarmColorPicker = isDynamicColors && !isMaterialAnalogClock
-            ? inversePrimaryColor
-            : SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
-
-        ClockUtils.setClockStyle(screensaverClockStyle, textClock, analogClock);
-
-        if (screensaverClockStyle == ClockStyle.DIGITAL) {
-            textClock.setTypeface(getScreensaverClockTypeface(prefs));
-            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled, false, false, false, true);
-
-            textClock.applyUserPreferredTextSizeSp(SettingsDAO.getScreensaverDigitalClockFontSize(prefs));
-
-            applyBrightness(textClock, prefs, screenSaverClockColorPicker, null);
-        } else {
-            ClockUtils.adjustAnalogClockSize(analogClock, SettingsDAO.getScreensaverAnalogClockSize(prefs));
-            ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);
-
-            if (isMaterialAnalogClock) {
-                applyBrightness(analogClock, prefs, null, null);
-            } else {
-                applyBrightness(analogClock, prefs, screenSaverClockColorPicker, null);
-            }
+        if (settings.isBatteryDisplayed) {
+            batteryText.setVisibility(View.VISIBLE);
+            setScreensaverBatteryFormat(batteryText, settings.screensaverTypeface, settings.isBatteryBold, settings.isBatteryItalic);
         }
 
-        if (SettingsDAO.isScreensaverBatteryDisplayed(prefs)) {
-            batteryText.setVisibility(VISIBLE);
-            setScreensaverBatteryFormat(prefs, batteryText);
-        }
-
-        setScreensaverDateFormat(prefs, date);
+        setScreensaverDateFormat(date, settings.screensaverTypeface, settings.isDateBold, settings.isDateItalic);
         ClockUtils.setClockIconTypeface(nextAlarmIcon);
-        setScreensaverNextAlarmFormat(prefs, nextAlarm);
+        setScreensaverNextAlarmFormat(nextAlarm, settings.screensaverTypeface, settings.isNextAlarmBold, settings.isNextAlarmItalic);
 
-        applyBrightness(date, prefs, screensaverDateColorPicker, null);
-        applyBrightness(nextAlarmIcon, prefs, screensaverNextAlarmColorPicker, null);
-        applyBrightness(nextAlarm, prefs, screensaverNextAlarmColorPicker, null);
+        applyBrightness(date, settings.brightnessPercentage, settings.dateColor, null);
+        applyBrightness(nextAlarmIcon, settings.brightnessPercentage, settings.nextAlarmColor, null);
+        applyBrightness(nextAlarm, settings.brightnessPercentage, settings.nextAlarmColor, null);
     }
 
 }

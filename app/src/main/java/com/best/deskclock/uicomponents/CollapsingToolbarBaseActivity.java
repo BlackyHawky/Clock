@@ -8,7 +8,6 @@ package com.best.deskclock.uicomponents;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.base.BaseActivity;
@@ -50,26 +48,18 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        ThemeUtils.setActivityEnterTransition(this);
-
         super.onCreate(savedInstanceState);
 
         mBaseBinding = CollapsingToolbarBaseLayoutBinding.inflate(getLayoutInflater());
-
-        // To manually manage insets
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
-        ThemeUtils.allowDisplayCutout(getWindow());
 
         super.setContentView(mBaseBinding.getRoot());
 
         final String getDarkMode = SettingsDAO.getDarkMode(getPrefs());
 
-        final Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getPrefs()));
-        mBaseBinding.collapsingToolbar.setExpandedTitleTypeface(typeface);
-        mBaseBinding.collapsingToolbar.setCollapsedTitleTypeface(typeface);
+        mBaseBinding.collapsingToolbar.setExpandedTitleTypeface(getGeneralTypeface());
+        mBaseBinding.collapsingToolbar.setCollapsedTitleTypeface(getGeneralTypeface());
 
-        if (ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE)) {
+        if (isNight() && getDarkMode.equals(AMOLED_DARK_MODE)) {
             mBaseBinding.collapsingToolbar.setBackgroundColor(getColor(android.R.color.black));
             mBaseBinding.collapsingToolbar.setContentScrimColor(getColor(android.R.color.black));
         }
@@ -85,7 +75,8 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
-                    ThemeUtils.finishActivityWithTransition(CollapsingToolbarBaseActivity.this);
+                    ThemeUtils.finishActivityWithTransition(
+                        CollapsingToolbarBaseActivity.this, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
                 }
             });
         }

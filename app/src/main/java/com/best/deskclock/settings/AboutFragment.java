@@ -17,6 +17,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.service.quicksettings.TileService;
@@ -53,7 +54,6 @@ import com.best.deskclock.tiles.StopwatchTileService;
 import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
-import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
@@ -104,6 +104,8 @@ public class AboutFragment extends BaseSettingsScreenFragment
             }
 
             final Context appContext = requireContext().getApplicationContext();
+            final int style = getAccentStyle();
+            final Typeface font = getGeneralTypeface();
 
             AppExecutors.getDiskIO().execute(() -> {
                 exportLogsAsZip(appContext, uri);
@@ -111,14 +113,12 @@ public class AboutFragment extends BaseSettingsScreenFragment
                 boolean hasLogs = !LogUtils.getSavedLocalLogs(appContext).isEmpty();
 
                 AppExecutors.getMainThread().post(() -> {
-                    if (!isAdded()) {
-                        return;
-                    }
-
                     if (hasLogs) {
-                        showExportCompleteDialog();
+                        if (isAdded()) {
+                            showExportCompleteDialog();
+                        }
                     } else {
-                        CustomToast.show(appContext, R.string.toast_message_for_backup);
+                        CustomToast.show(appContext, style, font, R.string.toast_message_for_backup);
                     }
                 });
             });
@@ -232,7 +232,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (BackupAndRestoreUtils.appNeedsRestart) {
+        if (BackupAndRestoreManager.appNeedsRestart) {
             if (mRestartDialog == null || !mRestartDialog.isShowing()) {
                 mRestartDialog = restartAppDialog(requireContext().getApplicationContext(), false);
                 mRestartDialog.show();
@@ -280,7 +280,8 @@ public class AboutFragment extends BaseSettingsScreenFragment
                     getPrefs().edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, true).apply();
                     getPrefs().edit().putBoolean(KEY_ENABLE_LOCAL_LOGGING, true).apply();
 
-                    CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_debug_displayed);
+                    CustomToast.show(requireContext().getApplicationContext(), getAccentStyle(), getGeneralTypeface(),
+                        R.string.toast_message_debug_displayed);
                     requireActivity().recreate();
                 }
             }
@@ -297,7 +298,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
     @Override
     public boolean onPreferenceChange(@NonNull Preference preference, @NonNull Object newValue) {
         if (KEY_ENABLE_LOCAL_LOGGING.equals(preference.getKey())) {
-            Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             if (newValue.equals(false)) {
                 tapCountOnVersion = 0;
@@ -306,7 +307,8 @@ public class AboutFragment extends BaseSettingsScreenFragment
 
                 getPrefs().edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, false).apply();
 
-                CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_debug_hidden);
+                CustomToast.show(requireContext().getApplicationContext(), getAccentStyle(), getGeneralTypeface(),
+                    R.string.toast_message_debug_hidden);
             }
 
             requireActivity().recreate();
@@ -416,7 +418,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
     private void showKeepAndroidOpenDialog() {
         mShowKeepAndroidOpenDialog = true;
 
-        mActiveDialog = Utils.displayKeepAndroidOpenDialog(requireContext(), getPrefs(), true);
+        mActiveDialog = Utils.displayKeepAndroidOpenDialog(requireContext(), true, null);
 
         mActiveDialog.setOnDismissListener(d -> mShowKeepAndroidOpenDialog = false);
 
@@ -469,7 +471,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
     private void resetPreferences() {
         final Context appContext = requireContext().getApplicationContext();
 
-        BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = true;
+        BackupAndRestoreManager.isRestoringBackupOrIsResettingApp = true;
 
         AppExecutors.getDiskIO().execute(() -> {
             SharedPreferences.Editor editor = getPrefs().edit();
@@ -484,7 +486,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
 
             final List<Alarm> alarms = Alarm.getAlarms(appContext.getContentResolver(), null);
             for (Alarm alarm : alarms) {
-                AlarmStateManager.deleteAllInstances(appContext, alarm.id);
+                AlarmStateManager.deleteAllInstances(appContext, getPrefs(), alarm.id);
                 Alarm.deleteAlarm(appContext.getContentResolver(), alarm.id);
             }
 
@@ -510,7 +512,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
                     TileService.requestListeningState(appContext, new ComponentName(appContext, StopwatchTileService.class));
                 }
 
-                BackupAndRestoreUtils.appNeedsRestart = true;
+                BackupAndRestoreManager.appNeedsRestart = true;
 
                 if (isAdded() && getActivity() != null && !getActivity().isFinishing()) {
                     mRestartDialog = restartAppDialog(appContext, true);
@@ -519,7 +521,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
                     // If the user has left the screen, clear the notifications and force a restart without the dialog.
                     NotificationUtils.clearAllNotifications(appContext);
 
-                    Utils.applyAppLanguage(appContext, true);
+                    Utils.applyAppLanguage(SettingsDAO.getLanguageCode(getPrefs()), true);
 
                     Intent restartIntent = new Intent(appContext, DeskClock.class);
                     restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -672,11 +674,16 @@ public class AboutFragment extends BaseSettingsScreenFragment
             getString(R.string.log_dialog_message),
             null,
             getString(android.R.string.ok),
-            (d, w) -> AppExecutors.getDiskIO().execute(() -> {
-                LogUtils.clearSavedLocalLogs(appContext);
+            (d, w) -> {
+                final int style = getAccentStyle();
+                final Typeface font = getGeneralTypeface();
 
-                AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_log_deleted));
-            }),
+                AppExecutors.getDiskIO().execute(() -> {
+                    LogUtils.clearSavedLocalLogs(appContext);
+
+                    AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, style, font, R.string.toast_message_log_deleted));
+                });
+            },
             getString(android.R.string.cancel),
             null,
             null,

@@ -6,8 +6,6 @@
 
 package com.best.deskclock.controller;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +21,6 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -47,13 +44,16 @@ class ShortcutController {
 
     private final ComponentName mComponentName;
     private final ShortcutManager mShortcutManager;
+    private final Context mContext;
+    private final SharedPreferences mPrefs;
     private final DataModel mDataModel;
     private final UiDataModel mUiDataModel;
 
-    ShortcutController() {
-        Context appContext = DeskClockApplication.getAppContext();
-        mComponentName = new ComponentName(appContext, DeskClock.class);
-        mShortcutManager = appContext.getSystemService(ShortcutManager.class);
+    ShortcutController(@NonNull Context context, @NonNull SharedPreferences prefs) {
+        mContext = context;
+        mPrefs = prefs;
+        mComponentName = new ComponentName(context, DeskClock.class);
+        mShortcutManager = context.getSystemService(ShortcutManager.class);
         mDataModel = DataModel.getDataModel();
         mUiDataModel = UiDataModel.getUiDataModel();
         Controller.getController().addEventTracker(new ShortcutEventTracker());
@@ -61,31 +61,29 @@ class ShortcutController {
     }
 
     void updateShortcuts() {
-        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
+        Context localizedContext = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs));
 
-        if (!DeviceUtils.isUserUnlocked(appContext)) {
+        if (!DeviceUtils.isUserUnlocked(localizedContext)) {
             return;
         }
 
         try {
-            SharedPreferences prefs = getDefaultSharedPreferences(appContext);
-
             List<ShortcutInfo> dynamicShortcuts = new ArrayList<>();
             List<String> disabledShortcutIds = new ArrayList<>();
 
-            if (SettingsDAO.isAlarmTabVisible(prefs)) {
+            if (SettingsDAO.isAlarmTabVisible(mPrefs)) {
                 dynamicShortcuts.add(createNewAlarmShortcut());
             } else {
                 disabledShortcutIds.add(mUiDataModel.getShortcutId(R.string.category_alarm, R.string.action_create));
             }
 
-            if (SettingsDAO.isTimerTabVisible(prefs)) {
+            if (SettingsDAO.isTimerTabVisible(mPrefs)) {
                 dynamicShortcuts.add(createNewTimerShortcut());
             } else {
                 disabledShortcutIds.add(mUiDataModel.getShortcutId(R.string.category_timer, R.string.action_create));
             }
 
-            if (SettingsDAO.isStopwatchTabVisible(prefs)) {
+            if (SettingsDAO.isStopwatchTabVisible(mPrefs)) {
                 dynamicShortcuts.add(createStopwatchShortcut());
             } else {
                 disabledShortcutIds.add(mUiDataModel.getShortcutId(R.string.category_stopwatch, R.string.action_start));
@@ -97,7 +95,7 @@ class ShortcutController {
             mShortcutManager.setDynamicShortcuts(dynamicShortcuts);
 
             if (!disabledShortcutIds.isEmpty()) {
-                mShortcutManager.disableShortcuts(disabledShortcutIds, appContext.getString(R.string.shortcut_disabled));
+                mShortcutManager.disableShortcuts(disabledShortcutIds, localizedContext.getString(R.string.shortcut_disabled));
             }
 
             List<String> enabledShortcutIds = new ArrayList<>();
@@ -113,19 +111,19 @@ class ShortcutController {
 
     @NonNull
     private ShortcutInfo createNewAlarmShortcut() {
-        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
+        Context localizedContext = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs));
 
         final Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
-            .setClass(appContext, HandleApiCalls.class)
+            .setClass(localizedContext, HandleApiCalls.class)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
         final String setAlarmShortcut = mUiDataModel.getShortcutId(R.string.category_alarm, R.string.action_create);
 
-        return new ShortcutInfo.Builder(appContext, setAlarmShortcut)
-            .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_new_alarm))
+        return new ShortcutInfo.Builder(localizedContext, setAlarmShortcut)
+            .setIcon(Icon.createWithResource(localizedContext, R.drawable.shortcut_new_alarm))
             .setActivity(mComponentName)
-            .setShortLabel(appContext.getString(R.string.shortcut_new_alarm_short))
-            .setLongLabel(appContext.getString(R.string.shortcut_new_alarm_long))
+            .setShortLabel(localizedContext.getString(R.string.shortcut_new_alarm_short))
+            .setLongLabel(localizedContext.getString(R.string.shortcut_new_alarm_long))
             .setIntent(intent)
             .setRank(0)
             .build();
@@ -133,19 +131,19 @@ class ShortcutController {
 
     @NonNull
     private ShortcutInfo createNewTimerShortcut() {
-        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
+        Context localizedContext = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs));
 
         final Intent intent = new Intent(AlarmClock.ACTION_SET_TIMER)
-            .setClass(appContext, HandleApiCalls.class)
+            .setClass(localizedContext, HandleApiCalls.class)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
         final String setTimerShortcut = mUiDataModel.getShortcutId(R.string.category_timer, R.string.action_create);
 
-        return new ShortcutInfo.Builder(appContext, setTimerShortcut)
-            .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_new_timer))
+        return new ShortcutInfo.Builder(localizedContext, setTimerShortcut)
+            .setIcon(Icon.createWithResource(localizedContext, R.drawable.shortcut_new_timer))
             .setActivity(mComponentName)
-            .setShortLabel(appContext.getString(R.string.shortcut_new_timer_short))
-            .setLongLabel(appContext.getString(R.string.shortcut_new_timer_long))
+            .setShortLabel(localizedContext.getString(R.string.shortcut_new_timer_short))
+            .setLongLabel(localizedContext.getString(R.string.shortcut_new_timer_long))
             .setIntent(intent)
             .setRank(1)
             .build();
@@ -153,46 +151,46 @@ class ShortcutController {
 
     @NonNull
     private ShortcutInfo createStopwatchShortcut() {
-        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
+        Context localizedContext = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs));
 
         final @StringRes int action = mDataModel.getStopwatch().isRunning()
             ? R.string.action_pause
             : R.string.action_start;
         final String shortcutId = mUiDataModel.getShortcutId(R.string.category_stopwatch, action);
-        final ShortcutInfo.Builder shortcut = new ShortcutInfo.Builder(appContext, shortcutId)
-            .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_stopwatch))
+        final ShortcutInfo.Builder shortcut = new ShortcutInfo.Builder(localizedContext, shortcutId)
+            .setIcon(Icon.createWithResource(localizedContext, R.drawable.shortcut_stopwatch))
             .setActivity(mComponentName)
             .setRank(2);
         final Intent intent;
 
         if (mDataModel.getStopwatch().isRunning()) {
             intent = new Intent(StopwatchService.ACTION_PAUSE_STOPWATCH).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
-            shortcut.setShortLabel(appContext.getString(R.string.shortcut_pause_stopwatch_short)).setLongLabel(appContext.getString(R.string.shortcut_pause_stopwatch_long));
+            shortcut.setShortLabel(localizedContext.getString(R.string.shortcut_pause_stopwatch_short)).setLongLabel(localizedContext.getString(R.string.shortcut_pause_stopwatch_long));
         } else {
             intent = new Intent(StopwatchService.ACTION_START_STOPWATCH).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
-            shortcut.setShortLabel(appContext.getString(R.string.shortcut_start_stopwatch_short)).setLongLabel(appContext.getString(R.string.shortcut_start_stopwatch_long));
+            shortcut.setShortLabel(localizedContext.getString(R.string.shortcut_start_stopwatch_short)).setLongLabel(localizedContext.getString(R.string.shortcut_start_stopwatch_long));
         }
 
-        intent.setClass(appContext, HandleShortcuts.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setClass(localizedContext, HandleShortcuts.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         return shortcut.setIntent(intent).build();
     }
 
     @NonNull
     private ShortcutInfo createScreensaverShortcut() {
-        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
+        Context localizedContext = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs));
 
         final Intent intent = new Intent(Intent.ACTION_MAIN)
-            .setClass(appContext, ScreensaverActivity.class)
+            .setClass(localizedContext, ScreensaverActivity.class)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
         final String screensaverShortcut = mUiDataModel.getShortcutId(R.string.category_screensaver, R.string.action_show);
 
-        return new ShortcutInfo.Builder(appContext, screensaverShortcut)
-            .setIcon(Icon.createWithResource(appContext, R.drawable.shortcut_screensaver))
+        return new ShortcutInfo.Builder(localizedContext, screensaverShortcut)
+            .setIcon(Icon.createWithResource(localizedContext, R.drawable.shortcut_screensaver))
             .setActivity(mComponentName)
-            .setShortLabel((appContext.getString(R.string.shortcut_start_screensaver_short)))
-            .setLongLabel((appContext.getString(R.string.shortcut_start_screensaver_long)))
+            .setShortLabel((localizedContext.getString(R.string.shortcut_start_screensaver_short)))
+            .setLongLabel((localizedContext.getString(R.string.shortcut_start_screensaver_long)))
             .setIntent(intent)
             .setRank(3)
             .build();
@@ -201,9 +199,7 @@ class ShortcutController {
     private class StopwatchWatcher implements StopwatchListener {
         @Override
         public void stopwatchUpdated(@NonNull Stopwatch after) {
-            Context context = DeskClockApplication.getAppContext();
-
-            if (!DeviceUtils.isUserUnlocked(context)) {
+            if (!DeviceUtils.isUserUnlocked(mContext)) {
                 return;
             }
 

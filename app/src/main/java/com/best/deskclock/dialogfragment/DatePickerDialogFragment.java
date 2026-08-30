@@ -3,27 +3,23 @@
 package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WEEK_START;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.RepeatingDayDecorator;
-import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -36,13 +32,13 @@ public class DatePickerDialogFragment {
     public static final String TAG_DATE_PICKER = "DatePickerDialog";
     public static final String TAG_DATE_RANGE_PICKER = "DateRangePickerDialog";
 
-    public static void show(@NonNull FragmentManager fragmentManager, @NonNull SharedPreferences prefs, @NonNull Alarm alarm,
-                            @NonNull OnDateSelectedListener listener) {
+    public static void show(@NonNull FragmentManager fragmentManager, @NonNull Alarm alarm, @NonNull String datePickerStyle,
+                            int firstDayOfWeek, @NonNull Typeface generalFont, @NonNull OnDateSelectedListener listener) {
 
-        if (SettingsDAO.getMaterialDatePickerStyle(prefs).equals(SPINNER_DATE_PICKER_STYLE)) {
+        if (datePickerStyle.equals(SPINNER_DATE_PICKER_STYLE)) {
             showSpinnerDatePicker(fragmentManager, alarm);
         } else {
-            showMaterialDatePicker(fragmentManager, prefs, alarm, listener);
+            showMaterialDatePicker(fragmentManager, alarm, datePickerStyle, firstDayOfWeek, generalFont, listener);
         }
     }
 
@@ -98,8 +94,9 @@ public class DatePickerDialogFragment {
         SpinnerDatePickerDialogFragment.show(fragmentManager, fragment);
     }
 
-    private static void showMaterialDatePicker(@NonNull FragmentManager fragmentManager, @NonNull SharedPreferences prefs,
-                                               @NonNull Alarm alarm, OnDateSelectedListener listener) {
+    private static void showMaterialDatePicker(@NonNull FragmentManager fragmentManager, @NonNull Alarm alarm,
+                                               @NonNull String datePickerStyle, int firstDayOfWeek, @Nullable Typeface generalFont,
+                                               @Nullable OnDateSelectedListener listener) {
 
         if (fragmentManager.findFragmentByTag(TAG_DATE_PICKER) != null) {
             return;
@@ -107,11 +104,10 @@ public class DatePickerDialogFragment {
 
         Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
 
-        String materialDatePickerStyle = SettingsDAO.getMaterialDatePickerStyle(prefs);
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
 
         // Set date picker style
-        builder.setInputMode(materialDatePickerStyle.equals(DEFAULT_DATE_PICKER_STYLE)
+        builder.setInputMode(datePickerStyle.equals(DEFAULT_DATE_PICKER_STYLE)
             ? MaterialDatePicker.INPUT_MODE_CALENDAR
             : MaterialDatePicker.INPUT_MODE_TEXT);
 
@@ -159,12 +155,7 @@ public class DatePickerDialogFragment {
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
 
         // Respect the "Start week on" setting or use the device's regional settings if the setting has never been changed
-        String weekStartPref = prefs.getString(KEY_WEEK_START, DEFAULT_WEEK_START);
-        try {
-            constraintsBuilder.setFirstDayOfWeek(Integer.parseInt(weekStartPref));
-        } catch (NumberFormatException e) {
-            constraintsBuilder.setFirstDayOfWeek(Calendar.getInstance().getFirstDayOfWeek());
-        }
+        constraintsBuilder.setFirstDayOfWeek(firstDayOfWeek);
 
         // Prevents navigation to past months
         constraintsBuilder.setStart(utcNow.getTimeInMillis());
@@ -188,7 +179,7 @@ public class DatePickerDialogFragment {
 
         MaterialDatePicker<Long> materialDatePicker = builder.build();
 
-        applyCustomFontToDatePicker(materialDatePicker, prefs);
+        applyCustomFontToDatePicker(materialDatePicker, generalFont);
 
         materialDatePicker.show(fragmentManager, TAG_DATE_PICKER);
 
@@ -207,8 +198,8 @@ public class DatePickerDialogFragment {
         });
     }
 
-    public static void showMaterialDateRangePicker(@NonNull FragmentManager fragmentManager, @NonNull SharedPreferences prefs,
-                                                   @NonNull Alarm alarm, @NonNull OnDateRangeSelectedListener listener) {
+    public static void showMaterialDateRangePicker(@NonNull FragmentManager fragmentManager, @NonNull Alarm alarm, int firstDayOfWeek,
+                                                   @Nullable Typeface generalFont, @NonNull OnDateRangeSelectedListener listener) {
 
         if (fragmentManager.findFragmentByTag(TAG_DATE_RANGE_PICKER) != null) {
             return;
@@ -232,12 +223,7 @@ public class DatePickerDialogFragment {
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
 
         // Respect the "Start week on" setting or use the device's regional settings if the setting has never been changed.
-        String weekStartPref = prefs.getString(KEY_WEEK_START, DEFAULT_WEEK_START);
-        try {
-            constraintsBuilder.setFirstDayOfWeek(Integer.parseInt(weekStartPref));
-        } catch (NumberFormatException e) {
-            constraintsBuilder.setFirstDayOfWeek(Calendar.getInstance().getFirstDayOfWeek());
-        }
+        constraintsBuilder.setFirstDayOfWeek(firstDayOfWeek);
 
         long minAllowedTimestamp;
         if (timePassed) {
@@ -271,7 +257,7 @@ public class DatePickerDialogFragment {
 
         MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
 
-        applyCustomFontToDatePicker(materialDatePicker, prefs);
+        applyCustomFontToDatePicker(materialDatePicker, generalFont);
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             if (selection.first != null && selection.second != null) {
@@ -282,7 +268,7 @@ public class DatePickerDialogFragment {
         materialDatePicker.show(fragmentManager, TAG_DATE_RANGE_PICKER);
     }
 
-    private static void applyCustomFontToDatePicker(@NonNull MaterialDatePicker<?> picker, @NonNull SharedPreferences prefs) {
+    private static void applyCustomFontToDatePicker(@NonNull MaterialDatePicker<?> picker, @Nullable Typeface generalFont) {
         picker.getViewLifecycleOwnerLiveData().observeForever(new Observer<>() {
             @Override
             public void onChanged(LifecycleOwner owner) {
@@ -295,7 +281,6 @@ public class DatePickerDialogFragment {
                     return;
                 }
 
-                Typeface generalFont = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
                 if (generalFont == null) {
                     picker.getViewLifecycleOwnerLiveData().removeObserver(this);
                     return;

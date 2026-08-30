@@ -7,6 +7,8 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -67,12 +69,15 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             final Context appContext = requireContext().getApplicationContext();
+            final int style = getAccentStyle();
+            final Typeface font = getGeneralTypeface();
+            final SharedPreferences prefs = getPrefs();
 
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = FileUtils.toSafeFileName(FILE_TIMER_BACKGROUND);
-            String oldImagePath = getPrefs().getString(KEY_TIMER_BACKGROUND_IMAGE, null);
+            String oldImagePath = prefs.getString(KEY_TIMER_BACKGROUND_IMAGE, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old image if it exists
@@ -83,14 +88,14 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
                 // Save the new path
                 if (copiedUri != null) {
-                    getPrefs().edit().putString(KEY_TIMER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                    prefs.edit().putString(KEY_TIMER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
                 }
 
                 AppExecutors.getMainThread().post(() -> {
                     if (copiedUri != null) {
-                        CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                        CustomToast.show(appContext, style, font, R.string.background_image_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing image");
+                        CustomToast.show(appContext, style, font, R.string.image_message_error);
                     }
 
                     if (!isAdded()
@@ -169,10 +174,10 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_DISPLAY_COMPACT_TIMERS, KEY_DISPLAY_TIMER_END_TIME, KEY_INVERT_TIMER_BUTTON_POSITIONS ->
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isNotBackgroundTransparent = !(boolean) newValue;
                 boolean isNotTimerBackgroundImageNull = SettingsDAO.getTimerBackgroundImage(getPrefs()) != null;
@@ -186,7 +191,7 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_DISPLAY_TIMER_STATE_INDICATOR -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isTimerStateIndicatorDisplayed = (boolean) newValue;
 
@@ -198,7 +203,7 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_DISPLAY_TIMER_RINGTONE_TITLE -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean isRingtoneTitleDisplayed = (boolean) newValue;
                 boolean isTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(getPrefs());
@@ -212,7 +217,7 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
 
             case KEY_TIMER_DISPLAY_TEXT_SHADOW -> {
-                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 boolean displayTextShadow = (boolean) newValue;
 
@@ -239,7 +244,7 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             case KEY_TIMER_PREVIEW -> {
                 Intent previewIntent = new Intent(context, TimerDisplayPreviewActivity.class);
 
-                ThemeUtils.startActivityWithTransition(requireContext(), previewIntent);
+                ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
             }
         }
 

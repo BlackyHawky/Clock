@@ -148,7 +148,7 @@ final class CityModel {
      */
     City getHomeCity() {
         if (mHomeCity == null) {
-            final String name = Utils.getLocalizedContext(mContext).getString(R.string.home_label);
+            final String name = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs)).getString(R.string.home_label);
             final TimeZone timeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
             mHomeCity = new City("C0", -1, null, name, name, name, timeZone);
         }
@@ -273,7 +273,7 @@ final class CityModel {
 
     private Map<String, City> getCityMap() {
         if (mCityMap == null) {
-            mCityMap = CityDAO.getCities(mContext);
+            mCityMap = CityDAO.getCities(mContext, mPrefs);
         }
 
         return mCityMap;

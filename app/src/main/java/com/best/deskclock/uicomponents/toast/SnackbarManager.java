@@ -6,15 +6,11 @@
 
 package com.best.deskclock.uicomponents.toast;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -27,14 +23,12 @@ public final class SnackbarManager {
 
     private static WeakReference<Snackbar> sSnackbar = null;
 
-    public static void show(@NonNull Snackbar snackbar) {
+    public static void show(@NonNull Snackbar snackbar, @NonNull Typeface typeface) {
         sSnackbar = new WeakReference<>(snackbar);
         if (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) {
             snackbar.setAnchorView(R.id.desk_clock_button_layout);
         }
 
-        SharedPreferences prefs = getDefaultSharedPreferences(snackbar.getContext());
-        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
         ThemeUtils.applyTypeface(snackbar.getView(), typeface);
 
         snackbar.show();
