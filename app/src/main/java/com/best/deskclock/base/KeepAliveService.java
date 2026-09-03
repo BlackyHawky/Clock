@@ -106,7 +106,7 @@ public class KeepAliveService extends Service {
             .setContentTitle(localizedContext.getString(Utils.getStringResByBuildType(
                 R.string.app_label, R.string.app_label_debug, R.string.app_label_nightly)))
             .setContentText(localizedContext.getString(R.string.foreground_service_message))
-            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setContentIntent(pendingIntent)
             .setOngoing(true)

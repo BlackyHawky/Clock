@@ -196,7 +196,7 @@ class TimerNotificationBuilder {
             .setSortKey(nm.getTimerNotificationSortKey())
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setGroup(nm.getTimerNotificationGroupKey());
 
         // Add support for third-party apps to display active timers
@@ -339,7 +339,7 @@ class TimerNotificationBuilder {
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setFullScreenIntent(pendingFullScreen, true)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary));
+            .setColor(ContextCompat.getColor(context, R.color.notificationColor));
 
         Bundle extras = new Bundle();
         extras.putLong("android.chronometerBase", base);
@@ -428,7 +428,7 @@ class TimerNotificationBuilder {
             .setSortKey(nm.getTimerNotificationMissedSortKey())
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .addAction(action)
-            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setGroup(nm.getTimerNotificationGroupKey());
 
         Bundle extras = new Bundle();
@@ -463,6 +463,7 @@ class TimerNotificationBuilder {
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
         return new NotificationCompat.Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
+            .setShowWhen(true)
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setGroup(nm.getTimerNotificationGroupKey())
             .setGroupSummary(true)
@@ -473,7 +474,7 @@ class TimerNotificationBuilder {
             .setCategory(NotificationCompat.CATEGORY_EVENT)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setLocalOnly(true)
-            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .build();
     }
 
