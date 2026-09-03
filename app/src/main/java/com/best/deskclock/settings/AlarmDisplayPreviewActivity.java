@@ -96,6 +96,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mAlarmButtonColor;
+    private int mDismissTitleColor;
+    private int mSnoozeTitleColor;
     private int mDefaultSnoozeMinutes;
     private int mSnoozeMinutes;
     private boolean mIsSwipeActionEnabled;
@@ -146,6 +148,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(getPrefs());
         mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(getPrefs());
         mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(getPrefs(), this);
+        mDismissTitleColor = SettingsDAO.getDismissTitleColor(getPrefs());
+        mSnoozeTitleColor = SettingsDAO.getSnoozeTitleColor(getPrefs());
         mSnoozeMinusButtonColor = SettingsDAO.getSnoozeMinusButtonColor(getPrefs());
         mSnoozePlusButtonColor = SettingsDAO.getSnoozePlusButtonColor(getPrefs());
         mSnoozeMinusSymbolColor = SettingsDAO.getSnoozeMinusSymbolColor(getPrefs());
@@ -525,11 +529,11 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mBinding.alarmButton.setContentDescription(getString(R.string.description_direction_both));
 
         mBinding.snoozeText.setTypeface(getGeneralBoldTypeface());
-        mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(getPrefs()));
+        mBinding.snoozeText.setTextColor(mSnoozeTitleColor);
         mBinding.snoozeText.setText(getString(R.string.button_action_snooze));
 
         mBinding.dismissText.setTypeface(getGeneralBoldTypeface());
-        mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(getPrefs()));
+        mBinding.dismissText.setTextColor(mDismissTitleColor);
         mBinding.dismissText.setText(getString(R.string.button_action_dismiss));
     }
 
@@ -638,6 +642,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      */
     private void initSnoozeAndDismissButtons() {
         mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(getPrefs(), this));
+        mBinding.snoozeButton.setTextColor(mSnoozeTitleColor);
         mBinding.snoozeButton.setText(getString(R.string.button_action_snooze));
         mBinding.snoozeButton.setTypeface(getGeneralBoldTypeface());
         mBinding.snoozeButton.setContentDescription(getString(R.string.description_snooze_button));
@@ -645,6 +650,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mBinding.snoozeButton.setOnClickListener(this);
 
         mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(getPrefs(), this));
+        mBinding.dismissButton.setTextColor(mDismissTitleColor);
         mBinding.dismissButton.setText(getString(R.string.button_action_dismiss));
         mBinding.dismissButton.setTypeface(getGeneralBoldTypeface());
         mBinding.dismissButton.setContentDescription(getString(R.string.description_dismiss_button));
