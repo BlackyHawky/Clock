@@ -40,6 +40,10 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.session.MediaSession;
 import android.net.Uri;
@@ -94,7 +98,7 @@ import com.google.android.material.button.MaterialButton;
 import java.io.File;
 import java.util.Random;
 
-public class AlarmActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
+public class AlarmActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener, SensorEventListener {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmActivity");
 
@@ -135,6 +139,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private PowerButtonBehavior mPowerBehavior;
     private HeadphonesButtonBehavior mHeadphonesButtonBehavior;
     private MediaSession mMediaSession;
+    private SensorManager mSensorManager;
+    private Sensor mProximitySensor;
     private long mActivityStartTime;
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
@@ -245,6 +251,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mPowerBtnReceiverRegistered = true;
         }
 
+        mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
+
+        if (mSensorManager != null) {
+            mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        }
+
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         initAlarmAndInstance();
@@ -348,6 +360,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
+        if (mSensorManager != null && mProximitySensor != null) {
+            mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
         if (!mReceiverRegistered) {
             // Register to get the alarm done/snooze/dismiss intent.
             final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
@@ -373,6 +389,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         super.onPause();
 
         unbindAlarmService();
+
+        if (mSensorManager != null && mProximitySensor != null) {
+            mSensorManager.unregisterListener(this, mProximitySensor);
+        }
 
         // Skip if register didn't happen to avoid IllegalArgumentException
         if (mReceiverRegistered) {
@@ -598,6 +618,26 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         return true;
+    }
+
+    @Override
+    public void onSensorChanged(@NonNull SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            float distance = event.values[0];
+            boolean isCovered = distance < mProximitySensor.getMaximumRange();
+
+            if (isCovered) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                LogUtils.v("Proximity sensor covered: Touch DISABLED");
+            } else {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                LogUtils.v("Proximity sensor cleared: Touch ENABLED");
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(@NonNull Sensor sensor, int accuracy) {
     }
 
     @NonNull

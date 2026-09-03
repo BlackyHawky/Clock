@@ -28,6 +28,10 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -70,7 +74,7 @@ import java.util.List;
  * timers and a single button to reset them all. Each expired timer can also be reset to one minute
  * with a button in the user interface. All other timer operations are disabled in this activity.
  */
-public class ExpiredTimersActivity extends BaseActivity {
+public class ExpiredTimersActivity extends BaseActivity implements SensorEventListener {
 
     private static final long POWER_BUTTON_ACTIVATION_DELAY = 1500;
 
@@ -89,6 +93,8 @@ public class ExpiredTimersActivity extends BaseActivity {
     private int mMargin2;
     private long mActivityStartTime;
     private MediaSession mMediaSession;
+    private SensorManager mSensorManager;
+    private Sensor mProximitySensor;
     private boolean mPowerBtnReceiverRegistered = false;
 
     /**
@@ -154,6 +160,12 @@ public class ExpiredTimersActivity extends BaseActivity {
             }
 
             mPowerBtnReceiverRegistered = true;
+        }
+
+        mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
+
+        if (mSensorManager != null) {
+            mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         }
 
         initHeadphonesButton();
@@ -248,12 +260,22 @@ public class ExpiredTimersActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (mSensorManager != null && mProximitySensor != null) {
+            mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
         startUpdatingTime();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
+        if (mSensorManager != null && mProximitySensor != null) {
+            mSensorManager.unregisterListener(this, mProximitySensor);
+        }
+
         stopUpdatingTime();
     }
 
@@ -308,6 +330,26 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public void onSensorChanged(@NonNull SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            float distance = event.values[0];
+            boolean isCovered = distance < mProximitySensor.getMaximumRange();
+
+            if (isCovered) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                LogUtils.v("Proximity sensor covered: Touch DISABLED");
+            } else {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                LogUtils.v("Proximity sensor cleared: Touch ENABLED");
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(@NonNull Sensor sensor, int accuracy) {
     }
 
     @NonNull
