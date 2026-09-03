@@ -76,9 +76,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     ColorPickerPreference mAlarmSecondHandColorPref;
     ColorPickerPreference mSlideZoneColorPref;
     ColorPickerPreference mAlarmButtonColorPref;
-    ColorPickerPreference mSnoozeTitleColorPref;
     ColorPickerPreference mSnoozeButtonColorPref;
-    ColorPickerPreference mDismissTitleColorPref;
     ColorPickerPreference mDismissButtonColorPref;
     ColorPickerPreference mSnoozeZoneColorPref;
     ColorPickerPreference mSnoozeMinusButtonColorPref;
@@ -186,9 +184,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         mAlarmSecondHandColorPref = findPreference(KEY_ALARM_SECOND_HAND_COLOR);
         mSlideZoneColorPref = findPreference(KEY_SLIDE_ZONE_COLOR);
         mAlarmButtonColorPref = findPreference(KEY_ALARM_BUTTON_COLOR);
-        mSnoozeTitleColorPref = findPreference(KEY_SNOOZE_TITLE_COLOR);
         mSnoozeButtonColorPref = findPreference(KEY_SNOOZE_BUTTON_COLOR);
-        mDismissTitleColorPref = findPreference(KEY_DISMISS_TITLE_COLOR);
         mDismissButtonColorPref = findPreference(KEY_DISMISS_BUTTON_COLOR);
         mSnoozeZoneColorPref = findPreference(KEY_SNOOZE_ZONE_COLOR);
         mSnoozeMinusButtonColorPref = findPreference(KEY_SNOOZE_MINUS_BUTTON_COLOR);
@@ -246,11 +242,11 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         nullifyPreferenceListeners(mAlarmClockStylePref, mAlarmClockDialPref, mAlarmClockDialMaterialPref, mAnalogClockSizePref,
             mAlarmClockSecondHandPref, mDisplaySecondsPref, mSwipeActionPref, mDisplaySnoozeSelectorPref, mBackgroundColorPref,
             mBackgroundAmoledColorPref, mAlarmClockColorPref, mAlarmSecondHandColorPref, mSlideZoneColorPref, mAlarmButtonColorPref,
-            mSnoozeTitleColorPref, mSnoozeButtonColorPref, mDismissTitleColorPref, mDismissButtonColorPref, mSnoozeZoneColorPref,
-            mSnoozeMinusButtonColorPref, mSnoozePlusButtonColorPref, mSnoozeSelectorTextColorPref, mSnoozeMinusSymbolColorPref,
-            mSnoozePlusSymbolColorPref, mAlarmDigitalClockFontSizePref, mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref,
-            mDisplayAlarmActionMessagePref, mDisplayAlarmTitleOnSingleLinePref, mDisplayRingtoneTitlePref, mRingtoneTitleColorPref,
-            mAlarmBackgroundImagePref, mAlarmBlurIntensityPref, mEnablePerAlarmBackgroundImagePref, mAlarmPreviewPref
+            mSnoozeButtonColorPref, mDismissButtonColorPref, mSnoozeZoneColorPref, mSnoozeMinusButtonColorPref, mSnoozePlusButtonColorPref,
+            mSnoozeSelectorTextColorPref, mSnoozeMinusSymbolColorPref, mSnoozePlusSymbolColorPref, mAlarmDigitalClockFontSizePref,
+            mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref, mDisplayAlarmActionMessagePref, mDisplayAlarmTitleOnSingleLinePref,
+            mDisplayRingtoneTitlePref, mRingtoneTitleColorPref, mAlarmBackgroundImagePref, mAlarmBlurIntensityPref,
+            mEnablePerAlarmBackgroundImagePref, mAlarmPreviewPref
         );
 
         nullifyAllPrefs();
@@ -304,9 +300,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
                 boolean isSwipeActionEnabled = (boolean) newValue;
 
                 mSlideZoneColorPref.setVisible(isSwipeActionEnabled);
-                mSnoozeTitleColorPref.setVisible(isSwipeActionEnabled);
                 mSnoozeButtonColorPref.setVisible(!isSwipeActionEnabled);
-                mDismissTitleColorPref.setVisible(isSwipeActionEnabled);
                 mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
                 mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
             }
@@ -464,12 +458,8 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
         mAlarmButtonColorPref.setDefaultValue(color);
 
-        mSnoozeTitleColorPref.setVisible(isSwipeActionEnabled);
-
         mSnoozeButtonColorPref.setVisible(!isSwipeActionEnabled);
         mSnoozeButtonColorPref.setDefaultValue(color);
-
-        mDismissTitleColorPref.setVisible(isSwipeActionEnabled);
 
         mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
         mDismissButtonColorPref.setDefaultValue(color);
@@ -673,9 +663,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         mAlarmSecondHandColorPref = null;
         mSlideZoneColorPref = null;
         mAlarmButtonColorPref = null;
-        mSnoozeTitleColorPref = null;
         mSnoozeButtonColorPref = null;
-        mDismissTitleColorPref = null;
         mDismissButtonColorPref = null;
         mSnoozeZoneColorPref = null;
         mSnoozeMinusButtonColorPref = null;
