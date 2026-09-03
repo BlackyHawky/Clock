@@ -135,6 +135,7 @@ class StopwatchNotificationBuilder {
 
         final Builder notification = new Builder(context, STOPWATCH_NOTIFICATION_CHANNEL_ID)
             .setLocalOnly(true)
+            .setShowWhen(false)
             .setOngoing(running)
             .setContentTitle(localizedContext.getString(R.string.stopwatch_channel))
             .setContentText(fallbackText)
@@ -147,7 +148,7 @@ class StopwatchNotificationBuilder {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setGroup(nm.getStopwatchNotificationGroupKey());
 
         // Add support for third-party apps to display active stopwatch
