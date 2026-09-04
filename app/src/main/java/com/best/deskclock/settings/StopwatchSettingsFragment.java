@@ -133,16 +133,6 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mStopwatchFontPref, mDisplayMillisecondsPref, mVolumeUpActionPref, mVolumeUpActionAfterLongPressPref,
-            mVolumeDownActionPref, mVolumeDownActionAfterLongPressPref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_SW_DISPLAY_MILLISECONDS ->
@@ -188,15 +178,6 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
 
         mVolumeDownActionAfterLongPressPref.setOnPreferenceChangeListener(this);
         mVolumeDownActionAfterLongPressPref.setSummary(mVolumeDownActionAfterLongPressPref.getEntry());
-    }
-
-    private void nullifyAllPrefs() {
-        mStopwatchFontPref = null;
-        mDisplayMillisecondsPref = null;
-        mVolumeUpActionPref = null;
-        mVolumeUpActionAfterLongPressPref = null;
-        mVolumeDownActionPref = null;
-        mVolumeDownActionAfterLongPressPref = null;
     }
 
 }

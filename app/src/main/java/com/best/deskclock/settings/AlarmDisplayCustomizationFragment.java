@@ -239,18 +239,6 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
     @Override
     public void onDestroy() {
-        nullifyPreferenceListeners(mAlarmClockStylePref, mAlarmClockDialPref, mAlarmClockDialMaterialPref, mAnalogClockSizePref,
-            mAlarmClockSecondHandPref, mDisplaySecondsPref, mSwipeActionPref, mDisplaySnoozeSelectorPref, mBackgroundColorPref,
-            mBackgroundAmoledColorPref, mAlarmClockColorPref, mAlarmSecondHandColorPref, mSlideZoneColorPref, mAlarmButtonColorPref,
-            mSnoozeButtonColorPref, mDismissButtonColorPref, mSnoozeZoneColorPref, mSnoozeMinusButtonColorPref, mSnoozePlusButtonColorPref,
-            mSnoozeSelectorTextColorPref, mSnoozeMinusSymbolColorPref, mSnoozePlusSymbolColorPref, mAlarmDigitalClockFontSizePref,
-            mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref, mDisplayAlarmActionMessagePref, mDisplayAlarmTitleOnSingleLinePref,
-            mDisplayRingtoneTitlePref, mRingtoneTitleColorPref, mAlarmBackgroundImagePref, mAlarmBlurIntensityPref,
-            mEnablePerAlarmBackgroundImagePref, mAlarmPreviewPref
-        );
-
-        nullifyAllPrefs();
-
         mAlarmUpdateHandler = null;
 
         super.onDestroy();
@@ -646,48 +634,6 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         }
 
         return state;
-    }
-
-    private void nullifyAllPrefs() {
-        mAlarmClockStylePref = null;
-        mAlarmClockDialPref = null;
-        mAlarmClockDialMaterialPref = null;
-        mAnalogClockSizePref = null;
-        mAlarmClockSecondHandPref = null;
-        mDisplaySecondsPref = null;
-        mSwipeActionPref = null;
-        mDisplaySnoozeSelectorPref = null;
-        mBackgroundColorPref = null;
-        mBackgroundAmoledColorPref = null;
-        mAlarmClockColorPref = null;
-        mAlarmSecondHandColorPref = null;
-        mSlideZoneColorPref = null;
-        mAlarmButtonColorPref = null;
-        mSnoozeButtonColorPref = null;
-        mDismissButtonColorPref = null;
-        mSnoozeZoneColorPref = null;
-        mSnoozeMinusButtonColorPref = null;
-        mSnoozePlusButtonColorPref = null;
-        mSnoozeSelectorTextColorPref = null;
-        mSnoozeMinusSymbolColorPref = null;
-        mSnoozePlusSymbolColorPref = null;
-        mAlarmDigitalClockFontSizePref = null;
-        mDisplayTextShadowPref = null;
-        mShadowColorPref = null;
-        mShadowOffsetPref = null;
-        mDisplayAlarmActionMessagePref = null;
-        mDisplayAlarmTitleOnSingleLinePref = null;
-        mDisplayRingtoneTitlePref = null;
-        mRingtoneTitleColorPref = null;
-        mAlarmBackgroundImagePref = null;
-        mAlarmBlurIntensityPref = null;
-        mEnablePerAlarmBackgroundImagePref = null;
-        mAlarmPreviewPref = null;
-
-        mAlarmClockStyleValues = null;
-        mAnalogClock = null;
-        mMaterialAnalogClock = null;
-        mDigitalClock = null;
     }
 
     /**

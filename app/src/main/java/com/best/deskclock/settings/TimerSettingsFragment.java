@@ -16,8 +16,6 @@ import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -206,6 +204,38 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
             mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(
                 requireContext(), SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs()));
+
+            mAudioDeviceCallback = new AudioDeviceCallback() {
+                @Override
+                public void onAudioDevicesAdded(@NonNull AudioDeviceInfo[] addedDevices) {
+                    super.onAudioDevicesAdded(addedDevices);
+                    mAlarmVolumePref.stopRingtonePreview();
+
+                    for (AudioDeviceInfo device : addedDevices) {
+                        if (RingtoneUtils.isExternalAudioDevice(device)) {
+                            mAlarmVolumePref.setEnabled(false);
+                            mAlarmVolumePref.setTitle(R.string.disconnect_external_audio_device_title);
+                            mExternalAudioDeviceVolumePref.setEnabled(true);
+                            mExternalAudioDeviceVolumePref.setTitle(R.string.external_audio_device_volume_title);
+                        }
+                    }
+                }
+
+                @Override
+                public void onAudioDevicesRemoved(@NonNull AudioDeviceInfo[] removedDevices) {
+                    super.onAudioDevicesRemoved(removedDevices);
+                    mExternalAudioDeviceVolumePref.stopRingtonePreviewForExternalAudioDevices();
+
+                    for (AudioDeviceInfo device : removedDevices) {
+                        if (RingtoneUtils.isExternalAudioDevice(device)) {
+                            mAlarmVolumePref.setEnabled(true);
+                            mAlarmVolumePref.setTitle(R.string.alarm_volume_title);
+                            mExternalAudioDeviceVolumePref.setEnabled(false);
+                            mExternalAudioDeviceVolumePref.setTitle(R.string.connect_external_audio_device_title);
+                        }
+                    }
+                }
+            };
         }
 
         if (savedInstanceState != null) {
@@ -215,6 +245,15 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         }
 
         setupPreferences();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (mIsAlarmTabHidden && mAudioManager != null && mAudioDeviceCallback != null) {
+            mAudioManager.registerAudioDeviceCallback(mAudioDeviceCallback, null);
+        }
     }
 
     @Override
@@ -258,10 +297,6 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 mAlarmVolumePref.setTitle(R.string.alarm_volume_title);
                 mExternalAudioDeviceVolumePref.setTitle(R.string.connect_external_audio_device_title);
             }
-
-            if (mAudioDeviceCallback == null) {
-                initAudioDeviceCallback();
-            }
         }
     }
 
@@ -271,24 +306,9 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
         stopRingtonePreview();
 
-        if (mIsAlarmTabHidden && mAudioDeviceCallback != null) {
+        if (mIsAlarmTabHidden && mAudioManager != null && mAudioDeviceCallback != null) {
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
-            mAudioDeviceCallback = null;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
-            mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mEnablePerTimerVolumeCrescendoDurationPref, mAdvancedAudioPlaybackPref,
-            mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolumePref, mExternalAudioDeviceVolumePref, mTimerVibrationCategory,
-            mTimerVibratePref, mEnablePerTimerVibrationPatternPref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref,
-            mTimerHeadphonesButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref,
-            mTurnOnBackFlashForExpiredTimerPref, mDisplayLowAlarmVolumeWarningPref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
     }
 
     @Override
@@ -899,46 +919,6 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         );
     }
 
-    private void initAudioDeviceCallback() {
-        if (mAudioDeviceCallback != null) {
-            return;
-        }
-
-        mAudioDeviceCallback = new AudioDeviceCallback() {
-            @Override
-            public void onAudioDevicesAdded(@NonNull AudioDeviceInfo[] addedDevices) {
-                super.onAudioDevicesAdded(addedDevices);
-
-                mAlarmVolumePref.stopRingtonePreview();
-
-                for (AudioDeviceInfo device : addedDevices) {
-                    if (RingtoneUtils.isExternalAudioDevice(device)) {
-                        mAlarmVolumePref.setEnabled(false);
-                        mAlarmVolumePref.setTitle(R.string.disconnect_external_audio_device_title);
-                        mExternalAudioDeviceVolumePref.setEnabled(true);
-                        mExternalAudioDeviceVolumePref.setTitle(R.string.external_audio_device_volume_title);
-                    }
-                }
-            }
-
-            @Override
-            public void onAudioDevicesRemoved(@NonNull AudioDeviceInfo[] removedDevices) {
-                mExternalAudioDeviceVolumePref.stopRingtonePreviewForExternalAudioDevices();
-
-                for (AudioDeviceInfo device : removedDevices) {
-                    if (RingtoneUtils.isExternalAudioDevice(device)) {
-                        mAlarmVolumePref.setEnabled(true);
-                        mAlarmVolumePref.setTitle(R.string.alarm_volume_title);
-                        mExternalAudioDeviceVolumePref.setEnabled(false);
-                        mExternalAudioDeviceVolumePref.setTitle(R.string.connect_external_audio_device_title);
-                    }
-                }
-            }
-        };
-
-        mAudioManager.registerAudioDeviceCallback(mAudioDeviceCallback, new Handler(Looper.getMainLooper()));
-    }
-
     private void stopRingtonePreview() {
         if (!mIsAlarmTabHidden) {
             return;
@@ -954,33 +934,6 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     private void updateRingtonePreferences() {
         mTimerRingtonePref.setSummary(getDataModel().getTimerRingtoneTitle());
         mTimerRingtonePref.setIntent(RingtonePickerActivity.createTimerRingtonePickerIntentForSettings(requireContext()));
-    }
-
-    private void nullifyAllPrefs() {
-        mTimerDisplayCustomizationPref = null;
-        mTimerDurationFontPref = null;
-        mTimerCreationViewStylePref = null;
-        mTimerRingtonePref = null;
-        mEnablePerTimerAutoSilencePref = null;
-        mAlarmVolumePref = null;
-        mEnablePerTimerVolumeCrescendoDurationPref = null;
-        mAdvancedAudioPlaybackCategoryPref = null;
-        mAdvancedAudioPlaybackPref = null;
-        mAutoRoutingToExternalAudioDevicePref = null;
-        mSystemMediaVolumePref = null;
-        mExternalAudioDeviceVolumePref = null;
-        mTimerVibrationCategory = null;
-        mTimerVibratePref = null;
-        mEnablePerTimerVibrationPatternPref = null;
-        mTimerVolumeButtonsActionPref = null;
-        mTimerPowerButtonActionPref = null;
-        mTimerHeadphonesButtonActionPref = null;
-        mTimerFlipActionPref = null;
-        mTimerShakeActionPref = null;
-        mTimerShakeIntensityPref = null;
-        mSortTimerPref = null;
-        mTurnOnBackFlashForExpiredTimerPref = null;
-        mDisplayLowAlarmVolumeWarningPref = null;
     }
 
     /**

@@ -273,20 +273,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         @Override
-        public void onDestroy() {
-            nullifyPreferenceListeners(mClockStylePref, mClockDialPref, mClockDialMaterialPref, mClockSecondHandPref, mDisplaySecondsPref,
-                mDisplayNextAlarmPref, mDisplayBatteryPref, mClockDynamicColorPref, mClockColorPref, mDateColorPref, mNextAlarmColorPref,
-                mBatteryColorPref, mDigitalClockFontSizePref, mDisplayTextUppercasePref, mBoldDigitalClockPref,
-                mItalicDigitalClockPref, mBoldBatteryPref, mItalicBatteryPref, mBoldDatePref, mItalicDatePref, mBoldNextAlarmPref,
-                mItalicNextAlarmPref, mAnalogClockSizePref, mDigitalClockFontPref, mKeepScreenOnPref, mScreensaverBackgroundImagePref,
-                mScreensaverBlurIntensityPref, mScreensaverPreviewPref, mScreensaverMainSettingsPref);
-
-            nullifyAllPrefs();
-
-            super.onDestroy();
-        }
-
-        @Override
         public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
             switch (pref.getKey()) {
                 case KEY_SCREENSAVER_CLOCK_STYLE -> {
@@ -501,42 +487,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mScreensaverMainSettingsPref.setOnPreferenceClickListener(this);
         }
 
-        private void nullifyAllPrefs() {
-            mClockColorPref = null;
-            mBatteryColorPref = null;
-            mDateColorPref = null;
-            mNextAlarmColorPref = null;
-            mClockStylePref = null;
-            mClockDialPref = null;
-            mClockDialMaterialPref = null;
-            mClockSecondHandPref = null;
-            mDisplaySecondsPref = null;
-            mDisplayNextAlarmPref = null;
-            mDisplayBatteryPref = null;
-            mDigitalClockFontSizePref = null;
-            mDisplayTextUppercasePref = null;
-            mBoldDigitalClockPref = null;
-            mClockDynamicColorPref = null;
-            mItalicDigitalClockPref = null;
-            mBoldBatteryPref = null;
-            mItalicBatteryPref = null;
-            mBoldDatePref = null;
-            mItalicDatePref = null;
-            mBoldNextAlarmPref = null;
-            mItalicNextAlarmPref = null;
-            mAnalogClockSizePref = null;
-            mDigitalClockFontPref = null;
-            mKeepScreenOnPref = null;
-            mScreensaverBackgroundImagePref = null;
-            mScreensaverBlurIntensityPref = null;
-            mScreensaverPreviewPref = null;
-            mScreensaverMainSettingsPref = null;
-
-            mClockStyleValues = null;
-            mAnalogClock = null;
-            mMaterialAnalogClock = null;
-            mDigitalClock = null;
-        }
     }
 
 }

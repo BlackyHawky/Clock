@@ -134,22 +134,6 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mDisplayTextUppercasePref, mDisplayTextShadowPref, mDisplaySecondsPref, mHideAmPmPref,
-            mShowBackgroundOnDigitalWidgetPref, mCustomizeBackgroundCornerRadiusPref, mBackgroundCornerRadiusPref, mDisplayDatePref,
-            mDisplayTopDatePref, mDisplayNextAlarmPref, mDisplayNextAlarmTitlePref, mShowCitiesOnDigitalWidgetPref,
-            mApplyHorizontalPaddingPref, mDefaultBackgroundColorPref, mCustomBackgroundColorPref, mDefaultClockColorPref,
-            mCustomClockColorPref, mDefaultDateColorPref, mCustomDateColorPref, mDefaultNextAlarmColorPref, mCustomNextAlarmColorPref,
-            mDefaultNextAlarmTitleColorPref, mCustomNextAlarmTitleColorPref, mDefaultCityClockColorPref, mCustomCityClockColorPref,
-            mDefaultCityNameColorPref, mCustomCityNameColorPref, mDefaultCityNoteColorPref, mCustomCityNoteColorPref,
-            mDigitalWidgetMaxClockFontSizePref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
@@ -443,39 +427,6 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
         Intent result = new Intent();
         result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);
         requireActivity().setResult(Activity.RESULT_OK, result);
-    }
-
-    private void nullifyAllPrefs() {
-        mDisplayTextUppercasePref = null;
-        mDisplayTextShadowPref = null;
-        mDisplaySecondsPref = null;
-        mHideAmPmPref = null;
-        mShowBackgroundOnDigitalWidgetPref = null;
-        mCustomizeBackgroundCornerRadiusPref = null;
-        mBackgroundCornerRadiusPref = null;
-        mDisplayDatePref = null;
-        mDisplayTopDatePref = null;
-        mDisplayNextAlarmPref = null;
-        mDisplayNextAlarmTitlePref = null;
-        mShowCitiesOnDigitalWidgetPref = null;
-        mApplyHorizontalPaddingPref = null;
-        mDefaultBackgroundColorPref = null;
-        mCustomBackgroundColorPref = null;
-        mDefaultClockColorPref = null;
-        mCustomClockColorPref = null;
-        mDefaultDateColorPref = null;
-        mCustomDateColorPref = null;
-        mDefaultNextAlarmColorPref = null;
-        mCustomNextAlarmColorPref = null;
-        mDefaultNextAlarmTitleColorPref = null;
-        mCustomNextAlarmTitleColorPref = null;
-        mDefaultCityClockColorPref = null;
-        mCustomCityClockColorPref = null;
-        mDefaultCityNameColorPref = null;
-        mCustomCityNameColorPref = null;
-        mDefaultCityNoteColorPref = null;
-        mCustomCityNoteColorPref = null;
-        mDigitalWidgetMaxClockFontSizePref = null;
     }
 
 }

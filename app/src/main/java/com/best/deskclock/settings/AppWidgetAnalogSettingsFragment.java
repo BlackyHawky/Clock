@@ -104,17 +104,6 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mClockDialPref, mDisplaySecondsPref, mClockSecondHandPref, mWidgetColorCategory, mDefaultDialColorPref,
-            mDialColorPref, mDefaultHourHandColorPref, mHourHandColorPref, mDefaultMinuteHandColorPref, mMinuteHandColorPref,
-            mDefaultSecondHandColorPref, mSecondHandColorPref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_ANALOG_WIDGET_CLOCK_DIAL -> {
@@ -229,22 +218,4 @@ public class AppWidgetAnalogSettingsFragment extends BaseSettingsScreenFragment 
         requireActivity().setResult(Activity.RESULT_OK, result);
     }
 
-    private void nullifyAllPrefs() {
-        mClockDialPref = null;
-        mDisplaySecondsPref = null;
-        mClockSecondHandPref = null;
-        mWidgetColorCategory = null;
-        mDefaultDialColorPref = null;
-        mDialColorPref = null;
-        mDefaultHourHandColorPref = null;
-        mHourHandColorPref = null;
-        mDefaultMinuteHandColorPref = null;
-        mMinuteHandColorPref = null;
-        mDefaultSecondHandColorPref = null;
-        mSecondHandColorPref = null;
-
-        mClockDialValues = null;
-        mClockDialFlower = null;
-        mClockDialSun = null;
-    }
 }

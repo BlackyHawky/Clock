@@ -43,16 +43,6 @@ public class WidgetSettingsFragment extends BaseSettingsScreenFragment implement
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mAnalogWidgetCustomizationPref, mDigitalWidgetCustomizationPref, mVerticalWidgetCustomizationPref,
-            mNextAlarmWidgetCustomizationPref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
         switch (pref.getKey()) {
             case KEY_ANALOG_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AppWidgetAnalogSettingsFragment());
@@ -75,13 +65,6 @@ public class WidgetSettingsFragment extends BaseSettingsScreenFragment implement
         mVerticalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
         mNextAlarmWidgetCustomizationPref.setOnPreferenceClickListener(this);
-    }
-
-    private void nullifyAllPrefs() {
-        mAnalogWidgetCustomizationPref = null;
-        mDigitalWidgetCustomizationPref = null;
-        mVerticalWidgetCustomizationPref = null;
-        mNextAlarmWidgetCustomizationPref = null;
     }
 
 }
