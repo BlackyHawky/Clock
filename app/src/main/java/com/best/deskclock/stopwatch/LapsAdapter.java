@@ -86,7 +86,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
         mMinLapColor = ContextCompat.getColor(context, android.R.color.holo_green_light);
         mMaxLapColor = ContextCompat.getColor(context, android.R.color.holo_red_light);
 
-        computeInitialMinMax();
+        computeMinMax();
 
         setHasStableIds(true);
     }
@@ -166,30 +166,25 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
 
     /**
      * Ensures that the minimum and maximum lap times are computed.
-     *
-     * <p>This method recalculates both values only if they have not been
-     * initialized yet, typically after the adapter is recreated with
-     * existing lap data.</p>
      */
-    private void computeInitialMinMax() {
+    private void computeMinMax() {
+        minLapTime = Long.MAX_VALUE;
+        maxLapTime = Long.MIN_VALUE;
+
         List<Lap> laps = getLaps();
         if (laps.isEmpty()) {
-            minLapTime = Long.MAX_VALUE;
-            maxLapTime = Long.MIN_VALUE;
             return;
         }
 
-        long min = Long.MAX_VALUE;
-        long max = Long.MIN_VALUE;
-
         for (Lap lap : laps) {
             long time = lap.getLapTime();
-            if (time < min) min = time;
-            if (time > max) max = time;
+            if (time < minLapTime) {
+                minLapTime = time;
+            }
+            if (time > maxLapTime) {
+                maxLapTime = time;
+            }
         }
-
-        minLapTime = min;
-        maxLapTime = max;
     }
 
     /**
@@ -277,22 +272,16 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     public Lap addLap() {
         final Lap lap = mDataModel.addLap();
 
-        long newLapTime = lap.getLapTime();
-        if (minLapTime == Long.MAX_VALUE) {
-            minLapTime = newLapTime;
-            maxLapTime = newLapTime;
-        } else {
-            if (newLapTime < minLapTime) {
-                minLapTime = newLapTime;
-            }
-            if (newLapTime > maxLapTime) {
-                maxLapTime = newLapTime;
-            }
-        }
+        computeMinMax();
 
         notifyDataSetChanged();
 
         return lap;
+    }
+
+    public void refreshLaps() {
+        computeMinMax();
+        notifyDataSetChanged();
     }
 
     /**

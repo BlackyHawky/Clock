@@ -256,8 +256,10 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
                     return;
                 }
 
-                // Conservatively assume the data in the adapter has changed while the fragment was paused.
-                mLapsAdapter.notifyDataSetChanged();
+                if (mLapsAdapter != null) {
+                    // Conservatively assume the data in the adapter has changed while the fragment was paused.
+                    mLapsAdapter.refreshLaps();
+                }
 
                 // Synchronize the user interface with the data model.
                 updateUI(FAB_AND_BUTTONS_IMMEDIATE);
