@@ -133,6 +133,19 @@
                     app:strokeColor="?attr/colorOnSurfaceVariant"
                     tools:visibility="visible" />
 
+                <ImageView
+                    android:id="@+id/pause_alarm_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_help"
+                    android:contentDescription="@null"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurfaceVariant"
+                    tools:visibility="visible" />
+
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
@@ -183,6 +196,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/alarm_vibrate"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
@@ -234,32 +248,55 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/alarm_flash"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/vibration_pattern_layout"
                 tools:ignore="RtlSymmetry"
                 tools:checked="false" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/delete_occasional_alarm_after_use"
+            <LinearLayout
+                android:id="@+id/delete_alarm_after_use_layout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
                 android:paddingHorizontal="10dp"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_clear"
-                android:drawableEnd="@drawable/ic_selector_checkbox"
-                android:drawablePadding="10dp"
-                android:text="@string/delete_occasional_alarm_after_use_title"
                 app:layout_constraintTop_toBottomOf="@id/flash_on_off"
-                app:layout_goneMarginTop="10dp"
-                tools:ignore="RtlSymmetry"
-                tools:checked="true" />
+                app:layout_goneMarginTop="10dp">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/delete_alarm_after_use"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawablePadding="10dp"
+                    android:text="@string/delete_occasional_alarm_after_use_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    tools:ignore="RtlSymmetry"
+                    tools:drawableStart="@drawable/ic_clear"
+                    tools:drawableEnd="@drawable/ic_selector_checkbox"
+                    tools:checked="true" />
+
+                <ImageView
+                    android:id="@+id/delete_alarm_after_use_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_help"
+                    android:contentDescription="@null"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurfaceVariant"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
 
             <Space
                 android:id="@+id/space"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/delete_occasional_alarm_after_use"
+                app:layout_constraintTop_toBottomOf="@+id/delete_alarm_after_use_layout"
                 app:layout_constraintBottom_toTopOf="@+id/auto_silence_duration_layout" />
 
             <LinearLayout
@@ -294,6 +331,19 @@
                     android:focusable="true"
                     android:maxLines="1"
                     tools:text="5 min" />
+
+                <ImageView
+                    android:id="@+id/auto_silence_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_help"
+                    android:contentDescription="@null"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurfaceVariant"
+                    tools:visibility="visible" />
 
             </LinearLayout>
 
@@ -580,7 +630,8 @@
                 app:icon="@drawable/ic_delete"
                 app:iconTint="?attr/colorOnError"
                 app:iconGravity="textStart"
-                app:iconPadding="0dp" />
+                app:iconPadding="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <com.google.android.material.button.MaterialButton
                 style="?attr/materialButtonOutlinedStyle"
@@ -592,7 +643,8 @@
                 app:iconTint="?attr/colorOnSurfaceVariant"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:strokeColor="?attr/colorOnSurfaceVariant" />
+                app:strokeColor="?attr/colorOnSurfaceVariant"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <com.google.android.material.button.MaterialButton
                 style="?attr/materialButtonOutlinedStyle"
@@ -603,7 +655,8 @@
                 app:icon="@drawable/ic_preview"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:strokeColor="?attr/colorOnSurfaceVariant" />
+                app:strokeColor="?attr/colorOnSurfaceVariant"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/save_button"
@@ -614,7 +667,8 @@
                 app:icon="@drawable/ic_save"
                 app:iconTint="?attr/colorSurfaceContainerLowest"
                 app:iconGravity="textStart"
-                app:iconPadding="0dp" />
+                app:iconPadding="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.button.MaterialButtonGroup>
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960"
+    android:autoMirrored="true">
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M513.5 705.5Q528 691 528 670t-14.5-35.5T478 620t-35.5 14.5T428 670t14.5 35.5T478 720t35.5-14.5ZM480 880q-83 0-156-31.5T197 763 111.5 636 80 480t31.5-156T197 197t127-85.5T480 80t156 31.5T763 197t85.5 127T880 480 848.5 636 763 763 636 848.5 480 880Zm0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93Zm0-320Zm4-172q25 0 43.5 16T546 364q0 22-13.5 39T502 435q-23 20-40.5 44T444 533q0 14 10.5 23.5T479 566q15 0 25.5-10T518 531q4-21 18-37.5T566 462q23-22 39.5-48T622 356q0-51-41.5-83.5T484 240q-38 0-72.5 16T359 305q-7 12-4.5 25.5T368 351q14 8 29 5t25-17q11-15 27.5-23t34.5-8Z" />
+</vector>

@@ -126,6 +126,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/alarm_vibrate"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
@@ -177,6 +178,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/alarm_flash"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/vibration_pattern_layout"
                 tools:ignore="RtlSymmetry"
                 tools:checked="false" />
@@ -193,6 +195,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/turn_off_media_title"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/flash_on_off"
                 app:layout_goneMarginTop="10dp"
                 tools:ignore="RtlSymmetry"
@@ -210,6 +213,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/delete_timer_after_use_title"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/turn_off_media"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />

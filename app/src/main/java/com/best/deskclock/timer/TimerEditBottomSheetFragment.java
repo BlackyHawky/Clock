@@ -9,9 +9,6 @@ import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_HEARTBEAT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
@@ -164,11 +161,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
 
     @Override
     public void onDestroyView() {
-        nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
-            mBinding.chooseRingtone, mBinding.vibrateOnOff, mBinding.vibrationPatternLayout, mBinding.flashOnOff, mBinding.turnOffMedia,
-            mBinding.deleteTimerAfterUse, mBinding.autoSilenceDurationLayout, mBinding.crescendoDurationLayout, mBinding.deleteButton,
-            mBinding.duplicateButton, mBinding.saveButton);
-
         mBinding = null;
 
         super.onDestroyView();
@@ -255,6 +247,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         behavior.setSkipCollapsed(true);
 
+        ThemeUtils.applyFontToTextViews(mBinding.getRoot(), mGeneralTypeface);
+
         bindTimerTimeText();
         bindLabel();
         bindAddTimeButtonValue();
@@ -332,7 +326,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         final boolean timerLabelIsEmpty = TextUtils.isEmpty(mTimerLabel);
 
         mBinding.timerLabel.setText(timerLabelIsEmpty ? getString(R.string.add_label) : mTimerLabel);
-        mBinding.timerLabel.setTypeface(mGeneralTypeface);
+
         mBinding.timerLabel.setContentDescription(timerLabelIsEmpty
             ? getString(R.string.no_label_specified)
             : getString(R.string.label_description) + " " + mTimerLabel);
@@ -349,9 +343,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         if (getTimer() == null) {
             return;
         }
-
-        mBinding.addTimeButtonTitle.setTypeface(mGeneralTypeface);
-        mBinding.addTimeButton.setTypeface(mGeneralTypeface);
 
         long totalSeconds = mAddTimeButtonValue;
         long buttonTimeMinutes = (totalSeconds) / 60;
@@ -391,7 +382,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         }
 
         mBinding.chooseRingtone.setText(title);
-        mBinding.chooseRingtone.setTypeface(mGeneralTypeface);
 
         final String description = getString(R.string.ringtone_description);
         mBinding.chooseRingtone.setContentDescription(description + " " + title);
@@ -426,7 +416,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.vibrateOnOff.setTypeface(mGeneralTypeface);
         mBinding.vibrateOnOff.setVisibility(VISIBLE);
         mBinding.vibrateOnOff.setOnCheckedChangeListener(null);
         mBinding.vibrateOnOff.setChecked(mVibrate);
@@ -452,8 +441,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.vibrationPatternTitle.setTypeface(mGeneralTypeface);
-        mBinding.vibrationPatternValue.setTypeface(mGeneralTypeface);
         mBinding.vibrationPatternLayout.setVisibility(VISIBLE);
 
         switch (mVibrationPattern) {
@@ -485,7 +472,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.flashOnOff.setTypeface(mGeneralTypeface);
         mBinding.flashOnOff.setOnCheckedChangeListener(null);
         mBinding.flashOnOff.setChecked(mFlashOn);
         mBinding.flashOnOff.setVisibility(VISIBLE);
@@ -501,7 +487,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.turnOffMedia.setTypeface(mGeneralTypeface);
         mBinding.turnOffMedia.setOnCheckedChangeListener(null);
         mBinding.turnOffMedia.setChecked(mTurnOffMedia);
 
@@ -521,7 +506,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.deleteTimerAfterUse.setTypeface(mGeneralTypeface);
         mBinding.deleteTimerAfterUse.setOnCheckedChangeListener(null);
         mBinding.deleteTimerAfterUse.setChecked(mDeleteAfterUse);
         mBinding.deleteTimerAfterUse.setVisibility(VISIBLE);
@@ -542,41 +526,16 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.autoSilenceDurationTitle.setTypeface(mGeneralTypeface);
-        mBinding.autoSilenceDurationValue.setTypeface(mGeneralTypeface);
-
-        int autoSilenceDuration = mTimerAutoSilence;
-
-        if (autoSilenceDuration == TIMEOUT_NEVER) {
-            mBinding.autoSilenceDurationValue.setText(getString(R.string.label_never));
-        } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
-            mBinding.autoSilenceDurationValue.setText(getString(R.string.auto_silence_end_of_ringtone));
-        } else {
-            int m = autoSilenceDuration / 60;
-            int s = autoSilenceDuration % 60;
-
-            if (m > 0 && s > 0) {
-                String minutesString = getResources().getQuantityString(R.plurals.minutes_short, m, m);
-                String secondsString = s + " " + getString(R.string.seconds_label);
-                mBinding.autoSilenceDurationValue.setText(String.format("%s %s", minutesString, secondsString));
-            } else if (m > 0) {
-                mBinding.autoSilenceDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
-            } else {
-                String secondsString = s + " " + getString(R.string.seconds_label);
-                mBinding.autoSilenceDurationValue.setText(secondsString);
-            }
-        }
-
         mBinding.autoSilenceDurationLayout.setVisibility(VISIBLE);
 
-        View.OnClickListener openAutoSilenceDurationFragment = v -> {
+        mBinding.autoSilenceDurationValue.setText(Utils.formatAutoSilenceDurationText(requireContext(), mTimerAutoSilence));
+
+        mBinding.autoSilenceDurationLayout.setOnClickListener(v -> {
             Events.sendTimerEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
 
             final AutoSilenceDurationDialogFragment fragment = AutoSilenceDurationDialogFragment.newInstance(mTimerId, mTimerAutoSilence);
             AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment);
-        };
-
-        mBinding.autoSilenceDurationLayout.setOnClickListener(openAutoSilenceDurationFragment);
+        });
     }
 
     private void bindCrescendoDuration() {
@@ -589,41 +548,18 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.crescendoDurationTitle.setTypeface(mGeneralTypeface);
-        mBinding.crescendoDurationValue.setTypeface(mGeneralTypeface);
-
-        int crescendoDuration = mVolumeCrescendoDuration;
-
-        if (crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION) {
-            mBinding.crescendoDurationValue.setText(getString(R.string.label_off));
-        } else {
-            int m = crescendoDuration / 60;
-            int s = crescendoDuration % 60;
-
-            if (m > 0 && s > 0) {
-                String minutesString = getResources().getQuantityString(R.plurals.minutes_short, m, m);
-                String secondsString = s + " " + getString(R.string.seconds_label);
-                mBinding.crescendoDurationValue.setText(String.format("%s %s", minutesString, secondsString));
-            } else if (m > 0) {
-                mBinding.crescendoDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
-            } else {
-                String secondsString = s + " " + getString(R.string.seconds_label);
-                mBinding.crescendoDurationValue.setText(secondsString);
-            }
-        }
-
         mBinding.crescendoDurationLayout.setVisibility(VISIBLE);
 
-        View.OnClickListener openVolumeCrescendoFragment = v -> {
+        mBinding.crescendoDurationValue.setText(Utils.formatCrescendoDurationText(requireContext(), mVolumeCrescendoDuration));
+
+        mBinding.crescendoDurationLayout.setOnClickListener(v -> {
             Events.sendTimerEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
 
             final VolumeCrescendoDurationDialogFragment fragment =
                 VolumeCrescendoDurationDialogFragment.newInstance(mTimerId, mVolumeCrescendoDuration);
 
             VolumeCrescendoDurationDialogFragment.show(getChildFragmentManager(), fragment);
-        };
-
-        mBinding.crescendoDurationLayout.setOnClickListener(openVolumeCrescendoFragment);
+        });
     }
 
     private void bindSpace() {
@@ -832,14 +768,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mBinding.turnOffMedia,
             mBinding.deleteTimerAfterUse
         );
-    }
-
-    private void nullifyClickListeners(@NonNull View... views) {
-        for (View view : views) {
-            if (view != null) {
-                view.setOnClickListener(null);
-            }
-        }
     }
 
 }
