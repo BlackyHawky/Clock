@@ -157,17 +157,6 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mClockStylePref, mClockDialPref, mClockDialMaterialPref, mAnalogClockSizePref, mDisplayClockSecondsPref,
-            mClockSecondHandPref, mDisplayNextAlarmPref, mDigitalClockFontPref, mDisplayTextUppercasePref, mDigitalClockFontSizePref,
-            mSortCitiesPref, mEnableCityNotePref, mAutoHomeClockPref, mHomeTimeZonePref, mDateTimePref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_CLOCK_STYLE -> {
@@ -284,29 +273,6 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mHomeTimeZonePref.setOnPreferenceChangeListener(this);
 
         mDateTimePref.setOnPreferenceClickListener(this);
-    }
-
-    private void nullifyAllPrefs() {
-        mClockStylePref = null;
-        mClockDialPref = null;
-        mClockDialMaterialPref = null;
-        mAnalogClockSizePref = null;
-        mDisplayClockSecondsPref = null;
-        mClockSecondHandPref = null;
-        mDisplayNextAlarmPref = null;
-        mDigitalClockFontPref = null;
-        mDisplayTextUppercasePref = null;
-        mDigitalClockFontSizePref = null;
-        mSortCitiesPref = null;
-        mEnableCityNotePref = null;
-        mAutoHomeClockPref = null;
-        mHomeTimeZonePref = null;
-        mDateTimePref = null;
-
-        mClockStyleValues = null;
-        mAnalogClock = null;
-        mMaterialAnalogClock = null;
-        mDigitalClock = null;
     }
 
 }

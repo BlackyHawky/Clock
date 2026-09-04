@@ -97,18 +97,6 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mDisplayTextUppercasePref, mDisplayTextShadowPref, mShowBackgroundOnDigitalWidgetPref,
-            mCustomizeBackgroundCornerRadiusPref, mBackgroundCornerRadiusPref, mApplyHorizontalPaddingPref, mDefaultBackgroundColorPref,
-            mCustomBackgroundColorPref, mDefaultTitleColorPref, mCustomTitleColorPref, mDefaultAlarmTitleColorPref,
-            mCustomAlarmTitleColorPref, mDefaultAlarmColorPref, mCustomAlarmColorPref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
@@ -238,23 +226,6 @@ public class AppWidgetNextAlarmSettingsFragment extends BaseSettingsScreenFragme
         Intent result = new Intent();
         result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);
         requireActivity().setResult(Activity.RESULT_OK, result);
-    }
-
-    private void nullifyAllPrefs() {
-        mDisplayTextUppercasePref = null;
-        mDisplayTextShadowPref = null;
-        mShowBackgroundOnDigitalWidgetPref = null;
-        mCustomizeBackgroundCornerRadiusPref = null;
-        mBackgroundCornerRadiusPref = null;
-        mApplyHorizontalPaddingPref = null;
-        mDefaultBackgroundColorPref = null;
-        mCustomBackgroundColorPref = null;
-        mDefaultTitleColorPref = null;
-        mCustomTitleColorPref = null;
-        mDefaultAlarmTitleColorPref = null;
-        mCustomAlarmTitleColorPref = null;
-        mDefaultAlarmColorPref = null;
-        mCustomAlarmColorPref = null;
     }
 
 }

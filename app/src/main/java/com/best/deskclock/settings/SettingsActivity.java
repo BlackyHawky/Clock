@@ -312,17 +312,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         @Override
-        public void onDestroy() {
-            nullifyPreferenceListeners(mInterfaceCustomizationPref, mClockSettingsPref, mAlarmSettingsPref, mTimerSettingsPref,
-                mStopwatchSettingsPref, mScreensaverSettings, mWidgetsSettings, mPermissionsManagement, mPermissionMessage,
-                mBackupRestorePref);
-
-            nullifyAllPrefs();
-
-            super.onDestroy();
-        }
-
-        @Override
         public boolean onPreferenceClick(@NonNull Preference pref) {
             switch (pref.getKey()) {
                 case KEY_INTERFACE_CUSTOMIZATION -> animateAndShowFragment(new InterfaceCustomizationFragment());
@@ -572,18 +561,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void nullifyAllPrefs() {
-            mInterfaceCustomizationPref = null;
-            mClockSettingsPref = null;
-            mAlarmSettingsPref = null;
-            mTimerSettingsPref = null;
-            mStopwatchSettingsPref = null;
-            mScreensaverSettings = null;
-            mWidgetsSettings = null;
-            mPermissionsManagement = null;
-            mPermissionMessage = null;
-            mBackupRestorePref = null;
-        }
     }
 
 }

@@ -158,19 +158,6 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mDisplayCompactTimersPref, mDisplayTimerEndTimePref, mInvertTimerButtonPositionsPref,
-            mTransparentBackgroundPref, mDisplayTimerStateIndicatorPref, mDisplayRingtoneTitlePref, mTimerColorCategory,
-            mRunningTimerIndicatorColorPref, mPausedTimerIndicatorColorPref, mExpiredTimerIndicatorColorPref,
-            mMissedTimerIndicatorColorPref, mRingtoneTitleColorPref, mTimerFontCategory, mDisplayTextShadowPref, mShadowColorPref,
-            mShadowOffsetPref, mTimerBackgroundImagePref, mTimerBlurIntensityPref, mTimerPreviewPref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_DISPLAY_COMPACT_TIMERS, KEY_DISPLAY_TIMER_END_TIME, KEY_INVERT_TIMER_BUTTON_POSITIONS ->
@@ -305,28 +292,6 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             && !isTimerBackgroundImageNull);
 
         mTimerPreviewPref.setOnPreferenceClickListener(this);
-    }
-
-    private void nullifyAllPrefs() {
-        mDisplayCompactTimersPref = null;
-        mDisplayTimerEndTimePref = null;
-        mInvertTimerButtonPositionsPref = null;
-        mTransparentBackgroundPref = null;
-        mDisplayTimerStateIndicatorPref = null;
-        mDisplayRingtoneTitlePref = null;
-        mTimerColorCategory = null;
-        mRunningTimerIndicatorColorPref = null;
-        mPausedTimerIndicatorColorPref = null;
-        mExpiredTimerIndicatorColorPref = null;
-        mMissedTimerIndicatorColorPref = null;
-        mRingtoneTitleColorPref = null;
-        mTimerFontCategory = null;
-        mDisplayTextShadowPref = null;
-        mShadowColorPref = null;
-        mShadowOffsetPref = null;
-        mTimerBackgroundImagePref = null;
-        mTimerBlurIntensityPref = null;
-        mTimerPreviewPref = null;
     }
 
 }
