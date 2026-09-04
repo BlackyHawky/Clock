@@ -111,7 +111,7 @@ public class DeviceUtils {
      * @return {@code true} if a vibrator is available on the device. {@code false} otherwise.
      */
     public static boolean hasVibrator(@NonNull Context context) {
-        Vibrator vibrator = context.getSystemService(Vibrator.class);
+        Vibrator vibrator = context.getApplicationContext().getSystemService(Vibrator.class);
         return vibrator != null && vibrator.hasVibrator();
     }
 

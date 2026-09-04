@@ -6,11 +6,9 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -27,7 +25,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.VibrationPatternDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -121,15 +118,14 @@ public class VibrationPatternDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Context context = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
 
         mPrefKey = args.getString(ARG_PREF_KEY, null);
 
-        mVibrator = context.getSystemService(Vibrator.class);
+        mVibrator = requireContext().getApplicationContext().getSystemService(Vibrator.class);
 
         mSelectedPatternKey = args.getString(VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
         if (savedInstanceState != null) {
@@ -143,7 +139,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
             binding.vibrationPatternHeartbeatButton, binding.vibrationPatternEscalatingButton, binding.vibrationPatternTickTockButton
         };
 
-        String[] values = context.getResources().getStringArray(R.array.vibration_pattern_values);
+        String[] values = getResources().getStringArray(R.array.vibration_pattern_values);
 
         for (int i = 0; i < buttons.length; i++) {
             buttons[i].setTag(values[i]);
@@ -164,7 +160,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-            context,
+            requireContext(),
             null,
             mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_earthquake),
             getString(R.string.vibration_pattern_title),
@@ -187,13 +183,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
 
                         long[] pattern = Utils.getVibrationPatternForKey(mSelectedPatternKey);
 
-                        if (SdkUtils.isAtLeastAndroid8()) {
-                            VibrationEffect effect = VibrationEffect.createWaveform(pattern, 0);
-                            mVibrator.vibrate(effect);
-                        } else {
-                            //noinspection deprecation
-                            mVibrator.vibrate(pattern, 0);
-                        }
+                        Utils.executeVibrations(mVibrator, pattern, 0);
                     }
                 });
             },
