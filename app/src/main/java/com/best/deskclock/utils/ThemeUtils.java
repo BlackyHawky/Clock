@@ -272,6 +272,24 @@ public class ThemeUtils {
     }
 
     /**
+     * Recursively traverses the view tree and applies the specified typeface to all {@link TextView} instances found.
+     *
+     * @param view     The root view to start the traversal from (e.g., a BottomSheet or Layout).
+     * @param typeface The typeface to apply.
+     */
+    public static void applyFontToTextViews(@Nullable View view, @Nullable Typeface typeface) {
+        if (view == null || typeface == null) return;
+
+        if (view instanceof TextView textView) {
+            textView.setTypeface(typeface);
+        } else if (view instanceof ViewGroup viewGroup) {
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                applyFontToTextViews(viewGroup.getChildAt(i), typeface);
+            }
+        }
+    }
+
+    /**
      * Returns the style resource corresponding to the user's selected accent color.
      *
      * <p>If automatic night accent colors are enabled, the daytime accent is always used.

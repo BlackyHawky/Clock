@@ -8,13 +8,8 @@ package com.best.deskclock.utils;
 
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SYSTEM_LANGUAGE_CODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_HEARTBEAT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_STRONG;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_TICK_TOCK;
+
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
@@ -441,6 +436,65 @@ public class Utils {
         }
 
         return context.getString(R.string.timer_label_default, timeBuilder.toString());
+    }
+
+    /**
+     * Formats the auto-silence duration into a human-readable string.
+     * Handles special cases like "Never" or "End of ringtone", and formats the rest into minutes and/or seconds.
+     *
+     * @param context  The context used to retrieve string resources.
+     * @param duration The auto-silence duration in seconds, or a special constant (e.g., TIMEOUT_NEVER).
+     * @return A formatted string representing the auto-silence duration.
+     */
+    @NonNull
+    public static String formatAutoSilenceDurationText(@NonNull Context context, int duration) {
+        if (duration == TIMEOUT_NEVER) {
+            return context.getString(R.string.label_never);
+        }
+        if (duration == TIMEOUT_END_OF_RINGTONE) {
+            return context.getString(R.string.auto_silence_end_of_ringtone);
+        }
+
+        int m = duration / 60;
+        int s = duration % 60;
+        String secondsString = s + " " + context.getString(R.string.seconds_label);
+
+        if (m > 0 && s > 0) {
+            String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+            return String.format("%s %s", minutesString, secondsString);
+        } else if (m > 0) {
+            return context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+        } else {
+            return secondsString;
+        }
+    }
+
+    /**
+     * Formats the crescendo duration into a human-readable string.
+     * Handles the "Off" state, and formats the rest into minutes and/or seconds.
+     *
+     * @param context  The context used to retrieve string resources.
+     * @param duration The crescendo duration in seconds, or DEFAULT_VOLUME_CRESCENDO_DURATION for "Off".
+     * @return A formatted string representing the crescendo duration.
+     */
+    @NonNull
+    public static String formatCrescendoDurationText(@NonNull Context context, int duration) {
+        if (duration == DEFAULT_VOLUME_CRESCENDO_DURATION) {
+            return context.getString(R.string.label_off);
+        }
+
+        int m = duration / 60;
+        int s = duration % 60;
+        String secondsString = s + " " + context.getString(R.string.seconds_label);
+
+        if (m > 0 && s > 0) {
+            String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+            return String.format("%s %s", minutesString, secondsString);
+        } else if (m > 0) {
+            return context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+        } else {
+            return secondsString;
+        }
     }
 
     /**
