@@ -33,6 +33,8 @@
     <string name="label_new_image">New image</string>
     <!-- Dialog label to choose a new font. -->
     <string name="label_new_font">New font</string>
+    <!-- Label "Info" -->
+    <string name="info">Info</string>
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
     <!-- Label "Hours" -->
@@ -88,6 +90,8 @@
     <string name="pause_alarm_title">Pause alarm</string>
     <!-- Label title in the alarm editing panel when the pause is set -->
     <string name="pause_alarm_range">Paused: %1$s</string>
+    <!-- Message displayed in the alarm editing when the "Pause alarm" feature is disabled -->
+    <string name="pause_alarm_info_message">Select days of the week to access this feature.</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
@@ -131,7 +135,13 @@
     <string name="alarm_flash">Flash</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
-    <!-- Description of the button to undo change to alarm -->
+    <!-- Message displayed in the alarm editing when the "Delete alarm once dismissed" feature is disabled -->
+    <string name="delete_occasional_alarm_after_use_info_message">Deselect the days of the week to access this feature.</string>
+    <!-- Message displayed in the alarm editing when the "Silence after" feature is disabled -->
+    <string name="auto_silence_info_message">\"Silence after\" set to \"%s\".
+        \n\nDisable the math hardness level to access this feature.
+    </string>
+    <!-- Text action displayed in the Snackbar when an alarm is deleted -->
     <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
