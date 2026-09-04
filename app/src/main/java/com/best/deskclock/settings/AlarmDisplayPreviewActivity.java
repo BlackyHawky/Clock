@@ -37,7 +37,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -71,6 +70,7 @@ import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
@@ -127,7 +127,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
-        mVibrator = getSystemService(Vibrator.class);
+        mVibrator = getApplicationContext().getSystemService(Vibrator.class);
         mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getPrefs());
 
         // Honor rotation on tablets; fix the orientation on phones.
@@ -889,7 +889,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      */
     private void snooze() {
         if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
-            performDoubleVibration();
+            // Double vibration
+            Utils.executeVibrations(mVibrator, new long[]{700, 200, 100, 500}, -1);
         }
 
         displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, buildTimeString(mSnoozeSelectorIndex == 0 ? DEFAULT_SNOOZE_VALUE : mSnoozeMinutes));
@@ -900,34 +901,11 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      */
     private void dismiss() {
         if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
-            performSingleVibration();
+            // Single vibration
+            Utils.executeVibrations(mVibrator, new long[]{700, 500}, -1);
         }
 
         displayAlarmActionMessage(R.string.alarm_alert_off_text, null);
-    }
-
-    /**
-     * Perform single vibration if alarm is dismissed.
-     */
-    private void performSingleVibration() {
-        if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            //noinspection deprecation
-            mVibrator.vibrate(new long[]{700, 500}, -1);
-        }
-    }
-
-    /**
-     * Perform double vibration if alarm is snoozed.
-     */
-    private void performDoubleVibration() {
-        if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            //noinspection deprecation
-            mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
-        }
     }
 
     /**

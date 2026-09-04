@@ -16,8 +16,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Looper;
+import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.Spanned;
@@ -281,27 +283,74 @@ public class Utils {
      * @param milliseconds        Hours to display (if any)
      */
     public static void setVibrationTime(@NonNull Context context, boolean isVibrationsEnabled, long milliseconds) {
-        final Vibrator vibrator = context.getSystemService(Vibrator.class);
-        if (isVibrationsEnabled) {
-            if (SdkUtils.isAtLeastAndroid8()) {
-                vibrator.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
+        if (!isVibrationsEnabled) {
+            return;
+        }
+
+        final Vibrator vibrator = context.getApplicationContext().getSystemService(Vibrator.class);
+
+        if (vibrator == null) {
+            return;
+        }
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            VibrationEffect effect = VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE);
+
+            if (SdkUtils.isAtLeastAndroid13()) {
+                VibrationAttributes attributes = new VibrationAttributes.Builder()
+                    .setUsage(VibrationAttributes.USAGE_ALARM)
+                    .build();
+                vibrator.vibrate(effect, attributes);
             } else {
+                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build();
                 //noinspection deprecation
-                vibrator.vibrate(milliseconds);
+                vibrator.vibrate(effect, audioAttributes);
             }
+        } else {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .build();
+            //noinspection deprecation
+            vibrator.vibrate(milliseconds, audioAttributes);
         }
     }
 
     /**
-     * Triggers haptic feedback if system or app settings allow it.
-     *
-     * @param view                The view from which the action is triggered.
-     * @param isVibrationsEnabled {@code true} if vibrations are enabled; {@code false} otherwise.
-     * @param feedbackConstant    The constant of type {@link android.view.HapticFeedbackConstants}.
+     * Helper method to ensure vibrations bypass Do Not Disturb rules.
+     * Uses USAGE_ALARM to guarantee the vibration is felt even in silent modes.
      */
-    public static void performHapticFeedback(@Nullable View view, boolean isVibrationsEnabled, int feedbackConstant) {
-        if (view != null && isVibrationsEnabled) {
-            view.performHapticFeedback(feedbackConstant);
+    public static void executeVibrations(@Nullable Vibrator vibrator, @NonNull long[] pattern, int repeatIndex) {
+        if (vibrator == null) {
+            return;
+        }
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            VibrationEffect effect = VibrationEffect.createWaveform(pattern, repeatIndex);
+
+            if (SdkUtils.isAtLeastAndroid13()) {
+                VibrationAttributes attributes = new VibrationAttributes.Builder()
+                    .setUsage(VibrationAttributes.USAGE_ALARM)
+                    .build();
+                vibrator.vibrate(effect, attributes);
+            } else {
+                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build();
+                //noinspection deprecation
+                vibrator.vibrate(effect, audioAttributes);
+            }
+        } else {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .build();
+            //noinspection deprecation
+            vibrator.vibrate(pattern, repeatIndex, audioAttributes);
         }
     }
 
@@ -322,6 +371,19 @@ public class Utils {
             case VIBRATION_PATTERN_TICK_TOCK -> new long[]{300, 150, 300, 150};
             default -> new long[]{500, 500};
         };
+    }
+
+    /**
+     * Triggers haptic feedback if system or app settings allow it.
+     *
+     * @param view                The view from which the action is triggered.
+     * @param isVibrationsEnabled {@code true} if vibrations are enabled; {@code false} otherwise.
+     * @param feedbackConstant    The constant of type {@link android.view.HapticFeedbackConstants}.
+     */
+    public static void performHapticFeedback(@Nullable View view, boolean isVibrationsEnabled, int feedbackConstant) {
+        if (view != null && isVibrationsEnabled) {
+            view.performHapticFeedback(feedbackConstant);
+        }
     }
 
     /**

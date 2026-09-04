@@ -7,10 +7,7 @@
 package com.best.deskclock.alarms;
 
 import android.content.Context;
-import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.os.VibrationAttributes;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
@@ -23,7 +20,6 @@ import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 /**
@@ -149,30 +145,13 @@ public final class AlarmKlaxon {
 
             instance.mVibrationRunnable = () -> {
                 final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
-                AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
 
                 String patternKey = config.isPerAlarmVibrationPattern()
                     ? alarmInstance.mVibrationPattern
                     : config.globalVibrationPattern();
                 long[] pattern = Utils.getVibrationPatternForKey(patternKey);
 
-                if (SdkUtils.isAtLeastAndroid13()) {
-                    VibrationAttributes vibrationAttributes = new VibrationAttributes.Builder()
-                        .setUsage(VibrationAttributes.USAGE_ALARM)
-                        .build();
-                    VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
-                    vibrator.vibrate(vibrationEffect, vibrationAttributes);
-                } else if (SdkUtils.isAtLeastAndroid8()) {
-                    VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
-                    //noinspection deprecation
-                    vibrator.vibrate(vibrationEffect, audioAttributes);
-                } else {
-                    //noinspection deprecation
-                    vibrator.vibrate(pattern, 0, audioAttributes);
-                }
+                Utils.executeVibrations(vibrator, pattern, 0);
             };
 
             if (delayInMillis > 0) {

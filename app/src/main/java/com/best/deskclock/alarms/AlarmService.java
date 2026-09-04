@@ -29,7 +29,6 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
@@ -45,6 +44,7 @@ import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -551,14 +551,7 @@ public class AlarmService extends Service {
 
         cleanupAndStop();
 
-        if (mVibrator != null) {
-            if (SdkUtils.isAtLeastAndroid8()) {
-                mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{300, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                //noinspection deprecation
-                mVibrator.vibrate(new long[]{300, 500}, -1);
-            }
-        }
+        Utils.executeVibrations(mVibrator, new long[]{300, 500}, -1);
     }
 
     private void performDoubleVibration() {
@@ -572,14 +565,7 @@ public class AlarmService extends Service {
 
         cleanupAndStop();
 
-        if (mVibrator != null) {
-            if (SdkUtils.isAtLeastAndroid8()) {
-                mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{300, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                //noinspection deprecation
-                mVibrator.vibrate(new long[]{300, 200, 100, 500}, -1);
-            }
-        }
+        Utils.executeVibrations(mVibrator, new long[]{300, 200, 100, 500}, -1);
     }
 
     private void cleanupAndStop() {
