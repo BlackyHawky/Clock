@@ -198,18 +198,6 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mThemePref, mDarkModePref, mGeneralFontPref, mAccentColorPref, mAutoNightAccentColorPref,
-            mNightAccentColorPref, mCardBackgroundPref, mCardBorderPref, mLanguageCodePref, mVisibleTabsPref, mTabToDisplayPref,
-            mVibrationPref, mToolbarTitlePref, mTabTitleVisibilityPref, mTabIndicatorPref, mTabAnimationPref, mFadeTransitionsPref,
-            mKeepScreenOnPref);
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
             case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY,
@@ -564,27 +552,6 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         if (index >= 0) {
             mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntries()[index]);
         }
-    }
-
-    private void nullifyAllPrefs() {
-        mThemePref = null;
-        mDarkModePref = null;
-        mGeneralFontPref = null;
-        mAccentColorPref = null;
-        mAutoNightAccentColorPref = null;
-        mNightAccentColorPref = null;
-        mCardBackgroundPref = null;
-        mCardBorderPref = null;
-        mLanguageCodePref = null;
-        mVisibleTabsPref = null;
-        mTabToDisplayPref = null;
-        mTabAnimationPref = null;
-        mVibrationPref = null;
-        mToolbarTitlePref = null;
-        mTabTitleVisibilityPref = null;
-        mTabIndicatorPref = null;
-        mFadeTransitionsPref = null;
-        mKeepScreenOnPref = null;
     }
 
     /**

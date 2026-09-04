@@ -471,15 +471,6 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             .commit();
     }
 
-    protected void nullifyPreferenceListeners(@NonNull Preference... preferences) {
-        for (Preference pref : preferences) {
-            if (pref != null) {
-                pref.setOnPreferenceClickListener(null);
-                pref.setOnPreferenceChangeListener(null);
-            }
-        }
-    }
-
     protected void restoreCustomFileDialogIfNeeded(@NonNull String targetPrefKey, @NonNull Preference pref,
                                                    @NonNull ActivityResultLauncher<Intent> launcher,
                                                    @Nullable OnPreferenceDeleted onPreferenceDeleted) {

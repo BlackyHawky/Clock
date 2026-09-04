@@ -259,17 +259,6 @@ public class AboutFragment extends BaseSettingsScreenFragment
     }
 
     @Override
-    public void onDestroy() {
-        nullifyPreferenceListeners(mTitlePref, mVersionPref, mWhatsNewPref, mAboutFeaturesPref, mViewOnGitHubPref, mTranslatePref,
-            mReadLicencePref, mKeepAndroidOpenPref, mDebugCategory, mEnableLocalLoggingPref
-        );
-
-        nullifyAllPrefs();
-
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onPreferenceClick(@NonNull Preference preference) {
         switch (preference.getKey()) {
             // Used only for release versions.
@@ -693,19 +682,6 @@ public class AboutFragment extends BaseSettingsScreenFragment
         );
 
         mActiveDialog.show();
-    }
-
-    private void nullifyAllPrefs() {
-        mTitlePref = null;
-        mVersionPref = null;
-        mWhatsNewPref = null;
-        mAboutFeaturesPref = null;
-        mViewOnGitHubPref = null;
-        mTranslatePref = null;
-        mReadLicencePref = null;
-        mKeepAndroidOpenPref = null;
-        mDebugCategory = null;
-        mEnableLocalLoggingPref = null;
     }
 
 }
