@@ -164,9 +164,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/slide_zone_layout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginHorizontal="20dp"
             android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp"
             android:clipToPadding="false"
             app:layout_constraintStart_toEndOf="@+id/alarm_vertical_middle_guide"
             app:layout_constraintEnd_toEndOf="parent"
@@ -176,7 +177,7 @@
             <!-- Pill in the background of the Alarm button -->
             <com.best.deskclock.uicomponents.PillView
                 android:id="@+id/pill"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:layerType="hardware"
@@ -239,8 +240,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_button"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginVertical="10dp"
+                android:layout_height="0dp"
                 app:icon="@drawable/ic_tab_alarm_static"
                 app:iconSize="24dp"
                 app:iconTint="@android:color/white"
@@ -269,7 +269,7 @@
                 style="?attr/materialIconButtonFilledStyle"
                 android:id="@+id/snooze_selector_minus"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
                 android:insetTop="0dp"
@@ -288,7 +288,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/snooze_selector_text"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="20dp"
                 android:paddingHorizontal="10dp"
                 android:minHeight="0dp"
@@ -316,7 +316,7 @@
                 style="?attr/materialIconButtonFilledStyle"
                 android:id="@+id/snooze_selector_plus"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
                 android:insetTop="0dp"
