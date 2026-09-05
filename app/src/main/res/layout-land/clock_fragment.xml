@@ -15,15 +15,15 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fold_vertical_start_edge"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fold_vertical_end_edge"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="@fraction/city_list_end_guide_percent" />
 
@@ -41,7 +41,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_city_view_right_panel"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:visibility="gone"
         android:alpha="0.7"
         app:layout_constraintStart_toEndOf="@id/fold_vertical_start_edge"

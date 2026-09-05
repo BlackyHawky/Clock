@@ -29,18 +29,24 @@
 
     <ImageView
         android:id="@+id/timer_background_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@android:color/black"
         android:scaleType="centerCrop"
         android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:visibility="gone" />
 
     <ScrollView
         android:id="@+id/expired_timers_scroll_vertical"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/ringtone_layout"
         tools:ignore="InconsistentLayout,SpeakableTextPresentCheck">

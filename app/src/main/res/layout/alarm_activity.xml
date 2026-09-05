@@ -59,10 +59,12 @@
         <!-- Clock view -->
         <FrameLayout
             android:id="@+id/clock_layout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/alarm_title">
 
@@ -150,7 +152,7 @@
         <!-- Dismiss only button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/dismiss_only_button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginHorizontal="20dp"
             android:textSize="20sp"
@@ -160,6 +162,8 @@
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
             tools:text="@string/button_action_dismiss"
             tools:textStyle="bold"
@@ -169,9 +173,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/slide_zone_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginHorizontal="20dp"
             android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp"
             android:clipToPadding="false"
             app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
             tools:background="@drawable/bg_alarm_slide_zone">
@@ -179,7 +184,7 @@
             <!-- Pill in the background of the Alarm button -->
             <com.best.deskclock.uicomponents.PillView
                 android:id="@+id/pill"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:layerType="hardware"
@@ -242,8 +247,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_button"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginVertical="10dp"
+                android:layout_height="0dp"
                 app:icon="@drawable/ic_tab_alarm_static"
                 app:iconSize="24dp"
                 app:iconTint="@android:color/white"
@@ -270,7 +274,7 @@
                 style="?attr/materialIconButtonFilledStyle"
                 android:id="@+id/snooze_selector_minus"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
                 android:insetTop="0dp"
@@ -289,7 +293,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/snooze_selector_text"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="20dp"
                 android:paddingHorizontal="10dp"
                 android:minHeight="0dp"
@@ -317,7 +321,7 @@
                 style="?attr/materialIconButtonFilledStyle"
                 android:id="@+id/snooze_selector_plus"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
                 android:insetTop="0dp"
