@@ -29,8 +29,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"அலாரம் ஆஃப்"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"உறக்கநிலை"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">அடுத்த <xliff:g id="MINUTES">%d</xliff:g> நிமிடங்களில் நினைவூட்டு.</item>
         <item quantity="one">அடுத்த 1 நிமிடத்தில் நினைவூட்டு.</item>
+        <item quantity="other">அடுத்த <xliff:g id="MINUTES">%d</xliff:g> நிமிடங்களில் நினைவூட்டு.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> வரை உறக்கநிலையில் வை"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">அடுத்த வரும் அறிவிப்பொலி</string>
@@ -55,24 +55,24 @@
     <string name="alarm_confirmation_toast_7">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</string>
     <string name="alarm_confirmation_toast_8">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நாட்கள்</item>
         <item quantity="one">1 நாள்</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நாட்கள்</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> மணிநேரம்</item>
         <item quantity="one">1 மணிநேரம்</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> மணிநேரம்</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ம</item>
         <item quantity="one">1 ம</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ம</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one">1 நிமிடம்</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நிமிடங்கள்</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நி</item>
         <item quantity="one">1 நி</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நி</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one">1 வினாடி</item>
@@ -208,8 +208,8 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"அலாரம் <xliff:g id="ALARM_TIME">%s</xliff:g>க்கு அமைக்கப்பட்டது"</string>
     <string name="timer_created" msgid="4381027137335885547">"டைமர் உருவாக்கப்பட்டது"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் நிராகரிக்கப்பட்டன</item>
         <item quantity="one">டைமர் நிராகரிக்கப்பட்டது</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் நிராகரிக்கப்பட்டன</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"தவறான டைமர் நீளம்"</string>
     <string name="invalid_timer" msgid="900957020728335675">"தவறான டைமர் தேர்ந்தெடுக்கப்பட்டது"</string>

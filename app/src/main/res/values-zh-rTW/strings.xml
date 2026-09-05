@@ -627,4 +627,54 @@
     <string name="timezone_lord_howe">豪勳爵島</string>
     <string name="timezone_norfolk">諾福克島</string>
     <string name="timezone_macquarie">麥覺理島</string>
+    <string name="pause_alarm_title">暫停鬧鐘</string>
+    <string name="pause_alarm_range">已暫停： %1$s</string>
+    <string name="alarm_minutes_warning_box_text">請輸入介於 0 到 59 分鐘的值</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> 計時器</string>
+    <string name="add_time_button_title">「增加時間」按鈕</string>
+    <string name="delete_timer_after_use_title">計時結束後刪除計時器</string>
+    <string name="turn_off_media_title">計時結束後停止播放媒體</string>
+    <string name="timer_end_time_label">結束時間： <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="other">已刪除 <xliff:g example="1" id="number">%d</xliff:g> 個計時器</item>
+    </plurals>
+    <string name="background_image_category_title">背景圖片</string>
+    <string name="custom_font_dialog_message">變更或刪除自訂字型。</string>
+    <string name="advanced_audio_playback_category_title">進階音訊播放</string>
+    <string name="background_image_dialog_message">變更或刪除背景圖片。</string>
+    <string name="settings_language_hebrew">希伯來文</string>
+    <string name="tabs_category_title">分頁</string>
+    <string name="visible_tabs_title">顯示的分頁</string>
+    <string name="settings_vibration_disabled_summary">已在裝置設定中停用震動</string>
+    <string name="settings_tab_animation_title">切換分頁時的動畫</string>
+    <string name="tab_animation_cube">立方體</string>
+    <string name="tab_animation_depth">景深</string>
+    <string name="tab_animation_flip">翻轉</string>
+    <string name="tab_animation_gate">對開</string>
+    <string name="tab_animation_zoom_out">縮小</string>
+    <string name="headphones_button_title">耳機播放/暫停鍵</string>
+    <string name="display_alarm_action_message_title">貪睡或關閉鬧鐘後顯示訊息</string>
+    <string name="display_alarm_title_on_single_line_title">單行顯示鬧鐘標題</string>
+    <string name="enable_per_alarm_background_image_title">爲每個鬧鐘使用自訂背景圖片</string>
+    <string name="enable_per_alarm_background_image_dialog_message">將會刪除自訂背景圖片。%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\n自訂模糊強度數值亦將重置。</string>
+    <string name="blur_intensity_dialog_message_2">自訂模糊強度數值將重置。%s</string>
+    <string name="timer_settings_general_summary">此設定可在計時器編輯面板中針對個別計時器進行修改</string>
+    <string name="enable_per_timer_auto_silence_title">爲每個計時器自訂停止時間</string>
+    <string name="enable_per_timer_crescendo_duration_title">為每個計時器使用自訂音量漸增時間</string>
+    <string name="timer_vibrate_dialog_message">將停用所有計時器的震動。%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">為每個計時器使用自訂震動模式</string>
+    <string name="timer_headphones_button_action_title">使用耳機播放/暫停按鈕重置已結束的計時器</string>
+    <string name="single_timer_mode_title">單一計時器模式</string>
+    <string name="single_timer_mode_summary">僅保留一個計時器模式，且於重置時自動刪除</string>
+    <string name="single_timer_mode_warning_message">將會移除計時器。%s</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">計時結束後開啟後置閃光燈</string>
+    <string name="invert_timer_button_positions_title">對調計時器按鈕位置</string>
+    <string name="display_timer_end_time_title">顯示計時器結束時間</string>
+    <string name="display_top_date_title">在時間上方顯示日期</string>
+    <string name="restart_app_dialog_message">需重新啓動應用程式以使變更生效。</string>
+    <string name="shortcut_disabled">分頁已隱藏</string>
+    <string name="timer_missed_channel">錯過的計時器</string>
+    <string name="toast_message_backup_error">備份失敗</string>
+    <string name="toast_message_restore_error">還原失敗</string>
 </resources>

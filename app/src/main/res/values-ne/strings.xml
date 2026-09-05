@@ -29,8 +29,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"अलार्म बन्द"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"स्नुज"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> मिनेटको लागि स्नुज गर्दै।</item>
         <item quantity="one">1 मिनेटको लागि स्नुज गर्दै।</item>
+        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> मिनेटको लागि स्नुज गर्दै।</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> सम्म स्नुज गर्दै"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आउने आलार्म"</string>
@@ -55,24 +55,24 @@
     <string name="alarm_confirmation_toast_7">"अहिलेबाट <xliff:g id="HOURS">%2$s</xliff:g> र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</string>
     <string name="alarm_confirmation_toast_8">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> दिन</item>
         <item quantity="one">१ दिन</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> दिन</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
+        <item quantity="one">१ घन्टा</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> घन्टा</item>
-        <item quantity="one"> १ घन्टा</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> घन्टा</item>
         <item quantity="one">१ घन्टा</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> घन्टा</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one">१ मिनेट</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनेट</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनेट</item>
         <item quantity="one">१ मिनेट</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनेट</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one">१ सेकेन्ड</item>
@@ -208,8 +208,8 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>का लागि अलार्म सेट गरियो"</string>
     <string name="timer_created" msgid="4381027137335885547">"टाइमर सिर्जना गरियो"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टाइमरहरूलाई खारेज गरियो</item>
         <item quantity="one">टाइमरलाई खारेज गरियो</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टाइमरहरूलाई खारेज गरियो</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अमान्य टाइमर लम्बाइ"</string>
     <string name="invalid_timer" msgid="900957020728335675">"अमान्य टाइमर चयन गरियो"</string>

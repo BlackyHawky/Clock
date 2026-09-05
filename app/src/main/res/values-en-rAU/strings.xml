@@ -55,24 +55,24 @@
     <string name="alarm_confirmation_toast_7">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <string name="alarm_confirmation_toast_8">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> days</item>
         <item quantity="one">1 day</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> days</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hours</item>
         <item quantity="one">1 hour</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hours</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hr</item>
         <item quantity="one">1 hr</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hr</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one">1 minute</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
         <item quantity="one">1 min</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one">1 second</item>
@@ -210,8 +210,8 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm is set for <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Timer created"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timers dismissed</item>
         <item quantity="one">Timer dismissed</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timers dismissed</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Invalid timer length"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Invalid timer selected"</string>

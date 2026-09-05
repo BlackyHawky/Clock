@@ -55,16 +55,16 @@
     <string name="alarm_confirmation_toast_7">Az ébresztő mostantól <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g>-re került beállításra.</string>
     <string name="alarm_confirmation_toast_8">Az ébresztő mostantól <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g>-re került beállításra.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> nap</item>
         <item quantity="one">1 nap</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> nap</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> óra</item>
         <item quantity="one">1 óra</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> óra</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> óra</item>
         <item quantity="one">1 óra</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> óra</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one">1 perc</item>

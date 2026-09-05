@@ -32,7 +32,7 @@
         <item quantity="one">Адкладваецца на <xliff:g id="MINUTES">%d</xliff:g> хвіліну.</item>
         <item quantity="few">Адкладваецца на <xliff:g id="MINUTES">%d</xliff:g> хвіліны.</item>
         <item quantity="many">Адкладваецца на <xliff:g id="MINUTES">%d</xliff:g> хвілін.</item>
-        <item quantity="other">Адкладваецца  на <xliff:g id="MINUTES">%d</xliff:g> хвіліны.</item>
+        <item quantity="other">Адкладваецца на <xliff:g id="MINUTES">%d</xliff:g> хвілін.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Перанос да <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Хутка прагучыць будзільнік"</string>
@@ -60,13 +60,13 @@
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> дзень</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> дні</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> дзён</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> дня</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> дзён</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> гадзіна</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> гадзіны</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> гадзін</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> гадзіны</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> гадзін</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> гадз</item>
@@ -225,7 +225,7 @@
         <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> таймер адключаны</item>
         <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> таймеры адключаны</item>
         <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> таймераў адключана</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> таймера адключана</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> таймераў адключана</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Недапушчальная працягласць таймера"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Выбраны недапушчальны таймер"</string>

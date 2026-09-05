@@ -31,7 +31,7 @@
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">במצב נודניק למשך דקה.</item>
         <item quantity="two">במצב נודניק למשך שתי דקות.</item>
-        <item quantity="other">במצב נודניק למשך <xliff:g id="minutes">%d</xliff:g> דקות.</item>
+        <item quantity="other">במצב נודניק למשך <xliff:g example="10" id="minutes">%d</xliff:g> דקות.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">במצב נודניק עד <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">התראה קרובה</string>
@@ -279,7 +279,7 @@
     <string name="settings_language_korean">קוריאנית</string>
     <string name="settings_language_czech">צ׳כית</string>
     <string name="settings_language_chinese_traditional_tw">סינית (מסורתית, טאיוואן)</string>
-    <string name="settings_vibration_title">הפעלת מחוות רטט</string>
+    <string name="settings_vibration_title">הפעלת רטט</string>
     <string name="tab_title_visibility_always">תמיד</string>
     <string name="missed_alarm_repeat_limit_1_time">פעם אחת</string>
     <string name="missed_alarm_repeat_limit_3_times">3 פעמים</string>
@@ -614,4 +614,38 @@
     <string name="enable_per_alarm_crescendo_duration_title">שימוש במשך זמן מותאם אישית להגברת עוצמת הקול בהדרגה לכל התראה בנפרד</string>
     <string name="alarm_volume_low">עוצמת הקול של ההתראות נמוכה</string>
     <string name="clock_second_hand_lollipop">סוכריה</string>
+    <string name="timer_label_default">טיימר של <xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g></string>
+    <string name="add_time_button_title">כפתור „הוספת זמן”</string>
+    <string name="delete_timer_after_use_title">מחיקת הטיימר לאחר סיומו</string>
+    <string name="timer_end_time_label">שעת סיום: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one">הטיימר נמחק</item>
+        <item quantity="two">נמחקו שני טיימרים</item>
+        <item quantity="other">נמחקו <xliff:g example="5" id="number">%d</xliff:g> טיימרים</item>
+    </plurals>
+    <string name="background_image_category_title">תמונת רקע</string>
+    <string name="custom_font_dialog_message">החלפה או מחיקה של הגופן המותאם אישית.</string>
+    <string name="advanced_audio_playback_category_title">ניגון שמע מתקדם</string>
+    <string name="background_image_dialog_message">החלפה או מחיקה של תמונת הרקע.</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">משכי הזמן המותאמים אישית להגברה מדורגת של עוצמת הקול יתאפסו.%s</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">משכי הזמן המותאמים אישית לפני סגירת ההתראה יתאפסו.%s</string>
+    <string name="clock_dial_title">מחוגה</string>
+    <string name="clock_style_spinner">מחוג</string>
+    <string name="vibration_pattern_escalating">מתעצם</string>
+    <string name="display_background_border_summary">הצגת גבול רקע לחלק מהעצמים ביישום (התראות, ערים, כפתורי טיימר, וכו׳)</string>
+    <string name="settings_language_hebrew">עברית</string>
+    <string name="settings_vibration_disabled_summary">הרטט מושבת בהגדרות המכשיר</string>
+    <string name="settings_tab_animation_title">הנפשות בעת מעבר בין לשוניות</string>
+    <string name="tab_animation_cube">קובייה</string>
+    <string name="tab_animation_depth">עומק</string>
+    <string name="tab_animation_flip">היפוך</string>
+    <string name="tab_animation_gate">שער</string>
+    <string name="tab_animation_zoom_out">התרחקות</string>
+    <string name="enable_per_alarm_auto_silence_title">שימוש במשך זמן מותאם אישית עד לסגירה של כל התראה בנפרד</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">הפעלת מחיקה אוטומטית של התראות שגרתיות כברירת מחדל</string>
+    <string name="headphones_button_title">כפתור ניגון/השהיה באוזניות</string>
+    <string name="display_alarm_title_on_single_line_title">הצגת כותרת ההתראה בשורה בודדת</string>
+    <string name="enable_per_alarm_background_image_title">שימוש בתמונת רקע מותאמת אישית לכל התראה בנפרד</string>
+    <string name="city_name_default_color_title">שימוש בצבע ברירת המחדל לשם העיר</string>
+    <string name="city_note_default_color_title">שימוש בצבע ברירת המחדל להערה על העיר</string>
 </resources>

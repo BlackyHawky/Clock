@@ -29,10 +29,10 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Будильник вимкнено</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Відкласти"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Відкладено на <xliff:g id="minutes">%d</xliff:g> хвилину.</item>
-        <item quantity="few">Відкладено на <xliff:g id="minutes">%d</xliff:g> хвилини.</item>
-        <item quantity="many">Відкладено на <xliff:g id="minutes">%d</xliff:g> хвилин.</item>
-        <item quantity="other">Відкладено на <xliff:g id="minutes">%d</xliff:g> хвилин.</item>
+        <item quantity="one">Відкладено на <xliff:g example="1" id="minutes">%d</xliff:g> хвилину.</item>
+        <item quantity="few">Відкладено на <xliff:g example="2" id="minutes">%d</xliff:g> хвилини.</item>
+        <item quantity="many">Відкладено на <xliff:g example="10" id="minutes">%d</xliff:g> хвилин.</item>
+        <item quantity="other">Відкладено на <xliff:g example="10" id="minutes">%d</xliff:g> хвилин.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Відкласти сигнал до <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Наступний будильник"</string>
@@ -57,40 +57,40 @@
     <string name="alarm_confirmation_toast_7">Будильник пролунає за <xliff:g id="HOURS">%2$s</xliff:g> і <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_8">Будильник пролунає за <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> і <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> день</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> дні</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> днів</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> днів</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> день</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> дні</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> днів</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> днів</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> година</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> години</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> годин</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> годин</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> година</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> години</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> годин</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> годин</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> год</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> год</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> год</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> год</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> год</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> год</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> год</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> год</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> хвилина</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> хвилини</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> хвилин</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> хвилин</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> хвилина</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> хвилини</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> хвилин</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> хвилин</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> хв</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> хв</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> хв</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> хв</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> хв</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> хв</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> хв</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> хв</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> секунда</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> секунди</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> секунд</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> секунд</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> секунда</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> секунди</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> секунд</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> секунд</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Щодня"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -222,10 +222,10 @@
     <string name="alarm_is_set" msgid="5503226382620011088">Будильник установлено на <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Таймер створено"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one">Вимкнено <xliff:g id="number">%d</xliff:g> таймер</item>
-        <item quantity="few">Вимкнено <xliff:g id="number">%d</xliff:g> таймери</item>
-        <item quantity="many">Вимкнено <xliff:g id="number">%d</xliff:g> таймерів</item>
-        <item quantity="other">Вимкнено <xliff:g id="number">%d</xliff:g> таймерів</item>
+        <item quantity="one">Вимкнено <xliff:g example="1" id="number">%d</xliff:g> таймер</item>
+        <item quantity="few">Вимкнено <xliff:g example="2" id="number">%d</xliff:g> таймери</item>
+        <item quantity="many">Вимкнено <xliff:g example="5" id="number">%d</xliff:g> таймерів</item>
+        <item quantity="other">Вимкнено <xliff:g example="5" id="number">%d</xliff:g> таймерів</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Недійсна тривалість таймера"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Вибрано недійсний таймер"</string>
@@ -574,8 +574,8 @@
     <string name="enable_per_alarm_snooze_duration_dialog_message">Користувацькі значення тривалості відкладення для будильників буде скинуто.%s</string>
     <string name="enable_per_alarm_volume_dialog_message">Користувацькі значення гучності для будильників буде скинуто.%s</string>
     <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Користувацькі значення кількості повторень для пропущених будильників буде скинуто.%s</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Користувацькі значення збільшення гучності для будильників буде скинуто.%s</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Користувацькі значення «Вимкнути після» для будильників буде скинуто.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Користувацькі значення збільшення гучності буде скинуто.%s</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Користувацькі значення «Вимкнути після» буде скинуто.%s</string>
     <string name="features_dialog_message">Відвідайте сторінку основних функцій:\n\n%s</string>
     <string name="display_dismiss_button_summary">Якщо вимкнено, кнопка з’являтиметься разом із нагадуванням про сповіщення</string>
     <string name="display_dismiss_button_title">Показувати кнопку «Вимкнути» одразу після ввімкнення будильника</string>
@@ -606,7 +606,7 @@
     <string name="analog_clock_size_title">Розмір аналогового годинника</string>
     <string name="display_battery_title">Показувати рівень заряду</string>
     <string name="battery_color_title">Колір рівня заряду</string>
-    <string name="display_compact_timers_title">Показувати активні таймери в компактному режимі</string>
+    <string name="display_compact_timers_title">Показувати таймери в компактному режимі</string>
     <string name="custom_font_toast_message_deleted">Шрифт успішно видалено</string>
     <string name="custom_font_toast_message_selected">Шрифт успішно вибрано</string>
     <string name="display_settings_title">Налаштування показу</string>
@@ -688,4 +688,30 @@
     <string name="timer_missed_channel">Пропущені таймери</string>
     <string name="invert_timer_button_positions_title">Поміняти місцями кнопки таймера</string>
     <string name="settings_language_hebrew">Іврит</string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one">Видалено <xliff:g example="1" id="number">%d</xliff:g> таймер</item>
+        <item quantity="few">Видалено <xliff:g example="2" id="number">%d</xliff:g> таймери</item>
+        <item quantity="many">Видалено <xliff:g example="5" id="number">%d</xliff:g> таймерів</item>
+        <item quantity="other">Видалено <xliff:g example="5" id="number">%d</xliff:g> таймерів</item>
+    </plurals>
+    <string name="background_image_category_title">Фонове зображення</string>
+    <string name="custom_font_dialog_message">Змінюйте або видаляйте власний шрифт.</string>
+    <string name="background_image_dialog_message">Змінюйте або видаляйте фонове зображення.</string>
+    <string name="add_time_button_title">Кнопка «Додати час»</string>
+    <string name="advanced_audio_playback_category_title">Розширені можливості відтворення</string>
+    <string name="timer_vibrate_dialog_message">Вібрацію буде вимкнено для всіх таймерів.%s</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Власні фонові зображення буде видалено.%1$s%2$s</string>
+    <string name="enable_per_alarm_background_image_title">Окреме фонове зображення для кожного будильника</string>
+    <string name="enable_per_timer_auto_silence_title">Окреме значення «Вимкнути після» для кожного таймера</string>
+    <string name="enable_per_timer_crescendo_duration_title">Окреме значення збільшення гучності для кожного таймера</string>
+    <string name="enable_per_timer_vibration_pattern_title">Окремий ритм вібрації для кожного таймера</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">Увімкнути задній спалах, коли час таймера вичерпано</string>
+    <string name="timer_settings_general_summary">Це налаштування можна змінити для кожного таймера на панелі редагування таймера</string>
+    <string name="display_alarm_title_on_single_line_title">Показувати заголовок будильника в один рядок</string>
+    <string name="headphones_button_title">Кнопка «Відтворення/Пауза» навушників</string>
+    <string name="timer_headphones_button_action_title">Скидати використані таймери за допомогою кнопки «Відтворення/Пауза» навушників</string>
+    <string name="blur_intensity_dialog_message_2">Користувацькі значення інтенсивності розмиття буде скинуто.%s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nКористувацькі значення інтенсивності розмиття також буде скинуто.</string>
+    <string name="delete_timer_after_use_title">Видалити таймер після використання</string>
+    <string name="turn_off_media_title">Зупинити відтворення після використання таймера</string>
 </resources>

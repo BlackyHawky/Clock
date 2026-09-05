@@ -1,33 +1,33 @@
-"Uhr" ist eine datenschutzbewusste Open-Source-Uhr, die auf AOSP basiert.
-Sie verwendet keine Internet-Berechtigung und ist daher zu 100% offline.
+Clock ist eine datenschutzfreundliche Open-Source-Uhr, die auf AOSP basiert.
+Nutzt keine Internetberechtigung und ist somit zu 100 % offline.
 
-Merkmale:
+Funktionen:
 <ul>
-  <li>Einstellen der Wecker auf ein bestimmtes Datum;</li>
-  <li>Kippen und Schütteln zum Ausschalten/Aufschieben eines Weckers;</li>
-  <li>Ausschalten/Aufschieben des Weckers mit der Power- oder den Lautstärketasten;</li>
-  <li>Nur bei Snapdragon-Smartphones: Der Wecker wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
+  <li>Wecker für ein bestimmtes Datum einstellen;</li>
+  <li>Umdrehen- und Schütteln-Aktion zum Beenden/Schlummern des Weckers;</li>
+  <li>Wecker mit der Ein-/Austaste oder den Lautstärketasten ausschalten/schlummern;</li>
+  <li>Nur bei einigen Snapdragon-Geräten wird der Wecker ausgelöst, wenn sie ausgeschaltet sind</li>
     <ul>
-      <li>Leider funktioniert dies auf einigen Geräten nicht, obwohl die System-App <i>"com.qualcomm.qti.poweroffalarm"</i> vorhanden ist.</li>
+      <li>Leider funktioniert diese Funktion auf einigen Geräten trotz des Vorhandenseins der System-App <i>"com.qualcomm.qti.poweroffalarm"</i> möglicherweise nicht.</li>
     </ul>
-  <li>Wischen, um einen Wecker zu beenden;</li>
-  <li>Möglichkeit, Wecker zu duplizieren;</li>
-  <li>Wecker-Titel erstellen und ändern;</li>
-  <li>Individuell anpassbare Wecktöne;</li>
-  <li>Möglichkeit, Wecktöne zufällig abzuspielen;</li>
-  <li>Helles, dunkles oder System-Thema;</li>
-  <li>AMOLED-Modus für dunkles Thema;</li>
-  <li>Anpassbare Oberfläche;</li>
-  <li>Digitaler oder analoger Uhrenstil;</li>
-  <li>Anzeige der Heimatzeit auf Reisen;</li>
-  <li>Anzeige der Uhrzeit von vielen Städten der Welt;</li>
+  <li>Wischen zum Löschen eines Weckers;</li>
+  <li>Wecker duplizieren;</li>
+  <li>Anpassbarer Weckertitel;</li>
+  <li>Anpassbarer Klingelton;</li>
+  <li>Möglichkeit, Klingeltöne zufällig abzuspielen;</li>
+  <li>Helles, dunkles oder System-Design;</li>
+  <li>AMOLED-Modus für das dunkle Design;</li>
+  <li>Anpassbare Benutzeroberfläche;</li>
+  <li>Digitaler oder analoger Uhrstil;</li>
+  <li>Heimatzeit auf Reisen anzeigen;</li>
+  <li>Uhrzeit für viele Städte auf der ganzen Welt anzeigen;</li>
   <li>Timer und Stoppuhr enthalten;</li>
-  <li>Möglichkeit, die Stoppuhr-Zeiten mit Adressbuch-Kontakten zu teilen;</li>
+  <li>Möglichkeit, die Stoppuhr mit Kontakten zu teilen;</li>
   <li>Anpassbarer Bildschirmschoner;</li>
   <li>Moderne Widgets;</li>
   <li>Anpassbare Widgets;</li>
-  <li>Unterstützung für Kacheln in den Schnelleinstellungen (Android 7+) </li>
-  <li>Sichern und Wiederherstellen von Einstellungen (außer benutzerdefinierte Wecktöne)</li>
-  <li>Material-You-Design;</li>
+  <li>Unterstützung für Kacheln in den Schnelleinstellungen (für Android 7+);</li>
+  <li>Sichern und Wiederherstellen von App-Daten (ausgenommen benutzerdefinierte Klingeltöne);</li>
+  <li>Material Design;</li>
   <li>Dynamische Farben für Android 12+;</li>
 </ul>

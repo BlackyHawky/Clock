@@ -29,10 +29,10 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Выключено"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Отложить"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Повтор через <xliff:g id="minutes">%d</xliff:g> минуту.</item>
-        <item quantity="few">Повтор через <xliff:g id="minutes">%d</xliff:g> минуты.</item>
-        <item quantity="many">Повтор через <xliff:g id="minutes">%d</xliff:g> минут.</item>
-        <item quantity="other">Повтор через <xliff:g id="minutes">%d</xliff:g> минут.</item>
+        <item quantity="one">Отложить на <xliff:g example="1" id="minutes">%d</xliff:g> минуту.</item>
+        <item quantity="few">Отложить на <xliff:g example="2" id="minutes">%d</xliff:g> минуты.</item>
+        <item quantity="many">Отложить на <xliff:g example="5" id="minutes">%d</xliff:g> минут.</item>
+        <item quantity="other">Отложить на <xliff:g example="5" id="minutes">%d</xliff:g> минут.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Повтор в <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Следующий будильник"</string>
@@ -57,40 +57,40 @@
     <string name="alarm_confirmation_toast_7">До звонка будильника <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_8">До звонка будильника <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> день</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> дня</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> дней</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> дней</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> день</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> дня</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> дней</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> дней</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> час</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> часа</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> часов</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> часов</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> час</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> часа</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> часов</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> часов</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> час</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> часа</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> часов</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> часов</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> час</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> час</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> час</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> час</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> минута</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> минуты</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> минут</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> минут</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> минута</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> минуты</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> минут</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> минут</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> минута</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> минуты</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> минут</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> минут</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> мин</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> мин</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> мин</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> мин</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one"><xliff:g id="number">%s</xliff:g> секунда</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> секунды</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> секунд</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> секунд</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> секунда</item>
+        <item quantity="few"><xliff:g example="2" id="number">%s</xliff:g> секунды</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> секунд</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> секунд</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">каждый день</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -210,7 +210,7 @@
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">На <xliff:g id="hours">%1$s</xliff:g> <xliff:g id="minutes">%2$s</xliff:g> позже</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">На <xliff:g id="hours">%1$s</xliff:g> <xliff:g id="minutes">%2$s</xliff:g> раньше</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">Завтра, <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="world_hours_yesterday" msgid="4425086322610882745">Вчера, &lt;xliff:g id=\"time\"&gt;%1$s&lt;/xliff:g</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">Вчера, <xliff:g id="time">%1$s</xliff:g></string>
     <string name="next_alarm_description" msgid="2650244835760747046">Следующий будильник: <xliff:g id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms" msgid="6429431324842022917">"Нет будильников"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Время (<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>) указано неверно"</string>
@@ -223,10 +223,10 @@
     <string name="alarm_is_set" msgid="5503226382620011088">Будильник зазвонит в <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Таймер создан"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one"><xliff:g id="number">%d</xliff:g> таймер выключен</item>
-        <item quantity="few"><xliff:g id="number">%d</xliff:g> таймера выключено</item>
-        <item quantity="many"><xliff:g id="number">%d</xliff:g> таймеров выключено</item>
-        <item quantity="other"><xliff:g id="number">%d</xliff:g> таймеров выключено</item>
+        <item quantity="one">Выключен <xliff:g example="1" id="number">%d</xliff:g> таймер</item>
+        <item quantity="few">Выключено <xliff:g example="2" id="number">%d</xliff:g> таймера</item>
+        <item quantity="many">Выключено <xliff:g example="7" id="number">%d</xliff:g> таймеров</item>
+        <item quantity="other">Выключено <xliff:g example="7" id="number">%d</xliff:g> таймеров</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Недопустимая длительность таймера"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Выбран недопустимый таймер"</string>
@@ -274,7 +274,7 @@
     <string name="more_options">Другие параметры</string>
     <string name="FSN_dialog_title">Уведомления в полноэкранном режиме</string>
     <string name="settings_permission_summary">Нажмите здесь, чтобы открыть страницу управления разрешениями.</string>
-    <string name="settings_vibration_title">Вибрация вкл.</string>
+    <string name="settings_vibration_title">Включить вибрацию</string>
     <string name="miscellaneous_category_title">Прочее</string>
     <string name="ringtone_category_title">Рингтон</string>
     <string name="interface_customization_settings">Внешний вид</string>
@@ -552,9 +552,9 @@
     <string name="background_image_toast_message_selected">Изображение выбрано</string>
     <string name="background_image_toast_message_deleted">Изображение удалено</string>
     <string name="enable_per_alarm_crescendo_duration_title">Индивидуальная продолжительность увеличения громкости для каждого будильника</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Индивидуальные значения продолжительности увеличения громкости будильников будут сброшены.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Индивидуальная продолжительность автовыключения для каждого будильника</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Индивидуальные значения продолжительности автовыключения будильников будут сброшены.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Значение увеличения громкости будет сброшено.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">Отдельное значение «Отключить после» для каждого будильника</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Значение «Отключить после» будет сброшено.%s</string>
     <string name="city_search_hint">Поиск города</string>
     <string name="clock_dial_with_numbers">С цифрами</string>
     <string name="clock_dial_without_numbers">Без цифр</string>
@@ -604,7 +604,7 @@
     <string name="sw_laps_title">Круги</string>
     <string name="sw_total_title">Всего</string>
     <string name="analog_clock_size_title">Размер аналоговых часов</string>
-    <string name="display_compact_timers_title">Показывать активные таймеры в компактном режиме</string>
+    <string name="display_compact_timers_title">Показывать таймеры в компактном режиме</string>
     <string name="display_battery_title">Показывать уровень заряда батареи</string>
     <string name="battery_color_title">Цвет уровня заряда батареи</string>
     <string name="screensaver_bold_battery_title">Жирный шрифт уровня заряда батареи</string>
@@ -678,4 +678,30 @@
     <string name="timer_missed_channel">Пропущенные таймеры</string>
     <string name="tab_animation_zoom_out">Отъезд</string>
     <string name="settings_language_hebrew">Иврит</string>
+    <string name="add_time_button_title">Кнопка «Добавить время»</string>
+    <string name="delete_timer_after_use_title">Удалить таймер после использования</string>
+    <string name="turn_off_media_title">Остановить воспроизведение после использования таймера</string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one">Удален <xliff:g example="1" id="number">%d</xliff:g> таймер</item>
+        <item quantity="few">Удалены <xliff:g example="2" id="number">%d</xliff:g> таймеры</item>
+        <item quantity="many">Удалены <xliff:g example="5" id="number">%d</xliff:g> таймеров</item>
+        <item quantity="other">Удалены <xliff:g example="5" id="number">%d</xliff:g> таймеров</item>
+    </plurals>
+    <string name="background_image_category_title">Фоновое изображение</string>
+    <string name="custom_font_dialog_message">Изменяйте или удаляйте свой шрифт.</string>
+    <string name="advanced_audio_playback_category_title">Расширенные возможности воспроизведения</string>
+    <string name="background_image_dialog_message">Измените или удаляйте фоновое изображение.</string>
+    <string name="headphones_button_title">Кнопка «Воспроизведение/Пауза» наушников</string>
+    <string name="display_alarm_title_on_single_line_title">Показывать заголовок будильника в одну строку</string>
+    <string name="enable_per_alarm_background_image_title">Отдельное фоновое изображение для каждого будильника</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Собственные фоновые изображения будут удалены.%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nПользовательские значения интенсивности размытия также будут сброшены.</string>
+    <string name="blur_intensity_dialog_message_2">Пользовательские значения интенсивности размытия будут сброшены.%s</string>
+    <string name="timer_settings_general_summary">Эта настройка может быть изменена для каждого таймера на панели редактирования таймера</string>
+    <string name="enable_per_timer_auto_silence_title">Отдельное значение «Отключить после» для каждого таймера</string>
+    <string name="enable_per_timer_crescendo_duration_title">Отдельное значение увеличения громкости для каждого таймера</string>
+    <string name="timer_vibrate_dialog_message">Вибрация будет отключена для всех таймеров.%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">Отдельный ритм вибрации для каждого таймера</string>
+    <string name="timer_headphones_button_action_title">Сбрасывать использованные таймеры с помощью кнопки «Воспроизведение/Пауза» наушников</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">Включить заднюю вспышку, когда время таймера исчерпано</string>
 </resources>

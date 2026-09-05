@@ -29,10 +29,10 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm wyłączony"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Drzemka"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="few">Drzemka przez <xliff:g id="MINUTES">%d</xliff:g> minuty.</item>
-        <item quantity="many">Drzemka przez <xliff:g id="MINUTES">%d</xliff:g> minut.</item>
-        <item quantity="other">Drzemka przez <xliff:g id="MINUTES">%d</xliff:g> minuty.</item>
-        <item quantity="one">Drzemka przez minutę.</item>
+        <item quantity="one">Drzemka przez <xliff:g example="1" id="minutes">%d</xliff:g> minutę.</item>
+        <item quantity="few">Drzemka przez <xliff:g example="2" id="minutes">%d</xliff:g> minuty.</item>
+        <item quantity="many">Drzemka przez <xliff:g example="5" id="minutes">%d</xliff:g> minut.</item>
+        <item quantity="other">Drzemka przez <xliff:g example="5" id="minutes">%d</xliff:g> minut.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Drzemka do <xliff:g id="TIME">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchodzący alarm"</string>
@@ -51,46 +51,46 @@
     <string name="alarm_confirmation_toast_1">Alarm włączy się za mniej niż 1 minutę.</string>
     <string name="alarm_confirmation_toast_2">Alarm ustawiono na <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> od teraz.</string>
     <string name="alarm_confirmation_toast_3">Alarm ustawiono na <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> od teraz.</string>
-    <string name="alarm_confirmation_toast_4">Alarm włączy się za <xliff:g example="2 dni" id="DAYS">%1$s</xliff:g> i <xliff:g example="2 hours" id="HOURS">%2$s </xliff:g> od teraz.</string>
+    <string name="alarm_confirmation_toast_4">Alarm włączy się za <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> i <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> od teraz.</string>
     <string name="alarm_confirmation_toast_5">Alarm włączy się za <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_6">Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_7">Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_8">Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> dni</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> dni</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dnia</item>
-        <item quantity="one">1 dzień</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> dzień</item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> dni</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> dni</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> dni</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> godziny</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> godzin</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> godziny</item>
-        <item quantity="one">1 godzinę</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> godzinę</item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> godziny</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> godzin</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> godzin</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> godz.</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> godz.</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> godz.</item>
-        <item quantity="one">1 godz.</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> godz.</item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> godz.</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> godz.</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> godz.</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one">1 minuta</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> minuta</item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> minuty</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> minut</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minut</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> min</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> min</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
-        <item quantity="one">1 min</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> min</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> min</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">1 sekunda</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> sekundy</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> sekund</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekund</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> sekunda</item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> sekundy</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> sekund</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> sekund</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Codziennie"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -201,7 +201,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Minutniki"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Wibracje minutnika"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Minutnik wstrzymany"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minutniki"</string>
+    <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> minutniki</string>
     <string name="alarm_undo" msgid="5710042601177655254">"cofnij"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm usunięto"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
@@ -223,10 +223,10 @@
     <string name="alarm_is_set" msgid="5503226382620011088">Alarm jest ustawiony na <xliff:g id="ALARM_TIME">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Minutnik został utworzony"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="few">Zostały wyłączone <xliff:g id="NUMBER">%d</xliff:g> minutniki</item>
-        <item quantity="many">Zostało wyłączonych <xliff:g id="NUMBER">%d</xliff:g> minutników</item>
-        <item quantity="other">Zostało wyłączone <xliff:g id="NUMBER">%d</xliff:g> minutnika</item>
         <item quantity="one">Minutnik został wyłączony</item>
+        <item quantity="few">Zostały wyłączone <xliff:g example="5" id="number">%d</xliff:g> minutniki</item>
+        <item quantity="many">Zostało wyłączonych <xliff:g example="5" id="number">%d</xliff:g> minutników</item>
+        <item quantity="other">Zostało wyłączonych <xliff:g example="5" id="number">%d</xliff:g> minutników</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Nieprawidłowy czas w minutniku"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Wybrano nieprawidłowy minutnik"</string>
@@ -564,9 +564,9 @@
     <string name="missed_alarm_repeat_limit_5_times">5 razy</string>
     <string name="missed_alarm_repeat_limit_10_times">10 razy</string>
     <string name="enable_per_alarm_crescendo_duration_title">Użyj niestandardowego czasu trwania zwiększenia głośności dla każdego alarmu</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Czas trwania zwiększenia głośności niestandardowego alarmu zostanie zresetowany.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Użyj niestandardowego czasu trwania zatrzymania alarmu dla każdego alarmu</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Czas trwania niestandardowych alarmów zostanie zresetowany.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Niestandardowe czasy zwiększania głośności zostaną zresetowane.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">Użyj niestandardowego czasu trwania dla każdego alarmu</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Niestandardowe czasy zatrzymania zostaną zresetowane.%s</string>
     <string name="features_dialog_message">Odwiedź stronę głównych funkcji:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Alarm odrzucony. <xliff:g example="Następny alarm w poniedziałek." id="alarm_day">Przełożony na %s.</xliff:g></string>
     <string name="display_text_shadow_title">Wyświetl cień tekstu</string>
@@ -602,7 +602,7 @@
     <string name="sw_split_title">Międzyczas</string>
     <string name="sw_total_title">Całkowity</string>
     <string name="analog_clock_size_title">Rozmiar zegara analogowego</string>
-    <string name="display_compact_timers_title">Wyświetlaj aktywne minutniki w trybie kompaktowym</string>
+    <string name="display_compact_timers_title">Wyświetlaj minutniki w trybie kompaktowym</string>
     <string name="display_battery_title">Wyświetl poziom naładowania baterii</string>
     <string name="battery_color_title">Kolor poziomu naładowania baterii</string>
     <string name="screensaver_bold_battery_title">Poziom naładowania baterii pogrubiony</string>
@@ -678,4 +678,30 @@
     <string name="display_timer_end_time_title">Wyświetl czas zakończenia minutnika</string>
     <string name="timer_missed_channel">Pominięte minutniki</string>
     <string name="settings_language_hebrew">Hebrajski</string>
+    <string name="add_time_button_title">Przycisk „Dodaj czas”</string>
+    <string name="delete_timer_after_use_title">Usuń minutnik po zakończeniu</string>
+    <string name="turn_off_media_title">Zatrzymaj multimedia po zakończeniu</string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one">Usunięto <xliff:g example="1" id="number">%d</xliff:g> minutnik</item>
+        <item quantity="few">Usunięto <xliff:g example="2" id="number">%d</xliff:g> minutniki</item>
+        <item quantity="many">Usunięto <xliff:g example="5" id="number">%d</xliff:g> minutników</item>
+        <item quantity="other">Usunięto <xliff:g example="5" id="number">%d</xliff:g> minutników</item>
+    </plurals>
+    <string name="background_image_category_title">Obraz tła</string>
+    <string name="custom_font_dialog_message">Zmień lub usuń niestandardową czcionkę.</string>
+    <string name="advanced_audio_playback_category_title">Zaawansowane odtwarzanie dźwięku</string>
+    <string name="background_image_dialog_message">Zmień lub usuń obraz tła.</string>
+    <string name="headphones_button_title">Przycisk słuchawek Odtwarzaj/Pauza</string>
+    <string name="display_alarm_title_on_single_line_title">Wyświetl tytuł alarmu w jednym wierszu</string>
+    <string name="enable_per_alarm_background_image_title">Użyj niestandardowego obrazu tła dla każdego alarmu</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Niestandardowe obrazy tła zostaną usunięte.%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nNiestandardowe wartości intensywności rozmycia również zostaną zresetowane.</string>
+    <string name="blur_intensity_dialog_message_2">Niestandardowe wartości intensywności rozmycia zostaną zresetowane.%s</string>
+    <string name="timer_settings_general_summary">To ustawienie można zmienić dla każdego minutnika w panelu edycji</string>
+    <string name="enable_per_timer_auto_silence_title">Użyj niestandardowego czasu zatrzymania dla każdego minutnika</string>
+    <string name="enable_per_timer_crescendo_duration_title">Użyj niestandardowego czasu zwiększania głośności dla każdego minutnika</string>
+    <string name="timer_vibrate_dialog_message">Wibracje zostaną wyłączone dla wszystkich minutników.%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">Użyj niestandardowego wzoru wibracji dla każdego minutnika</string>
+    <string name="timer_headphones_button_action_title">Resetuj zakończone minutniki przyciskiem Odtwórz/Pauza w słuchawkach</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">Włącz tylną lampę błyskową po upływie ustawionego czasu</string>
 </resources>

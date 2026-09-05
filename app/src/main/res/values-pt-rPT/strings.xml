@@ -57,18 +57,18 @@
     <string name="alarm_confirmation_toast_8">"Alarme definido para daqui a <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dia</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> hora</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> h</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> h</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minuto</item>
@@ -77,8 +77,8 @@
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> min</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> segundo</item>
@@ -217,8 +217,8 @@
     <string name="timer_created" msgid="4381027137335885547">"Temporizador criado"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> temporizador ignorado</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> temporizadores ignorados</item>
         <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> temporizadores ignorados</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> temporizadores ignorados</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Duração inválida do temporizador"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Temporizador inválido selecionado"</string>

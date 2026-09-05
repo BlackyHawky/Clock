@@ -29,10 +29,10 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Budík je vypnut"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložit"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Odloženo o 1 minutu.</item>
-        <item quantity="few">Odloženo o <xliff:g id="minutes">%d</xliff:g> minuty.</item>
-        <item quantity="many">Odloženo o <xliff:g id="minutes">%d</xliff:g> minut.</item>
-        <item quantity="other">Odloženo o <xliff:g id="minutes">%d</xliff:g> minut.</item>
+        <item quantity="one">Odloženo o <xliff:g example="1" id="minutes">%d</xliff:g> minutu.</item>
+        <item quantity="few">Odloženo o <xliff:g example="3" id="minutes">%d</xliff:g> minuty.</item>
+        <item quantity="many">Odloženo o <xliff:g example="10" id="minutes">%d</xliff:g> minut.</item>
+        <item quantity="other">Odloženo o <xliff:g example="10" id="minutes">%d</xliff:g> minut.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Odloženo do <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadcházející budík"</string>
@@ -57,37 +57,37 @@
     <string name="alarm_confirmation_toast_7">Budík se spustí za <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_8">Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one">1 den</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> den</item>
         <item quantity="few"><xliff:g example="3" id="number">%s</xliff:g> dny</item>
         <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> dnů</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> dnů</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one">1 hodina</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> hodina</item>
         <item quantity="few"><xliff:g example="3" id="number">%s</xliff:g> hodiny</item>
         <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> hodin</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hodin</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one">1 h</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> h</item>
         <item quantity="few"><xliff:g example="3" id="number">%s</xliff:g> h</item>
         <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> h</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one">1 minuta</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> minuta</item>
         <item quantity="few"><xliff:g example="3" id="number">%s</xliff:g> minuty</item>
         <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> minut</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minut</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one">1 min</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
         <item quantity="few"><xliff:g example="3" id="number">%s</xliff:g> min</item>
         <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> min</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">1 sekunda</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> sekunda</item>
         <item quantity="few"><xliff:g example="3" id="number">%s</xliff:g> sekundy</item>
         <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> sekund</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> sekund</item>
@@ -114,7 +114,7 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Změnit"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Zařízení je nastaveno na úplné ticho"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačítka hlasitosti"</string>
-    <string name="button_action_snooze">Odložit zvonění</string>
+    <string name="button_action_snooze">Odložit</string>
     <string name="button_action_dismiss">Konec</string>
     <string name="button_action_control_volume">Ovládání hlasitosti</string>
     <string name="button_action_nothing">Nedělat nic</string>
@@ -223,10 +223,10 @@
     <string name="alarm_is_set" msgid="5503226382620011088">Budík je nastaven na <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Časovač byl vytvořen"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one">Časovač byl ukončen</item>
-        <item quantity="few"><xliff:g example="3" id="number">%d</xliff:g> časovače byly ukončeny</item>
-        <item quantity="many"><xliff:g example="5" id="number">%d</xliff:g> časovačů bylo ukončeno</item>
-        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> časovačů bylo ukončeno</item>
+        <item quantity="one">Ukončen <xliff:g example="1" id="number">%d</xliff:g> časovač</item>
+        <item quantity="few">Ukončeny <xliff:g example="3" id="number">%d</xliff:g> časovače</item>
+        <item quantity="many">Ukončeno <xliff:g example="5" id="number">%d</xliff:g> časovačů</item>
+        <item quantity="other">Ukončeno <xliff:g example="5" id="number">%d</xliff:g> časovačů</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Neplatná délka časovače"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Byl vybrán neplatný časovač"</string>
@@ -564,9 +564,9 @@
     <string name="missed_alarm_repeat_limit_5_times">5krát</string>
     <string name="missed_alarm_repeat_limit_10_times">10krát</string>
     <string name="enable_per_alarm_crescendo_duration_title">Použít vlastní dobu zvyšování hlasitosti pro každý budík</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Vlastní doby zvyšování hlasitosti budíků budou resetovány.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Vlastní doby zvyšování hlasitosti budou resetovány.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Použít vlastní dobu do ukončení pro každý budík</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Vlastní doby do ukončení budíků budou resetovány.%s</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Vlastní doby do ukončení budou resetovány.%s</string>
     <string name="features_dialog_message">Navštivte stránku s hlavními funkcemi:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Budík zrušen. <xliff:g example="Next alarm Monday." id="alarm_day">Přesunuto na %s.</xliff:g></string>
     <string name="blur_intensity_title">Intenzita rozostření</string>
@@ -602,7 +602,7 @@
     <string name="sw_split_title">Rozdělit</string>
     <string name="sw_total_title">Celkem</string>
     <string name="analog_clock_size_title">Velikost analogových hodin</string>
-    <string name="display_compact_timers_title">Zobrazit aktivní časovače v kompaktním režimu</string>
+    <string name="display_compact_timers_title">Zobrazit časovače v kompaktním režimu</string>
     <string name="display_battery_title">Zobrazit úroveň baterie</string>
     <string name="battery_color_title">Barva úrovně baterie</string>
     <string name="screensaver_bold_battery_title">Úroveň baterie tučně</string>
@@ -678,4 +678,30 @@
     <string name="display_timer_end_time_title">Zobrazit čas konce časovače</string>
     <string name="timer_missed_channel">Zmeškané časovače</string>
     <string name="settings_language_hebrew">Hebrejština</string>
+    <string name="add_time_button_title">Tlačítko „Přidat čas“</string>
+    <string name="delete_timer_after_use_title">Odstranit časovač po jeho vypršení</string>
+    <string name="turn_off_media_title">Zastavit média po vypršení</string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one">Odstraněn <xliff:g example="1" id="number">%d</xliff:g> časovač</item>
+        <item quantity="few">Odstraněny <xliff:g example="3" id="number">%d</xliff:g> časovače</item>
+        <item quantity="many">Odstraněno <xliff:g example="5" id="number">%d</xliff:g> časovačů</item>
+        <item quantity="other">Odstraněno <xliff:g example="5" id="number">%d</xliff:g> časovačů</item>
+    </plurals>
+    <string name="background_image_category_title">Obrázek na pozadí</string>
+    <string name="custom_font_dialog_message">Změnit nebo odstranit vlastní písmo.</string>
+    <string name="advanced_audio_playback_category_title">Pokročilé přehrávání zvuku</string>
+    <string name="background_image_dialog_message">Změnit nebo odstranit obrázek na pozadí.</string>
+    <string name="headphones_button_title">Tlačítko pozastavení/přehrání na sluchátkách</string>
+    <string name="display_alarm_title_on_single_line_title">Zobrazit název budíku na jednom řádku</string>
+    <string name="enable_per_alarm_background_image_title">Použít vlastní obrázek na pozadí pro každý budík</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Vlastní obrázky pozadí budou odstraněny.%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nTaké budou resetovány vlastní hodnoty intenzity rozostření.</string>
+    <string name="blur_intensity_dialog_message_2">Vlastní hodnoty intenzity rozostření budou resetovány.%s</string>
+    <string name="timer_settings_general_summary">Toto nastavení lze změnit pro každý časovač v panelu úpravy časovačů</string>
+    <string name="enable_per_timer_auto_silence_title">Použít vlastní dobu do ukončení pro každý časovač</string>
+    <string name="enable_per_timer_crescendo_duration_title">Použít vlastní dobu zvyšování hlasitosti pro každý časovač</string>
+    <string name="timer_vibrate_dialog_message">Vibrace budou zakázány u všech časovačů.%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">Použít vlastní vzor vibrací pro každý časovač</string>
+    <string name="timer_headphones_button_action_title">Resetovat vypršené časovače pomocí tlačítka přehrát/pozastavit na sluchátkách</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">Znovu zapnout svítilnu po vypršení časovače</string>
 </resources>
