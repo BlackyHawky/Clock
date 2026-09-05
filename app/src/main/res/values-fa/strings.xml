@@ -29,8 +29,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"هشدار خاموش"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"تعویق"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه.</item>
-        <item quantity="other">تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه.</item>
+        <item quantity="one">تعویق به مدت ۱ دقیقه.</item>
+        <item quantity="other">تعویق به مدت <xliff:g id="minutes">%d</xliff:g> دقیقه.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"تعویق تا <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"هشدار بعدی"</string>
@@ -55,28 +55,28 @@
     <string name="alarm_confirmation_toast_7">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
     <string name="alarm_confirmation_toast_8">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> روز</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> روز</item>
+        <item quantity="one">۱ روز</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> روز</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ساعت</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ساعت</item>
+        <item quantity="one">۱ ساعت</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> ساعت</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ساعت</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ساعت</item>
+        <item quantity="one">۱ ساعت</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> ساعت</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> دقیقه</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> دقیقه</item>
+        <item quantity="one">۱ دقیقه</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> دقیقه</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> دقیقه</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> دقیقه</item>
+        <item quantity="one">۱ دقیقه</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> دقیقه</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">‏<xliff:g id="NUMBER">%s</xliff:g> ثانیه</item>
-        <item quantity="other">‏<xliff:g id="NUMBER">%s</xliff:g> ثانیه</item>
+        <item quantity="one">۱ ثانیه</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> ثانیه</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"هر روز"</string>
     <string name="day_concat" msgid="971998564991636532">"، "</string>
@@ -189,7 +189,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> تایمر‌"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"واگرد"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"هشدار حذف شد"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> جلوتر است"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> عقب‌تر است"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> جلوتر است"</string>
@@ -208,8 +208,8 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"هشدار برای <xliff:g id="ALARM_TIME">%s</xliff:g> تنظیم می‌شود"</string>
     <string name="timer_created" msgid="4381027137335885547">"تایمر ایجاد شد"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> تایمر رد شد</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> تایمر رد شد</item>
+        <item quantity="one">تایمر رد شد</item>
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> تایمر رد شد</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"مدت زمان  تایمر نامعتبر است"</string>
     <string name="invalid_timer" msgid="900957020728335675">"تایمر انتخاب‌شده معتبر نیست"</string>
@@ -252,7 +252,7 @@
     <string name="font_category_title">فونت</string>
     <string name="dark_theme">تیره</string>
     <string name="next_alarm_widget">هشدار بعدی</string>
-    <string name="auto_night_accent_color_title">استفاده از رنگ تاکیدی برای حالت شب</string>
+    <string name="auto_night_accent_color_title">اعمال رنگ تاکیدی برای حالت شب</string>
     <string name="night_accent_color_title">رنگ تاکیدی برای حالت شب</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">وقتی هشدار فعال شد، فلاش عقب روشن شود</string>
     <string name="alarm_button_color">رنگ دکمه هشدار</string>
@@ -284,7 +284,7 @@
     <string name="sync_alarm_by_label_title">همزمان کردن هشدارهای با برچسب یکسان</string>
     <string name="delay_picker_dialog_title">هشدار دادن در …</string>
     <string name="button_tip_title">دکمه ی \"+\" را برای افزودن پوشه نگه دارید</string>
-    <string name="alarm_scheduled_for">زمان بندی شده برای %s</string>
+    <string name="alarm_scheduled_for">زمان‌بندی شده برای %s</string>
     <string name="confirm_action_prompt">\n\nآیا میخواهید ادامه دهید؟</string>
     <string name="alarm_alert_off_and_deleted_text">خاموش کردن و حذف هشدار</string>
     <string name="progress_ringtones">افزودن زنگ تلفن…(%1$d/%2$d)</string>
@@ -305,4 +305,360 @@
     <string name="first_launch_important_info_title">اطلاعات مهم</string>
     <string name="alarm_upcoming_channel">هشدار آینده</string>
     <string name="timer_channel">زمان‌سنج</string>
+    <string name="add_label">افزودن برچسب</string>
+    <string name="timer_button_time_minutes_warning_box_text">مقداری بین ۰ تا ۶۰ دقیقه وارد کنید</string>
+    <string name="timer_button_time_seconds_warning_box_text">مقداری بین ۰ تا ۵۹ ثانیه وارد کنید</string>
+    <string name="timer_time_warning_box_title">مقدار وارد شده نادرست است</string>
+    <string name="pause_alarm_title">توقف موقت هشدار</string>
+    <string name="pause_alarm_range">متوقف شده: %1$s</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">لغو و\nحذف</string>
+    <string name="alarm_volume_low">حجم صدای هشدار کم است</string>
+    <string name="fix_alarm_volume">اصلاح</string>
+    <string name="alarm_hours_warning_box_text">مقداری بین ۰ تا ۲۴ ساعت وارد کنید</string>
+    <string name="alarm_minutes_warning_box_text">مقداری بین ۰ تا ۵۹ دقیقه وارد کنید</string>
+    <string name="description_direction_both_for_occasional_alarm">برای به تعویق انداختن به چپ یا برای رد کردن و حذف زنگ هشدار به راست بکشید</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">برای رد کردن به چپ یا راست بکشید</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">برای رد کردن و حذف زنگ هشدار به چپ یا راست بکشید</string>
+    <string name="description_snooze_button">برای به تعویق انداختن زنگ هشدار کلیک کنید</string>
+    <string name="description_dismiss_button">برای رد کردن زنگ هشدار کلیک کنید</string>
+    <string name="description_dismiss_button_for_occasional_alarm">برای رد کردن و حذف زنگ هشدار کلیک کنید</string>
+    <string name="repetitive_alarm_is_dismissed">زنگ هشدار رد شد. <xliff:g example="Next alarm Monday." id="alarm_day">برای %s مجدداً برنامه‌ریزی شد.</xliff:g></string>
+    <string name="alarm_is_dismissed_and_deleted">زنگ هشدار <xliff:g example="14:20" id="alarm_time">%s</xliff:g> رد و حذف شد</string>
+    <string name="city_search_hint">جستجوی شهر</string>
+    <string name="city_note_dialog_title">یادداشت برای %s</string>
+    <string name="timer_label_default">تایمر <xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g></string>
+    <string name="timer_label_box_title">برچسب تایمر</string>
+    <string name="timer_time_box_title">مدت زمان جدید تایمر</string>
+    <string name="timer_button_time_box_title">دقایق برای افزودن به تایمر</string>
+    <string name="timer_add_custom_time_with_seconds_description">افزودن %1$s دقیقه و %2$s ثانیه</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">افزودن %1$s دقیقه و %2$s ثانیه</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="timer_end_time_label">زمان پایان: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="sw_laps_title">دورها</string>
+    <string name="sw_split_title">تقسیم</string>
+    <string name="sw_total_title">مجموع</string>
+    <string name="random_ringtone_title">آهنگ زنگ تصادفی</string>
+    <string name="settings_permission_message">مجوز یک یا چند دسترسی ضروری رد شده است. عدم اعطای آنها می‌تواند منجر به عملکرد نادرست شود.</string>
+    <string name="settings_permission_summary">برای نمایش صفحه مدیریت مجوزها اینجا کلیک کنید.</string>
+    <string name="colors_category_title">رنگ‌ها</string>
+    <string name="miscellaneous_category_title">متفرقه</string>
+    <string name="custom_font_title">انتخاب یک قلم سفارشی</string>
+    <string name="custom_font_title_variant">تغییر یا حذف قلم سفارشی</string>
+    <string name="custom_font_dialog_title">قلم</string>
+    <string name="custom_font_toast_message_selected">قلم با موفقیت انتخاب شد</string>
+    <string name="custom_font_toast_message_deleted">قلم با موفقیت حذف شد</string>
+    <string name="ringtone_category_title">آهنگ زنگ</string>
+    <string name="vibration_category_title">لرزش</string>
+    <string name="actions_category_title">اقدامات</string>
+    <string name="display_settings_title">تنظیمات نمایش</string>
+    <string name="sort_name">بر اساس نام</string>
+    <string name="sort_manually">دستی (با کشیدن)</string>
+    <string name="clock_color_title">رنگ ساعت</string>
+    <string name="clock_default_color_title">استفاده از رنگ پیش‌فرض برای ساعت اصلی</string>
+    <string name="display_text_shadow_title">نمایش سایه متن</string>
+    <string name="shadow_color_title">رنگ سایه</string>
+    <string name="shadow_offset_title">میزان جابجایی سایه</string>
+    <string name="display_ringtone_title">نمایش عنوان آهنگ زنگ</string>
+    <string name="ringtone_title_color">رنگ عنوان آهنگ زنگ</string>
+    <string name="blur_intensity_title">شدت تاری</string>
+    <string name="background_image_title">انتخاب تصویر پس‌زمینه</string>
+    <string name="background_image_title_variant">تغییر یا حذف تصویر پس‌زمینه</string>
+    <string name="background_image_dialog_title">تصویر پس‌زمینه</string>
+    <string name="background_image_toast_message_selected">تصویر با موفقیت انتخاب شد</string>
+    <string name="background_image_toast_message_deleted">تصویر با موفقیت حذف شد</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">مدت زمان‌های افزایش سفارشی صدای هشدار بازنشانی خواهند شد.%s</string>
+    <string name="auto_silence_end_of_ringtone">پایان آهنگ زنگ</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">مدت زمان‌های توقف سفارشی هشدار بازنشانی خواهند شد.%s</string>
+    <string name="clock_dial_with_numbers">با اعداد</string>
+    <string name="clock_dial_without_numbers">بدون اعداد</string>
+    <string name="clock_dial_with_roman_numbers">با اعداد رومی</string>
+    <string name="clock_second_hand_title">عقربه ثانیه‌شمار</string>
+    <string name="clock_second_hand_vintage">قدیمی</string>
+    <string name="clock_second_hand_lollipop">آب‌نباتی</string>
+    <string name="clock_style_analog_material">آنالوگ (متریال)</string>
+    <string name="clock_dial_title">صفحه</string>
+    <string name="clock_dial_sun">خورشید</string>
+    <string name="clock_dial_flower">گل</string>
+    <string name="clock_style_spinner">چرخان</string>
+    <string name="analog_clock_size_title">اندازه ساعت آنالوگ</string>
+    <string name="display_text_uppercase_title">نمایش متن با حروف بزرگ</string>
+    <string name="vibration_pattern_title">الگوی لرزش</string>
+    <string name="vibration_pattern_soft">نرم</string>
+    <string name="vibration_pattern_strong">قوی</string>
+    <string name="vibration_pattern_heartbeat">ضربان قلب</string>
+    <string name="vibration_pattern_escalating">افزاینده</string>
+    <string name="vibration_pattern_tick_tock">تیک‌تاک</string>
+    <string name="interface_customization_settings">رابط کاربری</string>
+    <string name="interface_customization_summary">سفارشی‌سازی سبک، قلم، زبان، و رنگ برنامه</string>
+    <string name="blue_gray_accent_color">آبی خاکستری</string>
+    <string name="indigo_accent_color">نیلی</string>
+    <string name="title_dark_theme_mode">حالت پوسته تاریک</string>
+    <string name="amoled_dark_theme_mode">آمولد</string>
+    <string name="display_card_background_title">نمایش پس‌زمینه کارت‌ها</string>
+    <string name="display_background_border_title">نمایش حاشیه‌های پس‌زمینه</string>
+    <string name="display_background_border_summary">حاشیه پس‌زمینه‌ای را برای برخی از عناصر برنامه نمایش می‌دهد (هشدارها، شهرها، دکمه زمان‌سنج و غیره)</string>
+    <string name="settings_language_chinese_simplified_cn">چینی (ساده شده، چین)</string>
+    <string name="settings_language_bulgarian">بلغاری</string>
+    <string name="settings_language_tamil">تامیلی</string>
+    <string name="settings_language_arabic">عربی</string>
+    <string name="settings_language_hungarian">مجاری</string>
+    <string name="settings_language_hebrew">عبری</string>
+    <string name="tabs_category_title">زبانه‌ها</string>
+    <string name="visible_tabs_title">زبانه‌های قابل مشاهده</string>
+    <string name="settings_tab_to_display">زبانه قابل نمایش هنگام باز کردن برنامه</string>
+    <string name="last_tab_used_title">آخرین زبانه استفاده شده</string>
+    <string name="settings_vibration_title">فعال کردن لرزش</string>
+    <string name="settings_vibration_summary">فقط برخی از دکمه‌های رابط کاربری تحت تأثیر قرار می‌گیرند (مثلاً: دکمه پخش/توقف زمان‌سنج یا کلیدها)</string>
+    <string name="settings_vibration_disabled_summary">لرزش در تنظیمات دستگاه غیرفعال است</string>
+    <string name="settings_toolbar_title">نمایش عنوان در نوار ابزار</string>
+    <string name="settings_tab_title_visibility_title">نمایش عناوین زبانه‌ها</string>
+    <string name="tab_title_visibility_always">همیشه</string>
+    <string name="tab_title_visibility_when_selected">هنگام انتخاب شدن</string>
+    <string name="settings_tab_indicator_title">نمایش نشانگر زبانه در منوی پیمایش پایین</string>
+    <string name="settings_tab_animation_title">پویانمایی هنگام تغییر زبانه‌ها</string>
+    <string name="tab_animation_cube">مکعب</string>
+    <string name="tab_animation_depth">عمق</string>
+    <string name="tab_animation_flip">چرخش</string>
+    <string name="tab_animation_gate">دروازه</string>
+    <string name="tab_animation_zoom_out">کوچک‌نمایی</string>
+    <string name="settings_fade_transitions_title">فعال‌سازی انتقال محو هنگام تغییر صفحات</string>
+    <string name="settings_keep_screen_on_title">روشن نگه داشتن صفحه نمایش</string>
+    <string name="settings_keep_screen_on_summary">توجه: اگر یک زمان‌سنج یا کرنومتر در حال اجرا باشد و زبانه مربوطه نمایش داده شود، صفحه نمایش صرف‌نظر از وضعیت این تنظیم همیشه روشن خواهد بود</string>
+    <string name="alarm_settings_summary">سفارشی‌سازی سبک، فونت، آهنگ زنگ پیش‌فرض، صدا، اقدامات برای رد کردن یا به تعویق انداختن زنگ‌های هشدار، روز اول هفته و زمان اعلان یادآوری</string>
+    <string name="enable_per_alarm_snooze_duration_title">استفاده از مدت زمان تعویق سفارشی برای هر هشدار</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">مدت زمان‌های سفارشی تعویق هشدار بازنشانی خواهند شد.%s</string>
+    <string name="enable_per_alarm_volume_title">استفاده از حجم صدای سفارشی برای هر هشدار</string>
+    <string name="enable_per_alarm_volume_dialog_message">حجم صدای سفارشی هشدارها بازنشانی خواهد شد.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_title">استفاده از مدت زمان افزایش صدای سفارشی برای هر هشدار</string>
+    <string name="enable_per_alarm_auto_silence_title">استفاده از مدت زمان توقف سفارشی برای هر هشدار</string>
+    <string name="display_dismiss_button_title">نمایش دکمه \"لغو\" به محض فعال شدن هشدار</string>
+    <string name="display_dismiss_button_summary">در صورت غیرفعال بودن، دکمه همزمان با اعلان یادآوری ظاهر می‌شود</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">استفاده از تعداد تکرار سفارشی هشدار از دست رفته برای هر هشدار</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">تعداد تکرار سفارشی هشدار از دست رفته بازنشانی خواهد شد.%s</string>
+    <string name="missed_alarm_repeat_limit_title">تکرار هشدارهای از دست رفته</string>
+    <string name="missed_alarm_repeat_limit_1_time">۱ بار</string>
+    <string name="missed_alarm_repeat_limit_3_times">۳ بار</string>
+    <string name="missed_alarm_repeat_limit_5_times">۵ بار</string>
+    <string name="missed_alarm_repeat_limit_10_times">۱۰ بار</string>
+    <string name="alarm_notification_reminder_title">یادآوری اعلان</string>
+    <string name="advanced_audio_playback_title">استفاده از پخش صوتی پیشرفته</string>
+    <string name="advanced_audio_playback_summary">سازگاری دستگاه صوتی خارجی را بهبود می‌بخشد و از وقفه در صدا در حین تکرار جلوگیری می‌کند \n\nتوجه: برخی از آهنگ‌های زنگ ممکن است دارای نقص‌های صوتی جزئی باشند</string>
+    <string name="auto_routing_to_external_audio_device_title">فعال‌سازی هدایت خودکار آهنگ‌های زنگ به دستگاه‌های صوتی خارجی</string>
+    <string name="system_media_volume_title">استفاده از حجم صدای رسانه سیستم</string>
+    <string name="external_audio_device_volume_title">حجم صدای هشدار برای دستگاه‌های صوتی خارجی</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">فعال‌سازی لرزش هنگام پخش هشدار</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">لرزش برای همه هشدارها غیرفعال خواهد شد.%s</string>
+    <string name="enable_per_alarm_vibration_pattern_title">استفاده از الگوی لرزش سفارشی برای هر هشدار</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">الگوهای لرزش سفارشی بازنشانی خواهند شد.%s</string>
+    <string name="vibration_start_delay_title">تأخیر پیش از شروع لرزش</string>
+    <string name="vibration_start_delay_warning_box_text">مقداری بین ۰ تا ۱۰ دقیقه وارد کنید</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">فعال‌سازی لرزش هنگام تعویق یا لغو هشدار</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">لرزش دوگانه هنگام تعویق هشدار و لرزش یگانه هنگام لغو هشدار</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">فعال‌سازی حذف خودکار هشدارهای موقت به طور پیش‌فرض</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">ویژگی \"حذف هشدار پس از لغو\" برای همه هشدارها غیرفعال خواهد شد.%s</string>
+    <string name="display_low_alarm_volume_warning_title">نمایش هشدار هنگامی که حجم صدای هشدار روی حداقل تنظیم شده است</string>
+    <string name="material_time_picker_style_title">سبک انتخاب‌گر زمان</string>
+    <string name="date_picker_style_title">سبک انتخاب‌گر تاریخ</string>
+    <string name="sort_alarm_title">مرتب‌سازی هشدارها</string>
+    <string name="sort_alarm_time">بر اساس زمان هشدار</string>
+    <string name="sort_next_alarm_time">بر اساس زمان هشدار بعدی</string>
+    <string name="sort_descending_creation_order">بر اساس ترتیب ایجاد (قدیمی‌ترین در آخر)</string>
+    <string name="sort_ascending_creation_order">بر اساس ترتیب ایجاد (قدیمی‌ترین در ابتدا)</string>
+    <string name="display_enabled_alarms_first_title">نمایش هشدارهای فعال در ابتدا</string>
+    <string name="enable_alarm_fab_long_press_title">فعال‌سازی فشردن طولانی روی دکمه اقدام برای ایجاد هشدار با تأخیر</string>
+    <string name="enable_alarm_fab_long_press_summary">در صورت غیرفعال بودن، دو دکمه برای ایجاد هشدار نمایش داده می‌شود</string>
+    <string name="alarm_settings_general_summary">این تنظیم می‌تواند برای هر هشدار در صفحه ویرایش هشدار تغییر یابد</string>
+    <string name="button_action_nothing">هیچ‌چیز</string>
+    <string name="power_button_title">دکمه پاور</string>
+    <string name="flip_action_title">عملکرد برگرداندن دستگاه</string>
+    <string name="shake_action_title">عملکرد تکان دادن دستگاه</string>
+    <string name="slide_zone_color_title">رنگ منطقه لغزنده</string>
+    <string name="snooze_title_color">رنگ عنوان \"تعویق\"</string>
+    <string name="snooze_button_color">رنگ دکمه \"تعویق\"</string>
+    <string name="dismiss_title_color">رنگ عنوان \"لغو\"</string>
+    <string name="dismiss_button_color">رنگ دکمه \"لغو\"</string>
+    <string name="snooze_zone_color_title">رنگ منطقه تعویق</string>
+    <string name="snooze_minus_button_color_title">رنگ دکمه \"-\"</string>
+    <string name="snooze_plus_button_color_title">رنگ دکمه \"+\"</string>
+    <string name="snooze_selector_text_color_title">رنگ متن انتخاب‌گر تعویق</string>
+    <string name="snooze_minus_symbol_color_title">رنگ علامت \"-\"</string>
+    <string name="snooze_plus_symbol_color_title">رنگ علامت \"+\"</string>
+    <string name="clock_font_size">اندازه قلم ساعت</string>
+    <string name="alarm_title_font_size">اندازه قلم عنوان هشدار</string>
+    <string name="display_alarm_action_message_title">نمایش پیام پس از تعویق یا لغو هشدار</string>
+    <string name="swipe_action_title">کشیدن برای لغو یا تعویق هشدارها</string>
+    <string name="display_snooze_selector_title">نمایش انتخاب‌گر تعویق</string>
+    <string name="clock_settings_summary">سفارشی‌سازی سبک، فونت، منطقه زمانی و تاریخ و زمان دستگاه</string>
+    <string name="sort_cities_title">مرتب‌سازی شهرها</string>
+    <string name="sort_cities_ascending_time_zone">بر اساس منطقه زمانی (صعودی)</string>
+    <string name="sort_cities_descending_time_zone">بر اساس منطقه زمانی (نزولی)</string>
+    <string name="timezone_baker_howland">جزایر بیکر و هاولند</string>
+    <string name="timezone_marquesas">جزایر مارکیز</string>
+    <string name="timezone_chatham">جزیره چتم</string>
+    <string name="timezone_gambier">جزایر گامبیر</string>
+    <string name="timezone_pitcairn">جزایر پیت‌کرن</string>
+    <string name="timezone_easter_island">جزیره ایستر</string>
+    <string name="timezone_miquelon">سن پیر و میکلون</string>
+    <string name="timezone_noronha">فرناندو دی نورونیا</string>
+    <string name="timezone_lord_howe">جزیره لرد هاو</string>
+    <string name="timezone_norfolk">جزیره نورفولک</string>
+    <string name="timezone_macquarie">جزیره مک‌کواری</string>
+    <string name="enable_city_note_title">افزودن یادداشت شخصی به شهرها</string>
+    <string name="enable_city_note_summary">برای افزودن یا ویرایش یادداشت شخصی، روی یک شهر ضربه بزنید</string>
+    <string name="timer_settings_summary">سفارشی‌سازی سبک، فونت، آهنگ زنگ پیش‌فرض، اقدام برای متوقف کردن تایمرها و مرتب‌سازی تایمر</string>
+    <string name="timer_creation_view_style_title">سبک نمای ایجاد تایمر</string>
+    <string name="timer_creation_view_style_keypad">صفحه کلید</string>
+    <string name="timer_volume_buttons_action_title">بازنشانی تایمرهای منقضی شده با دکمه‌های صدا</string>
+    <string name="timer_power_button_action_title">بازنشانی تایمرهای منقضی شده با دکمه پاور</string>
+    <string name="timer_buttons_action_summary">فقط در صفحه قفل کار می‌کند</string>
+    <string name="timer_flip_action_title">برگرداندن دستگاه برای متوقف کردن زنگ هشدار</string>
+    <string name="timer_shake_action_title">تکان دادن دستگاه برای متوقف کردن زنگ هشدار</string>
+    <string name="single_timer_mode_title">حالت تک تایمر</string>
+    <string name="single_timer_mode_summary">فقط یک تایمر نگه دارید که پس از بازنشانی به طور خودکار حذف می‌شود</string>
+    <string name="single_timer_mode_warning_message">تایمرها حذف خواهند شد.%s</string>
+    <string name="sort_timer_title">مرتب‌سازی تایمرها</string>
+    <string name="sort_timer_ascending_duration">بر اساس مدت زمان (صعودی)</string>
+    <string name="sort_timer_descending_duration">بر اساس مدت زمان (نزولی)</string>
+    <string name="default_time_to_add_to_timer_title">زمان پیش‌فرض برای افزودن به تایمرها</string>
+    <string name="invert_timer_button_positions_title">معکوس کردن موقعیت دکمه‌های تایمر</string>
+    <string name="display_compact_timers_title">نمایش تایمرهای فعال در حالت فشرده</string>
+    <string name="display_timer_end_time_title">نمایش زمان پایان تایمر</string>
+    <string name="transparent_background_for_expired_timer_title">پس‌زمینه شفاف هنگام منقضی شدن تایمرها</string>
+    <string name="display_timer_state_indicator_title">نمایش نشانگرهای وضعیت تایمر</string>
+    <string name="running_timer_indicator_color_title">رنگ نشانگر تایمر در حال اجرا</string>
+    <string name="paused_timer_indicator_color_title">رنگ نشانگر تایمر متوقف شده</string>
+    <string name="expired_timer_indicator_color_title">رنگ نشانگر تایمر منقضی شده</string>
+    <string name="missed_timer_indicator_color_title">رنگ نشانگر تایمر از دست رفته</string>
+    <string name="sw_settings_summary">سفارشی‌سازی فونت و عملکردهای دکمه‌های صدا</string>
+    <string name="sw_volume_up_action_title">افزایش صدا</string>
+    <string name="sw_long_press_volume_up_action_title">افزایش صدا (پس از فشار طولانی)</string>
+    <string name="sw_volume_down_action_title">کاهش صدا</string>
+    <string name="sw_long_press_volume_down_action_title">کاهش صدا (پس از فشار طولانی)</string>
+    <string name="sw_start_pause_action">شروع / توقف</string>
+    <string name="screensaver_settings_summary">سفارشی‌سازی سبک، فونت و رنگ محافظ صفحه</string>
+    <string name="screensaver_daydream_settings">انتخاب/فعال‌سازی محافظ صفحه</string>
+    <string name="screensaver_daydream_settings_summary">تنظیمات اصلی محافظ صفحه اندروید را باز می‌کند</string>
+    <string name="screensaver_clock_dynamic_colors_title">رنگ‌های پویا ساعت</string>
+    <string name="screensaver_brightness_title">روشنایی</string>
+    <string name="screensaver_bold_digital_clock_title">ساعت دیجیتال به صورت پررنگ</string>
+    <string name="screensaver_italic_digital_clock_title">ساعت دیجیتال به صورت مورب</string>
+    <string name="screensaver_bold_battery_title">سطح باتری به صورت پررنگ</string>
+    <string name="screensaver_italic_battery_title">سطح باتری به صورت مورب</string>
+    <string name="screensaver_bold_date_title">تاریخ به صورت پررنگ</string>
+    <string name="screensaver_italic_date_title">تاریخ به صورت مورب</string>
+    <string name="screensaver_bold_next_alarm_title">زنگ هشدار بعدی به صورت پررنگ</string>
+    <string name="screensaver_italic_next_alarm_title">زنگ هشدار بعدی به صورت مورب</string>
+    <string name="preview_title">پیش‌نمایش</string>
+    <string name="screensaver_preview_summary">محافظ صفحه را فوراً شروع می‌کند</string>
+    <string name="widgets_settings">ویجت‌ها</string>
+    <string name="widgets_settings_summary">سفارشی‌سازی سبک، رنگ‌ها و اندازه فونت ویجت‌ها</string>
+    <string name="vertical_widget">ساعت عمودی</string>
+    <string name="widget_background_title">نمایش پس‌زمینه</string>
+    <string name="customize_background_corner_radius_title">سفارشی‌سازی شعاع گوشه پس‌زمینه</string>
+    <string name="customize_background_corner_radius_summary">به شما امکان می‌دهد گوشه‌های ویجت را گرد کنید اگر صفحه اصلی شما از آن پشتیبانی نمی‌کند</string>
+    <string name="background_corner_radius_title">شعاع گوشه پس‌زمینه</string>
+    <string name="background_default_color_title">استفاده از رنگ پیش‌فرض برای پس‌زمینه</string>
+    <string name="display_city_title">نمایش شهرها</string>
+    <string name="display_date_title">نمایش تاریخ</string>
+    <string name="display_top_date_title">نمایش تاریخ بالای زمان</string>
+    <string name="display_next_alarm_title">نمایش زنگ هشدار بعدی</string>
+    <string name="display_next_alarm_title_setting_title">نمایش عنوان زنگ هشدار بعدی</string>
+    <string name="max_clock_font_size_title">حداکثر اندازه فونت ساعت اصلی</string>
+    <string name="digital_widget_message_summary">برای دسترسی به این تنظیم، باید «نمایش شهرها» غیرفعال باشد</string>
+    <string name="widget_apply_horizontal_padding_title">اعمال فاصله به کناره‌های ویجت</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">استفاده از رنگ پیش‌فرض برای عنوان «هیچ زنگ هشدار آینده‌ای وجود ندارد»</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">رنگ برای عنوان «هیچ زنگ هشدار آینده‌ای وجود ندارد»</string>
+    <string name="next_alarm_widget_title_no_alarm">هیچ زنگ هشدار آینده‌ای وجود ندارد</string>
+    <string name="hide_clock_am_pm_pref">پنهان کردن متن AM/PM</string>
+    <string name="hour_color_title">رنگ ساعت</string>
+    <string name="hour_default_color_title">استفاده از رنگ پیش‌فرض برای ساعت‌ها</string>
+    <string name="minute_color_title">رنگ دقیقه</string>
+    <string name="minute_default_color_title">استفاده از رنگ پیش‌فرض برای دقیقه‌ها</string>
+    <string name="dial_color_title">رنگ صفحه</string>
+    <string name="dial_default_color_title">استفاده از رنگ پیش‌فرض برای صفحه</string>
+    <string name="hour_hand_color_title">رنگ عقربه ساعت‌شمار</string>
+    <string name="hour_hand_default_color_title">استفاده از رنگ پیش‌فرض برای عقربه ساعت‌شمار</string>
+    <string name="minute_hand_color_title">رنگ عقربه دقیقه‌شمار</string>
+    <string name="minute_hand_default_color_title">استفاده از رنگ پیش‌فرض برای عقربه دقیقه‌شمار</string>
+    <string name="second_hand_color_title">رنگ عقربه ثانیه‌شمار</string>
+    <string name="second_hand_default_color_title">استفاده از رنگ پیش‌فرض برای عقربه ثانیه‌شمار</string>
+    <string name="display_battery_title">نمایش سطح باتری</string>
+    <string name="battery_color_title">رنگ سطح باتری</string>
+    <string name="date_color_title">رنگ تاریخ</string>
+    <string name="date_default_color_title">استفاده از رنگ پیش‌فرض برای تاریخ</string>
+    <string name="next_alarm_color_title">رنگ زنگ هشدار بعدی</string>
+    <string name="next_alarm_default_color_title">استفاده از رنگ پیش‌فرض برای زنگ هشدار بعدی</string>
+    <string name="next_alarm_title_color_title">رنگ عنوان زنگ هشدار بعدی</string>
+    <string name="next_alarm_title_default_color_title">استفاده از رنگ پیش‌فرض برای عنوان زنگ هشدار بعدی</string>
+    <string name="city_clock_color_title">رنگ ساعت شهر</string>
+    <string name="city_clock_default_color_title">استفاده از رنگ پیش‌فرض برای ساعت شهر</string>
+    <string name="city_name_color_title">رنگ نام شهر</string>
+    <string name="city_note_color_title">رنگ یادداشت شهر</string>
+    <string name="city_name_default_color_title">استفاده از رنگ پیش‌فرض برای نام شهر</string>
+    <string name="city_note_default_color_title">استفاده از رنگ پیش‌فرض برای یادداشت شهر</string>
+    <string name="alarm_title_color">رنگ عنوان زنگ هشدار</string>
+    <string name="alarm_title_default_color">استفاده از رنگ پیش‌فرض برای عنوان زنگ هشدار</string>
+    <string name="permission_management_settings">مدیریت مجوزها</string>
+    <string name="permission_management_summary">نمایش مجوزهای لازم برای عملکرد صحیح برنامه</string>
+    <string name="permissions_category_title">مجوزها</string>
+    <string name="permission_requirement_title">نیازمندی:</string>
+    <string name="permission_highly_recommended">بسیار توصیه می‌شود</string>
+    <string name="permission_status_title">وضعیت:</string>
+    <string name="permission_info_title">فقط برای دستگاه‌های شیائومی</string>
+    <string name="permission_granted">اعطا شد</string>
+    <string name="permission_denied">رد شد</string>
+    <string name="denied_permission_label">مجوز رد شد</string>
+    <string name="ignore_battery_optimizations_dialog_text">به طور پیش‌فرض، سیستم اندروید تمام برنامه‌های نصب شده توسط کاربر را برای صرفه‌جویی در مصرف باتری بهینه می‌کند. \n\nدر حالی که این برای بسیاری از برنامه‌ها قابل قبول است، این برنامه یک برنامه زنگ هشدار است و در صورت پیکربندی برای بهینه‌سازی باتری، اغلب با مشکلاتی مواجه می‌شود. پس از فعال شدن، سیستم اندروید می‌تواند در هر زمان برنامه را از بین ببرد و/یا زنگ‌های هشدار برنامه‌ریزی شده آن را لغو کند، که بر عملکرد برنامه تأثیر منفی می‌گذارد. \n\nتوصیه می‌کنیم این برنامه را از بهینه‌سازی‌های باتری در لیست سفید قرار دهید.</string>
+    <string name="notifications_permission_title">فعال کردن اعلان‌ها</string>
+    <string name="notifications_dialog_title">اعلان‌ها</string>
+    <string name="notifications_dialog_text">علاوه بر تنظیم زنگ‌های هشدار، این برنامه دارای حالت تایمر و کرنومتر نیز می‌باشد. \n\nبرای اینکه اعلان‌ها برای همه ماژول‌ها به درستی ظاهر شوند و به خصوص برای فعال شدن زنگ هشدار، توصیه می‌کنیم اعلان‌ها را برای این برنامه فعال کنید.</string>
+    <string name="FSN_permission_title">فعال کردن اعلان‌های تمام صفحه</string>
+    <string name="FSN_dialog_title">اعلان‌های تمام صفحه</string>
+    <string name="FSN_dialog_text">از اندروید ۱۴، برای اینکه زنگ هشدار هنگام خاموش بودن صفحه فعال شود، ضروری است که مجوز «اعلان‌های تمام صفحه» فعال باشد.</string>
+    <string name="show_lockscreen_permission_title">نمایش در صفحه قفل</string>
+    <string name="foreground_service_title">نمایش اعلان پیش‌زمینه</string>
+    <string name="foreground_service_dialog_message">برای جلوگیری از بسته شدن تهاجمی برنامه توسط دستگاه و از دست رفتن زنگ‌های هشدار، این یک اعلان پایدار و بی‌صدا را نمایش می‌دهد.\n\nاین تضمین می‌کند که برنامه در حافظه باقی بماند، اگرچه ممکن است کمی مصرف باتری را افزایش دهد.\n\nتوجه: فعال کردن این تنظیم برای اکثر دستگاه‌ها ضروری نیست. فقط در صورتی که با زنگ‌های هشدار از دست رفته مواجه شدید، آن را فعال کنید.</string>
+    <string name="dialog_close">بستن</string>
+    <string name="about_title">درباره</string>
+    <string name="app_slogan">ساعت ۱۰۰٪ متن‌باز، بر اساس AOSP</string>
+    <string name="version">نسخه</string>
+    <string name="version_text">نسخه <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <string name="whats_new_title">چه چیزی جدید است</string>
+    <string name="whats_new_dialog_message">چیزهای جدید را کشف کنید:\n\n%s</string>
+    <string name="features_title">ویژگی‌های اصلی</string>
+    <string name="features_dialog_message">از صفحه ویژگی‌های اصلی دیدن کنید:\n\n%s</string>
+    <string name="about_github_link">مشاهده در گیت‌هاب</string>
+    <string name="github_dialog_message">از صفحه گیت‌هاب پروژه دیدن کنید:\n\n%s</string>
+    <string name="about_translate_link">ترجمه در Codeberg</string>
+    <string name="translate_dialog_message">از صفحه Codeberg دیدن کنید:\n\n%s</string>
+    <string name="license">مجوز متن‌باز</string>
+    <string name="license_dialog_message">مجوز را بخوانید:\n\n%s</string>
+    <string name="gnu_gpl">مجوز عمومی گنو نسخه ۳.۰</string>
+    <string name="reset_settings_title">بازنشانی تنظیمات</string>
+    <string name="reset_settings_message">آیا مطمئن هستید که می‌خواهید تمام تنظیمات برنامه را بازنشانی کنید؟</string>
+    <string name="restart_app_dialog_title_for_reset">بازنشانی کامل شد</string>
+    <string name="restart_app_dialog_title_for_restore">بازیابی کامل شد</string>
+    <string name="restart_app_dialog_message">برای اعمال تغییرات، برنامه باید مجدداً راه‌اندازی شود.</string>
+    <string name="shortcut_disabled">زبانه پنهان است</string>
+    <string name="foreground_service_channel">اعلان پیش‌زمینه</string>
+    <string name="foreground_service_message">در حال اجرا در پس‌زمینه</string>
+    <string name="firing_alarms_timers_channel">زنگ‌های هشدار و تایمرهای فعال</string>
+    <string name="alarm_missed_channel">زنگ‌های هشدار از دست رفته</string>
+    <string name="alarm_snooze_channel">زنگ‌های هشدار به تعویق افتاده</string>
+    <string name="stopwatch_channel">کرنومتر</string>
+    <string name="timer_missed_channel">تایمرهای از دست رفته</string>
+    <string name="first_launch_version">نسخه %s</string>
+    <string name="first_launch_main_feature_title">ویژگی‌های اصلی</string>
+    <string name="first_launch_main_feature_message">◄ تم روشن، تیره یا سیستمی؛ &lt;br&gt; &lt;br&gt; ◄ محافظ صفحه قابل تنظیم؛ &lt;br&gt; &lt;br&gt; ◄ ویجت‌های قابل تنظیم؛ &lt;br&gt; &lt;br&gt; ◄ پشتیبانی از کاشی‌ها در تنظیمات سریع (برای اندروید ۷+)؛ &lt;br&gt; &lt;br&gt; ◄ پشتیبان‌گیری و بازیابی داده‌های برنامه (به جز آهنگ‌های زنگ سفارشی)؛ &lt;br&gt; &lt;br&gt; ◄ طراحی متریال و رنگ‌های پویا؛ &lt;br&gt; &lt;br&gt; ◄ تنظیم زنگ‌های هشدار برای یک تاریخ خاص؛ &lt;br&gt; &lt;br&gt; ◄ کشیدن برای حذف یک زنگ هشدار؛ &lt;br&gt; &lt;br&gt; ◄ کپی کردن یک زنگ هشدار؛ &lt;br&gt; &lt;br&gt; ◄ عملکرد برگرداندن و تکان دادن برای رد/به تعویق انداختن زنگ هشدار؛ &lt;br&gt; &lt;br&gt; ◄ خاموش/به تعویق انداختن زنگ هشدار با دکمه پاور یا دکمه‌های صدا؛ &lt;br&gt; &lt;br&gt; ◄ %s</string>
+    <string name="first_launch_main_feature_link">... و خیلی بیشتر!</string>
+    <string name="first_launch_important_info_message">برای اطمینان از عملکرد صحیح برنامه، &lt;b&gt;برخی از تنظیمات دستگاه شما باید تغییر کند:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;بهینه‌سازی باتری؛&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;اعلان‌ها؛&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;بسته به نسخه اندروید دستگاه شما، برخی از این تنظیمات از قبل بهینه شده‌اند (مثلاً اعلان‌ها).&lt;/i&gt; &lt;br&gt; &lt;br&gt; می‌توانید آنها را اکنون یا بعداً در تنظیمات مدیریت مجوزها تغییر دهید:</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;اعلان‌های تمام صفحه؛&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_dialog_message">آیا مطمئن هستید که می‌خواهید از برنامه خارج شوید؟</string>
+    <string name="backup_restore_title">پشتیبان‌گیری و بازیابی</string>
+    <string name="backup_restore_summary">پشتیبان‌گیری یا بازیابی داده‌های برنامه به جز آهنگ‌های زنگ سفارشی</string>
+    <string name="backup_restore_dialog_message">آیا می‌خواهید از داده‌های برنامه پشتیبان‌گیری یا بازیابی کنید؟</string>
+    <string name="backup_button_title">پشتیبان‌گیری</string>
+    <string name="toast_message_for_backup">پشتیبان‌گیری کامل شد</string>
+    <string name="toast_message_backup_error">پشتیبان‌گیری ناموفق بود</string>
+    <string name="toast_message_restore_error">بازیابی ناموفق بود</string>
 </resources>

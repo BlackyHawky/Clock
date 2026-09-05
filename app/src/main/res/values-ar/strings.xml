@@ -61,10 +61,10 @@
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="zero"><xliff:g id="number">%s</xliff:g> من الأيام</item>
         <item quantity="one">يوم واحد</item>
-        <item quantity="two">يومان (<xliff:g id="number">%s</xliff:g>)</item>
-        <item quantity="few"><xliff:g id="number">%s</xliff:g> أيام</item>
-        <item quantity="many"><xliff:g id="number">%s</xliff:g> يومًا</item>
-        <item quantity="other"><xliff:g id="number">%s</xliff:g> يوم</item>
+        <item quantity="two">يومان <xliff:g example="2" id="number">%s</xliff:g></item>
+        <item quantity="few"><xliff:g example="5" id="number">%s</xliff:g> أيام</item>
+        <item quantity="many"><xliff:g example="12" id="number">%s</xliff:g> يومًا</item>
+        <item quantity="other"><xliff:g example="100" id="number">%s</xliff:g> يوم</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="zero"><xliff:g id="number">%s</xliff:g> من الساعات</item>
@@ -434,9 +434,9 @@
     <string name="background_image_toast_message_selected">تم اختيار الصورة بنجاح</string>
     <string name="background_image_toast_message_deleted">تم حذف الصورة بنجاح</string>
     <string name="enable_per_alarm_crescendo_duration_title">استخدم مدة زيادة مستوى الصوت المخصصة لكل منبه</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">ستتم إعادة ضبط مدة زيادة مستوى صوت التنبيه المخصص.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">استخدم مدة إيقاف المنبه مخصصة لكل منبه</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">سيتم إعادة ضبط مدة إيقاف الإنذار المخصصة.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">ستتم إعادة ضبط مدة زيادة مستوى صوت المخصّص.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">استخدم مدة إيقاف مخصّصة لكل منبه</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">سيتم إعادة ضبط مدة إيقاف المخصّصة.%s</string>
     <string name="auto_silence_end_of_ringtone">نهاية نغمة الرنين</string>
     <string name="snooze_duration_none">أفتراضي</string>
     <string name="random_ringtone_title">نغمة رنين عشوائية</string>
@@ -510,7 +510,7 @@
     <string name="timer_settings_summary">يمكنك تخصيص النمط والخط ونغمة الرنين الافتراضية والإجراء لإيقاف المؤقتات وترتيب المؤقتات</string>
     <string name="timer_creation_view_style_title">نمط عرض إنشاء المؤقت</string>
     <string name="timer_creation_view_style_keypad">لوحة المفاتيح</string>
-    <string name="display_compact_timers_title">اعرض المؤقتات النشطة في الوضع المصغر</string>
+    <string name="display_compact_timers_title">اعرض المؤقتات في الوضع المصغر</string>
     <string name="transparent_background_for_expired_timer_title">خلفية شفافة عند انتهاء المؤقتات</string>
     <string name="display_timer_state_indicator_title">اعرض مؤشرات حالة المؤقت</string>
     <string name="running_timer_indicator_color_title">لون مؤشر مؤقت التشغيل</string>
@@ -694,4 +694,24 @@
     <string name="invert_timer_button_positions_title">اعكس موضع أزرار المؤقت</string>
     <string name="display_timer_end_time_title">اعرض وقت انتهاء المؤقت</string>
     <string name="timer_missed_channel">المؤقتات الفائتة</string>
+    <string name="headphones_button_title">زر التشغيل/الإيقاف المؤقت في سماعات الرأس</string>
+    <string name="display_alarm_title_on_single_line_title">اعرض عنوان التنبيه في سطر واحد</string>
+    <string name="enable_per_alarm_background_image_title">استخدم صورة خلفية مخصّصة لكل منبه</string>
+    <string name="enable_per_alarm_background_image_dialog_message">ستُحذف صور الخلفية المخصّصة.%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nكما سيتم إعادة تعيين قيم شِدة التمويه المخصّصة.</string>
+    <string name="blur_intensity_dialog_message_2">سيتم إعادة تعيين قيم شِدة التمويه المخصّصة.%s</string>
+    <string name="timer_settings_general_summary">يمكن تغيير هذا الإعداد لكل مؤقت على حدة في لوحة تحرير المؤقتات</string>
+    <string name="enable_per_timer_auto_silence_title">استخدم مدة توقف مخصّصة لكل مؤقت</string>
+    <string name="enable_per_timer_crescendo_duration_title">استخدم مدة مخصّصة لزيادة مستوى الصوت لكل مؤقت</string>
+    <string name="timer_vibrate_dialog_message">سيتم تعطيل الاهتزازات لجميع المؤقتات.%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">استخدم نمط اهتزاز مخصّص لكل مؤقت</string>
+    <string name="timer_headphones_button_action_title">أعد ضبط المؤقتات التي انتهت صلاحيتها باستخدام زر التشغيل/الإيقاف المؤقت في سماعات الرأس</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">شغّل الكشاف الخلفي عند انتهاء مدة المؤقت</string>
+    <string name="add_time_button_title">زر \"أضف وقت\"</string>
+    <string name="delete_timer_after_use_title">احذف المؤقت بمجرد انتهاء صلاحيته</string>
+    <string name="turn_off_media_title">أوقِف تشغيل الوسائط بمجرد انتهاء صلاحيتها</string>
+    <string name="background_image_category_title">صورة الخلفية</string>
+    <string name="custom_font_dialog_message">غيّر الخط المخصّص أو احذفه.</string>
+    <string name="advanced_audio_playback_category_title">تشغيل الصوت المتقدم</string>
+    <string name="background_image_dialog_message">غيّر صورة الخلفية أو احذفها.</string>
 </resources>

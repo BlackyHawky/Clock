@@ -29,8 +29,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma desaktibatuta"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Atzeratu"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> minutu atzeratuta.</item>
         <item quantity="one">1 minutu atzeratuta.</item>
+        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> minutu atzeratuta.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Atzeratu ordu honetara arte: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Hurrengo alarma"</string>
@@ -55,24 +55,24 @@
     <string name="alarm_confirmation_toast_7">"Alarma <xliff:g id="HOURS">%2$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</string>
     <string name="alarm_confirmation_toast_8">"Alarma <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> egun</item>
         <item quantity="one">1 egun</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> egun</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ordu</item>
         <item quantity="one">1 ordu</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ordu</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
         <item quantity="one">1 h</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one">1 minutu</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutu</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
         <item quantity="one">1 min</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one">1 segundo</item>
@@ -209,8 +209,8 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma ordu honetarako ezarri da: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Sortu da tenporizadorea"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other">Baztertu dira <xliff:g id="NUMBER">%d</xliff:g> tenporizadore</item>
         <item quantity="one">Baztertu da tenporizadorea</item>
+        <item quantity="other">Baztertu dira <xliff:g id="NUMBER">%d</xliff:g> tenporizadore</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Tenporizadorearen iraupenak ez du balio"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Hautatutako tenporizadoreak ez du balio"</string>

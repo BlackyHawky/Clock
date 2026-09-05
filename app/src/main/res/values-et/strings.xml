@@ -29,8 +29,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Äratus väljas</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Lükka edasi"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Lükkame edasi 1 minuti võrra.</item>
-        <item quantity="other">Lükkame edasi <xliff:g id="minutes">%d</xliff:g> minuti võrra.</item>
+        <item quantity="one">Lükkame edasi <xliff:g example="1" id="minutes">%d</xliff:g> minuti võrra.</item>
+        <item quantity="other">Lükkame edasi <xliff:g example="10" id="minutes">%d</xliff:g> minuti võrra.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Lükkame äratuse edasi kuni <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Tulevane äratus"</string>
@@ -55,27 +55,27 @@
     <string name="alarm_confirmation_toast_7">Äratuseni on jäänud<xliff:g example="2 tundi" id="HOURS">%2$s</xliff:g> ja <xliff:g example="2 minutit" id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_8">Selle äratuseni on<xliff:g example="2 päeva" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 tundi" id="HOURS">%2$s</xliff:g> ja <xliff:g example="2 minutit" id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one">1 päev</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> päev</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> päeva</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one">1 tund</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> tund</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> tundi</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one">1 h</item>
-        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> h</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> t</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> t</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one">1 minut</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> minut</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minutit</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one">1 min</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">1 sekund</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> sekund</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> sekundit</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Iga päev"</string>
@@ -209,7 +209,7 @@
     <string name="alarm_is_set" msgid="5503226382620011088">Äratus on seatud – <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Taimer on loodud"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one">Taimerist loobuti</item>
+        <item quantity="one"><xliff:g example="1-st" id="number">%d</xliff:g> taimerist loobuti</item>
         <item quantity="other"><xliff:g example="5-st" id="number">%d</xliff:g> taimerist loobuti</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Taimeri kestus on sobimatu"</string>
@@ -558,9 +558,9 @@
     <string name="enable_per_alarm_missed_repeat_limit_title">Kasuta iga äratuse jaoks oma märkamata jäänud äratuste korduste arvu</string>
     <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Märkamata jäänud äratuste korduste arvud lähtestuvad.%s</string>
     <string name="enable_per_alarm_crescendo_duration_title">Kasuta iga äratuse jaoks oma helivaljuse suurendamise kestust</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Äratuste omad helivaljuse suurendamise kestused lähtestuvad.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Omaseadistatud helivaljuse suurendamise kestused lähtestuvad.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Kasuta iga äratuse jaoks oma peatamise kestust</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Äratuste omad peatamise kestused lähtestuvad.%s</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Omaseadistatud peatamise kestused lähtestuvad.%s</string>
     <string name="features_dialog_message">Vaata põhiliste funktsionaalsuste lehte:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Oled äratusest loobunud. <xliff:g example="Järgmine äratus on esmaspäeval." id="alarm_day">Uus aeg on - %s.</xliff:g></string>
     <string name="blur_intensity_title">Hägustamise tugevus</string>
@@ -598,7 +598,7 @@
     <string name="sw_split_title">Jagatud</string>
     <string name="sw_total_title">Kokku</string>
     <string name="analog_clock_size_title">Analoogkella suurus</string>
-    <string name="display_compact_timers_title">Näita aktiivseid taimereid kompaktses vaates</string>
+    <string name="display_compact_timers_title">Näita taimereid kompaktses vaates</string>
     <string name="display_battery_title">Näita aku laetust</string>
     <string name="battery_color_title">Aku laetuse värv</string>
     <string name="screensaver_bold_battery_title">Aku laetus paksus kirjas</string>
@@ -672,4 +672,28 @@
     <string name="display_timer_end_time_title">Näita taimeri lõpuaega</string>
     <string name="timer_missed_channel">Märkamata taimerid</string>
     <string name="settings_language_hebrew">heebrea keel</string>
+    <string name="add_time_button_title">„Lisa aega“ nupp</string>
+    <string name="delete_timer_after_use_title">Aegumisel kustuta taimer</string>
+    <string name="turn_off_media_title">Aegumisel peata meedium</string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one"><xliff:g example="1" id="number">%d</xliff:g> taimer on kustutatud</item>
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> taimerit on kustutatud</item>
+    </plurals>
+    <string name="background_image_category_title">Taustapilt</string>
+    <string name="custom_font_dialog_message">Vali või kustuta oma kirjatüüp.</string>
+    <string name="advanced_audio_playback_category_title">Heli taasesituse lisavalikud</string>
+    <string name="background_image_dialog_message">Muuda taustapilti või kustuta see.</string>
+    <string name="headphones_button_title">Kõrvaklappide esita/peata nupp</string>
+    <string name="display_alarm_title_on_single_line_title">Näita äratuse nime ühel real</string>
+    <string name="enable_per_alarm_background_image_title">Kasuta iga äratuse puhul eraldi taustapilti</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Kustutan sinu valitud taustapildid.%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nLisaks lähtestub sinu seadistatud hägustamise intensiivsus.</string>
+    <string name="blur_intensity_dialog_message_2">Sinu seadistatud hägustamise intensiivsus lähtestub.%s</string>
+    <string name="timer_settings_general_summary">Seda seadistust saad iga taimeri puhul kohendada taimeri muutmisvaates</string>
+    <string name="enable_per_timer_auto_silence_title">Kasuta iga taimeri jaoks oma peatamise kestust</string>
+    <string name="enable_per_timer_crescendo_duration_title">Kasuta iga taimeri jaoks oma helivaljuse suurendamise kestust</string>
+    <string name="timer_vibrate_dialog_message">Värin lülitatakse kõikide taimerite puhul välja.%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">Kasuta iga taimeri jaoks oma tüüpi värinat</string>
+    <string name="timer_headphones_button_action_title">Aegunud taimereid saad lähtestada kõrvaklappide esita/peata nupuga</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">Taimeri käivitumisel lülita tagumine välklamp sisse</string>
 </resources>

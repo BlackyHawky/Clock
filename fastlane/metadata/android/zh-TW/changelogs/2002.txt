@@ -1,0 +1,7 @@
+**修正：**
+* 修正長按應用程式圖示時的捷徑顯示問題；
+
+**改進：**
+* 移除非必要權限；
+
+主要變更請參閱： https://github.com/BlackyHawky/Clock/releases/tag/2.0

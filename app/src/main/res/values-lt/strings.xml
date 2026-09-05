@@ -31,7 +31,7 @@
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> minutę.</item>
         <item quantity="few">Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
-        <item quantity="many">Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> minutės.</item>
+        <item quantity="many">Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> minučių.</item>
         <item quantity="other">Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> minučių.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snaudžiama iki <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -89,7 +89,7 @@
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> sekundė</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> sekundės</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> sekundės</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> sekundžių</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekundžių</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Kasdien"</string>
@@ -224,7 +224,7 @@
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> laikmačio atsisakyta</item>
         <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> laikmačių atsisakyta</item>
-        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> laikmačio atsisakyta</item>
+        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> laikmačių atsisakyta</item>
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> laikmačių atsisakyta</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Netinkama laikmačio trukmė"</string>
