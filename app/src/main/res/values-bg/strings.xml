@@ -55,12 +55,12 @@
     <string name="alarm_confirmation_toast_7">Будилникът ще звъни след <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_8">Будилникът ще звъни след <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> дни</item>
         <item quantity="one">1 ден</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> дни</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> часа</item>
         <item quantity="one">1 час</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> часа</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="one">1 час</item>

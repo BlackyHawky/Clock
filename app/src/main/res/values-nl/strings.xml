@@ -29,8 +29,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Wekker uit"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Sluimeren</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Sluimeren is ingesteld op 1 minuut.</item>
-        <item quantity="other">Sluimeren voor <xliff:g id="minutes">%d</xliff:g> minuten.</item>
+        <item quantity="one">Sluimeren voor <xliff:g example="1" id="minutes">%d</xliff:g> minuut.</item>
+        <item quantity="other">Sluimeren voor <xliff:g example="10" id="minutes">%d</xliff:g> minuten.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Sluimeren tot <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Aankomende wekker</string>
@@ -47,35 +47,35 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"resterend"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"resterend"</string>
     <string name="alarm_confirmation_toast_1">"Wekker gaat over minder dan 1 minuut."</string>
-    <string name="alarm_confirmation_toast_2">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_2">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_3">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_4">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> en <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
-    <string name="alarm_confirmation_toast_5">Wekker gaat over <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
-    <string name="alarm_confirmation_toast_6">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
-    <string name="alarm_confirmation_toast_7">Wekker gaat over <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
-    <string name="alarm_confirmation_toast_8">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_4">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> en <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_5">Wekker gaat over <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">Wekker gaat over <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one">1 dag</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> dag</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> dagen</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one">1 uur</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> uur</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> uur</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one">1 u</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> u</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> u</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one">1 minuut</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> minuut</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minuten</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one">1 min.</item>
-        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min.</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">1 seconde</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> seconde</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> seconden</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Elke dag"</string>
@@ -209,7 +209,7 @@
     <string name="alarm_is_set" msgid="5503226382620011088">Wekker is ingesteld voor <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">Kookwekker gemaakt</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one">Kookwekker gesloten</item>
+        <item quantity="one"><xliff:g example="1" id="number">%d</xliff:g> kookwekker uitgezet</item>
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> kookwekkers uitgezet</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">Ongeldige kookwekkerduur</string>
@@ -280,7 +280,7 @@
 \nHoewel dit aanvaardbaar is voor de meeste apps, kan dit voor problemen zorgen bij een wekker-app zoals deze. Als batterijoptimalisatie aan staat kan Android de app elk moment sluiten en geplande wekkers annuleren, wat de werking van de app negatief zou beïnvloeden.
 \n
 \nWe raden aan deze app op de witte lijst te zetten van batterijoptimalisaties.</string>
-    <string name="notifications_dialog_text">Naast het instellen van wekkers beschikt deze app ook over een kookwekker en stopklok. \n \nOm ervoor te zorgen dat meldingen correct verschijnen voor alle functies en vooral zodat de wekker kan activeren, raden we aan om meldingen voor deze app te aan te zetten.</string>
+    <string name="notifications_dialog_text">Naast het instellen van wekkers beschikt deze app ook over een kookwekker en stopklok. \n \nOm ervoor te zorgen dat meldingen correct verschijnen voor alle functies en vooral zodat de wekker kan activeren, raden we aan om meldingen voor deze app aan te zetten.</string>
     <string name="screensaver_brightness_title">Helderheid</string>
     <string name="screensaver_bold_next_alarm_title">Dikgedrukte volgende wekker</string>
     <string name="add_label">Naam toevoegen</string>
@@ -298,7 +298,7 @@
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
     <string name="FSN_permission_title">MELDINGEN OP VOLLEDIG SCHERM INSCHAKELEN</string>
     <string name="FSN_dialog_title">Meldingen op volledig scherm</string>
-    <string name="FSN_dialog_text">Zodat de wekker af kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om het recht \"Meldingen op volledig scherm\" toe te staan.</string>
+    <string name="FSN_dialog_text">Zodat de wekker kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om het recht \"Meldingen op volledig scherm\" toe te staan.</string>
     <string name="power_button_title">Aan/uit-knop</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
@@ -315,7 +315,7 @@
     <string name="date_color_title">Kleur datum</string>
     <string name="auto_silence_end_of_ringtone">Einde van wekkergeluid</string>
     <string name="timer_label_box_title">Kookwekkernaam</string>
-    <string name="timer_button_time_box_title">Minuten om aan kookwekker toe te voegen</string>
+    <string name="timer_button_time_box_title">Minuten aan kookwekker toevoegen</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Stijl, lettertype, tijdzone en systeemtijd aanpassen</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
@@ -341,7 +341,7 @@
     <string name="alarm_alert_off_and_deleted_text">Wekker uit en verwijderd</string>
     <string name="timer_volume_buttons_action_title">Verlopen kookwekkers terugzetten met volumeknoppen</string>
     <string name="timer_buttons_action_summary">Werkt alleen op een vergrendeld scherm</string>
-    <string name="backup_restore_dialog_message">Wil je een back-up maken of app-data herstellen?</string>
+    <string name="backup_restore_dialog_message">Wil je een back-up maken of appgegevens herstellen?</string>
     <string name="backup_button_title">Back-up</string>
     <string name="restore_button_title">Herstel</string>
     <string name="snooze_button_color">Kleur sluimerknop</string>
@@ -361,7 +361,7 @@
     <string name="orange_accent_color">Oranje</string>
     <string name="pink_accent_color">Roze</string>
     <string name="green_accent_color">Groen</string>
-    <string name="transparent_background_for_expired_timer_title">Transparante achtergrond als kookwekker verloopt</string>
+    <string name="transparent_background_for_expired_timer_title">Transparante achtergrond als kookwekker gaat</string>
     <string name="widgets_settings_summary">Stijl, kleur en lettergrootte van widgets aanpassen</string>
     <string name="whats_new_dialog_message">Ontdek wat er nieuw is:\n\n%s</string>
     <string name="github_dialog_message">Bekijk het project op GitHub:\n\n%s</string>
@@ -540,17 +540,17 @@
     <string name="vibration_start_delay_warning_box_text">Voer een waarde in tussen 0 en 10 minuten</string>
     <string name="confirm_action_prompt">\n\nWil je doorgaan?</string>
     <string name="enable_per_alarm_snooze_duration_title">Aangepaste sluimerduur voor iedere wekker</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Aangepaste sluimerduren zullen worden teruggezet.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">Aangepaste wekkervolumes zullen worden teruggezet.%s</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Aangepaste sluimerduren worden teruggezet.%s</string>
+    <string name="enable_per_alarm_volume_dialog_message">Aangepaste wekkervolumes worden teruggezet.%s</string>
     <string name="display_dismiss_button_title">Uitzetknop weergeven zodra wekker is ingeschakeld</string>
     <string name="display_dismiss_button_summary">Als deze optie is uitgeschakeld, wordt de knop tegelijk met de herinneringsmelding weergegeven</string>
     <string name="enable_per_alarm_missed_repeat_limit_title">Aangepast aantal gemiste wekkerherhalingen voor iedere wekker</string>
     <string name="enable_per_alarm_crescendo_duration_title">Aangepaste volumeverhogingsduur voor iedere wekker</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Aangepaste volumeverhogingsduren zullen worden teruggezet.%s</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Aangepaste volumeverhogingsduren worden teruggezet.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Aangepaste eindtijd voor iedere wekker</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Aangepaste eindtijden zullen worden teruggezet.%s</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Aangepaste eindtijden worden teruggezet.%s</string>
     <string name="features_dialog_message">Bekijk de pagina met de belangrijkste kenmerken:\n\n%s</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Aangepast aantal wekkerherhalingen zullen worden teruggezet.%s</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Aangepast aantal wekkerherhalingen worden teruggezet.%s</string>
     <string name="missed_alarm_repeat_limit_title">Gemiste wekkers herhalen</string>
     <string name="missed_alarm_repeat_limit_1_time">1 keer</string>
     <string name="missed_alarm_repeat_limit_3_times">3 keer</string>
@@ -584,12 +584,12 @@
     <string name="custom_font_toast_message_deleted">Lettertype succesvol verwijderd</string>
     <string name="vibration_category_title">Trilling</string>
     <string name="enable_per_alarm_vibration_pattern_title">Aangepast trillingspatroon voor iedere wekker</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Aangepaste trillingspatronen zulken worden teruggezet.%s</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Aangepaste trillingspatronen worden teruggezet.%s</string>
     <string name="sw_laps_title">Rondes</string>
     <string name="sw_split_title">Verdeling</string>
     <string name="sw_total_title">Totaal</string>
     <string name="analog_clock_size_title">Grootte analoge klok</string>
-    <string name="display_compact_timers_title">Actieve kookwekkers compact weergeven</string>
+    <string name="display_compact_timers_title">Kookwekkers compact weergeven</string>
     <string name="display_battery_title">Batterijniveau weergeven</string>
     <string name="battery_color_title">Kleur batterijniveau</string>
     <string name="screensaver_bold_battery_title">Dikgedrukt batterijniveau</string>
@@ -602,8 +602,8 @@
     <string name="button_tip_title">Houd de \"+\" knop lang ingedrukt om een map toe te voegen</string>
     <string name="alarm_alert_dismiss_and_delete_text_button">Uitzetten &amp;\nVerwijderen</string>
     <string name="permissions_category_title">Rechten</string>
-    <string name="enable_alarm_vibrations_by_default_dialog_message">Trillen zal uitgeschakeld worden voor alle wekkers.%s</string>
-    <string name="enable_delete_occasional_alarm_by_default_dialog_message">De \"Verwijderen na uitzetten\" optie zal uitgeschakeld worden voor alle wekkers.%s</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">Trillen wordt uitgeschakeld voor alle wekkers.%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">De \"Verwijderen na uitzetten\" optie wordt uitgeschakeld voor alle wekkers.%s</string>
     <string name="snooze_zone_color_title">Kleur sluimergebied</string>
     <string name="snooze_minus_button_color_title">Kleur \"-\" knop</string>
     <string name="snooze_plus_button_color_title">Kleur \"+\" knop</string>
@@ -650,7 +650,7 @@
     <string name="visible_tabs_title">Zichtbare tabbladen</string>
     <string name="shortcut_disabled">Tabblad verborgen</string>
     <string name="restart_app_dialog_message">De applicatie moet opnieuw worden opgestart om de wijzigingen door te voeren.</string>
-    <string name="single_timer_mode_warning_message">De kookwekkers zullen worden verwijderd.%s</string>
+    <string name="single_timer_mode_warning_message">De kookwekkers worden verwijderd.%s</string>
     <string name="single_timer_mode_title">Gelegenheidskookwekker</string>
     <string name="single_timer_mode_summary">Behoud slechts één kookwekker, die automatisch wordt verwijderd zodra deze opnieuw wordt ingesteld</string>
     <string name="settings_vibration_disabled_summary">Trillen is uitgeschakeld in de apparaatinstellingen</string>
@@ -666,4 +666,28 @@
     <string name="display_timer_end_time_title">Eindtijd van kookwekker weergeven</string>
     <string name="timer_missed_channel">Gemiste kookwekkers</string>
     <string name="settings_language_hebrew">Hebreeuws</string>
+    <string name="add_time_button_title">Knop \"Tijd toevoegen\"</string>
+    <string name="delete_timer_after_use_title">Verlopen kookwekker verwijderen</string>
+    <string name="turn_off_media_title">Verlopen media stoppen</string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one"><xliff:g example="1" id="number">%d</xliff:g> kookwekker verwijderd</item>
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> kookwekkers verwijderd</item>
+    </plurals>
+    <string name="background_image_category_title">Achtergrondafbeelding</string>
+    <string name="custom_font_dialog_message">Aangepast lettertype veranderen of verwijderen.</string>
+    <string name="advanced_audio_playback_category_title">Geavanceerde audioweergave</string>
+    <string name="background_image_dialog_message">Achtergrondafbeelding veranderen of verwijderen.</string>
+    <string name="headphones_button_title">Afspeel-/pauzeknop hoofdtelefoon</string>
+    <string name="display_alarm_title_on_single_line_title">Wekkernaam op één regel weergeven</string>
+    <string name="enable_per_alarm_background_image_title">Aangepaste achtergrondafbeelding voor iedere wekker</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Aangepaste achtergrondafbeeldingen worden verwijderd.%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nAangepaste vervagingssterktes worden ook teruggezet.</string>
+    <string name="blur_intensity_dialog_message_2">Aangepaste vervagingssterktes worden teruggezet.%s</string>
+    <string name="timer_settings_general_summary">Deze instelling kan per kookwekker aangepast worden in het uitvouwmenu</string>
+    <string name="enable_per_timer_auto_silence_title">Aangepaste eindtijd voor iedere kookwekker</string>
+    <string name="enable_per_timer_crescendo_duration_title">Aangepaste volumeverhogingsduur voor iedere kookwekker</string>
+    <string name="timer_vibrate_dialog_message">Trillen wordt uitgeschakeld voor alle kookwekkers.%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">Aangepast trillingspatroon voor iedere kookwekker</string>
+    <string name="timer_headphones_button_action_title">Verlopen kookwekkers terugzetten met de afspeel-/pauzeknop van de hoofdtelefoon</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">Zaklamp aanzetten als kookwekker gaat</string>
 </resources>
