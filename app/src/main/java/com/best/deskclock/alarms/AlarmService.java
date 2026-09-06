@@ -47,7 +47,9 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 /**
  * This service is in charge of starting/stopping the alarm. It will bring up and manage the
@@ -137,6 +139,7 @@ public class AlarmService extends Service {
     private Handler mHandler;
     private Runnable mFlashRunnable;
 
+    private final Queue<Long> mPendingAlarmIds = new LinkedList<>();
     private AlarmInstance mCurrentAlarm = null;
 
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
@@ -387,6 +390,7 @@ public class AlarmService extends Service {
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         LogUtils.v("AlarmService.onStartCommand() with %s", intent);
+
         if (intent == null) {
             return Service.START_NOT_STICKY;
         }
@@ -400,6 +404,7 @@ public class AlarmService extends Service {
         }
 
         final long instanceId = AlarmInstance.getId(dataUri);
+
         switch (Objects.requireNonNull(intent.getAction())) {
             case AlarmStateManager.CHANGE_STATE_ACTION -> {
                 AlarmStateManager.handleIntent(this, mPrefs, intent);
@@ -425,31 +430,52 @@ public class AlarmService extends Service {
                     startAlarm(instance);
                 }
             }
+
             case STOP_ALARM_ACTION -> {
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
                     LogUtils.e("Can't stop alarm for instance: %d because current alarm is: %d", instanceId, mCurrentAlarm.mId);
                     break;
                 }
-                stopCurrentAlarm();
-                stopSelf();
+
+                if (stopCurrentAlarm()) {
+                    stopSelf();
+                }
             }
+
             case STOP_ALARM_WITH_DOUBLE_VIBRATION_ACTION -> {
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
                     LogUtils.e("Can't perform double vibration and stop alarm for instance: %d because current alarm is: %d",
                         instanceId, mCurrentAlarm.mId);
                     break;
                 }
-                performDoubleVibration();
-                stopSelf();
+
+                boolean shouldStopService = stopCurrentAlarm();
+
+                LogUtils.v("AlarmService.stop with double vibration");
+                // Double vibration
+                Utils.executeVibrations(mVibrator, new long[]{300, 200, 100, 500}, -1);
+
+                if (shouldStopService) {
+                    stopSelf();
+                }
             }
+
             case STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION -> {
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
                     LogUtils.e("Can't perform single vibration and stop alarm for instance: %d because current alarm is: %d",
                         instanceId, mCurrentAlarm.mId);
                     break;
                 }
-                performSingleVibration();
-                stopSelf();
+
+                boolean shouldStopService = stopCurrentAlarm();
+
+                LogUtils.v("AlarmService.stop with single vibration");
+                // Single vibration
+                Utils.executeVibrations(mVibrator, new long[]{300, 500}, -1);
+
+                if (shouldStopService) {
+                    stopSelf();
+                }
             }
         }
 
@@ -465,8 +491,10 @@ public class AlarmService extends Service {
             mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
         }
 
+        mPendingAlarmIds.clear();
+
         if (mCurrentAlarm != null) {
-            stopCurrentAlarm();
+            cleanupAndStop();
         }
 
         stopFlash();
@@ -484,8 +512,16 @@ public class AlarmService extends Service {
     private void startAlarm(@NonNull AlarmInstance instance) {
         LogUtils.v("AlarmService.start with instance: " + instance.mId);
         if (mCurrentAlarm != null) {
-            AlarmStateManager.setMissedState(this, mPrefs, mCurrentAlarm);
-            stopCurrentAlarm();
+            if (mCurrentAlarm.mId == instance.mId) {
+                return;
+            }
+
+            LogUtils.i("An alarm is already ringing. Adding instance %d to the queue.", instance.mId);
+            if (!mPendingAlarmIds.contains(instance.mId)) {
+                mPendingAlarmIds.offer(instance.mId);
+            }
+
+            return;
         }
 
         AlarmAlertWakeLock.acquireCpuWakeLock(this);
@@ -531,41 +567,31 @@ public class AlarmService extends Service {
         attachListeners();
     }
 
-    private void stopCurrentAlarm() {
+    private boolean stopCurrentAlarm() {
         if (mCurrentAlarm == null) {
             LogUtils.v("There is no current alarm to stop");
-            return;
+            return true;
         }
 
         cleanupAndStop();
-    }
 
-    private void performSingleVibration() {
-        if (mCurrentAlarm == null) {
-            LogUtils.v("There is no current alarm to stop");
-            return;
+        while (!mPendingAlarmIds.isEmpty()) {
+            Long nextId = mPendingAlarmIds.poll();
+
+            if (nextId == null) {
+                continue;
+            }
+
+            AlarmInstance next = AlarmInstance.getInstance(getContentResolver(), nextId);
+
+            if (next != null && next.mAlarmState == AlarmInstance.FIRED_STATE) {
+                LogUtils.i("Launching the pending alarm: " + nextId);
+                startAlarm(next);
+                return false;
+            }
         }
 
-        final long instanceId = mCurrentAlarm.mId;
-        LogUtils.v("AlarmService.stop with single vibration with instance: %s", instanceId);
-
-        cleanupAndStop();
-
-        Utils.executeVibrations(mVibrator, new long[]{300, 500}, -1);
-    }
-
-    private void performDoubleVibration() {
-        if (mCurrentAlarm == null) {
-            LogUtils.v("There is no current alarm to stop");
-            return;
-        }
-
-        final long instanceId = mCurrentAlarm.mId;
-        LogUtils.v("AlarmService.stop with double vibration with instance: %s", instanceId);
-
-        cleanupAndStop();
-
-        Utils.executeVibrations(mVibrator, new long[]{300, 200, 100, 500}, -1);
+        return true;
     }
 
     private void cleanupAndStop() {
