@@ -6,7 +6,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
@@ -26,6 +25,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +40,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
@@ -111,46 +112,12 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             mExpiredTimersScrollView = mBinding.expiredTimersScrollHorizontal;
         }
 
-        final String imagePath = SettingsDAO.getTimerBackgroundImage(getPrefs());
-
         if (SettingsDAO.isTimerRingtoneTitleDisplayed(getPrefs())) {
             displayRingtoneTitle();
             mBinding.ringtoneLayout.setVisibility(VISIBLE);
         }
 
-        if (SettingsDAO.isTimerBackgroundTransparent(getPrefs())) {
-            mBinding.timerBackgroundImage.setVisibility(GONE);
-            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        } else {
-            // Apply a background image and a blur effect.
-            if (imagePath != null) {
-                mBinding.timerBackgroundImage.setVisibility(VISIBLE);
-
-                File imageFile = new File(imagePath);
-                if (imageFile.exists()) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                    if (bitmap != null) {
-                        mBinding.timerBackgroundImage.setImageBitmap(bitmap);
-
-                        float intensity = SettingsDAO.getTimerBlurIntensity(getPrefs());
-
-                        if (SdkUtils.isAtLeastAndroid12() && intensity != DEFAULT_BLUR_INTENSITY) {
-
-                            RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
-                            mBinding.timerBackgroundImage.setRenderEffect(blur);
-                        }
-                    } else {
-                        LogUtils.e("Bitmap null for path: " + imagePath);
-                        mBinding.timerBackgroundImage.setVisibility(GONE);
-                    }
-                } else {
-                    LogUtils.e("Image file not found: " + imagePath);
-                    mBinding.timerBackgroundImage.setVisibility(GONE);
-                }
-            } else {
-                mBinding.timerBackgroundImage.setVisibility(GONE);
-            }
-        }
+        initTimerBackground();
 
         // Creating a dummy timer
         Timer fakeTimer = new Timer(
@@ -208,6 +175,55 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             null,
             null
         );
+    }
+
+    private void initTimerBackground() {
+        final boolean isTransparent = SettingsDAO.isTimerBackgroundTransparent(getPrefs());
+        final String imagePath = SettingsDAO.getTimerBackgroundImage(getPrefs());
+
+        if (isTransparent) {
+            mBinding.timerBackgroundImage.setVisibility(View.GONE);
+            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            return;
+        }
+
+        if (TextUtils.isEmpty(imagePath)) {
+            mBinding.timerBackgroundImage.setVisibility(View.GONE);
+            return;
+        }
+
+        final float blurIntensity = SettingsDAO.getTimerBlurIntensity(getPrefs());
+
+        mBinding.timerBackgroundImage.setVisibility(View.GONE);
+
+        AppExecutors.getDiskIO().execute(() -> {
+            File imageFile = new File(imagePath);
+            Bitmap bitmap = null;
+
+            if (imageFile.exists()) {
+                bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            }
+
+            final Bitmap finalBitmap = bitmap;
+
+            AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
+                if (finalBitmap != null) {
+                    mBinding.timerBackgroundImage.setVisibility(View.VISIBLE);
+                    mBinding.timerBackgroundImage.setImageBitmap(finalBitmap);
+
+                    if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
+                        RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
+                        mBinding.timerBackgroundImage.setRenderEffect(blur);
+                    }
+                } else {
+                    LogUtils.e("Image file not found or Bitmap null for path: " + imagePath);
+                }
+            });
+        });
     }
 
     /**

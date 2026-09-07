@@ -71,6 +71,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.controller.AlarmMathMissionController;
 import com.best.deskclock.data.DataModel;
@@ -724,6 +725,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
             : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
+
+        getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+
         final boolean isPerAlarmBackgroundImageEnable = SettingsDAO.isPerAlarmBackgroundImageEnable(getPrefs());
         String imagePath = SettingsDAO.getAlarmBackgroundImage(getPrefs());
 
@@ -734,34 +738,42 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         // Apply a background image and a blur effect.
         if (TextUtils.isEmpty(imagePath)) {
             mBinding.alarmBackgroundImage.setVisibility(GONE);
-            getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
-        } else {
-            mBinding.alarmBackgroundImage.setVisibility(VISIBLE);
+            return;
+        }
 
-            File imageFile = new File(imagePath);
+        final String finalImagePath = imagePath;
+        final float blurIntensity = isPerAlarmBackgroundImageEnable
+            ? mAlarm.blurIntensity
+            : SettingsDAO.getAlarmBlurIntensity(getPrefs());
+
+        AppExecutors.getDiskIO().execute(() -> {
+            File imageFile = new File(finalImagePath);
+            Bitmap bitmap = null;
 
             if (imageFile.exists()) {
-                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                if (bitmap != null) {
-                    mBinding.alarmBackgroundImage.setImageBitmap(bitmap);
+                bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            }
 
-                    float blurIntensity = isPerAlarmBackgroundImageEnable
-                        ? mAlarm.blurIntensity
-                        : SettingsDAO.getAlarmBlurIntensity(getPrefs());
+            final Bitmap finalBitmap = bitmap;
+
+            AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
+                if (finalBitmap != null) {
+                    mBinding.alarmBackgroundImage.setVisibility(VISIBLE);
+                    mBinding.alarmBackgroundImage.setImageBitmap(finalBitmap);
 
                     if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
                         RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
                         mBinding.alarmBackgroundImage.setRenderEffect(blur);
                     }
                 } else {
-                    LogUtils.e("Bitmap null for path: " + imagePath);
-                    getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+                    LogUtils.e("Image file not found or Bitmap null for path: " + finalImagePath);
                 }
-            } else {
-                LogUtils.e("Image file not found: " + imagePath);
-                getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
-            }
-        }
+            });
+        });
     }
 
     /**
