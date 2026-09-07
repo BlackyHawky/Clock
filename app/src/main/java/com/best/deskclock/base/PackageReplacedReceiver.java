@@ -48,15 +48,16 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         LogUtils.i("MY_PACKAGE_REPLACED received");
 
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final Context appContext = context.getApplicationContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(appContext);
         final PendingResult result = goAsync();
-        final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
+        final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(appContext);
         wl.acquire();
 
         AppExecutors.getDiskIO().execute(() -> {
             try {
                 // Update all the alarm instances
-                AlarmStateManager.fixAlarmInstances(context, prefs);
+                AlarmStateManager.fixAlarmInstances(appContext, prefs);
 
                 // Update all the timer keys stored in SharedPreferences
                 updateTimerKeys(prefs);

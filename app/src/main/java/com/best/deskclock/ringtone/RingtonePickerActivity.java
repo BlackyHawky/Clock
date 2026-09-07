@@ -622,9 +622,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      */
     private void addCustomRingtoneAsync(@NonNull Uri uri) {
         final Context appContext = getApplicationContext();
+        final ContentResolver contentResolver = appContext.getContentResolver();
 
         AppExecutors.getDiskIO().execute(() -> {
-            final ContentResolver contentResolver = appContext.getContentResolver();
             String name = null;
 
             // Take the long-term permission to read (playback) the audio at the uri.
@@ -734,7 +734,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 String name = file.getName();
                 if (name == null || name.trim().isEmpty()) {
-                    name = getString(R.string.unknown_ringtone_title) + "_" + System.currentTimeMillis();
+                    name = appContext.getString(R.string.unknown_ringtone_title) + "_" + System.currentTimeMillis();
                 } else if (name.contains(".")) {
                     name = name.substring(0, name.lastIndexOf("."));
                 }

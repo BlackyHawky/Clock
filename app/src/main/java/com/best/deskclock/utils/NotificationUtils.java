@@ -195,8 +195,10 @@ public class NotificationUtils {
      * Updates alarm notifications. Useful when changing languages, for example.
      */
     public static void updateAlarmNotifications(@NonNull Context appContext, @NonNull String languageCode, int globalIntentId) {
+        final Context safeContext = appContext.getApplicationContext();
+        final ContentResolver contentResolver = safeContext.getContentResolver();
+
         AppExecutors.getDiskIO().execute(() -> {
-            final ContentResolver contentResolver = appContext.getContentResolver();
             final List<AlarmInstance> activeInstances = new ArrayList<>();
 
             activeInstances.addAll(AlarmInstance.getInstancesByState(contentResolver, AlarmInstance.NOTIFICATION_STATE));
@@ -206,7 +208,7 @@ public class NotificationUtils {
 
             AppExecutors.getMainThread().post(() -> {
                 for (AlarmInstance instance : activeInstances) {
-                    AlarmNotifications.updateNotification(appContext, instance, languageCode, globalIntentId);
+                    AlarmNotifications.updateNotification(safeContext, instance, languageCode, globalIntentId);
                 }
             });
         });

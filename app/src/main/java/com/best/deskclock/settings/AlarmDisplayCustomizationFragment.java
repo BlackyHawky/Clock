@@ -7,6 +7,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_M
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -324,11 +325,15 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 if ((boolean) newValue) {
+                    final Context appContext = requireContext().getApplicationContext();
+                    final ContentResolver cr = appContext.getContentResolver();
+                    final int blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
+
                     AppExecutors.getDiskIO().execute(() -> {
-                        List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+                        List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
 
                         for (Alarm alarm : currentAlarms) {
-                            alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
+                            alarm.blurIntensity = blurIntensity;
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                         }
                     });
@@ -357,8 +362,11 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
                 if (!SettingsDAO.isPerAlarmBackgroundImageEnable(getPrefs())) {
                     mAlarmBlurIntensityPref.setVisible(false);
 
+                    final Context appContext = requireContext().getApplicationContext();
+                    final ContentResolver cr = appContext.getContentResolver();
+
                     AppExecutors.getDiskIO().execute(() -> {
-                        List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+                        List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
 
                         for (Alarm alarm : currentAlarms) {
                             if (!TextUtils.isEmpty(alarm.backgroundImage)
@@ -538,9 +546,11 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             getString(android.R.string.ok),
             (d, w) -> {
                 final Context appContext = requireContext().getApplicationContext();
+                final ContentResolver cr = appContext.getContentResolver();
+                final int blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
 
                 AppExecutors.getDiskIO().execute(() -> {
-                    List<Alarm> currentAlarms = Alarm.getAlarms(appContext.getContentResolver(), null);
+                    List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
 
                     for (Alarm alarm : currentAlarms) {
                         // Delete only specific background images
@@ -549,7 +559,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
                         }
 
                         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
-                        alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
+                        alarm.blurIntensity = blurIntensity;
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                     }
 

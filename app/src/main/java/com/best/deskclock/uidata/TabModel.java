@@ -10,6 +10,7 @@ import static android.view.View.LAYOUT_DIRECTION_RTL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.uidata.UiDataModel.Tab;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -114,12 +115,15 @@ final class TabModel {
 
         // Disable alarms if the Alarm tab is not visible
         if (recentlyHiddenTabs.contains(Tab.ALARMS)) {
+            final Context appContext = mContext.getApplicationContext();
+            final ContentResolver cr = appContext.getContentResolver();
+            final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+            final boolean isVibrationsEnabled = SettingsDAO.isVibrationsEnabled(mPrefs);
+
             AppExecutors.getDiskIO().execute(() -> {
-                final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
-                final boolean isVibrationsEnabled = SettingsDAO.isVibrationsEnabled(mPrefs);
                 final AlarmUpdateHandler alarmUpdateHandler = new AlarmUpdateHandler(
-                    mContext, mPrefs, font, null, null, isVibrationsEnabled);
-                final List<Alarm> alarms = Alarm.getAlarms(mContext.getContentResolver(), null);
+                    appContext, mPrefs, font, null, null, isVibrationsEnabled);
+                final List<Alarm> alarms = Alarm.getAlarms(cr, null);
 
                 for (Alarm alarm : alarms) {
                     if (alarm.enabled) {

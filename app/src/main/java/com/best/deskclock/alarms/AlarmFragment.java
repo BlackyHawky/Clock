@@ -376,8 +376,10 @@ public final class AlarmFragment extends DeskClockFragment
                         // Clean instance
                         if (instanceId != -1) {
                             Context appContext = requireContext().getApplicationContext();
+                            ContentResolver cr = appContext.getContentResolver();
+
                             AppExecutors.getDiskIO().execute(() -> {
-                                AlarmInstance instance = AlarmInstance.getInstance(appContext.getContentResolver(), instanceId);
+                                AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
                                 if (instance != null) {
                                     AlarmStateManager.deleteInstanceAndUpdateParent(appContext, getPrefs(), instance, false);
                                 }
@@ -1040,9 +1042,10 @@ public final class AlarmFragment extends DeskClockFragment
             return;
         }
 
-        AppExecutors.getDiskIO().execute(() -> {
-            ContentResolver cr = context.getContentResolver();
+        Context appContext = context.getApplicationContext();
+        ContentResolver cr = appContext.getContentResolver();
 
+        AppExecutors.getDiskIO().execute(() -> {
             for (int i = 0; i < currentItems.size(); i++) {
                 Alarm alarm = currentItems.get(i).item;
 

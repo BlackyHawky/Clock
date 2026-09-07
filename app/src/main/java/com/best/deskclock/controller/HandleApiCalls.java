@@ -291,9 +291,10 @@ public class HandleApiCalls extends Activity {
     }
 
     private void handleSnoozeAlarm() {
+        final Context context = getApplicationContext();
+        final ContentResolver cr = context.getContentResolver();
+
         AppExecutors.getDiskIO().execute(() -> {
-            final Context context = getApplicationContext();
-            final ContentResolver cr = context.getContentResolver();
             final List<AlarmInstance> alarmInstances = AlarmInstance.getInstancesByState(cr, FIRED_STATE);
             if (alarmInstances.isEmpty()) {
                 final String reason = context.getString(R.string.no_firing_alarms);

@@ -233,6 +233,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
         }
 
         mFontPath = SettingsDAO.getGeneralFont(getPrefs());
+        final String digitalClockFont = SettingsDAO.getDigitalClockFont(getPrefs());
+        final String timerDurationFont = SettingsDAO.getTimerDurationFont(getPrefs());
+        final String alarmFont = SettingsDAO.getAlarmFont(getPrefs());
+        final String stopwatchFont = SettingsDAO.getStopwatchFont(getPrefs());
+
         mIsToolBarDisplayed = SettingsDAO.isToolbarTitleDisplayed(getPrefs());
 
         setContentView(mBinding.getRoot());
@@ -253,10 +258,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
         AppExecutors.getDiskIO().execute(() -> {
             mGeneralTypeface = ThemeUtils.loadFont(mFontPath);
             ThemeUtils.boldTypeface(mFontPath);
-            ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(getPrefs()));
-            ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(getPrefs()));
-            ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(getPrefs()));
-            ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(getPrefs()));
+            ThemeUtils.loadFont(digitalClockFont);
+            ThemeUtils.loadFont(timerDurationFont);
+            ThemeUtils.boldTypeface(alarmFont);
+            ThemeUtils.loadFont(stopwatchFont);
 
             AppExecutors.getMainThread().post(() -> {
                 if (isFinishing() || isDestroyed()) {

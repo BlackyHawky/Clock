@@ -72,10 +72,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         final String action = intent.getAction();
         LogUtils.i("AlarmInitReceiver " + action);
 
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final Context appContext = context.getApplicationContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(appContext);
         DataModel dataModel = DataModel.getDataModel();
         final PendingResult result = goAsync();
-        final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
+        final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(appContext);
         wl.acquire();
 
         // We need to increment the global id out of the async task to prevent race conditions
@@ -87,7 +88,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         if (ACTION_BOOT_COMPLETED.equals(action)) {
             // Ensure that KeepAliveService is the first to be called after a restart
             if (SettingsDAO.isForegroundServiceEnabled(prefs)) {
-                ContextCompat.startForegroundService(context, new Intent(context, KeepAliveService.class));
+                ContextCompat.startForegroundService(appContext, new Intent(appContext, KeepAliveService.class));
             }
 
             dataModel.updateAfterReboot();
@@ -105,7 +106,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             dataModel.updateAllNotifications();
 
             if (SdkUtils.isAtLeastAndroid8()) {
-                NotificationUtils.updateNotificationChannels(context);
+                NotificationUtils.updateNotificationChannels(appContext);
             }
         }
 
@@ -115,7 +116,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             int alarmStatus = intent.getIntExtra(STATUS, 0);
 
             if (alarmTime != 0) {
-                ContentResolver cr = context.getContentResolver();
+                ContentResolver cr = appContext.getContentResolver();
                 List<AlarmInstance> alarmInstances = AlarmInstance.getInstances(cr, null);
                 AlarmInstance alarmInstance = null;
                 for (AlarmInstance instance : alarmInstances) {
@@ -128,11 +129,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 if (alarmInstance != null) {
                     // Update alarm status if the alarm instance is not null
                     if (alarmStatus == DISMISS_STATUS) {
-                        AlarmStateManager.setDismissState(context, prefs, alarmInstance);
+                        AlarmStateManager.setDismissState(appContext, prefs, alarmInstance);
                     } else if (alarmStatus == SNOOZE_STATUS) {
                         long snoozeTime = intent.getLongExtra(SNOOZE_TIME, 0L);
                         if (snoozeTime > System.currentTimeMillis()) {
-                            AlarmNotifications.clearNotification(context, alarmInstance);
+                            AlarmNotifications.clearNotification(appContext, alarmInstance);
                             Calendar c = Calendar.getInstance();
                             c.setTimeInMillis(snoozeTime);
                             alarmInstance.setAlarmTime(c);
@@ -147,7 +148,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         AppExecutors.getDiskIO().execute(() -> {
             try {
                 // Update all the alarm instances
-                AlarmStateManager.fixAlarmInstances(context, prefs);
+                AlarmStateManager.fixAlarmInstances(appContext, prefs);
             } finally {
                 result.finish();
                 wl.release();

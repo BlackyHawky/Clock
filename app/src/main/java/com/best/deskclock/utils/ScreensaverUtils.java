@@ -40,6 +40,7 @@ import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -432,26 +433,35 @@ public class ScreensaverUtils {
                                             @Nullable Runnable onImageLoaded) {
 
         if (settings.backgroundImagePath != null) {
+            final WeakReference<ImageView> imageViewRef = new WeakReference<>(backgroundImage);
+            final WeakReference<Runnable> callbackRef = new WeakReference<>(onImageLoaded);
+
             AppExecutors.getDiskIO().execute(() -> {
                 File imageFile = new File(settings.backgroundImagePath);
+
                 if (imageFile.exists()) {
                     Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
 
                     AppExecutors.getMainThread().post(() -> {
-                        if (bitmap != null) {
-                            backgroundImage.setVisibility(View.VISIBLE);
-                            backgroundImage.setImageBitmap(bitmap);
-                            applyBrightness(backgroundImage, settings.brightnessPercentage, null, null);
+                        ImageView iv = imageViewRef.get();
 
-                            if (SdkUtils.isAtLeastAndroid12() && settings.blurIntensity != DEFAULT_BLUR_INTENSITY) {
-                                RenderEffect blur = RenderEffect.createBlurEffect(
-                                    settings.blurIntensity, settings.blurIntensity, Shader.TileMode.CLAMP);
-                                backgroundImage.setRenderEffect(blur);
-                            }
+                        if (iv == null || bitmap == null || !iv.isAttachedToWindow()) {
+                            return;
+                        }
 
-                            if (onImageLoaded != null) {
-                                onImageLoaded.run();
-                            }
+                        iv.setVisibility(View.VISIBLE);
+                        iv.setImageBitmap(bitmap);
+                        applyBrightness(iv, settings.brightnessPercentage, null, null);
+
+                        if (SdkUtils.isAtLeastAndroid12() && settings.blurIntensity != DEFAULT_BLUR_INTENSITY) {
+                            RenderEffect blur = RenderEffect.createBlurEffect(
+                                settings.blurIntensity, settings.blurIntensity, Shader.TileMode.CLAMP);
+                            iv.setRenderEffect(blur);
+                        }
+
+                        Runnable callback = callbackRef.get();
+                        if (callback != null) {
+                            callback.run();
                         }
                     });
                 }

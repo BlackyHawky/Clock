@@ -1094,11 +1094,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
             return;
         }
 
+        final Context appContext = context.getApplicationContext();
         final PendingResult result = goAsync();
-        final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
+        final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(appContext);
         wl.acquire();
+
         AppExecutors.getDiskIO().execute(() -> {
-            handleIntent(context, getDefaultSharedPreferences(context), intent);
+            handleIntent(appContext, getDefaultSharedPreferences(appContext), intent);
             result.finish();
             wl.release();
         });

@@ -243,12 +243,13 @@ public class LogUtils {
         }
 
         private void appendToFileCompat(@NonNull String log) {
-            AppExecutors.getDiskIO().execute(() -> {
-                Context context = DeskClockApplication.getAppContext();
-                if (context != null) {
-                    appendToFile(context, log);
-                }
-            });
+            Context appContext = DeskClockApplication.getAppContext();
+
+            if (appContext == null) {
+                return;
+            }
+
+            AppExecutors.getDiskIO().execute(() -> appendToFile(appContext, log));
         }
 
         public boolean isVerboseLoggable() {
