@@ -229,9 +229,33 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
+        final String darkMode = SettingsDAO.getDarkMode(getPrefs());
+        final boolean isAmoledMode = isNight() && darkMode.equals(AMOLED_DARK_MODE);
+        int alarmBackgroundColor = isAmoledMode
+            ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
+            : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
+        mAlarmFontPath = SettingsDAO.getAlarmFont(getPrefs());
+        mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
+        mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(getPrefs());
+        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(getPrefs());
+        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(getPrefs());
+        mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(getPrefs(), this);
+        mDismissTitleColor = SettingsDAO.getDismissTitleColor(getPrefs());
+        mSnoozeTitleColor = SettingsDAO.getSnoozeTitleColor(getPrefs());
+        mSnoozeMinusButtonColor = SettingsDAO.getSnoozeMinusButtonColor(getPrefs());
+        mSnoozePlusButtonColor = SettingsDAO.getSnoozePlusButtonColor(getPrefs());
+        mSnoozeMinusSymbolColor = SettingsDAO.getSnoozeMinusSymbolColor(getPrefs());
+        mSnoozePlusSymbolColor = SettingsDAO.getSnoozePlusSymbolColor(getPrefs());
+        mIsTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(getPrefs());
+        mShadowColor = SettingsDAO.getAlarmShadowColor(getPrefs());
+        mShadowOffset = SettingsDAO.getAlarmShadowOffset(getPrefs());
+        mShadowRadius = mShadowOffset * 0.5f;
         mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(getPrefs());
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(getPrefs());
         mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(getPrefs());
+
+        getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+
         mMathMissionController = new AlarmMathMissionController(this, action -> {
             if (action == MISSION_ACTION_SNOOZE) {
                 snooze();
@@ -252,6 +276,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mPowerBtnReceiverRegistered = true;
         }
 
+        initHeadphonesButton();
+
         mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
 
         if (mSensorManager != null) {
@@ -259,14 +285,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
-
-        initAlarmAndInstance();
-
-        initDefaultSnoozeValue();
-
-        initHeadphonesButton();
-
-        LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
@@ -285,50 +303,11 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         setContentView(mBinding.getRoot());
 
-        initAlarmBackground();
-
-        mAlarmFontPath = SettingsDAO.getAlarmFont(getPrefs());
-        mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
-        mIsSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(getPrefs());
-        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(getPrefs());
-        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(getPrefs());
-        mAlarmButtonColor = SettingsDAO.getAlarmButtonColor(getPrefs(), this);
-        mDismissTitleColor = SettingsDAO.getDismissTitleColor(getPrefs());
-        mSnoozeTitleColor = SettingsDAO.getSnoozeTitleColor(getPrefs());
-        mSnoozeMinusButtonColor = SettingsDAO.getSnoozeMinusButtonColor(getPrefs());
-        mSnoozePlusButtonColor = SettingsDAO.getSnoozePlusButtonColor(getPrefs());
-        mSnoozeMinusSymbolColor = SettingsDAO.getSnoozeMinusSymbolColor(getPrefs());
-        mSnoozePlusSymbolColor = SettingsDAO.getSnoozePlusSymbolColor(getPrefs());
-        mIsTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(getPrefs());
-        mShadowColor = SettingsDAO.getAlarmShadowColor(getPrefs());
-        mShadowOffset = SettingsDAO.getAlarmShadowOffset(getPrefs());
-        mShadowRadius = mShadowOffset * 0.5f;
-
-        initAlarmClock();
-
-        initAlarmTitle();
-
-        if (mIsSwipeActionEnabled) {
-            initSlideModeUI();
-        } else {
-            initButtonModeUI();
-        }
-
-        if (mIsSnoozeSelectorDisplayed) {
-            initSnoozeSelector();
-        } else {
-            mBinding.snoozeSelectorLayout.setVisibility(GONE);
-            mAlarmInstance.mSnoozeDuration = mDefaultSnoozeMinutes;
-            mAlarmInstance.updateInstance(getContentResolver());
-        }
-
-        updateSnoozeTexts();
-
-        initRingtoneTitle();
-
         applyWindowInsets();
 
         ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
+
+        initAlarmAndInstance();
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -346,43 +325,50 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         // Re-query for AlarmInstance in case the state has changed externally
         final long instanceId = AlarmInstance.getId(dataUri);
-        mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
 
-        if (mAlarmInstance == null) {
-            LOGGER.i("No alarm instance for instanceId: %d", instanceId);
-            finish();
-            return;
-        }
+        AppExecutors.getDiskIO().execute(() -> {
+            final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
 
-        // Verify that the alarm is still firing before showing the activity
-        if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
-            LOGGER.i("Skip displaying alarm for instance: %s", mAlarmInstance);
-            finish();
-            return;
-        }
+            AppExecutors.getMainThread().post(() -> {
+                mAlarmInstance = instance;
 
-        if (mSensorManager != null && mProximitySensor != null) {
-            mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
-        }
+                if (mAlarmInstance == null) {
+                    LOGGER.i("No alarm instance for instanceId: %d", instanceId);
+                    finish();
+                    return;
+                }
 
-        if (!mReceiverRegistered) {
-            // Register to get the alarm done/snooze/dismiss intent.
-            final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
-            filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
-            filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
+                // Verify that the alarm is still firing before showing the activity
+                if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
+                    LOGGER.i("Skip displaying alarm for instance: %s", mAlarmInstance);
+                    finish();
+                    return;
+                }
 
-            if (SdkUtils.isAtLeastAndroid13()) {
-                registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-            } else {
-                registerReceiver(mReceiver, filter);
-            }
+                if (mSensorManager != null && mProximitySensor != null) {
+                    mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+                }
 
-            mReceiverRegistered = true;
-        }
+                if (!mReceiverRegistered) {
+                    // Register to get the alarm done/snooze/dismiss intent.
+                    final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
+                    filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
+                    filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
 
-        bindAlarmService();
+                    if (SdkUtils.isAtLeastAndroid13()) {
+                        registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+                    } else {
+                        registerReceiver(mReceiver, filter);
+                    }
 
-        resetAnimations();
+                    mReceiverRegistered = true;
+                }
+
+                bindAlarmService();
+
+                resetAnimations();
+            });
+        });
     }
 
     @Override
@@ -677,22 +663,55 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         final long instanceId = AlarmInstance.getId(dataUri);
-        mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
-        if (mAlarmInstance == null) {
-            // The alarm was deleted before the activity got created, so just finish()
-            LOGGER.e("Error displaying alarm for intent: %s", getIntent());
-            finish();
-            return;
-        } else if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
-            LOGGER.i("Skip displaying alarm for instance: %s", mAlarmInstance);
-            finish();
-            return;
+
+        AppExecutors.getDiskIO().execute(() -> {
+            final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
+            final Alarm alarm = instance != null ? Alarm.getAlarm(getContentResolver(), instance.mAlarmId) : null;
+
+            AppExecutors.getMainThread().post(() -> {
+                mAlarmInstance = instance;
+                mAlarm = alarm;
+
+                if (mAlarmInstance == null || mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
+                    finish();
+                    return;
+                }
+
+                if (mAlarm == null) {
+                    LogUtils.wtf("Failed to retrieve alarm");
+                }
+
+                initDefaultSnoozeValue();
+
+                finishUiInitialization();
+            });
+        });
+    }
+
+    private void finishUiInitialization() {
+        LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
+
+        initAlarmBackground();
+        initAlarmClock();
+        initAlarmTitle();
+
+        if (mIsSwipeActionEnabled) {
+            initSlideModeUI();
+        } else {
+            initButtonModeUI();
         }
 
-        mAlarm = Alarm.getAlarm(getContentResolver(), mAlarmInstance.mAlarmId);
-        if (mAlarm == null) {
-            LogUtils.wtf("Failed to retrieve alarm with ID: %d", mAlarmInstance.mAlarmId);
+        if (mIsSnoozeSelectorDisplayed) {
+            initSnoozeSelector();
+        } else {
+            mBinding.snoozeSelectorLayout.setVisibility(GONE);
+            mAlarmInstance.mSnoozeDuration = mDefaultSnoozeMinutes;
+
+            AppExecutors.getDiskIO().execute(() -> mAlarmInstance.updateInstance(getContentResolver()));
         }
+
+        updateSnoozeTexts();
+        initRingtoneTitle();
     }
 
     private void initDefaultSnoozeValue() {
@@ -720,14 +739,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Initializes the background.
      */
     private void initAlarmBackground() {
-        final String darkMode = SettingsDAO.getDarkMode(getPrefs());
-        final boolean isAmoledMode = isNight() && darkMode.equals(AMOLED_DARK_MODE);
-        int alarmBackgroundColor = isAmoledMode
-            ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
-            : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
-
-        getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
-
         final boolean isPerAlarmBackgroundImageEnable = SettingsDAO.isPerAlarmBackgroundImageEnable(getPrefs());
         String imagePath = SettingsDAO.getAlarmBackgroundImage(getPrefs());
 

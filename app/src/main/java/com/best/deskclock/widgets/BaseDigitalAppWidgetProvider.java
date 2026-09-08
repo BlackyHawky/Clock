@@ -54,6 +54,7 @@ import androidx.annotation.RequiresApi;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -255,29 +256,33 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             cities.add(0, home);
         }
 
-        final RemoteViews portrait = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, true, cities);
-        final RemoteViews landscape = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, false, cities);
-
-        if (SdkUtils.isAtLeastAndroid12()) {
-            if (cities.isEmpty()) {
-                final RemoteViews widget = new RemoteViews(landscape, portrait);
-                wm.updateAppWidget(widgetId, widget);
-                return;
-            }
-
-            RemoteViews.RemoteCollectionItems items = buildRemoteCollectionItemsForCities(context, prefs, displayMetrics, widgetId, cities);
-            portrait.setRemoteAdapter(getWorldCityListViewId(), items);
-            landscape.setRemoteAdapter(getWorldCityListViewId(), items);
-        }
-
-        final RemoteViews widget = new RemoteViews(landscape, portrait);
-        wm.updateAppWidget(widgetId, widget);
         updateDayChangeCallback(context);
 
-        if (SdkUtils.isBeforeAndroid12()) {
-            //noinspection deprecation
-            wm.notifyAppWidgetViewDataChanged(widgetId, getWorldCityListViewId());
-        }
+        AppExecutors.getDiskIO().execute(() -> {
+            final RemoteViews portrait = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, true, cities);
+            final RemoteViews landscape = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, false, cities);
+
+            if (SdkUtils.isAtLeastAndroid12()) {
+                if (cities.isEmpty()) {
+                    final RemoteViews widget = new RemoteViews(landscape, portrait);
+                    wm.updateAppWidget(widgetId, widget);
+                    return;
+                }
+
+                RemoteViews.RemoteCollectionItems items =
+                    buildRemoteCollectionItemsForCities(context, prefs, displayMetrics, widgetId, cities);
+                portrait.setRemoteAdapter(getWorldCityListViewId(), items);
+                landscape.setRemoteAdapter(getWorldCityListViewId(), items);
+            }
+
+            final RemoteViews widget = new RemoteViews(landscape, portrait);
+            wm.updateAppWidget(widgetId, widget);
+
+            if (SdkUtils.isBeforeAndroid12()) {
+                //noinspection deprecation
+                wm.notifyAppWidgetViewDataChanged(widgetId, getWorldCityListViewId());
+            }
+        });
     }
 
     /**

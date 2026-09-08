@@ -100,6 +100,7 @@ public class HandleApiCalls extends Activity {
             final Intent intent = getIntent();
             final String action = intent == null ? null : intent.getAction();
             if (action == null) {
+                finish();
                 return;
             }
             LOGGER.i("onCreate: " + intent);
@@ -136,7 +137,6 @@ public class HandleApiCalls extends Activity {
             }
         } catch (Exception e) {
             LOGGER.wtf(e);
-        } finally {
             finish();
         }
     }
@@ -166,12 +166,11 @@ public class HandleApiCalls extends Activity {
     }
 
     public static void dismissAlarm(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Alarm alarm) {
-
         final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(context.getContentResolver(), alarm.id);
         if (instance == null) {
             final String reason = context.getString(R.string.no_alarm_scheduled_for_this_time);
             if (context instanceof Activity activity) {
-                Controller.getController().notifyVoiceFailure(activity, reason);
+                AppExecutors.getMainThread().post(() -> Controller.getController().notifyVoiceFailure(activity, reason));
             }
             LOGGER.i("No alarm instance to dismiss");
             return;
@@ -197,7 +196,7 @@ public class HandleApiCalls extends Activity {
             // Otherwise the alarm cannot be dismissed at this time.
             final String reason = context.getString(R.string.alarm_cant_be_dismissed_still_more_than_24_hours_away, time);
             if (context instanceof Activity activity) {
-                Controller.getController().notifyVoiceFailure(activity, reason);
+                AppExecutors.getMainThread().post(() -> Controller.getController().notifyVoiceFailure(activity, reason));
             }
             LOGGER.i("Can't dismiss alarm more than 24 hours in advance");
         }
@@ -205,7 +204,7 @@ public class HandleApiCalls extends Activity {
         // Log the successful dismissal.
         final String reason = appContext.getString(R.string.alarm_is_dismissed, time);
         if (context instanceof Activity activity) {
-            Controller.getController().notifyVoiceSuccess(activity, reason);
+            AppExecutors.getMainThread().post(() -> Controller.getController().notifyVoiceSuccess(activity, reason));
         }
         LOGGER.i("Alarm dismissed: " + instance);
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
@@ -224,67 +223,73 @@ public class HandleApiCalls extends Activity {
             final Context appContext = mContext.getApplicationContext();
 
             AppExecutors.getDiskIO().execute(() -> {
-                final ContentResolver cr = appContext.getContentResolver();
-                final List<Alarm> alarms = Alarm.getEnabledAlarms(appContext);
-                if (alarms.isEmpty()) {
-                    final String reason = appContext.getString(R.string.no_scheduled_alarms);
+                try {
+                    final ContentResolver cr = appContext.getContentResolver();
+                    final List<Alarm> alarms = Alarm.getEnabledAlarms(appContext);
+                    if (alarms.isEmpty()) {
+                        final String reason = appContext.getString(R.string.no_scheduled_alarms);
+                        if (mActivity != null && !mActivity.isDestroyed()) {
+                            Controller.getController().notifyVoiceFailure(mActivity, reason);
+                        }
+                        LOGGER.i("No scheduled alarms");
+                        return;
+                    }
+
+                    // remove Alarms in MISSED, DISMISSED, and PRE-DISMISSED states
+                    for (Iterator<Alarm> i = alarms.iterator(); i.hasNext(); ) {
+                        final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(cr, i.next().id);
+                        if (instance == null || instance.mAlarmState > FIRED_STATE) {
+                            i.remove();
+                        }
+                    }
+
+                    final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
+                    if (searchMode == null && alarms.size() > 1) {
+                        // shows the UI where user picks which alarm they want to DISMISS
+                        final Intent pickSelectionIntent = new Intent(mContext,
+                            AlarmSelectionActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra(EXTRA_ACTION, ACTION_DISMISS)
+                            .putExtra(EXTRA_ALARMS, alarms.toArray(new Parcelable[0]));
+                        appContext.startActivity(pickSelectionIntent);
+                        final String voiceMessage = appContext.getString(R.string.pick_alarm_to_dismiss);
+                        if (mActivity != null && !mActivity.isDestroyed()) {
+                            Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
+                        }
+                        return;
+                    }
+
+                    // fetch the alarms that are specified by the intent
+                    final FetchMatchingAlarmsAction fetchMatchingAlarmsAction =
+                        new FetchMatchingAlarmsAction(mContext, alarms, mIntent, mActivity);
+                    fetchMatchingAlarmsAction.run();
+                    final List<Alarm> matchingAlarms = fetchMatchingAlarmsAction.getMatchingAlarms();
+
+                    // If there are multiple matching alarms, and it wasn't expected disambiguate what the user meant
+                    if (!AlarmClock.ALARM_SEARCH_MODE_ALL.equals(searchMode) && matchingAlarms.size() > 1) {
+                        final Intent pickSelectionIntent = new Intent(mContext,
+                            AlarmSelectionActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra(EXTRA_ACTION, ACTION_DISMISS)
+                            .putExtra(EXTRA_ALARMS, matchingAlarms.toArray(new Parcelable[0]));
+                        mContext.startActivity(pickSelectionIntent);
+                        final String voiceMessage = mContext.getString(R.string.pick_alarm_to_dismiss);
+                        if (mActivity != null && !mActivity.isDestroyed()) {
+                            Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
+                        }
+                        return;
+                    }
+
+                    // Apply the action to the matching alarms
+                    for (Alarm alarm : matchingAlarms) {
+                        Context bestContext = (mActivity != null && !mActivity.isDestroyed()) ? mActivity : appContext;
+                        dismissAlarm(bestContext, mPrefs, alarm);
+                        LOGGER.i("Alarm dismissed: " + alarm);
+                    }
+                } finally {
                     if (mActivity != null && !mActivity.isDestroyed()) {
-                        Controller.getController().notifyVoiceFailure(mActivity, reason);
+                        AppExecutors.getMainThread().post(mActivity::finish);
                     }
-                    LOGGER.i("No scheduled alarms");
-                    return;
-                }
-
-                // remove Alarms in MISSED, DISMISSED, and PRE-DISMISSED states
-                for (Iterator<Alarm> i = alarms.iterator(); i.hasNext(); ) {
-                    final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(cr, i.next().id);
-                    if (instance == null || instance.mAlarmState > FIRED_STATE) {
-                        i.remove();
-                    }
-                }
-
-                final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
-                if (searchMode == null && alarms.size() > 1) {
-                    // shows the UI where user picks which alarm they want to DISMISS
-                    final Intent pickSelectionIntent = new Intent(mContext,
-                        AlarmSelectionActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra(EXTRA_ACTION, ACTION_DISMISS)
-                        .putExtra(EXTRA_ALARMS, alarms.toArray(new Parcelable[0]));
-                    appContext.startActivity(pickSelectionIntent);
-                    final String voiceMessage = appContext.getString(R.string.pick_alarm_to_dismiss);
-                    if (mActivity != null && !mActivity.isDestroyed()) {
-                        Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
-                    }
-                    return;
-                }
-
-                // fetch the alarms that are specified by the intent
-                final FetchMatchingAlarmsAction fetchMatchingAlarmsAction =
-                    new FetchMatchingAlarmsAction(mContext, alarms, mIntent, mActivity);
-                fetchMatchingAlarmsAction.run();
-                final List<Alarm> matchingAlarms = fetchMatchingAlarmsAction.getMatchingAlarms();
-
-                // If there are multiple matching alarms, and it wasn't expected disambiguate what the user meant
-                if (!AlarmClock.ALARM_SEARCH_MODE_ALL.equals(searchMode) && matchingAlarms.size() > 1) {
-                    final Intent pickSelectionIntent = new Intent(mContext,
-                        AlarmSelectionActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra(EXTRA_ACTION, ACTION_DISMISS)
-                        .putExtra(EXTRA_ALARMS, matchingAlarms.toArray(new Parcelable[0]));
-                    mContext.startActivity(pickSelectionIntent);
-                    final String voiceMessage = mContext.getString(R.string.pick_alarm_to_dismiss);
-                    if (mActivity != null && !mActivity.isDestroyed()) {
-                        Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
-                    }
-                    return;
-                }
-
-                // Apply the action to the matching alarms
-                for (Alarm alarm : matchingAlarms) {
-                    Context bestContext = (mActivity != null && !mActivity.isDestroyed()) ? mActivity : appContext;
-                    dismissAlarm(bestContext, mPrefs, alarm);
-                    LOGGER.i("Alarm dismissed: " + alarm);
                 }
             });
         }
@@ -295,16 +300,20 @@ public class HandleApiCalls extends Activity {
         final ContentResolver cr = context.getContentResolver();
 
         AppExecutors.getDiskIO().execute(() -> {
-            final List<AlarmInstance> alarmInstances = AlarmInstance.getInstancesByState(cr, FIRED_STATE);
-            if (alarmInstances.isEmpty()) {
-                final String reason = context.getString(R.string.no_firing_alarms);
-                Controller.getController().notifyVoiceFailure(this, reason);
-                LOGGER.i("No firing alarms");
-                return;
-            }
+            try {
+                final List<AlarmInstance> alarmInstances = AlarmInstance.getInstancesByState(cr, FIRED_STATE);
+                if (alarmInstances.isEmpty()) {
+                    final String reason = context.getString(R.string.no_firing_alarms);
+                    Controller.getController().notifyVoiceFailure(this, reason);
+                    LOGGER.i("No firing alarms");
+                    return;
+                }
 
-            for (AlarmInstance firingAlarmInstance : alarmInstances) {
-                snoozeAlarm(mPrefs, firingAlarmInstance, this);
+                for (AlarmInstance firingAlarmInstance : alarmInstances) {
+                    snoozeAlarm(mPrefs, firingAlarmInstance, this);
+                }
+            } finally {
+                AppExecutors.getMainThread().post(this::finish);
             }
         });
     }
@@ -335,6 +344,7 @@ public class HandleApiCalls extends Activity {
                 final String voiceMessage = getString(R.string.invalid_time, hour, mins, " ");
                 Controller.getController().notifyVoiceFailure(this, voiceMessage);
                 LOGGER.i("Illegal hour: " + hour);
+                finish();
                 return;
             }
         }
@@ -345,11 +355,11 @@ public class HandleApiCalls extends Activity {
             final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
             Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LOGGER.i("Illegal minute: " + minutes);
+            finish();
             return;
         }
 
         final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
-        final ContentResolver cr = getContentResolver();
 
         // If time information was not provided an existing alarm cannot be located and a new one
         // cannot be created so show the UI for creating the alarm from scratch per spec.
@@ -367,50 +377,58 @@ public class HandleApiCalls extends Activity {
             final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
             Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LOGGER.i("Missing alarm time; opening UI");
+            finish();
             return;
         }
 
-        final StringBuilder selection = new StringBuilder();
-        final List<String> argsList = new ArrayList<>();
-        setSelectionFromIntent(intent, hour, minutes, selection, argsList);
+        final int finalHour = hour;
+        AppExecutors.getDiskIO().execute(() -> {
+            try {
+                final ContentResolver cr = getContentResolver();
+                final StringBuilder selection = new StringBuilder();
+                final List<String> argsList = new ArrayList<>();
 
-        // Try to locate an existing alarm using the intent data.
-        final String[] args = argsList.toArray(new String[0]);
-        final List<Alarm> alarms = Alarm.getAlarms(cr, selection.toString(), args);
+                setSelectionFromIntent(intent, finalHour, minutes, selection, argsList);
 
-        final Alarm alarm;
-        if (!alarms.isEmpty()) {
-            // Enable the first matching alarm.
-            alarm = alarms.get(0);
-            alarm.enabled = true;
-            AlarmVisualCache.invalidate(alarm.id);
-            alarm.updateAlarm(cr);
+                // Try to locate an existing alarm using the intent data.
+                final String[] args = argsList.toArray(new String[0]);
+                final List<Alarm> alarms = Alarm.getAlarms(cr, selection.toString(), args);
 
-            // Delete all old instances.
-            AlarmStateManager.deleteAllInstances(this, mPrefs, alarm.id);
+                final Alarm alarm;
+                if (!alarms.isEmpty()) {
+                    // Enable the first matching alarm.
+                    alarm = alarms.get(0);
+                    alarm.enabled = true;
+                    AlarmVisualCache.invalidate(alarm.id);
+                    alarm.updateAlarm(cr);
 
-            Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
-            LOGGER.i("Updated alarm: " + alarm);
-        } else {
-            // No existing alarm could be located; create one using the intent data.
-            alarm = new Alarm();
-            updateAlarmFromIntent(alarm, intent);
-            applyAlarmSettings(alarm, mAppContext, mPrefs);
+                    // Delete all old instances.
+                    AlarmStateManager.deleteAllInstances(this, mPrefs, alarm.id);
 
-            // Save the new alarm.
-            alarm.addAlarm(cr);
+                    Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
+                    LOGGER.i("Updated alarm: " + alarm);
+                } else {
+                    // No existing alarm could be located; create one using the intent data.
+                    alarm = new Alarm();
+                    updateAlarmFromIntent(alarm, intent);
+                    applyAlarmSettings(alarm, mAppContext, mPrefs);
 
-            Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
-            LOGGER.i("Created new alarm: " + alarm);
-        }
+                    // Save the new alarm.
+                    alarm.addAlarm(cr);
 
-        // Schedule the next instance.
-        final Calendar now = mDataModel.getCalendar();
-        final AlarmInstance alarmInstance = alarm.createInstanceAfter(now);
-        setupInstance(alarmInstance, skipUi);
+                    Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
+                    LOGGER.i("Created new alarm: " + alarm);
+                }
 
-        final String time = DateFormat.getTimeFormat(this).format(alarmInstance.getAlarmTime().getTime());
-        Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
+                // Schedule the next instance.
+                final Calendar now = mDataModel.getCalendar();
+                final AlarmInstance alarmInstance = alarm.createInstanceAfter(now);
+
+                setupInstance(alarmInstance, skipUi);
+            } finally {
+                AppExecutors.getMainThread().post(this::finish);
+            }
+        });
     }
 
     private void handleDismissTimer(@NonNull Intent intent) {
@@ -456,6 +474,8 @@ public class HandleApiCalls extends Activity {
                 LOGGER.e("Could not dismiss timer: no expired timers");
             }
         }
+
+        finish();
     }
 
     @Nullable
@@ -480,6 +500,7 @@ public class HandleApiCalls extends Activity {
         }
 
         startActivity(new Intent(this, DeskClock.class));
+        finish();
     }
 
     private void handleShowTimers() {
@@ -496,6 +517,7 @@ public class HandleApiCalls extends Activity {
         // Open DeskClock positioned on the timers tab.
         mUiDataModel.setSelectedTab(TIMERS);
         startActivity(showTimersIntent);
+        finish();
     }
 
     private void handleSetTimer(@NonNull Intent intent) {
@@ -507,6 +529,7 @@ public class HandleApiCalls extends Activity {
             // Open DeskClock which is now positioned on the timers tab and show the timer setup.
             startActivity(TimerFragment.createTimerSetupIntent(this));
             LOGGER.i("Showing timer setup");
+            finish();
             return;
         }
 
@@ -516,6 +539,7 @@ public class HandleApiCalls extends Activity {
             final String voiceMessage = getString(R.string.invalid_timer_length);
             Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LOGGER.i("Invalid timer length requested: " + lengthMillis);
+            finish();
             return;
         }
 
@@ -578,30 +602,37 @@ public class HandleApiCalls extends Activity {
             // Open DeskClock which is now positioned on the timers tab.
             startActivity(new Intent(this, DeskClock.class).putExtra(TimerService.EXTRA_TIMER_ID, timer.getId()));
         }
+
+        finish();
     }
 
     private void setupInstance(@NonNull AlarmInstance instance, boolean skipUi) {
         instance.addInstance(this.getContentResolver());
         AlarmStateManager.registerInstance(this, mPrefs, instance, true);
 
-        final int style = ThemeUtils.getAccentStyle(this,
-            SettingsDAO.isAutoNightAccentColorEnabled(mPrefs),
-            SettingsDAO.getAccentColor(mPrefs),
-            SettingsDAO.getNightAccentColor(mPrefs));
-        final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+        AppExecutors.getMainThread().post(() -> {
+            final int style = ThemeUtils.getAccentStyle(this,
+                SettingsDAO.isAutoNightAccentColorEnabled(mPrefs),
+                SettingsDAO.getAccentColor(mPrefs),
+                SettingsDAO.getNightAccentColor(mPrefs));
+            final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
 
-        AlarmUtils.popAlarmSetToast(this, style, font, instance.getAlarmTime().getTimeInMillis());
+            AlarmUtils.popAlarmSetToast(this, style, font, instance.getAlarmTime().getTimeInMillis());
 
-        if (!skipUi) {
-            // Change to the alarms tab.
-            mUiDataModel.setSelectedTab(ALARMS);
+            final String time = DateFormat.getTimeFormat(this).format(instance.getAlarmTime().getTime());
+            Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
 
-            // Open DeskClock which is now positioned on the alarms tab.
-            final Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId)
-                .putExtra(AlarmFragment.SCROLL_TO_ALARM_INTENT_EXTRA, instance.mAlarmId)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(showAlarm);
-        }
+            if (!skipUi) {
+                // Change to the alarms tab.
+                mUiDataModel.setSelectedTab(ALARMS);
+
+                // Open DeskClock which is now positioned on the alarms tab.
+                final Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId)
+                    .putExtra(AlarmFragment.SCROLL_TO_ALARM_INTENT_EXTRA, instance.mAlarmId)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(showAlarm);
+            }
+        });
     }
 
     /**

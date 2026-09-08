@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
@@ -72,29 +73,37 @@ public class AlarmTileService extends TileService {
             return;
         }
 
-        SharedPreferences prefs = getDefaultSharedPreferences(this);
-        if (!SettingsDAO.isAlarmTabVisible(prefs)) {
-            tile.setState(Tile.STATE_UNAVAILABLE);
-            if (SdkUtils.isAtLeastAndroid10()) {
-                tile.setSubtitle(null);
+        AppExecutors.getDiskIO().execute(() -> {
+            SharedPreferences prefs = getDefaultSharedPreferences(this);
+            if (!SettingsDAO.isAlarmTabVisible(prefs)) {
+                tile.setState(Tile.STATE_UNAVAILABLE);
+                if (SdkUtils.isAtLeastAndroid10()) {
+                    tile.setSubtitle(null);
+                }
+
+                tile.updateTile();
+                return;
             }
 
-            tile.updateTile();
-            return;
-        }
+            final AlarmInstance nextAlarm = AlarmInstance.getNextFiringAlarm(this);
 
-        if (AlarmInstance.getNextFiringAlarm(this) == null) {
-            tile.setState(Tile.STATE_INACTIVE);
-            if (SdkUtils.isAtLeastAndroid10()) {
-                tile.setSubtitle(getString(R.string.no_scheduled_alarms));
-            }
-        } else {
-            tile.setState(Tile.STATE_ACTIVE);
-            if (SdkUtils.isAtLeastAndroid10()) {
-                tile.setSubtitle(AlarmUtils.getNextAlarm(this));
-            }
-        }
+            final String nextAlarmText = nextAlarm != null ? AlarmUtils.getNextAlarm(this) : null;
 
-        tile.updateTile();
+            AppExecutors.getMainThread().post(() -> {
+                if (nextAlarm == null) {
+                    tile.setState(Tile.STATE_INACTIVE);
+                    if (SdkUtils.isAtLeastAndroid10()) {
+                        tile.setSubtitle(getString(R.string.no_scheduled_alarms));
+                    }
+                } else {
+                    tile.setState(Tile.STATE_ACTIVE);
+                    if (SdkUtils.isAtLeastAndroid10()) {
+                        tile.setSubtitle(nextAlarmText);
+                    }
+                }
+
+                tile.updateTile();
+            });
+        });
     }
 }

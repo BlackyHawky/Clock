@@ -12,7 +12,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EX
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,6 +36,7 @@ import androidx.core.app.ServiceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
@@ -406,30 +406,39 @@ public class AlarmService extends Service {
         final long instanceId = AlarmInstance.getId(dataUri);
 
         switch (Objects.requireNonNull(intent.getAction())) {
-            case AlarmStateManager.CHANGE_STATE_ACTION -> {
+            case AlarmStateManager.CHANGE_STATE_ACTION -> AppExecutors.getDiskIO().execute(() -> {
+                AlarmAlertWakeLock.acquireCpuWakeLock(this);
+
                 AlarmStateManager.handleIntent(this, mPrefs, intent);
 
                 // If state is changed to firing, actually fire the alarm!
                 final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
+
                 if (alarmState == AlarmInstance.FIRED_STATE) {
-                    final ContentResolver cr = this.getContentResolver();
-                    final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
+                    final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
+
                     if (instance == null) {
                         LogUtils.e("No instance found to start alarm: %d", instanceId);
-                        if (mCurrentAlarm != null) {
+
+                        if (mCurrentAlarm == null) {
                             // Only release lock if we are not firing alarm
                             AlarmAlertWakeLock.releaseCpuLock();
                         }
-                        break;
+                        return;
                     }
 
                     if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
                         LogUtils.e("Alarm already started for instance: %d", instanceId);
-                        break;
+                        return;
                     }
-                    startAlarm(instance);
+
+                    AppExecutors.getMainThread().post(() -> startAlarm(instance));
+                } else {
+                    if (mCurrentAlarm == null) {
+                        AlarmAlertWakeLock.releaseCpuLock();
+                    }
                 }
-            }
+            });
 
             case STOP_ALARM_ACTION -> {
                 if (mCurrentAlarm == null) {
@@ -442,9 +451,7 @@ public class AlarmService extends Service {
                     break;
                 }
 
-                if (stopCurrentAlarm()) {
-                    stopSelf();
-                }
+                stopCurrentAlarm();
             }
 
             case STOP_ALARM_WITH_DOUBLE_VIBRATION_ACTION -> {
@@ -459,15 +466,11 @@ public class AlarmService extends Service {
                     break;
                 }
 
-                boolean shouldStopService = stopCurrentAlarm();
-
                 LogUtils.v("AlarmService.stop with double vibration");
                 // Double vibration
                 Utils.executeVibrations(mVibrator, new long[]{300, 200, 100, 500}, -1);
 
-                if (shouldStopService) {
-                    stopSelf();
-                }
+                stopCurrentAlarm();
             }
 
             case STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION -> {
@@ -482,15 +485,11 @@ public class AlarmService extends Service {
                     break;
                 }
 
-                boolean shouldStopService = stopCurrentAlarm();
-
                 LogUtils.v("AlarmService.stop with single vibration");
                 // Single vibration
                 Utils.executeVibrations(mVibrator, new long[]{300, 500}, -1);
 
-                if (shouldStopService) {
-                    stopSelf();
-                }
+                stopCurrentAlarm();
             }
         }
 
@@ -582,31 +581,40 @@ public class AlarmService extends Service {
         attachListeners();
     }
 
-    private boolean stopCurrentAlarm() {
+    private void stopCurrentAlarm() {
         if (mCurrentAlarm == null) {
             LogUtils.v("There is no current alarm to stop");
-            return true;
+            stopSelf();
+            return;
         }
 
         cleanupAndStop();
 
-        while (!mPendingAlarmIds.isEmpty()) {
-            Long nextId = mPendingAlarmIds.poll();
+        AppExecutors.getDiskIO().execute(() -> {
+            boolean alarmStarted = false;
 
-            if (nextId == null) {
-                continue;
+            while (!mPendingAlarmIds.isEmpty()) {
+                Long nextId = mPendingAlarmIds.poll();
+
+                if (nextId == null) {
+                    continue;
+                }
+
+                AlarmInstance next = AlarmInstance.getInstance(getContentResolver(), nextId);
+
+                if (next != null && next.mAlarmState == AlarmInstance.FIRED_STATE) {
+                    LogUtils.i("Launching the pending alarm: " + nextId);
+                    AppExecutors.getMainThread().post(() -> startAlarm(next));
+
+                    alarmStarted = true;
+                    break;
+                }
             }
 
-            AlarmInstance next = AlarmInstance.getInstance(getContentResolver(), nextId);
-
-            if (next != null && next.mAlarmState == AlarmInstance.FIRED_STATE) {
-                LogUtils.i("Launching the pending alarm: " + nextId);
-                startAlarm(next);
-                return false;
+            if (!alarmStarted) {
+                stopSelf();
             }
-        }
-
-        return true;
+        });
     }
 
     private void cleanupAndStop() {

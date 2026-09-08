@@ -128,20 +128,13 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
+        final String getDarkMode = SettingsDAO.getDarkMode(getPrefs());
+        final boolean isAmoledMode = isNight() && getDarkMode.equals(AMOLED_DARK_MODE);
+        int alarmBackgroundColor = isAmoledMode
+            ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
+            : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
         mVibrator = getApplicationContext().getSystemService(Vibrator.class);
         mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getPrefs());
-
-        // Honor rotation on tablets; fix the orientation on phones.
-        if (isPortrait()) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-        }
-
-        initDefaultSnoozeValue();
-
-        setContentView(mBinding.getRoot());
-
-        initAlarmBackground();
-
         mAlarmFontPath = SettingsDAO.getAlarmFont(getPrefs());
         mIsFadeTransition = SettingsDAO.isFadeTransitionsEnabled(getPrefs());
         mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
@@ -160,10 +153,24 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mShadowOffset = SettingsDAO.getAlarmShadowOffset(getPrefs());
         mShadowRadius = mShadowOffset * 0.5f;
 
+        getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+
+        initDefaultSnoozeValue();
+
+        // Honor rotation on tablets; fix the orientation on phones.
+        if (isPortrait()) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        }
+
+        setContentView(mBinding.getRoot());
+
+        applyWindowInsets();
+
+        ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
+
+        initAlarmBackground();
         initAlarmClock();
-
         initAlarmTitle();
-
         initDismissOnlyButton();
 
         if (mIsSwipeActionEnabled) {
@@ -187,10 +194,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
                 finishActivity();
             }
         });
-
-        applyWindowInsets();
-
-        ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
     }
 
     @Override
@@ -356,14 +359,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the background.
      */
     private void initAlarmBackground() {
-        final String getDarkMode = SettingsDAO.getDarkMode(getPrefs());
-        final boolean isAmoledMode = isNight() && getDarkMode.equals(AMOLED_DARK_MODE);
-        int alarmBackgroundColor = isAmoledMode
-            ? SettingsDAO.getAlarmBackgroundAmoledColor(getPrefs())
-            : SettingsDAO.getAlarmBackgroundColor(getPrefs(), this);
-
-        getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
-
         String previewImage = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE);
         final String imagePath = TextUtils.isEmpty(previewImage)
             ? SettingsDAO.getAlarmBackgroundImage(getPrefs())

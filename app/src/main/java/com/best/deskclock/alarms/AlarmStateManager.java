@@ -187,14 +187,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
             TileService.requestListeningState(context, new ComponentName(context, AlarmTileService.class));
         }
 
-        // Adding a Handler ensures better fluidity when activating/deactivating the alarm
-        AppExecutors.getMainThread().postDelayed(() -> {
+        AppExecutors.getMainThread().post(() -> {
             Intent nextAlarmChangedIntent = new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             nextAlarmChangedIntent.setPackage(context.getPackageName());
             context.sendBroadcast(nextAlarmChangedIntent);
 
             WidgetUtils.updateAllDigitalWidgets(context);
-        }, 600);
+        });
     }
 
     /**

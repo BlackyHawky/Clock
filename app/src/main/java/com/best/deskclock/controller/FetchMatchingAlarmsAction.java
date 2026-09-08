@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
@@ -156,8 +157,13 @@ class FetchMatchingAlarmsAction implements Runnable {
 
     private void notifyFailureAndLog(@NonNull String reason, @Nullable Activity activity) {
         LogUtils.e(reason);
-        if (activity != null && !activity.isDestroyed()) {
-            Controller.getController().notifyVoiceFailure(activity, reason);
+
+        if (activity != null) {
+            AppExecutors.getMainThread().post(() -> {
+                if (!activity.isDestroyed()) {
+                    Controller.getController().notifyVoiceFailure(activity, reason);
+                }
+            });
         }
     }
 }
