@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
-import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
@@ -105,7 +104,7 @@ class FetchMatchingAlarmsAction implements Runnable {
                     // Return the matched firing alarms
                     return;
                 }
-                final AlarmInstance nextAlarm = AlarmStateManager.getNextFiringAlarm(mContext);
+                final AlarmInstance nextAlarm = AlarmInstance.getNextFiringAlarm(mContext);
                 if (nextAlarm == null) {
                     final String reason = mContext.getString(R.string.no_scheduled_alarms);
                     notifyFailureAndLog(reason, mActivity);

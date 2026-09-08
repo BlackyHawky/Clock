@@ -21,7 +21,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.view.ViewCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -140,7 +139,7 @@ public class AlarmUtils {
      */
     @Nullable
     public static String getNextAlarm(@NonNull Context context) {
-        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
         if (instance != null) {
             Calendar alarmCalendar = Calendar.getInstance();
             long alarmTime = instance.getAlarmTime().getTimeInMillis();
@@ -156,7 +155,7 @@ public class AlarmUtils {
      */
     @Nullable
     public static String getMultiLineNextAlarm(@NonNull Context context) {
-        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
         if (instance != null) {
             Calendar alarmCalendar = Calendar.getInstance();
             alarmCalendar.setTimeInMillis(instance.getAlarmTime().getTimeInMillis());
@@ -170,7 +169,7 @@ public class AlarmUtils {
      */
     @Nullable
     public static String getNextAlarmTitle(@NonNull Context context) {
-        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
         if (instance != null) {
             return instance.mLabel.isEmpty() ? "" : instance.mLabel;
         }
@@ -198,7 +197,7 @@ public class AlarmUtils {
             return false;
         }
 
-        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
         if (instance == null) {
             nextAlarmIconView.setVisibility(View.GONE);
             nextAlarmView.setVisibility(View.GONE);

@@ -301,6 +301,26 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
+     * Returns an alarm instance of an alarm that's going to fire next.
+     *
+     * @param context application context
+     * @return an alarm instance that will fire the earliest relative to current time.
+     */
+    public static AlarmInstance getNextFiringAlarm(@NonNull Context context) {
+        final ContentResolver cr = context.getContentResolver();
+        final String activeAlarmQuery = ALARM_STATE + "<" + FIRED_STATE;
+        final List<AlarmInstance> alarmInstances = getInstances(cr, activeAlarmQuery);
+
+        AlarmInstance nextAlarm = null;
+        for (AlarmInstance instance : alarmInstances) {
+            if (nextAlarm == null || instance.getAlarmTime().before(nextAlarm.getAlarmTime())) {
+                nextAlarm = instance;
+            }
+        }
+        return nextAlarm;
+    }
+
+    /**
      * Get the next instance of an alarm given its alarmId
      *
      * @param contentResolver provides access to the content model
@@ -337,7 +357,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public static AlarmInstance getNextAlarmInstanceByLabel(@NonNull ContentResolver contentResolver, @NonNull String targetLabel) {
         final String selection = LABEL + "=?";
         final String[] args = {targetLabel};
-        List<AlarmInstance> instances = AlarmInstance.getInstances(contentResolver, selection, args);
+        List<AlarmInstance> instances = getInstances(contentResolver, selection, args);
 
         long now = System.currentTimeMillis();
         AlarmInstance next = null;
@@ -371,11 +391,11 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         final String selection = ALARM_ID + "=? AND " + ALARM_STATE + " IN (?, ?)";
         final String[] args = {
             String.valueOf(alarmId),
-            String.valueOf(AlarmInstance.FIRED_STATE),
-            String.valueOf(AlarmInstance.SNOOZE_STATE)
+            String.valueOf(FIRED_STATE),
+            String.valueOf(SNOOZE_STATE)
         };
 
-        List<AlarmInstance> instances = AlarmInstance.getInstances(cr, selection, args);
+        List<AlarmInstance> instances = getInstances(cr, selection, args);
 
         if (!instances.isEmpty()) {
             return instances.get(0);
@@ -416,7 +436,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         // Make sure we are not adding a duplicate instances. This is not a
         // fix and should never happen. This is only a safeguard against bad code, and you
         // should fix the root issue if you see the error message.
-        String dupSelector = AlarmInstance.ALARM_ID + " = " + mAlarmId;
+        String dupSelector = ALARM_ID + " = " + mAlarmId;
         for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
             if (otherInstances.getAlarmTime().equals(getAlarmTime())) {
                 LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to " + this);

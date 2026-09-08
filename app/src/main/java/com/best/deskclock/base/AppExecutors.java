@@ -17,11 +17,11 @@ import java.util.concurrent.Executors;
 public class AppExecutors {
 
     /**
-     * Single-thread asynchronous executor.
-     * Ensures that all background tasks are executed sequentially (one after another)
-     * in the order they are submitted.
+     * Multi-thread asynchronous executor with a fixed pool of 4 threads.
+     * Allows concurrent execution of background tasks (e.g., database queries, font loading, image decoding)
+     * to prevent bottlenecks and ensure time-critical operations (like alarm firing) are not delayed.
      */
-    private static final ExecutorService diskIO = Executors.newSingleThreadExecutor();
+    private static final ExecutorService diskIO = Executors.newFixedThreadPool(4);
 
     /**
      * Handler attached to the application's main thread (UI Thread).

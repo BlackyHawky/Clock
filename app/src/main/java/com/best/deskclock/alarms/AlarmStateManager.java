@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.service.quicksettings.TileService;
 import android.text.format.DateFormat;
@@ -151,6 +152,19 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * like {@code AppWidgetManager}.</p>
      */
     public static void updateNextAlarm(@NonNull Context context) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            // If called from the Main Thread (e.g., UI interaction), execute in the background
+            // to prevent freezing the UI.
+            final Context safeContext = context.getApplicationContext();
+            AppExecutors.getDiskIO().execute(() -> performUpdateNextAlarm(safeContext));
+        } else {
+            // If called from a background thread (e.g., PackageReplacedReceiver or AlarmStateManager),
+            // execute synchronously to ensure any active WakeLock is maintained until completion.
+            performUpdateNextAlarm(context);
+        }
+    }
+
+    private static void performUpdateNextAlarm(@NonNull Context context) {
         Context storageContext = Utils.getSafeStorageContext(context);
 
         // Important: Do not proceed if the user is locked (direct boot mode).
@@ -161,7 +175,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             return;
         }
 
-        final AlarmInstance nextAlarm = getNextFiringAlarm(context);
+        final AlarmInstance nextAlarm = AlarmInstance.getNextFiringAlarm(context);
 
         if (nextAlarm != null) {
             setPowerOffAlarm(context, nextAlarm);
@@ -181,26 +195,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             WidgetUtils.updateAllDigitalWidgets(context);
         }, 600);
-    }
-
-    /**
-     * Returns an alarm instance of an alarm that's going to fire next.
-     *
-     * @param context application context
-     * @return an alarm instance that will fire the earliest relative to current time.
-     */
-    public static AlarmInstance getNextFiringAlarm(@NonNull Context context) {
-        final ContentResolver cr = context.getContentResolver();
-        final String activeAlarmQuery = AlarmInstance.ALARM_STATE + "<" + AlarmInstance.FIRED_STATE;
-        final List<AlarmInstance> alarmInstances = AlarmInstance.getInstances(cr, activeAlarmQuery);
-
-        AlarmInstance nextAlarm = null;
-        for (AlarmInstance instance : alarmInstances) {
-            if (nextAlarm == null || instance.getAlarmTime().before(nextAlarm.getAlarmTime())) {
-                nextAlarm = instance;
-            }
-        }
-        return nextAlarm;
     }
 
     /**
@@ -716,7 +710,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instanceId The ID of the current active instance that must be kept.
      */
     private static void deleteOtherInstances(@NonNull Context context, @NonNull SharedPreferences prefs, long alarmId, long instanceId) {
-
         final ContentResolver contentResolver = context.getContentResolver();
         final List<AlarmInstance> instances = AlarmInstance.getInstancesByAlarmId(contentResolver, alarmId);
 
@@ -1107,19 +1100,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * Abstracts away how state changes are scheduled. The {@link AlarmManagerStateChangeScheduler}
-     * implementation schedules callbacks within the system AlarmManager. Alternate
-     * implementations, such as test case mocks can subvert this behavior.
-     */
-    interface StateChangeScheduler {
-        void scheduleInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Calendar time,
-                                         @NonNull AlarmInstance instance, int newState);
-
-        void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs,
-                                                @NonNull AlarmInstance instance);
-    }
-
-    /**
      * Schedules state change callbacks within the AlarmManager.
      */
     private static class AlarmManagerStateChangeScheduler implements StateChangeScheduler {
@@ -1160,5 +1140,18 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 pendingIntent.cancel();
             }
         }
+    }
+
+    /**
+     * Abstracts away how state changes are scheduled. The {@link AlarmManagerStateChangeScheduler}
+     * implementation schedules callbacks within the system AlarmManager. Alternate
+     * implementations, such as test case mocks can subvert this behavior.
+     */
+    interface StateChangeScheduler {
+        void scheduleInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull Calendar time,
+                                         @NonNull AlarmInstance instance, int newState);
+
+        void cancelScheduledInstanceStateChange(@NonNull Context context, @NonNull SharedPreferences prefs,
+                                                @NonNull AlarmInstance instance);
     }
 }

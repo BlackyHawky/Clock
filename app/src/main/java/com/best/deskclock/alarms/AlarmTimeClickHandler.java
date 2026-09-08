@@ -103,13 +103,14 @@ public final class AlarmTimeClickHandler {
             // When disabling a synchronized alarm, disable the entire group only if this alarm
             // is not currently firing or snoozed.
             if (alarm.syncByLabel && !newState) {
-                AlarmInstance activeInstance = AlarmInstance.getFiredOrSnoozedInstanceForAlarm(mContext.getContentResolver(), alarm.id);
+                AppExecutors.getDiskIO().execute(() -> {
+                    AlarmInstance activeInstance = AlarmInstance.getFiredOrSnoozedInstanceForAlarm(mContext.getContentResolver(), alarm.id);
 
-                // If the alarm is not active (neither firing nor snoozed),
-                // propagate the disabled state to the whole group.
-                if (activeInstance == null) {
-                    mAlarmUpdateHandler.asyncSyncAlarmsWithSameLabel(alarm, false);
-                }
+                    // If the alarm is not active (neither firing nor snoozed), propagate the disabled state to the whole group.
+                    if (activeInstance == null) {
+                        mAlarmUpdateHandler.asyncSyncAlarmsWithSameLabel(alarm, false);
+                    }
+                });
             }
 
             LOGGER.d("Updating alarm enabled state to " + newState);

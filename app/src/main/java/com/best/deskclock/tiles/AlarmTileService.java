@@ -20,8 +20,8 @@ import androidx.annotation.RequiresApi;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -83,7 +83,7 @@ public class AlarmTileService extends TileService {
             return;
         }
 
-        if (AlarmStateManager.getNextFiringAlarm(this) == null) {
+        if (AlarmInstance.getNextFiringAlarm(this) == null) {
             tile.setState(Tile.STATE_INACTIVE);
             if (SdkUtils.isAtLeastAndroid10()) {
                 tile.setSubtitle(getString(R.string.no_scheduled_alarms));
