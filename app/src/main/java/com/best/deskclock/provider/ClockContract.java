@@ -154,6 +154,12 @@ public final class ClockContract {
          * Type: STRING
          */
         String MATH_HARDNESS_LEVEL = "mathHardnessLevel";
+
+        /**
+         * Combined days data (selected and deselected dates as JSON).
+         * Type: STRING
+         */
+        String COMBINED_DAYS = "combinedDays";
     }
 
     /**

@@ -25,6 +25,7 @@ import androidx.core.os.ParcelCompat;
 import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.AlarmUtils;
@@ -144,7 +145,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         PAUSE_END_DATE,
         BACKGROUND_IMAGE,
         BLUR_INTENSITY,
-        MATH_HARDNESS_LEVEL
+        MATH_HARDNESS_LEVEL,
+        COMBINED_DAYS
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -173,6 +175,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BACKGROUND_IMAGE,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BLUR_INTENSITY,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MATH_HARDNESS_LEVEL,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + COMBINED_DAYS,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -222,27 +225,28 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int BACKGROUND_IMAGE_INDEX = 23;
     private static final int BLUR_INTENSITY_INDEX = 24;
     private static final int MATH_HARDNESS_LEVEL_INDEX = 25;
+    private static final int COMBINED_DAYS_INDEX = 26;
 
-    private static final int INSTANCE_STATE_INDEX = 26;
-    public static final int INSTANCE_ID_INDEX = 27;
-    public static final int INSTANCE_YEAR_INDEX = 28;
-    public static final int INSTANCE_MONTH_INDEX = 29;
-    public static final int INSTANCE_DAY_INDEX = 30;
-    public static final int INSTANCE_HOUR_INDEX = 31;
-    public static final int INSTANCE_MINUTE_INDEX = 32;
-    public static final int INSTANCE_LABEL_INDEX = 33;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 34;
-    public static final int INSTANCE_VIBRATE_INDEX = 35;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 36;
-    public static final int INSTANCE_FLASH_INDEX = 37;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 38;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 39;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 40;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 41;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 42;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 43;
+    private static final int INSTANCE_STATE_INDEX = 27;
+    public static final int INSTANCE_ID_INDEX = 28;
+    public static final int INSTANCE_YEAR_INDEX = 29;
+    public static final int INSTANCE_MONTH_INDEX = 30;
+    public static final int INSTANCE_DAY_INDEX = 31;
+    public static final int INSTANCE_HOUR_INDEX = 32;
+    public static final int INSTANCE_MINUTE_INDEX = 33;
+    public static final int INSTANCE_LABEL_INDEX = 34;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 35;
+    public static final int INSTANCE_VIBRATE_INDEX = 36;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 37;
+    public static final int INSTANCE_FLASH_INDEX = 38;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 39;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 40;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 41;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 42;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 43;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 44;
 
-    private static final int COLUMN_COUNT = MATH_HARDNESS_LEVEL_INDEX + 1;
+    private static final int COLUMN_COUNT = COMBINED_DAYS_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
     // Public fields
     public long id;
@@ -273,6 +277,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String backgroundImage;
     public int blurIntensity;
     public String mathHardnessLevel;
+    public CombinedDays combinedDays;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -309,6 +314,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         this.blurIntensity = DEFAULT_BLUR_INTENSITY;
         this.mathHardnessLevel = DEFAULT_MATH_HARDNESS_LEVEL;
+        this.combinedDays = new CombinedDays();
     }
 
     // Used to back up/restore the alarm
@@ -316,7 +322,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                  @NonNull String vibrationPattern, boolean flash, @NonNull Weekdays daysOfWeek, @NonNull String label, boolean syncByLabel,
                  @NonNull String alert, boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit,
                  int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
-                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel) {
+                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel, @NonNull String combinedDaysJson) {
 
         this.id = id;
         this.enabled = enabled;
@@ -344,6 +350,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = backgroundImage;
         this.blurIntensity = blurIntensity;
         this.mathHardnessLevel = mathHardnessLevel;
+        this.combinedDays = CombinedDays.fromJson(combinedDaysJson);
     }
 
     // Used to create a clone of the given alarm
@@ -375,6 +382,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = original.backgroundImage;
         this.blurIntensity = original.blurIntensity;
         this.mathHardnessLevel = original.mathHardnessLevel;
+        this.combinedDays = CombinedDays.fromJson(original.combinedDays.toJson());
     }
 
     public Alarm(@NonNull Cursor c) {
@@ -403,6 +411,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         backgroundImage = c.getString(BACKGROUND_IMAGE_INDEX);
         blurIntensity = c.getInt(BLUR_INTENSITY_INDEX);
         mathHardnessLevel = c.getString(MATH_HARDNESS_LEVEL_INDEX);
+        combinedDays = CombinedDays.fromJson(c.getString(COMBINED_DAYS_INDEX));
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -444,6 +453,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         backgroundImage = p.readString();
         blurIntensity = p.readInt();
         mathHardnessLevel = p.readString();
+        combinedDays = CombinedDays.fromJson(p.readString());
     }
 
     @NonNull
@@ -477,6 +487,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(BACKGROUND_IMAGE, backgroundImage);
         values.put(BLUR_INTENSITY, blurIntensity);
         values.put(MATH_HARDNESS_LEVEL, mathHardnessLevel);
+        values.put(COMBINED_DAYS, combinedDays.toJson());
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -515,6 +526,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(backgroundImage);
         p.writeInt(blurIntensity);
         p.writeString(mathHardnessLevel);
+        p.writeString(combinedDays.toJson());
     }
 
     public int describeContents() {
@@ -722,7 +734,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || minutes != other.minutes
             || daysOfWeek.getBits() != other.daysOfWeek.getBits()
             || pauseStartDate != other.pauseStartDate
-            || pauseEndDate != other.pauseEndDate;
+            || pauseEndDate != other.pauseEndDate
+            || !Objects.equals(combinedDays, other.combinedDays);
     }
 
     /**
@@ -1137,6 +1150,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", backgroundImage=" + backgroundImage +
             ", blurIntensity=" + blurIntensity +
             ", mathHardnessLevel=" + mathHardnessLevel +
+            ", combinedDays=" + combinedDays +
             '}';
     }
 
