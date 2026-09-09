@@ -166,6 +166,12 @@ public final class ClockContract {
          * <p>Type: STRING</p>
          */
         String TIMEZONE = "timeZone";
+
+        /**
+         * Combined days data (selected and deselected dates as JSON)
+         * <p>Type: STRING</p>
+         */
+        String COMBINED_DAYS = "combinedDays";
     }
 
     /**

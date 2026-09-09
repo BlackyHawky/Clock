@@ -26,6 +26,7 @@ import androidx.core.os.ParcelCompat;
 import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.AlarmUtils;
@@ -83,7 +84,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         BLUR_INTENSITY,
         MATH_HARDNESS_LEVEL,
         LOCK,
-        TIMEZONE
+        TIMEZONE,
+        COMBINED_DAYS
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -114,6 +116,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MATH_HARDNESS_LEVEL,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LOCK,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + TIMEZONE,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + COMBINED_DAYS,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -166,28 +169,29 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int MATH_HARDNESS_LEVEL_INDEX = 25;
     private static final int LOCK_INDEX = 26;
     private static final int TIMEZONE_INDEX = 27;
+    private static final int COMBINED_DAYS_INDEX = 28;
 
-    private static final int INSTANCE_STATE_INDEX = 28;
-    public static final int INSTANCE_ID_INDEX = 29;
-    public static final int INSTANCE_YEAR_INDEX = 30;
-    public static final int INSTANCE_MONTH_INDEX = 31;
-    public static final int INSTANCE_DAY_INDEX = 32;
-    public static final int INSTANCE_HOUR_INDEX = 33;
-    public static final int INSTANCE_MINUTE_INDEX = 34;
-    public static final int INSTANCE_LABEL_INDEX = 35;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 36;
-    public static final int INSTANCE_VIBRATE_INDEX = 37;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 38;
-    public static final int INSTANCE_FLASH_INDEX = 39;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 40;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 41;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 42;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 43;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 44;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 45;
-    public static final int INSTANCE_TIMEZONE_INDEX = 46;
+    private static final int INSTANCE_STATE_INDEX = 29;
+    public static final int INSTANCE_ID_INDEX = 30;
+    public static final int INSTANCE_YEAR_INDEX = 31;
+    public static final int INSTANCE_MONTH_INDEX = 32;
+    public static final int INSTANCE_DAY_INDEX = 33;
+    public static final int INSTANCE_HOUR_INDEX = 34;
+    public static final int INSTANCE_MINUTE_INDEX = 35;
+    public static final int INSTANCE_LABEL_INDEX = 36;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 37;
+    public static final int INSTANCE_VIBRATE_INDEX = 38;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 39;
+    public static final int INSTANCE_FLASH_INDEX = 40;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 41;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 42;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 43;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 44;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 45;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 46;
+    public static final int INSTANCE_TIMEZONE_INDEX = 47;
 
-    private static final int COLUMN_COUNT = TIMEZONE_INDEX + 1;
+    private static final int COLUMN_COUNT = COMBINED_DAYS_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_TIMEZONE_INDEX + 1;
     // Public fields
     public long id;
@@ -220,6 +224,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String mathHardnessLevel;
     public boolean lock;
     public String timeZone;
+    public CombinedDays combinedDays;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -258,6 +263,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.mathHardnessLevel = DEFAULT_MATH_HARDNESS_LEVEL;
         this.lock = false;
         this.timeZone = "";
+        this.combinedDays = new CombinedDays();
     }
 
     // Used to back up/restore the alarm
@@ -266,7 +272,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                  @NonNull String alert, boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit,
                  int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
                  @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel, boolean lock,
-                 @NonNull String timeZone) {
+                 @NonNull String timeZone, @NonNull String combinedDaysJson) {
 
         this.id = id;
         this.enabled = enabled;
@@ -296,6 +302,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.mathHardnessLevel = mathHardnessLevel;
         this.lock = lock;
         this.timeZone = timeZone;
+        this.combinedDays = CombinedDays.fromJson(combinedDaysJson);
     }
 
     // Used to create a clone of the given alarm
@@ -329,6 +336,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.mathHardnessLevel = original.mathHardnessLevel;
         this.lock = original.lock;
         this.timeZone = original.timeZone;
+        this.combinedDays = CombinedDays.fromJson(original.combinedDays.toJson());
     }
 
     public Alarm(@NonNull Cursor c) {
@@ -359,6 +367,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         mathHardnessLevel = c.getString(MATH_HARDNESS_LEVEL_INDEX);
         lock = c.getInt(LOCK_INDEX) == 1;
         timeZone = c.getString(TIMEZONE_INDEX);
+        combinedDays = CombinedDays.fromJson(c.getString(COMBINED_DAYS_INDEX));
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -402,6 +411,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         mathHardnessLevel = p.readString();
         lock = p.readInt() == 1;
         timeZone = p.readString();
+        combinedDays = CombinedDays.fromJson(p.readString());
     }
 
     @NonNull
@@ -437,6 +447,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(MATH_HARDNESS_LEVEL, mathHardnessLevel);
         values.put(LOCK, lock ? 1 : 0);
         values.put(TIMEZONE, timeZone);
+        values.put(COMBINED_DAYS, combinedDays.toJson());
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -477,6 +488,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(mathHardnessLevel);
         p.writeInt(lock ? 1 : 0);
         p.writeString(timeZone);
+        p.writeString(combinedDays.toJson());
     }
 
     public int describeContents() {
@@ -682,7 +694,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || daysOfWeek.getBits() != other.daysOfWeek.getBits()
             || pauseStartDate != other.pauseStartDate
             || pauseEndDate != other.pauseEndDate
-            || !Objects.equals(timeZone, other.timeZone);
+            || !Objects.equals(timeZone, other.timeZone)
+            || !Objects.equals(combinedDays, other.combinedDays);
     }
 
     /**
@@ -1110,6 +1123,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", mathHardnessLevel=" + mathHardnessLevel +
             ", lock=" + lock +
             ", timeZone=" + timeZone +
+            ", combinedDays=" + combinedDays +
             '}';
     }
 

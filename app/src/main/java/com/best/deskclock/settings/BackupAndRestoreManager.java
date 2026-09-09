@@ -207,6 +207,7 @@ public class BackupAndRestoreManager {
             alarmObject.put("mathHardnessLevel", alarm.mathHardnessLevel);
             alarmObject.put("lock", alarm.lock);
             alarmObject.put("timeZone", alarm.timeZone);
+            alarmObject.put("combinedDays", alarm.combinedDays != null ? alarm.combinedDays.toJson() : "");
 
             if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                 alarmsArray.put(alarmObject);
@@ -425,6 +426,7 @@ public class BackupAndRestoreManager {
         String mathHardnessLevel = alarmObject.optString("mathHardnessLevel", DEFAULT_MATH_HARDNESS_LEVEL);
         boolean lock = alarmObject.optBoolean("lock", false);
         String timeZone = alarmObject.optString("timeZone", "");
+        String combinedDaysJson = alarmObject.optString("combinedDays", "");
 
         if (!TextUtils.isEmpty(oldBackgroundImage)) {
             String fileName = new File(oldBackgroundImage).getName();
@@ -470,7 +472,7 @@ public class BackupAndRestoreManager {
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
             missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate, newBackgroundImage,
-            blurIntensity, mathHardnessLevel, lock, timeZone);
+            blurIntensity, mathHardnessLevel, lock, timeZone, combinedDaysJson);
 
         restoredAlarm.addAlarm(contentResolver);
 
