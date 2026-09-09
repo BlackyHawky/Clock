@@ -270,6 +270,73 @@ public final class CombinedDays implements Parcelable {
     }
 
     /**
+     * Removes redundant overrides based on the current weekday selection.
+     * <p>
+     * A deselected date is redundant if its weekday is not currently selected (the alarm
+     * wouldn't fire on that day anyway, so excluding it is pointless).
+     * <p>
+     * A selected date is redundant if its weekday IS currently selected (the alarm would
+     * already fire on that day, so explicitly selecting it is pointless).
+     *
+     * @param weekdays the current weekday bitmask
+     * @return a new CombinedDays with redundant overrides removed
+     */
+    @NonNull
+    public CombinedDays cleanup(@NonNull Weekdays weekdays) {
+        List<String> cleanedDeselected = new ArrayList<>();
+        for (String dateKey : mDeselectedDates) {
+            int[] parsed = parseDateKey(dateKey);
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            cal.set(parsed[0], parsed[1], parsed[2]);
+            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+            if (weekdays.isBitOn(calendarDay)) {
+                cleanedDeselected.add(dateKey);
+            }
+        }
+
+        List<String> cleanedSelected = new ArrayList<>();
+        for (String dateKey : mSelectedDates) {
+            int[] parsed = parseDateKey(dateKey);
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            cal.set(parsed[0], parsed[1], parsed[2]);
+            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+            if (!weekdays.isBitOn(calendarDay)) {
+                cleanedSelected.add(dateKey);
+            }
+        }
+
+        return new CombinedDays(cleanedSelected, cleanedDeselected);
+    }
+
+    /**
+     * Checks if there are any redundant overrides that could be cleaned up.
+     *
+     * @param weekdays the current weekday bitmask
+     * @return true if any overrides are redundant
+     */
+    public boolean hasRedundantOverrides(@NonNull Weekdays weekdays) {
+        for (String dateKey : mDeselectedDates) {
+            int[] parsed = parseDateKey(dateKey);
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            cal.set(parsed[0], parsed[1], parsed[2]);
+            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+            if (!weekdays.isBitOn(calendarDay)) {
+                return true;
+            }
+        }
+        for (String dateKey : mSelectedDates) {
+            int[] parsed = parseDateKey(dateKey);
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            cal.set(parsed[0], parsed[1], parsed[2]);
+            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+            if (weekdays.isBitOn(calendarDay)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if a specific date is in the selected dates list.
      *
      * @param year  the year
