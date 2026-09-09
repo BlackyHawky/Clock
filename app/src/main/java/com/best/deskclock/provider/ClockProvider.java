@@ -121,6 +121,8 @@ public class ClockProvider extends ContentProvider {
             ALARMS_TABLE_NAME + "." + AlarmsColumns.TIMEZONE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.CATEGORY_IDS,
             ALARMS_TABLE_NAME + "." + AlarmsColumns.CATEGORY_IDS);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.COMBINED_DAYS,
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.COMBINED_DAYS);
 
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE,
             INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE);

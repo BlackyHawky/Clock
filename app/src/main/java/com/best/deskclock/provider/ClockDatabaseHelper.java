@@ -31,7 +31,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
     static final String CATEGORIES_TABLE_NAME = "alarm_categories";
 
-    private static final int DATABASE_VERSION = 30;
+    private static final int DATABASE_VERSION = 31;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(@Nullable Context context) {
@@ -39,7 +39,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private static void createCategoriesTable(@NonNull SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + CATEGORIES_TABLE_NAME + " (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + CATEGORIES_TABLE_NAME + " (" +
             ClockContract.CategoryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ClockContract.CategoryColumns.NAME + " TEXT NOT NULL, " +
             ClockContract.CategoryColumns.SORT_ORDER + " INTEGER NOT NULL DEFAULT 0);");
@@ -77,7 +77,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             ClockContract.AlarmsColumns.MATH_HARDNESS_LEVEL + " TEXT NOT NULL DEFAULT 'off', " +
             ClockContract.AlarmsColumns.LOCK + " INTEGER NOT NULL DEFAULT 0, " +
             ClockContract.AlarmsColumns.TIMEZONE + " TEXT DEFAULT '', " +
-            ClockContract.AlarmsColumns.CATEGORY_IDS + " TEXT NOT NULL DEFAULT ',0,');");
+            ClockContract.AlarmsColumns.CATEGORY_IDS + " TEXT NOT NULL DEFAULT ',0,', " +
+            ClockContract.AlarmsColumns.COMBINED_DAYS + " TEXT NOT NULL DEFAULT '';");
 
         LogUtils.i("Alarms Table created");
     }
@@ -329,12 +330,53 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 30) {
+        if (oldVersion < 30) {
             db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " +
                 ClockContract.AlarmsColumns.CATEGORY_IDS + " TEXT NOT NULL DEFAULT ',0,';");
 
             createCategoriesTable(db);
 
             LogUtils.i("categoryId column and categories table added for version 30 upgrade.");
+        }
+
+        if (oldVersion < 31) {
+            // The multi-date preview releases used schema v30 for the combinedDays column, so
+            // only add it when it is actually missing to keep those upgrades idempotent.
+            if (!columnExists(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.COMBINED_DAYS)) {
+                db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.COMBINED_DAYS
+                    + " TEXT NOT NULL DEFAULT '';");
+
+                LogUtils.i("combinedDays column added for version 31 upgrade.");
+            }
+        }
+
+        // Repair installs from the multi-date preview releases: their schema v30 only added
+        // the combinedDays column, so the version 30 block above never ran for them. Add the
+        // category columns whenever they are absent, regardless of the version number.
+        if (!columnExists(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.CATEGORY_IDS)) {
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " +
+                ClockContract.AlarmsColumns.CATEGORY_IDS + " TEXT NOT NULL DEFAULT ',0,';");
+
+            createCategoriesTable(db);
+
+            LogUtils.i("categoryId column and categories table repaired for multi-date preview installs.");
+        }
+    }
+
+    private static boolean columnExists(SQLiteDatabase db, String table, String column) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("PRAGMA table_info(" + table + ")", null);
+            while (cursor != null && cursor.moveToNext()) {
+                if (column.equals(cursor.getString(cursor.getColumnIndexOrThrow("name")))) {
+                    return true;
+                }
+            }
+            return false;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 
