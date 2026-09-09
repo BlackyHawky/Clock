@@ -993,6 +993,8 @@
     <!-- Setting title for changing the button action to Control volume. -->
     <string name="button_action_control_volume">Control volume</string>
     <!-- Setting title for changing the button action to Nothing. -->
+    <string name="button_action_mute">Mute</string>
+    <!-- Setting title for changing the button action to Nothing. -->
     <string name="button_action_nothing">Nothing</string>
     <!-- Setting title for the Power button setting. -->
     <string name="power_button_title">Power button</string>

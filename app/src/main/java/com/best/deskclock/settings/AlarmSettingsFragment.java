@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE_ACTION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.*;
@@ -564,8 +565,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             case KEY_SHAKE_ACTION -> {
                 final int index = mShakeActionPref.findIndexOfValue((String) newValue);
                 mShakeActionPref.setSummary(mShakeActionPref.getEntries()[index]);
-                // index == 2 --> Nothing
-                mShakeIntensityPref.setVisible(index != 2);
+
+                // Parse the new value and hide the shake intensity preference if the action is "Nothing" (0)
+                final int shakeAction = Integer.parseInt((String) newValue);
+                mShakeIntensityPref.setVisible(shakeAction != 0);
             }
 
             case KEY_WEEK_START -> {
@@ -735,8 +738,9 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
-            mFlipActionPref.setValue("0");
-            mShakeActionPref.setValue("0");
+            // DEFAULT_SHAKE_ACTION --> Nothing
+            mFlipActionPref.setValue(DEFAULT_SHAKE_ACTION);
+            mShakeActionPref.setValue(DEFAULT_SHAKE_ACTION);
             mFlipActionPref.setVisible(false);
             mShakeActionPref.setVisible(false);
         } else {
@@ -745,9 +749,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             mShakeActionPref.setSummary(mShakeActionPref.getEntry());
             mShakeActionPref.setOnPreferenceChangeListener(this);
 
-            // shakeActionIndex == 2 --> Nothing
-            final int shakeActionIndex = mShakeActionPref.findIndexOfValue(String.valueOf(SettingsDAO.getShakeAction(getPrefs())));
-            mShakeIntensityPref.setVisible(shakeActionIndex != 2);
+            // Hide the shake intensity preference if the selected action is "Nothing" (0)
+            mShakeIntensityPref.setVisible(SettingsDAO.getShakeAction(getPrefs()) != 0);
         }
 
         mEnablePerAlarmMathHardnessLevelPref.setOnPreferenceChangeListener(this);

@@ -1141,6 +1141,7 @@ public final class SettingsDAO {
             case VOLUME_BEHAVIOR_CHANGE_VOLUME -> VolumeButtonBehavior.CHANGE_VOLUME;
             case VOLUME_BEHAVIOR_SNOOZE -> VolumeButtonBehavior.SNOOZE;
             case VOLUME_BEHAVIOR_DISMISS -> VolumeButtonBehavior.DISMISS;
+            case VOLUME_BEHAVIOR_MUTE -> VolumeButtonBehavior.MUTE;
             default -> throw new IllegalArgumentException("Unknown volume button behavior: " + value);
         };
     }
@@ -1155,6 +1156,7 @@ public final class SettingsDAO {
             case DEFAULT_POWER_BEHAVIOR -> PowerButtonBehavior.NOTHING;
             case POWER_BEHAVIOR_SNOOZE -> PowerButtonBehavior.SNOOZE;
             case POWER_BEHAVIOR_DISMISS -> PowerButtonBehavior.DISMISS;
+            case POWER_BEHAVIOR_MUTE -> PowerButtonBehavior.MUTE;
             default -> throw new IllegalArgumentException("Unknown power button behavior: " + value);
         };
     }
@@ -1169,6 +1171,7 @@ public final class SettingsDAO {
             case DEFAULT_HEADPHONES_BUTTON_BEHAVIOR -> HeadphonesButtonBehavior.NOTHING;
             case HEADPHONES_BUTTON_BEHAVIOR_SNOOZE -> HeadphonesButtonBehavior.SNOOZE;
             case HEADPHONES_BUTTON_BEHAVIOR_DISMISS -> HeadphonesButtonBehavior.DISMISS;
+            case HEADPHONES_BUTTON_BEHAVIOR_MUTE -> HeadphonesButtonBehavior.MUTE;
             default -> throw new IllegalArgumentException("Unknown media button behavior: " + value);
         };
     }

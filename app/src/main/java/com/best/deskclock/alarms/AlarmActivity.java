@@ -184,6 +184,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                     switch (action) {
                         case AlarmService.ALARM_SNOOZE_ACTION -> snooze();
                         case AlarmService.ALARM_DISMISS_ACTION -> dismiss();
+                        case AlarmService.ALARM_MUTE_ACTION -> mute();
                         case AlarmService.ALARM_DONE_ACTION -> finish();
                         default -> LOGGER.i("Unknown broadcast: %s", action);
                     }
@@ -214,6 +215,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         requestAlarmAction(MISSION_ACTION_SNOOZE);
                     } else if (mPowerBehavior == PowerButtonBehavior.DISMISS) {
                         requestAlarmAction(MISSION_ACTION_DISMISS);
+                    } else if (mPowerBehavior == PowerButtonBehavior.MUTE) {
+                        mute();
                     }
                 }
             }
@@ -354,6 +357,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                     final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
                     filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
                     filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
+                    filter.addAction(AlarmService.ALARM_MUTE_ACTION);
 
                     if (SdkUtils.isAtLeastAndroid13()) {
                         registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
@@ -426,18 +430,28 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         case NOTHING -> {
                             return keyEvent.getAction() != KeyEvent.ACTION_UP;
                         }
+
                         case SNOOZE -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 requestAlarmAction(MISSION_ACTION_SNOOZE);
                             }
                             return true;
                         }
+
                         case DISMISS -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 requestAlarmAction(MISSION_ACTION_DISMISS);
                             }
                             return true;
                         }
+
+                        case MUTE -> {
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                mute();
+                            }
+                            return true;
+                        }
+
                         case CHANGE_VOLUME -> { /* Do nothing */ }
                     }
                 }
@@ -458,6 +472,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         case DISMISS -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 requestAlarmAction(MISSION_ACTION_DISMISS);
+                            }
+                            return true;
+                        }
+                        case MUTE -> {
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                mute();
                             }
                             return true;
                         }
@@ -1455,6 +1475,20 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
+    }
+
+    private void mute() {
+        mAlarmHandled = false;
+        LOGGER.v("Muted: %s", mAlarmInstance);
+
+        // Instruct the service to stop hardware directly to avoid broadcast loops.
+        Intent muteIntent = new Intent(this, AlarmService.class);
+        muteIntent.setAction(AlarmService.ALARM_MUTE_ACTION);
+        // Reuse the exact same URI that launched the activity to satisfy onStartCommand checks.
+        muteIntent.setData(getIntent().getData());
+        startService(muteIntent);
+
+        Events.sendAlarmEvent(R.string.action_mute, R.string.label_deskclock);
     }
 
     /**

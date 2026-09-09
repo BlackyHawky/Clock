@@ -74,6 +74,12 @@ public class AlarmService extends Service {
     public static final String ALARM_DISMISS_ACTION = "com.best.deskclock.ALARM_DISMISS";
 
     /**
+     * AlarmActivity and AlarmService listen for this broadcast intent so that other
+     * applications can mute the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
+     */
+    public static final String ALARM_MUTE_ACTION = "com.best.deskclock.ALARM_MUTE";
+
+    /**
      * A private action sent by AlarmService when the alarm has started.
      */
     private static final String ALARM_ALERT_ACTION = "com.best.deskclock.ALARM_ALERT";
@@ -112,6 +118,11 @@ public class AlarmService extends Service {
      * Constant for Dismiss
      */
     private static final int ALARM_DISMISS = 2;
+
+    /**
+     * Constant for Mute
+     */
+    private static final int ALARM_MUTE = 3;
 
     /**
      * Binder given to AlarmActivity.
@@ -174,10 +185,17 @@ public class AlarmService extends Service {
                         AlarmStateManager.setSnoozeState(context, mPrefs, mCurrentAlarm, true);
                         Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
                     }
+
                     case ALARM_DISMISS_ACTION -> {
                         // Set the alarm state to dismissed.
                         AlarmStateManager.deleteInstanceAndUpdateParent(context, mPrefs, mCurrentAlarm, true);
                         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
+                    }
+
+                    case ALARM_MUTE_ACTION -> {
+                        stopAlarmKlaxon();
+                        stopFlash();
+                        Events.sendAlarmEvent(R.string.action_mute, R.string.label_intent);
                     }
                 }
             }
@@ -339,11 +357,14 @@ public class AlarmService extends Service {
         // Register the broadcast receiver
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
+        filter.addAction(ALARM_MUTE_ACTION);
+
         if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(mActionsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(mActionsReceiver, filter);
         }
+
         mIsRegistered = true;
 
         // Setup for flip and shake actions
@@ -491,6 +512,12 @@ public class AlarmService extends Service {
 
                 stopCurrentAlarm();
             }
+
+            case ALARM_MUTE_ACTION -> {
+                // Stop hardware without changing the alarm state
+                stopAlarmKlaxon();
+                stopFlash();
+            }
         }
 
         return Service.START_NOT_STICKY;
@@ -620,9 +647,7 @@ public class AlarmService extends Service {
     private void cleanupAndStop() {
         stopFlash();
 
-        AlarmKlaxon.stop();
-
-        AlarmKlaxon.releaseResources();
+        stopAlarmKlaxon();
 
         Intent intent = new Intent(ALARM_DONE_ACTION);
         intent.setPackage(getPackageName());
@@ -633,6 +658,11 @@ public class AlarmService extends Service {
         mCurrentAlarm = null;
         detachListeners();
         AlarmAlertWakeLock.releaseCpuLock();
+    }
+
+    private void stopAlarmKlaxon() {
+        AlarmKlaxon.stop();
+        AlarmKlaxon.releaseResources();
     }
 
     private void stopFlash() {
@@ -743,22 +773,29 @@ public class AlarmService extends Service {
     }
 
     private void handleAction(int action) {
-        if (action == ALARM_SNOOZE) { // Setup Snooze Action
-            startService(AlarmStateManager.createStateChangeIntent(
-                this,
-                mCurrentAlarm,
-                AlarmStateManager.ALARM_SNOOZE_TAG,
-                AlarmInstance.SNOOZE_STATE,
-                SettingsDAO.getGlobalIntentId(mPrefs))
-            );
-        } else if (action == ALARM_DISMISS) { // Setup Dismiss Action
-            startService(AlarmStateManager.createStateChangeIntent(
-                this,
-                mCurrentAlarm,
-                AlarmStateManager.ALARM_DISMISS_TAG,
-                AlarmInstance.DISMISSED_STATE,
-                SettingsDAO.getGlobalIntentId(mPrefs))
-            );
+        switch (action) {
+            case ALARM_SNOOZE ->
+                startService(AlarmStateManager.createStateChangeIntent(
+                    this,
+                    mCurrentAlarm,
+                    AlarmStateManager.ALARM_SNOOZE_TAG,
+                    AlarmInstance.SNOOZE_STATE,
+                    SettingsDAO.getGlobalIntentId(mPrefs))
+                );
+
+            case ALARM_DISMISS ->
+                startService(AlarmStateManager.createStateChangeIntent(
+                    this,
+                    mCurrentAlarm,
+                    AlarmStateManager.ALARM_DISMISS_TAG,
+                    AlarmInstance.DISMISSED_STATE,
+                    SettingsDAO.getGlobalIntentId(mPrefs))
+                );
+
+            case ALARM_MUTE -> {
+                stopAlarmKlaxon();
+                stopFlash();
+            }
         }
     }
 

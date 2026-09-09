@@ -46,6 +46,7 @@
     <!-- Action names for events describe what type of manipulation was performed. -->
     <string name="action_dismiss">Dismiss</string>
     <string name="action_snooze">Snooze</string>
+    <string name="action_mute">Mute</string>
     <string name="action_create">Create</string>
     <string name="action_delete">Delete</string>
     <string name="action_duplicate">Duplicate</string>
@@ -287,6 +288,7 @@
     <string-array name="volume_button_setting_entries">
         <item>@string/button_action_snooze</item>
         <item>@string/button_action_dismiss</item>
+        <item>@string/button_action_mute</item>
         <item>@string/button_action_control_volume</item>
         <item>@string/button_action_nothing</item>
     </string-array>
@@ -294,6 +296,7 @@
     <string-array name="volume_button_setting_values" translatable="false">
         <item>1</item>
         <item>2</item>
+        <item>3</item>
         <item>0</item>
         <item>-1</item>
     </string-array>
@@ -302,12 +305,14 @@
     <string-array name="action_setting_entries">
         <item>@string/button_action_snooze</item>
         <item>@string/button_action_dismiss</item>
+        <item>@string/button_action_mute</item>
         <item>@string/button_action_nothing</item>
     </string-array>
     <!-- Values for the power button and flip and shake settings. -->
     <string-array name="side_button_setting_values" translatable="false">
         <item>1</item>
         <item>2</item>
+        <item>3</item>
         <item>0</item>
     </string-array>
 
