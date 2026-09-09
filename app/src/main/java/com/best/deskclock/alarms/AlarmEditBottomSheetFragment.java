@@ -33,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -50,6 +51,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -504,7 +507,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindDaysOfWeekButtons();
         bindSelectedDate();
         bindPauseAlarm();
-        bindCombinedDays();
         bindTimeZone();
         bindLabel();
         bindRingtone();
@@ -644,47 +646,293 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
                     bindSelectedDate();
                     bindPauseAlarm();
-                    bindCombinedDays();
                     bindDeleteAlarmAfterUse();
                     bindSnoozeDurationNote();
+                    if (mCalendarExpanded) {
+                        updateCleanupButtonVisibility();
+                    }
                     break;
                 }
             }
         });
     }
 
+    private boolean mCalendarExpanded = false;
+    private InlineCalendarAdapter mInlineCalendarAdapter;
+
     private void bindSelectedDate() {
-        int openCalendarText = R.string.schedule_alarm_title;
+        CombinedDays combinedDays = mAlarm.combinedDays;
+        boolean hasOverrides = !combinedDays.isEmpty();
 
-        mBinding.scheduleAlarmLayout.setOnClickListener(v -> DatePickerDialogFragment.show(
-            getChildFragmentManager(),
-            mAlarm,
-            mMaterialDatePickerStyle,
-            mFirstDayOfWeek,
-            mGeneralTypeface,
-            this::applyDate)
-        );
-
-        if (mAlarm.daysOfWeek.isRepeating()) {
-            clearSelectedDate(openCalendarText);
-        } else if (mAlarm.isSpecifiedDate()) {
-            if (mAlarm.isDateInThePast()) {
-                clearSelectedDate(openCalendarText);
+        if (hasOverrides) {
+            int excluded = combinedDays.getDeselectedDateCount();
+            int selected = combinedDays.getSelectedDateCount();
+            if (excluded > 0 && selected > 0) {
+                mBinding.scheduleAlarm.setText(
+                    getString(R.string.dates_overridden_count, excluded, selected));
+            } else if (excluded > 0) {
+                mBinding.scheduleAlarm.setText(
+                    getString(R.string.dates_excluded_only_count, excluded));
             } else {
-                mBinding.scheduleAlarm.setText(AlarmUtils.formatAlarmDate(requireContext(), mAlarm));
-
-                mBinding.cancelScheduledAlarm.setOnClickListener(v -> {
-                    Calendar now = Calendar.getInstance(mAlarm.getTimeZone());
-                    mAlarm.year = now.get(Calendar.YEAR);
-                    mAlarm.month = now.get(Calendar.MONTH);
-                    mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
-
-                    bindSelectedDate();
-                });
-                mBinding.cancelScheduledAlarm.setVisibility(VISIBLE);
+                mBinding.scheduleAlarm.setText(
+                    getString(R.string.dates_added_only_count, selected));
             }
         } else {
-            clearSelectedDate(openCalendarText);
+            mBinding.scheduleAlarm.setText(R.string.schedule_alarm_title);
+        }
+
+        mBinding.scheduleAlarmExpandIcon.setRotation(mCalendarExpanded ? 90f : 0f);
+        mBinding.inlineCalendarContainer.getRoot().setVisibility(mCalendarExpanded ? VISIBLE : GONE);
+
+        if (mCalendarExpanded) {
+            setupInlineCalendar();
+        }
+
+        mBinding.scheduleAlarmLayout.setOnClickListener(v -> {
+            mCalendarExpanded = !mCalendarExpanded;
+            bindSelectedDate();
+        });
+    }
+
+    private void setupInlineCalendar() {
+        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        int displayYear = mInlineCalendarAdapter != null
+            ? mInlineCalendarAdapter.getYear() : now.get(Calendar.YEAR);
+        int displayMonth = mInlineCalendarAdapter != null
+            ? mInlineCalendarAdapter.getMonth() : now.get(Calendar.MONTH);
+
+        int activeColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+        int activeTextColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+        int inactiveTextColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+        int todayStrokeColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorOnSurface, Color.BLACK);
+
+        mInlineCalendarAdapter = new InlineCalendarAdapter(
+            displayYear, displayMonth,
+            mAlarm.daysOfWeek,
+            mAlarm.combinedDays,
+            this::onInlineCalendarDateToggled,
+            activeColor, activeTextColor, inactiveTextColor,
+            todayStrokeColor, Color.TRANSPARENT,
+            mGeneralTypeface
+        );
+
+        // Calendar grid
+        mBinding.inlineCalendarContainer.calendarGrid.setLayoutManager(
+            new GridLayoutManager(requireContext(), 7));
+        mBinding.inlineCalendarContainer.calendarGrid.setAdapter(mInlineCalendarAdapter);
+        updateCalendarGridHeight();
+
+        // Month/year label and navigation
+        updateMonthLabel(displayYear, displayMonth);
+
+        // Prev month
+        mBinding.inlineCalendarContainer.prevMonth.setOnClickListener(v -> {
+            int newMonth = mInlineCalendarAdapter.getMonth() - 1;
+            int newYear = mInlineCalendarAdapter.getYear();
+            if (newMonth < 0) { newMonth = 11; newYear--; }
+            mInlineCalendarAdapter.setMonth(newYear, newMonth);
+            updateMonthLabel(newYear, newMonth);
+            updateCalendarGridHeight();
+        });
+
+        // Next month
+        mBinding.inlineCalendarContainer.nextMonth.setOnClickListener(v -> {
+            int newMonth = mInlineCalendarAdapter.getMonth() + 1;
+            int newYear = mInlineCalendarAdapter.getYear();
+            if (newMonth > 11) { newMonth = 0; newYear++; }
+            mInlineCalendarAdapter.setMonth(newYear, newMonth);
+            updateMonthLabel(newYear, newMonth);
+            updateCalendarGridHeight();
+        });
+
+        // Prev year
+        mBinding.inlineCalendarContainer.prevYear.setOnClickListener(v -> {
+            int newYear = mInlineCalendarAdapter.getYear() - 1;
+            int month = mInlineCalendarAdapter.getMonth();
+            mInlineCalendarAdapter.setMonth(newYear, month);
+            updateMonthLabel(newYear, month);
+            updateCalendarGridHeight();
+        });
+
+        // Next year
+        mBinding.inlineCalendarContainer.nextYear.setOnClickListener(v -> {
+            int newYear = mInlineCalendarAdapter.getYear() + 1;
+            int month = mInlineCalendarAdapter.getMonth();
+            mInlineCalendarAdapter.setMonth(newYear, month);
+            updateMonthLabel(newYear, month);
+            updateCalendarGridHeight();
+        });
+
+        // Month/year label tap → year picker
+        mBinding.inlineCalendarContainer.monthYearButton.setOnClickListener(v -> showYearPicker());
+
+        // Cleanup: tap summary row or the refresh icon
+        updateCleanupButtonVisibility();
+        Runnable cleanupAction = () -> {
+            mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek);
+            mInlineCalendarAdapter.notifyDataSetChanged();
+            updateCalendarSummary();
+            bindSelectedDate();
+            updateCleanupButtonVisibility();
+            updateClearButtonVisibility();
+        };
+        mBinding.inlineCalendarContainer.calendarSummaryRow.setOnClickListener(v -> cleanupAction.run());
+        mBinding.inlineCalendarContainer.cleanupOverrides.setOnClickListener(v -> cleanupAction.run());
+
+        // Clear all overrides
+        updateClearButtonVisibility();
+        mBinding.inlineCalendarContainer.clearAllOverrides.setOnClickListener(v -> {
+            mAlarm.combinedDays = mAlarm.combinedDays.clear();
+            mInlineCalendarAdapter.notifyDataSetChanged();
+            updateCalendarSummary();
+            bindSelectedDate();
+            updateCleanupButtonVisibility();
+            updateClearButtonVisibility();
+        });
+
+        updateCalendarSummary();
+    }
+
+    private void updateCalendarGridHeight() {
+        mBinding.inlineCalendarContainer.calendarGrid.post(() -> {
+            float density = getResources().getDisplayMetrics().density;
+            int rowHeight = (int) (44 * density);
+            int rows = mInlineCalendarAdapter.getRowCount();
+            android.view.ViewGroup.LayoutParams lp =
+                mBinding.inlineCalendarContainer.calendarGrid.getLayoutParams();
+            lp.height = rows * rowHeight;
+            mBinding.inlineCalendarContainer.calendarGrid.setLayoutParams(lp);
+        });
+    }
+
+    private void updateCleanupButtonVisibility() {
+        boolean hasRedundant = mAlarm.combinedDays.hasRedundantOverrides(mAlarm.daysOfWeek);
+        mBinding.inlineCalendarContainer.cleanupOverrides.setVisibility(hasRedundant ? VISIBLE : GONE);
+    }
+
+    private void updateClearButtonVisibility() {
+        boolean hasOverrides = !mAlarm.combinedDays.isEmpty();
+        mBinding.inlineCalendarContainer.clearAllOverrides.setVisibility(hasOverrides ? VISIBLE : GONE);
+    }
+
+    private void showYearPicker() {
+        int displayYear = mInlineCalendarAdapter != null
+            ? mInlineCalendarAdapter.getYear()
+            : Calendar.getInstance().get(Calendar.YEAR);
+        int currentRealYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        int startYear = currentRealYear;
+        int endYear = currentRealYear + 100;
+
+        int activeColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+        int activeTextColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+        int normalTextColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorOnSurface, Color.BLACK);
+
+        final AlertDialog[] dialogRef = new AlertDialog[1];
+
+        YearPickerAdapter adapter = new YearPickerAdapter(
+            startYear, endYear, displayYear,
+            selectedYear -> {
+                int month = mInlineCalendarAdapter != null
+                    ? mInlineCalendarAdapter.getMonth()
+                    : Calendar.getInstance().get(Calendar.MONTH);
+                if (mInlineCalendarAdapter != null) {
+                    mInlineCalendarAdapter.setMonth(selectedYear, month);
+                }
+                updateMonthLabel(selectedYear, month);
+                updateCalendarGridHeight();
+                if (dialogRef[0] != null) {
+                    dialogRef[0].dismiss();
+                }
+            },
+            activeColor, activeTextColor, normalTextColor,
+            mGeneralTypeface
+        );
+
+        RecyclerView recyclerView = new RecyclerView(requireContext());
+        int padding = (int) (16 * getResources().getDisplayMetrics().density);
+        recyclerView.setPadding(padding, padding, padding, 0);
+        recyclerView.setClipToPadding(false);
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+        recyclerView.setAdapter(adapter);
+
+        // Scroll to the displayed year
+        int scrollToPosition = displayYear - startYear;
+        recyclerView.scrollToPosition(Math.max(0, scrollToPosition - 3));
+
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+            .setTitle(R.string.select_year)
+            .setView(recyclerView)
+            .setNegativeButton(android.R.string.cancel, null)
+            .create();
+        dialogRef[0] = dialog;
+        dialog.show();
+    }
+
+    private void updateMonthLabel(int year, int month) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        cal.set(year, month, 1);
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+        mBinding.inlineCalendarContainer.monthYearLabel.setText(sdf.format(cal.getTime()));
+    }
+
+    private void onInlineCalendarDateToggled(int year, int month, int day) {
+        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        cal.set(year, month, day);
+        int calendarDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+        if (isRepeating && mAlarm.daysOfWeek.isBitOn(calendarDayOfWeek)) {
+            if (mAlarm.combinedDays.isDateDeselected(year, month, day)) {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeDeselectedDate(year, month, day);
+            } else {
+                mAlarm.combinedDays = mAlarm.combinedDays.addDeselectedDate(year, month, day);
+            }
+        } else {
+            if (mAlarm.combinedDays.isDateSelected(year, month, day)) {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeSelectedDate(year, month, day);
+            } else {
+                mAlarm.combinedDays = mAlarm.combinedDays.addSelectedDate(year, month, day);
+            }
+        }
+
+        mInlineCalendarAdapter.notifyDataSetChanged();
+        updateCalendarSummary();
+        bindSelectedDate();
+        updateCleanupButtonVisibility();
+        updateClearButtonVisibility();
+    }
+
+    private void updateCalendarSummary() {
+        CombinedDays combinedDays = mAlarm.combinedDays;
+        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+
+        if (combinedDays.isEmpty()) {
+            if (isRepeating) {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(R.string.no_dates_excluded);
+            } else {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(R.string.no_dates_selected);
+            }
+        } else {
+            int excluded = combinedDays.getDeselectedDateCount();
+            int selected = combinedDays.getSelectedDateCount();
+            if (excluded > 0 && selected > 0) {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(
+                    getString(R.string.dates_overridden_count, excluded, selected));
+            } else if (excluded > 0) {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(
+                    getString(R.string.dates_excluded_only_count, excluded));
+            } else {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(
+                    getString(R.string.dates_added_only_count, selected));
+            }
         }
     }
 
@@ -758,63 +1006,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             AlarmTimeZoneDialogFragment.show(getChildFragmentManager(), fragment);
         });
-    }
-
-    private void bindCombinedDays() {
-        CombinedDays combinedDays = mAlarm.combinedDays;
-        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
-
-        mBinding.combinedDaysLayout.setEnabled(true);
-        mBinding.combinedDays.setEnabled(true);
-
-        if (combinedDays.isEmpty()) {
-            if (isRepeating) {
-                mBinding.combinedDays.setText(R.string.exclude_dates_title);
-            } else {
-                mBinding.combinedDays.setText(R.string.select_dates_title);
-            }
-            mBinding.cancelCombinedDays.setVisibility(GONE);
-        } else {
-            if (isRepeating && combinedDays.hasDeselectedDates()) {
-                int count = combinedDays.getDeselectedDateCount();
-                mBinding.combinedDays.setText(getString(R.string.dates_excluded_count, count));
-                mBinding.cancelCombinedDays.setVisibility(VISIBLE);
-            } else if (!isRepeating && combinedDays.hasSelectedDates()) {
-                int count = combinedDays.getSelectedDateCount();
-                mBinding.combinedDays.setText(getString(R.string.dates_selected_count, count));
-                mBinding.cancelCombinedDays.setVisibility(VISIBLE);
-            } else {
-                if (isRepeating) {
-                    mBinding.combinedDays.setText(R.string.exclude_dates_title);
-                } else {
-                    mBinding.combinedDays.setText(R.string.select_dates_title);
-                }
-                mBinding.cancelCombinedDays.setVisibility(GONE);
-            }
-        }
-
-        mBinding.combinedDaysLayout.setOnClickListener(v -> {
-            Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
-
-            int mode = isRepeating
-                ? CalendarPickerDialogFragment.MODE_DESELECT
-                : CalendarPickerDialogFragment.MODE_SELECT;
-
-            CalendarPickerDialogFragment fragment = CalendarPickerDialogFragment.newInstance(
-                mode,
-                mAlarm.combinedDays,
-                mAlarm.daysOfWeek.getBits()
-            );
-            CalendarPickerDialogFragment.show(getChildFragmentManager(), fragment);
-        });
-
-        mBinding.cancelCombinedDays.setOnClickListener(v -> {
-            mAlarm.combinedDays = mAlarm.combinedDays.clear();
-            bindCombinedDays();
-        });
-
-        mBinding.combinedDaysNote.setVisibility(VISIBLE);
-        mBinding.combinedDaysNote.setOnClickListener(v -> showCombinedDaysNoteDialog());
     }
 
     private void bindLabel() {
@@ -1330,7 +1521,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 int month = bundle.getInt(SpinnerDatePickerDialogFragment.BUNDLE_KEY_MONTH);
                 int day = bundle.getInt(SpinnerDatePickerDialogFragment.BUNDLE_KEY_DAY);
 
-                applyDate(year, month, day);
+                mAlarm.year = year;
+                mAlarm.month = month;
+                mAlarm.day = day;
+                bindSelectedDate();
+                bindDaysOfWeekButtons();
+                bindPauseAlarm();
+                bindDeleteAlarmAfterUse();
             });
 
         childFragmentManager.setFragmentResultListener(AlarmTimeZoneDialogFragment.REQUEST_KEY, this,
@@ -1420,9 +1617,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         childFragmentManager.setFragmentResultListener(CalendarPickerDialogFragment.REQUEST_KEY, this,
             (requestKey, bundle) -> {
                 String json = bundle.getString(CalendarPickerDialogFragment.RESULT_DATES_JSON, "");
-                int mode = bundle.getInt(CalendarPickerDialogFragment.RESULT_MODE, CalendarPickerDialogFragment.MODE_SELECT);
                 mAlarm.combinedDays = CombinedDays.fromJson(json);
-                bindCombinedDays();
+                bindSelectedDate();
             });
     }
 
@@ -1467,11 +1663,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTimeInMillis(selection);
 
-                applyDate(
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-                );
+                mAlarm.year = calendar.get(Calendar.YEAR);
+                mAlarm.month = calendar.get(Calendar.MONTH);
+                mAlarm.day = calendar.get(Calendar.DAY_OF_MONTH);
+                bindSelectedDate();
+                bindDaysOfWeekButtons();
+                bindPauseAlarm();
+                bindDeleteAlarmAfterUse();
             });
         }
     }
@@ -1543,29 +1741,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindClock();
     }
 
-    private void applyDate(int year, int month, int day) {
-        if (mAlarm.daysOfWeek.isRepeating()) {
-            mAlarm.daysOfWeek = Weekdays.NONE;
-        }
-
-        if (mAlarm.isPauseSet()) {
-            mAlarm.pauseStartDate = 0;
-            mAlarm.pauseEndDate = 0;
-        }
-
-        // Clear combined days when selecting a specific date (they are mutually exclusive)
-        mAlarm.combinedDays = mAlarm.combinedDays.clear();
-
-        mAlarm.year = year;
-        mAlarm.month = month;
-        mAlarm.day = day;
-
-        bindSelectedDate();
-        bindDaysOfWeekButtons();
-        bindPauseAlarm();
-        bindDeleteAlarmAfterUse();
-    }
-
     private void updateDaysOfWeekButtonVisuals(@NonNull MaterialButton dayButton, boolean isSelected) {
         final int backgroundColor = isSelected
             ? MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorTertiary, Color.BLACK)
@@ -1583,11 +1758,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         dayButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         dayButton.setStrokeColor(strokeColor);
         dayButton.setTextColor(textColor);
-    }
-
-    private void clearSelectedDate(@StringRes int text) {
-        mBinding.cancelScheduledAlarm.setVisibility(GONE);
-        mBinding.scheduleAlarm.setText(getString(text));
     }
 
     private void duplicateAlarm(@NonNull View view) {
@@ -1664,6 +1834,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         if (mIsDeleted || mAlarm == null || mOriginalAlarm == null) {
             return;
         }
+
+        // Clean up redundant overrides before saving
+        mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek);
 
         boolean timeChanged = mAlarm.hasTimeChanged(mOriginalAlarm);
         boolean minorFieldsChanged = mAlarm.hasMinorFieldsChanged(mOriginalAlarm);
@@ -1872,6 +2045,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mActiveDialog.show();
     }
 
+<<<<<<< HEAD
     private void showSnoozeNoteDialog() {
         mShowSnoozeNoteDialog = true;
 
