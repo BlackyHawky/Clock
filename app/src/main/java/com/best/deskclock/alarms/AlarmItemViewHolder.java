@@ -324,8 +324,24 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             } else {
                 styledDaysText = alarm.daysOfWeek.toStyledString(mContext, weekdayOrder, false, nextAlarmDay);
             }
+
+            // Append combined days info if there are deselected dates
+            if (alarm.combinedDays != null && alarm.combinedDays.hasDeselectedDates()) {
+                int count = alarm.combinedDays.getDeselectedDateCount();
+                String excludeInfo = mContext.getString(R.string.dates_excluded_count, count);
+                styledDaysText = styledDaysText + " (" + excludeInfo + ")";
+                contentDesc = contentDesc + " (" + excludeInfo + ")";
+            }
         } else {
             styledDaysText = alarm.daysOfWeek.toString(mContext, weekdayOrder);
+
+            // Append combined days info if there are deselected dates
+            if (alarm.combinedDays != null && alarm.combinedDays.hasDeselectedDates()) {
+                int count = alarm.combinedDays.getDeselectedDateCount();
+                String excludeInfo = mContext.getString(R.string.dates_excluded_count, count);
+                styledDaysText = styledDaysText + " (" + excludeInfo + ")";
+                contentDesc = contentDesc + " (" + excludeInfo + ")";
+            }
         }
 
         setDaysOfWeekText(styledDaysText);
