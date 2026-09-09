@@ -1021,18 +1021,38 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * Returns the next alarm time for sorting purposes.
      */
-    public Calendar getSortableNextAlarmTime(@Nullable AlarmInstance instance, @NonNull Calendar now) {
+    public Calendar getSortableNextAlarmTime(@NonNull Context context, @Nullable AlarmInstance instance, @NonNull Calendar now) {
+        // Rely on the instance only if the alarm is enabled.
+        if (enabled && instance != null) {
+            // Return the instance time directly if the alarm is scheduled in the future or exactly now.
+            if (instance.getAlarmTime().getTimeInMillis() >= now.getTimeInMillis()) {
+                return instance.getAlarmTime();
+            }
+
+            // Rely on the timeout algorithm to determine if the past instance is still firing or is an obsolete ghost.
+            Calendar timeout = instance.getTimeout(context, false);
+
+            if (timeout != null) {
+                // Return the instance time if the current time has not exceeded the timeout limit.
+                if (now.getTimeInMillis() <= timeout.getTimeInMillis()) {
+                    return instance.getAlarmTime();
+                }
+            } else {
+                // Apply a 12-hour safety net to filter out obsolete instances when the timeout is set to never.
+                long timeDiff = now.getTimeInMillis() - instance.getAlarmTime().getTimeInMillis();
+                if (timeDiff < 12 * 60 * 60 * 1000) {
+                    return instance.getAlarmTime();
+                }
+            }
+        }
+
+        // Calculate the theoretical absolute time for disabled alarms or obsolete instances.
         Calendar result = Calendar.getInstance(now.getTimeZone());
         result.set(Calendar.SECOND, 0);
         result.set(Calendar.MILLISECOND, 0);
 
         if (daysOfWeek.isRepeating()) {
-            // If a future instance exists (e.g. after Dismiss), use it.
-            // Otherwise, compute the next valid occurrence from "now".
-            if (instance != null && instance.getAlarmTime().getTimeInMillis() > now.getTimeInMillis()) {
-                return instance.getAlarmTime();
-            }
-
+            // Calculate the next theoretical occurrence from the current time.
             return getNextAlarmTime(now);
         } else {
             if (isSpecifiedDate()) {
@@ -1044,12 +1064,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     result.set(Calendar.HOUR_OF_DAY, hour);
                     result.set(Calendar.MINUTE, minutes);
 
-                    // If the time has already passed today, shift to tomorrow
+                    // Shift to tomorrow if the time has already passed today
                     if (result.getTimeInMillis() < now.getTimeInMillis()) {
                         result.add(Calendar.DAY_OF_YEAR, 1);
                     }
                 } else {
-                    // Future or today’s specified date → respect the defined date/time
+                    // Apply the defined date and time for future or today's specified dates
                     result.set(Calendar.YEAR, year);
                     result.set(Calendar.MONTH, month);
                     result.set(Calendar.DAY_OF_MONTH, day);
@@ -1061,14 +1081,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             }
         }
 
-        // Alarms with no date and no repetition → today at the alarm time,
-        // and if the time has passed, shift to tomorrow
+        // Set alarms with no date and no repetition to today at the alarm time.
         result.set(Calendar.YEAR, now.get(Calendar.YEAR));
         result.set(Calendar.MONTH, now.get(Calendar.MONTH));
         result.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
         result.set(Calendar.HOUR_OF_DAY, hour);
         result.set(Calendar.MINUTE, minutes);
 
+        // Shift to tomorrow if the time has already passed today.
         if (result.getTimeInMillis() < now.getTimeInMillis()) {
             result.add(Calendar.DAY_OF_YEAR, 1);
         }
