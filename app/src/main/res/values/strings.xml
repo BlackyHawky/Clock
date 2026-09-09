@@ -111,6 +111,19 @@
     <string name="dates_selected_count">%d date(s) selected</string>
     <!-- Info message for the combined days feature -->
     <string name="combined_days_info_message">When days of the week are selected, you can exclude specific dates (e.g., holidays). When no days are selected, you can choose specific dates for the alarm to ring.</string>
+    <!-- Inline calendar navigation -->
+    <string name="prev_month">Previous month</string>
+    <string name="next_month">Next month</string>
+    <string name="prev_year">Previous year</string>
+    <string name="next_year">Next year</string>
+    <string name="cleanup_overrides">Clean up overrides</string>
+    <string name="select_year">Select year</string>
+    <string name="clear_all">× Clear</string>
+    <!-- Inline calendar summary -->
+    <string name="no_dates_overridden">No dates overridden</string>
+    <string name="dates_overridden_count">%1$d date(s) excluded, %2$d added</string>
+    <string name="dates_excluded_only_count">%d date(s) excluded</string>
+    <string name="dates_added_only_count">%d date(s) added</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
