@@ -92,6 +92,25 @@
     <string name="pause_alarm_range">Paused: %1$s</string>
     <!-- Message displayed in the alarm editing when the "Pause alarm" feature is disabled -->
     <string name="pause_alarm_info_message">Select days of the week to access this feature.</string>
+    <!-- Combined days feature -->
+    <!-- Label title in the alarm editing panel for excluding specific dates -->
+    <string name="exclude_dates_title">Exclude dates</string>
+    <!-- Label title in the alarm editing panel for selecting specific dates -->
+    <string name="select_dates_title">Select dates</string>
+    <!-- Button text for confirming date exclusion -->
+    <string name="exclude_dates_confirm">Exclude</string>
+    <!-- Button text for confirming date selection -->
+    <string name="select_dates_confirm">Select</string>
+    <!-- Summary text when no dates are excluded -->
+    <string name="no_dates_excluded">No dates excluded</string>
+    <!-- Summary text showing count of excluded dates -->
+    <string name="dates_excluded_count">%d date(s) excluded</string>
+    <!-- Summary text when no dates are selected -->
+    <string name="no_dates_selected">No dates selected</string>
+    <!-- Summary text showing count of selected dates -->
+    <string name="dates_selected_count">%d date(s) selected</string>
+    <!-- Info message for the combined days feature -->
+    <string name="combined_days_info_message">When days of the week are selected, you can exclude specific dates (e.g., holidays). When no days are selected, you can choose specific dates for the alarm to ring.</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
