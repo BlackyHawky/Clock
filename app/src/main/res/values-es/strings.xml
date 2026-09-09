@@ -695,4 +695,22 @@
         <item quantity="many"><xliff:g example="5" id="number">%d</xliff:g> temporizadores eliminados</item>
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> temporizadores eliminados</item>
     </plurals>
+    <string name="info">Inf.</string>
+    <string name="pause_alarm_info_message">Selecciona los días de la semana en los que deseas utilizar esta función.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Desmarca los días de la semana para acceder a esta función.</string>
+    <string name="math_challenge_title_snooze">Resuelve el acertijo para posponer la alarma</string>
+    <string name="math_challenge_title_dismiss">Resuelve para descartar</string>
+    <string name="math_challenge_new_problem">Nuevo problema</string>
+    <string name="math_challenge_answer_hint">Respuesta</string>
+    <string name="math_challenge_prompt">¿Cuánto es %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Respuesta incorrecta</string>
+    <string name="math_challenge_category_title">Reto matemático</string>
+    <string name="math_hardness_level_title">Nivel de dificultad matemática</string>
+    <string name="math_hardness_level_easy">Fácil</string>
+    <string name="math_hardness_level_normal">Normal</string>
+    <string name="math_hardness_level_hard">Difícil</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Utiliza un nivel de dificultad matemática personalizado para cada alarma</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Se restablecerán los niveles de dificultad personalizados de matemáticas.%s</string>
+    <string name="sw_display_milliseconds_title">Mostrar milisegundos</string>
+    <string name="auto_silence_info_message">\"Silenciar después de\" establecido en \"%s\". \n\nDesactiva el nivel de dificultad matemática para acceder a esta función.</string>
 </resources>

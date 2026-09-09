@@ -696,4 +696,14 @@
     <string name="enable_per_timer_vibration_pattern_title">Kasuta iga taimeri jaoks oma tüüpi värinat</string>
     <string name="timer_headphones_button_action_title">Aegunud taimereid saad lähtestada kõrvaklappide esita/peata nupuga</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Taimeri käivitumisel lülita tagumine välklamp sisse</string>
+    <string name="info">Teave</string>
+    <string name="math_challenge_answer_hint">Sinu vastus</string>
+    <string name="math_challenge_prompt">Arvuta: %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Vigane vastus</string>
+    <string name="math_challenge_category_title">Matemaatikaülesanne</string>
+    <string name="math_hardness_level_title">Matemaatikaülesande keerukus</string>
+    <string name="math_hardness_level_easy">Lihtne</string>
+    <string name="math_hardness_level_normal">Tavaline</string>
+    <string name="math_hardness_level_hard">Raske</string>
+    <string name="sw_display_milliseconds_title">Kuva millisekundeid</string>
 </resources>

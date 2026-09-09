@@ -690,4 +690,22 @@
     <string name="enable_per_timer_vibration_pattern_title">Aangepast trillingspatroon voor iedere kookwekker</string>
     <string name="timer_headphones_button_action_title">Verlopen kookwekkers terugzetten met de afspeel-/pauzeknop van de hoofdtelefoon</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Zaklamp aanzetten als kookwekker gaat</string>
+    <string name="info">Informatie</string>
+    <string name="pause_alarm_info_message">Selecteer dagen van de week voor deze optie.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Deselecteer dagen van de week voor deze optie.</string>
+    <string name="auto_silence_info_message">\"Stil na\" ingesteld op \"%s\".\n\nSchakel rekensommen uit voor deze optie.</string>
+    <string name="math_challenge_title_snooze">Los op om te sluimeren</string>
+    <string name="math_challenge_title_dismiss">Los op om uit te zetten</string>
+    <string name="math_challenge_new_problem">Nieuwe som</string>
+    <string name="math_challenge_answer_hint">Je oplossing</string>
+    <string name="math_challenge_prompt">Wat is %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Niet juist</string>
+    <string name="math_challenge_category_title">Rekensommen oplossen</string>
+    <string name="math_hardness_level_title">Moeilijkheidsgraad sommen</string>
+    <string name="math_hardness_level_easy">Makkelijk</string>
+    <string name="math_hardness_level_normal">Gemiddeld</string>
+    <string name="math_hardness_level_hard">Moeilijk</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Aangepaste moeilijkheidsgraad voor iedere wekker</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Aangepaste moeilijkheidsgraden worden teruggezet.%s</string>
+    <string name="sw_display_milliseconds_title">Milliseconden weergeven</string>
 </resources>

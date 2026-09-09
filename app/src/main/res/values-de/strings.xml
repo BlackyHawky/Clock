@@ -686,4 +686,22 @@
     <string name="custom_font_dialog_message">Eigene Schriftart ändern oder löschen.</string>
     <string name="blur_intensity_dialog_message_1">\n\nEigene Unschärfeeinstellungen werden auch zurückgesetzt.</string>
     <string name="blur_intensity_dialog_message_2">Eigene Unschärfeeinstellungen werden auch zurückgesetzt.%s</string>
+    <string name="info">Info</string>
+    <string name="pause_alarm_info_message">Tage der Woche wählen, um diese Funktion zu nutzen.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Tage der Woche abwählen, um diese Funktion zu nutzen.</string>
+    <string name="math_challenge_title_snooze">Lösen, um zu schlummern</string>
+    <string name="math_challenge_title_dismiss">Lösen, um zu verwerfen</string>
+    <string name="math_challenge_new_problem">Neues Problem</string>
+    <string name="math_challenge_answer_hint">Ihre Antwort</string>
+    <string name="math_challenge_prompt">Was ergibt %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Falsche Antwort</string>
+    <string name="math_challenge_category_title">Mathematische Aufgabe</string>
+    <string name="math_hardness_level_title">Schwierigkeitsstufe für Mathe</string>
+    <string name="math_hardness_level_easy">Leicht</string>
+    <string name="math_hardness_level_normal">Normal</string>
+    <string name="math_hardness_level_hard">Schwierig</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Eigene Mathe-Schwierigkeitsstufe für jeden Alarm verwenden</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Eigene Mathe-Schwierigkeitsstufe werden zurückgesetzt.%s</string>
+    <string name="sw_display_milliseconds_title">Millisekunden anzeigen</string>
+    <string name="auto_silence_info_message">\"Stummschalten nach\" ist gesetzt auf \"%s\". \n\nMathe-Schwierigkeitsstufe deaktivieren, um diese Funktion zu nutzen.</string>
 </resources>

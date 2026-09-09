@@ -704,4 +704,22 @@
     <string name="enable_per_timer_vibration_pattern_title">Použít vlastní vzor vibrací pro každý časovač</string>
     <string name="timer_headphones_button_action_title">Resetovat vypršené časovače pomocí tlačítka přehrát/pozastavit na sluchátkách</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Znovu zapnout svítilnu po vypršení časovače</string>
+    <string name="info">Informace</string>
+    <string name="pause_alarm_info_message">Pro přístup k této funkci vyberte dny v týdnu.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Pro přístup k této funkci zrušte výběr dnů v týdnu.</string>
+    <string name="auto_silence_info_message">„Ztišit po“ je nastaveno na „%s“.\n\nZakažte úroveň obtížnosti matematiky pro přístup k této funkci.</string>
+    <string name="math_challenge_title_snooze">Vyřešte pro odložení</string>
+    <string name="math_challenge_title_dismiss">Vyřešte pro ukončení</string>
+    <string name="math_challenge_new_problem">Nový problém</string>
+    <string name="math_challenge_answer_hint">Vaše odpověď</string>
+    <string name="math_challenge_prompt">Kolik je %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Nesprávná odpověď</string>
+    <string name="math_challenge_category_title">Matematická úloha</string>
+    <string name="math_hardness_level_title">Úroveň obtížnosti matematiky</string>
+    <string name="math_hardness_level_easy">Jednoduchá</string>
+    <string name="math_hardness_level_normal">Normální</string>
+    <string name="math_hardness_level_hard">Těžká</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Použít vlastní úroveň obtížnost matematiky pro každý budík</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Vlastní úroveň obtížnosti matematiky bude resetována.%s</string>
+    <string name="sw_display_milliseconds_title">Zobrazit milisekundy</string>
 </resources>

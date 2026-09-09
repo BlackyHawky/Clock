@@ -704,4 +704,22 @@
     <string name="enable_per_timer_vibration_pattern_title">Отдельный ритм вибрации для каждого таймера</string>
     <string name="timer_headphones_button_action_title">Сбрасывать использованные таймеры с помощью кнопки «Воспроизведение/Пауза» наушников</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Включить заднюю вспышку, когда время таймера исчерпано</string>
+    <string name="info">Информация</string>
+    <string name="pause_alarm_info_message">Выберите дни недели для доступа к этой функции.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Отмените выбор дней недели для доступа к этой функции.</string>
+    <string name="auto_silence_info_message">«Отключить после» установлено на «%s».\n\nВыключите уровень сложности математических примеров, чтобы получить доступ к этой функции.</string>
+    <string name="math_challenge_title_snooze">Решите, чтобы отложить</string>
+    <string name="math_challenge_title_dismiss">Решите, чтобы отключить</string>
+    <string name="math_challenge_new_problem">Новый пример</string>
+    <string name="math_challenge_answer_hint">Ответ</string>
+    <string name="math_challenge_prompt">Сколько будет %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Неправильно</string>
+    <string name="math_challenge_category_title">Математические задачи</string>
+    <string name="math_hardness_level_title">Уровень сложности математических примеров</string>
+    <string name="math_hardness_level_easy">Простой</string>
+    <string name="math_hardness_level_normal">Обычный</string>
+    <string name="math_hardness_level_hard">Сложный</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Отдельный уровень сложности математических примеров для каждого будильника</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Пользовательские уровни сложности математических примеров будут сброшены.%s</string>
+    <string name="sw_display_milliseconds_title">Показывать миллисекунды</string>
 </resources>

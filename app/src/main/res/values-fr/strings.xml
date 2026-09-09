@@ -702,4 +702,22 @@
     <string name="enable_per_timer_vibration_pattern_title">Utiliser un modèle de vibration personnalisé pour chaque minuteur</string>
     <string name="timer_headphones_button_action_title">Réinitialiser les minuteurs expirés avec le bouton Lecture/Pause du casque</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Allumer le flash arrière lorsque le minuteur est expiré</string>
+    <string name="info">Info</string>
+    <string name="pause_alarm_info_message">Sélectionnez des jours de la semaine pour accéder à cette fonctionnalité.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Désélectionnez les jours de la semaine pour accéder à cette fonctionnalité.</string>
+    <string name="auto_silence_info_message">\"Arrêter l\'alarme après\" réglé sur \"%s\".\n\nDésactivez le niveau de difficulté mathématique pour accéder à cette fonctionnalité.</string>
+    <string name="math_challenge_title_snooze">Résoudre pour répéter</string>
+    <string name="math_challenge_title_dismiss">Résoudre pour ignorer</string>
+    <string name="math_challenge_new_problem">Nouveau problème</string>
+    <string name="math_challenge_answer_hint">Votre réponse</string>
+    <string name="math_challenge_prompt">Combien vaut %1$d + %2$d ?</string>
+    <string name="math_challenge_wrong_answer">Réponse incorrecte</string>
+    <string name="math_challenge_category_title">Défi mathématique</string>
+    <string name="math_hardness_level_title">Niveau de difficulté mathématique</string>
+    <string name="math_hardness_level_easy">Facile</string>
+    <string name="math_hardness_level_normal">Normal</string>
+    <string name="math_hardness_level_hard">Difficile</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Utiliser un niveau de difficulté mathématique personnalisé pour chaque alarme</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Les niveaux de difficulté mathématique personnalisés seront réinitialisés.%s</string>
+    <string name="sw_display_milliseconds_title">Afficher les millisecondes</string>
 </resources>

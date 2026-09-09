@@ -714,4 +714,22 @@
     <string name="blur_intensity_dialog_message_1">\n\nКористувацькі значення інтенсивності розмиття також буде скинуто.</string>
     <string name="delete_timer_after_use_title">Видалити таймер після використання</string>
     <string name="turn_off_media_title">Зупинити відтворення після використання таймера</string>
+    <string name="info">Інформація</string>
+    <string name="math_challenge_title_snooze">Розв’яжіть, щоб відкласти</string>
+    <string name="math_challenge_title_dismiss">Розв’яжіть, щоб вимкнути</string>
+    <string name="math_challenge_new_problem">Новий приклад</string>
+    <string name="math_challenge_answer_hint">Відповідь</string>
+    <string name="math_challenge_prompt">Скільки буде %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Неправильно</string>
+    <string name="sw_display_milliseconds_title">Показувати мілісекунди</string>
+    <string name="pause_alarm_info_message">Виберіть дні тижня, щоб отримати доступ до цієї функції.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Скасуйте вибір днів тижня, щоб отримати доступ до цієї функції.</string>
+    <string name="auto_silence_info_message">«Вимкнути після» встановлено на «%s». \n\nВимкніть рівень складності математичних прикладів, щоб отримати доступ до цієї функції.</string>
+    <string name="math_hardness_level_title">Рівень складності математичних прикладів</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Користувацькі рівні складності математичних прикладів буде скинуто.%s</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Окремий рівень складності математичних прикладів для кожного будильника</string>
+    <string name="math_challenge_category_title">Математичні завдання</string>
+    <string name="math_hardness_level_easy">Простий</string>
+    <string name="math_hardness_level_normal">Звичайний</string>
+    <string name="math_hardness_level_hard">Складний</string>
 </resources>
