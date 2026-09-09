@@ -922,12 +922,16 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     /**
-     * Calculates the next scheduled occurrence time.
+     * Calculates the next scheduled occurrence time for combined days.
      *
      * <p>This method determines when the alarm should trigger again based on its
      * configuration. It handles both repeating alarms (with specific days of the week)
      * and one-time alarms (with a fixed date). Daylight Savings Time (DST) adjustments
      * are also taken into account by resetting the hour and minute after shifting days.
+     *
+     * <p>When {@link #combinedDays} contains deselected dates and the alarm repeats on
+     * weekdays, those dates are skipped. When combinedDays contains selected dates and
+     * the alarm does not repeat on weekdays, only those specific dates are used.</p>
      *
      * @return a {@link Calendar} instance representing the next valid alarm time.
      * <p>- For repeating alarms: the next valid day of the week at the configured hour/minute.</p>
@@ -961,6 +965,27 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
             nextInstanceTime.set(Calendar.MINUTE, minutes);
 
+            // Skip deselected dates when using combined days
+            if (combinedDays != null && combinedDays.hasDeselectedDates()) {
+                int maxIterations = 366; // Prevent infinite loops
+                while (maxIterations-- > 0) {
+                    int y = nextInstanceTime.get(Calendar.YEAR);
+                    int m = nextInstanceTime.get(Calendar.MONTH);
+                    int d = nextInstanceTime.get(Calendar.DAY_OF_MONTH);
+                    if (!combinedDays.isDateDeselected(y, m, d)) {
+                        break;
+                    }
+                    // Skip to the next day and find next valid weekday
+                    nextInstanceTime.add(Calendar.DAY_OF_YEAR, 1);
+                    final int skipDays = daysOfWeek.getDistanceToNextDay(nextInstanceTime);
+                    if (skipDays > 0) {
+                        nextInstanceTime.add(Calendar.DAY_OF_WEEK, skipDays);
+                    }
+                    nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                    nextInstanceTime.set(Calendar.MINUTE, minutes);
+                }
+            }
+
             if (isDatePaused(nextInstanceTime)) {
                 // The alarm goes off during the pause: retrieve the end time of the pause
                 Calendar endOfPauseUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -975,9 +1000,40 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 localEndOfPause.set(Calendar.HOUR_OF_DAY, hour);
                 localEndOfPause.set(Calendar.MINUTE, minutes);
 
-                // Restart the search. The system will see that the alarm time has “already passed or is equal to” that day,
+                // Restart the search. The system will see that the alarm time has "already passed or is equal to" that day,
                 // and will automatically add one day and then search for the next valid day of the week.
                 return getNextAlarmTime(localEndOfPause);
+            }
+        } else if (combinedDays != null && combinedDays.hasSelectedDates()) {
+            // Use selected dates as one-time alarm triggers
+            Calendar nextSelectedDate = combinedDays.getNextSelectedDate(currentTime);
+            if (nextSelectedDate != null) {
+                nextInstanceTime.set(Calendar.YEAR, nextSelectedDate.get(Calendar.YEAR));
+                nextInstanceTime.set(Calendar.MONTH, nextSelectedDate.get(Calendar.MONTH));
+                nextInstanceTime.set(Calendar.DAY_OF_MONTH, nextSelectedDate.get(Calendar.DAY_OF_MONTH));
+                nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                nextInstanceTime.set(Calendar.MINUTE, minutes);
+
+                // If we are still behind the passed in currentTime, find the next selected date
+                if (nextInstanceTime.getTimeInMillis() <= currentTime.getTimeInMillis()) {
+                    Calendar tomorrow = (Calendar) currentTime.clone();
+                    tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+                    nextSelectedDate = combinedDays.getNextSelectedDate(tomorrow);
+                    if (nextSelectedDate != null) {
+                        nextInstanceTime.set(Calendar.YEAR, nextSelectedDate.get(Calendar.YEAR));
+                        nextInstanceTime.set(Calendar.MONTH, nextSelectedDate.get(Calendar.MONTH));
+                        nextInstanceTime.set(Calendar.DAY_OF_MONTH, nextSelectedDate.get(Calendar.DAY_OF_MONTH));
+                        nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                        nextInstanceTime.set(Calendar.MINUTE, minutes);
+                    }
+                }
+            } else {
+                // No selected date found in the next year, set to a far future date
+                nextInstanceTime.set(Calendar.YEAR, year);
+                nextInstanceTime.set(Calendar.MONTH, month);
+                nextInstanceTime.set(Calendar.DAY_OF_MONTH, day);
+                nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                nextInstanceTime.set(Calendar.MINUTE, minutes);
             }
         } else {
             nextInstanceTime.set(Calendar.YEAR, year);
