@@ -85,6 +85,16 @@ public final class AlarmTimeClickHandler {
             // update it to the current date. An alarm cannot be scheduled in the past.
             alarm.fixDateIfPast();
 
+            // Clean up past dates from combined days
+            if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+                alarm.combinedDays = alarm.combinedDays.removePastDates(alarm.hour, alarm.minutes);
+            }
+
+            // Reset the transient dismissal exclusions when the alarm is re-enabled.
+            if (newState && alarm.combinedDays != null && alarm.combinedDays.hasDismissedDates()) {
+                alarm.combinedDays = alarm.combinedDays.clearDismissed();
+            }
+
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
             // When enabling a synchronized alarm, enable all alarms sharing the same label.

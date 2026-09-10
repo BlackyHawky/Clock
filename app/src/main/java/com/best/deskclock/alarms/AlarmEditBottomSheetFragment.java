@@ -1687,8 +1687,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
-        // Clean up redundant overrides before saving
-        mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek);
+        // Clean up redundant overrides and past dates before saving
+        mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek)
+            .removePastDates(mAlarm.hour, mAlarm.minutes);
+
+        // Reset the transient dismissal exclusions when the alarm is saved.
+        mAlarm.combinedDays = mAlarm.combinedDays.clearDismissed();
 
         boolean timeChanged = mAlarm.hasTimeChanged(mOriginalAlarm);
         boolean minorFieldsChanged = mAlarm.hasMinorFieldsChanged(mOriginalAlarm);

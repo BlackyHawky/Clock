@@ -248,8 +248,46 @@ public final class AlarmStateManager extends BroadcastReceiver {
             return;
         }
 
+        // Skip the dismissed occurrence instead of permanently removing it: both added dates and
+        // active-weekday occurrences are recorded in the transient dismissed dates, which are
+        // cleared again when the alarm is re-enabled or re-saved.
+        if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+            Calendar instanceTime = instance.getAlarmTime();
+            int y = instanceTime.get(Calendar.YEAR);
+            int m = instanceTime.get(Calendar.MONTH);
+            int d = instanceTime.get(Calendar.DAY_OF_MONTH);
+            boolean isRelevantDate = alarm.combinedDays.isDateSelected(y, m, d)
+                || (alarm.daysOfWeek.isRepeating()
+                && alarm.daysOfWeek.isBitOn(instanceTime.get(Calendar.DAY_OF_WEEK))
+                && !alarm.combinedDays.isDateDeselected(y, m, d));
+            if (isRelevantDate && !alarm.combinedDays.isDateDismissed(y, m, d)) {
+                alarm.combinedDays = alarm.combinedDays.addDismissedDate(y, m, d);
+            }
+        }
+
+        // Prune added, excluded and dismissed dates that have already passed so that the alarm's
+        // stats naturally shrink as its dates move into the past, without requiring a re-save.
+        if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+            alarm.combinedDays = alarm.combinedDays.removePastDates(alarm.hour, alarm.minutes);
+        }
+
         if (!alarm.daysOfWeek.isRepeating()) {
-            if (alarm.deleteAfterUse) {
+            // Check if there are more future selected dates
+            boolean hasMoreFutureDates = alarm.combinedDays != null && alarm.combinedDays.hasSelectedDates()
+                && alarm.combinedDays.getNextSelectedDate(getCurrentTime()) != null;
+
+            if (hasMoreFutureDates) {
+                // More dates remain — keep alarm enabled, schedule next selected date
+                LogUtils.i("Keeping parent alarm enabled: more dates remain for " + alarm.id);
+                AlarmVisualCache.invalidate(alarm.id);
+                alarm.updateAlarm(cr);
+                // Schedule next instance for the next selected date
+                AlarmInstance nextInstance = alarm.createInstanceAfter(getCurrentTime());
+                LogUtils.i("Creating new instance for remaining date alarm " + alarm.id + " at " +
+                    AlarmUtils.getFormattedTime(context, nextInstance.getAlarmTime()));
+                nextInstance.addInstance(cr);
+                registerInstance(context, prefs, nextInstance, true);
+            } else if (alarm.deleteAfterUse) {
                 LogUtils.i("Deleting parent alarm: " + alarm.id);
                 Alarm.deleteAlarm(cr, alarm.id);
             } else {
@@ -258,6 +296,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 alarm.updateAlarm(cr);
             }
         } else {
+            // Persist any combined days change (e.g., the fired/dismissed date removed above).
+            alarm.updateAlarm(cr);
+
             AlarmInstance nextRepeatedInstance;
 
             if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(prefs)) {
@@ -595,22 +636,25 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
 
-        // Display the alarm dismissal warning in a toast
-        if (alarm != null && showToast && !alreadyPreDismissed) {
-            final String customLang = SettingsDAO.getLanguageCode(prefs);
-            final int style = ThemeUtils.getAccentStyle(context,
-                SettingsDAO.isAutoNightAccentColorEnabled(prefs),
-                SettingsDAO.getAccentColor(prefs),
-                SettingsDAO.getNightAccentColor(prefs));
-            final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-
-            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, customLang, style, font, alarm, instance));
-        }
-
         // Already pre-dismissed instances are only being re-registered. Their parent was
         // rescheduled when the user originally dismissed them.
         if (instance.mAlarmId != null && !alreadyPreDismissed) {
             updateParentAlarm(context, prefs, instance);
+        }
+
+        // Display the alarm dismissal warning in a toast
+        if (alarm != null && showToast && !alreadyPreDismissed) {
+            final Alarm updatedAlarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+            if (updatedAlarm != null) {
+                final String customLang = SettingsDAO.getLanguageCode(prefs);
+                final int style = ThemeUtils.getAccentStyle(context,
+                    SettingsDAO.isAutoNightAccentColorEnabled(prefs),
+                    SettingsDAO.getAccentColor(prefs),
+                    SettingsDAO.getNightAccentColor(prefs));
+                final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
+                AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, customLang, style, font, updatedAlarm, instance));
+            }
         }
 
         // When the alarm is dismissed from the notification and all days of the week are selected,
@@ -671,23 +715,27 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final ContentResolver contentResolver = context.getContentResolver();
         Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
-        // Display the alarm dismissal warning in a toast
-        if (alarm != null && showToast && !wasPreDismissed) {
-            final String customLang = SettingsDAO.getLanguageCode(prefs);
-            final int style = ThemeUtils.getAccentStyle(context,
-                SettingsDAO.isAutoNightAccentColorEnabled(prefs),
-                SettingsDAO.getAccentColor(prefs),
-                SettingsDAO.getNightAccentColor(prefs));
-            final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-
-            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, customLang, style, font, alarm, instance));
-        }
 
         // Pre-dismissed instances reschedule their parent when they enter PREDISMISSED_STATE.
         // When their original firing time arrives, only retire the skipped instance. Rescheduling
         // again can recreate the already skipped next occurrence as a normal active instance.
         if (instance.mAlarmId != null && !wasPreDismissed) {
             updateParentAlarm(context, prefs, instance);
+        }
+
+        // Display the alarm dismissal warning in a toast
+        if (alarm != null && showToast && !wasPreDismissed) {
+            final Alarm updatedAlarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+            if (updatedAlarm != null) {
+                final String customLang = SettingsDAO.getLanguageCode(prefs);
+                final int style = ThemeUtils.getAccentStyle(context,
+                    SettingsDAO.isAutoNightAccentColorEnabled(prefs),
+                    SettingsDAO.getAccentColor(prefs),
+                    SettingsDAO.getNightAccentColor(prefs));
+                final Typeface font = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
+                AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, customLang, style, font, updatedAlarm, instance));
+            }
         }
 
         // Delete instance as it is not needed anymore
@@ -919,7 +967,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
             }
             final Calendar priorAlarmTime = alarm.getPreviousAlarmTime(instance.getAlarmTime());
             final Calendar missedTTLTime = instance.getMissedTimeToLive();
-            if (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime)) {
+
+            // A combined-days occurrence can legitimately be the next event even though its
+            // "previous" occurrence has not happened yet (e.g. an added date a few days ahead of
+            // the current weekday pattern). Such an instance must be kept instead of being
+            // discarded by the "one cycle ahead" heuristic below.
+            final boolean isCombinedNextOccurrence = alarm.combinedDays != null
+                && !alarm.combinedDays.isEmpty()
+                && alarm.getNextAlarmTime(currentTime).getTimeInMillis() == instance.getAlarmTime().getTimeInMillis();
+
+            if (!isCombinedNextOccurrence
+                && (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime))) {
                 final Calendar oldAlarmTime = instance.getAlarmTime();
                 final Calendar newAlarmTime = alarm.getNextAlarmTime(currentTime);
                 final CharSequence oldTime = DateFormat.format("MM/dd/yyyy hh:mm a", oldAlarmTime);
@@ -1006,7 +1064,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 setAlarmState(context, prefs, instance, alarmState);
 
                 if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
-                    AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
+                    final Alarm parentAlarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+                    if (parentAlarm != null && parentAlarm.combinedDays != null && parentAlarm.combinedDays.hasSelectedDates()) {
+                        AlarmVisualCache.invalidate(instance.mAlarmId);
+                    } else {
+                        AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
+                    }
                 } else if (alarmState == AlarmInstance.NOTIFICATION_STATE
                     || alarmState == AlarmInstance.SNOOZE_STATE
                     || alarmState == AlarmInstance.FIRED_STATE) {
