@@ -635,7 +635,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void setupInlineCalendar() {
-        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar now = Calendar.getInstance();
         int displayYear = mInlineCalendarAdapter != null
             ? mInlineCalendarAdapter.getYear() : now.get(Calendar.YEAR);
         int displayMonth = mInlineCalendarAdapter != null
@@ -655,6 +655,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 mAlarm.daysOfWeek,
                 mAlarm.combinedDays,
                 this::onInlineCalendarDateToggled,
+                mFirstDayOfWeek,
                 activeColor, activeTextColor, inactiveTextColor,
                 todayStrokeColor, Color.TRANSPARENT,
                 mGeneralTypeface
@@ -667,7 +668,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             // Prev month
             mBinding.inlineCalendarContainer.prevMonth.setOnClickListener(v -> {
-                Calendar navNow = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                Calendar navNow = Calendar.getInstance();
                 int curYear = navNow.get(Calendar.YEAR);
                 int curMonth = navNow.get(Calendar.MONTH);
                 int dispYear = mInlineCalendarAdapter.getYear();
@@ -680,18 +681,20 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 updateMonthLabel(newYear, newMonth);
             });
 
-            // Next month
+            // Next month (clamped to the year-picker horizon)
             mBinding.inlineCalendarContainer.nextMonth.setOnClickListener(v -> {
+                final int maxYear = Calendar.getInstance().get(Calendar.YEAR) + 100;
                 int newMonth = mInlineCalendarAdapter.getMonth() + 1;
                 int newYear = mInlineCalendarAdapter.getYear();
                 if (newMonth > 11) { newMonth = 0; newYear++; }
+                if (newYear > maxYear) return;
                 mInlineCalendarAdapter.setMonth(newYear, newMonth);
                 updateMonthLabel(newYear, newMonth);
             });
 
             // Prev year
             mBinding.inlineCalendarContainer.prevYear.setOnClickListener(v -> {
-                Calendar navNow = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                Calendar navNow = Calendar.getInstance();
                 int curYear = navNow.get(Calendar.YEAR);
                 int curMonth = navNow.get(Calendar.MONTH);
                 int dispYear = mInlineCalendarAdapter.getYear();
@@ -715,12 +718,23 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 updateMonthLabel(targetYear, targetMonth);
             });
 
-            // Next year
+            // Next year (clamped to the year-picker horizon)
             mBinding.inlineCalendarContainer.nextYear.setOnClickListener(v -> {
+                final int maxYear = Calendar.getInstance().get(Calendar.YEAR) + 100;
                 int newYear = mInlineCalendarAdapter.getYear() + 1;
                 int month = mInlineCalendarAdapter.getMonth();
+                if (newYear > maxYear) return;
                 mInlineCalendarAdapter.setMonth(newYear, month);
                 updateMonthLabel(newYear, month);
+            });
+
+            // Jump back to the current month
+            mBinding.inlineCalendarContainer.homeButton.setOnClickListener(v -> {
+                Calendar navNow = Calendar.getInstance();
+                int curYear = navNow.get(Calendar.YEAR);
+                int curMonth = navNow.get(Calendar.MONTH);
+                mInlineCalendarAdapter.setMonth(curYear, curMonth);
+                updateMonthLabel(curYear, curMonth);
             });
 
             // Month/year label tap -> year picker
@@ -832,7 +846,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.inlineCalendarContainer.monthYearLabel.setText(
             new java.text.SimpleDateFormat(pattern, Locale.getDefault()).format(cal.getTime()));
 
-        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar now = Calendar.getInstance();
         int curYear = now.get(Calendar.YEAR);
         int curMonth = now.get(Calendar.MONTH);
         boolean atCurrentMonth = (year == curYear && month == curMonth);
@@ -841,21 +855,24 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.inlineCalendarContainer.prevMonth.setAlpha(atCurrentMonth ? 0.3f : 1f);
         mBinding.inlineCalendarContainer.prevYear.setEnabled(!atCurrentMonth && !beforeCurrentMonth);
         mBinding.inlineCalendarContainer.prevYear.setAlpha((atCurrentMonth || beforeCurrentMonth) ? 0.3f : 1f);
+        mBinding.inlineCalendarContainer.homeButton.setEnabled(!atCurrentMonth);
+        mBinding.inlineCalendarContainer.homeButton.setAlpha(atCurrentMonth ? 0.3f : 1f);
     }
 
     private void onInlineCalendarDateToggled(int year, int month, int day) {
-        Calendar toggleDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        toggleDate.set(year, month, day, 0, 0, 0);
-        toggleDate.set(Calendar.MILLISECOND, 0);
-        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        if (toggleDate.before(today)) return;
+        // Reject dates strictly before local "today"; the calendar dims those cells anyway.
+        final Calendar now = Calendar.getInstance();
+        final int todayYear = now.get(Calendar.YEAR);
+        final int todayMonth = now.get(Calendar.MONTH);
+        final int todayDay = now.get(Calendar.DAY_OF_MONTH);
+        if (year < todayYear
+            || (year == todayYear && month < todayMonth)
+            || (year == todayYear && month == todayMonth && day < todayDay)) {
+            return;
+        }
 
         boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar cal = Calendar.getInstance();
         cal.set(year, month, day);
         int calendarDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 

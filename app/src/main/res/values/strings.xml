@@ -124,6 +124,7 @@
     <string name="cleanup_overrides">Clean up overrides</string>
     <!-- Title for year picker dialog -->
     <string name="select_year">Select year</string>
+    <string name="jump_to_current_month">Jump to current month</string>
     <!-- Content description for the clear all overrides button -->
     <string name="clear_all_description">Clear all overrides</string>
     <!-- Inline calendar summary -->

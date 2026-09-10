@@ -59,6 +59,7 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
 
     // Calendar fields for the current month being displayed
     private int mFirstDayOfWeek; // 1=Sunday, 2=Monday, ..., 7=Saturday (Calendar API)
+    private final int mGridStartDay; // preferred first column day, Calendar API (1=Sun..7=Sat)
     private int mDaysInMonth;
     private int mOffsetCells; // empty cells before day 1
 
@@ -83,6 +84,7 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
                                   @NonNull Weekdays weekdays,
                                   @NonNull CombinedDays combinedDays,
                                   @NonNull OnDateToggleListener listener,
+                                  int firstDayOfWeek,
                                   @ColorInt int activeColor,
                                   @ColorInt int activeTextColor,
                                   @ColorInt int inactiveTextColor,
@@ -94,6 +96,7 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
         mWeekdays = weekdays;
         mCombinedDays = combinedDays;
         mListener = listener;
+        mGridStartDay = firstDayOfWeek;
         mActiveColor = activeColor;
         mActiveTextColor = activeTextColor;
         mInactiveTextColor = inactiveTextColor;
@@ -157,10 +160,10 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
         mFirstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK); // 1=Sunday, 2=Monday, ...
         mDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        // Calculate offset: how many empty cells before day 1
-        // Convert Calendar's DAY_OF_WEEK (1=Sun) to a Monday-first index (0=Mon, 6=Sun)
-        int firstDayMondayBased = (mFirstDayOfWeek + 5) % 7; // Mon=0, Tue=1, ..., Sun=6
-        mOffsetCells = firstDayMondayBased;
+        // Offset empty cells so the first column matches the preferred start day
+        // (same rule as the weekday buttons above the calendar).
+        // mFirstDayOfWeek is the DAY_OF_WEEK of the 1st; subtract the preferred start day.
+        mOffsetCells = (mFirstDayOfWeek - mGridStartDay + 7) % 7;
     }
 
     /**
@@ -196,12 +199,18 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
 
         boolean isPast = isDatePast(day);
         boolean isActive = !isPast && isDateActive(day);
+        boolean isToday = mYear == mTodayYear && mMonth == mTodayMonth && day == mTodayDay;
 
         GradientDrawable baseBg = new GradientDrawable();
         baseBg.setShape(GradientDrawable.OVAL);
 
         if (isPast) {
             baseBg.setColor(Color.TRANSPARENT);
+            if (isToday) {
+                // Keep a soft outline around today so its cell stays recognizable once dimmed.
+                float density = holder.itemView.getResources().getDisplayMetrics().density;
+                baseBg.setStroke(Math.round(1.5f * density), mTodayStrokeColor);
+            }
             holder.dayText.setTextColor(mInactiveTextColor);
             holder.dayText.setAlpha(0.4f);
             holder.dayText.setClickable(false);
@@ -238,30 +247,21 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
      * Today is considered past if the alarm time has already passed.
      */
     private boolean isDatePast(int day) {
-        Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        date.set(mYear, mMonth, day, 0, 0, 0);
-        date.set(Calendar.MILLISECOND, 0);
+        // "Today" is the local calendar date. Comparing dates as (year,month,day) only is safe
+        // across DST transitions and never disagrees with the user's clock near midnight.
+        final boolean beforeToday = mYear < mTodayYear
+            || (mYear == mTodayYear && mMonth < mTodayMonth)
+            || (mYear == mTodayYear && mMonth == mTodayMonth && day < mTodayDay);
+        if (beforeToday) {
+            return true;
+        }
 
-        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-
-        if (date.before(today)) return true;
-
-        // Check if today and alarm time has passed
-        boolean isToday = (mYear == mTodayYear && mMonth == mTodayMonth && day == mTodayDay);
-        if (isToday && mAlarmHour >= 0 && mAlarmMinute >= 0) {
-            Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            Calendar alarmTime = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            alarmTime.set(Calendar.HOUR_OF_DAY, mAlarmHour);
-            alarmTime.set(Calendar.MINUTE, mAlarmMinute);
-            alarmTime.set(Calendar.SECOND, 0);
-            alarmTime.set(Calendar.MILLISECOND, 0);
-            if (now.getTimeInMillis() >= alarmTime.getTimeInMillis()) {
-                return true;
-            }
+        // Today is considered past once the alarm time itself has passed.
+        if (mYear == mTodayYear && mMonth == mTodayMonth && day == mTodayDay
+            && mAlarmHour >= 0 && mAlarmMinute >= 0) {
+            final Calendar now = Calendar.getInstance();
+            return now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
+                >= mAlarmHour * 60 + mAlarmMinute;
         }
 
         return false;
@@ -275,9 +275,8 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
      * - It does NOT match any selected weekday AND IS in the selected list
      */
     private boolean isDateActive(int day) {
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        cal.set(mYear, mMonth, day);
-        int calendarDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        // Pure day-of-week arithmetic avoids a Calendar allocation per bound cell.
+        int calendarDayOfWeek = ((mFirstDayOfWeek - 1) + (day - 1)) % 7 + 1;
 
         boolean matchesWeekday = mWeekdays.isBitOn(calendarDayOfWeek);
         boolean isDeselected = mCombinedDays.isDateDeselected(mYear, mMonth, day);
