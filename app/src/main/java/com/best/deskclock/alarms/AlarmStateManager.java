@@ -37,6 +37,7 @@ import androidx.annotation.Nullable;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
@@ -251,7 +252,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Skip the dismissed occurrence instead of permanently removing it: both added dates and
         // active-weekday occurrences are recorded in the transient dismissed dates, which are
         // cleared again when the alarm is re-enabled or re-saved.
-        if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+        final CombinedDays originalCombinedDays = alarm.combinedDays;
+        if (!alarm.combinedDays.isEmpty()) {
             Calendar instanceTime = instance.getAlarmTime();
             int y = instanceTime.get(Calendar.YEAR);
             int m = instanceTime.get(Calendar.MONTH);
@@ -267,13 +269,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Prune added, excluded and dismissed dates that have already passed so that the alarm's
         // stats naturally shrink as its dates move into the past, without requiring a re-save.
-        if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+        if (!alarm.combinedDays.isEmpty()) {
             alarm.combinedDays = alarm.combinedDays.removePastDates(alarm.hour, alarm.minutes);
         }
+        final boolean combinedDaysChanged = !alarm.combinedDays.equals(originalCombinedDays);
 
         if (!alarm.daysOfWeek.isRepeating()) {
             // Check if there are more future selected dates
-            boolean hasMoreFutureDates = alarm.combinedDays != null && alarm.combinedDays.hasSelectedDates()
+            boolean hasMoreFutureDates = alarm.combinedDays.hasSelectedDates()
                 && alarm.combinedDays.getNextSelectedDate(getCurrentTime()) != null;
 
             if (hasMoreFutureDates) {
@@ -296,8 +299,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 alarm.updateAlarm(cr);
             }
         } else {
-            // Persist any combined days change (e.g., the fired/dismissed date removed above).
-            alarm.updateAlarm(cr);
+            // Persist any combined days change (e.g., the dismissed or pruned date above) without
+            // writing the row on every ordinary dismissal of a repeating alarm.
+            if (combinedDaysChanged) {
+                alarm.updateAlarm(cr);
+            }
 
             AlarmInstance nextRepeatedInstance;
 
@@ -972,8 +978,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // "previous" occurrence has not happened yet (e.g. an added date a few days ahead of
             // the current weekday pattern). Such an instance must be kept instead of being
             // discarded by the "one cycle ahead" heuristic below.
-            final boolean isCombinedNextOccurrence = alarm.combinedDays != null
-                && !alarm.combinedDays.isEmpty()
+            final boolean isCombinedNextOccurrence = !alarm.combinedDays.isEmpty()
                 && alarm.getNextAlarmTime(currentTime).getTimeInMillis() == instance.getAlarmTime().getTimeInMillis();
 
             if (!isCombinedNextOccurrence
@@ -1065,7 +1070,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
                     final Alarm parentAlarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
-                    if (parentAlarm != null && parentAlarm.combinedDays != null && parentAlarm.combinedDays.hasSelectedDates()) {
+                    if (parentAlarm != null && parentAlarm.combinedDays.hasSelectedDates()) {
                         AlarmVisualCache.invalidate(instance.mAlarmId);
                     } else {
                         AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);

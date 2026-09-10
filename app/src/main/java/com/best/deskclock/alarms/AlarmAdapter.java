@@ -168,7 +168,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
             AlarmItemHolder holder = iterator.next();
 
             if (holder.item != null && AlarmVisualCache.isDismissed(holder.item.id)) {
-                if (holder.item.isDeleteAfterUse()) {
+                if (holder.item.isDeletedAfterDismissal()) {
                     // Remove the alarm from the list immediately!
                     iterator.remove();
                 } else if (!holder.item.daysOfWeek.isRepeating() && !hasRemainingDates(holder)) {

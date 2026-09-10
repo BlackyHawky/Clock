@@ -86,12 +86,12 @@ public final class AlarmTimeClickHandler {
             alarm.fixDateIfPast();
 
             // Clean up past dates from combined days
-            if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+            if (!alarm.combinedDays.isEmpty()) {
                 alarm.combinedDays = alarm.combinedDays.removePastDates(alarm.hour, alarm.minutes);
             }
 
             // Reset the transient dismissal exclusions when the alarm is re-enabled.
-            if (newState && alarm.combinedDays != null && alarm.combinedDays.hasDismissedDates()) {
+            if (newState && alarm.combinedDays.hasDismissedDates()) {
                 alarm.combinedDays = alarm.combinedDays.clearDismissed();
             }
 

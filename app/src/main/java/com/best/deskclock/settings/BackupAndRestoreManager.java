@@ -201,7 +201,7 @@ public class BackupAndRestoreManager {
             alarmObject.put("backgroundImage", alarm.backgroundImage);
             alarmObject.put("blurIntensity", alarm.blurIntensity);
             alarmObject.put("mathHardnessLevel", alarm.mathHardnessLevel);
-            alarmObject.put("combinedDays", alarm.combinedDays != null ? alarm.combinedDays.toJson() : "");
+            alarmObject.put("combinedDays", alarm.combinedDays.toJson());
 
             if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                 alarmsArray.put(alarmObject);

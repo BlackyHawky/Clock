@@ -218,7 +218,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
                 AlarmUtils.getAlarmText(mContext, alarmInstance, false)));
         } else if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
             setRepeatingDaysDescription(alarm, alarmInstance);
-        } else if (alarm.combinedDays != null && alarm.combinedDays.hasSelectedDates()) {
+        } else if (alarm.combinedDays.hasSelectedDates()) {
             setCombinedDaysDateDescription(alarm);
         } else if (alarm.isSpecifiedDate()) {
             setSpecifiedDateDescription(alarm);
@@ -229,7 +229,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
     private void bindUpcomingDate(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
         if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()
-            || (alarm.combinedDays != null && !alarm.combinedDays.isEmpty())) {
+            || (!alarm.combinedDays.isEmpty())) {
             mBinding.upcomingDate.setVisibility(GONE);
             mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
             return;
@@ -324,7 +324,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         } else if (alarm.enabled) {
             int nextAlarmDay = alarm.getNextAlarmDayOfWeek(alarmInstance);
 
-            if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+            if (!alarm.combinedDays.isEmpty()) {
                 styledDaysText = alarm.daysOfWeek.toString(mContext, weekdayOrder);
             } else if (alarm.daysOfWeek.isAllDaysSelected()) {
                 if (mAdapter.getStateProvider().isRepeatDayStyleEnabled(alarm.id)) {
@@ -340,7 +340,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         }
 
         // Append combined days info (next date + selected/deselected counts)
-        if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+        if (!alarm.combinedDays.isEmpty()) {
             styledDaysText = buildCombinedDaysDisplay(alarm, styledDaysText);
             contentDesc = styledDaysText.toString();
         }
@@ -392,9 +392,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
      * from the main view; only dates that are actually in the past are excluded.
      */
     private static int getRemainingSelectedDateCount(@NonNull Alarm alarm) {
-        if (alarm.combinedDays == null) {
-            return 0;
-        }
         final Calendar now = Calendar.getInstance();
         int count = 0;
         for (String key : alarm.combinedDays.getSelectedDates()) {
@@ -418,9 +415,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
      * relevant, so they do not count toward the "-N" part of the display string.
      */
     private static int getRemainingExcludedDateCount(@NonNull Alarm alarm) {
-        if (alarm.combinedDays == null) {
-            return 0;
-        }
         final Calendar now = Calendar.getInstance();
         int count = 0;
         for (String key : alarm.combinedDays.getDeselectedDates()) {
