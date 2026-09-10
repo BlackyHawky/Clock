@@ -928,10 +928,10 @@
     <!-- Setting title to enable the use of a custom stop duration for each alarm. -->
     <string name="enable_per_alarm_auto_silence_title">Use a custom stop duration for each alarm</string>
     <!-- Setting title to display the Dismiss button -->
-    <string name="display_dismiss_button_title">Display the \"Dismiss\" button as soon as the alarm is enabled</string>
+    <string name="display_dismiss_button_title">Always show dismiss button</string>
     <!-- Setting summary to specify when the Dismiss button will appear if the
-         "Display Dismiss button as soon as alarm is enabled" setting is disabled. -->
-    <string name="display_dismiss_button_summary">If disabled, the button will appear at the same time as the notification reminder</string>
+         "Always show dismiss button" setting is disabled. -->
+    <string name="display_dismiss_button_summary">If disabled, the button only appears shortly before the alarm fires (at the same time as the notification reminder)</string>
     <!-- Setting title to enable the use of a custom missed alarm repeat count for each alarm. -->
     <string name="enable_per_alarm_missed_repeat_limit_title">Use a custom missed alarm repeat count for each alarm</string>
     <!-- Dialog message when the "Use a custom missed alarm repeat count for each alarm" setting is disabled. -->
