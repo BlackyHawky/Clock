@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+    Material Design arrow_drop_down (filled triangle)
     SPDX-License-Identifier: Apache-2.0
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,5 +11,5 @@
     android:autoMirrored="true">
     <path
         android:fillColor="?attr/colorOnSurface"
-        android:pathData="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6 -6-6 1.41-1.41z" />
+        android:pathData="M7 10l5 5 5-5z" />
 </vector>

@@ -586,8 +586,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     bindSelectedDate();
                     bindPauseAlarm();
                     bindDeleteAlarmAfterUse();
-                    if (mCalendarExpanded) {
+                    if (mCalendarExpanded && mInlineCalendarAdapter != null) {
+                        mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
                         updateCleanupButtonVisibility();
+                        updateClearButtonVisibility();
                     }
                     break;
                 }
@@ -639,112 +641,122 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         int displayMonth = mInlineCalendarAdapter != null
             ? mInlineCalendarAdapter.getMonth() : now.get(Calendar.MONTH);
 
-        int activeColor = MaterialColors.getColor(requireContext(),
-            com.google.android.material.R.attr.colorTertiary, Color.BLACK);
-        int activeTextColor = MaterialColors.getColor(requireContext(),
-            com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
-        int inactiveTextColor = MaterialColors.getColor(requireContext(),
-            com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
-        int todayStrokeColor = MaterialColors.getColor(requireContext(),
-            com.google.android.material.R.attr.colorOnSurface, Color.BLACK);
+        if (mInlineCalendarAdapter == null) {
+            int activeColor = MaterialColors.getColor(requireContext(),
+                com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+            int activeTextColor = MaterialColors.getColor(requireContext(),
+                com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+            int inactiveTextColor = MaterialColors.getColor(requireContext(),
+                com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+            int todayStrokeColor = 0xFF666666;
 
-        mInlineCalendarAdapter = new InlineCalendarAdapter(
-            displayYear, displayMonth,
-            mAlarm.daysOfWeek,
-            mAlarm.combinedDays,
-            this::onInlineCalendarDateToggled,
-            activeColor, activeTextColor, inactiveTextColor,
-            todayStrokeColor, Color.TRANSPARENT,
-            mGeneralTypeface
-        );
+            mInlineCalendarAdapter = new InlineCalendarAdapter(
+                displayYear, displayMonth,
+                mAlarm.daysOfWeek,
+                mAlarm.combinedDays,
+                this::onInlineCalendarDateToggled,
+                activeColor, activeTextColor, inactiveTextColor,
+                todayStrokeColor, Color.TRANSPARENT,
+                mGeneralTypeface
+            );
+            mInlineCalendarAdapter.setAlarmTime(mAlarm.hour, mAlarm.minutes);
 
-        // Calendar grid
-        mBinding.inlineCalendarContainer.calendarGrid.setLayoutManager(
-            new GridLayoutManager(requireContext(), 7));
-        mBinding.inlineCalendarContainer.calendarGrid.setAdapter(mInlineCalendarAdapter);
-        updateCalendarGridHeight();
+            mBinding.inlineCalendarContainer.calendarGrid.setLayoutManager(
+                new GridLayoutManager(requireContext(), 7));
+            mBinding.inlineCalendarContainer.calendarGrid.setAdapter(mInlineCalendarAdapter);
+
+            // Prev month
+            mBinding.inlineCalendarContainer.prevMonth.setOnClickListener(v -> {
+                Calendar navNow = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                int curYear = navNow.get(Calendar.YEAR);
+                int curMonth = navNow.get(Calendar.MONTH);
+                int dispYear = mInlineCalendarAdapter.getYear();
+                int dispMonth = mInlineCalendarAdapter.getMonth();
+                if (dispYear == curYear && dispMonth <= curMonth) return;
+                int newMonth = dispMonth - 1;
+                int newYear = dispYear;
+                if (newMonth < 0) { newMonth = 11; newYear--; }
+                mInlineCalendarAdapter.setMonth(newYear, newMonth);
+                updateMonthLabel(newYear, newMonth);
+            });
+
+            // Next month
+            mBinding.inlineCalendarContainer.nextMonth.setOnClickListener(v -> {
+                int newMonth = mInlineCalendarAdapter.getMonth() + 1;
+                int newYear = mInlineCalendarAdapter.getYear();
+                if (newMonth > 11) { newMonth = 0; newYear++; }
+                mInlineCalendarAdapter.setMonth(newYear, newMonth);
+                updateMonthLabel(newYear, newMonth);
+            });
+
+            // Prev year
+            mBinding.inlineCalendarContainer.prevYear.setOnClickListener(v -> {
+                Calendar navNow = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                int curYear = navNow.get(Calendar.YEAR);
+                int curMonth = navNow.get(Calendar.MONTH);
+                int dispYear = mInlineCalendarAdapter.getYear();
+                int dispMonth = mInlineCalendarAdapter.getMonth();
+                // Jump to current month if within 12 months, otherwise back 1 year
+                int targetYear;
+                int targetMonth;
+                if (dispYear == curYear && dispMonth == curMonth) {
+                    return; // Already at current month
+                }
+                int yearDiff = dispYear - curYear;
+                int monthDiff = yearDiff * 12 + (dispMonth - curMonth);
+                if (monthDiff <= 12) {
+                    targetYear = curYear;
+                    targetMonth = curMonth;
+                } else {
+                    targetYear = dispYear - 1;
+                    targetMonth = dispMonth;
+                }
+                mInlineCalendarAdapter.setMonth(targetYear, targetMonth);
+                updateMonthLabel(targetYear, targetMonth);
+            });
+
+            // Next year
+            mBinding.inlineCalendarContainer.nextYear.setOnClickListener(v -> {
+                int newYear = mInlineCalendarAdapter.getYear() + 1;
+                int month = mInlineCalendarAdapter.getMonth();
+                mInlineCalendarAdapter.setMonth(newYear, month);
+                updateMonthLabel(newYear, month);
+            });
+
+            // Month/year label tap -> year picker
+            mBinding.inlineCalendarContainer.monthYearButton.setOnClickListener(v -> showYearPicker());
+
+            // Cleanup: tap summary row or the refresh icon
+            Runnable cleanupAction = () -> {
+                mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek);
+                mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+                updateCalendarSummary();
+                bindSelectedDate();
+                updateCleanupButtonVisibility();
+                updateClearButtonVisibility();
+            };
+            mBinding.inlineCalendarContainer.calendarSummaryRow.setOnClickListener(v -> cleanupAction.run());
+            mBinding.inlineCalendarContainer.cleanupOverrides.setOnClickListener(v -> cleanupAction.run());
+
+            // Clear all overrides
+            mBinding.inlineCalendarContainer.clearAllOverrides.setOnClickListener(v -> {
+                mAlarm.combinedDays = mAlarm.combinedDays.clear();
+                mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+                updateCalendarSummary();
+                bindSelectedDate();
+                updateCleanupButtonVisibility();
+                updateClearButtonVisibility();
+            });
+        } else {
+            // Refresh existing adapter with current data
+            mInlineCalendarAdapter.setMonth(displayYear, displayMonth);
+        }
 
         // Month/year label and navigation
         updateMonthLabel(displayYear, displayMonth);
-
-        // Prev month
-        mBinding.inlineCalendarContainer.prevMonth.setOnClickListener(v -> {
-            int newMonth = mInlineCalendarAdapter.getMonth() - 1;
-            int newYear = mInlineCalendarAdapter.getYear();
-            if (newMonth < 0) { newMonth = 11; newYear--; }
-            mInlineCalendarAdapter.setMonth(newYear, newMonth);
-            updateMonthLabel(newYear, newMonth);
-            updateCalendarGridHeight();
-        });
-
-        // Next month
-        mBinding.inlineCalendarContainer.nextMonth.setOnClickListener(v -> {
-            int newMonth = mInlineCalendarAdapter.getMonth() + 1;
-            int newYear = mInlineCalendarAdapter.getYear();
-            if (newMonth > 11) { newMonth = 0; newYear++; }
-            mInlineCalendarAdapter.setMonth(newYear, newMonth);
-            updateMonthLabel(newYear, newMonth);
-            updateCalendarGridHeight();
-        });
-
-        // Prev year
-        mBinding.inlineCalendarContainer.prevYear.setOnClickListener(v -> {
-            int newYear = mInlineCalendarAdapter.getYear() - 1;
-            int month = mInlineCalendarAdapter.getMonth();
-            mInlineCalendarAdapter.setMonth(newYear, month);
-            updateMonthLabel(newYear, month);
-            updateCalendarGridHeight();
-        });
-
-        // Next year
-        mBinding.inlineCalendarContainer.nextYear.setOnClickListener(v -> {
-            int newYear = mInlineCalendarAdapter.getYear() + 1;
-            int month = mInlineCalendarAdapter.getMonth();
-            mInlineCalendarAdapter.setMonth(newYear, month);
-            updateMonthLabel(newYear, month);
-            updateCalendarGridHeight();
-        });
-
-        // Month/year label tap → year picker
-        mBinding.inlineCalendarContainer.monthYearButton.setOnClickListener(v -> showYearPicker());
-
-        // Cleanup: tap summary row or the refresh icon
         updateCleanupButtonVisibility();
-        Runnable cleanupAction = () -> {
-            mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek);
-            mInlineCalendarAdapter.notifyDataSetChanged();
-            updateCalendarSummary();
-            bindSelectedDate();
-            updateCleanupButtonVisibility();
-            updateClearButtonVisibility();
-        };
-        mBinding.inlineCalendarContainer.calendarSummaryRow.setOnClickListener(v -> cleanupAction.run());
-        mBinding.inlineCalendarContainer.cleanupOverrides.setOnClickListener(v -> cleanupAction.run());
-
-        // Clear all overrides
         updateClearButtonVisibility();
-        mBinding.inlineCalendarContainer.clearAllOverrides.setOnClickListener(v -> {
-            mAlarm.combinedDays = mAlarm.combinedDays.clear();
-            mInlineCalendarAdapter.notifyDataSetChanged();
-            updateCalendarSummary();
-            bindSelectedDate();
-            updateCleanupButtonVisibility();
-            updateClearButtonVisibility();
-        });
-
         updateCalendarSummary();
-    }
-
-    private void updateCalendarGridHeight() {
-        mBinding.inlineCalendarContainer.calendarGrid.post(() -> {
-            float density = getResources().getDisplayMetrics().density;
-            int rowHeight = (int) (44 * density);
-            int rows = mInlineCalendarAdapter.getRowCount();
-            android.view.ViewGroup.LayoutParams lp =
-                mBinding.inlineCalendarContainer.calendarGrid.getLayoutParams();
-            lp.height = rows * rowHeight;
-            mBinding.inlineCalendarContainer.calendarGrid.setLayoutParams(lp);
-        });
     }
 
     private void updateCleanupButtonVisibility() {
@@ -785,7 +797,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     mInlineCalendarAdapter.setMonth(selectedYear, month);
                 }
                 updateMonthLabel(selectedYear, month);
-                updateCalendarGridHeight();
                 if (dialogRef[0] != null) {
                     dialogRef[0].dismiss();
                 }
@@ -817,11 +828,32 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void updateMonthLabel(int year, int month) {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         cal.set(year, month, 1);
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM yyyy", Locale.getDefault());
-        mBinding.inlineCalendarContainer.monthYearLabel.setText(sdf.format(cal.getTime()));
+        String pattern = android.text.format.DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMMMyyyy");
+        mBinding.inlineCalendarContainer.monthYearLabel.setText(
+            new java.text.SimpleDateFormat(pattern, Locale.getDefault()).format(cal.getTime()));
+
+        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        int curYear = now.get(Calendar.YEAR);
+        int curMonth = now.get(Calendar.MONTH);
+        boolean atCurrentMonth = (year == curYear && month == curMonth);
+        boolean beforeCurrentMonth = (year < curYear) || (year == curYear && month < curMonth);
+        mBinding.inlineCalendarContainer.prevMonth.setEnabled(!atCurrentMonth);
+        mBinding.inlineCalendarContainer.prevMonth.setAlpha(atCurrentMonth ? 0.3f : 1f);
+        mBinding.inlineCalendarContainer.prevYear.setEnabled(!atCurrentMonth && !beforeCurrentMonth);
+        mBinding.inlineCalendarContainer.prevYear.setAlpha((atCurrentMonth || beforeCurrentMonth) ? 0.3f : 1f);
     }
 
     private void onInlineCalendarDateToggled(int year, int month, int day) {
+        Calendar toggleDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        toggleDate.set(year, month, day, 0, 0, 0);
+        toggleDate.set(Calendar.MILLISECOND, 0);
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+        if (toggleDate.before(today)) return;
+
         boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         cal.set(year, month, day);
@@ -841,7 +873,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             }
         }
 
-        mInlineCalendarAdapter.notifyDataSetChanged();
+        mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
         updateCalendarSummary();
         bindSelectedDate();
         updateCleanupButtonVisibility();
@@ -1612,6 +1644,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void applyTime(int hour, int minute, boolean isFromDelay) {
         mAlarm.hour = hour;
         mAlarm.minutes = minute;
+
+        if (mInlineCalendarAdapter != null) {
+            mInlineCalendarAdapter.setAlarmTime(hour, minute);
+            mInlineCalendarAdapter.notifyDataSetChanged();
+        }
 
         if (isFromDelay) {
             mAlarm.daysOfWeek = Weekdays.fromBits(0);

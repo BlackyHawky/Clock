@@ -48,12 +48,14 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
 
     private int mYear;
     private int mMonth;
-    private final Weekdays mWeekdays;
-    private final CombinedDays mCombinedDays;
+    private Weekdays mWeekdays;
+    private CombinedDays mCombinedDays;
     private final OnDateToggleListener mListener;
     private final Typeface mTypeface;
 
-    private static final int COLUMN_COUNT = 7;
+    // Alarm time for today-past check
+    private int mAlarmHour = -1;
+    private int mAlarmMinute = -1;
 
     // Calendar fields for the current month being displayed
     private int mFirstDayOfWeek; // 1=Sunday, 2=Monday, ..., 7=Saturday (Calendar API)
@@ -99,13 +101,21 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
         mEmptyColor = emptyColor;
         mTypeface = typeface;
 
-        // Today
-        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        // Today (use local timezone so "today" matches user's clock)
+        Calendar now = Calendar.getInstance();
         mTodayYear = now.get(Calendar.YEAR);
         mTodayMonth = now.get(Calendar.MONTH);
         mTodayDay = now.get(Calendar.DAY_OF_MONTH);
 
         recalculateMonth();
+    }
+
+    /**
+     * Sets the alarm hour and minute for today-past checking.
+     */
+    public void setAlarmTime(int hour, int minute) {
+        mAlarmHour = hour;
+        mAlarmMinute = minute;
     }
 
     /**
@@ -130,6 +140,15 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
      */
     public int getMonth() {
         return mMonth;
+    }
+
+    /**
+     * Updates the weekdays and combined days data, then refreshes the display.
+     */
+    public void setData(@NonNull Weekdays weekdays, @NonNull CombinedDays combinedDays) {
+        mWeekdays = weekdays;
+        mCombinedDays = combinedDays;
+        notifyDataSetChanged();
     }
 
     private void recalculateMonth() {
@@ -162,9 +181,8 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
 
     @Override
     public void onBindViewHolder(@NonNull DayViewHolder holder, int position) {
-        int adapterPosition = holder.getAdapterPosition();
-        if (adapterPosition < mOffsetCells) {
-            // Empty cell before day 1
+        int adapterPosition = holder.getBindingAdapterPosition();
+        if (adapterPosition == RecyclerView.NO_POSITION || adapterPosition < mOffsetCells) {
             holder.dayText.setText("");
             holder.dayText.setBackground(null);
             holder.dayText.setClickable(false);
@@ -175,37 +193,78 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
         int day = adapterPosition - mOffsetCells + 1;
         holder.dayText.setText(String.valueOf(day));
         holder.dayText.setTypeface(mTypeface);
-        holder.dayText.setClickable(true);
-        holder.dayText.setFocusable(true);
 
-        boolean isActive = isDateActive(day);
-        boolean isToday = (mYear == mTodayYear && mMonth == mTodayMonth && day == mTodayDay);
+        boolean isPast = isDatePast(day);
+        boolean isActive = !isPast && isDateActive(day);
 
-        // Background: filled circle for active, nothing for inactive
-        GradientDrawable bg = new GradientDrawable();
-        bg.setShape(GradientDrawable.OVAL);
+        GradientDrawable baseBg = new GradientDrawable();
+        baseBg.setShape(GradientDrawable.OVAL);
 
-        if (isActive) {
-            bg.setColor(mActiveColor);
-            holder.dayText.setTextColor(mActiveTextColor);
-        } else {
-            bg.setColor(Color.TRANSPARENT);
+        if (isPast) {
+            baseBg.setColor(Color.TRANSPARENT);
             holder.dayText.setTextColor(mInactiveTextColor);
+            holder.dayText.setAlpha(0.4f);
+            holder.dayText.setClickable(false);
+            holder.dayText.setFocusable(false);
+        } else if (isActive) {
+            baseBg.setColor(mActiveColor);
+            holder.dayText.setTextColor(mActiveTextColor);
+            holder.dayText.setAlpha(1f);
+            holder.dayText.setClickable(true);
+            holder.dayText.setFocusable(true);
+        } else {
+            baseBg.setColor(Color.TRANSPARENT);
+            holder.dayText.setTextColor(mInactiveTextColor);
+            holder.dayText.setAlpha(1f);
+            holder.dayText.setClickable(true);
+            holder.dayText.setFocusable(true);
         }
 
-        // Today indicator: add a stroke
-        if (isToday) {
-            bg.setStroke(2, mTodayStrokeColor);
+        holder.dayText.setBackground(baseBg);
+
+        if (!isPast) {
+            holder.dayText.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onDateToggled(mYear, mMonth, day);
+                }
+            });
+        } else {
+            holder.dayText.setOnClickListener(null);
         }
+    }
 
-        holder.dayText.setBackground(bg);
+    /**
+     * Determines if a given day of the current month is in the past.
+     * Today is considered past if the alarm time has already passed.
+     */
+    private boolean isDatePast(int day) {
+        Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        date.set(mYear, mMonth, day, 0, 0, 0);
+        date.set(Calendar.MILLISECOND, 0);
 
-        // Click to toggle
-        holder.dayText.setOnClickListener(v -> {
-            if (mListener != null) {
-                mListener.onDateToggled(mYear, mMonth, day);
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        if (date.before(today)) return true;
+
+        // Check if today and alarm time has passed
+        boolean isToday = (mYear == mTodayYear && mMonth == mTodayMonth && day == mTodayDay);
+        if (isToday && mAlarmHour >= 0 && mAlarmMinute >= 0) {
+            Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            Calendar alarmTime = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            alarmTime.set(Calendar.HOUR_OF_DAY, mAlarmHour);
+            alarmTime.set(Calendar.MINUTE, mAlarmMinute);
+            alarmTime.set(Calendar.SECOND, 0);
+            alarmTime.set(Calendar.MILLISECOND, 0);
+            if (now.getTimeInMillis() >= alarmTime.getTimeInMillis()) {
+                return true;
             }
-        });
+        }
+
+        return false;
     }
 
     /**
@@ -231,13 +290,6 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
             // Doesn't match any weekday: active only if explicitly selected
             return isSelected;
         }
-    }
-
-    /**
-     * Returns the number of rows needed for the current month display.
-     */
-    public int getRowCount() {
-        return (int) Math.ceil((double) (mOffsetCells + mDaysInMonth) / COLUMN_COUNT);
     }
 
     static class DayViewHolder extends RecyclerView.ViewHolder {

@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingHorizontal="8dp"
+    android:paddingHorizontal="10dp"
     android:paddingTop="4dp"
     android:paddingBottom="8dp"
     android:visibility="gone">
@@ -21,15 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="0dp">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/month_year_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="start|center_vertical"
             android:orientation="horizontal"
             android:background="?attr/selectableItemBackground"
             android:paddingVertical="4dp"
@@ -59,6 +58,7 @@
             android:id="@+id/prev_year"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:padding="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/prev_year"
             android:src="@drawable/ic_chevron_double_left"
@@ -68,6 +68,7 @@
             android:id="@+id/prev_month"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:padding="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/prev_month"
             android:src="@drawable/ic_arrow_left"
@@ -77,6 +78,7 @@
             android:id="@+id/next_month"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:padding="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/next_month"
             android:src="@drawable/ic_arrow_right"
@@ -86,6 +88,7 @@
             android:id="@+id/next_year"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:padding="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/next_year"
             android:src="@drawable/ic_chevron_double_right"
@@ -93,57 +96,68 @@
 
     </LinearLayout>
 
-    <!-- Calendar day grid -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/calendar_grid"
+    <!-- Calendar grid + summary overlay at same level -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:nestedScrollingEnabled="false" />
+        android:layout_height="wrap_content">
 
-    <!-- Summary + refresh + clear -->
-    <LinearLayout
-        android:id="@+id/calendar_summary_row"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingTop="4dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground">
+        <!-- Calendar day grid: fixed height for 6 rows (max a month can need) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendar_grid"
+            android:layout_width="match_parent"
+            android:layout_height="264dp"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false" />
 
-        <TextView
-            android:id="@+id/calendar_summary"
+        <!-- Summary + refresh + clear, overlaid bottom right in the empty cells -->
+        <LinearLayout
+            android:id="@+id/calendar_summary_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="?attr/colorOnSurfaceVariant" />
-
-        <ImageView
-            android:id="@+id/cleanup_overrides"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="4dp"
-            android:src="@drawable/ic_refresh"
-            android:contentDescription="@string/cleanup_overrides"
-            app:tint="?attr/colorOnSurfaceVariant"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/clear_all_overrides"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/clear_all"
-            android:textSize="12sp"
-            android:textColor="?attr/colorError"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:paddingHorizontal="4dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="gone" />
+            android:background="?attr/selectableItemBackground">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/calendar_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <ImageView
+                android:id="@+id/cleanup_overrides"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_refresh"
+                android:contentDescription="@string/cleanup_overrides"
+                app:tint="?attr/colorOnSurfaceVariant"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/clear_all_overrides"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:padding="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_calendar_cancel"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/clear_all_description"
+                app:tint="?attr/colorTertiary"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

@@ -112,17 +112,26 @@
     <!-- Info message for the combined days feature -->
     <string name="combined_days_info_message">When days of the week are selected, you can exclude specific dates (e.g., holidays). When no days are selected, you can choose specific dates for the alarm to ring.</string>
     <!-- Inline calendar navigation -->
+    <!-- Content description for previous month navigation button -->
     <string name="prev_month">Previous month</string>
+    <!-- Content description for next month navigation button -->
     <string name="next_month">Next month</string>
+    <!-- Content description for previous year navigation button -->
     <string name="prev_year">Previous year</string>
+    <!-- Content description for next year navigation button -->
     <string name="next_year">Next year</string>
+    <!-- Content description for cleanup redundant overrides button -->
     <string name="cleanup_overrides">Clean up overrides</string>
+    <!-- Title for year picker dialog -->
     <string name="select_year">Select year</string>
-    <string name="clear_all">× Clear</string>
+    <!-- Content description for the clear all overrides button -->
+    <string name="clear_all_description">Clear all overrides</string>
     <!-- Inline calendar summary -->
-    <string name="no_dates_overridden">No dates overridden</string>
+    <!-- Summary text showing count of excluded and added dates -->
     <string name="dates_overridden_count">%1$d date(s) excluded, %2$d added</string>
+    <!-- Summary text showing count of excluded dates only -->
     <string name="dates_excluded_only_count">%d date(s) excluded</string>
+    <!-- Summary text showing count of added dates only -->
     <string name="dates_added_only_count">%d date(s) added</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
