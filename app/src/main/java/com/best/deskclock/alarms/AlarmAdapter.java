@@ -191,7 +191,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     }
 
     private static boolean hasRemainingDates(@NonNull AlarmItemHolder holder) {
-        return holder.item.combinedDays != null && holder.item.combinedDays.hasSelectedDates();
+        return holder.item.combinedDays.hasSelectedDates();
     }
 
     public void swapItems(int fromPosition, int toPosition) {

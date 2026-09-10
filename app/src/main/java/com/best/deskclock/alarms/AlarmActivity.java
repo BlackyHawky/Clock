@@ -1515,7 +1515,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private boolean isOccasionalAlarmDeletedAfterUse() {
         // A dates-only alarm with added dates is kept until its last date is dismissed.
-        return mAlarm.isDeleteAfterUse();
+        return mAlarm.isDeletedAfterDismissal();
     }
 
     /**

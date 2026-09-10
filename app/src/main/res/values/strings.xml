@@ -175,7 +175,7 @@
     <!-- Setting labels on Set alarm screen: Flash on or off -->
     <string name="alarm_flash">Flash</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
-    <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
+    <string name="delete_occasional_alarm_after_use_title">Delete alarm once last date dismissed</string>
     <!-- Message displayed in the alarm editing when the "Delete alarm once dismissed" feature is disabled -->
     <string name="delete_occasional_alarm_after_use_info_message">Deselect the days of the week to access this feature.</string>
     <!-- Message displayed in the alarm editing when the "Silence after" feature is disabled -->

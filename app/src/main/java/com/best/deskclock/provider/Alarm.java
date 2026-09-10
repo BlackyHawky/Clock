@@ -686,11 +686,13 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return deletedRows == 1;
     }
 
-    public boolean isDeleteAfterUse() {
-        // A dates-only alarm with multiple selected dates must not be deleted; only its
-        // fired date is de-scheduled while the alarm stays enabled for the remaining dates.
-        return !daysOfWeek.isRepeating() && deleteAfterUse
-            && (combinedDays == null || !combinedDays.hasSelectedDates());
+    /**
+     * @return {@code true} if dismissing the current occurrence should delete the whole alarm.
+     * This is only the case for a legacy one-time alarm (no combined days) with the
+     * "delete after use" option enabled; a dates-only alarm is kept until its last date.
+     */
+    public boolean isDeletedAfterDismissal() {
+        return !daysOfWeek.isRepeating() && deleteAfterUse && !combinedDays.hasSelectedDates();
     }
 
     public String getLabelOrDefault(@NonNull Context context) {

@@ -131,7 +131,7 @@ public final class AlarmTimeClickHandler {
         final Alarm alarm = itemHolder.item;
 
         // For occasional alarms, handle in the same way as the Delete button.
-        if (alarm.isDeleteAfterUse()) {
+        if (alarm.isDeletedAfterDismissal()) {
             mAlarmFragment.removeItem(itemHolder);
 
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);

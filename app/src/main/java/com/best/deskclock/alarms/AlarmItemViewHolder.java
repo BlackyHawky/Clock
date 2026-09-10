@@ -271,7 +271,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
-        final String dismissText = alarm.isDeleteAfterUse()
+        final String dismissText = alarm.isDeletedAfterDismissal()
             ? mContext.getString(R.string.alarm_alert_dismiss_and_delete_text_button)
             : mContext.getString(R.string.alarm_alert_dismiss_text);
 
