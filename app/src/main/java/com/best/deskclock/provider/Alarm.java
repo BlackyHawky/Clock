@@ -232,7 +232,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public boolean lock;
     public String timeZone;
     public long[] categoryIds;
-    public CombinedDays combinedDays;
+    @NonNull
+    public CombinedDays combinedDays = new CombinedDays();
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -347,8 +348,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.lock = original.lock;
         this.timeZone = original.timeZone;
         this.categoryIds = original.categoryIds;
-        this.combinedDays = original.combinedDays != null
-            ? CombinedDays.fromJson(original.combinedDays.toJson()) : new CombinedDays();
+        this.combinedDays = CombinedDays.fromJson(original.combinedDays.toJson());
     }
 
     public Alarm(@NonNull Cursor c) {
@@ -463,7 +463,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(LOCK, lock ? 1 : 0);
         values.put(TIMEZONE, timeZone);
         values.put(CATEGORY_IDS, formatCategoryIds(categoryIds));
-        values.put(COMBINED_DAYS, combinedDays != null ? combinedDays.toJson() : CombinedDays.EMPTY_JSON);
+        values.put(COMBINED_DAYS, combinedDays.toJson());
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -505,7 +505,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(lock ? 1 : 0);
         p.writeString(timeZone);
         p.writeLongArray(categoryIds);
-        p.writeString(combinedDays != null ? combinedDays.toJson() : CombinedDays.EMPTY_JSON);
+        p.writeString(combinedDays.toJson());
     }
 
     public int describeContents() {
@@ -983,7 +983,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             nextInstanceTime.set(Calendar.MINUTE, minutes);
 
             // Skip deselected or dismissed dates when using combined days
-            if (combinedDays != null && (combinedDays.hasDeselectedDates() || combinedDays.hasDismissedDates())) {
+            if (combinedDays.hasDeselectedDates() || combinedDays.hasDismissedDates()) {
                 int maxIterations = 366; // Prevent infinite loops
                 while (maxIterations-- > 0) {
                     int y = nextInstanceTime.get(Calendar.YEAR);
@@ -1004,7 +1004,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             }
 
             // Check if any selected date is earlier than the weekday-based next time
-            if (combinedDays != null && combinedDays.hasSelectedDates()) {
+            if (combinedDays.hasSelectedDates()) {
                 Calendar nextSelected = combinedDays.getNextSelectedDate(currentTime);
                 while (nextSelected != null) {
                     Calendar selectedTime = Calendar.getInstance(currentTime.getTimeZone());
@@ -1049,7 +1049,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 // and will automatically add one day and then search for the next valid day of the week.
                 return getNextAlarmTime(localEndOfPause);
             }
-        } else if (combinedDays != null && combinedDays.hasSelectedDates()) {
+        } else if (combinedDays.hasSelectedDates()) {
             // Use selected dates as one-time alarm triggers
             Calendar nextSelectedDate = combinedDays.getNextSelectedDate(currentTime);
             if (nextSelectedDate != null) {
