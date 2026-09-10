@@ -281,6 +281,14 @@ public final class AlarmTimeClickHandler {
 
         mSelectedAlarm.enabled = true;
 
+        // Keep the combined-days state consistent with the new alarm time. Drop dates whose
+        // occurrence has already passed today and reset transient dismissal skips, matching the
+        // behavior of the editor's save and of re-enabling an alarm.
+        if (!mSelectedAlarm.combinedDays.isEmpty()) {
+            mSelectedAlarm.combinedDays = mSelectedAlarm.combinedDays.removePastDates(hour, minute)
+                .clearDismissed();
+        }
+
         AlarmVisualCache.invalidate(mSelectedAlarm.id);
 
         mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
