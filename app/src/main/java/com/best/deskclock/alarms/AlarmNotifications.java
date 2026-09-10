@@ -274,7 +274,9 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
             context, instance, AlarmStateManager.ALARM_DISMISS_TAG, AlarmInstance.PREDISMISSED_STATE, globalIntentId);
-        builder.addAction(R.drawable.ic_alarm_off, dismissActionTitle, PendingIntent.getService(
+        dismissIntent.setClass(context, AlarmStateManager.class);
+
+        builder.addAction(R.drawable.ic_alarm_off, dismissActionTitle, PendingIntent.getBroadcast(
             context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
@@ -318,7 +320,9 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
             context, instance, AlarmStateManager.ALARM_DISMISS_TAG, AlarmInstance.DISMISSED_STATE, globalIntentId);
-        PendingIntent dismissPendingIntent = PendingIntent.getService(
+        dismissIntent.setClass(context, AlarmStateManager.class);
+
+        PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(
             context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID)

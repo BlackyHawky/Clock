@@ -204,7 +204,28 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindRepeatText(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
-        if (alarmInstance != null
+        // Check if the alarm was recently dismissed to bypass the database synchronization delay.
+        final boolean isRecentlyDismissed = AlarmVisualCache.isDismissed(alarm.id);
+        final AlarmInstance recentlySnoozedInstance = AlarmVisualCache.getSnoozedAlarm(alarm.id);
+
+        // Optimistic Snooze (Bypass database delay)
+        if (recentlySnoozedInstance != null && !isRecentlyDismissed) {
+            mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().bold());
+            mBinding.daysOfWeek.setText(mContext.getString(R.string.alarm_alert_snooze_until,
+                AlarmUtils.getAlarmText(mContext, recentlySnoozedInstance, false)));
+
+        // Optimistic Dismiss
+        } else if (isRecentlyDismissed) {
+            if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
+                setRepeatingDaysDescription(alarm, alarmInstance);
+            } else if (alarm.isSpecifiedDate()) {
+                setSpecifiedDateDescription(alarm);
+            } else {
+                setDaysOfWeekText(mContext.getString(R.string.alarm_tomorrow));
+            }
+
+        // Standard fallbacks
+        } else if (alarmInstance != null
             && mAdapter.getStateProvider().canPreemptivelyDismiss(alarm)
             && alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
             mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().bold());

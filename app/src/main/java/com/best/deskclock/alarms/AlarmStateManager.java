@@ -152,15 +152,16 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * like {@code AppWidgetManager}.</p>
      */
     public static void updateNextAlarm(@NonNull Context context) {
+        final Context safeContext = context.getApplicationContext();
+
         if (Looper.myLooper() == Looper.getMainLooper()) {
             // If called from the Main Thread (e.g., UI interaction), execute in the background
             // to prevent freezing the UI.
-            final Context safeContext = context.getApplicationContext();
             AppExecutors.getDiskIO().execute(() -> performUpdateNextAlarm(safeContext));
         } else {
             // If called from a background thread (e.g., PackageReplacedReceiver or AlarmStateManager),
             // execute synchronously to ensure any active WakeLock is maintained until completion.
-            performUpdateNextAlarm(context);
+            performUpdateNextAlarm(safeContext);
         }
     }
 
@@ -1007,9 +1008,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
                     AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
-                } else if (alarmState == AlarmInstance.NOTIFICATION_STATE
-                    || alarmState == AlarmInstance.SNOOZE_STATE
-                    || alarmState == AlarmInstance.FIRED_STATE) {
+                } else if (alarmState == AlarmInstance.SNOOZE_STATE) {
+                    AlarmVisualCache.cacheSnoozedAlarm(instance.mAlarmId, instance);
+                } else if (alarmState == AlarmInstance.NOTIFICATION_STATE || alarmState == AlarmInstance.FIRED_STATE) {
                     AlarmVisualCache.invalidate(instance.mAlarmId);
                 }
             } else {
