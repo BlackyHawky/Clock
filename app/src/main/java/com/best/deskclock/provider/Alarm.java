@@ -819,6 +819,29 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH);
     }
 
+    /**
+     * @return {@code true} if the given calendar date is today in the local timezone
+     * (compared by year, month and day only).
+     */
+    public static boolean isDateToday(@NonNull Calendar date) {
+        Calendar today = Calendar.getInstance();
+        return date.get(Calendar.YEAR) == today.get(Calendar.YEAR)
+            && date.get(Calendar.MONTH) == today.get(Calendar.MONTH)
+            && date.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * @return {@code true} if the given calendar date is tomorrow in the local timezone
+     * (compared by year, month and day only).
+     */
+    public static boolean isDateTomorrow(@NonNull Calendar date) {
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+        return date.get(Calendar.YEAR) == tomorrow.get(Calendar.YEAR)
+            && date.get(Calendar.MONTH) == tomorrow.get(Calendar.MONTH)
+            && date.get(Calendar.DAY_OF_MONTH) == tomorrow.get(Calendar.DAY_OF_MONTH);
+    }
+
     public boolean isTimeBeforeOrEqual(@NonNull Calendar referenceTime) {
         int currentHour = referenceTime.get(Calendar.HOUR_OF_DAY);
         int currentMinute = referenceTime.get(Calendar.MINUTE);

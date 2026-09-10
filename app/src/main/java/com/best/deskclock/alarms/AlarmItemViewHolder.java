@@ -13,6 +13,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 
@@ -22,6 +26,7 @@ import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.databinding.AlarmItemBinding;
 import com.best.deskclock.provider.Alarm;
@@ -32,6 +37,7 @@ import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -212,6 +218,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
                 AlarmUtils.getAlarmText(mContext, alarmInstance, false)));
         } else if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
             setRepeatingDaysDescription(alarm, alarmInstance);
+        } else if (alarm.combinedDays != null && alarm.combinedDays.hasSelectedDates()) {
+            setCombinedDaysDateDescription(alarm);
         } else if (alarm.isSpecifiedDate()) {
             setSpecifiedDateDescription(alarm);
         } else {
@@ -220,7 +228,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindUpcomingDate(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
-        if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()) {
+        if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()
+            || (alarm.combinedDays != null && !alarm.combinedDays.isEmpty())) {
             mBinding.upcomingDate.setVisibility(GONE);
             mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
             return;
@@ -315,7 +324,9 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         } else if (alarm.enabled) {
             int nextAlarmDay = alarm.getNextAlarmDayOfWeek(alarmInstance);
 
-            if (alarm.daysOfWeek.isAllDaysSelected()) {
+            if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+                styledDaysText = alarm.daysOfWeek.toString(mContext, weekdayOrder);
+            } else if (alarm.daysOfWeek.isAllDaysSelected()) {
                 if (mAdapter.getStateProvider().isRepeatDayStyleEnabled(alarm.id)) {
                     styledDaysText = alarm.daysOfWeek.toStyledString(mContext, weekdayOrder, false, nextAlarmDay);
                 } else {
@@ -324,28 +335,141 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             } else {
                 styledDaysText = alarm.daysOfWeek.toStyledString(mContext, weekdayOrder, false, nextAlarmDay);
             }
-
-            // Append combined days info if there are deselected dates
-            if (alarm.combinedDays != null && alarm.combinedDays.hasDeselectedDates()) {
-                int count = alarm.combinedDays.getDeselectedDateCount();
-                String excludeInfo = mContext.getString(R.string.dates_excluded_count, count);
-                styledDaysText = styledDaysText + " (" + excludeInfo + ")";
-                contentDesc = contentDesc + " (" + excludeInfo + ")";
-            }
         } else {
             styledDaysText = alarm.daysOfWeek.toString(mContext, weekdayOrder);
+        }
 
-            // Append combined days info if there are deselected dates
-            if (alarm.combinedDays != null && alarm.combinedDays.hasDeselectedDates()) {
-                int count = alarm.combinedDays.getDeselectedDateCount();
-                String excludeInfo = mContext.getString(R.string.dates_excluded_count, count);
-                styledDaysText = styledDaysText + " (" + excludeInfo + ")";
-                contentDesc = contentDesc + " (" + excludeInfo + ")";
-            }
+        // Append combined days info (next date + selected/deselected counts)
+        if (alarm.combinedDays != null && !alarm.combinedDays.isEmpty()) {
+            styledDaysText = buildCombinedDaysDisplay(alarm, styledDaysText);
+            contentDesc = styledDaysText.toString();
         }
 
         setDaysOfWeekText(styledDaysText);
         mBinding.daysOfWeek.setContentDescription(contentDesc);
+    }
+
+    @NonNull
+    private CharSequence buildCombinedDaysDisplay(@NonNull Alarm alarm, @NonNull CharSequence base) {
+        final String suffix = getCombinedDaysCountSuffix(alarm);
+        if (suffix.isEmpty()) {
+            return base;
+        }
+
+        final SpannableStringBuilder ssb = new SpannableStringBuilder(base);
+        if (ssb.length() > 0) {
+            ssb.append(", ");
+        }
+        ssb.append(getCombinedDaysNextDateText(alarm));
+        ssb.append(" ").append(suffix);
+        return ssb;
+    }
+
+    @NonNull
+    private String getCombinedDaysCountSuffix(@NonNull Alarm alarm) {
+        final int selected = getRemainingSelectedDateCount(alarm);
+        final int excluded = getRemainingExcludedDateCount(alarm);
+        if (selected == 0 && excluded == 0) {
+            return "";
+        }
+
+        final StringBuilder sb = new StringBuilder("(");
+        if (selected > 0) {
+            sb.append("+").append(selected);
+        }
+        if (selected > 0 && excluded > 0) {
+            sb.append(", ");
+        }
+        if (excluded > 0) {
+            sb.append("-").append(excluded);
+        }
+        return sb.append(")").toString();
+    }
+
+    /**
+     * Counts the added dates that have not passed yet. Dismissed (transiently skipped) dates
+     * are still counted so that dismissing an occurrence does not visually remove an added date
+     * from the main view; only dates that are actually in the past are excluded.
+     */
+    private static int getRemainingSelectedDateCount(@NonNull Alarm alarm) {
+        if (alarm.combinedDays == null) {
+            return 0;
+        }
+        final Calendar now = Calendar.getInstance();
+        int count = 0;
+        for (String key : alarm.combinedDays.getSelectedDates()) {
+            try {
+                final int[] parts = CombinedDays.parseDateKey(key);
+                final Calendar date = Calendar.getInstance();
+                date.set(parts[0], parts[1], parts[2], alarm.hour, alarm.minutes, 0);
+                date.set(Calendar.MILLISECOND, 0);
+                if (!date.before(now)) {
+                    count++;
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Counts the excluded dates that have not passed yet. Past excluded dates are no longer
+     * relevant, so they do not count toward the "-N" part of the display string.
+     */
+    private static int getRemainingExcludedDateCount(@NonNull Alarm alarm) {
+        if (alarm.combinedDays == null) {
+            return 0;
+        }
+        final Calendar now = Calendar.getInstance();
+        int count = 0;
+        for (String key : alarm.combinedDays.getDeselectedDates()) {
+            try {
+                final int[] parts = CombinedDays.parseDateKey(key);
+                final Calendar date = Calendar.getInstance();
+                date.set(parts[0], parts[1], parts[2], alarm.hour, alarm.minutes, 0);
+                date.set(Calendar.MILLISECOND, 0);
+                if (!date.before(now)) {
+                    count++;
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
+            }
+        }
+        return count;
+    }
+
+    @NonNull
+    private CharSequence getCombinedDaysNextDateText(@NonNull Alarm alarm) {
+        final Calendar nextTime = alarm.getNextAlarmTime(Calendar.getInstance());
+        final int accentColor = MaterialColors.getColor(mBinding.daysOfWeek,
+            com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+
+        final String dayText;
+        if (Alarm.isDateToday(nextTime)) {
+            dayText = mContext.getString(R.string.alarm_today);
+        } else if (Alarm.isDateTomorrow(nextTime)) {
+            dayText = mContext.getString(R.string.alarm_tomorrow);
+        } else {
+            final String datePattern = DateFormat.getBestDateTimePattern(mAdapter.getDateFormat().locale(), "MMM d");
+            final String dateStr = FormattedTextUtils.capitalizeFirstLetter(
+                DateFormat.format(datePattern, nextTime).toString(), mAdapter.getDateFormat().locale());
+            final String weekdayPattern = DateFormat.getBestDateTimePattern(mAdapter.getDateFormat().locale(), "EEE");
+            final String weekdayStr = FormattedTextUtils.capitalizeFirstLetter(
+                DateFormat.format(weekdayPattern, nextTime).toString(), mAdapter.getDateFormat().locale());
+            dayText = dateStr + ", " + weekdayStr;
+        }
+
+        final SpannableStringBuilder ssb = new SpannableStringBuilder(dayText);
+        ssb.setSpan(new ForegroundColorSpan(accentColor), 0, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssb.setSpan(new StyleSpan(Typeface.BOLD), 0, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return ssb;
+    }
+
+    private void setCombinedDaysDateDescription(@NonNull Alarm alarm) {
+        final CharSequence text = buildCombinedDaysDisplay(alarm, "");
+        setDaysOfWeekText(text);
+        mBinding.daysOfWeek.setContentDescription(text.toString());
     }
 
     private boolean isPauseEffectivelyActive(@NonNull Alarm alarm, @Nullable AlarmInstance nextInstance) {
