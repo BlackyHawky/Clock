@@ -100,6 +100,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -553,7 +554,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             updateDaysOfWeekButtonVisuals(dayButtons[i], isChecked);
         }
 
-        mBinding.repeatDaysGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+        if (mDaysOfWeekListener != null) {
+            mBinding.repeatDaysGroup.removeOnButtonCheckedListener(mDaysOfWeekListener);
+        }
+        mDaysOfWeekListener = (group, checkedId, isChecked) -> {
             for (int i = 0; i < dayButtons.length; i++) {
                 if (dayButtons[i].getId() == checkedId) {
                     Utils.performHapticFeedback(dayButtons[i], mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -594,11 +598,16 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     break;
                 }
             }
-        });
+        };
+        mBinding.repeatDaysGroup.addOnButtonCheckedListener(mDaysOfWeekListener);
     }
 
     private boolean mCalendarExpanded = false;
     private InlineCalendarAdapter mInlineCalendarAdapter;
+
+    // Listener of the weekday row; avoids stacking a second listener every time
+    // bindDaysOfWeekButtons() is invoked (date picker result, time change, restore, ...).
+    private MaterialButtonToggleGroup.OnButtonCheckedListener mDaysOfWeekListener;
 
     private void bindSelectedDate() {
         CombinedDays combinedDays = mAlarm.combinedDays;
