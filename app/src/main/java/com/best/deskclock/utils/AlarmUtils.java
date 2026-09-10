@@ -87,18 +87,21 @@ public class AlarmUtils {
                                         @Nullable Typeface font, @NonNull Alarm alarm, @NonNull AlarmInstance instance) {
 
         final Context localizedContext = Utils.getLocalizedContext(context, customLanguageCode);
-
         final java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(localizedContext);
         timeFormat.setTimeZone(instance.getTimeZone());
 
         final String time = timeFormat.format(instance.getAlarmTime().getTime());
-        final Calendar nextTime = alarm.getNextAlarmTime(instance.getAlarmTime());
-        final String date = getDateFormat(localizedContext, nextTime);
 
         final String text;
         if (alarm.isDeleteAfterUse()) {
             text = localizedContext.getString(R.string.alarm_is_dismissed_and_deleted, time);
         } else if (alarm.daysOfWeek.isRepeating()) {
+            final Calendar nextTime = alarm.getNextAlarmTime(instance.getAlarmTime());
+            final String date = getDateFormat(localizedContext, nextTime);
+            text = localizedContext.getString(R.string.repetitive_alarm_is_dismissed, date);
+        } else if (alarm.combinedDays != null && alarm.combinedDays.hasSelectedDates()) {
+            final Calendar nextTime = alarm.getNextAlarmTime(Calendar.getInstance());
+            final String date = getDateFormat(localizedContext, nextTime);
             text = localizedContext.getString(R.string.repetitive_alarm_is_dismissed, date);
         } else {
             text = localizedContext.getString(R.string.alarm_is_dismissed, time);

@@ -38,21 +38,30 @@ public final class CombinedDays implements Parcelable {
     public static final String EMPTY_JSON = "";
     private static final String KEY_SELECTED_DATES = "selectedDates";
     private static final String KEY_DESELECTED_DATES = "deselectedDates";
+    private static final String KEY_DISMISSED_DATES = "dismissedDates";
     private static final String DATE_FORMAT = "%04d-%02d-%02d";
 
     private static final CombinedDays EMPTY = new CombinedDays();
 
     private final List<String> mSelectedDates;
     private final List<String> mDeselectedDates;
+    private final List<String> mDismissedDates;
 
     public CombinedDays() {
         mSelectedDates = new ArrayList<>();
         mDeselectedDates = new ArrayList<>();
+        mDismissedDates = new ArrayList<>();
     }
 
     private CombinedDays(@NonNull List<String> selectedDates, @NonNull List<String> deselectedDates) {
+        this(selectedDates, deselectedDates, new ArrayList<>());
+    }
+
+    private CombinedDays(@NonNull List<String> selectedDates, @NonNull List<String> deselectedDates,
+                         @NonNull List<String> dismissedDates) {
         mSelectedDates = new ArrayList<>(selectedDates);
         mDeselectedDates = new ArrayList<>(deselectedDates);
+        mDismissedDates = new ArrayList<>(dismissedDates);
     }
 
     /**
@@ -71,7 +80,8 @@ public final class CombinedDays implements Parcelable {
             JSONObject obj = new JSONObject(json);
             List<String> selected = jsonArrayToList(obj.optJSONArray(KEY_SELECTED_DATES));
             List<String> deselected = jsonArrayToList(obj.optJSONArray(KEY_DESELECTED_DATES));
-            return new CombinedDays(selected, deselected);
+            List<String> dismissed = jsonArrayToList(obj.optJSONArray(KEY_DISMISSED_DATES));
+            return new CombinedDays(selected, deselected, dismissed);
         } catch (JSONException e) {
             return EMPTY;
         }
@@ -84,7 +94,7 @@ public final class CombinedDays implements Parcelable {
      */
     @NonNull
     public String toJson() {
-        if (mSelectedDates.isEmpty() && mDeselectedDates.isEmpty()) {
+        if (mSelectedDates.isEmpty() && mDeselectedDates.isEmpty() && mDismissedDates.isEmpty()) {
             return EMPTY_JSON;
         }
 
@@ -92,6 +102,7 @@ public final class CombinedDays implements Parcelable {
             JSONObject obj = new JSONObject();
             obj.put(KEY_SELECTED_DATES, listToJsonArray(mSelectedDates));
             obj.put(KEY_DESELECTED_DATES, listToJsonArray(mDeselectedDates));
+            obj.put(KEY_DISMISSED_DATES, listToJsonArray(mDismissedDates));
             return obj.toString();
         } catch (JSONException e) {
             return EMPTY_JSON;
@@ -240,6 +251,81 @@ public final class CombinedDays implements Parcelable {
     }
 
     /**
+     * Adds a date to the dismissed dates list (a transient skip used when an upcoming
+     * occurrence of an active weekday is preemptively dismissed). These are not part of the
+     * user's calendar selection and are cleared when the alarm is re-enabled.
+     *
+     * @param year  the year
+     * @param month the month (0-based)
+     * @param day   the day of month
+     * @return a new CombinedDays with the date added to dismissed
+     */
+    @NonNull
+    public CombinedDays addDismissedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        if (mDismissedDates.contains(key)) {
+            return this;
+        }
+        List<String> newDismissed = new ArrayList<>(mDismissedDates);
+        newDismissed.add(key);
+        return new CombinedDays(mSelectedDates, mDeselectedDates, newDismissed);
+    }
+
+    /**
+     * Removes a date from the dismissed dates list.
+     *
+     * @param year  the year
+     * @param month the month (0-based)
+     * @param day   the day of month
+     * @return a new CombinedDays with the date removed from dismissed
+     */
+    @NonNull
+    public CombinedDays removeDismissedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        List<String> newDismissed = new ArrayList<>(mDismissedDates);
+        newDismissed.remove(key);
+        return new CombinedDays(mSelectedDates, mDeselectedDates, newDismissed);
+    }
+
+    /**
+     * Removes all dismissed dates. Used when the alarm is re-enabled so that all weekday
+     * occurrences are scheduled again.
+     *
+     * @return a new CombinedDays with an empty dismissed list
+     */
+    @NonNull
+    public CombinedDays clearDismissed() {
+        return new CombinedDays(mSelectedDates, mDeselectedDates);
+    }
+
+    /**
+     * @return true if there are any dismissed dates
+     */
+    public boolean hasDismissedDates() {
+        return !mDismissedDates.isEmpty();
+    }
+
+    /**
+     * Checks if a specific date is in the dismissed dates list.
+     *
+     * @param year  the year
+     * @param month the month (0-based)
+     * @param day   the day of month
+     * @return true if the date is dismissed
+     */
+    public boolean isDateDismissed(int year, int month, int day) {
+        return mDismissedDates.contains(dateKey(year, month, day));
+    }
+
+    /**
+     * @return an unmodifiable list of dismissed date keys
+     */
+    @NonNull
+    public List<String> getDismissedDates() {
+        return List.copyOf(mDismissedDates);
+    }
+
+    /**
      * Clears all selected and deselected dates.
      *
      * @return an empty CombinedDays
@@ -283,29 +369,54 @@ public final class CombinedDays implements Parcelable {
      */
     @NonNull
     public CombinedDays cleanup(@NonNull Weekdays weekdays) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+
         List<String> cleanedDeselected = new ArrayList<>();
         for (String dateKey : mDeselectedDates) {
-            int[] parsed = parseDateKey(dateKey);
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            cal.set(parsed[0], parsed[1], parsed[2]);
-            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
-            if (weekdays.isBitOn(calendarDay)) {
-                cleanedDeselected.add(dateKey);
+            try {
+                int[] parsed = parseDateKey(dateKey);
+                cal.clear();
+                cal.set(parsed[0], parsed[1], parsed[2]);
+                int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+                if (weekdays.isBitOn(calendarDay)) {
+                    cleanedDeselected.add(dateKey);
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
             }
         }
 
         List<String> cleanedSelected = new ArrayList<>();
         for (String dateKey : mSelectedDates) {
-            int[] parsed = parseDateKey(dateKey);
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            cal.set(parsed[0], parsed[1], parsed[2]);
-            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
-            if (!weekdays.isBitOn(calendarDay)) {
-                cleanedSelected.add(dateKey);
+            try {
+                int[] parsed = parseDateKey(dateKey);
+                cal.clear();
+                cal.set(parsed[0], parsed[1], parsed[2]);
+                int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+                if (!weekdays.isBitOn(calendarDay)) {
+                    cleanedSelected.add(dateKey);
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
             }
         }
 
-        return new CombinedDays(cleanedSelected, cleanedDeselected);
+        List<String> cleanedDismissed = new ArrayList<>();
+        for (String dateKey : mDismissedDates) {
+            try {
+                int[] parsed = parseDateKey(dateKey);
+                cal.clear();
+                cal.set(parsed[0], parsed[1], parsed[2]);
+                int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+                if (weekdays.isBitOn(calendarDay)) {
+                    cleanedDismissed.add(dateKey);
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
+            }
+        }
+
+        return new CombinedDays(cleanedSelected, cleanedDeselected, cleanedDismissed);
     }
 
     /**
@@ -315,22 +426,32 @@ public final class CombinedDays implements Parcelable {
      * @return true if any overrides are redundant
      */
     public boolean hasRedundantOverrides(@NonNull Weekdays weekdays) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+
         for (String dateKey : mDeselectedDates) {
-            int[] parsed = parseDateKey(dateKey);
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            cal.set(parsed[0], parsed[1], parsed[2]);
-            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
-            if (!weekdays.isBitOn(calendarDay)) {
-                return true;
+            try {
+                int[] parsed = parseDateKey(dateKey);
+                cal.clear();
+                cal.set(parsed[0], parsed[1], parsed[2]);
+                int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+                if (!weekdays.isBitOn(calendarDay)) {
+                    return true;
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
             }
         }
         for (String dateKey : mSelectedDates) {
-            int[] parsed = parseDateKey(dateKey);
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            cal.set(parsed[0], parsed[1], parsed[2]);
-            int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
-            if (weekdays.isBitOn(calendarDay)) {
-                return true;
+            try {
+                int[] parsed = parseDateKey(dateKey);
+                cal.clear();
+                cal.set(parsed[0], parsed[1], parsed[2]);
+                int calendarDay = cal.get(Calendar.DAY_OF_WEEK);
+                if (weekdays.isBitOn(calendarDay)) {
+                    return true;
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
             }
         }
         return false;
@@ -394,11 +515,12 @@ public final class CombinedDays implements Parcelable {
      * @return true if this CombinedDays has no data at all
      */
     public boolean isEmpty() {
-        return mSelectedDates.isEmpty() && mDeselectedDates.isEmpty();
+        return mSelectedDates.isEmpty() && mDeselectedDates.isEmpty() && mDismissedDates.isEmpty();
     }
 
     /**
      * Returns the next selected date that is on or after the given calendar date.
+     * Dismissed dates are skipped so that a dismissed occurrence does not get scheduled again.
      *
      * @param from the starting date
      * @return the next selected date as a Calendar (with only year/month/day set), or null if none found within 365 days
@@ -410,7 +532,7 @@ public final class CombinedDays implements Parcelable {
             int year = search.get(Calendar.YEAR);
             int month = search.get(Calendar.MONTH);
             int day = search.get(Calendar.DAY_OF_MONTH);
-            if (isDateSelected(year, month, day)) {
+            if (isDateSelected(year, month, day) && !isDateDismissed(year, month, day)) {
                 Calendar result = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 result.clear();
                 result.set(year, month, day);
@@ -435,6 +557,118 @@ public final class CombinedDays implements Parcelable {
         return mDeselectedDates.size();
     }
 
+    /**
+     * Removes a specific date from both selected and deselected lists.
+     *
+     * @param year  the year
+     * @param month the month (0-based)
+     * @param day   the day of month
+     * @return a new CombinedDays with the date removed
+     */
+    @NonNull
+    public CombinedDays removeDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        List<String> newSelected = new ArrayList<>(mSelectedDates);
+        newSelected.remove(key);
+        List<String> newDeselected = new ArrayList<>(mDeselectedDates);
+        newDeselected.remove(key);
+        List<String> newDismissed = new ArrayList<>(mDismissedDates);
+        newDismissed.remove(key);
+        return new CombinedDays(newSelected, newDeselected, newDismissed);
+    }
+
+    /**
+     * Removes all dates (both selected and deselected) that are in the past relative to today.
+     *
+     * @return a new CombinedDays with past dates removed
+     */
+    @NonNull
+    public CombinedDays removePastDates() {
+        return removePastDates(-1, -1);
+    }
+
+    /**
+     * Removes all dates (both selected and deselected) that are in the past relative to today.
+     * If hour and minute are provided (>= 0), today is also removed if its alarm time has passed.
+     *
+     * @param alarmHour   the alarm hour (0-23), or -1 to ignore time check
+     * @param alarmMinute the alarm minute (0-59), or -1 to ignore time check
+     * @return a new CombinedDays with past dates removed
+     */
+    @NonNull
+    public CombinedDays removePastDates(int alarmHour, int alarmMinute) {
+        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+
+        Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        boolean todayIsPast = false;
+        if (alarmHour >= 0 && alarmMinute >= 0) {
+            Calendar alarmToday = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            alarmToday.set(Calendar.HOUR_OF_DAY, alarmHour);
+            alarmToday.set(Calendar.MINUTE, alarmMinute);
+            alarmToday.set(Calendar.SECOND, 0);
+            alarmToday.set(Calendar.MILLISECOND, 0);
+            todayIsPast = now.getTimeInMillis() >= alarmToday.getTimeInMillis();
+        }
+
+        List<String> newSelected = new ArrayList<>();
+        for (String key : mSelectedDates) {
+            try {
+                int[] parsed = parseDateKey(key);
+                Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                date.set(parsed[0], parsed[1], parsed[2], 0, 0, 0);
+                date.set(Calendar.MILLISECOND, 0);
+                boolean isToday = date.equals(today);
+                if (isToday && todayIsPast) continue;
+                if (!date.before(today)) {
+                    newSelected.add(key);
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
+            }
+        }
+
+        List<String> newDeselected = new ArrayList<>();
+        for (String key : mDeselectedDates) {
+            try {
+                int[] parsed = parseDateKey(key);
+                Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                date.set(parsed[0], parsed[1], parsed[2], 0, 0, 0);
+                date.set(Calendar.MILLISECOND, 0);
+                boolean isToday = date.equals(today);
+                if (isToday && todayIsPast) continue;
+                if (!date.before(today)) {
+                    newDeselected.add(key);
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
+            }
+        }
+
+        List<String> newDismissed = new ArrayList<>();
+        for (String key : mDismissedDates) {
+            try {
+                int[] parsed = parseDateKey(key);
+                Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                date.set(parsed[0], parsed[1], parsed[2], 0, 0, 0);
+                date.set(Calendar.MILLISECOND, 0);
+                boolean isToday = date.equals(today);
+                if (isToday && todayIsPast) continue;
+                if (!date.before(today)) {
+                    newDismissed.add(key);
+                }
+            } catch (IllegalArgumentException e) {
+                // Skip malformed date key
+            }
+        }
+
+        return new CombinedDays(newSelected, newDeselected, newDismissed);
+    }
+
     // Parcelable implementation
 
     protected CombinedDays(@NonNull Parcel in) {
@@ -442,12 +676,15 @@ public final class CombinedDays implements Parcelable {
         in.readStringList(mSelectedDates);
         mDeselectedDates = new ArrayList<>();
         in.readStringList(mDeselectedDates);
+        mDismissedDates = new ArrayList<>();
+        in.readStringList(mDismissedDates);
     }
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeStringList(mSelectedDates);
         dest.writeStringList(mDeselectedDates);
+        dest.writeStringList(mDismissedDates);
     }
 
     @Override
@@ -475,12 +712,13 @@ public final class CombinedDays implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         CombinedDays that = (CombinedDays) o;
         return Objects.equals(mSelectedDates, that.mSelectedDates)
-            && Objects.equals(mDeselectedDates, that.mDeselectedDates);
+            && Objects.equals(mDeselectedDates, that.mDeselectedDates)
+            && Objects.equals(mDismissedDates, that.mDismissedDates);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mSelectedDates, mDeselectedDates);
+        return Objects.hash(mSelectedDates, mDeselectedDates, mDismissedDates);
     }
 
     @NonNull

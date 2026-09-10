@@ -187,7 +187,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
                 if (holder.item.isDeleteAfterUse()) {
                     // Remove the alarm from the list immediately!
                     iterator.remove();
-                } else if (!holder.item.daysOfWeek.isRepeating()) {
+                } else if (!holder.item.daysOfWeek.isRepeating() && !hasRemainingDates(holder)) {
                     // Standard one-time alarm. Just force the switch to OFF visually.
                     holder.item.enabled = false;
                 }
@@ -204,6 +204,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
             mItems.remove(position);
             notifyItemRemoved(position);
         }
+    }
+
+    private static boolean hasRemainingDates(@NonNull AlarmItemHolder holder) {
+        return holder.item.combinedDays != null && holder.item.combinedDays.hasSelectedDates();
     }
 
     public void swapItems(int fromPosition, int toPosition) {
