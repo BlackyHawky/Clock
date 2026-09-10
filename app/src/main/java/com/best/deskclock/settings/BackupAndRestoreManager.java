@@ -207,7 +207,7 @@ public class BackupAndRestoreManager {
             alarmObject.put("mathHardnessLevel", alarm.mathHardnessLevel);
             alarmObject.put("lock", alarm.lock);
             alarmObject.put("timeZone", alarm.timeZone);
-            alarmObject.put("combinedDays", alarm.combinedDays != null ? alarm.combinedDays.toJson() : "");
+            alarmObject.put("combinedDays", alarm.combinedDays.toJson());
 
             if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                 alarmsArray.put(alarmObject);
