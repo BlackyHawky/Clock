@@ -1146,6 +1146,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     /**
      * Returns the next alarm time for sorting purposes.
+     *
+     * <p>Running or pending instances always win; everything else is derived from the same
+     * canonical {@link #getNextAlarmTime(Calendar)} so the list order can never diverge from
+     * the real scheduling. The only exception is an expired legacy one-time alarm, which keeps
+     * a rolling "today/tomorrow at alarm time" anchor until the user turns it off.</p>
      */
     public Calendar getSortableNextAlarmTime(@NonNull Context context, @Nullable AlarmInstance instance, @NonNull Calendar now) {
         // Rely on the instance only if the alarm is enabled.
@@ -1170,6 +1175,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     return instance.getAlarmTime();
                 }
             }
+        }
+
+        // Combined-days alarms (dates-only or weekdays with date overrides) always go through
+        // the canonical scheduler - the single alarm date fields do not represent the rule.
+        if (!combinedDays.isEmpty()) {
+            return getNextAlarmTime(now);
         }
 
         // Calculate the theoretical absolute time for disabled alarms or obsolete instances.
