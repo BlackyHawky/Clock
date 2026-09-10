@@ -147,7 +147,8 @@ public class CalendarPickerDialogFragment extends DialogFragment {
 
         // Mark already-selected dates on the calendar
         for (String dateKey : mSelectedDateKeys) {
-            int[] parsed = CombinedDays.parseDateKey(dateKey);
+            int[] parsed = safeParseDateKey(dateKey);
+            if (parsed == null) continue;
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             cal.clear();
             cal.set(parsed[0], parsed[1], parsed[2]);
@@ -196,17 +197,31 @@ public class CalendarPickerDialogFragment extends DialogFragment {
             // Replace selected dates with our current selection
             days = days.clearSelected();
             for (String dateKey : mSelectedDateKeys) {
-                int[] parsed = CombinedDays.parseDateKey(dateKey);
-                days = days.addSelectedDate(parsed[0], parsed[1], parsed[2]);
+                int[] parsed = safeParseDateKey(dateKey);
+                if (parsed != null) {
+                    days = days.addSelectedDate(parsed[0], parsed[1], parsed[2]);
+                }
             }
         } else {
             // Replace deselected dates with our current selection
             days = days.clearDeselected();
             for (String dateKey : mSelectedDateKeys) {
-                int[] parsed = CombinedDays.parseDateKey(dateKey);
-                days = days.addDeselectedDate(parsed[0], parsed[1], parsed[2]);
+                int[] parsed = safeParseDateKey(dateKey);
+                if (parsed != null) {
+                    days = days.addDeselectedDate(parsed[0], parsed[1], parsed[2]);
+                }
             }
         }
         return days;
+    }
+
+    @Nullable
+    private static int[] safeParseDateKey(@NonNull String dateKey) {
+        try {
+            return CombinedDays.parseDateKey(dateKey);
+        } catch (IllegalArgumentException e) {
+            // Skip malformed date key
+            return null;
+        }
     }
 }
