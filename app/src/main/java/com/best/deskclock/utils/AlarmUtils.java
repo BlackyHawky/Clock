@@ -93,13 +93,13 @@ public class AlarmUtils {
         final String time = timeFormat.format(instance.getAlarmTime().getTime());
 
         final String text;
-        if (alarm.isDeleteAfterUse()) {
+        if (alarm.isDeletedAfterDismissal()) {
             text = localizedContext.getString(R.string.alarm_is_dismissed_and_deleted, time);
         } else if (alarm.daysOfWeek.isRepeating()) {
             final Calendar nextTime = alarm.getNextAlarmTime(instance.getAlarmTime());
             final String date = getDateFormat(localizedContext, nextTime);
             text = localizedContext.getString(R.string.repetitive_alarm_is_dismissed, date);
-        } else if (alarm.combinedDays != null && alarm.combinedDays.hasSelectedDates()) {
+        } else if (alarm.combinedDays.hasSelectedDates()) {
             final Calendar nextTime = alarm.getNextAlarmTime(Calendar.getInstance());
             final String date = getDateFormat(localizedContext, nextTime);
             text = localizedContext.getString(R.string.repetitive_alarm_is_dismissed, date);
