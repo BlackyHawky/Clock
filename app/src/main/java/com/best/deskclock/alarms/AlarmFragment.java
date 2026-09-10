@@ -212,7 +212,6 @@ public final class AlarmFragment extends DeskClockFragment
             requireContext(), getPrefs(), getGeneralTypeface(), this, mBinding.alarmRootView, isVibrationsEnabled());
 
         AlarmTimeClickHandler.Config uiConfig = new AlarmTimeClickHandler.Config(
-            SettingsDAO.getMaterialTimePickerStyle(getPrefs()),
             getFontsConfig(),
             SettingsDAO.getGlobalIntentId(getPrefs())
         );

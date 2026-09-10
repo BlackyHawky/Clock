@@ -16,8 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
@@ -38,7 +40,7 @@ public final class AlarmTimeClickHandler {
     public static final String TAG = "AlarmTimeClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
 
-    public record Config(@NonNull String timePickerStyle, @NonNull UiConfig.Fonts fonts, int globalIntentId) {}
+    public record Config(@NonNull UiConfig.Fonts fonts, int globalIntentId) {}
 
     private final AlarmFragment mAlarmFragment;
     private final Context mContext;
@@ -59,6 +61,14 @@ public final class AlarmTimeClickHandler {
 
     public Alarm getSelectedAlarm() {
         return mSelectedAlarm;
+    }
+
+    /**
+     * @return the currently configured time picker style, read live from preferences so that a
+     * setting change takes effect immediately instead of only after the activity is recreated.
+     */
+    private String getTimePickerStyle() {
+        return SettingsDAO.getMaterialTimePickerStyle(DeskClockApplication.getDefaultSharedPreferences(mContext));
     }
 
     public void setSelectedAlarm(@Nullable Alarm selectedAlarm) {
@@ -154,7 +164,7 @@ public final class AlarmTimeClickHandler {
     public void onClockClicked(@NonNull Alarm alarm) {
         mSelectedAlarm = alarm;
 
-        if (mConfig.timePickerStyle().equals(SPINNER_TIME_PICKER_STYLE)) {
+        if (getTimePickerStyle().equals(SPINNER_TIME_PICKER_STYLE)) {
             showSpinnerTimePickerDialog(alarm.hour, alarm.minutes);
         } else {
             showMaterialTimePicker(alarm.hour, alarm.minutes);
@@ -196,7 +206,7 @@ public final class AlarmTimeClickHandler {
             TAG,
             hours,
             minutes,
-            mConfig.timePickerStyle(),
+            getTimePickerStyle(),
             mConfig.fonts().alarmClockFont(),
             mConfig.fonts().general()
         );
