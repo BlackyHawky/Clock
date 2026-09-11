@@ -461,7 +461,6 @@
     <string name="schedule_alarm_title">排定鬧鐘</string>
     <string name="alarm_scheduled_for">已預定 %s</string>
     <string name="date_picker_style_title">選取日期面板樣式</string>
-    <string name="date_picker_style_calendar">日曆</string>
     <string name="date_picker_style_text">文字</string>
     <string name="random_ringtone_title">隨機鈴聲</string>
     <string name="timer_button_time_seconds_warning_box_text">請輸入 0–59 秒</string>

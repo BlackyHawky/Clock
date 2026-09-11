@@ -1010,8 +1010,6 @@
     <string name="enable_alarm_fab_long_press_title">Enable a long press on the action button to create alarms with delay</string>
     <!-- Setting summary to display two separate buttons for creating alarms if long press on the floating action button is not enabled -->
     <string name="enable_alarm_fab_long_press_summary">If disabled, two buttons will be displayed to create alarms</string>
-    <!-- Setting title for changing the date picker style to calendar. -->
-    <string name="date_picker_style_calendar">Calendar</string>
     <!-- Setting title for changing the date picker style to text. -->
     <string name="date_picker_style_text">Text</string>
     <!-- Setting summary to indicate that this setting can be changed for each alarm -->

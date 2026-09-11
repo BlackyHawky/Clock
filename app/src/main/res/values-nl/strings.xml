@@ -469,7 +469,6 @@
     <string name="description_dismiss_button_for_occasional_alarm">Tik om wekker uit te zetten en te verwijderen</string>
     <string name="settings_language_chinese_traditional_tw">Chinees (traditioneel, Taiwan)</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> wekker uitgezet en verwijderd</string>
-    <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_title">Datumkiezer</string>
     <string name="alarm_scheduled_for">Ingeroosterd voor %s</string>
     <string name="schedule_alarm_title">Inroosteren</string>

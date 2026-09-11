@@ -267,7 +267,6 @@
     <string name="connect_external_audio_device_title">برای دسترسی به این تنظیم، یک دستگاه صوتی خارجی را متصل کنید</string>
     <string name="disconnect_external_audio_device_title">برای دسترسی به این تنظیم، دستگاه صوتی خارجی را قطع کنید</string>
     <string name="system_media_volume_summary">فقط زمانی کار می‌کند که یک دستگاه صوتی خارجی متصل باشد</string>
-    <string name="date_picker_style_calendar">تقویم</string>
     <string name="date_picker_style_text">متن</string>
     <string name="snooze_duration_none">هیچکدام</string>
     <string name="schedule_alarm_title">هشدار برنامه‌ریزی شده</string>

@@ -535,7 +535,6 @@
     <string name="display_enabled_alarms_first_title">Mostrar primero las alarmas activadas</string>
     <string name="enable_alarm_fab_long_press_title">Activa la función de pulsación prolongada del botón de acción para crear alarmas con retraso</string>
     <string name="enable_alarm_fab_long_press_summary">Si se desactiva, aparecerán dos botones para crear alarmas</string>
-    <string name="date_picker_style_calendar">Calendario</string>
     <string name="date_picker_style_text">Texto</string>
     <string name="slide_zone_color_title">Color de la zona de deslizamiento</string>
     <string name="snooze_title_color">Color del título de \"posponer\"</string>

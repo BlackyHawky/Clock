@@ -467,7 +467,6 @@
     <string name="settings_language_chinese_traditional_tw">Çince (geleneksel, Tayvan)</string>
     <string name="schedule_alarm_title">Alarm ayarla</string>
     <string name="date_picker_style_title">Tarih seçim stili</string>
-    <string name="date_picker_style_calendar">Takvim</string>
     <string name="date_picker_style_text">Metin</string>
     <string name="alarm_scheduled_for">%s için ayarlandı</string>
     <string name="random_ringtone_title">Rasgele zil sesi</string>

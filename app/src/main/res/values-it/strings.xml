@@ -474,7 +474,6 @@
     <string name="description_dismiss_button">Clicca per posticipare la sveglia</string>
     <string name="description_dismiss_button_for_occasional_alarm">Clicca per disattivare e cancellare la sveglia</string>
     <string name="label_hours">Ore</string>
-    <string name="date_picker_style_calendar">Calendario</string>
     <string name="label_seconds">Secondi</string>
     <string name="label_minutes">Minuti</string>
     <string name="timer_add_custom_time_with_seconds_description">Aggiungi %1$s Minuti %2$s Secondi</string>

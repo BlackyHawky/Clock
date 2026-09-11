@@ -461,7 +461,6 @@
     <string name="alarm_is_dismissed_and_deleted">已关闭并删除 <xliff:g example="14:20" id="alarm_time">%s</xliff:g> 的闹钟</string>
     <string name="schedule_alarm_title">设置闹钟</string>
     <string name="alarm_scheduled_for">已设置 %s</string>
-    <string name="date_picker_style_calendar">日历</string>
     <string name="date_picker_style_text">文本</string>
     <string name="date_picker_style_title">日期选择器样式</string>
     <string name="random_ringtone_title">随机铃声</string>

@@ -362,7 +362,6 @@
     <string name="display_enabled_alarms_first_title">Включените будилници се показват първи</string>
     <string name="enable_alarm_fab_long_press_title">Задържане върху бутона за будилници за след период</string>
     <string name="enable_alarm_fab_long_press_summary">Когато е изключено, ще бъдат показани два бутона за създаване на будилници</string>
-    <string name="date_picker_style_calendar">Календар</string>
     <string name="date_picker_style_text">Текст</string>
     <string name="alarm_settings_general_summary">Настройката може да бъде променена за всеки будилник поотделно в разширения преглед</string>
     <string name="slide_zone_color_title">Цвят на мястото за плъзване</string>

@@ -88,7 +88,7 @@ public class PreferencesDefaultValues {
     // Alarm
     public static final String DEFAULT_TIME_PICKER_STYLE = "analog";
     public static final String SPINNER_TIME_PICKER_STYLE = "spinner";
-    public static final String DEFAULT_DATE_PICKER_STYLE = "calendar";
+    public static final String DEFAULT_DATE_PICKER_STYLE = "text";
     public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
     public static final boolean DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE = true;
     public static final int DEFAULT_AUTO_SILENCE_DURATION = 600;
