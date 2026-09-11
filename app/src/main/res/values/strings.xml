@@ -179,7 +179,7 @@
     <!-- Button labels on the alarm dialog: Snooze -->
     <string name="alarm_alert_snooze_text">Snooze</string>
     <!-- Toast that appears after Alarm is snoozed from the Alarm dialog. Says the alarm will snooze for xxx minutes.  -->
-    <plurals name="alarm_alert_snooze_set">
+    <plurals name="alarm_alert_snooze_set" tools:ignore="ImpliedQuantity">
         <!-- Duration for one minute -->
         <item quantity="one">Snoozing for <xliff:g example="1" id="minutes">%d</xliff:g> minute.</item>
         <!-- Duration for more than one minute -->
@@ -236,33 +236,33 @@
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 8 -->
     <string name="alarm_confirmation_toast_8">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: days -->
-    <plurals name="days">
+    <plurals name="days" tools:ignore="ImpliedQuantity">
         <!-- Duration for one day -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> day</item>
         <!-- Duration for more than one day -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> days</item>
     </plurals>
     <!-- Alarm confirmation toast, timer notification and world clock ahead/behind: hours -->
-    <plurals name="hours">
+    <plurals name="hours" tools:ignore="ImpliedQuantity">
         <!-- Duration for one hour -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> hour</item>
         <!-- Duration for more than one hour -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hours</item>
     </plurals>
-    <plurals name="hours_short">
+    <plurals name="hours_short" tools:ignore="ImpliedQuantity">
         <!-- Duration for one hour [CHAR LIMIT=8] -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> hr</item>
         <!-- Duration for more than one hour [CHAR LIMIT=8]-->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hr</item>
     </plurals>
     <!-- Alarm confirmation toast and timer notification: minutes -->
-    <plurals name="minutes">
+    <plurals name="minutes" tools:ignore="ImpliedQuantity">
         <!-- Duration for one minute -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> minute</item>
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minutes</item>
     </plurals>
-    <plurals name="minutes_short">
+    <plurals name="minutes_short" tools:ignore="ImpliedQuantity">
         <!-- Duration for one minute [CHAR LIMIT=8] -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
         <!-- Duration for more than one minute [CHAR LIMIT=8] -->
@@ -438,7 +438,7 @@
     <!-- Verb inflection to use for multiple time units remaining (e.g., "2 minutes remaining" -->
     <string name="timer_remaining_multiple">remaining</string>
     <!-- Timer accessibility announcement -->
-    <plurals name="seconds">
+    <plurals name="seconds" tools:ignore="ImpliedQuantity">
         <!-- Duration for one second -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> second</item>
         <!-- Duration for more than one minute -->
@@ -504,7 +504,7 @@
     <!-- String that represents that the user has successfully created a timer through a voice action. [CHAR LIMIT=NONE] -->
     <string name="timer_created">Timer created</string>
     <!-- String that represents that the user has successfully dismissed timers. [CHAR_LIMIT=NONE] -->
-    <plurals name="expired_timers_dismissed">
+    <plurals name="expired_timers_dismissed" tools:ignore="ImpliedQuantity">
         <item quantity="one"><xliff:g example="1" id="number">%d</xliff:g> timer dismissed</item>
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> timers dismissed</item>
     </plurals>
@@ -1466,7 +1466,7 @@
     <!-- Menu item About -->
     <string name="about_title">About</string>
     <!-- App slogan -->
-    <string name="app_slogan">100% FOSS Clock, based on AOSP</string>
+    <string name="app_slogan" tools:ignore="StringFormatInvalid">100% FOSS Clock, based on AOSP</string>
     <!-- Version for about screen -->
     <string name="version">Version</string>
     <!-- Version text [CHAR LIMIT=30] -->
