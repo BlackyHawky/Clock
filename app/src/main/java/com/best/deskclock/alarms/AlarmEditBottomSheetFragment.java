@@ -996,7 +996,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
             int inactiveTextColor = MaterialColors.getColor(requireContext(),
                 com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
-            int todayStrokeColor = 0xFF666666;
+            int todayStrokeColor = 0xFF858585;
 
             mInlineCalendarAdapter = new InlineCalendarAdapter(
                 displayYear, displayMonth,
