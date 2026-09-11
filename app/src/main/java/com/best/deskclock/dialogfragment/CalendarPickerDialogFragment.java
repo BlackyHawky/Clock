@@ -136,7 +136,7 @@ public class CalendarPickerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Context context = requireContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.calendar_picker_dialog, null);
 
         mCalendarView = view.findViewById(R.id.calendar_picker_view);
