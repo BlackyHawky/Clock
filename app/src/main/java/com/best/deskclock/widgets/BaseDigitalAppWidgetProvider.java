@@ -245,22 +245,25 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * @param options  widget options bundle (can be {@code null}; the method will query the manager)
      */
     protected void relayoutWidget(@NonNull Context context, @NonNull AppWidgetManager wm, int widgetId, @NonNull Bundle options) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        final Context appContext = context.getApplicationContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(appContext);
+        DisplayMetrics displayMetrics = appContext.getResources().getDisplayMetrics();
         DataModel dataModel = DataModel.getDataModel();
         final List<City> cities = new ArrayList<>(dataModel.getSelectedCities());
         final City home = dataModel.getHomeCity();
-        final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, prefs);
+        final boolean showHomeClock = SettingsDAO.getShowHomeClock(appContext, prefs);
 
         if (showHomeClock) {
             cities.add(0, home);
         }
 
-        updateDayChangeCallback(context);
+        updateDayChangeCallback(appContext);
 
         AppExecutors.getDiskIO().execute(() -> {
-            final RemoteViews portrait = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, true, cities);
-            final RemoteViews landscape = buildRemoteViewsForOrientation(context, prefs, displayMetrics, wm, widgetId, options, false, cities);
+            final RemoteViews portrait = buildRemoteViewsForOrientation(
+                appContext, prefs, displayMetrics, wm, widgetId, options, true, cities);
+            final RemoteViews landscape = buildRemoteViewsForOrientation(
+                appContext, prefs, displayMetrics, wm, widgetId, options, false, cities);
 
             if (SdkUtils.isAtLeastAndroid12()) {
                 if (cities.isEmpty()) {
@@ -270,7 +273,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                 }
 
                 RemoteViews.RemoteCollectionItems items =
-                    buildRemoteCollectionItemsForCities(context, prefs, displayMetrics, widgetId, cities);
+                    buildRemoteCollectionItemsForCities(appContext, prefs, displayMetrics, widgetId, cities);
                 portrait.setRemoteAdapter(getWorldCityListViewId(), items);
                 landscape.setRemoteAdapter(getWorldCityListViewId(), items);
             }

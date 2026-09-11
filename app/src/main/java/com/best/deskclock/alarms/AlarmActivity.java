@@ -23,6 +23,7 @@ import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -328,9 +329,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         // Re-query for AlarmInstance in case the state has changed externally
         final long instanceId = AlarmInstance.getId(dataUri);
+        ContentResolver cr = getApplicationContext().getContentResolver();
 
         AppExecutors.getDiskIO().execute(() -> {
-            final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
+            final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
 
             AppExecutors.getMainThread().post(() -> {
                 mAlarmInstance = instance;
@@ -683,10 +685,11 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         final long instanceId = AlarmInstance.getId(dataUri);
+        ContentResolver cr = getApplicationContext().getContentResolver();
 
         AppExecutors.getDiskIO().execute(() -> {
-            final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
-            final Alarm alarm = instance != null ? Alarm.getAlarm(getContentResolver(), instance.mAlarmId) : null;
+            final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
+            final Alarm alarm = instance != null ? Alarm.getAlarm(cr, instance.mAlarmId) : null;
 
             AppExecutors.getMainThread().post(() -> {
                 mAlarmInstance = instance;
@@ -727,7 +730,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mBinding.snoozeSelectorLayout.setVisibility(GONE);
             mAlarmInstance.mSnoozeDuration = mDefaultSnoozeMinutes;
 
-            AppExecutors.getDiskIO().execute(() -> mAlarmInstance.updateInstance(getContentResolver()));
+            ContentResolver cr = getApplicationContext().getContentResolver();
+            AppExecutors.getDiskIO().execute(() -> mAlarmInstance.updateInstance(cr));
         }
 
         updateSnoozeTexts();

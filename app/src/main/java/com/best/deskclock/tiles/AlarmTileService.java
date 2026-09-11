@@ -9,6 +9,7 @@ import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -73,8 +74,10 @@ public class AlarmTileService extends TileService {
             return;
         }
 
+        Context appContext = getApplicationContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(appContext);
+
         AppExecutors.getDiskIO().execute(() -> {
-            SharedPreferences prefs = getDefaultSharedPreferences(this);
             if (!SettingsDAO.isAlarmTabVisible(prefs)) {
                 tile.setState(Tile.STATE_UNAVAILABLE);
                 if (SdkUtils.isAtLeastAndroid10()) {
@@ -85,9 +88,9 @@ public class AlarmTileService extends TileService {
                 return;
             }
 
-            final AlarmInstance nextAlarm = AlarmInstance.getNextFiringAlarm(this);
+            final AlarmInstance nextAlarm = AlarmInstance.getNextFiringAlarm(appContext);
 
-            final String nextAlarmText = nextAlarm != null ? AlarmUtils.getNextAlarm(this) : null;
+            final String nextAlarmText = nextAlarm != null ? AlarmUtils.getNextAlarm(appContext) : null;
 
             AppExecutors.getMainThread().post(() -> {
                 if (nextAlarm == null) {

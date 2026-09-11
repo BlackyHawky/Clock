@@ -12,6 +12,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EX
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -617,6 +618,7 @@ public class AlarmService extends Service {
 
         cleanupAndStop();
 
+        ContentResolver cr = getApplicationContext().getContentResolver();
         AppExecutors.getDiskIO().execute(() -> {
             boolean alarmStarted = false;
 
@@ -627,7 +629,7 @@ public class AlarmService extends Service {
                     continue;
                 }
 
-                AlarmInstance next = AlarmInstance.getInstance(getContentResolver(), nextId);
+                AlarmInstance next = AlarmInstance.getInstance(cr, nextId);
 
                 if (next != null && next.mAlarmState == AlarmInstance.FIRED_STATE) {
                     LogUtils.i("Launching the pending alarm: " + nextId);
