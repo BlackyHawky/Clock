@@ -103,14 +103,8 @@
     <string name="select_dates_confirm">Select</string>
     <!-- Summary text when no dates are excluded -->
     <string name="no_dates_excluded">Unscheduled</string>
-    <!-- Summary text showing count of excluded dates -->
-    <string name="dates_excluded_count">%d date(s) excluded</string>
     <!-- Summary text when no dates are selected -->
     <string name="no_dates_selected">Unscheduled</string>
-    <!-- Summary text showing count of selected dates -->
-    <string name="dates_selected_count">%d date(s) selected</string>
-    <!-- Info message for the combined days feature -->
-    <string name="combined_days_info_message">When days of the week are selected, you can exclude specific dates (e.g., holidays). When no days are selected, you can choose specific dates for the alarm to ring.</string>
     <!-- Inline calendar navigation -->
     <!-- Content description for previous month navigation button -->
     <string name="prev_month">Previous month</string>
