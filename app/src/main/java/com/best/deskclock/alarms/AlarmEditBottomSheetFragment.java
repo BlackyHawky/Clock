@@ -797,15 +797,38 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         };
 
         if (useSpinner) {
-            DatePicker picker = (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
-            picker.setMinDate(minMillis);
-            picker.init(pickedDate[0], pickedDate[1], pickedDate[2], (view, year, month, day) -> {
+            final DatePicker spinnerPicker =
+                (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
+            final DatePicker[] activePicker = new DatePicker[]{spinnerPicker};
+            final int[] lastMonth = new int[]{pickedDate[1]};
+            final DatePicker.OnDateChangedListener[] listenerHolder = new DatePicker.OnDateChangedListener[1];
+            listenerHolder[0] = (view, year, month, day) -> {
                 pickedDate[0] = year;
                 pickedDate[1] = month;
                 pickedDate[2] = day;
+                if (month != lastMonth[0]) {
+                    lastMonth[0] = month;
+                    // After a month change the framework keeps a stale ghost day (e.g. the
+                    // previous month's last day) above the clamped minimum day. Rebuild the
+                    // active picker once laid out so the day spinner starts from a clean state.
+                    container.post(() -> {
+                        int index = container.indexOfChild(activePicker[0]);
+                        if (index >= 0) {
+                            DatePicker fresh =
+                                (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
+                            fresh.setMinDate(minMillis);
+                            fresh.init(pickedDate[0], pickedDate[1], pickedDate[2], listenerHolder[0]);
+                            container.removeViewAt(index);
+                            container.addView(fresh, index);
+                            activePicker[0] = fresh;
+                        }
+                    });
+                }
                 refreshStates.run();
-            });
-            container.addView(picker);
+            };
+            spinnerPicker.setMinDate(minMillis);
+            spinnerPicker.init(pickedDate[0], pickedDate[1], pickedDate[2], listenerHolder[0]);
+            container.addView(spinnerPicker);
         } else {
             final String datePattern =
                 android.text.format.DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMdd");
