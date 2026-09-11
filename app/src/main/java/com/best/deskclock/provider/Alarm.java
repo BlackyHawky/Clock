@@ -933,21 +933,130 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     @Nullable
     public Calendar getPreviousAlarmTime(@NonNull Calendar currentTime) {
         final Calendar previousInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
-        previousInstanceTime.set(Calendar.YEAR, year);
-        previousInstanceTime.set(Calendar.MONTH, month);
-        previousInstanceTime.set(Calendar.DAY_OF_MONTH, day);
-        previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-        previousInstanceTime.set(Calendar.MINUTE, minutes);
         previousInstanceTime.set(Calendar.SECOND, 0);
         previousInstanceTime.set(Calendar.MILLISECOND, 0);
 
-        final int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
-        if (subtractDays > 0) {
-            previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
+        if (daysOfWeek.isRepeating()) {
+            previousInstanceTime.setTimeInMillis(currentTime.getTimeInMillis());
+            previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+            previousInstanceTime.set(Calendar.MINUTE, minutes);
+
+            // If we haven't reached the alarm time yet, step back a day before looking for
+            // the previous active weekday.
+            if (previousInstanceTime.getTimeInMillis() >= currentTime.getTimeInMillis()) {
+                previousInstanceTime.add(Calendar.DAY_OF_YEAR, -1);
+            }
+
+            int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
+            if (subtractDays < 0) {
+                // No active weekday behind the given time: fall back to the previous
+                // selected date if any.
+                return combinedDays.hasSelectedDates()
+                    ? getPreviousSelectedDateAtAlarmTime(previousInstanceTime, currentTime) : null;
+            }
+            if (subtractDays > 0) {
+                previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
+            }
+
+            // Daylight Saving Time can alter the hours and minutes when adjusting the day above.
+            // Reset the desired hour and minute now that the correct day has been chosen.
+            previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+            previousInstanceTime.set(Calendar.MINUTE, minutes);
+
+            // Skip deselected or dismissed dates when walking backwards.
+            if (combinedDays.hasDeselectedDates() || combinedDays.hasDismissedDates()) {
+                int maxIterations = 366; // Prevent infinite loops
+                while (maxIterations-- > 0) {
+                    int y = previousInstanceTime.get(Calendar.YEAR);
+                    int m = previousInstanceTime.get(Calendar.MONTH);
+                    int d = previousInstanceTime.get(Calendar.DAY_OF_MONTH);
+                    if (!combinedDays.isDateDeselected(y, m, d) && !combinedDays.isDateDismissed(y, m, d)) {
+                        break;
+                    }
+                    // Skip to the previous occupied weekday. getDistanceToPreviousDay never
+                    // includes the given day, so unlike the forward direction no pre-step is
+                    // needed: the day we just rejected is passed over automatically.
+                    final int skipDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
+                    if (skipDays < 0) {
+                        return combinedDays.hasSelectedDates()
+                            ? getPreviousSelectedDateAtAlarmTime(previousInstanceTime, currentTime) : null;
+                    }
+                    if (skipDays > 0) {
+                        previousInstanceTime.add(Calendar.DAY_OF_WEEK, -skipDays);
+                    }
+                    previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                    previousInstanceTime.set(Calendar.MINUTE, minutes);
+                }
+            }
+
+            // An added selected date can be more recent than the weekday-based occurrence.
+            if (combinedDays.hasSelectedDates()) {
+                Calendar prevSelected = combinedDays.getPreviousSelectedDate(currentTime);
+                while (prevSelected != null) {
+                    Calendar selectedTime = Calendar.getInstance(currentTime.getTimeZone());
+                    selectedTime.set(Calendar.YEAR, prevSelected.get(Calendar.YEAR));
+                    selectedTime.set(Calendar.MONTH, prevSelected.get(Calendar.MONTH));
+                    selectedTime.set(Calendar.DAY_OF_MONTH, prevSelected.get(Calendar.DAY_OF_MONTH));
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hour);
+                    selectedTime.set(Calendar.MINUTE, minutes);
+                    selectedTime.set(Calendar.SECOND, 0);
+                    selectedTime.set(Calendar.MILLISECOND, 0);
+
+                    if (selectedTime.getTimeInMillis() > previousInstanceTime.getTimeInMillis()
+                        && selectedTime.getTimeInMillis() < currentTime.getTimeInMillis()) {
+                        previousInstanceTime.setTimeInMillis(selectedTime.getTimeInMillis());
+                        break;
+                    }
+                    // Try the previous selected date.
+                    Calendar beforeThisDate = (Calendar) prevSelected.clone();
+                    beforeThisDate.add(Calendar.DAY_OF_MONTH, -1);
+                    prevSelected = combinedDays.getPreviousSelectedDate(beforeThisDate);
+                }
+            }
+
             return previousInstanceTime;
+        } else if (combinedDays.hasSelectedDates()) {
+            // Dates-only alarm: the previous occurrence is the latest selected date before now.
+            return getPreviousSelectedDateAtAlarmTime(previousInstanceTime, currentTime);
         } else {
+            // Legacy one-time alarm (upstream behavior).
+            previousInstanceTime.set(Calendar.YEAR, year);
+            previousInstanceTime.set(Calendar.MONTH, month);
+            previousInstanceTime.set(Calendar.DAY_OF_MONTH, day);
+            previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+            previousInstanceTime.set(Calendar.MINUTE, minutes);
+
+            final int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
+            if (subtractDays > 0) {
+                previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
+                return previousInstanceTime;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Sets the given candidate time to the latest selected date before {@code currentTime}
+     * at the alarm's configured time.
+     *
+     * @param candidate   the calendar to fill in (year/month/day/hour/minute)
+     * @param currentTime the upper bound (exclusive)
+     * @return the candidate calendar, or null if no selected date precedes {@code currentTime}
+     */
+    @Nullable
+    private Calendar getPreviousSelectedDateAtAlarmTime(@NonNull Calendar candidate,
+                                                        @NonNull Calendar currentTime) {
+        Calendar prevSelected = combinedDays.getPreviousSelectedDate(currentTime);
+        if (prevSelected == null) {
             return null;
         }
+        candidate.set(Calendar.YEAR, prevSelected.get(Calendar.YEAR));
+        candidate.set(Calendar.MONTH, prevSelected.get(Calendar.MONTH));
+        candidate.set(Calendar.DAY_OF_MONTH, prevSelected.get(Calendar.DAY_OF_MONTH));
+        candidate.set(Calendar.HOUR_OF_DAY, hour);
+        candidate.set(Calendar.MINUTE, minutes);
+        return candidate;
     }
 
     /**
@@ -1064,31 +1173,34 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         } else if (combinedDays.hasSelectedDates()) {
             // Use selected dates as one-time alarm triggers
             Calendar nextSelectedDate = combinedDays.getNextSelectedDate(currentTime);
-            if (nextSelectedDate != null) {
-                nextInstanceTime.set(Calendar.YEAR, nextSelectedDate.get(Calendar.YEAR));
-                nextInstanceTime.set(Calendar.MONTH, nextSelectedDate.get(Calendar.MONTH));
-                nextInstanceTime.set(Calendar.DAY_OF_MONTH, nextSelectedDate.get(Calendar.DAY_OF_MONTH));
-                nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-                nextInstanceTime.set(Calendar.MINUTE, minutes);
+            boolean found = false;
+            while (nextSelectedDate != null) {
+                Calendar candidate = Calendar.getInstance(currentTime.getTimeZone());
+                candidate.set(Calendar.YEAR, nextSelectedDate.get(Calendar.YEAR));
+                candidate.set(Calendar.MONTH, nextSelectedDate.get(Calendar.MONTH));
+                candidate.set(Calendar.DAY_OF_MONTH, nextSelectedDate.get(Calendar.DAY_OF_MONTH));
+                candidate.set(Calendar.HOUR_OF_DAY, hour);
+                candidate.set(Calendar.MINUTE, minutes);
+                candidate.set(Calendar.SECOND, 0);
+                candidate.set(Calendar.MILLISECOND, 0);
 
-                // If we are still behind the passed in currentTime, find the next selected date
-                if (nextInstanceTime.getTimeInMillis() <= currentTime.getTimeInMillis()) {
-                    Calendar tomorrow = (Calendar) currentTime.clone();
-                    tomorrow.add(Calendar.DAY_OF_YEAR, 1);
-                    nextSelectedDate = combinedDays.getNextSelectedDate(tomorrow);
-                    if (nextSelectedDate != null) {
-                        nextInstanceTime.set(Calendar.YEAR, nextSelectedDate.get(Calendar.YEAR));
-                        nextInstanceTime.set(Calendar.MONTH, nextSelectedDate.get(Calendar.MONTH));
-                        nextInstanceTime.set(Calendar.DAY_OF_MONTH, nextSelectedDate.get(Calendar.DAY_OF_MONTH));
-                        nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-                        nextInstanceTime.set(Calendar.MINUTE, minutes);
-                    }
+                if (candidate.getTimeInMillis() > currentTime.getTimeInMillis()) {
+                    nextInstanceTime.setTimeInMillis(candidate.getTimeInMillis());
+                    found = true;
+                    break;
                 }
-            } else {
-                // No selected date found in the next year, set to a far future date
-                nextInstanceTime.set(Calendar.YEAR, year);
-                nextInstanceTime.set(Calendar.MONTH, month);
-                nextInstanceTime.set(Calendar.DAY_OF_MONTH, day);
+                // The alarm time has already passed on this date; try the next selected date.
+                Calendar afterThisDate = (Calendar) nextSelectedDate.clone();
+                afterThisDate.add(Calendar.DAY_OF_MONTH, 1);
+                nextSelectedDate = combinedDays.getNextSelectedDate(afterThisDate);
+            }
+            if (!found) {
+                // No selected date left to fire (either none within the next year or the only
+                // remaining date's alarm time has passed): schedule a benign sentinel about a
+                // year out instead of falling back to an already-past anchor date, which would
+                // otherwise misfire immediately.
+                nextInstanceTime.setTimeInMillis(currentTime.getTimeInMillis());
+                nextInstanceTime.add(Calendar.DAY_OF_YEAR, 366);
                 nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
                 nextInstanceTime.set(Calendar.MINUTE, minutes);
             }
