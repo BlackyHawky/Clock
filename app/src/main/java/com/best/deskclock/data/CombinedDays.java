@@ -482,6 +482,32 @@ public final class CombinedDays implements Parcelable {
     }
 
     /**
+     * Determines if the alarm will fire on a specific date given the current weekday selection.
+     * <p>
+     * A date is active if its weekday is selected and the date is not in the deselected list,
+     * or if its weekday is not selected but the date IS in the selected list. This matches the
+     * logic used to display the inline calendar.
+     *
+     * @param year     the year
+     * @param month    the month (0-based)
+     * @param day      the day of month
+     * @param weekdays the current weekday bitmask
+     * @return true if the alarm fires on this date
+     */
+    public boolean isDateActive(int year, int month, int day, @NonNull Weekdays weekdays) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        cal.clear();
+        cal.set(year, month, day);
+        int calendarDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+        boolean matchesWeekday = weekdays.isBitOn(calendarDayOfWeek);
+        boolean isDeselected = mDeselectedDates.contains(dateKey(year, month, day));
+        boolean isSelected = mSelectedDates.contains(dateKey(year, month, day));
+
+        return matchesWeekday ? !isDeselected : isSelected;
+    }
+
+    /**
      * @return an unmodifiable list of selected date keys
      */
     @NonNull
