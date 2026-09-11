@@ -124,6 +124,7 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import java.io.File;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
@@ -767,7 +768,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         MaterialButton toggle = makeActionButton(R.string.date_action_toggle);
         MaterialButton add = makeActionButton(R.string.date_action_add);
         MaterialButton remove = makeActionButton(R.string.date_action_remove);
-        MaterialButton cancel = makeActionButton(android.R.string.cancel);
+        MaterialButton close = makeActionButton(R.string.dialog_close);
 
         int stateOnColor = MaterialColors.getColor(requireContext(),
             com.google.android.material.R.attr.colorTertiary, Color.BLACK);
@@ -786,7 +787,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         LinearLayout rowTwo = new LinearLayout(requireContext());
         rowTwo.setOrientation(LinearLayout.HORIZONTAL);
 
-        for (MaterialButton button : new MaterialButton[]{toggle, add, remove, goTo, cancel}) {
+        for (MaterialButton button : new MaterialButton[]{toggle, add, remove, goTo, close}) {
             button.setSingleLine(true);
         }
         int inRowSideMargin = (int) dpToPx(4, mDisplayMetrics);
@@ -798,7 +799,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             rowParams.setMarginEnd(inRowSideMargin);
             button.setLayoutParams(rowParams);
         }
-        for (MaterialButton button : new MaterialButton[]{goTo, cancel}) {
+        for (MaterialButton button : new MaterialButton[]{goTo, close}) {
             LinearLayout.LayoutParams rowParams =
                 new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
             rowParams.setMarginStart(inRowSideMargin);
@@ -823,7 +824,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         rowOne.addView(remove);
         rowTwo.addView(actionStateText);
         rowTwo.addView(goTo);
-        rowTwo.addView(cancel);
+        rowTwo.addView(close);
 
         final AlertDialog[] dialogHolder = new AlertDialog[1];
 
@@ -943,20 +944,20 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             goToDate(pickedDate[0], pickedDate[1], pickedDate[2]);
         });
         toggle.setOnClickListener(v -> {
-            dialog.dismiss();
             boolean active = mAlarm.combinedDays.isDateActive(
                 pickedDate[0], pickedDate[1], pickedDate[2], mAlarm.daysOfWeek);
             applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], !active);
+            refreshStates.run();
         });
         add.setOnClickListener(v -> {
-            dialog.dismiss();
             applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], true);
+            refreshStates.run();
         });
         remove.setOnClickListener(v -> {
-            dialog.dismiss();
             applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], false);
+            refreshStates.run();
         });
-        cancel.setOnClickListener(v -> dialog.dismiss());
+        close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
