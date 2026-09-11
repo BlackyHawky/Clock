@@ -104,9 +104,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.globeIcon.setOnClickListener(v ->
             mItemHolder.getAlarmTimeClickHandler().onGlobeClicked(mItemHolder.item, mBinding.globeIcon, screen.metrics()));
 
-        // Upcoming date font
-        mBinding.upcomingDate.setTypeface(currentFonts.general());
-
         // Preemptive dismiss button handler
         mBinding.preemptiveDismissButton.setBackground(ThemeUtils.pillRippleDrawable(mContext, screen.metrics(), Color.TRANSPARENT));
         mBinding.preemptiveDismissButton.setTypeface(currentFonts.bold());
@@ -292,9 +289,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindUpcomingDate(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
-        // The next occurrence date is now inlined into the daysOfWeek text, so always hide this
-        // view and keep the clock at its full size.
-        mBinding.upcomingDate.setVisibility(GONE);
+        // The next occurrence date is inlined into the daysOfWeek text, so keep the clock
+        // at its full size.
         mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
     }
 
