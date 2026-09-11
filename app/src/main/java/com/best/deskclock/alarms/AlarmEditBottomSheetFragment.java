@@ -23,12 +23,21 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -60,6 +69,7 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.databinding.AlarmEditBottomSheetBinding;
 import com.best.deskclock.databinding.DeskClockBinding;
+import com.best.deskclock.databinding.SpinnerDatePickerBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
@@ -641,6 +651,312 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mCalendarExpanded = !mCalendarExpanded;
             bindSelectedDate();
         });
+
+        // Clear all overrides (lives in the schedule alarm row, so it is reachable even
+        // when the inline calendar is collapsed)
+        mBinding.clearAllOverrides.setOnClickListener(v -> {
+            mAlarm.combinedDays = mAlarm.combinedDays.clear();
+            if (mInlineCalendarAdapter != null) {
+                mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+            }
+            updateCalendarSummary();
+            bindSelectedDate();
+            updateCleanupButtonVisibility();
+            updateClearButtonVisibility();
+        });
+    }
+
+    /**
+     * Opens the single-date action dialog, honoring the "Date picker style" setting.
+     * <p>
+     * The dialog embeds the matching date selector (spinner or text input, never the calendar
+     * view) together with the action buttons, so the date is picked and acted on in one step.
+     */
+    private void launchDateAction() {
+        boolean useSpinner = SettingsDAO.getMaterialDatePickerStyle(mPrefs).equals(SPINNER_DATE_PICKER_STYLE);
+
+        Calendar now = Calendar.getInstance();
+        boolean timePassed = mAlarm.isTimeBeforeOrEqual(now);
+
+        Calendar minCal = Calendar.getInstance();
+        minCal.set(Calendar.HOUR_OF_DAY, 0);
+        minCal.set(Calendar.MINUTE, 0);
+        minCal.set(Calendar.SECOND, 0);
+        minCal.set(Calendar.MILLISECOND, 0);
+        if (timePassed) {
+            minCal.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        long minMillis = minCal.getTimeInMillis();
+
+        Calendar selection = (Calendar) minCal.clone();
+        final int[] pickedDate = new int[]{
+            selection.get(Calendar.YEAR),
+            selection.get(Calendar.MONTH),
+            selection.get(Calendar.DAY_OF_MONTH)
+        };
+        final boolean[] textValid = new boolean[]{true};
+
+        LinearLayout container = new LinearLayout(requireContext());
+        container.setOrientation(LinearLayout.VERTICAL);
+        int padding = (int) dpToPx(16, mDisplayMetrics);
+        container.setPadding(padding, padding / 2, padding, padding / 4);
+
+        MaterialButton goTo = makeActionButton(R.string.date_action_go_to);
+        MaterialButton toggle = makeActionButton(R.string.date_action_toggle);
+        MaterialButton add = makeActionButton(R.string.date_action_add);
+        MaterialButton remove = makeActionButton(R.string.date_action_remove);
+        MaterialButton cancel = makeActionButton(android.R.string.cancel);
+
+        int stateOnColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+        int stateOffColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+
+        TextView actionStateText = new TextView(requireContext());
+        actionStateText.setTypeface(mGeneralTypeface, Typeface.BOLD);
+        actionStateText.setGravity(Gravity.CENTER);
+        actionStateText.setMaxLines(1);
+        actionStateText.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+
+        LinearLayout rowOne = new LinearLayout(requireContext());
+        rowOne.setOrientation(LinearLayout.HORIZONTAL);
+
+        LinearLayout rowTwo = new LinearLayout(requireContext());
+        rowTwo.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (MaterialButton button : new MaterialButton[]{toggle, add, remove, goTo, cancel}) {
+            button.setSingleLine(true);
+        }
+        int inRowSideMargin = (int) dpToPx(4, mDisplayMetrics);
+        int inRowTopMargin = (int) dpToPx(4, mDisplayMetrics);
+        for (MaterialButton button : new MaterialButton[]{toggle, add, remove}) {
+            LinearLayout.LayoutParams rowParams =
+                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            rowParams.setMarginStart(inRowSideMargin);
+            rowParams.setMarginEnd(inRowSideMargin);
+            button.setLayoutParams(rowParams);
+        }
+        for (MaterialButton button : new MaterialButton[]{goTo, cancel}) {
+            LinearLayout.LayoutParams rowParams =
+                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            rowParams.setMarginStart(inRowSideMargin);
+            rowParams.setMarginEnd(inRowSideMargin);
+            rowParams.topMargin = inRowTopMargin;
+            button.setLayoutParams(rowParams);
+        }
+
+        LinearLayout.LayoutParams stateParams =
+            new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+        stateParams.topMargin = inRowTopMargin;
+        actionStateText.setLayoutParams(stateParams);
+
+        LinearLayout.LayoutParams rowOneParams =
+            new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        rowOneParams.bottomMargin = (int) dpToPx(8, mDisplayMetrics);
+        rowOne.setLayoutParams(rowOneParams);
+
+        rowOne.addView(toggle);
+        rowOne.addView(add);
+        rowOne.addView(remove);
+        rowTwo.addView(actionStateText);
+        rowTwo.addView(goTo);
+        rowTwo.addView(cancel);
+
+        final AlertDialog[] dialogHolder = new AlertDialog[1];
+
+        Runnable refreshStates = () -> {
+            boolean valid = useSpinner || textValid[0];
+            boolean active = false;
+            if (valid) {
+                Calendar picked = Calendar.getInstance();
+                picked.clear();
+                picked.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+                valid = picked.getTimeInMillis() >= minMillis;
+                active = mAlarm.combinedDays.isDateActive(
+                    pickedDate[0], pickedDate[1], pickedDate[2], mAlarm.daysOfWeek);
+            }
+
+            goTo.setEnabled(valid);
+            toggle.setEnabled(valid);
+            add.setEnabled(valid && !active);
+            remove.setEnabled(valid && active);
+
+            actionStateText.setText(active
+                ? R.string.date_action_state_on : R.string.date_action_state_off);
+            actionStateText.setTextColor(active ? stateOnColor : stateOffColor);
+
+            if (dialogHolder[0] != null) {
+                Calendar picked = Calendar.getInstance();
+                picked.clear();
+                picked.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+                String dateLabel = new java.text.SimpleDateFormat("EEE, MMM d", Locale.getDefault())
+                    .format(picked.getTime());
+                dialogHolder[0].setTitle(getString(R.string.date_action_title, dateLabel));
+            }
+        };
+
+        if (useSpinner) {
+            DatePicker picker = (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
+            picker.setMinDate(minMillis);
+            picker.init(pickedDate[0], pickedDate[1], pickedDate[2], (view, year, month, day) -> {
+                pickedDate[0] = year;
+                pickedDate[1] = month;
+                pickedDate[2] = day;
+                refreshStates.run();
+            });
+            container.addView(picker);
+        } else {
+            final String datePattern =
+                android.text.format.DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMdd");
+            EditText input = new EditText(requireContext());
+            input.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
+            input.setHint(datePattern);
+            input.setTypeface(mGeneralTypeface);
+
+            Calendar init = Calendar.getInstance();
+            init.clear();
+            init.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+            input.setText(new java.text.SimpleDateFormat(datePattern, Locale.getDefault()).format(init.getTime()));
+
+            input.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    textValid[0] = parseDateInput(s.toString(), datePattern, pickedDate);
+                    refreshStates.run();
+                }
+            });
+            container.addView(input);
+        }
+
+        container.addView(rowOne);
+        container.addView(rowTwo);
+
+        Calendar label = Calendar.getInstance();
+        label.clear();
+        label.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+        String initialLabel = new java.text.SimpleDateFormat("EEE, MMM d", Locale.getDefault()).format(label.getTime());
+
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.date_action_title, initialLabel))
+            .setView(container)
+            .create();
+        dialogHolder[0] = dialog;
+
+        refreshStates.run();
+
+        goTo.setOnClickListener(v -> {
+            dialog.dismiss();
+            goToDate(pickedDate[0], pickedDate[1], pickedDate[2]);
+        });
+        toggle.setOnClickListener(v -> {
+            dialog.dismiss();
+            boolean active = mAlarm.combinedDays.isDateActive(
+                pickedDate[0], pickedDate[1], pickedDate[2], mAlarm.daysOfWeek);
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], !active);
+        });
+        add.setOnClickListener(v -> {
+            dialog.dismiss();
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], true);
+        });
+        remove.setOnClickListener(v -> {
+            dialog.dismiss();
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], false);
+        });
+        cancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    /**
+     * Parses a date from the given text using the locale date pattern.
+     *
+     * @return true if the text is a valid, complete date; the parsed fields are written to {@code out}
+     */
+    private boolean parseDateInput(String text, String datePattern, int[] out) {
+        java.text.SimpleDateFormat parser = new java.text.SimpleDateFormat(datePattern, Locale.getDefault());
+        parser.setLenient(false);
+        try {
+            java.util.Date date = parser.parse(text);
+            if (date == null) {
+                return false;
+            }
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            out[0] = calendar.get(Calendar.YEAR);
+            out[1] = calendar.get(Calendar.MONTH);
+            out[2] = calendar.get(Calendar.DAY_OF_MONTH);
+            return true;
+        } catch (java.text.ParseException e) {
+            return false;
+        }
+    }
+
+    private MaterialButton makeActionButton(@StringRes int textRes) {
+        MaterialButton button = new MaterialButton(requireContext(), null,
+            com.google.android.material.R.attr.materialButtonOutlinedStyle);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.bottomMargin = (int) dpToPx(8, mDisplayMetrics);
+        button.setLayoutParams(params);
+        button.setText(textRes);
+        button.setAllCaps(false);
+        button.setTypeface(mGeneralTypeface);
+        return button;
+    }
+
+    /**
+     * Activates or deactivates a specific date, mirroring the semantics of a tap on the
+     * inline calendar cell: weekday-based alarms exclude the date, non-repeating alarms
+     * select/deselect it explicitly.
+     */
+    private void applyDateAction(int year, int month, int day, boolean activate) {
+        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(year, month, day);
+        int calendarDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        boolean matchesWeekday = mAlarm.daysOfWeek.isBitOn(calendarDayOfWeek);
+
+        if (isRepeating && matchesWeekday) {
+            if (activate) {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeDeselectedDate(year, month, day);
+            } else {
+                mAlarm.combinedDays = mAlarm.combinedDays.addDeselectedDate(year, month, day);
+            }
+        } else {
+            if (activate) {
+                mAlarm.combinedDays = mAlarm.combinedDays.addSelectedDate(year, month, day);
+            } else {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeSelectedDate(year, month, day);
+            }
+        }
+
+        mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+        updateCalendarSummary();
+        bindSelectedDate();
+        updateCleanupButtonVisibility();
+        updateClearButtonVisibility();
+    }
+
+    /**
+     * Navigates the inline calendar to the month of a specific date.
+     */
+    private void goToDate(int year, int month, int day) {
+        mInlineCalendarAdapter.setMonth(year, month);
+        updateMonthLabel(year, month);
     }
 
     private void setupInlineCalendar() {
@@ -746,6 +1062,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 updateMonthLabel(curYear, curMonth);
             });
 
+            // Single-date action (add / remove / toggle / go to)
+            mBinding.inlineCalendarContainer.dateActionButton.setOnClickListener(v -> launchDateAction());
+
             // Month/year label tap -> year picker
             mBinding.inlineCalendarContainer.monthYearButton.setOnClickListener(v -> showYearPicker());
 
@@ -760,16 +1079,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             };
             mBinding.inlineCalendarContainer.calendarSummaryRow.setOnClickListener(v -> cleanupAction.run());
             mBinding.inlineCalendarContainer.cleanupOverrides.setOnClickListener(v -> cleanupAction.run());
-
-            // Clear all overrides
-            mBinding.inlineCalendarContainer.clearAllOverrides.setOnClickListener(v -> {
-                mAlarm.combinedDays = mAlarm.combinedDays.clear();
-                mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
-                updateCalendarSummary();
-                bindSelectedDate();
-                updateCleanupButtonVisibility();
-                updateClearButtonVisibility();
-            });
         } else {
             // Refresh existing adapter with current data
             mInlineCalendarAdapter.setMonth(displayYear, displayMonth);
@@ -789,7 +1098,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void updateClearButtonVisibility() {
         boolean hasOverrides = !mAlarm.combinedDays.isEmpty();
-        mBinding.inlineCalendarContainer.clearAllOverrides.setVisibility(hasOverrides ? VISIBLE : GONE);
+        mBinding.clearAllOverrides.setVisibility(hasOverrides ? VISIBLE : GONE);
     }
 
     private void showYearPicker() {
@@ -921,13 +1230,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             int selected = combinedDays.getSelectedDateCount();
             if (excluded > 0 && selected > 0) {
                 mBinding.inlineCalendarContainer.calendarSummary.setText(
-                    getString(R.string.dates_overridden_count, excluded, selected));
-            } else if (excluded > 0) {
+                    getString(R.string.dates_summary_added_excluded, selected, excluded));
+            } else if (selected > 0) {
                 mBinding.inlineCalendarContainer.calendarSummary.setText(
-                    getString(R.string.dates_excluded_only_count, excluded));
+                    getString(R.string.dates_summary_added, selected));
             } else {
                 mBinding.inlineCalendarContainer.calendarSummary.setText(
-                    getString(R.string.dates_added_only_count, selected));
+                    getString(R.string.dates_summary_excluded, excluded));
             }
         }
     }

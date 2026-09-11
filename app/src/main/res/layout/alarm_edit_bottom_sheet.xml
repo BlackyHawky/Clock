@@ -72,6 +72,23 @@
                     android:ellipsize="end"
                     tools:text="@string/schedule_alarm_title" />
 
+                <ImageButton
+                    android:id="@+id/clear_all_overrides"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:padding="0dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_calendar_cancel"
+                    android:scaleType="centerInside"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/clear_all_description"
+                    app:tint="?attr/colorTertiary"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
+
                 <ImageView
                     android:id="@+id/schedule_alarm_expand_icon"
                     android:layout_width="24dp"

@@ -102,11 +102,11 @@
     <!-- Button text for confirming date selection -->
     <string name="select_dates_confirm">Select</string>
     <!-- Summary text when no dates are excluded -->
-    <string name="no_dates_excluded">No dates excluded</string>
+    <string name="no_dates_excluded">Unscheduled</string>
     <!-- Summary text showing count of excluded dates -->
     <string name="dates_excluded_count">%d date(s) excluded</string>
     <!-- Summary text when no dates are selected -->
-    <string name="no_dates_selected">No dates selected</string>
+    <string name="no_dates_selected">Unscheduled</string>
     <!-- Summary text showing count of selected dates -->
     <string name="dates_selected_count">%d date(s) selected</string>
     <!-- Info message for the combined days feature -->
@@ -134,6 +134,28 @@
     <string name="dates_excluded_only_count">%d date(s) excluded</string>
     <!-- Summary text showing count of added dates only -->
     <string name="dates_added_only_count">%d date(s) added</string>
+    <!-- Compact inline calendar summary: added dates only -->
+    <string name="dates_summary_added">+%d</string>
+    <!-- Compact inline calendar summary: excluded dates only -->
+    <string name="dates_summary_excluded">-%d</string>
+    <!-- Compact inline calendar summary: both added and excluded dates -->
+    <string name="dates_summary_added_excluded">+%1$d, -%2$d</string>
+    <!-- Content description for the date action button in the inline calendar -->
+    <string name="date_action_description">Manage a specific date</string>
+    <!-- Title of the dialog used to add, remove, toggle or navigate to a specific date -->
+    <string name="date_action_title">What to do with %1$s?</string>
+    <!-- Button to navigate the inline calendar to the selected date -->
+    <string name="date_action_go_to">Go to</string>
+    <!-- Button to activate the selected date -->
+    <string name="date_action_add">Add</string>
+    <!-- Button to deactivate the selected date -->
+    <string name="date_action_remove">Remove</string>
+    <!-- Button to toggle the selected date -->
+    <string name="date_action_toggle">Toggle</string>
+    <!-- State text shown when the alarm is active on the selected date -->
+    <string name="date_action_state_on">Alarm is On</string>
+    <!-- State text shown when the alarm is inactive on the selected date -->
+    <string name="date_action_state_off">Alarm is Off</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
