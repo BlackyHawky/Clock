@@ -28,18 +28,24 @@ import java.util.TimeZone;
  * The data is serialized to/from a JSON string for database storage:
  * <pre>
  * {
+ *   "version": 1,
  *   "selectedDates": ["2024-01-12", "2024-01-22"],
  *   "deselectedDates": ["2024-01-10"]
  * }
  * </pre>
+ * The {@code version} key was introduced after the initial feature; blobs written before
+ * it existed are still parsed. A date can never be present in both the selected and the
+ * deselected lists: the mutators normalize on every write.
  */
 public final class CombinedDays implements Parcelable {
 
     public static final String EMPTY_JSON = "";
+    private static final String KEY_VERSION = "version";
     private static final String KEY_SELECTED_DATES = "selectedDates";
     private static final String KEY_DESELECTED_DATES = "deselectedDates";
     private static final String KEY_DISMISSED_DATES = "dismissedDates";
     private static final String DATE_FORMAT = "%04d-%02d-%02d";
+    private static final int VERSION = 1;
 
     private static final CombinedDays EMPTY = new CombinedDays();
 
@@ -78,6 +84,9 @@ public final class CombinedDays implements Parcelable {
 
         try {
             JSONObject obj = new JSONObject(json);
+            // Legacy blobs written before versioning have no "version" key and are accepted
+            // as-is so existing alarms round-trip without data loss.
+            obj.optInt(KEY_VERSION, 0);
             List<String> selected = jsonArrayToList(obj.optJSONArray(KEY_SELECTED_DATES));
             List<String> deselected = jsonArrayToList(obj.optJSONArray(KEY_DESELECTED_DATES));
             List<String> dismissed = jsonArrayToList(obj.optJSONArray(KEY_DISMISSED_DATES));
@@ -100,6 +109,7 @@ public final class CombinedDays implements Parcelable {
 
         try {
             JSONObject obj = new JSONObject();
+            obj.put(KEY_VERSION, VERSION);
             obj.put(KEY_SELECTED_DATES, listToJsonArray(mSelectedDates));
             obj.put(KEY_DESELECTED_DATES, listToJsonArray(mDeselectedDates));
             obj.put(KEY_DISMISSED_DATES, listToJsonArray(mDismissedDates));
@@ -156,7 +166,9 @@ public final class CombinedDays implements Parcelable {
         }
         List<String> newSelected = new ArrayList<>(mSelectedDates);
         newSelected.add(key);
-        return new CombinedDays(newSelected, mDeselectedDates);
+        List<String> newDeselected = new ArrayList<>(mDeselectedDates);
+        newDeselected.remove(key);
+        return new CombinedDays(newSelected, newDeselected);
     }
 
     /**
@@ -172,7 +184,9 @@ public final class CombinedDays implements Parcelable {
         String key = dateKey(year, month, day);
         List<String> newSelected = new ArrayList<>(mSelectedDates);
         newSelected.remove(key);
-        return new CombinedDays(newSelected, mDeselectedDates);
+        List<String> newDeselected = new ArrayList<>(mDeselectedDates);
+        newDeselected.remove(key);
+        return new CombinedDays(newSelected, newDeselected);
     }
 
     /**
@@ -191,7 +205,9 @@ public final class CombinedDays implements Parcelable {
         }
         List<String> newDeselected = new ArrayList<>(mDeselectedDates);
         newDeselected.add(key);
-        return new CombinedDays(mSelectedDates, newDeselected);
+        List<String> newSelected = new ArrayList<>(mSelectedDates);
+        newSelected.remove(key);
+        return new CombinedDays(newSelected, newDeselected);
     }
 
     /**
@@ -207,7 +223,9 @@ public final class CombinedDays implements Parcelable {
         String key = dateKey(year, month, day);
         List<String> newDeselected = new ArrayList<>(mDeselectedDates);
         newDeselected.remove(key);
-        return new CombinedDays(mSelectedDates, newDeselected);
+        List<String> newSelected = new ArrayList<>(mSelectedDates);
+        newSelected.remove(key);
+        return new CombinedDays(newSelected, newDeselected);
     }
 
     /**
@@ -222,12 +240,15 @@ public final class CombinedDays implements Parcelable {
     public CombinedDays toggleSelectedDate(int year, int month, int day) {
         String key = dateKey(year, month, day);
         List<String> newSelected = new ArrayList<>(mSelectedDates);
+        List<String> newDeselected = new ArrayList<>(mDeselectedDates);
         if (newSelected.contains(key)) {
             newSelected.remove(key);
+            newDeselected.remove(key);
         } else {
             newSelected.add(key);
+            newDeselected.remove(key);
         }
-        return new CombinedDays(newSelected, mDeselectedDates);
+        return new CombinedDays(newSelected, newDeselected);
     }
 
     /**
@@ -242,12 +263,15 @@ public final class CombinedDays implements Parcelable {
     public CombinedDays toggleDeselectedDate(int year, int month, int day) {
         String key = dateKey(year, month, day);
         List<String> newDeselected = new ArrayList<>(mDeselectedDates);
+        List<String> newSelected = new ArrayList<>(mSelectedDates);
         if (newDeselected.contains(key)) {
             newDeselected.remove(key);
+            newSelected.remove(key);
         } else {
             newDeselected.add(key);
+            newSelected.remove(key);
         }
-        return new CombinedDays(mSelectedDates, newDeselected);
+        return new CombinedDays(newSelected, newDeselected);
     }
 
     /**
@@ -570,6 +594,34 @@ public final class CombinedDays implements Parcelable {
     }
 
     /**
+     * Returns the latest selected date that is strictly before the given calendar date.
+     * Dismissed dates are skipped so that a preemptively dismissed occurrence is not reported
+     * as the previous occurrence.
+     *
+     * @param before the upper bound (exclusive); the returned date is strictly before this date
+     * @return the previous selected date as a Calendar (with only year/month/day set), or null
+     *     if none found within the preceding 365 days
+     */
+    @Nullable
+    public Calendar getPreviousSelectedDate(@NonNull Calendar before) {
+        Calendar search = (Calendar) before.clone();
+        search.add(Calendar.DAY_OF_MONTH, -1);
+        for (int i = 0; i < 366; i++) {
+            int year = search.get(Calendar.YEAR);
+            int month = search.get(Calendar.MONTH);
+            int day = search.get(Calendar.DAY_OF_MONTH);
+            if (isDateSelected(year, month, day) && !isDateDismissed(year, month, day)) {
+                Calendar result = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                result.clear();
+                result.set(year, month, day);
+                return result;
+            }
+            search.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        return null;
+    }
+
+    /**
      * @return the number of selected dates
      */
     public int getSelectedDateCount() {
@@ -625,15 +677,23 @@ public final class CombinedDays implements Parcelable {
     public CombinedDays removePastDates(int alarmHour, int alarmMinute) {
         Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 
+        // "Today" is the user's local civil date, not the UTC wall-clock date of the current
+        // instant (local midnight may still be the previous day in UTC).
+        Calendar localNow = Calendar.getInstance();
+        final int todayYear = localNow.get(Calendar.YEAR);
+        final int todayMonth = localNow.get(Calendar.MONTH);
+        final int todayDay = localNow.get(Calendar.DAY_OF_MONTH);
+        String todayKey = dateKey(todayYear, todayMonth, todayDay);
+
         Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
+        today.clear();
+        today.set(todayYear, todayMonth, todayDay, 0, 0, 0);
 
         boolean todayIsPast = false;
         if (alarmHour >= 0 && alarmMinute >= 0) {
-            Calendar alarmToday = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            // The alarm hour/minute are the local wall-clock time set by the user, so the
+            // "has today's alarm already passed?" check must be built on the local calendar.
+            Calendar alarmToday = Calendar.getInstance();
             alarmToday.set(Calendar.HOUR_OF_DAY, alarmHour);
             alarmToday.set(Calendar.MINUTE, alarmMinute);
             alarmToday.set(Calendar.SECOND, 0);
@@ -648,7 +708,7 @@ public final class CombinedDays implements Parcelable {
                 Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 date.set(parsed[0], parsed[1], parsed[2], 0, 0, 0);
                 date.set(Calendar.MILLISECOND, 0);
-                boolean isToday = date.equals(today);
+                boolean isToday = key.equals(todayKey);
                 if (isToday && todayIsPast) continue;
                 if (!date.before(today)) {
                     newSelected.add(key);
@@ -665,7 +725,7 @@ public final class CombinedDays implements Parcelable {
                 Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 date.set(parsed[0], parsed[1], parsed[2], 0, 0, 0);
                 date.set(Calendar.MILLISECOND, 0);
-                boolean isToday = date.equals(today);
+                boolean isToday = key.equals(todayKey);
                 if (isToday && todayIsPast) continue;
                 if (!date.before(today)) {
                     newDeselected.add(key);
@@ -682,7 +742,7 @@ public final class CombinedDays implements Parcelable {
                 Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 date.set(parsed[0], parsed[1], parsed[2], 0, 0, 0);
                 date.set(Calendar.MILLISECOND, 0);
-                boolean isToday = date.equals(today);
+                boolean isToday = key.equals(todayKey);
                 if (isToday && todayIsPast) continue;
                 if (!date.before(today)) {
                     newDismissed.add(key);
