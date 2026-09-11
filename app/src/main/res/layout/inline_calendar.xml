@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Inline calendar: Month Year ▼ << < > >>
-    Summary: "x excluded, y added [refresh] × Clear"
+    Summary: "+y, -x [refresh] [home] [date action]"
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
@@ -53,16 +53,6 @@
                 app:tint="?attr/colorOnSurface" />
 
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/home_button"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:padding="0dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/jump_to_current_month"
-            android:src="@drawable/ic_home"
-            android:scaleType="centerInside" />
 
         <ImageButton
             android:id="@+id/prev_year"
@@ -143,8 +133,8 @@
 
             <ImageView
                 android:id="@+id/cleanup_overrides"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="4dp"
                 android:src="@drawable/ic_refresh"
                 android:contentDescription="@string/cleanup_overrides"
@@ -152,19 +142,32 @@
                 android:visibility="gone" />
 
             <ImageButton
-                android:id="@+id/clear_all_overrides"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:id="@+id/home_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:padding="0dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_calendar_cancel"
+                android:src="@drawable/ic_home"
                 android:scaleType="centerInside"
                 android:clickable="true"
                 android:focusable="true"
-                android:contentDescription="@string/clear_all_description"
-                app:tint="?attr/colorTertiary"
-                android:visibility="gone" />
+                android:contentDescription="@string/jump_to_current_month"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+            <ImageButton
+                android:id="@+id/date_action_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:padding="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_calendar"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/date_action_description"
+                app:tint="?attr/colorOnSurfaceVariant" />
 
         </LinearLayout>
 
