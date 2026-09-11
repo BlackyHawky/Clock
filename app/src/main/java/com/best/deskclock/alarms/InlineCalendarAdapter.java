@@ -209,7 +209,7 @@ public class InlineCalendarAdapter extends RecyclerView.Adapter<InlineCalendarAd
             if (isToday) {
                 // Keep a soft outline around today so its cell stays recognizable once dimmed.
                 float density = holder.itemView.getResources().getDisplayMetrics().density;
-                baseBg.setStroke(Math.round(1.5f * density), mTodayStrokeColor);
+                baseBg.setStroke(Math.round((1.5f + 2f) * density), mTodayStrokeColor);
             }
             holder.dayText.setTextColor(mInactiveTextColor);
             holder.dayText.setAlpha(0.4f);
