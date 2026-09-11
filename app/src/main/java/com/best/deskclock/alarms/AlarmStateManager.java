@@ -978,7 +978,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 LogUtils.e("Found instance without matching alarm; deleting instance %s", instance);
                 continue;
             }
-            final Calendar priorAlarmTime = alarm.getPreviousAlarmTime();
+            final Calendar priorAlarmTime = alarm.getPreviousAlarmTime(instance.getAlarmTime());
             final Calendar missedTTLTime = instance.getMissedTimeToLive();
 
             // A combined-days occurrence can legitimately be the next event even though its
@@ -989,7 +989,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 && alarm.getNextAlarmTime(currentTime).getTimeInMillis() == instance.getAlarmTime().getTimeInMillis();
 
             if (!isCombinedNextOccurrence
-                && (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime))) {
+                && ((priorAlarmTime != null && currentTime.before(priorAlarmTime))
+                    || currentTime.after(missedTTLTime))) {
                 final Calendar oldAlarmTime = instance.getAlarmTime();
                 final Calendar newAlarmTime = alarm.getNextAlarmTime(currentTime);
                 final SimpleDateFormat logFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.US);
