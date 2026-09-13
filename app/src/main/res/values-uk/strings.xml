@@ -492,7 +492,6 @@
     <string name="settings_language_chinese_traditional_tw">Китайська (традиційна, Тайвань)</string>
     <string name="alarm_is_dismissed_and_deleted">Будильник <xliff:g example="14:20" id="alarm_time">%s</xliff:g> вимкнено і видалено</string>
     <string name="alarm_scheduled_for">Заплановано на %s</string>
-    <string name="date_picker_style_calendar">Календар</string>
     <string name="date_picker_style_text">Текст</string>
     <string name="schedule_alarm_title">Запланувати будильник</string>
     <string name="date_picker_style_title">Стиль вікна зміни дати</string>

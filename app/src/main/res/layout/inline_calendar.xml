@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Inline calendar: Month Year ▼ << < > >>
+    Summary: "+y, -x [refresh] [home] [date action]"
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/inline_calendar_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="8dp"
+    android:visibility="gone">
+
+    <!-- Navigation: September 2026 ▼ << < > >> -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/month_year_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:paddingVertical="4dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/month_year_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/month_year_dropdown_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="2dp"
+                android:src="@drawable/ic_arrow_drop_down"
+                android:contentDescription="@null"
+                app:tint="?attr/colorOnSurface" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/prev_year"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/prev_year"
+            android:src="@drawable/ic_chevron_double_left"
+            android:scaleType="centerInside" />
+
+        <ImageButton
+            android:id="@+id/prev_month"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/prev_month"
+            android:src="@drawable/ic_arrow_left"
+            android:scaleType="centerInside" />
+
+        <ImageButton
+            android:id="@+id/next_month"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/next_month"
+            android:src="@drawable/ic_arrow_right"
+            android:scaleType="centerInside" />
+
+        <ImageButton
+            android:id="@+id/next_year"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/next_year"
+            android:src="@drawable/ic_chevron_double_right"
+            android:scaleType="centerInside" />
+
+    </LinearLayout>
+
+    <!-- Calendar grid + summary overlay at same level -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Calendar day grid: fixed height for 6 rows (max a month can need) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendar_grid"
+            android:layout_width="match_parent"
+            android:layout_height="264dp"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false" />
+
+        <!-- Summary + refresh + clear, overlaid bottom right in the empty cells -->
+        <LinearLayout
+            android:id="@+id/calendar_summary_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/calendar_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <ImageView
+                android:id="@+id/cleanup_overrides"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_refresh"
+                android:contentDescription="@string/cleanup_overrides"
+                app:tint="?attr/colorOnSurfaceVariant"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/home_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:padding="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_home"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/jump_to_current_month"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+            <ImageButton
+                android:id="@+id/date_action_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:padding="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_calendar"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/date_action_description"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -482,7 +482,6 @@
     <string name="settings_language_chinese_traditional_tw">Čínština (tradiční, Tchaj-wan)</string>
     <string name="alarm_is_dismissed_and_deleted">Budík v <xliff:g example="14:20" id="alarm_time">%s</xliff:g> zrušen a odstraněn</string>
     <string name="alarm_scheduled_for">Naplánováno na %s</string>
-    <string name="date_picker_style_calendar">Kalendář</string>
     <string name="date_picker_style_text">Text</string>
     <string name="date_picker_style_title">Styl výběru data</string>
     <string name="schedule_alarm_title">Naplánovat budík</string>

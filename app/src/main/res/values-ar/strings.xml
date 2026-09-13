@@ -411,7 +411,6 @@
     <string name="display_enabled_alarms_first_title">عرض التنبيهات المفعلة أولاً</string>
     <string name="enable_alarm_fab_long_press_title">قم بتفعيل الضغط المطول على زر الإجراء لإنشاء تنبيهات مع تأخير</string>
     <string name="enable_alarm_fab_long_press_summary">في حالة تعطيل هذه الخاصية، سيتم عرض زرين لإنشاء تنبيهات</string>
-    <string name="date_picker_style_calendar">التقويم</string>
     <string name="date_picker_style_text">نص</string>
     <string name="alarm_settings_general_summary">يمكن تغيير هذا الإعداد لكل منبه في لوحة تحرير المنبهات</string>
     <string name="slide_zone_color_title">لون منطقة الانزلاق</string>

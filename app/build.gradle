@@ -103,6 +103,13 @@ android {
         abortOnError = false
     }
 
+    testOptions {
+        unitTests {
+            returnDefaultValues = false
+            includeAndroidResources = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -131,4 +138,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'com.google.android.material:material:1.14.0'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.16'
 }

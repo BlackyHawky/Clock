@@ -416,13 +416,11 @@
 
     <!-- Entries listed in the ListPreference when invoking the date picker style preference. -->
     <string-array name="date_picker_style_entries">
-        <item>@string/date_picker_style_calendar</item>
         <item>@string/date_picker_style_text</item>
         <item>@string/clock_style_spinner</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the date_picker_style_entries above. -->
     <string-array name="date_picker_style_values" translatable="false">
-        <item>calendar</item>
         <item>text</item>
         <item>spinner</item>
     </string-array>

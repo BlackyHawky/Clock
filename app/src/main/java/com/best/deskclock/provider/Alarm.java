@@ -25,6 +25,7 @@ import androidx.core.os.ParcelCompat;
 import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.AlarmUtils;
@@ -144,7 +145,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         PAUSE_END_DATE,
         BACKGROUND_IMAGE,
         BLUR_INTENSITY,
-        MATH_HARDNESS_LEVEL
+        MATH_HARDNESS_LEVEL,
+        COMBINED_DAYS
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -173,6 +175,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BACKGROUND_IMAGE,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BLUR_INTENSITY,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MATH_HARDNESS_LEVEL,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + COMBINED_DAYS,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -222,27 +225,28 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int BACKGROUND_IMAGE_INDEX = 23;
     private static final int BLUR_INTENSITY_INDEX = 24;
     private static final int MATH_HARDNESS_LEVEL_INDEX = 25;
+    private static final int COMBINED_DAYS_INDEX = 26;
 
-    private static final int INSTANCE_STATE_INDEX = 26;
-    public static final int INSTANCE_ID_INDEX = 27;
-    public static final int INSTANCE_YEAR_INDEX = 28;
-    public static final int INSTANCE_MONTH_INDEX = 29;
-    public static final int INSTANCE_DAY_INDEX = 30;
-    public static final int INSTANCE_HOUR_INDEX = 31;
-    public static final int INSTANCE_MINUTE_INDEX = 32;
-    public static final int INSTANCE_LABEL_INDEX = 33;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 34;
-    public static final int INSTANCE_VIBRATE_INDEX = 35;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 36;
-    public static final int INSTANCE_FLASH_INDEX = 37;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 38;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 39;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 40;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 41;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 42;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 43;
+    private static final int INSTANCE_STATE_INDEX = 27;
+    public static final int INSTANCE_ID_INDEX = 28;
+    public static final int INSTANCE_YEAR_INDEX = 29;
+    public static final int INSTANCE_MONTH_INDEX = 30;
+    public static final int INSTANCE_DAY_INDEX = 31;
+    public static final int INSTANCE_HOUR_INDEX = 32;
+    public static final int INSTANCE_MINUTE_INDEX = 33;
+    public static final int INSTANCE_LABEL_INDEX = 34;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 35;
+    public static final int INSTANCE_VIBRATE_INDEX = 36;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 37;
+    public static final int INSTANCE_FLASH_INDEX = 38;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 39;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 40;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 41;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 42;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 43;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 44;
 
-    private static final int COLUMN_COUNT = MATH_HARDNESS_LEVEL_INDEX + 1;
+    private static final int COLUMN_COUNT = COMBINED_DAYS_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
     // Public fields
     public long id;
@@ -273,6 +277,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String backgroundImage;
     public int blurIntensity;
     public String mathHardnessLevel;
+    @NonNull
+    public CombinedDays combinedDays = new CombinedDays();
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -309,6 +315,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         this.blurIntensity = DEFAULT_BLUR_INTENSITY;
         this.mathHardnessLevel = DEFAULT_MATH_HARDNESS_LEVEL;
+        this.combinedDays = new CombinedDays();
     }
 
     // Used to back up/restore the alarm
@@ -316,7 +323,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                  @NonNull String vibrationPattern, boolean flash, @NonNull Weekdays daysOfWeek, @NonNull String label, boolean syncByLabel,
                  @NonNull String alert, boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit,
                  int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
-                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel) {
+                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel, @NonNull String combinedDaysJson) {
 
         this.id = id;
         this.enabled = enabled;
@@ -344,6 +351,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = backgroundImage;
         this.blurIntensity = blurIntensity;
         this.mathHardnessLevel = mathHardnessLevel;
+        this.combinedDays = CombinedDays.fromJson(combinedDaysJson);
     }
 
     // Used to create a clone of the given alarm
@@ -375,6 +383,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = original.backgroundImage;
         this.blurIntensity = original.blurIntensity;
         this.mathHardnessLevel = original.mathHardnessLevel;
+        this.combinedDays = CombinedDays.fromJson(original.combinedDays.toJson());
     }
 
     public Alarm(@NonNull Cursor c) {
@@ -403,6 +412,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         backgroundImage = c.getString(BACKGROUND_IMAGE_INDEX);
         blurIntensity = c.getInt(BLUR_INTENSITY_INDEX);
         mathHardnessLevel = c.getString(MATH_HARDNESS_LEVEL_INDEX);
+        combinedDays = CombinedDays.fromJson(c.getString(COMBINED_DAYS_INDEX));
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -444,6 +454,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         backgroundImage = p.readString();
         blurIntensity = p.readInt();
         mathHardnessLevel = p.readString();
+        combinedDays = CombinedDays.fromJson(p.readString());
     }
 
     @NonNull
@@ -477,6 +488,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(BACKGROUND_IMAGE, backgroundImage);
         values.put(BLUR_INTENSITY, blurIntensity);
         values.put(MATH_HARDNESS_LEVEL, mathHardnessLevel);
+        values.put(COMBINED_DAYS, combinedDays.toJson());
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -515,6 +527,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(backgroundImage);
         p.writeInt(blurIntensity);
         p.writeString(mathHardnessLevel);
+        p.writeString(combinedDays.toJson());
     }
 
     public int describeContents() {
@@ -673,8 +686,13 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return deletedRows == 1;
     }
 
-    public boolean isDeleteAfterUse() {
-        return !daysOfWeek.isRepeating() && deleteAfterUse;
+    /**
+     * @return {@code true} if dismissing the current occurrence should delete the whole alarm.
+     * This is only the case for a legacy one-time alarm (no combined days) with the
+     * "delete after use" option enabled; a dates-only alarm is kept until its last date.
+     */
+    public boolean isDeletedAfterDismissal() {
+        return !daysOfWeek.isRepeating() && deleteAfterUse && !combinedDays.hasSelectedDates();
     }
 
     public String getLabelOrDefault(@NonNull Context context) {
@@ -722,7 +740,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || minutes != other.minutes
             || daysOfWeek.getBits() != other.daysOfWeek.getBits()
             || pauseStartDate != other.pauseStartDate
-            || pauseEndDate != other.pauseEndDate;
+            || pauseEndDate != other.pauseEndDate
+            || !Objects.equals(combinedDays, other.combinedDays);
     }
 
     /**
@@ -800,6 +819,29 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return alarmYear == tomorrow.get(Calendar.YEAR) &&
             alarmMonth == nextDayMonth &&
             alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * @return {@code true} if the given calendar date is today in the local timezone
+     * (compared by year, month and day only).
+     */
+    public static boolean isDateToday(@NonNull Calendar date) {
+        Calendar today = Calendar.getInstance();
+        return date.get(Calendar.YEAR) == today.get(Calendar.YEAR)
+            && date.get(Calendar.MONTH) == today.get(Calendar.MONTH)
+            && date.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * @return {@code true} if the given calendar date is tomorrow in the local timezone
+     * (compared by year, month and day only).
+     */
+    public static boolean isDateTomorrow(@NonNull Calendar date) {
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+        return date.get(Calendar.YEAR) == tomorrow.get(Calendar.YEAR)
+            && date.get(Calendar.MONTH) == tomorrow.get(Calendar.MONTH)
+            && date.get(Calendar.DAY_OF_MONTH) == tomorrow.get(Calendar.DAY_OF_MONTH);
     }
 
     public boolean isTimeBeforeOrEqual(@NonNull Calendar referenceTime) {
@@ -891,30 +933,143 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     @Nullable
     public Calendar getPreviousAlarmTime(@NonNull Calendar currentTime) {
         final Calendar previousInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
-        previousInstanceTime.set(Calendar.YEAR, year);
-        previousInstanceTime.set(Calendar.MONTH, month);
-        previousInstanceTime.set(Calendar.DAY_OF_MONTH, day);
-        previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-        previousInstanceTime.set(Calendar.MINUTE, minutes);
         previousInstanceTime.set(Calendar.SECOND, 0);
         previousInstanceTime.set(Calendar.MILLISECOND, 0);
 
-        final int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
-        if (subtractDays > 0) {
-            previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
+        if (daysOfWeek.isRepeating()) {
+            previousInstanceTime.setTimeInMillis(currentTime.getTimeInMillis());
+            previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+            previousInstanceTime.set(Calendar.MINUTE, minutes);
+
+            // If we haven't reached the alarm time yet, step back a day before looking for
+            // the previous active weekday.
+            if (previousInstanceTime.getTimeInMillis() >= currentTime.getTimeInMillis()) {
+                previousInstanceTime.add(Calendar.DAY_OF_YEAR, -1);
+            }
+
+            int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
+            if (subtractDays < 0) {
+                // No active weekday behind the given time: fall back to the previous
+                // selected date if any.
+                return combinedDays.hasSelectedDates()
+                    ? getPreviousSelectedDateAtAlarmTime(previousInstanceTime, currentTime) : null;
+            }
+            if (subtractDays > 0) {
+                previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
+            }
+
+            // Daylight Saving Time can alter the hours and minutes when adjusting the day above.
+            // Reset the desired hour and minute now that the correct day has been chosen.
+            previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+            previousInstanceTime.set(Calendar.MINUTE, minutes);
+
+            // Skip deselected or dismissed dates when walking backwards.
+            if (combinedDays.hasDeselectedDates() || combinedDays.hasDismissedDates()) {
+                int maxIterations = 366; // Prevent infinite loops
+                while (maxIterations-- > 0) {
+                    int y = previousInstanceTime.get(Calendar.YEAR);
+                    int m = previousInstanceTime.get(Calendar.MONTH);
+                    int d = previousInstanceTime.get(Calendar.DAY_OF_MONTH);
+                    if (!combinedDays.isDateDeselected(y, m, d) && !combinedDays.isDateDismissed(y, m, d)) {
+                        break;
+                    }
+                    // Skip to the previous occupied weekday. getDistanceToPreviousDay never
+                    // includes the given day, so unlike the forward direction no pre-step is
+                    // needed: the day we just rejected is passed over automatically.
+                    final int skipDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
+                    if (skipDays < 0) {
+                        return combinedDays.hasSelectedDates()
+                            ? getPreviousSelectedDateAtAlarmTime(previousInstanceTime, currentTime) : null;
+                    }
+                    if (skipDays > 0) {
+                        previousInstanceTime.add(Calendar.DAY_OF_WEEK, -skipDays);
+                    }
+                    previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                    previousInstanceTime.set(Calendar.MINUTE, minutes);
+                }
+            }
+
+            // An added selected date can be more recent than the weekday-based occurrence.
+            if (combinedDays.hasSelectedDates()) {
+                Calendar prevSelected = combinedDays.getPreviousSelectedDate(currentTime);
+                while (prevSelected != null) {
+                    Calendar selectedTime = Calendar.getInstance(currentTime.getTimeZone());
+                    selectedTime.set(Calendar.YEAR, prevSelected.get(Calendar.YEAR));
+                    selectedTime.set(Calendar.MONTH, prevSelected.get(Calendar.MONTH));
+                    selectedTime.set(Calendar.DAY_OF_MONTH, prevSelected.get(Calendar.DAY_OF_MONTH));
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hour);
+                    selectedTime.set(Calendar.MINUTE, minutes);
+                    selectedTime.set(Calendar.SECOND, 0);
+                    selectedTime.set(Calendar.MILLISECOND, 0);
+
+                    if (selectedTime.getTimeInMillis() > previousInstanceTime.getTimeInMillis()
+                        && selectedTime.getTimeInMillis() < currentTime.getTimeInMillis()) {
+                        previousInstanceTime.setTimeInMillis(selectedTime.getTimeInMillis());
+                        break;
+                    }
+                    // Try the previous selected date.
+                    Calendar beforeThisDate = (Calendar) prevSelected.clone();
+                    beforeThisDate.add(Calendar.DAY_OF_MONTH, -1);
+                    prevSelected = combinedDays.getPreviousSelectedDate(beforeThisDate);
+                }
+            }
+
             return previousInstanceTime;
+        } else if (combinedDays.hasSelectedDates()) {
+            // Dates-only alarm: the previous occurrence is the latest selected date before now.
+            return getPreviousSelectedDateAtAlarmTime(previousInstanceTime, currentTime);
         } else {
-            return null;
+            // Legacy one-time alarm (upstream behavior).
+            previousInstanceTime.set(Calendar.YEAR, year);
+            previousInstanceTime.set(Calendar.MONTH, month);
+            previousInstanceTime.set(Calendar.DAY_OF_MONTH, day);
+            previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+            previousInstanceTime.set(Calendar.MINUTE, minutes);
+
+            final int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
+            if (subtractDays > 0) {
+                previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
+                return previousInstanceTime;
+            } else {
+                return null;
+            }
         }
     }
 
     /**
-     * Calculates the next scheduled occurrence time.
+     * Sets the given candidate time to the latest selected date before {@code currentTime}
+     * at the alarm's configured time.
+     *
+     * @param candidate   the calendar to fill in (year/month/day/hour/minute)
+     * @param currentTime the upper bound (exclusive)
+     * @return the candidate calendar, or null if no selected date precedes {@code currentTime}
+     */
+    @Nullable
+    private Calendar getPreviousSelectedDateAtAlarmTime(@NonNull Calendar candidate,
+                                                        @NonNull Calendar currentTime) {
+        Calendar prevSelected = combinedDays.getPreviousSelectedDate(currentTime);
+        if (prevSelected == null) {
+            return null;
+        }
+        candidate.set(Calendar.YEAR, prevSelected.get(Calendar.YEAR));
+        candidate.set(Calendar.MONTH, prevSelected.get(Calendar.MONTH));
+        candidate.set(Calendar.DAY_OF_MONTH, prevSelected.get(Calendar.DAY_OF_MONTH));
+        candidate.set(Calendar.HOUR_OF_DAY, hour);
+        candidate.set(Calendar.MINUTE, minutes);
+        return candidate;
+    }
+
+    /**
+     * Calculates the next scheduled occurrence time for combined days.
      *
      * <p>This method determines when the alarm should trigger again based on its
      * configuration. It handles both repeating alarms (with specific days of the week)
      * and one-time alarms (with a fixed date). Daylight Savings Time (DST) adjustments
      * are also taken into account by resetting the hour and minute after shifting days.
+     *
+     * <p>When {@link #combinedDays} contains deselected dates and the alarm repeats on
+     * weekdays, those dates are skipped. When combinedDays contains selected dates and
+     * the alarm does not repeat on weekdays, only those specific dates are used.</p>
      *
      * @return a {@link Calendar} instance representing the next valid alarm time.
      * <p>- For repeating alarms: the next valid day of the week at the configured hour/minute.</p>
@@ -948,6 +1103,55 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
             nextInstanceTime.set(Calendar.MINUTE, minutes);
 
+            // Skip deselected or dismissed dates when using combined days
+            if (combinedDays.hasDeselectedDates() || combinedDays.hasDismissedDates()) {
+                int maxIterations = 366; // Prevent infinite loops
+                while (maxIterations-- > 0) {
+                    int y = nextInstanceTime.get(Calendar.YEAR);
+                    int m = nextInstanceTime.get(Calendar.MONTH);
+                    int d = nextInstanceTime.get(Calendar.DAY_OF_MONTH);
+                    if (!combinedDays.isDateDeselected(y, m, d) && !combinedDays.isDateDismissed(y, m, d)) {
+                        break;
+                    }
+                    // Skip to the next day and find next valid weekday
+                    nextInstanceTime.add(Calendar.DAY_OF_YEAR, 1);
+                    final int skipDays = daysOfWeek.getDistanceToNextDay(nextInstanceTime);
+                    if (skipDays > 0) {
+                        nextInstanceTime.add(Calendar.DAY_OF_WEEK, skipDays);
+                    }
+                    nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                    nextInstanceTime.set(Calendar.MINUTE, minutes);
+                }
+            }
+
+            // Check if any selected date is earlier than the weekday-based next time
+            if (combinedDays.hasSelectedDates()) {
+                Calendar nextSelected = combinedDays.getNextSelectedDate(currentTime);
+                while (nextSelected != null) {
+                    Calendar selectedTime = Calendar.getInstance(currentTime.getTimeZone());
+                    selectedTime.set(Calendar.YEAR, nextSelected.get(Calendar.YEAR));
+                    selectedTime.set(Calendar.MONTH, nextSelected.get(Calendar.MONTH));
+                    selectedTime.set(Calendar.DAY_OF_MONTH, nextSelected.get(Calendar.DAY_OF_MONTH));
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hour);
+                    selectedTime.set(Calendar.MINUTE, minutes);
+                    selectedTime.set(Calendar.SECOND, 0);
+                    selectedTime.set(Calendar.MILLISECOND, 0);
+
+                    // Skip selected dates whose alarm time has already passed. When an added
+                    // date fires before the next weekday occurrence, prefer it and let the
+                    // pause handling below apply to whichever of the two is the actual event.
+                    if (selectedTime.getTimeInMillis() > currentTime.getTimeInMillis()
+                        && selectedTime.getTimeInMillis() < nextInstanceTime.getTimeInMillis()) {
+                        nextInstanceTime.setTimeInMillis(selectedTime.getTimeInMillis());
+                        break;
+                    }
+                    // Try the next selected date.
+                    Calendar afterThisDate = (Calendar) nextSelected.clone();
+                    afterThisDate.add(Calendar.DAY_OF_MONTH, 1);
+                    nextSelected = combinedDays.getNextSelectedDate(afterThisDate);
+                }
+            }
+
             if (isDatePaused(nextInstanceTime)) {
                 // The alarm goes off during the pause: retrieve the end time of the pause
                 Calendar endOfPauseUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -962,9 +1166,43 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 localEndOfPause.set(Calendar.HOUR_OF_DAY, hour);
                 localEndOfPause.set(Calendar.MINUTE, minutes);
 
-                // Restart the search. The system will see that the alarm time has “already passed or is equal to” that day,
+                // Restart the search. The system will see that the alarm time has "already passed or is equal to" that day,
                 // and will automatically add one day and then search for the next valid day of the week.
                 return getNextAlarmTime(localEndOfPause);
+            }
+        } else if (combinedDays.hasSelectedDates()) {
+            // Use selected dates as one-time alarm triggers
+            Calendar nextSelectedDate = combinedDays.getNextSelectedDate(currentTime);
+            boolean found = false;
+            while (nextSelectedDate != null) {
+                Calendar candidate = Calendar.getInstance(currentTime.getTimeZone());
+                candidate.set(Calendar.YEAR, nextSelectedDate.get(Calendar.YEAR));
+                candidate.set(Calendar.MONTH, nextSelectedDate.get(Calendar.MONTH));
+                candidate.set(Calendar.DAY_OF_MONTH, nextSelectedDate.get(Calendar.DAY_OF_MONTH));
+                candidate.set(Calendar.HOUR_OF_DAY, hour);
+                candidate.set(Calendar.MINUTE, minutes);
+                candidate.set(Calendar.SECOND, 0);
+                candidate.set(Calendar.MILLISECOND, 0);
+
+                if (candidate.getTimeInMillis() > currentTime.getTimeInMillis()) {
+                    nextInstanceTime.setTimeInMillis(candidate.getTimeInMillis());
+                    found = true;
+                    break;
+                }
+                // The alarm time has already passed on this date; try the next selected date.
+                Calendar afterThisDate = (Calendar) nextSelectedDate.clone();
+                afterThisDate.add(Calendar.DAY_OF_MONTH, 1);
+                nextSelectedDate = combinedDays.getNextSelectedDate(afterThisDate);
+            }
+            if (!found) {
+                // No selected date left to fire (either none within the next year or the only
+                // remaining date's alarm time has passed): schedule a benign sentinel about a
+                // year out instead of falling back to an already-past anchor date, which would
+                // otherwise misfire immediately.
+                nextInstanceTime.setTimeInMillis(currentTime.getTimeInMillis());
+                nextInstanceTime.add(Calendar.DAY_OF_YEAR, 366);
+                nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+                nextInstanceTime.set(Calendar.MINUTE, minutes);
             }
         } else {
             nextInstanceTime.set(Calendar.YEAR, year);
@@ -1020,6 +1258,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     /**
      * Returns the next alarm time for sorting purposes.
+     *
+     * <p>Running or pending instances always win; everything else is derived from the same
+     * canonical {@link #getNextAlarmTime(Calendar)} so the list order can never diverge from
+     * the real scheduling. The only exception is an expired legacy one-time alarm, which keeps
+     * a rolling "today/tomorrow at alarm time" anchor until the user turns it off.</p>
      */
     public Calendar getSortableNextAlarmTime(@NonNull Context context, @Nullable AlarmInstance instance, @NonNull Calendar now) {
         // Rely on the instance only if the alarm is enabled.
@@ -1044,6 +1287,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     return instance.getAlarmTime();
                 }
             }
+        }
+
+        // Combined-days alarms (dates-only or weekdays with date overrides) always go through
+        // the canonical scheduler - the single alarm date fields do not represent the rule.
+        if (!combinedDays.isEmpty()) {
+            return getNextAlarmTime(now);
         }
 
         // Calculate the theoretical absolute time for disabled alarms or obsolete instances.
@@ -1096,6 +1345,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return result;
     }
 
+
     @Override
     public boolean equals(@Nullable Object o) {
         if (!(o instanceof final Alarm other)) return false;
@@ -1137,6 +1387,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", backgroundImage=" + backgroundImage +
             ", blurIntensity=" + blurIntensity +
             ", mathHardnessLevel=" + mathHardnessLevel +
+            ", combinedDays=" + combinedDays +
             '}';
     }
 

@@ -92,6 +92,64 @@
     <string name="pause_alarm_range">Paused: %1$s</string>
     <!-- Message displayed in the alarm editing when the "Pause alarm" feature is disabled -->
     <string name="pause_alarm_info_message">Select days of the week to access this feature.</string>
+    <!-- Combined days feature -->
+    <!-- Label title in the alarm editing panel for excluding specific dates -->
+    <string name="exclude_dates_title">Exclude dates</string>
+    <!-- Label title in the alarm editing panel for selecting specific dates -->
+    <string name="select_dates_title">Select dates</string>
+    <!-- Button text for confirming date exclusion -->
+    <string name="exclude_dates_confirm">Exclude</string>
+    <!-- Button text for confirming date selection -->
+    <string name="select_dates_confirm">Select</string>
+    <!-- Summary text when no dates are excluded -->
+    <string name="no_dates_excluded">Unscheduled</string>
+    <!-- Summary text when no dates are selected -->
+    <string name="no_dates_selected">Unscheduled</string>
+    <!-- Inline calendar navigation -->
+    <!-- Content description for previous month navigation button -->
+    <string name="prev_month">Previous month</string>
+    <!-- Content description for next month navigation button -->
+    <string name="next_month">Next month</string>
+    <!-- Content description for previous year navigation button -->
+    <string name="prev_year">Previous year</string>
+    <!-- Content description for next year navigation button -->
+    <string name="next_year">Next year</string>
+    <!-- Content description for cleanup redundant overrides button -->
+    <string name="cleanup_overrides">Clean up overrides</string>
+    <!-- Title for year picker dialog -->
+    <string name="select_year">Select year</string>
+    <string name="jump_to_current_month">Jump to current month</string>
+    <!-- Content description for the clear all overrides button -->
+    <string name="clear_all_description">Clear all overrides</string>
+    <!-- Inline calendar summary -->
+    <!-- Summary text showing count of excluded and added dates -->
+    <string name="dates_overridden_count">%1$d date(s) excluded, %2$d added</string>
+    <!-- Summary text showing count of excluded dates only -->
+    <string name="dates_excluded_only_count">%d date(s) excluded</string>
+    <!-- Summary text showing count of added dates only -->
+    <string name="dates_added_only_count">%d date(s) added</string>
+    <!-- Compact inline calendar summary: added dates only -->
+    <string name="dates_summary_added">+%d</string>
+    <!-- Compact inline calendar summary: excluded dates only -->
+    <string name="dates_summary_excluded">-%d</string>
+    <!-- Compact inline calendar summary: both added and excluded dates -->
+    <string name="dates_summary_added_excluded">+%1$d, -%2$d</string>
+    <!-- Content description for the date action button in the inline calendar -->
+    <string name="date_action_description">Manage a specific date</string>
+    <!-- Title of the dialog used to add, remove, toggle or navigate to a specific date -->
+    <string name="date_action_title">What to do with %1$s?</string>
+    <!-- Button to navigate the inline calendar to the selected date -->
+    <string name="date_action_go_to">Go to</string>
+    <!-- Button to activate the selected date -->
+    <string name="date_action_add">Add</string>
+    <!-- Button to deactivate the selected date -->
+    <string name="date_action_remove">Remove</string>
+    <!-- Button to toggle the selected date -->
+    <string name="date_action_toggle">Toggle</string>
+    <!-- State text shown when the alarm is active on the selected date -->
+    <string name="date_action_state_on">Alarm is On</string>
+    <!-- State text shown when the alarm is inactive on the selected date -->
+    <string name="date_action_state_off">Alarm is Off</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
@@ -121,7 +179,7 @@
     <!-- Button labels on the alarm dialog: Snooze -->
     <string name="alarm_alert_snooze_text">Snooze</string>
     <!-- Toast that appears after Alarm is snoozed from the Alarm dialog. Says the alarm will snooze for xxx minutes.  -->
-    <plurals name="alarm_alert_snooze_set">
+    <plurals name="alarm_alert_snooze_set" tools:ignore="ImpliedQuantity">
         <!-- Duration for one minute -->
         <item quantity="one">Snoozing for <xliff:g example="1" id="minutes">%d</xliff:g> minute.</item>
         <!-- Duration for more than one minute -->
@@ -134,7 +192,7 @@
     <!-- Setting labels on Set alarm screen: Flash on or off -->
     <string name="alarm_flash">Flash</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
-    <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
+    <string name="delete_occasional_alarm_after_use_title">Delete alarm once last date dismissed</string>
     <!-- Message displayed in the alarm editing when the "Delete alarm once dismissed" feature is disabled -->
     <string name="delete_occasional_alarm_after_use_info_message">Deselect the days of the week to access this feature.</string>
     <!-- Message displayed in the alarm editing when the "Silence after" feature is disabled -->
@@ -178,33 +236,33 @@
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 8 -->
     <string name="alarm_confirmation_toast_8">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: days -->
-    <plurals name="days">
+    <plurals name="days" tools:ignore="ImpliedQuantity">
         <!-- Duration for one day -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> day</item>
         <!-- Duration for more than one day -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> days</item>
     </plurals>
     <!-- Alarm confirmation toast, timer notification and world clock ahead/behind: hours -->
-    <plurals name="hours">
+    <plurals name="hours" tools:ignore="ImpliedQuantity">
         <!-- Duration for one hour -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> hour</item>
         <!-- Duration for more than one hour -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hours</item>
     </plurals>
-    <plurals name="hours_short">
+    <plurals name="hours_short" tools:ignore="ImpliedQuantity">
         <!-- Duration for one hour [CHAR LIMIT=8] -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> hr</item>
         <!-- Duration for more than one hour [CHAR LIMIT=8]-->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hr</item>
     </plurals>
     <!-- Alarm confirmation toast and timer notification: minutes -->
-    <plurals name="minutes">
+    <plurals name="minutes" tools:ignore="ImpliedQuantity">
         <!-- Duration for one minute -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> minute</item>
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minutes</item>
     </plurals>
-    <plurals name="minutes_short">
+    <plurals name="minutes_short" tools:ignore="ImpliedQuantity">
         <!-- Duration for one minute [CHAR LIMIT=8] -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
         <!-- Duration for more than one minute [CHAR LIMIT=8] -->
@@ -380,7 +438,7 @@
     <!-- Verb inflection to use for multiple time units remaining (e.g., "2 minutes remaining" -->
     <string name="timer_remaining_multiple">remaining</string>
     <!-- Timer accessibility announcement -->
-    <plurals name="seconds">
+    <plurals name="seconds" tools:ignore="ImpliedQuantity">
         <!-- Duration for one second -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> second</item>
         <!-- Duration for more than one minute -->
@@ -446,7 +504,7 @@
     <!-- String that represents that the user has successfully created a timer through a voice action. [CHAR LIMIT=NONE] -->
     <string name="timer_created">Timer created</string>
     <!-- String that represents that the user has successfully dismissed timers. [CHAR_LIMIT=NONE] -->
-    <plurals name="expired_timers_dismissed">
+    <plurals name="expired_timers_dismissed" tools:ignore="ImpliedQuantity">
         <item quantity="one"><xliff:g example="1" id="number">%d</xliff:g> timer dismissed</item>
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> timers dismissed</item>
     </plurals>
@@ -887,10 +945,10 @@
     <!-- Setting title to enable the use of a custom stop duration for each alarm. -->
     <string name="enable_per_alarm_auto_silence_title">Use a custom stop duration for each alarm</string>
     <!-- Setting title to display the Dismiss button -->
-    <string name="display_dismiss_button_title">Display the \"Dismiss\" button as soon as the alarm is enabled</string>
+    <string name="display_dismiss_button_title">Always show dismiss button</string>
     <!-- Setting summary to specify when the Dismiss button will appear if the
-         "Display Dismiss button as soon as alarm is enabled" setting is disabled. -->
-    <string name="display_dismiss_button_summary">If disabled, the button will appear at the same time as the notification reminder</string>
+         "Always show dismiss button" setting is disabled. -->
+    <string name="display_dismiss_button_summary">If disabled, the button only appears shortly before the alarm fires (at the same time as the notification reminder)</string>
     <!-- Setting title to enable the use of a custom missed alarm repeat count for each alarm. -->
     <string name="enable_per_alarm_missed_repeat_limit_title">Use a custom missed alarm repeat count for each alarm</string>
     <!-- Dialog message when the "Use a custom missed alarm repeat count for each alarm" setting is disabled. -->
@@ -968,8 +1026,6 @@
     <string name="enable_alarm_fab_long_press_title">Enable a long press on the action button to create alarms with delay</string>
     <!-- Setting summary to display two separate buttons for creating alarms if long press on the floating action button is not enabled -->
     <string name="enable_alarm_fab_long_press_summary">If disabled, two buttons will be displayed to create alarms</string>
-    <!-- Setting title for changing the date picker style to calendar. -->
-    <string name="date_picker_style_calendar">Calendar</string>
     <!-- Setting title for changing the date picker style to text. -->
     <string name="date_picker_style_text">Text</string>
     <!-- Setting summary to indicate that this setting can be changed for each alarm -->
@@ -1410,7 +1466,7 @@
     <!-- Menu item About -->
     <string name="about_title">About</string>
     <!-- App slogan -->
-    <string name="app_slogan">100% FOSS Clock, based on AOSP</string>
+    <string name="app_slogan" tools:ignore="StringFormatInvalid">100% FOSS Clock, based on AOSP</string>
     <!-- Version for about screen -->
     <string name="version">Version</string>
     <!-- Version text [CHAR LIMIT=30] -->

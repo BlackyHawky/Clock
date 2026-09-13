@@ -257,7 +257,6 @@
     <string name="restore_button_title">Återställ</string>
     <string name="settings_language_korean">Koreanska</string>
     <string name="tab_title_visibility_always">Alltid</string>
-    <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_text">Text</string>
     <string name="warning">Varning</string>
     <string name="label_minutes">Minuter</string>

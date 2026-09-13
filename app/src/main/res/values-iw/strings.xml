@@ -355,7 +355,6 @@
     <string name="enable_per_alarm_volume_title">שימוש בעוצמת קול מותאמת אישית לכל התראה בנפרד</string>
     <string name="missed_alarm_repeat_limit_title">חזרה על התראות שהוחמצו</string>
     <string name="sort_name">לפי שם</string>
-    <string name="date_picker_style_calendar">לוח שנה</string>
     <string name="enable_per_alarm_snooze_duration_title">שימוש במשך זמן מותאם אישית של נודניק לכל התראה בנפרד</string>
     <string name="system_media_volume_summary">עובד רק אם מחובר מכשיר שמע חיצוני</string>
     <string name="vibration_pattern_title">דפוס רטט</string>

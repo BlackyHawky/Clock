@@ -43,7 +43,7 @@
             android:title="@string/date_picker_style_title"
             android:entries="@array/date_picker_style_entries"
             android:entryValues="@array/date_picker_style_values"
-            android:defaultValue="calendar"
+            android:defaultValue="text"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

@@ -368,7 +368,6 @@
     <string name="clock_style_spinner">Spinner</string>
     <string name="sort_ascending_creation_order">Por ordem de criação (mais antigo primeiro)</string>
     <string name="display_enabled_alarms_first_title">Exibir alarmes ativados primeiro</string>
-    <string name="date_picker_style_calendar">Calendário</string>
     <string name="date_picker_style_text">Texto</string>
     <string name="alarm_settings_general_summary">Esta definição pode ser alterada para cada alarme na visualização do alarme extendido</string>
     <string name="slide_zone_color_title">Cor da zona de deslizar</string>

@@ -485,7 +485,6 @@
     <string name="schedule_alarm_title">Zaplanuj alarm</string>
     <string name="alarm_scheduled_for">Zaplanowano na %s</string>
     <string name="date_picker_style_title">Styl selektora daty</string>
-    <string name="date_picker_style_calendar">Kalendarz</string>
     <string name="warning">Ostrzeżenie</string>
     <string name="random_ringtone_title">Losowy dzwonek</string>
     <string name="timer_button_time_seconds_warning_box_text">Wprowadź wartość od 0 do 59 sekund</string>

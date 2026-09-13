@@ -466,7 +466,6 @@
     <string name="description_snooze_button">Zum Schlummern des Weckers tippen</string>
     <string name="description_dismiss_button_for_occasional_alarm">Zum Verwerfen und Löschen des Weckers tippen</string>
     <string name="date_picker_style_title">Datumsauswahl-Stil</string>
-    <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_text">Tastatur</string>
     <string name="schedule_alarm_title">Datum</string>
     <string name="alarm_scheduled_for">Geplant für %s</string>

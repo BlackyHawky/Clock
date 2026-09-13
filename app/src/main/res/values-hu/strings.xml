@@ -396,7 +396,6 @@
     <string name="display_enabled_alarms_first_title">Bekapcsolt állapot szerint</string>
     <string name="enable_alarm_fab_long_press_title">Műveleti gomb hosszan nyomásával létrehozható késleltetett ébresztő</string>
     <string name="enable_alarm_fab_long_press_summary">Kikapcsolása esetén, két gomb áll rendelkezésre az ébresztés létrehozásához</string>
-    <string name="date_picker_style_calendar">Naptár</string>
     <string name="date_picker_style_text">Szöveg</string>
     <string name="alarm_settings_general_summary">Ez a beállítás megváltoztatható minden ébresztőnél a haladó nézetben</string>
     <string name="slide_zone_color_title">Csúsztató zóna szín</string>

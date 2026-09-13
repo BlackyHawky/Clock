@@ -476,7 +476,6 @@
     <string name="settings_language_chinese_traditional_tw">hiina keel (traditsiooniline, Taivan)</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> äratusest on loobutud ja ta on kustutatud</string>
     <string name="alarm_scheduled_for">Ajastatud: %s</string>
-    <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_text">Tekst</string>
     <string name="date_picker_style_title">Kuupäevavalija stiil</string>
     <string name="schedule_alarm_title">Ajasta äratus</string>

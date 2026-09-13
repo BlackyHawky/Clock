@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Individual day cell for the inline calendar grid.
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
+
+    <TextView
+        android:id="@+id/day_text"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="?attr/colorOnSurface" />
+
+</FrameLayout>
