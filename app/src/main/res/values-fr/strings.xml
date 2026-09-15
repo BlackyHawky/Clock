@@ -480,7 +480,7 @@
     <string name="display_next_alarm_title">Afficher la prochaine alarme</string>
     <string name="settings_language_chinese_traditional_tw">Chinois (traditionnel, Taïwan)</string>
     <string name="alarm_is_dismissed_and_deleted">L\'alarme de <xliff:g example="14:20" id="alarm_time">%s</xliff:g> a été ignorée et supprimée</string>
-    <string name="schedule_alarm_title">Programmer alarme</string>
+    <string name="schedule_alarm_title">Programmer l\'alarme</string>
     <string name="alarm_scheduled_for">Planifiée pour le %s</string>
     <string name="random_ringtone_title">Sonnerie aléatoire</string>
     <string name="date_picker_style_title">Style de sélection de la date</string>
@@ -720,4 +720,8 @@
     <string name="enable_per_alarm_math_hardness_level_title">Utiliser un niveau de difficulté mathématique personnalisé pour chaque alarme</string>
     <string name="enable_per_alarm_math_hardness_level_dialog_message">Les niveaux de difficulté mathématique personnalisés seront réinitialisés.%s</string>
     <string name="sw_display_milliseconds_title">Afficher les millisecondes</string>
+    <string name="button_action_mute">Couper le son</string>
+    <string name="settings_language_swedish">Suédois</string>
+    <string name="settings_language_laotian">Laotien</string>
+    <string name="settings_language_persian">Persan</string>
 </resources>

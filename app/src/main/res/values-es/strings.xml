@@ -713,4 +713,5 @@
     <string name="enable_per_alarm_math_hardness_level_dialog_message">Se restablecerán los niveles de dificultad personalizados de matemáticas.%s</string>
     <string name="sw_display_milliseconds_title">Mostrar milisegundos</string>
     <string name="auto_silence_info_message">\"Silenciar después de\" establecido en \"%s\". \n\nDesactiva el nivel de dificultad matemática para acceder a esta función.</string>
+    <string name="button_action_mute">Silenciar</string>
 </resources>

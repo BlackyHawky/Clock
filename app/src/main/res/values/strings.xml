@@ -819,6 +819,12 @@
     <string name="settings_language_hungarian">Hungarian</string>
     <!-- Setting title for changing the language to Hebrew. -->
     <string name="settings_language_hebrew">Hebrew</string>
+    <!-- Setting title for changing the language to Swedish. -->
+    <string name="settings_language_swedish">Swedish</string>
+    <!-- Setting title for changing the language to Laotian. -->
+    <string name="settings_language_laotian">Laotian</string>
+    <!-- Setting title for changing the language to Persian. -->
+    <string name="settings_language_persian">Persian</string>
     <!-- Category title for tab settings -->
     <string name="tabs_category_title">Tabs</string>
     <!-- Setting title to choose which tabs are visible in the bottom navigation menu. -->

@@ -732,4 +732,8 @@
     <string name="math_hardness_level_easy">Простий</string>
     <string name="math_hardness_level_normal">Звичайний</string>
     <string name="math_hardness_level_hard">Складний</string>
+    <string name="button_action_mute">Вимкнути звук</string>
+    <string name="settings_language_swedish">Шведська</string>
+    <string name="settings_language_laotian">Лаосець</string>
+    <string name="settings_language_persian">Перська</string>
 </resources>

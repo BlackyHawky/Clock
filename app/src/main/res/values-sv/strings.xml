@@ -24,15 +24,15 @@
     <string name="alarm_today" msgid="7873594221106531654">"I dag"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Stäng av"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarmet lämnades utan åtgärd"</string>
-    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> – <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> – <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Snoozar"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm av"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooza"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">Snoozar i 1 minut.</item>
-        <item quantity="other">Snoozar i <xliff:g id="MINUTES">%d</xliff:g> minuter.</item>
+        <item quantity="other">Snoozar i <xliff:g id="minutes">%d</xliff:g> minuter.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozar till <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Snoozar till <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Kommande alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Det missade alarmet har tagits bort"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Mindre än en minut kvar"</string>
@@ -55,28 +55,28 @@
     <string name="alarm_confirmation_toast_7">"Alarmet ringer om <xliff:g id="HOURS">%2$s</xliff:g> och <xliff:g id="MINUTES">%3$s</xliff:g> från och med nu."</string>
     <string name="alarm_confirmation_toast_8">"Alarmet ringer om <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> och <xliff:g id="MINUTES">%3$s</xliff:g> från och med nu."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one">1 dag</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dagar</item>
+        <item quantity="one"><xliff:g id="number">%s</xliff:g> dag</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> dagar</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one">1 timme</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> timmar</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> timme</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> timmar</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one">1 timme</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> timmar</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> timme</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> timmar</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one">1 minut</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuter</item>
+        <item quantity="one"><xliff:g id="number">%s</xliff:g> minut</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> minuter</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one">1 minut</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuter</item>
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">1 sekund</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekunder</item>
+        <item quantity="one"><xliff:g id="number">%s</xliff:g> sekund</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> sekunder</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Varje dag"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -125,15 +125,15 @@
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"Varv <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"Varv <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"Min tid är <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704"><xliff:g example="1 hour" id="hours">%1$s</xliff:g>, <xliff:g example="15 minutes" id="minutes">%2$s</xliff:g>, <xliff:g example="30 seconds" id="seconds">%3$s</xliff:g></string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">Varv <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">Varv <xliff:g id="lapNumber">%02d</xliff:g></string>
+    <string name="sw_share_main" msgid="7703563468204234405">Min tid är <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Varvtider:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Varv <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">Varv <xliff:g id="number">%d</xliff:g></string>
     <string name="timer_add_timer" msgid="862733633862574752">"Lägg till timer"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
-    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Radera <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">Radera <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Lägg till %s minut"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Lägg till %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stopp"</string>
@@ -142,10 +142,10 @@
     <string name="timer_times_up" msgid="9190440395938519009">"Tiden är ute!"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> timer har löpt ut"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Missad timer: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">Missad timer: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause" msgid="3748323712728398743">"Pausa"</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
-    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
+    <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">"Du är snabbheten personifierad."</string>
     <string name="jocular_content_message_2">"Njut av frukterna av ditt arbete."</string>
     <string name="jocular_content_message_3">"Androider är kända för att vara snabba, men inte lika snabba som du!"</string>
@@ -160,15 +160,15 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Orter"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Klocka"</string>
     <string name="clock_style" msgid="2265011060429742344">"Format"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">Visa tid med sekunder</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Visa tiden med sekunder</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Ändra datum och tid"</string>
     <string name="clock_style_analog">Analog</string>
     <string name="clock_style_digital">Digital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Visa tiden hemma automatiskt"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Visa även tiden i min vanliga tidszon när jag befinner mig i en annan tidszon"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Standardtidszon"</string>
-    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> har markerats"</string>
-    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> har avmarkerats"</string>
+    <string name="city_checked" msgid="616847871968019"><xliff:g id="city_name">%s</xliff:g> har markerats</string>
+    <string name="city_unchecked" msgid="710212932781145918"><xliff:g id="city_name">%s</xliff:g> har avmarkerats</string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nytt alarm"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Skapa nytt alarm"</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Ny timer"</string>
@@ -187,39 +187,39 @@
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibration för timer"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timern har pausats"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
+    <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> timer</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ångra"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarmet har tagits bort"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
-    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> före"</string>
-    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> efter"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> och <xliff:g id="MINUTES">%2$s</xliff:g> före"</string>
-    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> och <xliff:g id="MINUTES">%2$s</xliff:g> efter"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"I morgon kl. <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_yesterday" msgid="4425086322610882745">"I går kl. <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Nästa alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
+    <string name="world_time_ahead" msgid="625559988238637652"><xliff:g example="6 hours" id="time">%1$s</xliff:g> före</string>
+    <string name="world_time_behind" msgid="5395771290726167865"><xliff:g example="4 hours" id="time">%1$s</xliff:g> efter</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377"><xliff:g example="6 hr" id="hours">%1$s</xliff:g> och <xliff:g example="30 min" id="minutes">%2$s</xliff:g> före</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698"><xliff:g example="4 hr" id="hours">%1$s</xliff:g> och <xliff:g example="30 min" id="minutes">%2$s</xliff:g> efter</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">I morgon kl. <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">I går kl. <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
+    <string name="next_alarm_description" msgid="2650244835760747046">Nästa alarm: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms" msgid="6429431324842022917">"Inga alarm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Ogiltig tid: <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Inget alarm den här tiden: <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">Inget alarm den här tiden: <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Inga inställda alarm"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Ingen etikett har angetts"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Inga alarm innehåller den här etiketten"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Det finns inga alarm den här tiden"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmet som var inställt på <xliff:g id="ALARM_TIME">%s</xliff:g> har ignorerats"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Alarmet ringer <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">Alarmet som var inställt på <xliff:g example="14:20" id="alarm_time">%s</xliff:g> har ignorerats</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">Alarmet ringer <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"En timer har ställts in"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one">Timern har avvisats</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timer har avvisats</item>
+        <item quantity="one"><xliff:g id="number">%d</xliff:g> timer avvisad</item>
+        <item quantity="other"><xliff:g id="number">%d</xliff:g> timers avvisade</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ogiltig tidslängd för timer"</string>
     <string name="invalid_timer" msgid="900957020728335675">"En ogiltig timer har valts"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Inga utgångna timer"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Det går inte att ignorera alarmet som är inställt på <xliff:g id="ALARM_TIME">%s</xliff:g> ännu. Det dröjer mer än 24 timmar innan det aktiveras"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Det går inte att ignorera alarmet som är inställt på <xliff:g example="14:20" id="alarm_time">%s</xliff:g> ännu. Det dröjer mer än 24 timmar innan det aktiveras</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Stäng av alarm"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Välj de alarm som ska ignoreras"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Inga alarm aktiveras"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmet som är inställt på <xliff:g id="ALARM_TIME">%s</xliff:g> snoozar i tio minuter"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">Alarmet som är inställt på <xliff:g example="14:20" id="alarm_time">%s</xliff:g> snoozar i tio minuter</string>
     <string name="title_theme">Tema</string>
     <string name="about_title">Om</string>
     <string name="version">Version</string>
@@ -297,5 +297,415 @@
     <string name="hour_default_color_title">Använd standardfärg för timmar</string>
     <string name="minute_default_color_title">Använd standardfärg för minuter</string>
     <string name="date_default_color_title">Använd standardfärg för datum</string>
-    <string name="background_default_color_title">Använd standardfärg för bakgrund</string>
+    <string name="background_default_color_title">Använd standardfärg för bakgrunden</string>
+    <string name="selected">Vald</string>
+    <string name="more_options">Fler alternativ</string>
+    <string name="settings_permission_message">En eller flera nödvändiga behörigheter har nekats. Om de inte beviljas kan appen fungera felaktigt.</string>
+    <string name="settings_permission_summary">Tryck här för att öppna sidan för behörighetshantering.</string>
+    <string name="title_dark_theme_mode">Mörkt tema</string>
+    <string name="display_card_background_title">Visa kortbakgrunder</string>
+    <string name="display_card_background_summary">Visar en bakgrund för vissa delar av appen (alarm, städer, timerknapp osv.).</string>
+    <string name="display_background_border_title">Visa bakgrundskanter</string>
+    <string name="display_background_border_summary">Visar en bakgrundskant för vissa delar av appen (alarm, städer, timerknapp osv.).</string>
+    <string name="settings_vibration_title">Aktivera vibration</string>
+    <string name="settings_vibration_summary">Påverkar endast vissa gränssnittsknappar (t.ex. timerns spela upp-/pausknapp eller reglage).</string>
+    <string name="power_button_title">Strömknapp</string>
+    <string name="app_slogan">100 % FOSS-klocka, baserad på AOSP</string>
+    <string name="version_text">Version <xliff:g id="VERSION_NUMBER">%1$s</xliff:g></string>
+    <string name="features_title">Huvudfunktioner</string>
+    <string name="license">Öppen källkodslicens</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="screensaver_settings_summary">Anpassa skärmsläckarens stil, teckensnitt och färg</string>
+    <string name="screensaver_daydream_settings">Välj/aktivera skärmsläckare</string>
+    <string name="screensaver_daydream_settings_summary">Öppnar Androids huvudsakliga inställningar för skärmsläckare</string>
+    <string name="screensaver_bold_digital_clock_title">Digital klocka i fetstil</string>
+    <string name="screensaver_italic_digital_clock_title">Digital klocka i kursiv stil</string>
+    <string name="screensaver_bold_date_title">Datum i fetstil</string>
+    <string name="screensaver_italic_date_title">Datum i kursiv stil</string>
+    <string name="screensaver_bold_next_alarm_title">Nästa alarm i fetstil</string>
+    <string name="screensaver_italic_next_alarm_title">Nästa alarm i kursiv stil</string>
+    <string name="screensaver_preview_summary">Startar skärmsläckaren direkt</string>
+    <string name="flip_action_title">Åtgärd när enheten vänds</string>
+    <string name="shake_action_title">Åtgärd när enheten skakas</string>
+    <string name="firing_alarms_timers_channel">Utlösta alarm och timers</string>
+    <string name="alarm_missed_channel">Missade alarm</string>
+    <string name="alarm_snooze_channel">Snoozade alarm</string>
+    <string name="alarm_upcoming_channel">Kommande alarm</string>
+    <string name="stopwatch_channel">Stoppur</string>
+    <string name="timer_channel">Timer</string>
+    <string name="first_launch_main_feature_title">HUVUDFUNKTIONER</string>
+    <string name="first_launch_main_feature_message">► Ljust, mörkt eller systemtema; &lt;br&gt; &lt;br&gt; ► Anpassningsbar skärmsläckare; &lt;br&gt; &lt;br&gt; ► Anpassningsbara widgetar; &lt;br&gt; &lt;br&gt; ► Stöd för paneler i snabbinställningarna (för Android 7+); &lt;br&gt; &lt;br&gt; ► Säkerhetskopiera och återställ appdata (utom egna ringsignaler); &lt;br&gt; &lt;br&gt; ► Materialdesign och dynamiska färger; &lt;br&gt; &lt;br&gt; ► Ställ in alarm för ett specifikt datum; &lt;br&gt; &lt;br&gt; ► Svep för att ta bort ett alarm; &lt;br&gt; &lt;br&gt; ► Duplicera ett alarm; &lt;br&gt; &lt;br&gt; ► Vänd eller skaka för att avvisa/snooza alarm; &lt;br&gt; &lt;br&gt; ► Stäng av/snooza alarmet med strömknappen eller volymknapparna; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_important_info_message">För att appen ska fungera korrekt &lt;b&gt;måste vissa av enhetens inställningar ändras:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIOPTIMERING;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AVISERINGAR;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Beroende på Android-versionen på din enhet är vissa av dessa inställningar redan optimerade (t.ex. aviseringar).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Du kan ändra dem nu eller senare i inställningarna för behörighetshantering:</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;HELSKÄRMSAVISERINGAR;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_dialog_message">Vill du lämna appen?</string>
+    <string name="permission_management_summary">Visa de behörigheter som behövs för att appen ska fungera korrekt</string>
+    <string name="permission_highly_recommended">Rekommenderas starkt</string>
+    <string name="permission_granted">Beviljad</string>
+    <string name="permission_denied">Nekad</string>
+    <string name="permission_dialog_revoke_title">Återkalla åtkomst</string>
+    <string name="revoke_permission_dialog_message">Vill du återkalla den här behörigheten?</string>
+    <string name="ignore_battery_optimizations_title">IGNORERA BATTERIOPTIMERING</string>
+    <string name="ignore_battery_optimizations_dialog_title">Batterioptimering</string>
+    <string name="ignore_battery_optimizations_dialog_text">Som standard konfigurerar Android-systemet alla appar som användaren installerar för att optimeras för att spara batteri. \n\nDet fungerar för många appar, men den här appen är en alarmapp och batterioptimering orsakar ofta problem. När den är aktiverad kan Android-systemet avsluta appen när som helst och/eller avbryta schemalagda alarm, vilket påverkar appens funktion negativt. \n\nVi rekommenderar att du undantar den här appen från batterioptimering.</string>
+    <string name="notifications_permission_title">AKTIVERA AVISERINGAR</string>
+    <string name="notifications_dialog_title">Aviseringar</string>
+    <string name="notifications_dialog_text">Utöver alarm har appen även timer- och stoppursläge. \n\nFör att aviseringar ska visas korrekt i alla moduler och särskilt för att alarm ska utlösas rekommenderar vi att du aktiverar aviseringar för den här appen.</string>
+    <string name="FSN_permission_title">AKTIVERA HELSKÄRMSAVISERINGAR</string>
+    <string name="FSN_dialog_title">Helskärmsaviseringar</string>
+    <string name="FSN_dialog_text">Sedan Android 14 måste behörigheten ”Helskärmsaviseringar” vara aktiverad för att alarmet ska utlösas när skärmen är avstängd.</string>
+    <string name="font_category_title">Teckensnitt</string>
+    <string name="miscellaneous_category_title">Övrigt</string>
+    <string name="ringtone_category_title">Ringsignal</string>
+    <string name="actions_category_title">Åtgärder</string>
+    <string name="interface_customization_summary">Anpassa appens stil, teckensnitt, språk och färg</string>
+    <string name="clock_settings_summary">Anpassa stil, teckensnitt, tidszon samt enhetens datum och tid</string>
+    <string name="alarm_settings_summary">Anpassa stil, teckensnitt, standardringsignal, volym, åtgärder för att avvisa eller snooza alarm, veckans första dag och tid för påminnelseaviseringar</string>
+    <string name="timer_settings_summary">Anpassa stil, teckensnitt, standardringsignal, åtgärd för att stoppa timers och timersortering</string>
+    <string name="digital_widget_message_summary">”Visa städerna” måste inaktiveras för att komma åt den här inställningen</string>
+    <string name="swipe_action_title">Svep för att avvisa eller snooza alarm</string>
+    <string name="alarm_label_box_title">Alarmetikett</string>
+    <string name="alarm_notification_reminder_title">Påminnelseavisering</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Aktivera vibrationer när alarmet utlöses</string>
+    <string name="timer_label_box_title">Timeretikett</string>
+    <string name="timer_button_time_box_title">Minuter att lägga till i timern</string>
+    <string name="default_time_to_add_to_timer_title">Standardtid att lägga till i timers</string>
+    <string name="material_time_picker_style_title">Stil för tidsväljare</string>
+    <string name="alarm_title_color">Färg på alarmets rubrik</string>
+    <string name="snooze_button_color">Färg på knappen ”Snooza”</string>
+    <string name="dismiss_button_color">Färg på knappen ”Avvisa”</string>
+    <string name="alarm_button_color">Färg på alarmknappen</string>
+    <string name="transparent_background_for_expired_timer_title">Genomskinlig bakgrund när timers löper ut</string>
+    <string name="preview_title">Förhandsvisning</string>
+    <string name="alarm_title_font_size">Teckenstorlek för alarmrubrik</string>
+    <string name="whats_new_dialog_message">Upptäck nyheterna:\n\n%s</string>
+    <string name="github_dialog_message">Besök projektets GitHub-sida:\n\n%s</string>
+    <string name="license_dialog_message">Läs licensen:\n\n%s</string>
+    <string name="permission_management_settings">Behörighetshantering</string>
+    <string name="widgets_settings">Widgetar</string>
+    <string name="widgets_settings_summary">Anpassa widgetarnas stil, färger och teckenstorlek</string>
+    <string name="settings_tab_indicator_title">Visa flikindikatorn i den nedre navigeringsmenyn</string>
+    <string name="next_alarm_widget_title_no_alarm">Inga kommande alarm</string>
+    <string name="settings_fade_transitions_title">Aktivera toningsövergångar vid byte av skärm</string>
+    <string name="next_alarm_widget">Nästa alarm</string>
+    <string name="widget_background_title">Visa bakgrunden</string>
+    <string name="sort_timer_title">Sortera timers</string>
+    <string name="denied_permission_label">Behörighet nekad</string>
+    <string name="label_default">Standard</string>
+    <string name="blue_gray_accent_color">Blågrå</string>
+    <string name="indigo_accent_color">Indigo</string>
+    <string name="snooze_duration_none">Ingen</string>
+    <string name="sort_timer_ascending_duration">Efter varaktighet (stigande ordning)</string>
+    <string name="sort_timer_descending_duration">Efter varaktighet (fallande ordning)</string>
+    <string name="delete_occasional_alarm_after_use_title">Ta bort alarmet efter avvisning</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Avvisa och ta bort</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarm avstängt och borttaget</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Aktivera automatisk borttagning av enstaka alarm som standard</string>
+    <string name="description_direction_both_for_occasional_alarm">Svep åt vänster för att snooza eller åt höger för att avvisa och ta bort alarmet</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Svep åt vänster eller höger för att avvisa</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Svep åt vänster eller höger för att avvisa och ta bort alarmet</string>
+    <string name="occasional_alarm_alert_predismiss_title">Kommande enstaka alarm</string>
+    <string name="backup_restore_dialog_message">Vill du säkerhetskopiera eller återställa appdata?</string>
+    <string name="timer_flip_action_title">Vänd enheten för att stoppa alarmet</string>
+    <string name="timer_shake_action_title">Skaka enheten för att stoppa alarmet</string>
+    <string name="auto_night_accent_color_title">Använd accentfärgen i nattläge</string>
+    <string name="timer_volume_buttons_action_title">Återställ utgångna timers med volymknapparna</string>
+    <string name="timer_power_button_action_title">Återställ utgångna timers med strömknappen</string>
+    <string name="timer_buttons_action_summary">Fungerar endast på låsskärmen</string>
+    <string name="sw_settings_summary">Anpassa teckensnittet och åtgärderna för volymknapparna</string>
+    <string name="sw_long_press_volume_up_action_title">Höj volymen (efter långt tryck)</string>
+    <string name="sw_long_press_volume_down_action_title">Sänk volymen (efter långt tryck)</string>
+    <string name="sw_start_pause_action">Starta/pausa</string>
+    <string name="purple_accent_color">Lila</string>
+    <string name="display_ringtone_title">Visa ringsignalens titel</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Aktivera vibrationer när alarmet snoozas eller avvisas</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dubbel vibration när alarmet snoozas och enkel vibration när alarmet avvisas</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Slå på bakre blixt när alarmet utlöses</string>
+    <string name="alarm_flash">Blixt</string>
+    <string name="alarm_settings_general_summary">Den här inställningen kan ändras för varje alarm på panelen för alarmredigering</string>
+    <string name="translate_dialog_message">Besök Codeberg-sidan:\n\n%s</string>
+    <string name="shake_intensity_title">Skakintensitet</string>
+    <string name="settings_language_estonian">Estniska</string>
+    <string name="settings_language_serbian">Serbiska</string>
+    <string name="settings_language_ukrainian">Ukrainska</string>
+    <string name="settings_language_english_us">Engelska (USA)</string>
+    <string name="settings_language_chinese_simplified_cn">Kinesiska (förenklad, Kina)</string>
+    <string name="show_lockscreen_dialog_text">På Xiaomi-enheter bör du manuellt aktivera behörigheten ”Visa på låsskärm” i enhetens inställningar för att appen ska fungera korrekt.</string>
+    <string name="clock_style_spinner">Rullväljare</string>
+    <string name="clock_style_analog_material">Analog (Material)</string>
+    <string name="settings_tab_to_display">Flik som ska visas när appen öppnas</string>
+    <string name="last_tab_used_title">Senast använda flik</string>
+    <string name="reset_settings_message">Vill du återställa alla appinställningar?</string>
+    <string name="backup_restore_title">Säkerhetskopiering och återställning</string>
+    <string name="backup_restore_summary">Säkerhetskopiera eller återställ appdata, utom egna ringsignaler</string>
+    <string name="backup_button_title">Säkerhetskopiera</string>
+    <string name="toast_message_for_backup">Säkerhetskopieringen är klar</string>
+    <string name="display_date_title">Visa datumet</string>
+    <string name="settings_toolbar_title">Visa rubriken i verktygsfältet</string>
+    <string name="settings_tab_title_visibility_title">Visa flikrubrikerna</string>
+    <string name="tab_title_visibility_when_selected">När vald</string>
+    <string name="settings_language_czech">Tjeckiska</string>
+    <string name="settings_keep_screen_on_summary">Obs! Skärmen kommer alltid att vara på om en timer eller ett stoppur körs och motsvarande flik visas, oavsett den här inställningens status</string>
+    <string name="slide_zone_color_title">Färg på skjutområde</string>
+    <string name="snooze_title_color">Färg på rubriken ”Snooza”</string>
+    <string name="dismiss_title_color">Färg på rubriken ”Avvisa”</string>
+    <string name="ringtone_title_color">Färg på ringsignalens rubrik</string>
+    <string name="description_snooze_button">Tryck för att snooza alarmet</string>
+    <string name="description_dismiss_button">Tryck för att avvisa alarmet</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Tryck för att avvisa och ta bort alarmet</string>
+    <string name="display_next_alarm_title">Visa nästa alarm</string>
+    <string name="settings_language_chinese_traditional_tw">Kinesiska (traditionell, Taiwan)</string>
+    <string name="alarm_is_dismissed_and_deleted">Alarmet <xliff:g id="alarm_time">%s</xliff:g> avvisades och togs bort</string>
+    <string name="schedule_alarm_title">Schemalägg alarm</string>
+    <string name="alarm_scheduled_for">Schemalagd till %s</string>
+    <string name="date_picker_style_title">Stil för datumväljare</string>
+    <string name="random_ringtone_title">Slumpmässig ringsignal</string>
+    <string name="timer_button_time_minutes_warning_box_text">Ange ett värde mellan 0 och 60 minuter</string>
+    <string name="timer_button_time_seconds_warning_box_text">Ange ett värde mellan 0 och 59 sekunder</string>
+    <string name="timer_add_custom_time_with_seconds_description">Lägg till %1$s minut %2$s sekunder</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">Lägg till %1$s min %2$s s</string>
+    <string name="timer_time_box_title">Ny timerlängd</string>
+    <string name="timer_time_warning_box_title">Felaktigt värde angivet</string>
+    <string name="timer_creation_view_style_title">Stil för timervy vid skapande</string>
+    <string name="timer_creation_view_style_keypad">Knappsats</string>
+    <string name="advanced_audio_playback_title">Använd avancerad ljuduppspelning</string>
+    <string name="advanced_audio_playback_summary">Förbättrar kompatibiliteten med externa ljudenheter och förhindrar ljudavbrott vid upprepning \n\nObs! Vissa ringsignaler kan ha små ljudstörningar</string>
+    <string name="hide_clock_am_pm_pref">Dölj texten ”AM/PM”</string>
+    <string name="system_media_volume_title">Använd systemets medievolym</string>
+    <string name="system_media_volume_summary">Fungerar endast om en extern ljudenhet är ansluten</string>
+    <string name="widget_apply_horizontal_padding_title">Lägg till utfyllnad vid widgetens sidor</string>
+    <string name="auto_silence_end_of_ringtone">Slutet på ringsignalen</string>
+    <string name="enable_per_alarm_volume_title">Använd en egen volym för varje alarm</string>
+    <string name="delay_picker_dialog_title">Alarm om …</string>
+    <string name="clock_second_hand_title">Sekundvisare</string>
+    <string name="clock_second_hand_vintage">Vintage</string>
+    <string name="clock_dial_title">Urskiva</string>
+    <string name="clock_default_color_title">Använd standardfärgen för huvudklockan</string>
+    <string name="hour_color_title">Timfärg</string>
+    <string name="minute_color_title">Minutfärg</string>
+    <string name="dial_color_title">Färg på urtavlan</string>
+    <string name="dial_default_color_title">Använd standardfärg för urtavlan</string>
+    <string name="hour_hand_color_title">Färg på timvisaren</string>
+    <string name="hour_hand_default_color_title">Använd standardfärg för timvisaren</string>
+    <string name="minute_hand_color_title">Färg på minutvisaren</string>
+    <string name="minute_hand_default_color_title">Använd standardfärg för minutvisaren</string>
+    <string name="second_hand_color_title">Färg på sekundvisaren</string>
+    <string name="second_hand_default_color_title">Använd standardfärg för sekundvisaren</string>
+    <string name="date_color_title">Datumfärg</string>
+    <string name="next_alarm_color_title">Färg på nästa alarm</string>
+    <string name="next_alarm_default_color_title">Använd standardfärg för nästa alarm</string>
+    <string name="city_clock_color_title">Färg på stadsklockan</string>
+    <string name="city_clock_default_color_title">Använd standardfärg för stadsklockan</string>
+    <string name="city_name_color_title">Färg på stadsnamnet</string>
+    <string name="city_name_default_color_title">Använd standardfärg för stadsnamnet</string>
+    <string name="alarm_title_default_color">Använd standardfärg för alarmrubriken</string>
+    <string name="display_city_title">Visa städerna</string>
+    <string name="max_clock_font_size_title">Största teckenstorlek för huvudklockan</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Använd standardfärg för rubriken ”Inga kommande alarm”</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Färg på rubriken ”Inga kommande alarm”</string>
+    <string name="widget_max_font_size_title">Största teckenstorlek för widget</string>
+    <string name="clock_dial_with_numbers">Med siffror</string>
+    <string name="clock_dial_without_numbers">Utan siffror</string>
+    <string name="sort_alarm_title">Sortera alarm</string>
+    <string name="sort_alarm_time">Efter alarmtid</string>
+    <string name="sort_next_alarm_time">Efter nästa alarmtid</string>
+    <string name="sort_name">Efter namn</string>
+    <string name="display_enabled_alarms_first_title">Visa aktiverade alarm först</string>
+    <string name="sort_cities_title">Sortera städer</string>
+    <string name="sort_manually">Manuellt (genom att dra)</string>
+    <string name="sort_cities_ascending_time_zone">Efter tidszon (stigande ordning)</string>
+    <string name="sort_cities_descending_time_zone">Efter tidszon (fallande ordning)</string>
+    <string name="enable_city_note_title">Lägg till en personlig anteckning för städerna</string>
+    <string name="enable_city_note_summary">Tryck på en stad för att lägga till eller redigera dess personliga anteckning</string>
+    <string name="city_note_dialog_title">Anteckning för %s</string>
+    <string name="sort_descending_creation_order">Efter skapandeordning (äldsta sist)</string>
+    <string name="sort_ascending_creation_order">Efter skapandeordning (äldsta först)</string>
+    <string name="enable_alarm_fab_long_press_title">Aktivera långt tryck på åtgärdsknappen för att skapa fördröjda alarm</string>
+    <string name="enable_alarm_fab_long_press_summary">Om den är inaktiverad visas två knappar för att skapa alarm</string>
+    <string name="vibration_pattern_title">Vibrationsmönster</string>
+    <string name="vibration_pattern_soft">Mjuk</string>
+    <string name="vibration_pattern_strong">Stark</string>
+    <string name="vibration_pattern_escalating">Stegrande</string>
+    <string name="vibration_pattern_tick_tock">Tick-tack</string>
+    <string name="vibration_start_delay_title">Fördröjning innan vibration startar</string>
+    <string name="vibration_start_delay_warning_box_text">Ange ett värde mellan 0 och 10 minuter</string>
+    <string name="confirm_action_prompt">\n\nVill du fortsätta?</string>
+    <string name="enable_per_alarm_snooze_duration_title">Använd en egen snoozelängd för varje alarm</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Egna snoozelängder för alarm återställs.%s</string>
+    <string name="enable_per_alarm_volume_dialog_message">Egna alarmvolymer återställs.%s</string>
+    <string name="display_dismiss_button_title">Visa knappen ”Avvisa” så snart alarmet aktiveras</string>
+    <string name="display_dismiss_button_summary">Om den är inaktiverad visas knappen samtidigt som påminnelseaviseringen</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">Använd ett eget antal upprepningar för missade alarm för varje alarm</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Eget antal upprepningar för missade alarm återställs.%s</string>
+    <string name="missed_alarm_repeat_limit_title">Upprepa missade alarm</string>
+    <string name="missed_alarm_repeat_limit_1_time">1 gång</string>
+    <string name="missed_alarm_repeat_limit_3_times">3 gånger</string>
+    <string name="missed_alarm_repeat_limit_5_times">5 gånger</string>
+    <string name="missed_alarm_repeat_limit_10_times">10 gånger</string>
+    <string name="enable_per_alarm_crescendo_duration_title">Använd en egen tid för volymökning för varje alarm</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Egna tider för volymökning återställs.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">Använd en egen stopptid för varje alarm</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Egna stopptider återställs.%s</string>
+    <string name="features_dialog_message">Besök sidan med huvudfunktioner:\n\n%s</string>
+    <string name="repetitive_alarm_is_dismissed">Alarm avvisat. <xliff:g id="alarm_day">Schemalagt igen till %s.</xliff:g></string>
+    <string name="blur_intensity_title">Oskärpeintensitet</string>
+    <string name="shadow_offset_title">Skuggförskjutning</string>
+    <string name="customize_background_corner_radius_title">Anpassa bakgrundens hörnradie</string>
+    <string name="customize_background_corner_radius_summary">Gör det möjligt att avrunda widgetens hörn om startskärmen saknar stöd för det</string>
+    <string name="background_corner_radius_title">Bakgrundens hörnradie</string>
+    <string name="display_timer_state_indicator_title">Visa statusindikatorer för timers</string>
+    <string name="running_timer_indicator_color_title">Färg på indikator för aktiv timer</string>
+    <string name="paused_timer_indicator_color_title">Färg på indikator för pausad timer</string>
+    <string name="expired_timer_indicator_color_title">Färg på indikator för utgången timer</string>
+    <string name="progress_ringtones">Lägger till ringsignaler … (%1$d/%2$d)</string>
+    <string name="display_text_uppercase_title">Visa texten med versaler</string>
+    <string name="label_new_image">Ny bild</string>
+    <string name="background_image_title_variant">Ändra eller ta bort bakgrundsbilden</string>
+    <string name="background_image_dialog_title">Bakgrundsbild</string>
+    <string name="background_image_toast_message_selected">Bilden har valts</string>
+    <string name="background_image_toast_message_deleted">Bilden har tagits bort</string>
+    <string name="label_new_font">Nytt teckensnitt</string>
+    <string name="custom_font_title">Välj ett eget teckensnitt</string>
+    <string name="custom_font_title_variant">Ändra eller ta bort det egna teckensnittet</string>
+    <string name="custom_font_dialog_title">Teckensnitt</string>
+    <string name="custom_font_toast_message_selected">Teckensnittet har valts</string>
+    <string name="custom_font_toast_message_deleted">Teckensnittet har tagits bort</string>
+    <string name="vibration_category_title">Vibration</string>
+    <string name="display_settings_title">Visningsinställningar</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Använd ett eget vibrationsmönster för varje alarm</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Egna vibrationsmönster återställs.%s</string>
+    <string name="clock_font_size">Klockans teckenstorlek</string>
+    <string name="sw_laps_title">Varv</string>
+    <string name="sw_split_title">Mellantid</string>
+    <string name="sw_total_title">Totalt</string>
+    <string name="analog_clock_size_title">Analog klockstorlek</string>
+    <string name="display_compact_timers_title">Visa timers i kompakt läge</string>
+    <string name="display_battery_title">Visa batterinivån</string>
+    <string name="battery_color_title">Färg på batterinivån</string>
+    <string name="screensaver_bold_battery_title">Batterinivå i fetstil</string>
+    <string name="screensaver_italic_battery_title">Batterinivå i kursiv stil</string>
+    <string name="settings_language_bulgarian">Bulgariska</string>
+    <string name="settings_language_tamil">Tamil</string>
+    <string name="sync_alarm_by_label_title">Synkronisera alarm med samma etikett</string>
+    <string name="label_indefinitely">Obegränsat</string>
+    <string name="button_tip_title">Håll knappen ”+” nedtryckt för att lägga till en mapp</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Avvisa och\nta bort</string>
+    <string name="permissions_category_title">Behörigheter</string>
+    <string name="auto_routing_to_external_audio_device_title">Aktivera automatisk dirigering av ringsignaler till externa ljudenheter</string>
+    <string name="external_audio_device_volume_title">Alarmvolym för externa ljudenheter</string>
+    <string name="connect_external_audio_device_title">Anslut en extern ljudenhet för att komma åt den här inställningen</string>
+    <string name="disconnect_external_audio_device_title">Koppla från den externa ljudenheten för att komma åt den här inställningen</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">Vibrationer inaktiveras för alla alarm.%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">Funktionen ”Ta bort alarmet efter avvisning” inaktiveras för alla alarm.%s</string>
+    <string name="snooze_zone_color_title">Färg på snoozeområde</string>
+    <string name="snooze_minus_button_color_title">Färg på knappen ”−”</string>
+    <string name="snooze_plus_button_color_title">Färg på knappen ”+”</string>
+    <string name="snooze_selector_text_color_title">Textfärg för snoozeväljaren</string>
+    <string name="snooze_minus_symbol_color_title">Färg på symbolen ”−”</string>
+    <string name="snooze_plus_symbol_color_title">Färg på symbolen ”+”</string>
+    <string name="alarm_volume_low">Alarmvolymen är låg</string>
+    <string name="fix_alarm_volume">Åtgärda</string>
+    <string name="display_snooze_selector_title">Visa snoozeväljaren</string>
+    <string name="alarm_hours_warning_box_text">Ange ett värde mellan 0 och 24 timmar</string>
+    <string name="clock_dial_with_roman_numbers">Med romerska siffror</string>
+    <string name="clock_second_hand_lollipop">Klubba</string>
+    <string name="timezone_baker_howland">Baker- och Howlandöarna</string>
+    <string name="timezone_marquesas">Marquesasöarna</string>
+    <string name="timezone_chatham">Chatham Island</string>
+    <string name="timezone_gambier">Gambieröarna</string>
+    <string name="timezone_pitcairn">Pitcairnöarna</string>
+    <string name="timezone_easter_island">Påskön</string>
+    <string name="timezone_miquelon">Saint-Pierre och Miquelon</string>
+    <string name="timezone_noronha">Fernando de Noronha</string>
+    <string name="timezone_lord_howe">Lord Howe Island</string>
+    <string name="timezone_norfolk">Norfolkön</string>
+    <string name="timezone_macquarie">Macquarie Island</string>
+    <string name="missed_timer_indicator_color_title">Färg på indikator för missad timer</string>
+    <string name="foreground_service_channel">Förgrundsavisering</string>
+    <string name="foreground_service_message">Körs i bakgrunden</string>
+    <string name="foreground_service_title">Visa en förgrundsavisering</string>
+    <string name="foreground_service_dialog_message">För att förhindra att enheten stänger appen för aggressivt och alarm missas visas en permanent, tyst avisering.\n\nDetta ser till att appen hålls kvar i minnet, även om batterianvändningen kan öka något.\n\nObs! Den här inställningen behövs inte på de flesta enheter. Aktivera den endast om alarm missas.</string>
+    <string name="settings_language_arabic">Arabiska</string>
+    <string name="settings_language_hungarian">Ungerska</string>
+    <string name="vertical_widget">Vertikal klocka</string>
+    <string name="display_low_alarm_volume_warning_title">Visa en varning när alarmvolymen är inställd på lägsta nivå</string>
+    <string name="next_alarm_title_color_title">Färg på rubriken för nästa alarm</string>
+    <string name="next_alarm_title_default_color_title">Använd standardfärg för rubriken för nästa alarm</string>
+    <string name="city_note_color_title">Färg på stadsanteckning</string>
+    <string name="city_note_default_color_title">Använd standardfärg för stadsanteckningen</string>
+    <string name="display_next_alarm_title_setting_title">Visa rubriken för nästa alarm</string>
+    <string name="display_alarm_action_message_title">Visa ett meddelande efter att alarmet snoozats eller avvisats</string>
+    <string name="display_top_date_title">Visa datumet ovanför tiden</string>
+    <string name="toast_message_backup_error">Säkerhetskopieringen misslyckades</string>
+    <string name="toast_message_restore_error">Återställningen misslyckades</string>
+    <string name="alarm_minutes_warning_box_text">Ange ett värde mellan 0 och 59 minuter</string>
+    <string name="pause_alarm_title">Pausa alarm</string>
+    <string name="pause_alarm_range">Pausat: %1$s</string>
+    <string name="tabs_category_title">Flikar</string>
+    <string name="visible_tabs_title">Synliga flikar</string>
+    <string name="shortcut_disabled">Fliken dold</string>
+    <string name="restart_app_dialog_title_for_reset">Återställningen är klar</string>
+    <string name="restart_app_dialog_title_for_restore">Återställningen är klar</string>
+    <string name="restart_app_dialog_message">Appen måste startas om för att ändringarna ska börja gälla.</string>
+    <string name="single_timer_mode_title">Läge med en timer</string>
+    <string name="single_timer_mode_summary">Behåll endast en timer, som tas bort automatiskt när den återställs</string>
+    <string name="single_timer_mode_warning_message">Timers tas bort.%s</string>
+    <string name="settings_vibration_disabled_summary">Vibration är inaktiverad i enhetens inställningar</string>
+    <string name="settings_tab_animation_title">Animering vid byte av flik</string>
+    <string name="tab_animation_cube">Kub</string>
+    <string name="tab_animation_depth">Djup</string>
+    <string name="tab_animation_flip">Vänd</string>
+    <string name="tab_animation_gate">Port</string>
+    <string name="tab_animation_zoom_out">Zooma ut</string>
+    <string name="timer_label_default">Timer <xliff:g id="TIMER_LABEL_DEFAULT">%s</xliff:g></string>
+    <string name="timer_end_time_label">Sluttid: <xliff:g id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Vänd ordningen på timerknapparna</string>
+    <string name="display_timer_end_time_title">Visa timerns sluttid</string>
+    <string name="timer_missed_channel">Missade timers</string>
+    <string name="settings_language_hebrew">Hebreiska</string>
+    <string name="add_time_button_title">Knappen ”Lägg till tid”</string>
+    <string name="delete_timer_after_use_title">Ta bort timer när den löper ut</string>
+    <string name="turn_off_media_title">Stoppa medier när tiden löper ut</string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="one"><xliff:g id="number">%d</xliff:g> timer borttagen</item>
+        <item quantity="other"><xliff:g id="number">%d</xliff:g> timers borttagna</item>
+    </plurals>
+    <string name="background_image_category_title">Bakgrundsbild</string>
+    <string name="custom_font_dialog_message">Ändra eller ta bort det egna teckensnittet.</string>
+    <string name="advanced_audio_playback_category_title">Avancerad ljuduppspelning</string>
+    <string name="background_image_dialog_message">Ändra eller ta bort bakgrundsbilden.</string>
+    <string name="headphones_button_title">Spela upp-/pausknapp på hörlurar</string>
+    <string name="display_alarm_title_on_single_line_title">Visa alarmrubriken på en rad</string>
+    <string name="enable_per_alarm_background_image_title">Använd en egen bakgrundsbild för varje alarm</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Egna bakgrundsbilder tas bort.%1$s%2$s</string>
+    <string name="blur_intensity_dialog_message_1">\n\nEgna värden för oskärpeintensitet återställs också.</string>
+    <string name="blur_intensity_dialog_message_2">Egna värden för oskärpeintensitet återställs.%s</string>
+    <string name="timer_settings_general_summary">Den här inställningen kan ändras för varje timer på panelen för timerredigering</string>
+    <string name="enable_per_timer_auto_silence_title">Använd en egen stopptid för varje timer</string>
+    <string name="enable_per_timer_crescendo_duration_title">Använd en egen tid för volymökning för varje timer</string>
+    <string name="timer_vibrate_dialog_message">Vibrationer inaktiveras för alla timers.%s</string>
+    <string name="enable_per_timer_vibration_pattern_title">Använd ett eget vibrationsmönster för varje timer</string>
+    <string name="timer_headphones_button_action_title">Återställ utgångna timers med hörlurarnas spela upp-/pausknapp</string>
+    <string name="turn_on_back_flash_for_expired_timer_title">Slå på bakre blixt när timern löper ut</string>
+    <string name="info">Info</string>
+    <string name="pause_alarm_info_message">Välj veckodagar för att komma åt den här funktionen.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Avmarkera veckodagarna för att komma åt den här funktionen.</string>
+    <string name="auto_silence_info_message">”Tysta efter” inställt på ”%s”. \n\nInaktivera svårighetsnivån för matematik för att komma åt den här funktionen.</string>
+    <string name="math_challenge_title_snooze">Lös för att snooza</string>
+    <string name="math_challenge_title_dismiss">Lös för att avvisa</string>
+    <string name="math_challenge_new_problem">Nytt problem</string>
+    <string name="math_challenge_answer_hint">Ditt svar</string>
+    <string name="math_challenge_prompt">Vad är %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Felaktigt svar</string>
+    <string name="math_challenge_category_title">Matematikutmaning</string>
+    <string name="math_hardness_level_title">Svårighetsnivå för matematik</string>
+    <string name="math_hardness_level_easy">Lätt</string>
+    <string name="math_hardness_level_normal">Normal</string>
+    <string name="math_hardness_level_hard">Svår</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Använd en egen svårighetsnivå för matematik för varje alarm</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Egna svårighetsnivåer för matematik återställs.%s</string>
+    <string name="sw_display_milliseconds_title">Visa millisekunder</string>
+    <string name="button_action_mute">Tysta</string>
+    <string name="settings_language_swedish">Svenska</string>
+    <string name="settings_language_laotian">Laotisk</string>
+    <string name="settings_language_persian">Persiska</string>
 </resources>

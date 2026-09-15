@@ -15,7 +15,7 @@
     <string name="timer_sound" msgid="896163086604894735">"Zvuk časovače"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Přidat nový"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Odstranit"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Budíky a časovače, které používají tento zvuk, budou místo něj přehrávat výchozí zvuk."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Budíky a časovače, které používají tento zvuk, budou místo něj přehrávat výchozí zvuk."</string>
     <string name="your_sounds" msgid="1672779351352629681">Vaše zvuky</string>
     <string name="device_sounds" msgid="1584894148222639823">"Zvuky zařízení"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Zvukový obsah nelze otevřít."</string>
@@ -45,7 +45,7 @@
     <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
-    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"K časovači byla přidána %1$s minuta, <xliff:g id="TIME">%2$s</xliff:g>"</string>
+    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"K časovači byla přidána %1$s minuta, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Zbývající čas"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Zbývající čas"</string>
     <string name="alarm_confirmation_toast_1">"Budík se spustí za méně než 1 minutu."</string>
@@ -140,8 +140,8 @@
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="timer_setup_description" msgid="2488277921227564704"><xliff:g example="1 hour" id="hours">%1$s</xliff:g>, <xliff:g example="15 minutes" id="minutes">%2$s</xliff:g>, <xliff:g example="30 seconds" id="seconds">%3$s</xliff:g></string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">č. <xliff:g id="lapNumber">%d</xliff:g></string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">č. <xliff:g id="lapNumber">%02d</xliff:g></string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">č. <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">č. <xliff:g id="lapNumber">%02d</xliff:g></string>
     <string name="sw_share_main" msgid="7703563468204234405">Můj čas je <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Časy etap:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126"><xliff:g id="number">%d</xliff:g>. úsek</string>
@@ -175,11 +175,11 @@
     <string name="clock_settings" msgid="8317286807280600391">"Hodiny"</string>
     <string name="clock_style" msgid="2265011060429742344">"Styl"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">Zobrazit čas se sekundami</string>
-    <string name="open_date_settings" msgid="7712226973337806152">"Změnit datum a čas"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Změnit datum a čas"</string>
     <string name="clock_style_analog">Analogové</string>
     <string name="clock_style_digital">Digitální</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">Automatické domácí hodiny</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">Při cestování do jiného časového pásma přidat hodiny s domácím časem</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">Při cestování do jiného časového pásma přidat hodiny s domácím časem</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domácí časové pásmo"</string>
     <string name="city_checked" msgid="616847871968019">Město <xliff:g id="city_name">%s</xliff:g> je zaškrtnuto</string>
     <string name="city_unchecked" msgid="710212932781145918">Město <xliff:g id="city_name">%s</xliff:g> není zaškrtnuto</string>
@@ -194,8 +194,8 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Spořič obrazovky"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Spustit spořič obrazovky"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Budíky"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"Zpracovává akce z oznámení časovače."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Zpracovává akce z oznámení stopek."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Zpracovává akce z oznámení časovače."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Zpracovává akce z oznámení stopek."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pozastaveno"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Přejetím vlevo budík odložíte, přejetím vpravo jej zrušíte"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Časovače"</string>
@@ -612,7 +612,7 @@
     <string name="sync_alarm_by_label_title">Synchronizovat budíky se stejným štítkem</string>
     <string name="label_indefinitely">Nekonečně</string>
     <string name="button_tip_title">Podržte tlačítko „+“ pro přidání složky</string>
-    <string name="alarm_alert_dismiss_and_delete_text_button">Zavřít\na smazat</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Zavřít\na smazat</string>
     <string name="permissions_category_title">Oprávnění</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">Vibrace budou zakázány u všech budíků.%s</string>
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">Funkce „Vymazat budík po zrušení“ bude zakázána u všech budíků.%s</string>
@@ -722,4 +722,8 @@
     <string name="enable_per_alarm_math_hardness_level_title">Použít vlastní úroveň obtížnost matematiky pro každý budík</string>
     <string name="enable_per_alarm_math_hardness_level_dialog_message">Vlastní úroveň obtížnosti matematiky bude resetována.%s</string>
     <string name="sw_display_milliseconds_title">Zobrazit milisekundy</string>
+    <string name="button_action_mute">Ztlumit</string>
+    <string name="settings_language_swedish">Švédský</string>
+    <string name="settings_language_laotian">Laoský</string>
+    <string name="settings_language_persian">Peršan</string>
 </resources>

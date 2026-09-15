@@ -571,6 +571,9 @@
         <item>@string/settings_language_arabic</item>
         <item>@string/settings_language_hungarian</item>
         <item>@string/settings_language_hebrew</item>
+        <item>@string/settings_language_swedish</item>
+        <item>@string/settings_language_laotian</item>
+        <item>@string/settings_language_persian</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the language_entries above. -->
     <string-array name="language_values" translatable="false">
@@ -597,6 +600,9 @@
         <item>ar</item>
         <item>hu</item>
         <item>he</item>
+        <item>sv</item>
+        <item>lo</item>
+        <item>fa</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the city sort preference -->

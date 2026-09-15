@@ -708,4 +708,8 @@
     <string name="enable_per_alarm_math_hardness_level_title">Aangepaste moeilijkheidsgraad voor iedere wekker</string>
     <string name="enable_per_alarm_math_hardness_level_dialog_message">Aangepaste moeilijkheidsgraden worden teruggezet.%s</string>
     <string name="sw_display_milliseconds_title">Milliseconden weergeven</string>
+    <string name="button_action_mute">Dempen</string>
+    <string name="settings_language_swedish">Zweeds</string>
+    <string name="settings_language_laotian">Laotiaan</string>
+    <string name="settings_language_persian">Perzisch</string>
 </resources>

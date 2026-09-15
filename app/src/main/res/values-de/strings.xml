@@ -704,4 +704,7 @@
     <string name="enable_per_alarm_math_hardness_level_dialog_message">Eigene Mathe-Schwierigkeitsstufe werden zurückgesetzt.%s</string>
     <string name="sw_display_milliseconds_title">Millisekunden anzeigen</string>
     <string name="auto_silence_info_message">\"Stummschalten nach\" ist gesetzt auf \"%s\". \n\nMathe-Schwierigkeitsstufe deaktivieren, um diese Funktion zu nutzen.</string>
+    <string name="settings_language_swedish">Schwedisch</string>
+    <string name="settings_language_laotian">Laotisch</string>
+    <string name="settings_language_persian">Persisch</string>
 </resources>

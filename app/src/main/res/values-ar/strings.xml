@@ -714,4 +714,7 @@
     <string name="custom_font_dialog_message">غيّر الخط المخصّص أو احذفه.</string>
     <string name="advanced_audio_playback_category_title">تشغيل الصوت المتقدم</string>
     <string name="background_image_dialog_message">غيّر صورة الخلفية أو احذفها.</string>
+    <string name="settings_language_swedish">سويدي</string>
+    <string name="settings_language_laotian">لاوسي</string>
+    <string name="settings_language_persian">الفارسية</string>
 </resources>

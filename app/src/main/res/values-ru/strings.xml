@@ -722,4 +722,8 @@
     <string name="enable_per_alarm_math_hardness_level_title">Отдельный уровень сложности математических примеров для каждого будильника</string>
     <string name="enable_per_alarm_math_hardness_level_dialog_message">Пользовательские уровни сложности математических примеров будут сброшены.%s</string>
     <string name="sw_display_milliseconds_title">Показывать миллисекунды</string>
+    <string name="button_action_mute">Выключить звук</string>
+    <string name="settings_language_swedish">Шведский</string>
+    <string name="settings_language_laotian">Лаосский</string>
+    <string name="settings_language_persian">Персидский</string>
 </resources>

@@ -648,4 +648,7 @@
     <string name="enable_per_alarm_background_image_title">שימוש בתמונת רקע מותאמת אישית לכל התראה בנפרד</string>
     <string name="city_name_default_color_title">שימוש בצבע ברירת המחדל לשם העיר</string>
     <string name="city_note_default_color_title">שימוש בצבע ברירת המחדל להערה על העיר</string>
+    <string name="settings_language_swedish">שוודית</string>
+    <string name="settings_language_laotian">לאוטי</string>
+    <string name="settings_language_persian">פַּרסִית</string>
 </resources>

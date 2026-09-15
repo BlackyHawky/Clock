@@ -677,4 +677,7 @@
     <string name="toast_message_for_backup">ສຳຮອງຂໍ້ມູນສຳເລັດແລ້ວ</string>
     <string name="toast_message_backup_error">ການສຳຮອງຂໍ້ມູນຫຼົ້ມເຫຼວ</string>
     <string name="toast_message_restore_error">ການກູ້ຄືນຂໍ້ມູນຫຼົ້ມເຫຼວ</string>
+    <string name="settings_language_swedish">ຊູແອັດ</string>
+    <string name="settings_language_laotian">ລາວ</string>
+    <string name="settings_language_persian">ພາສາເປີເຊຍ</string>
 </resources>

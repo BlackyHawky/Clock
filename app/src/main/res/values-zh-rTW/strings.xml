@@ -677,4 +677,7 @@
     <string name="timer_missed_channel">錯過的計時器</string>
     <string name="toast_message_backup_error">備份失敗</string>
     <string name="toast_message_restore_error">還原失敗</string>
+    <string name="settings_language_swedish">瑞典</string>
+    <string name="settings_language_laotian">寮國</string>
+    <string name="settings_language_persian">波斯語</string>
 </resources>

@@ -10,43 +10,43 @@
     <string name="time_picker_dialog_title">Pilih waktu</string>
     <string name="date_picker_dialog_title">Pilih Tanggal</string>
     <string name="delete" msgid="5732434972457000541">"Hapus"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Suara alarm default"</string>
-    <string name="alarm_sound" msgid="8754499591391638405">"Bunyi alarm"</string>
-    <string name="timer_sound" msgid="896163086604894735">"Bunyi timer"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">Suara alarm bawaan</string>
+    <string name="alarm_sound" msgid="8754499591391638405">Suara alarm</string>
+    <string name="timer_sound" msgid="896163086604894735">Bunyi pengatur waktu</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Tambah baru"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Hapus"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarm dan pewaktu yang menggunakan suara ini akan memutar suara default."</string>
-    <string name="your_sounds" msgid="1672779351352629681">"Suara pilihan Anda"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">Alarm dan pengatur waktu yang menggunakan suara ini akan memutar suara bawaan.</string>
+    <string name="your_sounds" msgid="1672779351352629681">Suara Anda</string>
     <string name="device_sounds" msgid="1584894148222639823">"Suara perangkat"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Konten suara tidak dapat diakses."</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer Berakhir"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">Pengatur Waktu Berakhir</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Besok"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hari ini"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Tutup"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm yang terlewat"</string>
-    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Ditunda"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm mati"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Tunda"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">Ditunda selama <xliff:g id="MINUTES">%d</xliff:g> menit.</item>
+        <item quantity="other">Ditunda selama <xliff:g example="10" id="minutes">%d</xliff:g> menit.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Menunda hingga <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Menunda hingga <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarm mendatang"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Alarm yang terlewat telah dihapus"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Alarm yang Anda lewatkan telah dihapus</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Sisa kurang dari satu menit"</string>
-    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"Sisa <xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
-    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">Tersisa <xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g></string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907"><xliff:g example="2 seconds" id="SECONDS">%4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s menit ditambahkan ke pewaktu, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"tersisa"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"tersisa"</string>
     <string name="alarm_confirmation_toast_1">"Alarm disetel untuk kurang dari 1 menit dari sekarang."</string>
-    <string name="alarm_confirmation_toast_2">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_2">Alarm disetel untuk <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> dari sekarang.</string>
     <string name="alarm_confirmation_toast_3">"Alarm disetel untuk <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</string>
     <string name="alarm_confirmation_toast_4">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</string>
     <string name="alarm_confirmation_toast_5">"Alarm disetel untuk <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
@@ -54,29 +54,29 @@
     <string name="alarm_confirmation_toast_7">"Alarm disetel untuk <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
     <string name="alarm_confirmation_toast_8">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hari</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hari</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> jam</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> jam</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> jam</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> jm</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> menit</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> menit</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> mnt</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> mnt</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> detik</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> detik</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Setiap hari"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Memuat…"</string>
     <string name="analog_widget" msgid="1670505720837152766">"Jam analog"</string>
     <string name="digital_widget" msgid="2326954556720571358">"Jam digital"</string>
-    <string name="settings" msgid="5849739030579520686">"Setelan"</string>
+    <string name="settings" msgid="5849739030579520686">Setelan</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Lama penundaan"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Keraskan volume secara bertahap"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Matikan setelah"</string>
@@ -89,7 +89,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volume alarm"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Senyap"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Tidak diketahui"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Nada dering alarm default adalah diam"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">Nada dering alarm bawaan adalah diam</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Ganti"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Perangkat disetel ke senyap total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tombol volume"</string>
@@ -100,9 +100,9 @@
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Nada Dering"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
+    <string name="menu_timer" msgid="6459070074762877114">Pengatur waktu</string>
     <string name="menu_clock" msgid="5612760670606829805">"Jam"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"Stopwatch"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">Jam sukat</string>
     <string name="button_alarms" msgid="3907838219512538763">"Tambahkan alarm"</string>
     <string name="button_cities" msgid="4555761857494501363">"Kota"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Screensaver"</string>
@@ -118,27 +118,27 @@
     <string name="hours_label" msgid="3393478155635368097">"j"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"d"</string>
-    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"Waktu saya adalah <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704"><xliff:g example="1 hour" id="hours">%1$s</xliff:g>, <xliff:g example="15 minutes" id="minutes">%2$s</xliff:g>, <xliff:g example="30 seconds" id="seconds">%3$s</xliff:g></string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877"># <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037"># <xliff:g id="lapNumber">%02d</xliff:g></string>
+    <string name="sw_share_main" msgid="7703563468204234405">Waktu saya adalah <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Waktu putaran:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Putaran <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"Tambahkan Timer"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">Putaran <xliff:g id="number">%d</xliff:g></string>
+    <string name="timer_add_timer" msgid="862733633862574752">Tambahkan Pengatur Waktu</string>
     <string name="timer_start" msgid="6158486445614356442">"Mulai"</string>
-    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Hapus <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
-    <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Tambah %s menit"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">Hapus <xliff:g id="number_string">%s</xliff:g></string>
+    <string name="timer_add_custom_time_description" msgid="6631211310420106116">Tambahkan %s Menit</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Tambahkan %s mnt"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Hentikan"</string>
-    <string name="timer_stop_all" msgid="9080780442843034376">"Menghentikan semua pewaktu"</string>
-    <string name="timer_canceled" msgid="7327923392567128060">"Timer dibatalkan"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">Hentikan semua pengatur waktu</string>
+    <string name="timer_canceled" msgid="7327923392567128060">Pengatur waktu dibatalkan</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Waktu habis"</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> pewaktu telah berakhir"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Timer terlewat: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> pengatur waktu telah berakhir</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">Pengatur waktu</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">Pengatur waktu terlewat: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause" msgid="3748323712728398743">"Jeda"</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>.<xliff:g id="MINUTES">%2$02d</xliff:g>.<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
-    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>.<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
+    <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">"Anda benar-benar cepat."</string>
     <string name="jocular_content_message_2">"Nikmati hasil kerja keras Anda."</string>
     <string name="jocular_content_message_3">"Android terkenal cepat, namun tidak secepat Anda!"</string>
@@ -146,7 +146,7 @@
     <string name="jocular_content_message_5">"Waktu l33t."</string>
     <string name="jocular_content_message_6">"Kecepatan yang luar biasa."</string>
     <string name="jocular_content_message_7">"Mari kita lakukan lengkung waktu sekali lagi."</string>
-    <string name="jocular_content_message_8">"Lompat saja ke kiri."</string>
+    <string name="jocular_content_message_8">Hanya sebuah lompatan ke kiri.</string>
     <string name="jocular_content_message_9">"Anda memiliki palet untuk mempercepat."</string>
     <string name="jocular_content_message_10">"Kecepatan foton."</string>
     <string name="home_label" msgid="4436139365695453870">"Rumah"</string>
@@ -160,8 +160,8 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"Jam domestik otomatis"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Saat bepergian di wilayah dengan waktu yang berbeda, tambahkan jam untuk rumah"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona waktu domestik"</string>
-    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> dicentang"</string>
-    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> dihapus centangnya"</string>
+    <string name="city_checked" msgid="616847871968019"><xliff:g id="city_name">%s</xliff:g> dicentang</string>
+    <string name="city_unchecked" msgid="710212932781145918"><xliff:g id="city_name">%s</xliff:g> dihapus centangnya</string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarm baru"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Buat alarm baru"</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Timer baru"</string>
@@ -173,45 +173,45 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screensaver"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Mulai screensaver"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarm"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"Memproses tindakan dari notifikasi pewaktu."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Memproses tindakan dari notifikasi stopwatch."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">Memproses tindakan dari notifikasi pengatur waktu.</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">Memproses tindakan dari notifikasi jam sukat.</string>
     <string name="swn_paused" msgid="6364358842808263589">"Dijeda"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Geser ke kiri untuk menunda atau ke kanan untuk menutup"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Timer bergetar"</string>
-    <string name="timer_paused" msgid="5941160896040771462">"Timer dijeda"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
+    <string name="timer_paused" msgid="5941160896040771462">Pengatur waktu dijeda</string>
+    <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> pengatur waktu</string>
     <string name="alarm_undo" msgid="5710042601177655254">"urungkan"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm dihapus"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
-    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> lebih cepat"</string>
-    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> lebih lambat"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> lebih cepat"</string>
-    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> lebih lambat"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Besok, pukul <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_yesterday" msgid="4425086322610882745">"Kemarin, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Alarm berikutnya: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
+    <string name="world_time_ahead" msgid="625559988238637652"><xliff:g example="6 hours" id="time">%1$s</xliff:g> lebih cepat</string>
+    <string name="world_time_behind" msgid="5395771290726167865"><xliff:g example="4 hours" id="time">%1$s</xliff:g> lebih lambat</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377"><xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> lebih cepat</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698"><xliff:g example="4 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> lebih lambat</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">Besok, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">Kemarin, <xliff:g id="TIME">%1$s</xliff:g></string>
+    <string name="next_alarm_description" msgid="2650244835760747046">Alarm berikutnya: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms" msgid="6429431324842022917">"Tidak Ada Alarm"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"Waktu tidak valid <xliff:g id="INVALID_HOUR">%1$d</xliff:g>.<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Tidak ada alarm pukul <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>.<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
-    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Tidak ada jadwal alarm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">Waktu tidak valid <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
+    <string name="no_alarm_at" msgid="8140632482969193119">Tidak ada alarm pada pukul <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">Tidak ada alarm yang terjadwal</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Tidak ada label yang ditentukan"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Tidak ada alarm yang berisi label tersebut"</string>
-    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Tidak ada jadwal alarm untuk waktu ini"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> ditutup"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm disetel untuk <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="timer_created" msgid="4381027137335885547">"Timer telah dibuat"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">Tidak ada alarm yang terjadwal untuk waktu ini</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">Alarm pukul <xliff:g example="14:20" id="alarm_time">%s</xliff:g> telah ditutup</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">Alarm telah disetel untuk pukul <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
+    <string name="timer_created" msgid="4381027137335885547">Pengatur waktu telah dibuat</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timer dihentikan</item>
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> pengatur waktu telah ditutup</item>
     </plurals>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"Lamanya pewaktu tidak valid"</string>
-    <string name="invalid_timer" msgid="900957020728335675">"Timer yang tidak valid dipilih"</string>
-    <string name="no_expired_timers" msgid="4624192298397846876">"Tidak ada timer yang berakhir"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> belum dapat ditutup, masih 24 jam lagi"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">Lamanya pengatur waktu tidak valid</string>
+    <string name="invalid_timer" msgid="900957020728335675">Pengatur waktu yang tidak valid dipilih</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">Tidak ada pengatur waktu yang berakhir</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Alarm pukul <xliff:g example="14:20" id="alarm_time">%s</xliff:g> belum dapat ditutup, masih berjarak lebih dari 24 jam dari sekarang</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Tutup alarm"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Pilih alarm mana yang harus ditutup"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Pilih alarm mana yang akan ditutup</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Tidak ada alarm yang aktif"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> ditunda selama 10 menit"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">Alarm pukul <xliff:g example="14:20" id="alarm_time">%s</xliff:g> ditunda selama 10 menit</string>
     <string name="flip_action_title">Tindakan membalik perangkat</string>
     <string name="shake_action_title">Tindakan menggoyangkan perangkat</string>
     <string name="alarm_missed_channel">Alarm yang terlewat</string>
@@ -222,10 +222,164 @@
     <string name="label_default">Bawaan</string>
     <string name="more_options">Lebih banyak pilihan</string>
     <string name="selected">Dipilih</string>
-    <string name="delete_occasional_alarm_after_use_title">Hapus alarm setelah dimatikan</string>
+    <string name="delete_occasional_alarm_after_use_title">Hapus alarm setelah ditutup</string>
     <string name="alarm_alert_dismiss_and_delete_text">Tutup &amp; Hapus</string>
     <string name="alarm_alert_off_and_deleted_text">Alarm mati dan dihapus</string>
     <string name="vertical_widget">Jam digital vertikal</string>
     <string name="next_alarm_widget">Alarm selanjutnya</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarm sesekali yang akan datang</string>
+    <string name="label_none">Tidak Ada</string>
+    <string name="label_indefinitely">Tanpa Batas Waktu</string>
+    <string name="label_new_image">Gambar baru</string>
+    <string name="label_new_font">Fon baru</string>
+    <string name="info">Info</string>
+    <string name="warning">Peringatan</string>
+    <string name="label_hours">Jam</string>
+    <string name="label_minutes">Menit</string>
+    <string name="label_seconds">Detik</string>
+    <string name="confirm_action_prompt">\n\nApakah Anda ingin melanjutkan?</string>
+    <string name="add_label">Tambahkan label</string>
+    <string name="timer_button_time_minutes_warning_box_text">Masukkan sebuah nilai dari 0 hingga 60 menit</string>
+    <string name="timer_button_time_seconds_warning_box_text">Masukkan sebuah nilai dari 0 hingga 59 detik</string>
+    <string name="timer_time_warning_box_title">Nilai yang dimasukkan tidak tepat</string>
+    <string name="schedule_alarm_title">Jadwalkan alarm</string>
+    <string name="pause_alarm_title">Jeda alarm</string>
+    <string name="pause_alarm_range">Di jeda: %1$s</string>
+    <string name="pause_alarm_info_message">Pilih hari dari sebuah pekan untuk mengakses fitur ini.</string>
+    <string name="alarm_scheduled_for">Dijadwalkan untuk %s</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Tutup &amp;\nHapus</string>
+    <string name="alarm_flash">Kilatan</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Hapus pilihan hari dari sebuah pekan untuk mengakses fitur ini.</string>
+    <string name="auto_silence_info_message">\"Diamkan setelah\" disetel ke \"%s\". \n\nNonaktifkan level kekerasan matematika untuk mengakses fitur ini.</string>
+    <string name="delay_picker_dialog_title">Alarm berbunyi dalam…</string>
+    <string name="sync_alarm_by_label_title">Sinkronkan alarm yang memiliki label yang sama.</string>
+    <string name="alarm_volume_low">Volume alarm rendah</string>
+    <string name="fix_alarm_volume">Perbaiki</string>
+    <string name="alarm_hours_warning_box_text">Masukkan sebuah nilai dari 0 hingga 24 jam</string>
+    <string name="alarm_minutes_warning_box_text">Masukkan sebuah nilai dari 0 hingga 59 menit</string>
+    <string name="description_direction_both_for_occasional_alarm">Geser ke kiri untuk menunda atau ke kanan untuk menutup dan menghapus alarm</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Geser ke kiri atau ke kanan untuk menutup</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Geser ke kiri atau ke kanan untuk menutup dan menghapus alarm</string>
+    <string name="description_snooze_button">Klik untuk menunda alarm</string>
+    <string name="description_dismiss_button">Klik untuk menutup alarm</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Klik untuk menutup dan menghapus alarm</string>
+    <string name="repetitive_alarm_is_dismissed">Alarm telah ditutup. <xliff:g example="Next alarm Monday." id="alarm_day">Dijadwalkan kembali untuk %s.</xliff:g></string>
+    <string name="alarm_is_dismissed_and_deleted">Alarm pukul <xliff:g example="14:20" id="alarm_time">%s</xliff:g> telah ditutup dan dihapus</string>
+    <string name="math_challenge_title_snooze">Pecahkan tantangan untuk menunda</string>
+    <string name="math_challenge_title_dismiss">Pecahkan tantangan untuk menutup</string>
+    <string name="math_challenge_new_problem">Masalah baru</string>
+    <string name="math_challenge_answer_hint">Jawaban Anda</string>
+    <string name="math_challenge_prompt">Berapa %1$d + %2$d?</string>
+    <string name="math_challenge_wrong_answer">Jawaban salah</string>
+    <string name="city_search_hint">Cari sebuah kota</string>
+    <string name="city_note_dialog_title">Catatan untuk %s</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Pengatur waktu</string>
+    <string name="timer_label_box_title">Label pengatur waktu</string>
+    <string name="add_time_button_title">Tombol “Tambahkan waktu”</string>
+    <string name="timer_time_box_title">Durasi pengatur waktu baru</string>
+    <string name="delete_timer_after_use_title">Hapus pengatur waktu ketika berakhir</string>
+    <string name="turn_off_media_title">Hentikan media ketika berakhir</string>
+    <string name="timer_button_time_box_title">Menit untuk ditambahkan ke pengatur waktu</string>
+    <string name="timer_add_custom_time_with_seconds_description">Tambahkan %1$s Menit %2$s Detik</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">Tambahkan %1$s mnt %2$s dtk</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="timer_end_time_label">Waktu akhir: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <plurals name="expired_timers_deleted">
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> pengatur waktu telah dihapus</item>
+    </plurals>
+    <string name="sw_laps_title">Putaran</string>
+    <string name="sw_split_title">Pisah</string>
+    <string name="sw_total_title">Total</string>
+    <string name="button_tip_title">Tekan lama tombol “+” untuk menambahkan sebuah folder</string>
+    <string name="progress_ringtones">Menambah nada dering… (%1$d/%2$d)</string>
+    <string name="random_ringtone_title">Nada dering acak</string>
+    <string name="settings_permission_message">Satu atau lebih izin penting telah ditolak. Tidak memberikannya dapat menyebabkan malfungsi.</string>
+    <string name="settings_permission_summary">Klik di sini untuk menampilkan halaman pengelolaan Izin.</string>
+    <string name="style_category_title">Gaya</string>
+    <string name="colors_category_title">Warna</string>
+    <string name="font_category_title">Fon</string>
+    <string name="miscellaneous_category_title">Lainnya</string>
+    <string name="background_image_category_title">Gambar latar belakang</string>
+    <string name="custom_font_title">Pilih sebuah fon khusus</string>
+    <string name="custom_font_title_variant">Ubah atau hapus fon khusus</string>
+    <string name="custom_font_dialog_title">Fon</string>
+    <string name="custom_font_dialog_message">Ubah atau hapus fon khusus.</string>
+    <string name="custom_font_toast_message_selected">Fon berhasil dipilih</string>
+    <string name="custom_font_toast_message_deleted">Fon berhasil dihapus</string>
+    <string name="ringtone_category_title">Nada Dering</string>
+    <string name="advanced_audio_playback_category_title">Pemutaran audio lanjutan</string>
+    <string name="vibration_category_title">Getaran</string>
+    <string name="actions_category_title">Tindakan</string>
+    <string name="display_settings_title">Setelan tampilan</string>
+    <string name="sort_name">Menurut nama</string>
+    <string name="sort_manually">Manual (dengan menyeret)</string>
+    <string name="clock_color_title">Warna jam</string>
+    <string name="clock_default_color_title">Gunaan warna bawaan untuk jam utama</string>
+    <string name="display_text_shadow_title">Tampilkan bayangan teks</string>
+    <string name="shadow_color_title">Warna bayangan</string>
+    <string name="shadow_offset_title">Pergeseran bayangan</string>
+    <string name="display_ringtone_title">Tampilkan judul nada dering</string>
+    <string name="ringtone_title_color">Warna judul nada dering</string>
+    <string name="blur_intensity_title">Intensitas blur</string>
+    <string name="background_image_title">Pilih gambar latar belakang</string>
+    <string name="background_image_title_variant">Ubah atau hapus gambar latar belakang</string>
+    <string name="background_image_dialog_title">Gambar latar belakang</string>
+    <string name="background_image_dialog_message">Ubah atau hapus gambar latar belakang.</string>
+    <string name="background_image_toast_message_selected">Gambar berhasil dipilih</string>
+    <string name="background_image_toast_message_deleted">Gambar berhasil dihapus</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Durasi kenaikan volume akan diatur ulang.%s</string>
+    <string name="auto_silence_end_of_ringtone">Akhir nada dering</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Durasi berhenti khusus akan diatur ulang.%s</string>
+    <string name="clock_dial_with_numbers">Dengan angka</string>
+    <string name="clock_dial_without_numbers">Tanpa angka</string>
+    <string name="clock_dial_with_roman_numbers">Dengan angka Romawi</string>
+    <string name="clock_second_hand_title">Jarum detik</string>
+    <string name="clock_second_hand_vintage">Jadul</string>
+    <string name="clock_second_hand_lollipop">Lolipop</string>
+    <string name="clock_style_analog_material">Analog (Material)</string>
+    <string name="clock_dial_title">Cakra Angka</string>
+    <string name="clock_dial_sun">Matahari</string>
+    <string name="clock_dial_flower">Bunga</string>
+    <string name="clock_style_spinner">Spinner</string>
+    <string name="analog_clock_size_title">Ukuran jam analog</string>
+    <string name="shake_intensity_title">Intensitas getaran</string>
+    <string name="display_text_uppercase_title">Tampilkan teks dengan huruf kapital</string>
+    <string name="vibration_pattern_title">Pola getaran</string>
+    <string name="vibration_pattern_soft">Lemah</string>
+    <string name="vibration_pattern_strong">Kuat</string>
+    <string name="vibration_pattern_heartbeat">Detak Jantung</string>
+    <string name="vibration_pattern_escalating">Meningkat</string>
+    <string name="vibration_pattern_tick_tock">Tik-Tok</string>
+    <string name="interface_customization_settings">Antarmuka Pengguna</string>
+    <string name="interface_customization_summary">Ubah gaya aplikasi, fon, bahasa, dan warna</string>
+    <string name="title_theme">Tema</string>
+    <string name="system_theme">Sistem</string>
+    <string name="light_theme">Terang</string>
+    <string name="dark_theme">Gelap</string>
+    <string name="title_accent_color">Warna aksen</string>
+    <string name="auto_night_accent_color_title">Terapkan warna aksen ke mode malam</string>
+    <string name="day_accent_color_title">Warna aksen untuk mode siang</string>
+    <string name="night_accent_color_title">Warna aksen untuk mode malam</string>
+    <string name="black_accent_color">Hitam</string>
+    <string name="blue_accent_color">Biru</string>
+    <string name="blue_gray_accent_color">Biru Keabu-abuan</string>
+    <string name="brown_accent_color">Cokelat</string>
+    <string name="green_accent_color">Hijau</string>
+    <string name="indigo_accent_color">Nila</string>
+    <string name="orange_accent_color">Oranye</string>
+    <string name="pink_accent_color">Merah Muda</string>
+    <string name="purple_accent_color">Ungu</string>
+    <string name="red_accent_color">Merah</string>
+    <string name="yellow_accent_color">Kuning</string>
+    <string name="title_dark_theme_mode">Mode tema gelap</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="display_card_background_title">Tampilkan latar belakang kartu</string>
+    <string name="display_card_background_summary">Tampilkan latar belakang untuk beberapa elemen aplikasi (alarm, kota, tombol pengatur waktu, dll.)</string>
+    <string name="display_background_border_title">Tampilkan batas latar belakang</string>
+    <string name="display_background_border_summary">Tampilkan batas latar belakang untuk beberapa elemen aplikasi (alarm, kota, tombol pengatur waktu, dll.)</string>
+    <string name="settings_language_title">Bahasa</string>
+    <string name="settings_language_system">Bahasa sistem</string>
+    <string name="settings_language_english_us">Inggris (AS)</string>
+    <string name="settings_language_french">Prancis</string>
+    <string name="settings_language_german">Jerman</string>
 </resources>

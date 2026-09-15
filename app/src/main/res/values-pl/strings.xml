@@ -722,4 +722,8 @@
     <string name="enable_per_alarm_math_hardness_level_title">Użyj niestandardowy poziom trudności dla każdego alarmu</string>
     <string name="enable_per_alarm_math_hardness_level_dialog_message">Niestandardowe poziomy trudności zostaną zresetowane.%s</string>
     <string name="sw_display_milliseconds_title">Wyświetl milisekundy</string>
+    <string name="button_action_mute">Wycisz</string>
+    <string name="settings_language_swedish">Szwedzki</string>
+    <string name="settings_language_laotian">Laotański</string>
+    <string name="settings_language_persian">Perski</string>
 </resources>

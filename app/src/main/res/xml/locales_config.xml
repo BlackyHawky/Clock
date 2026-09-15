@@ -26,4 +26,7 @@
     <locale android:name="ar" />
     <locale android:name="hu" />
     <locale android:name="he" />
+    <locale android:name="sv" />
+    <locale android:name="lo" />
+    <locale android:name="fa" />
 </locale-config>

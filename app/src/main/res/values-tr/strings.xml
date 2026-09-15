@@ -662,4 +662,7 @@
     <string name="display_timer_end_time_title">Zamanlayıcının bitiş zamanını görüntüle</string>
     <string name="timer_missed_channel">Kaçırılan zamanlayıcılar</string>
     <string name="settings_language_hebrew">İbranice</string>
+    <string name="settings_language_swedish">İsveççe</string>
+    <string name="settings_language_laotian">Laoslu</string>
+    <string name="settings_language_persian">Farsça</string>
 </resources>

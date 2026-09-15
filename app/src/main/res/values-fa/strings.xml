@@ -661,4 +661,7 @@
     <string name="toast_message_for_backup">پشتیبان‌گیری کامل شد</string>
     <string name="toast_message_backup_error">پشتیبان‌گیری ناموفق بود</string>
     <string name="toast_message_restore_error">بازیابی ناموفق بود</string>
+    <string name="settings_language_swedish">سوئدی</string>
+    <string name="settings_language_laotian">لائوسی</string>
+    <string name="settings_language_persian">فارسی</string>
 </resources>

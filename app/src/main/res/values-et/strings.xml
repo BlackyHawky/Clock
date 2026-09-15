@@ -706,4 +706,7 @@
     <string name="math_hardness_level_normal">Tavaline</string>
     <string name="math_hardness_level_hard">Raske</string>
     <string name="sw_display_milliseconds_title">Kuva millisekundeid</string>
+    <string name="settings_language_swedish">Rootsi</string>
+    <string name="settings_language_laotian">Laose</string>
+    <string name="settings_language_persian">Pärsia</string>
 </resources>
