@@ -428,39 +428,44 @@ public class AlarmService extends Service {
         final long instanceId = AlarmInstance.getId(dataUri);
 
         switch (Objects.requireNonNull(intent.getAction())) {
-            case AlarmStateManager.CHANGE_STATE_ACTION -> AppExecutors.getDiskIO().execute(() -> {
-                AlarmAlertWakeLock.acquireCpuWakeLock(this);
+            case AlarmStateManager.CHANGE_STATE_ACTION -> {
+                Context appContext = getApplicationContext();
+                ContentResolver cr = appContext.getContentResolver();
 
-                AlarmStateManager.handleIntent(this, mPrefs, intent);
+                AppExecutors.getDiskIO().execute(() -> {
+                    AlarmAlertWakeLock.acquireCpuWakeLock(appContext);
 
-                // If state is changed to firing, actually fire the alarm!
-                final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
+                    AlarmStateManager.handleIntent(appContext, mPrefs, intent);
 
-                if (alarmState == AlarmInstance.FIRED_STATE) {
-                    final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
+                    // If state is changed to firing, actually fire the alarm!
+                    final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
 
-                    if (instance == null) {
-                        LogUtils.e("No instance found to start alarm: %d", instanceId);
+                    if (alarmState == AlarmInstance.FIRED_STATE) {
+                        final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
 
+                        if (instance == null) {
+                            LogUtils.e("No instance found to start alarm: %d", instanceId);
+
+                            if (mCurrentAlarm == null) {
+                                // Only release lock if we are not firing alarm
+                                AlarmAlertWakeLock.releaseCpuLock();
+                            }
+                            return;
+                        }
+
+                        if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
+                            LogUtils.e("Alarm already started for instance: %d", instanceId);
+                            return;
+                        }
+
+                        AppExecutors.getMainThread().post(() -> startAlarm(instance));
+                    } else {
                         if (mCurrentAlarm == null) {
-                            // Only release lock if we are not firing alarm
                             AlarmAlertWakeLock.releaseCpuLock();
                         }
-                        return;
                     }
-
-                    if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
-                        LogUtils.e("Alarm already started for instance: %d", instanceId);
-                        return;
-                    }
-
-                    AppExecutors.getMainThread().post(() -> startAlarm(instance));
-                } else {
-                    if (mCurrentAlarm == null) {
-                        AlarmAlertWakeLock.releaseCpuLock();
-                    }
-                }
-            });
+                });
+            }
 
             case STOP_ALARM_ACTION -> {
                 if (mCurrentAlarm == null) {
