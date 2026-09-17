@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.view.ViewCompat;
 
@@ -240,14 +241,6 @@ public class AlarmUtils {
         nextAlarm.setTypeface(boldTypeface);
     }
 
-    @NonNull
-    public static String getAlarmText(@NonNull Context context, @NonNull AlarmInstance instance, boolean includeLabel) {
-        String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
-        return (instance.mLabel.isEmpty() || !includeLabel)
-            ? alarmTimeStr
-            : alarmTimeStr + " - " + instance.mLabel;
-    }
-
     /**
      * Returns a human‑readable string representing the time of the next alarm.
      * <p>
@@ -268,33 +261,52 @@ public class AlarmUtils {
         tomorrow.add(Calendar.DAY_OF_YEAR, 1);
 
         final boolean is24HourFormat = DateFormat.is24HourFormat(context);
-        String skeleton = is24HourFormat ? "Hm" : "hma";
+        final Locale locale = Utils.getLocaleFromContext(context);
 
         String prefix = "";
+        String skeleton;
 
         if (isSameDayAndTimeZone(alarmTime, today)) {
             prefix = context.getString(R.string.alarm_today) + " ";
+            skeleton = is24HourFormat ? "Hm" : "hma";
         } else if (isSameDayAndTimeZone(alarmTime, tomorrow)) {
             prefix = context.getString(R.string.alarm_tomorrow) + " ";
+            skeleton = is24HourFormat ? "Hm" : "hma";
         } else {
             // Beyond tomorrow: show day or full date if distant
             long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
             long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
 
             if (diffInDays >= 6) {
-                // e.g., "Sat Oct 28 20:30"
-                skeleton = is24HourFormat ? "EEE MMM d Hm" : "EEE MMM d hma";
+                final boolean isDifferentYear = now.get(Calendar.YEAR) != alarmTime.get(Calendar.YEAR);
+                skeleton = context.getString(getFullDateSkeletonResId(is24HourFormat, isDifferentYear));
             } else {
                 // e.g., "Wed 20:30"
-                skeleton = is24HourFormat ? "EEE Hm" : "EEE hma";
+                skeleton = context.getString(is24HourFormat ? R.string.abbrev_wday_24_hour : R.string.abbrev_wday_12_hour);
             }
         }
 
-        final Locale locale = Locale.getDefault();
         String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
-        String formattedTime = prefix + DateFormat.format(pattern, alarmTime).toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+        String formattedTime = prefix + simpleDateFormat.format(alarmTime.getTime());
 
         return FormattedTextUtils.capitalizeFirstLetter(formattedTime, locale);
+    }
+
+    /**
+     * Helper method to determine the correct string resource ID for a full date skeleton.
+     */
+    @StringRes
+    private static int getFullDateSkeletonResId(boolean is24HourFormat, boolean isDifferentYear) {
+        if (isDifferentYear) {
+            return is24HourFormat
+                ? R.string.abbrev_wday_month_day_with_year_24_hour
+                : R.string.abbrev_wday_month_day_with_year_12_hour;
+        } else {
+            return is24HourFormat
+                ? R.string.abbrev_wday_month_day_no_year_24_hour
+                : R.string.abbrev_wday_month_day_no_year_12_hour;
+        }
     }
 
     /**

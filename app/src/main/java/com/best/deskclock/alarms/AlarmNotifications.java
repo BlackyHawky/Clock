@@ -37,6 +37,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -257,7 +258,7 @@ public final class AlarmNotifications {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
             .setShowWhen(false)
             .setContentTitle(contentTitle)
-            .setContentText(AlarmUtils.getAlarmText(localizedContext, instance, true))
+            .setContentText(NotificationUtils.getNotificationAlarmText(localizedContext, instance, languageCode, false))
             .setContentIntent(contentIntent)
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
@@ -329,7 +330,7 @@ public final class AlarmNotifications {
             .setShowWhen(false)
             .setContentTitle(instance.getLabelOrDefault(localizedContext))
             .setContentText(localizedContext.getString(R.string.alarm_alert_snooze_until,
-                AlarmUtils.getFormattedTime(localizedContext, instance.getAlarmTime())))
+                NotificationUtils.getNotificationAlarmText(localizedContext, instance, languageCode, true)))
             .setContentIntent(contentIntent)
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setSmallIcon(R.drawable.ic_snooze)
@@ -531,7 +532,7 @@ public final class AlarmNotifications {
     }
 
     @NonNull
-    static Intent createViewAlarmIntent(@NonNull Context context, @NonNull AlarmInstance instance) {
+    public static Intent createViewAlarmIntent(@NonNull Context context, @NonNull AlarmInstance instance) {
         final long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         return Alarm.createIntent(context, DeskClock.class, alarmId)
             .putExtra(AlarmFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
@@ -552,4 +553,5 @@ public final class AlarmNotifications {
         final boolean missedAlarm = instance.mAlarmState == AlarmInstance.MISSED_STATE;
         return missedAlarm ? ("MISSED " + timeKey) : timeKey;
     }
+
 }

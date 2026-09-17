@@ -34,6 +34,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.os.ConfigurationCompat;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.core.util.Function;
@@ -234,6 +235,20 @@ public class Utils {
         config.setLocale(locale);
 
         return context.createConfigurationContext(config);
+    }
+
+    /**
+     * Retrieves the primary locale from the given context.
+     *
+     * @param context the context to retrieve the locale from.
+     * @return the primary locale of the context, or the system default as a fallback.
+     */
+    @NonNull
+    public static Locale getLocaleFromContext(@NonNull Context context) {
+        final Configuration config = context.getResources().getConfiguration();
+        Locale locale = ConfigurationCompat.getLocales(config).get(0);
+
+        return locale != null ? locale : Locale.getDefault();
     }
 
     /**

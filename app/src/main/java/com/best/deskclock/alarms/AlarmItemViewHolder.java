@@ -212,7 +212,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         if (recentlySnoozedInstance != null && !isRecentlyDismissed) {
             mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().bold());
             mBinding.daysOfWeek.setText(mContext.getString(R.string.alarm_alert_snooze_until,
-                AlarmUtils.getAlarmText(mContext, recentlySnoozedInstance, false)));
+                AlarmUtils.getFormattedTime(mContext, recentlySnoozedInstance.getAlarmTime())));
 
         // Optimistic Dismiss
         } else if (isRecentlyDismissed) {
@@ -230,7 +230,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             && alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
             mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().bold());
             mBinding.daysOfWeek.setText(mContext.getString(R.string.alarm_alert_snooze_until,
-                AlarmUtils.getAlarmText(mContext, alarmInstance, false)));
+                AlarmUtils.getFormattedTime(mContext, alarmInstance.getAlarmTime())));
         } else if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
             setRepeatingDaysDescription(alarm, alarmInstance);
         } else if (alarm.isSpecifiedDate()) {

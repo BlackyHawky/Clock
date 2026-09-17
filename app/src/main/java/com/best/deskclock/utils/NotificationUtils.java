@@ -14,10 +14,12 @@ import android.app.NotificationChannel;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Build;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -26,9 +28,12 @@ import com.best.deskclock.alarms.AlarmNotifications;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.provider.AlarmInstance;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -212,6 +217,44 @@ public class NotificationUtils {
                 }
             });
         });
+    }
+
+    @NonNull
+    public static String getNotificationAlarmText(@NonNull Context context, @NonNull AlarmInstance instance, @NonNull String languageCode,
+                                                  boolean isSnoozeNotification) {
+
+        final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
+        final Locale locale = Utils.getLocaleFromContext(localizedContext);
+        final boolean is24HourFormat = DateFormat.is24HourFormat(localizedContext);
+        final int skeletonResId = getSkeletonResId(is24HourFormat, Calendar.getInstance(), instance.getAlarmTime());
+        final String skeleton = localizedContext.getString(skeletonResId);
+        final String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+        final String alarmTimeStr = simpleDateFormat.format(instance.getAlarmTime().getTime());
+        final String formattedText = instance.mLabel.isEmpty() ? alarmTimeStr : alarmTimeStr + " - " + instance.mLabel;
+
+        return isSnoozeNotification ? formattedText : FormattedTextUtils.capitalizeFirstLetter(formattedText, locale);
+    }
+
+    @StringRes
+    private static int getSkeletonResId(boolean is24HourFormat, @NonNull Calendar now, @NonNull Calendar alarmTime) {
+        final int currentYear = now.get(Calendar.YEAR);
+        final int instanceYear = alarmTime.get(Calendar.YEAR);
+        final int currentDayOfYear = now.get(Calendar.DAY_OF_YEAR);
+        final int instanceDayOfYear = alarmTime.get(Calendar.DAY_OF_YEAR);
+
+        final boolean isToday = (currentYear == instanceYear) && (currentDayOfYear == instanceDayOfYear);
+
+        if (isToday) {
+            // The alarm is set for today: display the time only
+            return is24HourFormat ? R.string.time_24_hour : R.string.time_12_hour;
+        } else if (currentYear != instanceYear) {
+            // The alarm is set for another year: display the full date + time
+            return is24HourFormat ? R.string.abbrev_wday_month_day_with_year_24_hour : R.string.abbrev_wday_month_day_with_year_12_hour;
+        } else {
+            // The alarm is for another day in the same year: display the date without the year + time.
+            return is24HourFormat ? R.string.abbrev_wday_month_day_no_year_24_hour : R.string.abbrev_wday_month_day_no_year_12_hour;
+        }
     }
 
 }
