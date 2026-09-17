@@ -150,7 +150,7 @@ final class CityModel {
         if (mHomeCity == null) {
             final String name = Utils.getLocalizedContext(mContext, SettingsDAO.getLanguageCode(mPrefs)).getString(R.string.home_label);
             final TimeZone timeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
-            mHomeCity = new City("C0", -1, null, name, name, name, timeZone);
+            mHomeCity = new City(City.HOME_CITY_ID, -1, null, name, name, name, timeZone);
         }
 
         return mHomeCity;

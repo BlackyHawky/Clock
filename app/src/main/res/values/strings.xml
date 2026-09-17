@@ -23,6 +23,8 @@
     <string name="label_never">Never</string>
     <!-- Label "None" (male form) -->
     <string name="label_none">None</string>
+    <!-- Label "Cities" -->
+    <string name="label_cities">Cities</string>
     <!-- Label "Indefinitely" -->
     <string name="label_indefinitely">Indefinitely</string>
     <!-- Label "Delete" -->
@@ -321,10 +323,6 @@
     <!-- **     CLOCK     ** -->
     <!-- ******************* -->
 
-    <!-- Describes the purpose of the button which provides a list of cities for the world clock settings -->
-    <string name="button_cities">Cities</string>
-    <!-- Label for the Cities activity displayed on-screen when that activity must be represented to the user. -->
-    <string name="cities_activity_title">Cities</string>
     <!-- Title with the clock on the main page displaying the user's regular timezone (shows when automatic_home_clock enabled) -->
     <string name="home_label">Home</string>
     <!-- Menu item on Cities screen to sort by GMT offset -->
@@ -1116,6 +1114,8 @@
     <string name="timezone_norfolk">Norfolk Island</string>
     <!-- Time zone for Macquarie Island -->
     <string name="timezone_macquarie">Macquarie Island</string>
+    <!-- Setting title to display a flag next to city names -->
+    <string name="enable_city_flag_title">Display country flags</string>
     <!-- Setting title to allow adding a note to cities -->
     <string name="enable_city_note_title">Add a personal note to the cities</string>
     <!-- Setting summary about the city note -->

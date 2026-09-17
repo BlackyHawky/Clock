@@ -87,7 +87,6 @@
     <string name="menu_clock">Reló</string>
     <string name="menu_stopwatch">Cronómetru</string>
     <string name="button_alarms">Amestar alarma</string>
-    <string name="button_cities">Ciudaes</string>
     <string name="menu_item_sort_by_gmt_offset">Ordenar por hora</string>
     <string name="menu_item_sort_by_name">Ordenar por nome</string>
     <string name="selected_cities_label">Ciudaes esbillaes</string>
@@ -127,7 +126,7 @@
     <string name="jocular_content_message_9">Tienes munches coses que facer en pocu tiempu.</string>
     <string name="jocular_content_message_10">Velocidá fotónica</string>
     <string name="home_label">Casa</string>
-    <string name="cities_activity_title">Ciudaes</string>
+    <string name="label_cities">Ciudaes</string>
     <string name="clock_settings">Reló</string>
     <string name="clock_style">Estilu</string>
     <string name="display_clock_seconds_pref">Pantalla de tiempu con segundos</string>

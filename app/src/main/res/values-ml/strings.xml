@@ -110,7 +110,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"ക്ലോക്ക്"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"സ്‌റ്റോപ്പ്‌വാച്ച്"</string>
     <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
-    <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"സ്ക്രീൻ സേവർ"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"സമയപ്രകാരം അടുക്കുക"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"പേര് പ്രകാരം അടുക്കുക"</string>
@@ -156,7 +155,7 @@
     <string name="jocular_content_message_9">"നിങ്ങളുടെ തിരക്കിനായി ഒരു പാലറ്റുണ്ട്."</string>
     <string name="jocular_content_message_10">"ഫോട്ടോണിക്ക് പ്രവേഗം."</string>
     <string name="home_label" msgid="4436139365695453870">"ഹോം"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"നഗരങ്ങൾ"</string>
+    <string name="label_cities" msgid="8552462751129256730">"നഗരങ്ങൾ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ക്ലോക്ക്"</string>
     <string name="clock_style" msgid="2265011060429742344">"സ്റ്റൈൽ"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">സെക്കൻഡ് സൂചിപ്പിക്കുന്ന സമയം കാണിക്കുക</string>

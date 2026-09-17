@@ -85,7 +85,8 @@ public final class ClockFragment extends DeskClockFragment {
             switch (key) {
                 case KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS,
                      KEY_CLOCK_SECOND_HAND, KEY_DISPLAY_NEXT_ALARM, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE,
-                     KEY_DISPLAY_TEXT_UPPERCASE, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE -> {
+                     KEY_DISPLAY_TEXT_UPPERCASE, KEY_SORT_CITIES, KEY_ENABLE_CITY_FLAG, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK,
+                     KEY_HOME_TIME_ZONE -> {
 
                     mAreSettingsChanged = true;
 
@@ -302,7 +303,7 @@ public final class ClockFragment extends DeskClockFragment {
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_public);
-        fab.setContentDescription(getString(R.string.button_cities));
+        fab.setContentDescription(getString(R.string.label_cities));
         fab.setOnLongClickListener(v -> {
             CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), fab.getContentDescription().toString(), true);
             return true;
@@ -377,6 +378,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         mSettings.analogClockSizePercent = SettingsDAO.getAnalogClockSize(getPrefs());
         mSettings.showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), getPrefs());
+        mSettings.isCityFlagEnabled = SettingsDAO.isCityFlagEnabled(getPrefs());
         mSettings.isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(getPrefs());
         mSettings.citySorting = SettingsDAO.getCitySorting(getPrefs());
 

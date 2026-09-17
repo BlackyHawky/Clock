@@ -103,7 +103,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"Jam"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Jam randik"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Tambah penggera"</string>
-    <string name="button_cities" msgid="4555761857494501363">"Bandar"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Penyelamat skrin"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Isih mengikut waktu"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Isih mengikut nama"</string>
@@ -149,7 +148,7 @@
     <string name="jocular_content_message_9">"Anda suka tergesa-gesa."</string>
     <string name="jocular_content_message_10">"Halaju fotonik."</string>
     <string name="home_label" msgid="4436139365695453870">"Tempatan"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"Bandar"</string>
+    <string name="label_cities" msgid="8552462751129256730">"Bandar"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Jam"</string>
     <string name="clock_style" msgid="2265011060429742344">"Gaya"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">Paparkan masa dengan saat</string>

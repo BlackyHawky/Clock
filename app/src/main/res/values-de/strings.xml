@@ -111,7 +111,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"Uhr"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stoppuhr"</string>
     <string name="button_alarms" msgid="3907838219512538763">Wecker hinzufügen</string>
-    <string name="button_cities" msgid="4555761857494501363">"Städte"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Bildschirmschoner"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">Nach Zeit sortieren</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Nach Namen sortieren"</string>
@@ -157,7 +156,7 @@
     <string name="jocular_content_message_9">Du hast es ganz schön eilig.</string>
     <string name="jocular_content_message_10">Lichtgeschwindigkeit.</string>
     <string name="home_label" msgid="4436139365695453870">"Zuhause"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"Städte"</string>
+    <string name="label_cities" msgid="8552462751129256730">"Städte"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Uhr"</string>
     <string name="clock_style" msgid="2265011060429742344">"Design"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">Zeit mit Sekunden anzeigen</string>

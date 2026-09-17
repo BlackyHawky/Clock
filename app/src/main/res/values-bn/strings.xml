@@ -110,7 +110,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"ঘড়ি"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"স্টপওয়াচ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"অ্যালার্ম যোগ করুন"</string>
-    <string name="button_cities" msgid="4555761857494501363">"শহর"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"স্ক্রিন সেভার"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"সময়ের ভিত্তিতে বাছাই করুন"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"নাম অনুসারে সাজান"</string>
@@ -156,7 +155,7 @@
     <string name="jocular_content_message_9">"তাড়াহুড়োর জন্য আপনার বিশেষ দক্ষতা আছে।"</string>
     <string name="jocular_content_message_10">"আলোর গতি।"</string>
     <string name="home_label" msgid="4436139365695453870">"হোম"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"শহর"</string>
+    <string name="label_cities" msgid="8552462751129256730">"শহর"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ঘড়ি"</string>
     <string name="clock_style" msgid="2265011060429742344">"স্টাইল"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">সেকেন্ড সহ সময় প্রদর্শন করুন</string>

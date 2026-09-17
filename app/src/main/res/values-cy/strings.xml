@@ -137,7 +137,6 @@
     <string name="menu_clock">Cloc</string>
     <string name="menu_stopwatch">Cloc amseru</string>
     <string name="button_alarms">Ychwanegu larwm</string>
-    <string name="button_cities">Dinasoedd</string>
     <string name="screensaver_settings_title">Arbedwr sgrin</string>
     <string name="menu_item_sort_by_gmt_offset">Trefnu\'n ôl amser</string>
     <string name="menu_item_sort_by_name">Trefnu\'n ôl enw</string>
@@ -183,7 +182,7 @@
     <string name="jocular_content_message_9">Dy amseroedd di</string>
     <string name="jocular_content_message_10">Dy amseroedd di</string>
     <string name="home_label">Cartref</string>
-    <string name="cities_activity_title">Dinasoedd</string>
+    <string name="label_cities">Dinasoedd</string>
     <string name="clock_settings">Cloc</string>
     <string name="clock_style">Arddull</string>
     <string name="display_clock_seconds_pref">Dangos yr amser gydag eiliadau</string>

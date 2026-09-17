@@ -111,7 +111,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"ಗಡಿಯಾರ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ಸ್ಟಾಪ್‌ವಾಚ್"</string>
     <string name="button_alarms" msgid="3907838219512538763">"ಅಲಾರಮ್ ಸೇರಿಸಿ"</string>
-    <string name="button_cities" msgid="4555761857494501363">"ನಗರಗಳು"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"ಸ್ಕ್ರೀನ್ ಸೇವರ್"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"ಸಮಯದ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"ಹೆಸರಿನ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ"</string>
@@ -157,7 +156,7 @@
     <string name="jocular_content_message_9">"ವೇಗಕ್ಕಾಗಿ ನಿಮಗೊಂದು ವರ್ಣಫಲಕವಿದೆ."</string>
     <string name="jocular_content_message_10">"ಫೋಟೋನಿಕ್ ವೇಗ."</string>
     <string name="home_label" msgid="4436139365695453870">"ಮನೆ"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"ನಗರಗಳು"</string>
+    <string name="label_cities" msgid="8552462751129256730">"ನಗರಗಳು"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ಗಡಿಯಾರ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ಶೈಲಿ"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">ಸಮಯವನ್ನು ಸೆಕೆಂಡುಗಳ ಜೊತೆಗೆ ಪ್ರದರ್ಶಿಸು</string>

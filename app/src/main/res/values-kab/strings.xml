@@ -130,7 +130,7 @@
     <string name="seconds_label">sn</string>
     <string name="timer_notification_label">Amakud</string>
     <string name="home_label">Axxam</string>
-    <string name="cities_activity_title">Tiɣeṛmin</string>
+    <string name="label_cities">Tiɣeṛmin</string>
     <string name="sw_pause_button">Seṛǧu</string>
     <string name="permission_status_title">Addad:</string>
     <string name="clock_style_spinner">Asebrin</string>
@@ -180,7 +180,6 @@
     <string name="button_action_snooze">Sgen</string>
     <string name="power_button_title">Taqeffalt n tnezmart</string>
     <string name="menu_timer">Amakud</string>
-    <string name="button_cities">Timdinin</string>
     <string name="menu_item_sort_by_name">Smizzwer s yisem</string>
     <string name="sw_resume_button">Kemmel</string>
     <string name="reset">Wennez tikkelt-nniḍen</string>

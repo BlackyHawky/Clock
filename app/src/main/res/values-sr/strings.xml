@@ -118,7 +118,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"Сат"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Штоперица"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Додај аларм"</string>
-    <string name="button_cities" msgid="4555761857494501363">"Градови"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Чувар екрана"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Сортирај према времену"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Сортирај према имену"</string>
@@ -164,7 +163,7 @@
     <string name="jocular_content_message_9">"Брзина вам је у крви."</string>
     <string name="jocular_content_message_10">"Брзина фотона."</string>
     <string name="home_label" msgid="4436139365695453870">"Кућа"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"Градови"</string>
+    <string name="label_cities" msgid="8552462751129256730">"Градови"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Сат"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стил"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">Приказуј време са секундама</string>

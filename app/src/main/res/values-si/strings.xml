@@ -110,7 +110,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"ඔරලෝසුව"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"විරාම ඝටිකාව"</string>
     <string name="button_alarms" msgid="3907838219512538763">"ඇඟවීමක් එක් කරන්න"</string>
-    <string name="button_cities" msgid="4555761857494501363">"නගර"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"තිර සුරැකුම"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"කාලය අනුව අනුපිළිවෙලට සකසන්න"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"නමින් අනුපිළිවෙලට සකසන්න"</string>
@@ -156,7 +155,7 @@
     <string name="jocular_content_message_9">"තදියම සඳහා ඔබ සතුව පලත්තක් ඇත."</string>
     <string name="jocular_content_message_10">"ෆොටෝනමය ප්‍රවේගය."</string>
     <string name="home_label" msgid="4436139365695453870">"නිවස"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"නගර"</string>
+    <string name="label_cities" msgid="8552462751129256730">"නගර"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ඔරලෝසුව"</string>
     <string name="clock_style" msgid="2265011060429742344">"විලාසය"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">තත්පර සහිත සංදර්ශන කාලය</string>
