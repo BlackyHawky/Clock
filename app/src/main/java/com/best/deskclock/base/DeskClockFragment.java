@@ -28,6 +28,7 @@ import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Locale;
 
@@ -74,7 +75,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mLocale = Locale.getDefault();
+        mLocale = Utils.getLocaleFromContext(requireContext());
         mIsTablet = ThemeUtils.isTablet();
         mIsPortrait = ThemeUtils.isPortrait();
         mIsLandscape = ThemeUtils.isLandscape();

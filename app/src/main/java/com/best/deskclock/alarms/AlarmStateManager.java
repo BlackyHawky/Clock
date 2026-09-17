@@ -28,7 +28,6 @@ import android.net.Uri;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.service.quicksettings.TileService;
-import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,9 +52,11 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -275,8 +276,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 }
             }
 
-            LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
-                AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
+            SimpleDateFormat logFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+            String logTime = logFormat.format(nextRepeatedInstance.getAlarmTime().getTime());
+
+            LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " + logTime);
+
             nextRepeatedInstance.addInstance(cr);
             registerInstance(context, prefs, nextRepeatedInstance, true);
         }
@@ -468,8 +472,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
 
         // Update alarm state and new alarm time in db.
-        LogUtils.i("Setting snoozed state to instance " + instance.mId + " for "
-            + AlarmUtils.getFormattedTime(context, newAlarmTime));
+        SimpleDateFormat logFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+        LogUtils.i("Setting snoozed state to instance " + instance.mId + " for " + logFormat.format(newAlarmTime.getTime()));
         instance.setAlarmTime(newAlarmTime);
         instance.mAlarmState = AlarmInstance.SNOOZE_STATE;
         instance.updateInstance(context.getContentResolver());
@@ -923,8 +927,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
             if (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime)) {
                 final Calendar oldAlarmTime = instance.getAlarmTime();
                 final Calendar newAlarmTime = alarm.getNextAlarmTime(currentTime);
-                final CharSequence oldTime = DateFormat.format("MM/dd/yyyy hh:mm a", oldAlarmTime);
-                final CharSequence newTime = DateFormat.format("MM/dd/yyyy hh:mm a", newAlarmTime);
+                final SimpleDateFormat logFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.US);
+                final String oldTime = logFormat.format(oldAlarmTime.getTime());
+                final String newTime = logFormat.format(newAlarmTime.getTime());
+
                 LogUtils.i("A time change has caused an existing alarm scheduled to fire at %s to" +
                     " be replaced by a new alarm scheduled to fire at %s", oldTime, newTime);
 
@@ -1108,8 +1114,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
                                                 @NonNull AlarmInstance instance, int newState) {
 
             final long timeInMillis = time.getTimeInMillis();
-            LogUtils.i("Scheduling state change %d to instance %d at %s (%d)", newState,
-                instance.mId, AlarmUtils.getFormattedTime(context, time), timeInMillis);
+            SimpleDateFormat logFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+
+            LogUtils.i("Scheduling state change %d to instance %d at %s (%d)", newState, instance.mId,
+                logFormat.format(time.getTime()), timeInMillis);
+
             final Intent stateChangeIntent = createStateChangeIntent(
                 context, instance, ALARM_MANAGER_TAG, newState, SettingsDAO.getGlobalIntentId(prefs));
             // Treat alarm state change as high priority, use foreground broadcasts

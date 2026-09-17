@@ -25,6 +25,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.databinding.CityListHeaderBinding;
 import com.best.deskclock.databinding.CityListItemBinding;
 import com.best.deskclock.uidata.UiConfig;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -402,7 +403,8 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     public void filter(@NonNull String queryText) {
         mCurrentQueryText = queryText;
 
-        final String query = City.removeSpecialCharacters(queryText.toUpperCase());
+        final Locale appLocale = Utils.getLocaleFromContext(mContext);
+        final String query = City.removeSpecialCharacters(queryText.toUpperCase(appLocale));
 
         // Compute the filtered list of cities.
         final List<City> filteredCities;
@@ -414,7 +416,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
             filteredCities = new ArrayList<>(unselected.size());
 
             for (City city : unselected) {
-                if (city.matches(query)) {
+                if (city.matches(query, appLocale)) {
                     filteredCities.add(city);
                 }
             }

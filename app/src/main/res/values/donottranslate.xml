@@ -27,6 +27,8 @@
     <string name="abbrev_wday">&#160;/ EEE</string>
     <!-- String matching the lock screen format for displaying the date. -->
     <string name="abbrev_wday_month_day_no_year">EEEMMMd</string>
+    <!-- Format to display the date (with the year) without the time. -->
+    <string name="abbrev_wday_month_day_with_year">yyyyEEEMMMd</string>
     <!-- Format to display the date (without the year) and time in 12-hour format. -->
     <string name="abbrev_wday_month_day_no_year_12_hour">EEE MMM d hma</string>
     <!-- Format to display the date (without the year) and time in 24-hour format. -->
@@ -35,12 +37,26 @@
     <string name="abbrev_wday_month_day_with_year_12_hour">yyyy EEE MMM d hma</string>
     <!-- Format to display the date (with the year) and time in 24-hour format. -->
     <string name="abbrev_wday_month_day_with_year_24_hour">yyyy EEE MMM d Hm</string>
+    <!-- Format to display the abbreviated month and day (without the year). -->
+    <string name="abbrev_month_day_no_year">MMMd</string>
     <!-- Format to display the day of the week and time in 12-hour format. -->
     <string name="abbrev_wday_12_hour">EEE hma</string>
     <!-- Format to display the day of the week and time in 24-hour format. -->
     <string name="abbrev_wday_24_hour">EEE Hm</string>
+    <!-- Format to display only the abbreviated day of the week. -->
+    <string name="abbrev_wday_only">EEE</string>
+    <!-- Format to display the full month, day and year. -->
+    <string name="full_month_day_with_year">yyyyMMMMd</string>
+    <!-- Format to display the full month and day (without the year). -->
+    <string name="full_month_day_no_year">MMMMd</string>
     <!-- Format for describing the date, for accessibility. -->
     <string name="full_wday_month_day_no_year">EEEEMMMMd</string>
+    <!-- Format to display only the full day of the week. -->
+    <string name="full_wday_only">EEEE</string>
+    <!-- Format to display only the time in 12-hour format. -->
+    <string name="time_12_hour">hma</string>
+    <!-- Format to display only the time in 24-hour format. -->
+    <string name="time_24_hour">Hm</string>
     <!-- ⏰ (A custom font replaces the A glyph with a clock icon) -->
     <string name="clock_emoji">A</string>
     <!-- 🏷️ (A custom font replaces the B glyph with a label icon) -->

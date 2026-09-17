@@ -44,6 +44,7 @@ import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widgets.AnalogAppWidgetProvider;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 import com.best.deskclock.widgets.NextAlarmAppWidgetProvider;
@@ -53,6 +54,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class WidgetUtils {
 
@@ -325,7 +327,7 @@ public class WidgetUtils {
      */
     @NonNull
     public static String getDateFormat(@NonNull Context context, boolean isAlarmVisible) {
-        Locale locale = Locale.getDefault();
+        Locale locale = Utils.getLocaleFromContext(context);
         final String skeleton = context.getString(isAlarmVisible
             ? R.string.abbrev_wday_month_day_no_year
             : R.string.full_wday_month_day_no_year
@@ -334,6 +336,73 @@ public class WidgetUtils {
         String formattedDate = simpleDateFormat.format(new Date());
 
         return FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale);
+    }
+
+    /**
+     * @return The text of the next alarm, written across multiple lines.
+     */
+    @Nullable
+    public static String getMultiLineNextAlarm(@NonNull Context context) {
+        AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
+        if (instance != null) {
+            Calendar alarmCalendar = Calendar.getInstance();
+            alarmCalendar.setTimeInMillis(instance.getAlarmTime().getTimeInMillis());
+            return getMultiLineFormattedTime(context, alarmCalendar);
+        }
+        return null;
+    }
+
+    /**
+     * @return the date and time of the next alarm formatted on two lines.
+     */
+    @NonNull
+    public static String getMultiLineFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime) {
+        final Calendar now = Calendar.getInstance();
+        final Calendar today = (Calendar) now.clone();
+        final Calendar tomorrow = (Calendar) now.clone();
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+
+        final boolean is24HourFormat = DateFormat.is24HourFormat(context);
+        final Locale locale = Utils.getLocaleFromContext(context);
+
+        String timeSkeleton = context.getString(is24HourFormat ? R.string.time_24_hour : R.string.time_12_hour);
+        String timePattern = DateFormat.getBestDateTimePattern(locale, timeSkeleton);
+        String timeStr = new SimpleDateFormat(timePattern, locale).format(alarmTime.getTime());
+
+        String result;
+
+        if (AlarmUtils.isSameDayAndTimeZone(alarmTime, today)) {
+            // Returns:  "Today
+            //           8:30 AM"
+            result = context.getString(R.string.alarm_today) + "\n" + timeStr;
+        } else if (AlarmUtils.isSameDayAndTimeZone(alarmTime, tomorrow)) {
+            // Returns: "Tomorrow
+            //           8:30 AM"
+            result = context.getString(R.string.alarm_tomorrow) + "\n" + timeStr;
+        } else {
+            long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
+            long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+
+            if (diffInDays >= 6) {
+                // Returns: "Sat, Oct 28
+                //             8:30 AM"
+                boolean isDifferentYear = now.get(Calendar.YEAR) != alarmTime.get(Calendar.YEAR);
+                String dateSkeleton = context.getString(isDifferentYear
+                    ? R.string.abbrev_wday_month_day_with_year
+                    : R.string.abbrev_wday_month_day_no_year);
+
+                String datePattern = DateFormat.getBestDateTimePattern(locale, dateSkeleton);
+                String dateStr = new SimpleDateFormat(datePattern, locale).format(alarmTime.getTime());
+                result = dateStr + "\n" + timeStr;
+            } else {
+                // Returns: "Wed 8:30 AM"
+                String skeleton = context.getString(is24HourFormat ? R.string.abbrev_wday_24_hour : R.string.abbrev_wday_12_hour);
+                String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
+                result = new SimpleDateFormat(pattern, locale).format(alarmTime.getTime());
+            }
+        }
+
+        return FormattedTextUtils.capitalizeFirstLetter(result, locale);
     }
 
     /**

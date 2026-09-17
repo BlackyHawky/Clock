@@ -35,8 +35,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.slider.Slider;
 
-import java.util.Locale;
-
 /**
  * DialogFragment to set the volume for alarms.
  */
@@ -301,7 +299,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
      */
     private void updateVolumeText(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
-        mBinding.alarmVolumeValue.setText(String.format(Locale.getDefault(), "%d%%", percent));
+        mBinding.alarmVolumeValue.setText(String.format(Utils.getLocaleFromContext(requireContext()), "%d%%", percent));
     }
 
     /**

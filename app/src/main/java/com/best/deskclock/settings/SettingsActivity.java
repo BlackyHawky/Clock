@@ -24,7 +24,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 
@@ -68,8 +67,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -397,12 +398,14 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 null,
                 getString(R.string.backup_button_title),
                 (d, w) -> {
-                    String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
+                    SimpleDateFormat fileFormat = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.US);
+                    String currentDateAndTime = fileFormat.format(new Date());
                     Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
                         .addCategory(Intent.CATEGORY_OPENABLE)
                         .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
                             + "_backup_" + currentDateAndTime + ".zip")
                         .setType("application/zip");
+
                     backupToFile.launch(intent);
                 },
                 getString(R.string.restore_button_title),
@@ -410,6 +413,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
                         .addCategory(Intent.CATEGORY_OPENABLE)
                         .setType("application/zip");
+
                     restoreFromFile.launch(intent);
                 },
                 (alertDialog -> alertDialog.setOnDismissListener(d -> mShowBackupRestoreDialog = false)),

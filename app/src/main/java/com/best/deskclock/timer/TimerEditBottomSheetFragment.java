@@ -66,8 +66,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.util.Locale;
-
 public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
 
     public static final String TAG = "timer_edit_bottom_sheet";
@@ -349,7 +347,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         long buttonTimeSeconds = totalSeconds % 60;
 
         String buttonTimeFormatted = String.format(
-            Locale.getDefault(),
+            Utils.getLocaleFromContext(requireContext()),
             buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
             buttonTimeMinutes,
             buttonTimeSeconds);

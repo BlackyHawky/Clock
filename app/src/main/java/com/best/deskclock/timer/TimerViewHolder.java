@@ -23,6 +23,8 @@ import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.Locale;
+
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
     private int mTimerId;
@@ -113,10 +115,12 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         TimerSettings settings = mAdapter.getSettings();
         UiConfig.Fonts fonts = mAdapter.getFonts();
         UiConfig.Screen screen = mAdapter.getScreen();
+        Locale appLocale = mAdapter.getLocale();
         Typeface typeface = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
 
         if (mTimerItem != null) {
             mTimerItem.setTimerTimeFont(typeface);
+            mTimerItem.setLocale(appLocale);
             mTimerItem.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
             mTimerItem.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
             mTimerItem.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isTablet(), screen.isLandscape(),
@@ -125,6 +129,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             mTimerItem.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
         } else if (mTimerItemCompact != null) {
             mTimerItemCompact.setTimerTimeFont(typeface);
+            mTimerItemCompact.setLocale(appLocale);
             mTimerItemCompact.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
             mTimerItemCompact.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
             mTimerItemCompact.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isRtl());

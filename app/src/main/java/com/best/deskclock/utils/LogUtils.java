@@ -159,7 +159,7 @@ public class LogUtils {
             @NonNull
             @Override
             protected SimpleDateFormat initialValue() {
-                return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
             }
         };
 

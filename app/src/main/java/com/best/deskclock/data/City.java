@@ -129,9 +129,9 @@ public final class City {
     /**
      * @return the city name converted to upper case
      */
-    public String getNameUpperCase() {
+    public String getNameUpperCase(@NonNull Locale locale) {
         if (mNameUpperCase == null) {
-            mNameUpperCase = mName.toUpperCase();
+            mNameUpperCase = mName.toUpperCase(locale);
         }
         return mNameUpperCase;
     }
@@ -139,9 +139,9 @@ public final class City {
     /**
      * @return the city name converted to upper case with all special characters removed
      */
-    private String getNameUpperCaseNoSpecialCharacters() {
+    private String getNameUpperCaseNoSpecialCharacters(@NonNull Locale locale) {
         if (mNameUpperCaseNoSpecialCharacters == null) {
-            mNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getNameUpperCase());
+            mNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getNameUpperCase(locale));
         }
         return mNameUpperCaseNoSpecialCharacters;
     }
@@ -151,7 +151,7 @@ public final class City {
      */
     public String getEnglishNameUpperCase() {
         if (mEnglishNameUpperCase == null) {
-            mEnglishNameUpperCase = mEnglishName.toUpperCase();
+            mEnglishNameUpperCase = mEnglishName.toUpperCase(Locale.ENGLISH);
         }
         return mEnglishNameUpperCase;
     }
@@ -171,10 +171,10 @@ public final class City {
      *                                          to match against the upper case city name
      * @return {@code true} if the name of this city starts with the given query
      */
-    public boolean matches(@NonNull String upperCaseQueryNoSpecialCharacters) {
+    public boolean matches(@NonNull String upperCaseQueryNoSpecialCharacters, @NonNull Locale locale) {
         // By removing all special characters, prefix matching becomes more liberal, and it is easier
         // to locate the desired city. e.g. "St. Lucia" is matched by "StL", "St.L", "St L", "St. L"
-        return getNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters)
+        return getNameUpperCaseNoSpecialCharacters(locale).startsWith(upperCaseQueryNoSpecialCharacters)
             || getEnglishNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters);
     }
 

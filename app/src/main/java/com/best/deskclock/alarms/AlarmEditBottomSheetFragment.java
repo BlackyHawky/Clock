@@ -102,7 +102,6 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import java.io.File;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
@@ -603,7 +602,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             if (mAlarm.isDateInThePast()) {
                 clearSelectedDate(openCalendarText);
             } else {
-                mBinding.scheduleAlarm.setText(AlarmUtils.formatAlarmDate(mAlarm));
+                mBinding.scheduleAlarm.setText(AlarmUtils.formatAlarmDate(requireContext(), mAlarm));
 
                 mBinding.cancelScheduledAlarm.setOnClickListener(v -> {
                     Calendar now = Calendar.getInstance();
@@ -955,7 +954,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         final int currentVolume = Math.min(mAlarm.alarmVolume, maxVolume);
 
         int volumePercent = (int) (((float) currentVolume / maxVolume) * 100);
-        String formatted = String.format(Locale.getDefault(), "%d%%", volumePercent);
+        String formatted = String.format(Utils.getLocaleFromContext(requireContext()), "%d%%", volumePercent);
         mBinding.alarmVolumeValue.setText(formatted);
 
         Drawable icon = AppCompatResources.getDrawable(requireContext(), volumePercent < 50

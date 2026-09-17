@@ -111,8 +111,8 @@ public final class CitySelectionActivity extends BaseActivity {
         mBinding.toolbar.addView(mSearchView);
 
         Locale locale = getLocale();
-        String pattern24 = DateFormat.getBestDateTimePattern(locale, "Hm");
-        String pattern12 = DateFormat.getBestDateTimePattern(locale, "hma");
+        String pattern24 = DateFormat.getBestDateTimePattern(locale, getString(R.string.time_24_hour));
+        String pattern12 = DateFormat.getBestDateTimePattern(locale, getString(R.string.time_12_hour));
         boolean is24HoursMode = DateFormat.is24HourFormat(this);
 
         if (TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL) {

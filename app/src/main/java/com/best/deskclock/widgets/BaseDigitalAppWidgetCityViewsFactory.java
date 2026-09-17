@@ -15,8 +15,10 @@ import static java.util.Calendar.DAY_OF_WEEK;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
@@ -28,6 +30,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
 import java.util.ArrayList;
@@ -112,9 +115,11 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     private final Intent mFillInIntent = new Intent();
 
     private final Context mContext;
+    private final Context mLocalizedContext;
     private final DataModel mDataModel;
     private final SharedPreferences mPrefs;
     private final DisplayMetrics mDisplayMetrics;
+    private final Locale mLocale;
     private final float m12HourFontSize;
     private final float m24HourFontSize;
     private final float mCityAndDayFontSize;
@@ -129,6 +134,8 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         mContext = context;
         mDataModel = DataModel.getDataModel();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mLocalizedContext = Utils.getLocalizedContext(context, SettingsDAO.getLanguageCode(mPrefs));
+        mLocale = Utils.getLocaleFromContext(mLocalizedContext);
         mDisplayMetrics = context.getResources().getDisplayMetrics();
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
         final boolean isTablet = ThemeUtils.isTablet();
@@ -338,7 +345,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         // City name
         rv.setTextViewTextSize(labelId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-        rv.setTextViewText(labelId, isTextUppercase ? city.getName().toUpperCase() : city.getName());
+        rv.setTextViewText(labelId, isTextUppercase ? city.getName().toUpperCase(mLocale) : city.getName());
         if (!useDefaultCityNameColor) {
             rv.setTextColor(labelId, customCityNameColor);
         }
@@ -350,11 +357,15 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         // Bind the week day display.
         if (displayDayOfWeek) {
-            final Locale locale = Locale.getDefault();
-            final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);
-            final String slashDay = mContext.getString(R.string.world_day_of_week_label, weekday);
+            String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, mLocale);
+            String slashDay = mLocalizedContext.getString(R.string.world_day_of_week_label, weekday);
+
+            boolean isRtl = Resources.getSystem().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+            String bidiMarker = isRtl ? "\u200F" : "\u200E";
+            slashDay = bidiMarker + slashDay;
+
             rv.setTextViewTextSize(dayId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-            rv.setTextViewText(dayId, isTextUppercase ? slashDay.toUpperCase() : slashDay);
+            rv.setTextViewText(dayId, isTextUppercase ? slashDay.toUpperCase(mLocale) : slashDay);
             if (!useDefaultCityNameColor) {
                 rv.setTextColor(dayId, customCityNameColor);
             }
@@ -368,7 +379,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         if (displayCityNote) {
             rv.setTextViewTextSize(noteId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-            rv.setTextViewText(noteId, isTextUppercase ? cityNote.toUpperCase() : cityNote);
+            rv.setTextViewText(noteId, isTextUppercase ? cityNote.toUpperCase(mLocale) : cityNote);
             if (!useDefaultCityNoteColor) {
                 rv.setTextColor(noteId, customCityNoteColor);
             }

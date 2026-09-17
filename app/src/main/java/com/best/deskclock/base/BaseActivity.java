@@ -93,7 +93,7 @@ public class BaseActivity extends AppCompatActivity {
         mPrefs = getDefaultSharedPreferences(Utils.getSafeStorageContext(this));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mGeneralFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mLocale = Locale.getDefault();
+        mLocale = Utils.getLocaleFromContext(this);
         mIsTablet = ThemeUtils.isTablet();
         mIsPortrait = ThemeUtils.isPortrait();
         mIsLandscape = ThemeUtils.isLandscape();

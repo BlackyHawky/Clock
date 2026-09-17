@@ -33,6 +33,8 @@ import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
 
+import java.util.Locale;
+
 /**
  * <p>This provider produces a widget resembling one of the formats below.</p>
  * <p>
@@ -294,7 +296,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureDate(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs) {
+    protected void configureDate(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
+                                 @NonNull Locale locale) {
+
         if (!WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
             rv.setViewVisibility(getDateViewId(), GONE);
             rv.setViewVisibility(getTopDateViewId(), GONE);
@@ -309,7 +313,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
         boolean isDefaultDateColor = WidgetDAO.isDigitalWidgetDefaultDateColor(prefs);
         String dateFormat = WidgetUtils.getDateFormat(context, isAlarmVisible);
-        String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
+        String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase(locale) : dateFormat;
 
         if (isTopDateDisplayed) {
             rv.setViewVisibility(R.id.clockSpacer, GONE);
@@ -346,7 +350,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureNextAlarm(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                      @NonNull String nextAlarmTime) {
+                                      @NonNull String nextAlarmTime, @NonNull Locale locale) {
 
         if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
@@ -356,7 +360,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
-        String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime;
+        String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase(locale) : nextAlarmTime;
 
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
             rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
@@ -376,7 +380,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureNextAlarmTitle(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs, @NonNull String nextAlarmTime,
-                                           @Nullable String nextAlarmTitle) {
+                                           @Nullable String nextAlarmTitle, @NonNull Locale locale) {
 
         if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || !WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(prefs)) {
             rv.setViewVisibility(getLabelIconViewId(), GONE);
@@ -394,7 +398,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
-        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle;
+        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase(locale) : nextAlarmTitle;
 
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
             rv.setViewVisibility(getLabelIconViewId(), VISIBLE);
@@ -467,7 +471,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureSizerDate(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs) {
+    protected void configureSizerDate(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
+                                      @NonNull Locale locale) {
+
         final TextView date = sizer.findViewById(getDateViewId());
         final TextView topDate = sizer.findViewById(getTopDateViewId());
         final TextView dateForCustomColor = sizer.findViewById(getDateCustomViewId());
@@ -488,7 +494,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
         boolean isDefaultDateColor = WidgetDAO.isDigitalWidgetDefaultDateColor(prefs);
         String dateFormat = WidgetUtils.getDateFormat(context, isAlarmVisible);
-        String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
+        String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase(locale) : dateFormat;
 
         if (isTopDateDisplayed) {
             clockSpacer.setVisibility(GONE);
@@ -523,7 +529,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureSizerNextAlarm(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                           @NonNull String nextAlarmTime) {
+                                           @NonNull String nextAlarmTime, @NonNull Locale locale) {
 
         final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
         final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());
@@ -538,7 +544,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
-        String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime;
+        String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase(locale) : nextAlarmTime;
 
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
             nextAlarm.setText(nextAlarmText);
@@ -560,7 +566,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureSizerNextAlarmTitle(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                                @NonNull String nextAlarmTime) {
+                                                @NonNull String nextAlarmTime, @NonNull Locale locale) {
 
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
         final TextView labelIcon = sizer.findViewById(getLabelIconViewId());
@@ -584,7 +590,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
-        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle;
+        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase(locale) : nextAlarmTitle;
 
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
             labelIcon.setVisibility(VISIBLE);

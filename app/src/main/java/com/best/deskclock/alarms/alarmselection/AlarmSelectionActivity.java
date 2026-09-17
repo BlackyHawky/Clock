@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.IntentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.controller.HandleApiCalls;
@@ -93,8 +94,12 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
         }
 
         Locale locale = getLocale();
-        String pattern = DateFormat.getBestDateTimePattern(locale, "MMMd");
-        String patternWithYear = DateFormat.getBestDateTimePattern(locale, "yyyyMMMMd");
+        String skeleton = getString(R.string.abbrev_month_day_no_year);
+        String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
+
+        String skeletonWithYear = getString(R.string.full_month_day_with_year);
+        String patternWithYear = DateFormat.getBestDateTimePattern(locale, skeletonWithYear);
+
         UiConfig.DateFormat dateFormat = new UiConfig.DateFormat(locale, pattern, patternWithYear);
 
         Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getPrefs());

@@ -112,7 +112,7 @@ public class AlarmUtils {
      */
     @NonNull
     private static String getDateFormat(@NonNull Context context, @NonNull Calendar calendar) {
-        Locale locale = Locale.getDefault();
+        Locale locale = Utils.getLocaleFromContext(context);
         final String skeleton = context.getString(R.string.full_wday_month_day_no_year);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
 
@@ -127,12 +127,19 @@ public class AlarmUtils {
      * @return A localized string representing the alarm's date.
      */
     @NonNull
-    public static String formatAlarmDate(@NonNull Alarm alarm) {
+    public static String formatAlarmDate(@NonNull Context context, @NonNull Alarm alarm) {
         Calendar calendar = Calendar.getInstance();
         boolean isCurrentYear = alarm.year == calendar.get(Calendar.YEAR);
         calendar.set(alarm.year, alarm.month, alarm.day);
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
-        return new SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.getTime());
+
+        final Locale locale = Utils.getLocaleFromContext(context);
+        String skeleton = context.getString(isCurrentYear
+            ? R.string.full_month_day_no_year
+            : R.string.full_month_day_with_year);
+
+        String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
+
+        return new SimpleDateFormat(pattern, locale).format(calendar.getTime());
     }
 
     /**
@@ -148,20 +155,6 @@ public class AlarmUtils {
             return getFormattedTime(context, alarmCalendar);
         }
 
-        return null;
-    }
-
-    /**
-     * @return The text of the next alarm, written across multiple lines.
-     */
-    @Nullable
-    public static String getMultiLineNextAlarm(@NonNull Context context) {
-        AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
-        if (instance != null) {
-            Calendar alarmCalendar = Calendar.getInstance();
-            alarmCalendar.setTimeInMillis(instance.getAlarmTime().getTimeInMillis());
-            return getMultiLineFormattedTime(context, alarmCalendar);
-        }
         return null;
     }
 
@@ -268,10 +261,10 @@ public class AlarmUtils {
 
         if (isSameDayAndTimeZone(alarmTime, today)) {
             prefix = context.getString(R.string.alarm_today) + " ";
-            skeleton = is24HourFormat ? "Hm" : "hma";
+            skeleton = context.getString(is24HourFormat ? R.string.time_24_hour : R.string.time_12_hour);
         } else if (isSameDayAndTimeZone(alarmTime, tomorrow)) {
             prefix = context.getString(R.string.alarm_tomorrow) + " ";
-            skeleton = is24HourFormat ? "Hm" : "hma";
+            skeleton = context.getString(is24HourFormat ? R.string.time_24_hour : R.string.time_12_hour);
         } else {
             // Beyond tomorrow: show day or full date if distant
             long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
@@ -310,55 +303,6 @@ public class AlarmUtils {
     }
 
     /**
-     * @return the date and time of the next alarm formatted on two lines.
-     */
-    @NonNull
-    public static String getMultiLineFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime) {
-        final Calendar now = Calendar.getInstance();
-        final Calendar today = (Calendar) now.clone();
-        final Calendar tomorrow = (Calendar) now.clone();
-        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
-
-        final boolean is24HourFormat = DateFormat.is24HourFormat(context);
-        final Locale locale = Locale.getDefault();
-
-        String timeSkeleton = is24HourFormat ? "Hm" : "hma";
-        String timePattern = DateFormat.getBestDateTimePattern(locale, timeSkeleton);
-        String timeStr = DateFormat.format(timePattern, alarmTime).toString();
-
-        String result;
-
-        if (isSameDayAndTimeZone(alarmTime, today)) {
-            // Returns:  "Today
-            //           8:30 AM"
-            result = context.getString(R.string.alarm_today) + "\n" + timeStr;
-
-        } else if (isSameDayAndTimeZone(alarmTime, tomorrow)) {
-            // Returns: "Tomorrow
-            //           8:30 AM"
-            result = context.getString(R.string.alarm_tomorrow) + "\n" + timeStr;
-        } else {
-            long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
-            long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
-
-            if (diffInDays >= 6) {
-                // Returns: "Sat, Oct 28
-                //             8:30 AM"
-                String datePattern = DateFormat.getBestDateTimePattern(locale, "EEE MMM d");
-                String dateStr = DateFormat.format(datePattern, alarmTime).toString();
-                result = dateStr + "\n" + timeStr;
-            } else {
-                // Returns: "Wed 8:30 AM"
-                String skeleton = is24HourFormat ? "EEE Hm" : "EEE hma";
-                String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
-                result = DateFormat.format(pattern, alarmTime).toString();
-            }
-        }
-
-        return FormattedTextUtils.capitalizeFirstLetter(result, locale);
-    }
-
-    /**
      * Formats the start and end dates of a pause into a readable, localized string.
      *
      * @param context     The context used to access formatting resources.
@@ -381,10 +325,11 @@ public class AlarmUtils {
         // the very end of the day (11:59:59 p.m.).
         long adjustedEndMillis = getEndOfDayMillis(endMillis);
 
-        Formatter formatter = new Formatter(new StringBuilder(), Locale.getDefault());
+        Locale locale = Utils.getLocaleFromContext(context);
+        Formatter formatter = new Formatter(new StringBuilder(), locale);
         String dateRange = DateUtils.formatDateRange(context, formatter, startMillis, adjustedEndMillis, flags, "UTC").toString();
 
-        return FormattedTextUtils.capitalizeFirstLetter(dateRange, Locale.getDefault());
+        return FormattedTextUtils.capitalizeFirstLetter(dateRange, locale);
     }
 
     /**
@@ -416,7 +361,7 @@ public class AlarmUtils {
      * @return {@code true} if both calendars are in the same time zone and represent the same day;
      * {@code false} otherwise.
      */
-    private static boolean isSameDayAndTimeZone(@NonNull Calendar cal1, @NonNull Calendar cal2) {
+    public static boolean isSameDayAndTimeZone(@NonNull Calendar cal1, @NonNull Calendar cal2) {
         // Normalize both calendars to their respective time zones
         if (!cal1.getTimeZone().equals(cal2.getTimeZone())) {
             return false;
