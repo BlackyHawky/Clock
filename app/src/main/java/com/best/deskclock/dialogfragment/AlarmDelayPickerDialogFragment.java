@@ -36,8 +36,6 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
-import java.util.Locale;
-
 /**
  * Custom component to display a delay selection dialog using spinners.
  * This custom implementation allows the user to pick the hour and minute through spinners.
@@ -125,7 +123,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
 
         mBinding.minutePicker.setMinValue(0);
         mBinding.minutePicker.setMaxValue(59);
-        mBinding.minutePicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
+        mBinding.minutePicker.setFormatter(value -> String.format(Utils.getLocaleFromContext(requireContext()), "%02d", value));
         mBinding.minutePicker.setNextFocusForwardId(View.NO_ID);
 
         // Set default values at start

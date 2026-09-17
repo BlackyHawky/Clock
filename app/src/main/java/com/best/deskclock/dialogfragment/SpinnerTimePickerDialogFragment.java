@@ -54,6 +54,8 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
 
     private AlarmSpinnerTimePickerBinding mBinding;
 
+    private Locale mLocale;
+
     /**
      * Creates a new instance of {@link SpinnerTimePickerDialogFragment} for use
      * in the alarm view, where the time is configured for a specific alarm.
@@ -108,6 +110,8 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
                 amPmValue = savedInstanceState.getInt(ARG_AM_PM, amPmValue);
             }
         }
+
+        mLocale = Utils.getLocaleFromContext(requireContext());
 
         mBinding = AlarmSpinnerTimePickerBinding.inflate(getLayoutInflater());
 
@@ -186,7 +190,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         if (is24HourFormat()) {
             mBinding.hourPicker.setMinValue(0);
             mBinding.hourPicker.setMaxValue(23);
-            mBinding.hourPicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
+            mBinding.hourPicker.setFormatter(value -> String.format(mLocale, "%02d", value));
             mBinding.hourPicker.setValue(hour);
         } else {
             mBinding.hourPicker.setMinValue(1);
@@ -197,7 +201,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         // Minutes setup
         mBinding.minutePicker.setMinValue(0);
         mBinding.minutePicker.setMaxValue(59);
-        mBinding.minutePicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
+        mBinding.minutePicker.setFormatter(value -> String.format(mLocale, "%02d", value));
         mBinding.minutePicker.setValue(minute);
 
         // AM/PM setup
@@ -274,7 +278,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      */
     @NonNull
     private String[] getAmPmStrings() {
-        DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.getDefault());
+        DateFormatSymbols dfs = DateFormatSymbols.getInstance(mLocale);
         String[] amPm = dfs.getAmPmStrings();
 
         String[] result = new String[2];
@@ -293,7 +297,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      * {@code false} if it should appear after.
      */
     private boolean isAmPmAtStart() {
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hm");
+        String pattern = DateFormat.getBestDateTimePattern(mLocale, "hm");
         return pattern.startsWith("a");
     }
 
@@ -304,7 +308,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      */
     private String getTimeSeparator(boolean is24Hour) {
         String skeleton = is24Hour ? "Hm" : "hm";
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        String pattern = DateFormat.getBestDateTimePattern(mLocale, skeleton);
 
         int hourIndex = pattern.lastIndexOf('H');
         if (hourIndex == -1) {

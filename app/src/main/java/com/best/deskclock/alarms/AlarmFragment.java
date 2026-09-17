@@ -117,9 +117,6 @@ public final class AlarmFragment extends DeskClockFragment
 
     private static final String KEY_SIDE_BUTTONS_VISIBLE = "side_buttons_visible";
 
-    public static final String SKELETON = "EEE MMM d";
-    public static final String SKELETON_WITH_YEAR = "EEE MMM d yyyy";
-
     private AlarmFragmentBinding mBinding;
 
     private String mAlarmFontPath;
@@ -255,8 +252,8 @@ public final class AlarmFragment extends DeskClockFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String datePattern = DateFormat.getBestDateTimePattern(getLocale(), SKELETON);
-        String datePatternWithYear = DateFormat.getBestDateTimePattern(getLocale(), SKELETON_WITH_YEAR);
+        String datePattern = DateFormat.getBestDateTimePattern(getLocale(), getString(R.string.abbrev_wday_month_day_no_year));
+        String datePatternWithYear = DateFormat.getBestDateTimePattern(getLocale(), getString(R.string.abbrev_wday_month_day_with_year));
 
         UiConfig.DateFormat dateConfig = new UiConfig.DateFormat(getLocale(), datePattern, datePatternWithYear);
 

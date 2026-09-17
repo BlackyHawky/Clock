@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -37,6 +38,7 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 public final class Screensaver extends DreamService {
 
@@ -88,9 +90,22 @@ public final class Screensaver extends DreamService {
     };
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        String customLang = null;
+
+        if (AppCompatDelegate.getApplicationLocales().isEmpty()) {
+            SharedPreferences prefs = getDefaultSharedPreferences(newBase);
+            customLang = SettingsDAO.getLanguageCode(prefs);
+        }
+
+        super.attachBaseContext(Utils.getLocalizedContext(newBase, customLang));
+    }
+
+    @Override
     public void onCreate() {
-        LOGGER.v("Screensaver created");
         super.onCreate();
+
+        LOGGER.v("Screensaver created");
 
         mPrefs = getDefaultSharedPreferences(this);
         mUiDataModel = UiDataModel.getUiDataModel();
@@ -99,8 +114,9 @@ public final class Screensaver extends DreamService {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onAttachedToWindow() {
-        LOGGER.v("Screensaver attached to window");
         super.onAttachedToWindow();
+
+        LOGGER.v("Screensaver attached to window");
 
         refreshSettings();
 
@@ -197,8 +213,9 @@ public final class Screensaver extends DreamService {
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        LOGGER.v("Screensaver configuration changed");
         super.onConfigurationChanged(newConfig);
+
+        LOGGER.v("Screensaver configuration changed");
 
         startPositionUpdater();
         if (mBackgroundAnimator != null) {

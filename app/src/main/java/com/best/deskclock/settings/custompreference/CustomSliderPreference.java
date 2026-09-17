@@ -35,11 +35,10 @@ import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.slider.Slider;
-
-import java.util.Locale;
 
 public class CustomSliderPreference extends Preference {
 
@@ -234,7 +233,7 @@ public class CustomSliderPreference extends Preference {
             || isExternalAudioDeviceVolumePreference()
             || isAnalogClockSizePreference()
             || isAlarmAnalogClockSizePreference()) {
-            String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
+            String formattedText = String.format(Utils.getLocaleFromContext(getContext()), "%d%%", progress);
             sliderSummary.setText(formattedText);
         } else {
             sliderSummary.setText(String.valueOf(progress));

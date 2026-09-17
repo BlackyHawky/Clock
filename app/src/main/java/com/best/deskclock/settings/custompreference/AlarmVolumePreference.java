@@ -38,9 +38,8 @@ import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.slider.Slider;
-
-import java.util.Locale;
 
 public class AlarmVolumePreference extends Preference {
 
@@ -149,7 +148,7 @@ public class AlarmVolumePreference extends Preference {
         int maxVolume = mAudioManager.getStreamMaxVolume(STREAM_ALARM);
         int volumePercentage = (int) (((float) currentVolume / maxVolume) * 100);
 
-        String formattedText = String.format(Locale.getDefault(), "%d%%", volumePercentage);
+        String formattedText = String.format(Utils.getLocaleFromContext(getContext()), "%d%%", volumePercentage);
         sliderSummary.post(() -> sliderSummary.setText(formattedText));
     }
 

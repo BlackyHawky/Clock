@@ -34,6 +34,7 @@ import com.best.deskclock.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This adapter produces a {@link TimerViewHolder} for each timer.
@@ -51,6 +52,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final UiConfig.Screen mScreen;
     private final UiConfig.Haptics mHaptics;
     private final DataModel mDataModel;
+    private final Locale mLocale;
     private TimerSettings mSettings;
     private final SparseBooleanArray mAnimatedTimerIds = new SparseBooleanArray();
     private List<Timer> mCachedTimers = new ArrayList<>();
@@ -65,7 +67,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public TimerAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull TimerClickHandler timerClickHandler,
                         @NonNull UiConfig.Fonts fonts, @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle,
-                        @Nullable UiConfig.Haptics haptics, @NonNull TimerSettings settings,
+                        @Nullable UiConfig.Haptics haptics, @NonNull Locale locale, @NonNull TimerSettings settings,
                         @NonNull Consumer<String> timerOrderSaver) {
 
         mDataModel = dataModel;
@@ -73,6 +75,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mFonts = fonts;
         mScreen = screen;
         mHaptics = haptics;
+        mLocale = locale;
         mSettings = settings;
         mTimerOrderSaver = timerOrderSaver;
 
@@ -110,6 +113,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public TimerSettings getSettings() { return mSettings; }
     public UiConfig.Fonts getFonts() { return mFonts; }
     public UiConfig.Screen getScreen() { return mScreen; }
+    public Locale getLocale() { return mLocale; }
     public UiConfig.Haptics getHaptics() { return mHaptics; }
     public Drawable.ConstantState getBgStandard() { return mBgStandard; }
     public Drawable.ConstantState getBgStart() { return mBgStart; }

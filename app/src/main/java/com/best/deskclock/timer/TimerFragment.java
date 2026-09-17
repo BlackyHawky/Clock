@@ -251,17 +251,18 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(getGeneralBoldTypeface());
 
         mAdapter = new TimerAdapter(requireContext(), getDataModel(), new TimerClickHandler(this, getDataModel()),
-            getFontsConfig(), getScreenConfig(), getCardStyleConfig(), getHapticsConfig(), mSettings, newOrder -> {
-                SharedPreferences.Editor editor = getPrefs().edit();
-                if (newOrder == null) {
-                    editor.remove(KEY_TIMER_ORDER);
-                } else {
-                    editor.putString(KEY_TIMER_ORDER, newOrder);
-                }
-                editor.apply();
+            getFontsConfig(), getScreenConfig(), getCardStyleConfig(), getHapticsConfig(), getLocale(), mSettings, newOrder -> {
 
-                mSettings.savedTimerOrder = newOrder;
-            });
+            SharedPreferences.Editor editor = getPrefs().edit();
+            if (newOrder == null) {
+                editor.remove(KEY_TIMER_ORDER);
+            } else {
+                editor.putString(KEY_TIMER_ORDER, newOrder);
+            }
+            editor.apply();
+
+            mSettings.savedTimerOrder = newOrder;
+        });
 
         mBinding.timerRecyclerView.setAdapter(mAdapter);
         mAdapter.loadTimersAsync();

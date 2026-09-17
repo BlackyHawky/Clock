@@ -387,7 +387,7 @@ public class ScreensaverUtils {
             return;
         }
 
-        final Locale locale = Locale.getDefault();
+        final Locale locale = Utils.getLocaleFromContext(clock.getContext());
         String datePattern = DateFormat.getBestDateTimePattern(locale, dateSkeleton);
 
         if (isDateItalic) {

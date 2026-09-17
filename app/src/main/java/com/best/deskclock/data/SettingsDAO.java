@@ -33,6 +33,7 @@ import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -172,14 +173,13 @@ public final class SettingsDAO {
      */
     @NonNull
     public static TimeZones getTimeZones(@NonNull Context context, long currentTime) {
-        final Locale locale = Locale.getDefault();
         final String[] timeZoneIds = context.getResources().getStringArray(R.array.timezone_values);
 
         // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
         final TimeZoneDescriptor[] descriptors = new TimeZoneDescriptor[timeZoneIds.length];
         for (int i = 0; i < timeZoneIds.length; i++) {
             // Pass only the ID; the name will be generated automatically.
-            descriptors[i] = TimeZoneDescriptor.create(context, locale, timeZoneIds[i], currentTime);
+            descriptors[i] = TimeZoneDescriptor.create(context, Utils.getLocaleFromContext(context), timeZoneIds[i], currentTime);
         }
         Arrays.sort(descriptors);
 

@@ -13,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 
@@ -31,6 +30,8 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -40,6 +41,9 @@ public class TimerItemCompact extends ConstraintLayout {
 
     private TimerItemCompactBinding mBinding;
 
+    private Locale mLocale = Locale.getDefault();
+    private SimpleDateFormat mTimeFormat;
+    private SimpleDateFormat mDayFormat;
     private CharSequence mTimerEndTimeFormatPattern;
 
     private boolean mIsTimerEndTimeDisplayed;
@@ -127,8 +131,15 @@ public class TimerItemCompact extends ConstraintLayout {
         mBinding.timerTimeText.setTypeface(timerTime);
     }
 
+    public void setLocale(@NonNull Locale locale) {
+        mLocale = locale;
+    }
+
     public void setTimerEndTimeFormatPattern(@NonNull CharSequence formatPattern) {
-        mTimerEndTimeFormatPattern = formatPattern;
+        if (!TextUtils.equals(mTimerEndTimeFormatPattern, formatPattern)) {
+            mTimerEndTimeFormatPattern = formatPattern;
+            refreshFormatters();
+        }
     }
 
     public void displayTimerEndTime(boolean isTimerEndTimeDisplayed) {
@@ -254,10 +265,11 @@ public class TimerItemCompact extends ConstraintLayout {
             long buttonTimeSeconds = totalSeconds % 60;
 
             String buttonTimeFormatted = String.format(
-                Locale.getDefault(),
+                mLocale,
                 buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
                 buttonTimeMinutes,
-                buttonTimeSeconds);
+                buttonTimeSeconds
+            );
 
             mCachedAddButtonText = getContext().getString(R.string.timer_add_custom_time, buttonTimeFormatted);
 
@@ -363,13 +375,20 @@ public class TimerItemCompact extends ConstraintLayout {
 
             CharSequence formattedTime;
 
+            if (mTimeFormat == null || mDayFormat == null) {
+                refreshFormatters();
+            }
+
+            Date endDate = new Date(endTimeMillis);
+            String timeString = mTimeFormat.format(endDate);
+
             if (!DateUtils.isToday(endTimeMillis)) {
-                String dayString = DateFormat.format("EEE", endTimeMillis).toString();
-                String capitalizedDay = FormattedTextUtils.capitalizeFirstLetter(dayString, Locale.getDefault());
-                CharSequence timeCharSequence = DateFormat.format(mTimerEndTimeFormatPattern, endTimeMillis);
-                formattedTime = TextUtils.concat(capitalizedDay, ", ", timeCharSequence);
+                String dayString = mDayFormat.format(endDate);
+                String capitalizedDay = FormattedTextUtils.capitalizeFirstLetter(dayString, mLocale);
+
+                formattedTime = TextUtils.concat(capitalizedDay, ", ", timeString);
             } else {
-                formattedTime = DateFormat.format(mTimerEndTimeFormatPattern, endTimeMillis);
+                formattedTime = timeString;
             }
 
             CharSequence expandedText = TextUtils.expandTemplate(getContext().getText(R.string.timer_end_time_label), formattedTime);
@@ -384,6 +403,15 @@ public class TimerItemCompact extends ConstraintLayout {
         } else {
             mBinding.timerEndTime.setVisibility(INVISIBLE);
         }
+    }
+
+    private void refreshFormatters() {
+        if (mTimerEndTimeFormatPattern != null) {
+            mTimeFormat = new SimpleDateFormat(mTimerEndTimeFormatPattern.toString(), mLocale);
+        }
+
+        String dayPattern = getContext().getString(R.string.abbrev_wday_only);
+        mDayFormat = new SimpleDateFormat(dayPattern, mLocale);
     }
 
 }

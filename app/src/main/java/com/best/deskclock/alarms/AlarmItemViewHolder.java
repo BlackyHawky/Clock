@@ -385,7 +385,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         } else if (alarm.isDateInThePast()) {
             setDaysOfWeekText(getTodayOrTomorrowBasedOnTime(alarm, mLocalCalendar));
         } else {
-            setDaysOfWeekText(mContext.getString(R.string.alarm_scheduled_for, AlarmUtils.formatAlarmDate(alarm)));
+            setDaysOfWeekText(mContext.getString(R.string.alarm_scheduled_for, AlarmUtils.formatAlarmDate(mContext, alarm)));
         }
     }
 

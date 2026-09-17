@@ -120,6 +120,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     protected void onFinishInflate() {
         super.onFinishInflate();
 
+        Locale locale = Utils.getLocaleFromContext(getContext());
+
         mDigitButton = new MaterialButton[]{
             mBinding.timerSetupDigitsLayout.timerSetupDigit0,
             mBinding.timerSetupDigitsLayout.timerSetupDigit1,
@@ -136,7 +138,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         for (int i = 0; i < mDigitButton.length; i++) {
             MaterialButton digitButton = mDigitButton[i];
 
-            digitButton.setText(String.format(Locale.getDefault(), "%d", i));
+            digitButton.setText(String.format(locale, "%d", i));
 
             digitButton.setTypeface(mGeneralTypeface);
 
@@ -161,7 +163,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
 
         MaterialButton doubleZeroButton = mBinding.timerSetupDigitsLayout.timerSetupDigit00;
-        doubleZeroButton.setText(String.format(Locale.getDefault(), "%02d", 0));
+        doubleZeroButton.setText(String.format(locale, "%02d", 0));
         doubleZeroButton.setTypeface(mGeneralTypeface);
         doubleZeroButton.setOnClickListener(this);
 

@@ -23,9 +23,6 @@ import java.util.Locale;
  */
 public class FormattedTextUtils {
 
-    private FormattedTextUtils() {
-    }
-
     /**
      * Applies a span over the length of the given text.
      *
@@ -48,7 +45,6 @@ public class FormattedTextUtils {
      */
     @NonNull
     public static String capitalizeFirstLetter(@Nullable String text, @NonNull Locale locale) {
-
         if (text == null || text.isEmpty()) {
             return text != null ? text : "";
         }

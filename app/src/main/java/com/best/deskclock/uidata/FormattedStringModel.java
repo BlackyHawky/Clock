@@ -20,6 +20,7 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.best.deskclock.R;
 import com.best.deskclock.settings.PreferencesKeys;
 import com.best.deskclock.utils.SdkUtils;
 
@@ -64,8 +65,12 @@ final class FormattedStringModel {
      */
     private Map<Integer, String> mLongWeekdayNames;
 
+    private final Context mContext;
+
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     FormattedStringModel(@NonNull Context context, @NonNull SharedPreferences prefs) {
+        mContext = context;
+
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
         // Clear caches affected by locale when locale changes.
@@ -181,7 +186,9 @@ final class FormattedStringModel {
             mLongWeekdayNames = new ArrayMap<>(7);
 
             final Calendar calendar = new GregorianCalendar(2014, JULY, 20);
-            final SimpleDateFormat format = new SimpleDateFormat("EEEE", Locale.getDefault());
+            final String pattern = mContext.getString(R.string.full_wday_only);
+            final SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
+
             for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
                 final String weekday = format.format(calendar.getTime());
                 mLongWeekdayNames.put(i, weekday);

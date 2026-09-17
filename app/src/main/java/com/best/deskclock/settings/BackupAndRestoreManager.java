@@ -28,7 +28,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 
 import androidx.annotation.NonNull;
 
@@ -56,6 +55,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -63,6 +63,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -148,7 +149,9 @@ public class BackupAndRestoreManager {
         header.put("packageName", context.getPackageName());
         header.put("versionName", BuildConfig.VERSION_NAME);
         header.put("versionCode", BuildConfig.VERSION_CODE);
-        header.put("backupDate", DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString());
+
+        SimpleDateFormat jsonDateFormat = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.US);
+        header.put("backupDate", jsonDateFormat.format(new Date()));
 
         jsonObject.put("Header", header);
 
