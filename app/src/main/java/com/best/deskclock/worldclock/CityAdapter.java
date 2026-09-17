@@ -82,6 +82,8 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     private final CityAdapterProvider mProvider;
     private final UiConfig.Fonts mFonts;
     private final UiConfig.TimeFormat mTimeFormat;
+    private final boolean mShowFlags;
+    private final boolean mIsRtl;
 
     private final LayoutInflater mInflater;
 
@@ -126,7 +128,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     private DataModel.CitySort mCachedCitySort;
 
     public CityAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull UiConfig.Fonts fonts,
-                       @NonNull UiConfig.TimeFormat timeFormat, @NonNull CityAdapterProvider provider) {
+                       @NonNull UiConfig.TimeFormat timeFormat, boolean showFlags, boolean isRtl, @NonNull CityAdapterProvider provider) {
 
         mContext = context;
         mDataModel = dataModel;
@@ -134,6 +136,8 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
         mFonts = fonts;
         mTimeFormat = timeFormat;
         mIs24HoursMode = timeFormat.is24HoursMode();
+        mShowFlags = showFlags;
+        mIsRtl = isRtl;
         mInflater = LayoutInflater.from(context);
 
         mCalendar = Calendar.getInstance();
@@ -217,7 +221,15 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
                 holder.binding().cityOnOffCheckbox.setChecked(mUserSelectedCities.contains(city));
                 holder.binding().cityOnOffCheckbox.setContentDescription(city.getName());
                 holder.binding().cityOnOffCheckbox.setOnCheckedChangeListener(this);
-                holder.binding().cityName.setText(city.getName(), TextView.BufferType.SPANNABLE);
+
+                String cityName = city.getName();
+
+                if (mShowFlags) {
+                    String bidiMarker = mIsRtl ? "\u200F" : "\u200E";
+                    cityName = bidiMarker + city.getCountryFlag() + "  " + cityName;
+                }
+
+                holder.binding().cityName.setText(cityName, TextView.BufferType.SPANNABLE);
                 holder.binding().cityTime.setText(getTimeCharSequence(timeZone));
 
                 final boolean showIndex = getShowIndex(position);

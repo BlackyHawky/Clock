@@ -115,7 +115,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/miscellaneous_category_title"
+        android:title="@string/label_cities"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
@@ -130,6 +130,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_enable_city_flag"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_city_flag_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_enable_city_note"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_city_note_title"
@@ -137,6 +145,13 @@
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
             android:key="key_automatic_home_clock"

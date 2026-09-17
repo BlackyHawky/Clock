@@ -111,7 +111,15 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if if a note can be added to the cities; {@code false} otherwise.
+     * @return {@code true} if a flag should be displayed next to the city name; {@code false} otherwise.
+     */
+    public static boolean isCityFlagEnabled(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getBoolean(KEY_ENABLE_CITY_FLAG, DEFAULT_ENABLE_CITY_FLAG);
+    }
+
+    /**
+     * @return {@code true} if a note can be added to the cities; {@code false} otherwise.
      */
     public static boolean isCityNoteEnabled(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_clock.xml

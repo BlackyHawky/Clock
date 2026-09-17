@@ -11,5 +11,5 @@
     android:paddingStart="24dp"
     android:paddingEnd="@null"
     android:paddingVertical="10dp"
-    android:text="@string/cities_activity_title"
+    android:text="@string/label_cities"
     android:textAppearance="?attr/textAppearanceHeadlineMedium" />

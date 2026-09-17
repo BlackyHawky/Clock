@@ -43,7 +43,6 @@
     <string name="menu_timer">ۋاقىت خاتىرىلىگۈچ</string>
     <string name="menu_clock">سائەت</string>
     <string name="menu_stopwatch">دەقىقە سائەت</string>
-    <string name="button_cities">شەھەرلەر</string>
     <string name="menu_item_sort_by_gmt_offset">ۋاقىت بويىچە تەرتىپلە</string>
     <string name="menu_item_sort_by_name">ئات بويىچە تەرتىپلە</string>
     <string name="selected_cities_label">تاللانغان شەھەرلەر</string>
@@ -76,7 +75,7 @@
     <string name="jocular_content_message_9">يەلتاپاندەكلا تېزكەنسىز.</string>
     <string name="jocular_content_message_10">نۇر تېزلىكى.</string>
     <string name="home_label">باش بەت</string>
-    <string name="cities_activity_title">شەھەرلەر</string>
+    <string name="label_cities">شەھەرلەر</string>
     <string name="clock_style">ئۇسلۇب</string>
     <string name="clock_style_analog">تەقلىد</string>
     <string name="clock_style_digital">رەقەملىك</string>

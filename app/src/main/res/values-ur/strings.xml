@@ -110,7 +110,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"گھڑی"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"اسٹاپ واچ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"الارم شامل کریں"</string>
-    <string name="button_cities" msgid="4555761857494501363">"شہر"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"اسکرین سیور"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"وقت کے لحاظ سے ترتیب دیں"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"نام کے لحاظ سے ترتیب دیں"</string>
@@ -156,7 +155,7 @@
     <string name="jocular_content_message_9">"جلدی کیلئے آپ کے پاس ایک پیلٹ ہے۔"</string>
     <string name="jocular_content_message_10">"روشنی کی رفتار۔"</string>
     <string name="home_label" msgid="4436139365695453870">"ہوم"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"شہر"</string>
+    <string name="label_cities" msgid="8552462751129256730">"شہر"</string>
     <string name="clock_settings" msgid="8317286807280600391">"گھڑی"</string>
     <string name="clock_style" msgid="2265011060429742344">"طرز"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">سیکنڈز کے ساتھ وقت ڈسپلے کریں</string>

@@ -9,6 +9,8 @@ package com.best.deskclock.data;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.best.deskclock.utils.SdkUtils;
+
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
@@ -20,6 +22,8 @@ import java.util.TimeZone;
  * also contains static comparators that can be instantiated to order cities in common sort orders.
  */
 public final class City {
+
+    public static final String HOME_CITY_ID = "C0";
 
     /**
      * A unique identifier for the city.
@@ -77,6 +81,11 @@ public final class City {
      * which ignore {@link #removeSpecialCharacters(String)} special characters.
      */
     private String mEnglishNameUpperCaseNoSpecialCharacters;
+
+    /**
+     * A cached country flag emoji.
+     */
+    private String mCountryFlag;
 
     City(@NonNull String id, int index, @Nullable String indexString, @NonNull String name, @NonNull String englishName,
          @NonNull String phoneticName, @NonNull TimeZone tz) {
@@ -164,6 +173,41 @@ public final class City {
             mEnglishNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getEnglishNameUpperCase());
         }
         return mEnglishNameUpperCaseNoSpecialCharacters;
+    }
+
+    /**
+     * @return The country flag emoji or a globe emoji for non-country zones.
+     */
+    @NonNull
+    public String getCountryFlag() {
+        if (mCountryFlag == null) {
+            if (HOME_CITY_ID.equals(mId)) {
+                mCountryFlag = "🏠";
+                return mCountryFlag;
+            }
+
+            String region = null;
+
+            if ("Etc/GMT+12".equals(mTimeZone.getID())) {
+                // For Baker & Howland Islands
+                region = "UM";
+            } else if (SdkUtils.isAtLeastAndroid7()) {
+                // Use ICU to retrieve the country code for all other cases.
+                region = android.icu.util.TimeZone.getRegion(mTimeZone.getID());
+            }
+
+            if (region != null && region.length() == 2 && !region.equals("ZZ") && region.matches("^[A-Z]{2}$")) {
+                int firstLetter = Character.codePointAt(region, 0) - 'A' + 0x1F1E6;
+                int secondLetter = Character.codePointAt(region, 1) - 'A' + 0x1F1E6;
+
+                mCountryFlag = new String(Character.toChars(firstLetter)) + new String(Character.toChars(secondLetter));
+            } else {
+                // Fallback for generic time zones (UTC, GMT) or for Android versions earlier than 7
+                mCountryFlag = "🌐";
+            }
+        }
+
+        return mCountryFlag;
     }
 
     /**

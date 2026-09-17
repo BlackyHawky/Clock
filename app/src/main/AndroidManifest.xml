@@ -96,7 +96,7 @@
         <activity
             android:name="com.best.deskclock.worldclock.CitySelectionActivity"
             android:excludeFromRecents="true"
-            android:label="@string/cities_activity_title"
+            android:label="@string/label_cities"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />

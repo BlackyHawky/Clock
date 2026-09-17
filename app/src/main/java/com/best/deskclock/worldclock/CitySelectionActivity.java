@@ -124,7 +124,8 @@ public final class CitySelectionActivity extends BaseActivity {
 
         UiConfig.TimeFormat timeFormat = new UiConfig.TimeFormat(locale, pattern12, pattern24, is24HoursMode);
 
-        mCitiesAdapter = new CityAdapter(this, getDataModel(), getFontsConfig(), timeFormat, new CityAdapter.CityAdapterProvider() {
+        mCitiesAdapter = new CityAdapter(this, getDataModel(), getFontsConfig(), timeFormat,
+            SettingsDAO.isCityFlagEnabled(getPrefs()), isRtl(), new CityAdapter.CityAdapterProvider() {
             @Override
             public DataModel.CitySort getCitySort() {
                 return SettingsDAO.getCitySort(getPrefs());
@@ -135,8 +136,7 @@ public final class CitySelectionActivity extends BaseActivity {
                 // Delete the associated note
                 getPrefs().edit().remove(KEY_CITY_NOTE + city.getId()).apply();
             }
-        }
-        );
+        });
 
         mSearchView.post(() -> mSearchView.clearFocus());
 

@@ -54,6 +54,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mDisplayTextUppercasePref;
     CustomSliderPreference mDigitalClockFontSizePref;
     ListPreference mSortCitiesPref;
+    SwitchPreferenceCompat mEnableCityFlagPref;
     SwitchPreferenceCompat mEnableCityNotePref;
     SwitchPreferenceCompat mAutoHomeClockPref;
     ListPreference mHomeTimeZonePref;
@@ -136,6 +137,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mDisplayTextUppercasePref = findPreference(KEY_DISPLAY_TEXT_UPPERCASE);
         mDigitalClockFontSizePref = findPreference(KEY_DIGITAL_CLOCK_FONT_SIZE);
         mSortCitiesPref = findPreference(KEY_SORT_CITIES);
+        mEnableCityFlagPref = findPreference(KEY_ENABLE_CITY_FLAG);
         mEnableCityNotePref = findPreference(KEY_ENABLE_CITY_NOTE);
         mAutoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
         mHomeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
@@ -192,7 +194,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
                 mHomeTimeZonePref.setEnabled((boolean) newValue);
             }
 
-            case KEY_DISPLAY_NEXT_ALARM, KEY_DISPLAY_TEXT_UPPERCASE ->
+            case KEY_DISPLAY_NEXT_ALARM, KEY_DISPLAY_TEXT_UPPERCASE, KEY_ENABLE_CITY_FLAG ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ENABLE_CITY_NOTE -> {
@@ -259,6 +261,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
 
         mSortCitiesPref.setSummary(mSortCitiesPref.getEntry());
         mSortCitiesPref.setOnPreferenceChangeListener(this);
+
+        mEnableCityFlagPref.setOnPreferenceChangeListener(this);
 
         mEnableCityNotePref.setOnPreferenceChangeListener(this);
 

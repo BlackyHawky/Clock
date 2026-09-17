@@ -111,7 +111,6 @@
     <string name="menu_clock" msgid="5612760670606829805">"Часовник"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Хронометър"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Добавяне на будилник"</string>
-    <string name="button_cities" msgid="4555761857494501363">"Градове"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">Заставка</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">Сортиране по часови пояс</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Сортиране по име"</string>
@@ -157,7 +156,7 @@
     <string name="jocular_content_message_9">Не си губите времето.</string>
     <string name="jocular_content_message_10">"Светлинна скорост!"</string>
     <string name="home_label" msgid="4436139365695453870">"Местна"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"Градове"</string>
+    <string name="label_cities" msgid="8552462751129256730">"Градове"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Часовник"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стил"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">Показване на часа със секунди</string>

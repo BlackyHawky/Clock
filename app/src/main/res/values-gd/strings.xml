@@ -86,7 +86,6 @@
     <string name="menu_clock">Cleoc</string>
     <string name="menu_stopwatch">Stad-uaireadair</string>
     <string name="button_alarms">Cuir caismeachd ris</string>
-    <string name="button_cities">Bailtean</string>
     <string name="menu_item_sort_by_gmt_offset">Seòrsaich a-rèir an ama</string>
     <string name="menu_item_sort_by_name">Seòrsaich a-rèir ainm</string>
     <string name="selected_cities_label">Na bailtean a thagh thu</string>
@@ -125,7 +124,7 @@
     <string name="jocular_content_message_9">Nach ortsa a tha a’ chabhag!</string>
     <string name="jocular_content_message_10">Cho luath ri geàrr.</string>
     <string name="home_label">Dachaigh</string>
-    <string name="cities_activity_title">Bailtean</string>
+    <string name="label_cities">Bailtean</string>
     <string name="clock_settings">Cleoc</string>
     <string name="clock_style">Stoidhle</string>
     <string name="clock_style_analog">Analogach</string>

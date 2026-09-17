@@ -53,6 +53,9 @@ public class ClockSettings {
     /** True if a secondary clock showing the home time zone should be displayed when traveling. */
     public boolean showHomeClock;
 
+    /** True if a flag should be displayed next to the city name. */
+    public boolean isCityFlagEnabled;
+
     /** True if custom notes or descriptions for saved cities are enabled and displayed. */
     public boolean isCityNoteEnabled;
 
