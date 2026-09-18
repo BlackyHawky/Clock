@@ -60,14 +60,12 @@
                 android:scaleType="center"
                 android:contentDescription="@null"
                 android:visibility="invisible"
-                app:fabCustomSize="@dimen/side_button_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/fab"
                 app:layout_constraintBottom_toBottomOf="@+id/fab"
                 app:layout_constraintTop_toTopOf="@+id/fab"
                 app:layout_constraintHorizontal_bias="0.6"
-                tools:layout_width="70dp"
-                tools:layout_height="70dp"
+                tools:fabCustomSize="50dp"
                 tools:visibility="visible"
                 tools:src="@drawable/ic_reset" />
 
@@ -79,13 +77,11 @@
                 android:layout_marginBottom="10dp"
                 android:scaleType="center"
                 android:contentDescription="@null"
-                app:fabCustomSize="@dimen/fab_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_width="90dp"
-                tools:layout_height="90dp"
+                tools:fabCustomSize="70dp"
                 tools:src="@drawable/ic_fab_play" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -96,14 +92,12 @@
                 android:scaleType="center"
                 android:contentDescription="@null"
                 android:visibility="invisible"
-                app:fabCustomSize="@dimen/side_button_size"
                 app:layout_constraintStart_toEndOf="@id/fab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/fab"
                 app:layout_constraintBottom_toBottomOf="@id/fab"
                 app:layout_constraintHorizontal_bias="0.4"
-                tools:layout_width="70dp"
-                tools:layout_height="70dp"
+                tools:fabCustomSize="50dp"
                 tools:visibility="visible"
                 tools:src="@drawable/ic_share" />
 

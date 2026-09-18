@@ -56,6 +56,8 @@ public class PreferencesKeys {
     public static final String KEY_TAB_TO_DISPLAY = "key_tab_to_display";
     public static final String KEY_VIBRATIONS = "key_vibrations";
     public static final String KEY_TOOLBAR_TITLE = "key_toolbar_title";
+    public static final String KEY_CENTRAL_FAB_SIZE = "key_central_fab_size";
+    public static final String KEY_SIDE_FAB_SIZE = "key_side_fab_size";
     public static final String KEY_TAB_TITLE_VISIBILITY = "key_tab_title_visibility";
     public static final String KEY_TAB_INDICATOR = "key_tab_indicator";
     public static final String KEY_TAB_ANIMATION = "key_tab_animation";

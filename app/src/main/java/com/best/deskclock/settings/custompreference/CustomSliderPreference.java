@@ -50,6 +50,7 @@ public class CustomSliderPreference extends Preference {
     private static final int MIN_EXTERNAL_AUDIO_DEVICE_VOLUME = 10;
     private static final int MIN_SHADOW_OFFSET_VALUE = 1;
     private static final int MIN_ANALOG_CLOCK_SIZE_VALUE = 1;
+    private static final int MIN_FAB_SIZE_VALUE = 40;
 
     // The max values below correspond to the max values defined in the preferences XML files.
     private static final int MAX_BRIGHTNESS_VALUE = 100;
@@ -61,6 +62,7 @@ public class CustomSliderPreference extends Preference {
     private static final int MAX_EXTERNAL_AUDIO_DEVICE_VOLUME = 100;
     private static final int MAX_ANALOG_CLOCK_SIZE_VALUE = 100;
     private static final int MAX_FONT_SIZE_VALUE = 200;
+    private static final int MAX_FAB_SIZE_VALUE = 80;
 
     private SettingsPreferenceSliderLayoutBinding mBinding;
     private final SharedPreferences mPrefs;
@@ -154,7 +156,10 @@ public class CustomSliderPreference extends Preference {
     private int getSafeSliderValue(float newValue) {
         float min, max;
 
-        if (isScreensaverBrightnessPreference()) {
+        if (isCentralFabSizePreference() || isSideFabSizePreference()) {
+            min = MIN_FAB_SIZE_VALUE;
+            max = MAX_FAB_SIZE_VALUE;
+        } else if (isScreensaverBrightnessPreference()) {
             min = MIN_BRIGHTNESS_VALUE;
             max = MAX_BRIGHTNESS_VALUE;
         } else if (isDigitalWidgetBackgroundCornerRadius()
@@ -244,7 +249,10 @@ public class CustomSliderPreference extends Preference {
      * Sets the icons for the minus and plus buttons of the slider based on the current preference type.
      */
     private void configureSliderButtonDrawables() {
-        if (isScreensaverBrightnessPreference()) {
+        if (isCentralFabSizePreference() || isSideFabSizePreference()) {
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_minus_circle));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_add_circle));
+        } else if (isScreensaverBrightnessPreference()) {
             mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_brightness_decrease));
             mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_brightness_increase));
         } else if (isDigitalWidgetBackgroundCornerRadius()
@@ -356,7 +364,11 @@ public class CustomSliderPreference extends Preference {
      * @return the default value for the slider depending on the preference type.
      */
     private int getDefaultSliderValue() {
-        if (isScreensaverBrightnessPreference()) {
+        if (isCentralFabSizePreference()) {
+            return DEFAULT_CENTRAL_FAB_SIZE;
+        } else if (isSideFabSizePreference()) {
+            return DEFAULT_SIDE_FAB_SIZE;
+        } else if (isScreensaverBrightnessPreference()) {
             return DEFAULT_SCREENSAVER_BRIGHTNESS;
         } else if (isDigitalWidgetBackgroundCornerRadius()
             || isNextAlarmWidgetBackgroundCornerRadius()
@@ -407,7 +419,9 @@ public class CustomSliderPreference extends Preference {
      * Update digital widgets if the Preference is linked to the widgets one.
      */
     private void updateDigitalWidgets() {
-        if (!isScreensaverBrightnessPreference()
+        if (!isCentralFabSizePreference()
+            && !isSideFabSizePreference()
+            && !isScreensaverBrightnessPreference()
             && !isScreensaverDigitalClockFontSizePreference()
             && !isScreensaverAnalogClockSizePreference()
             && !isScreensaverBlurIntensityPreference()
@@ -429,40 +443,49 @@ public class CustomSliderPreference extends Preference {
     }
 
     /**
-     * @return {@code true} if the current preference is related to screensaver brightness.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the central FAB size. {@code false} otherwise.
+     */
+    private boolean isCentralFabSizePreference() {
+        return getKey().equals(KEY_CENTRAL_FAB_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the side FAB size. {@code false} otherwise.
+     */
+    private boolean isSideFabSizePreference() {
+        return getKey().equals(KEY_SIDE_FAB_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to screensaver brightness. {@code false} otherwise.
      */
     private boolean isScreensaverBrightnessPreference() {
         return getKey().equals(KEY_SCREENSAVER_BRIGHTNESS);
     }
 
     /**
-     * @return {@code true} if the current preference is related to the screensaver analog clock size.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the screensaver analog clock size. {@code false} otherwise.
      */
     private boolean isScreensaverAnalogClockSizePreference() {
         return getKey().equals(KEY_SCREENSAVER_ANALOG_CLOCK_SIZE);
     }
 
     /**
-     * @return {@code true} if the current preference is related to the font size of the screensaver
-     * clock. {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the font size of the screensaver clock. {@code false} otherwise.
      */
     private boolean isScreensaverDigitalClockFontSizePreference() {
         return getKey().equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
-     * @return {@code true} if the current preference is related to blur intensity for screensaver.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to blur intensity for screensaver. {@code false} otherwise.
      */
     private boolean isScreensaverBlurIntensityPreference() {
         return getKey().equals(KEY_SCREENSAVER_BLUR_INTENSITY);
     }
 
     /**
-     * @return {@code true} if the current preference is related to corner radius of the digital widget background.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to corner radius of the digital widget background. {@code false} otherwise.
      */
     private boolean isDigitalWidgetBackgroundCornerRadius() {
         return getKey().equals(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
@@ -485,104 +508,92 @@ public class CustomSliderPreference extends Preference {
     }
 
     /**
-     * @return {@code true} if the current preference is related to shake intensity.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to shake intensity. {@code false} otherwise.
      */
     private boolean isShakeIntensityPreference() {
         return getKey().equals(KEY_SHAKE_INTENSITY);
     }
 
     /**
-     * @return {@code true} if the current preference is related to timer shake intensity.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to timer shake intensity. {@code false} otherwise.
      */
     private boolean isTimerShakeIntensityPreference() {
         return getKey().equals(KEY_TIMER_SHAKE_INTENSITY);
     }
 
     /**
-     * @return {@code true} if the current preference is related to shadow offset for timers.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to shadow offset for timers. {@code false} otherwise.
      */
     private boolean isTimerShadowOffsetPreference() {
         return getKey().equals(KEY_TIMER_SHADOW_OFFSET);
     }
 
     /**
-     * @return {@code true} if the current preference is related to blur intensity for timers.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to blur intensity for timers. {@code false} otherwise.
      */
     private boolean isTimerBlurIntensityPreference() {
         return getKey().equals(KEY_TIMER_BLUR_INTENSITY);
     }
 
     /**
-     * @return {@code true} if the current preference is related to the analog clock size.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the analog clock size. {@code false} otherwise.
      */
     private boolean isAnalogClockSizePreference() {
         return getKey().equals(KEY_ANALOG_CLOCK_SIZE);
     }
 
     /**
-     * @return {@code true} if the current preference is related to the font size of the clock.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the font size of the clock. {@code false} otherwise.
      */
     private boolean isDigitalClockFontSizePreference() {
         return getKey().equals(KEY_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
-     * @return {@code true} if the current preference is related to the alarm analog clock size.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the alarm analog clock size. {@code false} otherwise.
      */
     private boolean isAlarmAnalogClockSizePreference() {
         return getKey().equals(KEY_ALARM_ANALOG_CLOCK_SIZE);
     }
 
     /**
-     * @return {@code true} if the current preference is related to the font size of the alarm clock.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the font size of the alarm clock. {@code false} otherwise.
      */
     private boolean isAlarmDigitalClockFontSizePreference() {
         return getKey().equals(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
-     * @return {@code true} if the current preference is related to the alarm title font size.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the alarm title font size. {@code false} otherwise.
      */
     private boolean isAlarmTitleFontSizePreference() {
         return getKey().equals(KEY_ALARM_TITLE_FONT_SIZE_PREF);
     }
 
     /**
-     * @return {@code true} if the current preference is related to shadow offset for alarms.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to shadow offset for alarms. {@code false} otherwise.
      */
     private boolean isAlarmShadowOffsetPreference() {
         return getKey().equals(KEY_ALARM_SHADOW_OFFSET);
     }
 
     /**
-     * @return {@code true} if the current preference is related to blur intensity for alarms.
-     * {@code false} otherwise.
+     * @return {@code true} if the current preference is related to blur intensity for alarms. {@code false} otherwise.
      */
     private boolean isAlarmBlurIntensityPreference() {
         return getKey().equals(KEY_ALARM_BLUR_INTENSITY);
     }
 
     /**
-     * @return {@code true} if the current preference is related to volume when
-     * an external audio device is connected. {@code false} otherwise.
+     * @return {@code true} if the current preference is related to volume when an external audio device is connected.
+     * {@code false} otherwise.
      */
     private boolean isExternalAudioDeviceVolumePreference() {
         return getKey().equals(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME);
     }
 
     /**
-     * Plays ringtone preview if preference is "External audio device volume" or if there is an
-     * external audio device connected.
+     * Plays ringtone preview if preference is "External audio device volume" or if there is an external audio device connected.
      */
     private void startRingtonePreviewForExternalAudioDevices() {
         if (!isExternalAudioDeviceVolumePreference()

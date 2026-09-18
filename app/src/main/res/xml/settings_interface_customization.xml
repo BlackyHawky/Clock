@@ -66,6 +66,26 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_central_fab_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/central_fab_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="70"
+            android:max="80"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_side_fab_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/side_fab_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="50"
+            android:max="80"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

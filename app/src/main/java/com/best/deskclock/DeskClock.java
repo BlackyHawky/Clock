@@ -8,6 +8,7 @@ package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
@@ -19,15 +20,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_GATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_ZOOM_OUT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_LAST_UPDATE_TIME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_IS_FIRST_LAUNCH;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_ANIMATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TOOLBAR_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
@@ -193,7 +186,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         // Interface
-        KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_KEEP_SCREEN_ON,
+        KEY_TOOLBAR_TITLE, KEY_CENTRAL_FAB_SIZE, KEY_SIDE_FAB_SIZE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY,
+        KEY_TAB_ANIMATION, KEY_KEEP_SCREEN_ON,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -514,8 +508,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             cachedValues.put(key, newValue);
 
             switch (key) {
-                case KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION,
-                     KEY_KEEP_SCREEN_ON, KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
+                case KEY_TOOLBAR_TITLE, KEY_CENTRAL_FAB_SIZE, KEY_SIDE_FAB_SIZE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR,
+                     KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_KEEP_SCREEN_ON, KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
 
             }
         };
@@ -543,6 +537,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
         return switch (key) {
             // Interface
             case KEY_TOOLBAR_TITLE -> SettingsDAO.isToolbarTitleDisplayed(getPrefs());
+            case KEY_CENTRAL_FAB_SIZE -> SettingsDAO.getCentralFabSize(getPrefs());
+            case KEY_SIDE_FAB_SIZE -> SettingsDAO.getSideFabSize(getPrefs());
             case KEY_TAB_TITLE_VISIBILITY -> SettingsDAO.getTabTitleVisibility(getPrefs());
             case KEY_TAB_INDICATOR -> SettingsDAO.isTabIndicatorDisplayed(getPrefs());
             case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(getPrefs());
@@ -611,6 +607,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * Configures the buttons shared by the tabs.
      */
     private void configureFabAndButtons() {
+        // Configure the button sizes
+        mBinding.fab.setCustomSize((int) dpToPx(SettingsDAO.getCentralFabSize(getPrefs()), getDisplayMetrics()));
+        mBinding.leftButton.setCustomSize((int) dpToPx(SettingsDAO.getSideFabSize(getPrefs()), getDisplayMetrics()));
+        mBinding.rightButton.setCustomSize((int) dpToPx(SettingsDAO.getSideFabSize(getPrefs()), getDisplayMetrics()));
+
         // Configure the buttons shared by the tabs.
         mBinding.fab.setOnClickListener(view -> {
             final DeskClockFragment currentFragment = getSelectedDeskClockFragment();
