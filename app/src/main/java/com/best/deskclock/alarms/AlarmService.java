@@ -494,10 +494,11 @@ public class AlarmService extends Service {
                 }
 
                 LogUtils.v("AlarmService.stop with double vibration");
-                // Double vibration
-                Utils.executeVibrations(mVibrator, new long[]{300, 200, 100, 500}, -1);
 
                 stopCurrentAlarm();
+
+                // Double vibration
+                Utils.executeVibrations(mVibrator, new long[]{300, 200, 100, 500}, -1);
             }
 
             case STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION -> {
@@ -513,10 +514,11 @@ public class AlarmService extends Service {
                 }
 
                 LogUtils.v("AlarmService.stop with single vibration");
-                // Single vibration
-                Utils.executeVibrations(mVibrator, new long[]{300, 500}, -1);
 
                 stopCurrentAlarm();
+
+                // Single vibration
+                Utils.executeVibrations(mVibrator, new long[]{300, 500}, -1);
             }
 
             case ALARM_MUTE_ACTION -> {
