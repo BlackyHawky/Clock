@@ -19,6 +19,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_GATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_ZOOM_OUT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_LAST_UPDATE_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_IS_FIRST_LAUNCH;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
@@ -36,6 +37,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -63,6 +65,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 import com.best.deskclock.alarms.AlarmFragment;
+import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.base.DeskClockFragment;
@@ -73,6 +76,7 @@ import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DeskClockBinding;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.setup.FirstLaunch;
@@ -211,6 +215,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        restoreStateAfterDebugDeployment();
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -423,6 +429,29 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case FAB_AND_BUTTONS_SHRINK -> mHideAnimation.start();
             case FAB_AND_BUTTONS_EXPAND -> mShowAnimation.start();
         }
+    }
+
+    private void restoreStateAfterDebugDeployment() {
+        if (!BuildConfig.IS_DEBUG_BUILD) {
+            return;
+        }
+
+        Context appContext = getApplicationContext();
+
+        AppExecutors.getDiskIO().execute(() -> {
+            List<Alarm> enabledAlarms = Alarm.getEnabledAlarms(appContext);
+            if (!enabledAlarms.isEmpty()) {
+                LogUtils.i("Debug deployment: Restoring enabled alarms.");
+                AlarmStateManager.fixAlarmInstances(appContext, getPrefs());
+            }
+        });
+
+        AppExecutors.getMainThread().post(() -> {
+            if (getDataModel().hasActiveTimer() || getDataModel().getStopwatch().isRunning()) {
+                LogUtils.i("Debug deployment: Restoring timers and stopwatch.");
+                getDataModel().updateAfterReboot();
+            }
+        });
     }
 
     /**
