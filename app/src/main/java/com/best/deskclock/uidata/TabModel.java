@@ -203,7 +203,17 @@ final class TabModel {
      * @return the current dynamic index of the tab, or -1 if hidden
      */
     int getTabIndex(@NonNull Tab tab) {
-        return mActiveTabs.indexOf(tab);
+        final int ordinal = mActiveTabs.indexOf(tab);
+
+        if (ordinal == -1) {
+            return -1;
+        }
+
+        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == LAYOUT_DIRECTION_RTL) {
+            return getTabCount() - ordinal - 1;
+        }
+
+        return ordinal;
     }
 
     /**
