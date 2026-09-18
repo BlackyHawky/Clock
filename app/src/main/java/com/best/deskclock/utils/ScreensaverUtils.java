@@ -228,7 +228,7 @@ public class ScreensaverUtils {
 
         applyBrightness(batteryText, brightnessPercentage, batteryColor, drawable);
 
-        batteryText.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        batteryText.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null);
     }
 
     /**

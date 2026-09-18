@@ -962,7 +962,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             : R.drawable.ic_volume_up);
 
         if (icon != null) {
-            mBinding.alarmVolumeTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            mBinding.alarmVolumeTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
         }
 
         mBinding.alarmVolumeLayout.setVisibility(VISIBLE);
@@ -1050,7 +1050,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         );
 
         if (icon != null) {
-            mBinding.alarmBlurIntensityTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            mBinding.alarmBlurIntensityTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
         }
 
         mBinding.alarmBlurIntensityLayout.setVisibility(VISIBLE);

@@ -285,7 +285,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
         if (targetIconResId != mCurrentIconResId) {
             mCurrentIconResId = targetIconResId;
 
-            mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(
+            mDialogTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 AppCompatResources.getDrawable(requireContext(), targetIconResId), null, null, null);
             mDialogTitle.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
         }
