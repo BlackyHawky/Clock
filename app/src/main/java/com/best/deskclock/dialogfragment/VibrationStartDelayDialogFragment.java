@@ -313,7 +313,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+            titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(
                 requireContext(), R.drawable.ic_error), null, null, null);
             titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             titleText.setText(getString(R.string.timer_time_warning_box_title));
@@ -345,7 +345,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
             titleText.setText(getString(R.string.vibration_start_delay_title));
         }
 

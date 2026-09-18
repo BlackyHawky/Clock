@@ -507,7 +507,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+            titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(
                 requireContext(), R.drawable.ic_error), null, null, null);
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
@@ -552,9 +552,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
             if (mPrefKey != null) {
-                titleText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
             } else {
-                titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(
                     requireContext(), R.drawable.ic_ringtone_off), null, null, null);
             }
 

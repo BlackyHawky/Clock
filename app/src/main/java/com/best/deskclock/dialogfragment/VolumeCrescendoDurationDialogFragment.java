@@ -462,7 +462,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+            titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(
                 requireContext(), R.drawable.ic_error), null, null, null);
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
@@ -509,7 +509,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             if (mPrefKey != null) {
                 titleText.setCompoundDrawables(null, null, null, null);
             } else {
-                titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(
                     requireContext(), R.drawable.ic_crescendo), null, null, null);
             }
             titleText.setText(getString(R.string.crescendo_duration_title));

@@ -73,7 +73,7 @@ public class CustomDialog {
             DialogTitleCustomBinding titleBinding = DialogTitleCustomBinding.inflate(LayoutInflater.from(context));
 
             if (icon != null) {
-                titleBinding.dialogTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+                titleBinding.dialogTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
                 titleBinding.dialogTitle.setCompoundDrawablePadding((int) dpToPx(18, displayMetrics));
             }
 
