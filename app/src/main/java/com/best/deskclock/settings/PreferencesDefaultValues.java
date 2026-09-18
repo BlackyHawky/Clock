@@ -51,6 +51,8 @@ public class PreferencesDefaultValues {
     public static final String TAB_TO_DISPLAY_STOPWATCH = "3";
     public static final boolean DEFAULT_VIBRATIONS = false;
     public static final boolean DEFAULT_TOOLBAR_TITLE = true;
+    public static final int DEFAULT_CENTRAL_FAB_SIZE = 70;
+    public static final int DEFAULT_SIDE_FAB_SIZE = 50;
     public static final String VISIBLE_TAB_ALARM = "alarm";
     public static final String VISIBLE_TAB_CLOCK = "clock";
     public static final String VISIBLE_TAB_TIMER = "timer";

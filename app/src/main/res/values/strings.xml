@@ -839,6 +839,10 @@
     <string name="settings_vibration_disabled_summary">Vibration is disabled in the device settings</string>
     <!-- Setting title to display the toolbar title. -->
     <string name="settings_toolbar_title">Display the title in the toolbar</string>
+    <!-- Setting title to customize the size of the central FAB. -->
+    <string name="central_fab_size_title">Size of the central floating action button</string>
+    <!-- Setting title to customize the size of the side FAB. -->
+    <string name="side_fab_size_title">Size of the side floating action buttons</string>
     <!-- Setting title to change the tab title visibility. -->
     <string name="settings_tab_title_visibility_title">Display the tab titles</string>
     <!-- Setting title to always display tab titles. -->

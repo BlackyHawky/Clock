@@ -414,6 +414,22 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the size of the central FAB.
+     */
+    public static int getCentralFabSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getInt(KEY_CENTRAL_FAB_SIZE, DEFAULT_CENTRAL_FAB_SIZE);
+    }
+
+    /**
+     * @return the size of the side FAB.
+     */
+    public static int getSideFabSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getInt(KEY_SIDE_FAB_SIZE, DEFAULT_SIDE_FAB_SIZE);
+    }
+
+    /**
      * @return the tab title visibility.
      */
     public static String getTabTitleVisibility(@NonNull SharedPreferences prefs) {
