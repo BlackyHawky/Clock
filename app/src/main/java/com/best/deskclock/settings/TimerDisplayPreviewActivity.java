@@ -47,6 +47,7 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.ExpiredTimersActivityBinding;
 import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
+import com.best.deskclock.timer.BaseTimerItem;
 import com.best.deskclock.timer.TimerItem;
 import com.best.deskclock.timer.TimerItemCompact;
 import com.best.deskclock.uidata.UiConfig;
@@ -308,7 +309,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         UiConfig.Fonts fonts = getFontsConfig();
         Typeface timerFont = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
 
-        final View view;
+        final BaseTimerItem timerView;
         final TextView labelView;
         final View resetButton;
         final View stopButton;
@@ -317,51 +318,36 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             TimerItemCompactBinding compactBinding = TimerItemCompactBinding.inflate(
                 getLayoutInflater(), mBinding.expiredTimersList, false);
 
-            view = compactBinding.getRoot();
-            ((TimerItemCompact) view).setButtonPosition(mAreTimerButtonPositionsInverted, isRtl());
-            ((TimerItemCompact) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
-            ((TimerItemCompact) view).setTimerTimeFont(timerFont);
-            ((TimerItemCompact) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
-            ((TimerItemCompact) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
-            ((TimerItemCompact) view).bindTimer(timer, false);
+            TimerItemCompact compactView = compactBinding.getRoot();
+            compactView.setButtonPosition(mAreTimerButtonPositionsInverted, isRtl());
 
+            timerView = compactView;
             labelView = compactBinding.timerLabel;
             resetButton = compactBinding.resetButton;
             stopButton = compactBinding.playPauseButton;
-
-            compactBinding.linearProgressIndicator.animate().cancel();
-            compactBinding.linearProgressIndicator.setAlpha(1f);
-
-            compactBinding.timerTimeText.animate().cancel();
-            compactBinding.timerTimeText.setAlpha(1f);
         } else {
-            TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
+            TimerItemBinding normalBinding = TimerItemBinding.inflate(
+                getLayoutInflater(), mBinding.expiredTimersList, false);
 
-            view = normalBinding.getRoot();
-            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, isTablet(), !isPortrait(), false, isRtl());
-            ((TimerItem) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
-            ((TimerItem) view).setTimerTimeFont(timerFont);
-            ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
-            ((TimerItem) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
-            ((TimerItem) view).bindTimer(timer, false);
+            TimerItem normalView = normalBinding.getRoot();
+            normalView.setButtonPosition(mAreTimerButtonPositionsInverted, isTablet(), !isPortrait(), false, isRtl());
 
+            timerView = normalView;
             labelView = normalBinding.timerLabel;
             resetButton = normalBinding.resetButton;
             stopButton = normalBinding.playPauseButton;
-
-            if (normalBinding.circularProgressIndicator != null) {
-                normalBinding.circularProgressIndicator.animate().cancel();
-                normalBinding.circularProgressIndicator.setAlpha(1f);
-            }
-
-            normalBinding.timerTimeText.animate().cancel();
-            normalBinding.timerTimeText.setAlpha(1f);
         }
 
-        // Store the timer id as a tag on the view so it can be located on delete.
-        view.setId(timerId);
+        timerView.setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
+        timerView.setTimerTimeFont(timerFont);
+        timerView.setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
+        timerView.setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
+        timerView.bindTimer(timer, false);
 
-        mBinding.expiredTimersList.addView(view);
+        // Store the timer id as a tag on the view so it can be located on delete.
+        timerView.setId(timerId);
+
+        mBinding.expiredTimersList.addView(timerView);
 
         // Hide the label hint for expired timers.
         labelView.setVisibility(VISIBLE);

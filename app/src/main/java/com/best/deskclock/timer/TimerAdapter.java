@@ -139,11 +139,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         Timer timer = holder.getTimer();
 
         if (timer != null) {
-            if (holder.mTimerItemCompact != null) {
-                holder.mTimerItemCompact.updateTimeDisplay(timer, false);
-            } else if (holder.mTimerItem != null) {
-                holder.mTimerItem.updateTimeDisplay(timer, false);
-            }
+            holder.mTimerView.updateTimeDisplay(timer, false);
 
             if (!timer.isReset()) {
                 holder.startUpdating();
