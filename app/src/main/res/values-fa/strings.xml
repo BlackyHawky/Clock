@@ -3,7 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"ساعت"</string>
     <string name="default_label" msgid="5590025289805630372">هشدار</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"لرزش"</string>
@@ -28,54 +28,54 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"به تعویق افتاده"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"هشدار خاموش"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"تعویق"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">تعویق به مدت ۱ دقیقه.</item>
+    <plurals name="alarm_alert_snooze_set" msgid="3212729193036041768">
+        <item quantity="one">تعویق به مدت <xliff:g id="minutes">%d</xliff:g> دقیقه.</item>
         <item quantity="other">تعویق به مدت <xliff:g id="minutes">%d</xliff:g> دقیقه.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"تعویق تا <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"هشدار بعدی"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"هشدار بی‌پاسخ حذف شد"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"کمتر از یک دقیقه باقیمانده است"</string>
-    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138" tools:ignore="StringFormatCount">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893" tools:ignore="StringFormatCount">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"<xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="HOURS">%1$s</xliff:g> باقی‌مانده"</string>
-    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907" tools:ignore="StringFormatCount">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350" tools:ignore="StringFormatCount">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804" tools:ignore="StringFormatCount">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s دقیقه به تایمر اضافه شده است <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"باقیمانده"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"باقیمانده"</string>
     <string name="alarm_confirmation_toast_1">"هشدار برای کمتر از ۱ دقیقه دیگر از حالا تنظیم شد."</string>
     <string name="alarm_confirmation_toast_2">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> دیگر از حالا تنظیم شد."</string>
-    <string name="alarm_confirmation_toast_3">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> دیگر از حالا تنظیم شد."</string>
+    <string name="alarm_confirmation_toast_3" tools:ignore="StringFormatCount">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> دیگر از حالا تنظیم شد."</string>
     <string name="alarm_confirmation_toast_4">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> از حالا تنظیم شد."</string>
-    <string name="alarm_confirmation_toast_5">"هشدار برای <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
-    <string name="alarm_confirmation_toast_6">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
-    <string name="alarm_confirmation_toast_7">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
+    <string name="alarm_confirmation_toast_5" tools:ignore="StringFormatCount">"هشدار برای <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
+    <string name="alarm_confirmation_toast_6" tools:ignore="StringFormatCount">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
+    <string name="alarm_confirmation_toast_7" tools:ignore="StringFormatCount">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
     <string name="alarm_confirmation_toast_8">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</string>
-    <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="one">۱ روز</item>
+    <plurals name="days" msgid="3706846447285206235">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> روز</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> روز</item>
     </plurals>
-    <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="one">۱ ساعت</item>
+    <plurals name="hours" msgid="3871283109767171655">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> ساعت</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> ساعت</item>
     </plurals>
-    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="one">۱ ساعت</item>
+    <plurals name="hours_short" msgid="3709250715691092925">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> ساعت</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> ساعت</item>
     </plurals>
-    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one">۱ دقیقه</item>
+    <plurals name="minutes" msgid="5484431721696058697">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> دقیقه</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> دقیقه</item>
     </plurals>
-    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one">۱ دقیقه</item>
+    <plurals name="minutes_short" msgid="6397328304369080233">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> دقیقه</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> دقیقه</item>
     </plurals>
-    <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">۱ ثانیه</item>
+    <plurals name="seconds" msgid="670343577734266047">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> ثانیه</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> ثانیه</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"هر روز"</string>
@@ -206,8 +206,8 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"زنگ هشدار <xliff:g id="ALARM_TIME">%s</xliff:g> خاموش شد"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"هشدار برای <xliff:g id="ALARM_TIME">%s</xliff:g> تنظیم می‌شود"</string>
     <string name="timer_created" msgid="4381027137335885547">"تایمر ایجاد شد"</string>
-    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="one">تایمر رد شد</item>
+    <plurals name="expired_timers_dismissed" msgid="1294953410988488149">
+        <item quantity="one"><xliff:g example="1" id="number">%d</xliff:g> تایمر رد شد</item>
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> تایمر رد شد</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"مدت زمان  تایمر نامعتبر است"</string>

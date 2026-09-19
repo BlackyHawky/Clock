@@ -9,6 +9,7 @@ package com.best.deskclock.timer;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -248,6 +249,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         updateTime();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void timerRemoved(@NonNull Timer timer) {
         mAnimatedTimerIds.delete(timer.getId());
@@ -273,6 +275,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void timerUpdated(@NonNull Timer before, @NonNull Timer after) {
         int oldPosition = getTimerPosition(before.getId());
@@ -338,6 +341,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return RecyclerView.NO_POSITION;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateSettings(@NonNull TimerSettings settings) {
         mSettings = settings;
 
@@ -346,6 +350,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateFonts(@NonNull UiConfig.Fonts fonts) {
         mFonts = fonts;
 
@@ -434,6 +439,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void loadTimersAsync() {
         List<Timer> sourceTimers = new ArrayList<>(mDataModel.getTimers());
 

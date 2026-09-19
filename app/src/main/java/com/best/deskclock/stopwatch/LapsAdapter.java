@@ -6,6 +6,7 @@
 
 package com.best.deskclock.stopwatch;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.format.DateUtils;
@@ -159,6 +160,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
         return mDataModel.getLaps();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateFonts(@NonNull UiConfig.Fonts fonts) {
         mFonts = fonts;
         notifyDataSetChanged();
@@ -269,6 +271,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      *
      * @return a newly cleared lap
      */
+    @SuppressLint("NotifyDataSetChanged")
     public Lap addLap() {
         final Lap lap = mDataModel.addLap();
 
@@ -279,6 +282,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
         return lap;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void refreshLaps() {
         computeMinMax();
         notifyDataSetChanged();
@@ -287,6 +291,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     /**
      * Remove all recorded laps and update this adapter.
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void clearLaps() {
         // Clear the computed time lengths related to the old recorded laps.
         mLastFormattedLapTimeLength = 0;
@@ -361,6 +366,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      *                  set changes; they are not allowed to occur during bind
      * @return a formatted version of the lap time
      */
+    @SuppressLint("NotifyDataSetChanged")
     @NonNull
     private String formatLapTime(long lapTime, boolean isBinding) {
         // The longest lap dictates the way the given lapTime must be formatted.
@@ -383,6 +389,7 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
      *                        set changes; they are not allowed to occur during bind
      * @return a formatted version of the accumulated time
      */
+    @SuppressLint("NotifyDataSetChanged")
     @NonNull
     private String formatAccumulatedTime(long accumulatedTime, boolean isBinding) {
         final long totalTime = getStopwatch().getTotalTime();

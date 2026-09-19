@@ -2,6 +2,7 @@
 
 package com.best.deskclock.alarms;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -135,12 +136,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         return mItems.get(position).itemId;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateFonts(@NonNull UiConfig.Fonts fonts) {
         mFonts = fonts;
         generateTimeFormats();
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateTimeFormat(boolean is24HourMode) {
         if (mIs24HourMode != is24HourMode) {
             mIs24HourMode = is24HourMode;
@@ -148,6 +151,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateWeekdayOrder(@NonNull Weekdays.Order weekdayOrder) {
         if (mWeekdayOrder != weekdayOrder) {
             mWeekdayOrder = weekdayOrder;
@@ -161,6 +165,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         mFormat24 = ClockUtils.get24ModeFormat(false, false);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(@NonNull List<AlarmItemHolder> items) {
         Iterator<AlarmItemHolder> iterator = items.iterator();
 
