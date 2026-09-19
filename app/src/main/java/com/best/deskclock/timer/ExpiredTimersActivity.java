@@ -494,7 +494,7 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
         UiConfig.Fonts fonts = getFontsConfig();
         Typeface timerFont = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
 
-        final View view;
+        final BaseTimerItem timerView;
         final TextView labelView;
         final View addTimeButton;
         final View resetButton;
@@ -504,39 +504,38 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
             TimerItemCompactBinding compactBinding = TimerItemCompactBinding.inflate(
                 getLayoutInflater(), mBinding.expiredTimersList, false);
 
-            view = compactBinding.getRoot();
-            ((TimerItemCompact) view).setButtonPosition(mAreTimerButtonPositionsInverted, isRtl());
-            ((TimerItemCompact) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
-            ((TimerItemCompact) view).setTimerTimeFont(timerFont);
-            ((TimerItemCompact) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
-            ((TimerItemCompact) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
-            ((TimerItemCompact) view).bindTimer(timer, false);
+            TimerItemCompact compactView = compactBinding.getRoot();
+            compactView.setButtonPosition(mAreTimerButtonPositionsInverted, isRtl());
 
+            timerView = compactView;
             labelView = compactBinding.timerLabel;
             addTimeButton = compactBinding.timerAddTimeButton;
             resetButton = compactBinding.resetButton;
             stopButton = compactBinding.playPauseButton;
         } else {
-            TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
+            TimerItemBinding normalBinding = TimerItemBinding.inflate(
+                getLayoutInflater(), mBinding.expiredTimersList, false);
 
-            view = normalBinding.getRoot();
-            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, isTablet(), !isPortrait(), false, isRtl());
-            ((TimerItem) view).setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
-            ((TimerItem) view).setTimerTimeFont(timerFont);
-            ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
-            ((TimerItem) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
-            ((TimerItem) view).bindTimer(timer, false);
+            TimerItem normalView = normalBinding.getRoot();
+            normalView.setButtonPosition(mAreTimerButtonPositionsInverted, isTablet(), !isPortrait(), false, isRtl());
 
+            timerView = normalView;
             labelView = normalBinding.timerLabel;
             addTimeButton = normalBinding.timerAddTimeButton;
             resetButton = normalBinding.resetButton;
             stopButton = normalBinding.playPauseButton;
         }
 
-        // Store the timer id as a tag on the view so it can be located on delete.
-        view.setId(timerId);
+        timerView.setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
+        timerView.setTimerTimeFont(timerFont);
+        timerView.setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
+        timerView.setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
+        timerView.bindTimer(timer, false);
 
-        mBinding.expiredTimersList.addView(view);
+        // Store the timer id as a tag on the view so it can be located on delete.
+        timerView.setId(timerId);
+
+        mBinding.expiredTimersList.addView(timerView);
 
         // Hide the label hint for expired timers.
         labelView.setVisibility(TextUtils.isEmpty(timer.getLabel()) ? GONE : VISIBLE);
@@ -692,14 +691,9 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
 
                 final int timerId = child.getId();
                 final Timer timer = getDataModel().getTimer(timerId);
-                if (timer == null) {
-                    continue;
-                }
 
-                if (child instanceof TimerItem) {
-                    ((TimerItem) child).updateTimeDisplay(timer, false);
-                } else if (child instanceof TimerItemCompact) {
-                    ((TimerItemCompact) child).updateTimeDisplay(timer, false);
+                if (timer != null && child instanceof BaseTimerItem timerView) {
+                    timerView.updateTimeDisplay(timer, false);
                 }
             }
 
