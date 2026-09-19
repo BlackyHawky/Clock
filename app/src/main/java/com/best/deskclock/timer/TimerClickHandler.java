@@ -50,16 +50,6 @@ public record TimerClickHandler(@NonNull TimerFragment mTimerFragment, @NonNull 
         }
     }
 
-    public void onCircleClicked(@NonNull Timer timer) {
-        if (timer.isPaused() || timer.isReset()) {
-            Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-            mDataModel.startTimer(timer);
-        } else if (timer.isRunning()) {
-            Events.sendTimerEvent(R.string.action_pause, R.string.label_deskclock);
-            mDataModel.pauseTimer(timer);
-        }
-    }
-
     public void onResetClicked(@NonNull Timer timer) {
         Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
         mDataModel.resetTimer(timer, R.string.label_deskclock);

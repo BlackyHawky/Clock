@@ -79,9 +79,9 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(v -> timerClickHandler.displayBottomSheetDialog(getTimer()));
 
-        View.OnClickListener circleListener = v -> {
+        View.OnClickListener playPauseListener = v -> {
             Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-            timerClickHandler.onCircleClicked(getTimer());
+            timerClickHandler.onPlayPauseClicked(getTimer());
         };
 
         resetButton.setOnClickListener(v -> {
@@ -99,16 +99,13 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         });
 
         if (circleContainer != null) {
-            circleContainer.setOnClickListener(circleListener);
+            circleContainer.setOnClickListener(playPauseListener);
             circleContainer.setOnTouchListener(new Utils.CircleTouchListener());
         } else {
-            timerTimeText.setOnClickListener(circleListener);
+            timerTimeText.setOnClickListener(playPauseListener);
         }
 
-        playPauseButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-            timerClickHandler.onPlayPauseClicked(getTimer());
-        });
+        playPauseButton.setOnClickListener(playPauseListener);
     }
 
     public void applySettings() {
