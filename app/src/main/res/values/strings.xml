@@ -168,15 +168,15 @@
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 2 -->
     <string name="alarm_confirmation_toast_2">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 3 -->
-    <string name="alarm_confirmation_toast_3">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_3" tools:ignore="StringFormatCount">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 4 -->
     <string name="alarm_confirmation_toast_4">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 5 -->
-    <string name="alarm_confirmation_toast_5">Alarm set for <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_5" tools:ignore="StringFormatCount">Alarm set for <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 6 -->
-    <string name="alarm_confirmation_toast_6">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_6" tools:ignore="StringFormatCount">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 7 -->
-    <string name="alarm_confirmation_toast_7">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_7" tools:ignore="StringFormatCount">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 8 -->
     <string name="alarm_confirmation_toast_8">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: days -->
@@ -364,12 +364,12 @@
     <string name="default_timer_ringtone_title">Timer Expired</string>
     <!-- Timer notification: how long from now until timer goes off. (Also used for timer accessibility announcements.) -->
     <string name="timer_notifications_less_min">Less than a minute remaining</string>
-    <string name="timer_notifications_hours"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
-    <string name="timer_notifications_minutes"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes" tools:ignore="StringFormatCount"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g> remaining</string>
-    <string name="timer_notifications_seconds"><xliff:g example="2 seconds" id="SECONDS">%4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
-    <string name="timer_notifications_minutes_seconds"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
-    <string name="timer_notifications_hours_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_seconds" tools:ignore="StringFormatCount"><xliff:g example="2 seconds" id="SECONDS">%4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes_seconds" tools:ignore="StringFormatCount"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_seconds" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <!-- Timer accessibility announcements -->
     <string name="timer_accessibility_custom_time_added">%1$s minute added to timer, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
@@ -428,7 +428,7 @@
     <string name="timer_times_up">Time\'s up</string>
     <!-- Notification content shown when multiple timers have completed and have no more time remaining.
      Arg is the number of timers. [CHAR LIMIT=25] -->
-    <string name="timer_multi_times_up"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> timers expired</string>
+    <string name="timer_multi_times_up" tools:ignore="PluralsCandidate"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> timers expired</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
     <!-- Label associated with a notification for a missed named Timer. [CHAR LIMIT=NONE] -->
@@ -436,7 +436,7 @@
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
-    <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> timers</string>
+    <string name="timers_in_use" tools:ignore="PluralsCandidate"><xliff:g example="7" id="number">%d</xliff:g> timers</string>
     <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
     <string name="timer_pause">Pause</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->

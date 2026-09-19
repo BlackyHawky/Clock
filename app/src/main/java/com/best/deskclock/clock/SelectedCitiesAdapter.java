@@ -8,6 +8,7 @@ package com.best.deskclock.clock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -150,6 +151,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         notifyItemRangeChanged(offset, worldClockCount, PAYLOAD_UPDATE_BACKGROUND);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void citiesChanged() {
         List<City> newCities = mDataModel.getSelectedCities();
@@ -206,11 +208,13 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return RecyclerView.NO_POSITION;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateSettings(@NonNull ClockSettings settings) {
         mSettings = settings;
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateFonts(@NonNull UiConfig.Fonts fonts) {
         mFonts = fonts;
         notifyDataSetChanged();
