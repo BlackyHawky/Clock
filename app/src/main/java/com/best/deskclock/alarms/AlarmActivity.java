@@ -508,7 +508,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             if (view == mBinding.snoozeButton) {
                 requestAlarmAction(MISSION_ACTION_SNOOZE);
             } else if (view == mBinding.dismissButton) {
-                dismiss();
+                requestAlarmAction(MISSION_ACTION_DISMISS);
             } else if (view == mBinding.dismissOnlyButton) {
                 if (isSnoozeDisabledForAlarmInstance()) {
                     requestAlarmAction(MISSION_ACTION_DISMISS);
