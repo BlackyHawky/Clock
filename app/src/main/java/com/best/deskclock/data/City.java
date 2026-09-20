@@ -9,7 +9,7 @@ package com.best.deskclock.data;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.text.Collator;
 import java.util.Comparator;
@@ -183,27 +183,8 @@ public final class City {
         if (mCountryFlag == null) {
             if (HOME_CITY_ID.equals(mId)) {
                 mCountryFlag = "🏠";
-                return mCountryFlag;
-            }
-
-            String region = null;
-
-            if ("Etc/GMT+12".equals(mTimeZone.getID())) {
-                // For Baker & Howland Islands
-                region = "UM";
-            } else if (SdkUtils.isAtLeastAndroid7()) {
-                // Use ICU to retrieve the country code for all other cases.
-                region = android.icu.util.TimeZone.getRegion(mTimeZone.getID());
-            }
-
-            if (region != null && region.length() == 2 && !region.equals("ZZ") && region.matches("^[A-Z]{2}$")) {
-                int firstLetter = Character.codePointAt(region, 0) - 'A' + 0x1F1E6;
-                int secondLetter = Character.codePointAt(region, 1) - 'A' + 0x1F1E6;
-
-                mCountryFlag = new String(Character.toChars(firstLetter)) + new String(Character.toChars(secondLetter));
             } else {
-                // Fallback for generic time zones (UTC, GMT) or for Android versions earlier than 7
-                mCountryFlag = "🌐";
+                mCountryFlag = Utils.getCountryFlag(mTimeZone.getID());
             }
         }
 

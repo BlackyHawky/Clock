@@ -402,6 +402,35 @@ public class Utils {
     }
 
     /**
+     * Retrieves the country flag emoji for a given time zone ID.
+     *
+     * @param timeZoneId The IANA time zone identifier (e.g., "Europe/Paris", "Etc/GMT+12").
+     * @return A string containing the country flag emoji, or a globe emoji ("🌐") as a fallback
+     *         if the country cannot be determined.
+     */
+    @NonNull
+    public static String getCountryFlag(@NonNull String timeZoneId) {
+        String region = null;
+
+        if ("Etc/GMT+12".equals(timeZoneId)) {
+            // For Baker & Howland Islands
+            region = "UM";
+        } else if (SdkUtils.isAtLeastAndroid7()) {
+            // Use ICU to retrieve the country code for all other cases
+            region = android.icu.util.TimeZone.getRegion(timeZoneId);
+        }
+
+        if (region != null && region.length() == 2 && !region.equals("ZZ") && region.matches("^[A-Z]{2}$")) {
+            int firstLetter = Character.codePointAt(region, 0) - 'A' + 0x1F1E6;
+            int secondLetter = Character.codePointAt(region, 1) - 'A' + 0x1F1E6;
+            return new String(Character.toChars(firstLetter)) + new String(Character.toChars(secondLetter));
+        }
+
+        // Fallback for generic time zones (UTC, GMT) or pre-Nougat
+        return "🌐";
+    }
+
+    /**
      * Initializes a cache map holding the current values of the given preferences.
      * <p>
      * This cache is used to compare old and new values during preference changes,

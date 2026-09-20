@@ -159,7 +159,7 @@ public final class SettingsDAO {
         String timeZoneId = prefs.getString(KEY_HOME_TIME_ZONE, DEFAULT_HOME_TIME_ZONE);
 
         // If the recorded home timezone is legal, use it.
-        final TimeZones timeZones = getTimeZones(context, System.currentTimeMillis());
+        final TimeZones timeZones = getTimeZones(context, System.currentTimeMillis(), isCityFlagEnabled(prefs));
         if (timeZones.contains(timeZoneId)) {
             return TimeZone.getTimeZone(timeZoneId);
         }
@@ -180,15 +180,19 @@ public final class SettingsDAO {
      * @return a description of the time zones available for selection
      */
     @NonNull
-    public static TimeZones getTimeZones(@NonNull Context context, long currentTime) {
+    public static TimeZones getTimeZones(@NonNull Context context, long currentTime, boolean isFlagEnabled) {
+
         final String[] timeZoneIds = context.getResources().getStringArray(R.array.timezone_values);
 
         // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
         final TimeZoneDescriptor[] descriptors = new TimeZoneDescriptor[timeZoneIds.length];
+        final Locale appLocale = Utils.getLocaleFromContext(context);
+
         for (int i = 0; i < timeZoneIds.length; i++) {
             // Pass only the ID; the name will be generated automatically.
-            descriptors[i] = TimeZoneDescriptor.create(context, Utils.getLocaleFromContext(context), timeZoneIds[i], currentTime);
+            descriptors[i] = TimeZoneDescriptor.create(context, appLocale, timeZoneIds[i], currentTime, isFlagEnabled);
         }
+
         Arrays.sort(descriptors);
 
         // Transfer the TimeZoneDescriptors into parallel arrays for easy consumption by the caller.
@@ -1765,7 +1769,9 @@ public final class SettingsDAO {
         implements Comparable<TimeZoneDescriptor> {
 
         @NonNull
-        public static TimeZoneDescriptor create(@NonNull Context context, @NonNull Locale locale, @NonNull String id, long currentTime) {
+        public static TimeZoneDescriptor create(@NonNull Context context, @NonNull Locale locale, @NonNull String id, long currentTime,
+                                                boolean isFlagEnabled) {
+
             final TimeZone tz = TimeZone.getTimeZone(id);
             final int currentOffset = tz.getOffset(currentTime);
 
@@ -1817,7 +1823,8 @@ public final class SettingsDAO {
                 }
             }
 
-            final String generatedName = String.format(locale, "(UTC%s%d:%02d) %s", sign, hour, minute, locationName);
+            final String flagPrefix = isFlagEnabled ? Utils.getCountryFlag(id) + " " : "";
+            final String generatedName = String.format(locale, "(UTC%s%d:%02d) %s%s", sign, hour, minute, flagPrefix, locationName);
 
             return new TimeZoneDescriptor(currentOffset, id, generatedName);
         }

@@ -194,7 +194,24 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
                 mHomeTimeZonePref.setEnabled((boolean) newValue);
             }
 
-            case KEY_DISPLAY_NEXT_ALARM, KEY_DISPLAY_TEXT_UPPERCASE, KEY_ENABLE_CITY_FLAG ->
+            case KEY_ENABLE_CITY_FLAG -> {
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                boolean isFlagEnabled = (Boolean) newValue;
+                final TimeZones timezones = SettingsDAO.getTimeZones(requireContext(), System.currentTimeMillis(), isFlagEnabled);
+                mHomeTimeZonePref.setEntryValues(timezones.timeZoneIds());
+                mHomeTimeZonePref.setEntries(timezones.timeZoneNames());
+
+                CharSequence currentValue = mHomeTimeZonePref.getValue();
+                if (currentValue != null) {
+                    int index = mHomeTimeZonePref.findIndexOfValue(currentValue.toString());
+                    if (index >= 0) {
+                        mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntries()[index]);
+                    }
+                }
+            }
+
+            case KEY_DISPLAY_NEXT_ALARM, KEY_DISPLAY_TEXT_UPPERCASE ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ENABLE_CITY_NOTE -> {
@@ -270,7 +287,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
 
         mHomeTimeZonePref.setEnabled(SettingsDAO.getAutoShowHomeClock(getPrefs()));
         // Reconstruct the timezone list.
-        final TimeZones timezones = SettingsDAO.getTimeZones(requireContext(), System.currentTimeMillis());
+        final TimeZones timezones = SettingsDAO.getTimeZones(
+            requireContext(), System.currentTimeMillis(), SettingsDAO.isCityFlagEnabled(getPrefs()));
         mHomeTimeZonePref.setEntryValues(timezones.timeZoneIds());
         mHomeTimeZonePref.setEntries(timezones.timeZoneNames());
         mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
