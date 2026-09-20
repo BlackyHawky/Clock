@@ -161,6 +161,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract boolean isTextShadowDisplayed(@NonNull SharedPreferences prefs);
 
+    protected abstract boolean isCityFlagEnabled(@NonNull SharedPreferences prefs);
+
     protected abstract boolean areWorldCitiesDisplayed(@NonNull SharedPreferences prefs);
 
     protected abstract boolean isHorizontalPaddingApplied(@NonNull SharedPreferences prefs);
@@ -584,12 +586,12 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                 fillColumn(context, prefs, rowRv, left, locale, localCal, i, widgetId, true, false, shadowEnabled,
                     isTextUppercase, is24HourFormat, hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale,
                     isDefaultCityClockColor(prefs), getCityClockColor(prefs), isDefaultCityNameColor(prefs), getCityNameColor(prefs),
-                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs));
+                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs), isCityFlagEnabled(prefs));
 
                 fillColumn(context, prefs, rowRv, right, locale, localCal, i + 1, widgetId, false, false,
                     shadowEnabled, isTextUppercase, is24HourFormat, hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale,
                     isDefaultCityClockColor(prefs), getCityClockColor(prefs), isDefaultCityNameColor(prefs), getCityNameColor(prefs),
-                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs));
+                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs), isCityFlagEnabled(prefs));
             } else {
                 rowRv.setViewVisibility(R.id.twoColumnContainer, View.GONE);
                 rowRv.setViewVisibility(R.id.singleColumnContainer, View.VISIBLE);
@@ -597,7 +599,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                 fillColumn(context, prefs, rowRv, left, locale, localCal, i, widgetId, true, true, shadowEnabled,
                     isTextUppercase, is24HourFormat, hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale,
                     isDefaultCityClockColor(prefs), getCityClockColor(prefs), isDefaultCityNameColor(prefs), getCityNameColor(prefs),
-                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs));
+                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs), isCityFlagEnabled(prefs));
             }
 
             boolean lastRow = (rowIndex == totalRows - 1);
@@ -645,7 +647,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                             boolean isSingle, boolean shadowEnabled, boolean isTextUppercase, boolean is24HourFormat, float hour12FontSize,
                             float hour24FontSize, float cityAndDayFontSize, float fontScale, boolean useDefaultClockColor,
                             int customClockColor, boolean useDefaultCityNameColor, int customCityNameColor, boolean useDefaultCityNoteColor,
-                            int customCityNoteColor) {
+                            int customCityNoteColor, boolean isCityFlagEnabled) {
 
         if (city == null) {
             // Hide the corresponding container
@@ -762,9 +764,17 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             rowRv.setTextColor(clockId, customClockColor);
         }
 
+        boolean isRtl = Resources.getSystem().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        String bidiMarker = isRtl ? "\u200F" : "\u200E";
+
         // City name
+        String cityName = city.getName();
+        if (isCityFlagEnabled) {
+            cityName = bidiMarker + city.getCountryFlag() + " " + cityName;
+        }
+
         rowRv.setTextViewTextSize(nameId, TypedValue.COMPLEX_UNIT_PX, cityAndDayFontSize * fontScale);
-        rowRv.setTextViewText(nameId, isTextUppercase ? city.getName().toUpperCase(locale) : city.getName());
+        rowRv.setTextViewText(nameId, isTextUppercase ? cityName.toUpperCase(locale) : cityName);
         if (!useDefaultCityNameColor) {
             rowRv.setTextColor(nameId, customCityNameColor);
         }
@@ -774,11 +784,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         boolean displayDay = localCal.get(Calendar.DAY_OF_WEEK) != cityCal.get(Calendar.DAY_OF_WEEK);
         if (displayDay) {
             String weekday = cityCal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, locale);
-            String slashDay = context.getString(R.string.world_day_of_week_label, weekday);
-
-            boolean isRtl = Resources.getSystem().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            String bidiMarker = isRtl ? "\u200F" : "\u200E";
-            slashDay = bidiMarker + slashDay;
+            String slashDay = bidiMarker + context.getString(R.string.world_day_of_week_label, weekday);
 
             rowRv.setTextViewText(dayId, isTextUppercase ? slashDay.toUpperCase(locale) : slashDay);
             rowRv.setTextViewTextSize(dayId, TypedValue.COMPLEX_UNIT_PX, cityAndDayFontSize * fontScale);

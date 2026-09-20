@@ -217,6 +217,11 @@ public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityVi
     }
 
     @Override
+    protected boolean isCityFlagEnabled(@NonNull SharedPreferences prefs) {
+        return WidgetDAO.isCityFlagEnabled(prefs);
+    }
+
+    @Override
     protected boolean isDefaultCityNameColor(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetDefaultCityNameColor(prefs);
     }

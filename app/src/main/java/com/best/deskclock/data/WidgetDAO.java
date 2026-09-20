@@ -234,6 +234,14 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if a flag should be displayed next to the city name; {@code false} otherwise.
+     */
+    public static boolean isCityFlagEnabled(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_ENABLE_CITY_FLAG, DEFAULT_ENABLE_CITY_FLAG);
+    }
+
+    /**
      * @return {@code true} if horizontal padding should be applied to the digital widget. {@code false} otherwise.
      */
     public static boolean isDigitalWidgetHorizontalPaddingApplied(@NonNull SharedPreferences prefs) {

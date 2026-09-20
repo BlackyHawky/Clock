@@ -203,6 +203,11 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected boolean isCityFlagEnabled(@NonNull SharedPreferences prefs) {
+        return WidgetDAO.isCityFlagEnabled(prefs);
+    }
+
+    @Override
     protected boolean isHorizontalPaddingApplied(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isDigitalWidgetHorizontalPaddingApplied(prefs);
     }

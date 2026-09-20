@@ -106,6 +106,8 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     protected abstract boolean isDefaultCityClockColor(@NonNull SharedPreferences prefs);
     protected abstract int getCityClockColor(@NonNull SharedPreferences prefs);
 
+    protected abstract boolean isCityFlagEnabled(@NonNull SharedPreferences prefs);
+
     protected abstract boolean isDefaultCityNameColor(@NonNull SharedPreferences prefs);
     protected abstract int getCityNameColor(@NonNull SharedPreferences prefs);
 
@@ -201,7 +203,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
                 getLeftCityNoteForCustomColorId(), getLeftCityNoteNoShadowForCustomColorId(),
                 isDefaultCityClockColor(mPrefs), getCityClockColor(mPrefs),
                 isDefaultCityNameColor(mPrefs), getCityNameColor(mPrefs),
-                isDefaultCityNoteColor(mPrefs), getCityNoteColor(mPrefs));
+                isDefaultCityNoteColor(mPrefs), getCityNoteColor(mPrefs), isCityFlagEnabled(mPrefs));
         } else {
             hide(rv, getLeftClockWithShadowId(), getLeftClockNoShadowId(),
                 getLeftClockForCustomColorId(), getLeftClockNoShadowForCustomColorId(),
@@ -225,7 +227,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
                 getRightCityNoteForCustomColorId(), getRightCityNoteNoShadowForCustomColorId(),
                 isDefaultCityClockColor(mPrefs), getCityClockColor(mPrefs),
                 isDefaultCityNameColor(mPrefs), getCityNameColor(mPrefs),
-                isDefaultCityNoteColor(mPrefs), getCityNoteColor(mPrefs));
+                isDefaultCityNoteColor(mPrefs), getCityNoteColor(mPrefs), isCityFlagEnabled(mPrefs));
         } else {
             hide(rv, getRightClockWithShadowId(), getRightClockNoShadowId(),
                 getRightClockForCustomColorId(), getRightClockNoShadowForCustomColorId(),
@@ -294,7 +296,8 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
                         int noteForCustomColorId, int noteNoShadowForCustomColorId,
                         boolean useDefaultClockColor, int customClockColor,
                         boolean useDefaultCityNameColor, int customCityNameColor,
-                        boolean useDefaultCityNoteColor, int customCityNoteColor) {
+                        boolean useDefaultCityNoteColor, int customCityNoteColor,
+                        boolean isCityFlagEnabled) {
 
         final boolean shadowEnabled = isTextShadowDisplayed(mPrefs);
         final boolean isTextUppercase = isTextUppercaseDisplayed(mPrefs);
@@ -343,9 +346,16 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
             rv.setTextColor(clockId, customClockColor);
         }
 
+        boolean isRtl = Resources.getSystem().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        String bidiMarker = isRtl ? "\u200F" : "\u200E";
+
         // City name
+        String cityName = city.getName();
+        if (isCityFlagEnabled) {
+            cityName = bidiMarker + city.getCountryFlag() + " " + cityName;
+        }
         rv.setTextViewTextSize(labelId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-        rv.setTextViewText(labelId, isTextUppercase ? city.getName().toUpperCase(mLocale) : city.getName());
+        rv.setTextViewText(labelId, isTextUppercase ? cityName.toUpperCase(mLocale) : cityName);
         if (!useDefaultCityNameColor) {
             rv.setTextColor(labelId, customCityNameColor);
         }
@@ -358,11 +368,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         // Bind the week day display.
         if (displayDayOfWeek) {
             String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, mLocale);
-            String slashDay = mLocalizedContext.getString(R.string.world_day_of_week_label, weekday);
-
-            boolean isRtl = Resources.getSystem().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            String bidiMarker = isRtl ? "\u200F" : "\u200E";
-            slashDay = bidiMarker + slashDay;
+            String slashDay = bidiMarker + mLocalizedContext.getString(R.string.world_day_of_week_label, weekday);
 
             rv.setTextViewTextSize(dayId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
             rv.setTextViewText(dayId, isTextUppercase ? slashDay.toUpperCase(mLocale) : slashDay);

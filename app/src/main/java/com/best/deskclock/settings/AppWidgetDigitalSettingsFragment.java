@@ -48,6 +48,7 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mDisplayNextAlarmTitlePref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
+    SwitchPreferenceCompat mEnableCityFlagPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
     SwitchPreferenceCompat mDefaultBackgroundColorPref;
     ColorPickerPreference mCustomBackgroundColorPref;
@@ -90,6 +91,7 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
         mDisplayNextAlarmPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
         mDisplayNextAlarmTitlePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE);
         mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
+        mEnableCityFlagPref = findPreference(KEY_DIGITAL_WIDGET_ENABLE_CITY_FLAG);
         mApplyHorizontalPaddingPref = findPreference(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
         mDefaultBackgroundColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR);
         mCustomBackgroundColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR);
@@ -138,7 +140,7 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
         switch (pref.getKey()) {
             case KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
                  KEY_DIGITAL_WIDGET_SECONDS_DISPLAYED, KEY_DIGITAL_WIDGET_HIDE_AM_PM, KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE,
-                 KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                 KEY_DIGITAL_WIDGET_ENABLE_CITY_FLAG, KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
@@ -207,6 +209,7 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
                 boolean areWorldCitiesDisplayed = (boolean) newValue;
                 boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(getPrefs());
 
+                mEnableCityFlagPref.setVisible(areWorldCitiesDisplayed);
                 mDefaultCityClockColorPref.setVisible(areWorldCitiesDisplayed);
                 mCustomCityClockColorPref.setVisible(areWorldCitiesDisplayed
                     && !WidgetDAO.isDigitalWidgetDefaultCityClockColor(getPrefs()));
@@ -328,6 +331,9 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
 
         mShowCitiesOnDigitalWidgetPref.setVisible(SettingsDAO.isClockTabVisible(getPrefs()) && (!selectedCities.isEmpty() || showHomeClock));
         mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
+
+        mEnableCityFlagPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed);
+        mEnableCityFlagPref.setOnPreferenceChangeListener(this);
 
         mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
 

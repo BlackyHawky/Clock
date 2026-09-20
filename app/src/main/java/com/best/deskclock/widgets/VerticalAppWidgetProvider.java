@@ -203,6 +203,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected boolean isCityFlagEnabled(@NonNull SharedPreferences prefs) {
+        return false;
+    }
+
+    @Override
     protected boolean isHorizontalPaddingApplied(@NonNull SharedPreferences prefs) {
         return WidgetDAO.isVerticalWidgetHorizontalPaddingApplied(prefs);
     }
