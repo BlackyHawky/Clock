@@ -34,8 +34,7 @@
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/laps_background"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_goneMarginBottom="@dimen/lap_background_margin_bottom">
+        app:layout_constraintVertical_chainStyle="packed">
 
         <Space
             android:layout_width="0dp"
@@ -74,7 +73,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="@dimen/lap_background_margin_bottom"
         android:orientation="vertical"
         app:layout_constrainedHeight="true"
         app:layout_constraintStart_toStartOf="parent"

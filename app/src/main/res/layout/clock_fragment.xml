@@ -37,7 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:paddingBottom="@dimen/city_list_padding_bottom"
             android:clickable="false"
             android:clipToPadding="false"
             android:overScrollMode="never"

@@ -235,6 +235,8 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding.alarmRecyclerView.addItemDecoration(new GridSpacingItemDecoration(getDisplayMetrics(), isRtl()));
 
+        ThemeUtils.applyFabPaddingToRecyclerView(requireContext(), mBinding.alarmRecyclerView, getFabClearancePx());
+
         RecyclerView.ItemAnimator animator = mBinding.alarmRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
             // Disable flash/blinking during updates (notifyItemChanged)

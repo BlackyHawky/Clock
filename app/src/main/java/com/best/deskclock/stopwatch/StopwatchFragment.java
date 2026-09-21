@@ -11,6 +11,7 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_RESET;
@@ -43,6 +44,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -156,28 +158,15 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     @NonNull
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         mBinding = StopwatchFragmentBinding.inflate(inflater, container, false);
 
-        mBinding.stopwatchTimeWrapper.setOnTouchListener(new Utils.CircleTouchListener());
-        mBinding.stopwatchTimeWrapper.setOnClickListener(new TimeClickListener());
+        setupStopwatchText();
 
-        final int colorAccent = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
-        final int textColorPrimary = mBinding.stopwatchTimeLayout.stopwatchTimeText.getCurrentTextColor();
-        final ColorStateList timeTextColor = new ColorStateList(
-            new int[][]{{-state_activated, -state_pressed}, {}},
-            new int[]{textColorPrimary, colorAccent});
-        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTextColor(timeTextColor);
-        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTextColor(timeTextColor);
-
-        UiConfig.CardStyle cardStyle = getCardStyleConfig();
-
-        mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(requireContext(), getDisplayMetrics(),
-            cardStyle.isBackgroundDisplayed(), cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode()));
+        applyDynamicLayoutMargins();
 
         RecyclerView.ItemAnimator animator = mBinding.lapsList.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -413,6 +402,69 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(getPrefs());
         mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(getPrefs());
         mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(getPrefs());
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupStopwatchText() {
+        mBinding.stopwatchTimeWrapper.setOnTouchListener(new Utils.CircleTouchListener());
+        mBinding.stopwatchTimeWrapper.setOnClickListener(new TimeClickListener());
+
+        final int colorAccent = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        final int textColorPrimary = mBinding.stopwatchTimeLayout.stopwatchTimeText.getCurrentTextColor();
+        final ColorStateList timeTextColor = new ColorStateList(
+            new int[][]{{-state_activated, -state_pressed}, {}},
+            new int[]{textColorPrimary, colorAccent});
+        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTextColor(timeTextColor);
+        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTextColor(timeTextColor);
+    }
+
+    private void applyDynamicLayoutMargins() {
+        UiConfig.CardStyle cardStyle = getCardStyleConfig();
+        UiConfig.Screen screen = getScreenConfig();
+
+        // Laps background
+        mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(requireContext(), screen.metrics(),
+            cardStyle.isBackgroundDisplayed(), cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode()));
+
+        int standardMarginPx = (int) dpToPx(10, screen.metrics());
+        int totalClearancePx = getFabClearancePx() + standardMarginPx;
+        boolean isLandscapePhone = !screen.isPortrait() && !screen.isTablet();
+
+        // Laps margins
+        ViewGroup.MarginLayoutParams lapsParams = (ViewGroup.MarginLayoutParams) mBinding.lapsBackground.getLayoutParams();
+
+        if (screen.isTablet()) {
+            lapsParams.setMarginEnd(standardMarginPx);
+            lapsParams.bottomMargin = totalClearancePx;
+        } else if (isLandscapePhone) {
+            lapsParams.setMarginEnd(totalClearancePx);
+            lapsParams.bottomMargin = standardMarginPx;
+        } else {
+            lapsParams.bottomMargin = getFabClearancePx();
+        }
+
+        mBinding.lapsBackground.setLayoutParams(lapsParams);
+
+        // Stopwatch margins
+        if (mBinding.stopwatchCircleLayout != null) {
+            ConstraintLayout.LayoutParams circleParams = (ConstraintLayout.LayoutParams) mBinding.stopwatchCircleLayout.getLayoutParams();
+
+            if (screen.isLandscape()) {
+                circleParams.goneEndMargin = 0;
+            }
+
+            if (screen.isTablet()) {
+                circleParams.bottomMargin = totalClearancePx;
+            } else if (isLandscapePhone) {
+                circleParams.bottomMargin = standardMarginPx;
+            }
+
+            mBinding.stopwatchCircleLayout.setLayoutParams(circleParams);
+        } else {
+            ConstraintLayout.LayoutParams timeParams = (ConstraintLayout.LayoutParams) mBinding.stopwatchTimeWrapper.getLayoutParams();
+            timeParams.goneBottomMargin = totalClearancePx;
+            mBinding.stopwatchTimeWrapper.setLayoutParams(timeParams);
+        }
     }
 
     private void applyStopwatchFont() {

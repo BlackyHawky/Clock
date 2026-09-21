@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -51,8 +52,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.google.android.material.color.MaterialColors;
 
@@ -708,6 +711,63 @@ public class ThemeUtils {
         } else {
             button.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorDisabled)));
         }
+    }
+
+    /**
+     * Applies dynamic padding to a RecyclerView to prevent its content from being obscured
+     * by the Floating Action Button (FAB).
+     *
+     * <p>The padding is applied to the bottom in portrait mode or on tablets, and to the side
+     * (respecting RTL/LTR layouts) for phones in landscape mode.</p>
+     *
+     * @param context        The context used to determine the layout direction (RTL or LTR).
+     * @param recyclerView   The target {@link RecyclerView} to apply the padding to.
+     * @param totalPaddingPx The padding to apply to the {@link RecyclerView}
+     */
+    public static void applyFabPaddingToRecyclerView(@NonNull Context context, @NonNull RecyclerView recyclerView, int totalPaddingPx) {
+        int paddingLeft = recyclerView.getPaddingLeft();
+        int paddingTop = recyclerView.getPaddingTop();
+        int paddingRight = recyclerView.getPaddingRight();
+        int paddingBottom = recyclerView.getPaddingBottom();
+
+        boolean isLandscapePhone = !isPortrait() && !isTablet();
+
+        if (isLandscapePhone) {
+            if (isRTL(context)) {
+                paddingLeft = totalPaddingPx;
+            } else {
+                paddingRight = totalPaddingPx;
+            }
+        } else {
+            paddingBottom = totalPaddingPx;
+        }
+
+        recyclerView.setClipToPadding(false);
+        recyclerView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+    }
+
+    /**
+     * Calculates the total clearance space in pixels required to safely bypass the
+     * Floating Action Button (FAB) without overlap.
+     *
+     * <p>This calculation accounts for the largest configured FAB size, the FAB's native
+     * margin from the screen edge, and a standard visual spacing gap.</p>
+     *
+     * @param prefs          The SharedPreferences used to retrieve the configured FAB sizes.
+     * @param displayMetrics The display metrics containing screen size and density.
+     * @return The total required clearance margin in pixels.
+     */
+    public static int getFabClearanceMarginPx(@NonNull SharedPreferences prefs, @NonNull DisplayMetrics displayMetrics) {
+        int centralFabSize = SettingsDAO.getCentralFabSize(prefs);
+        int sideFabSize = SettingsDAO.getSideFabSize(prefs);
+        int maxFabSizeDp = Math.max(centralFabSize, sideFabSize);
+
+        int fabSizePx = (int) dpToPx(maxFabSizeDp, displayMetrics);
+        int distanceToFabPx = (int) dpToPx(10, displayMetrics);
+        // Identical to the marginBottom of the FAB in the DeskClock.xml layout
+        int fabScreenMarginPx = (int) dpToPx(10, displayMetrics);
+
+        return fabSizePx + fabScreenMarginPx + distanceToFabPx;
     }
 
     /**

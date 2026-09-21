@@ -139,45 +139,14 @@ public final class ClockFragment extends DeskClockFragment {
 
         mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        mBinding.cityRecyclerView.addItemDecoration(
-            new CitySpacingItemDecoration(getDisplayMetrics(), isPortrait(), isTablet(), isRtl())
-        );
+        mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(getDisplayMetrics(), isLandscape(), isTablet()));
 
-        if (isPortrait()) {
-            mBinding.cityRecyclerView.addOnLayoutChangeListener((v, left, top, right, bottom,
-                                                                 oldLeft, oldTop, oldRight, oldBottom) ->
-                v.post(() -> {
-                    if (mBinding == null || mBinding.clockAppBarLayout == null) {
-                        return;
-                    }
+        boolean isLandscapeTablet = isTablet() && isLandscape();
+        int paddingPx = isLandscapeTablet ? 0 : getFabClearancePx();
 
-                    ViewGroup.LayoutParams rawParams = mBinding.mainClockFrame.getRoot().getLayoutParams();
+        ThemeUtils.applyFabPaddingToRecyclerView(requireContext(), mBinding.cityRecyclerView, paddingPx);
 
-                    if (rawParams instanceof AppBarLayout.LayoutParams layoutParams) {
-                        int coordinatorHeight = mBinding.getRoot().getHeight();
-                        int appBarHeight = mBinding.clockAppBarLayout.getHeight();
-                        int stableAvailableHeight = coordinatorHeight - appBarHeight;
-
-                        int totalContentHeight = mBinding.cityRecyclerView.computeVerticalScrollRange();
-
-                        boolean canScroll = totalContentHeight > stableAvailableHeight;
-
-                        int currentFlags = layoutParams.getScrollFlags();
-                        int targetFlags = canScroll ?
-                            (AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS) : 0;
-
-                        if (currentFlags != targetFlags) {
-                            layoutParams.setScrollFlags(targetFlags);
-                            mBinding.mainClockFrame.getRoot().setLayoutParams(layoutParams);
-
-                            if (!canScroll && mBinding.clockAppBarLayout != null) {
-                                mBinding.clockAppBarLayout.setExpanded(true, true);
-                            }
-                        }
-                    }
-                })
-            );
-        }
+        setupAppBarScrollBehavior();
 
         // Schedule a runnable to update the date every quarter-hour.
         getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
@@ -326,6 +295,46 @@ public final class ClockFragment extends DeskClockFragment {
             null,
             getDigitalClockTypeface(),
             getDigitalClockBoldTypeface()
+        );
+    }
+
+    private void setupAppBarScrollBehavior() {
+        if (!isPortrait()) {
+            return;
+        }
+
+        mBinding.cityRecyclerView.addOnLayoutChangeListener((v, left, top, right, bottom,
+                                                             oldLeft, oldTop, oldRight, oldBottom) ->
+            v.post(() -> {
+                if (mBinding == null || mBinding.clockAppBarLayout == null) {
+                    return;
+                }
+
+                ViewGroup.LayoutParams rawParams = mBinding.mainClockFrame.getRoot().getLayoutParams();
+
+                if (rawParams instanceof AppBarLayout.LayoutParams layoutParams) {
+                    int coordinatorHeight = mBinding.getRoot().getHeight();
+                    int appBarHeight = mBinding.clockAppBarLayout.getHeight();
+                    int stableAvailableHeight = coordinatorHeight - appBarHeight;
+
+                    int totalContentHeight = mBinding.cityRecyclerView.computeVerticalScrollRange();
+
+                    boolean canScroll = totalContentHeight > stableAvailableHeight;
+
+                    int currentFlags = layoutParams.getScrollFlags();
+                    int targetFlags = canScroll ?
+                        (AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS) : 0;
+
+                    if (currentFlags != targetFlags) {
+                        layoutParams.setScrollFlags(targetFlags);
+                        mBinding.mainClockFrame.getRoot().setLayoutParams(layoutParams);
+
+                        if (!canScroll && mBinding.clockAppBarLayout != null) {
+                            mBinding.clockAppBarLayout.setExpanded(true, true);
+                        }
+                    }
+                }
+            })
         );
     }
 
@@ -506,21 +515,18 @@ public final class ClockFragment extends DeskClockFragment {
      */
     private static class CitySpacingItemDecoration extends RecyclerView.ItemDecoration {
 
-        private final int leftMargin;
-        private final int rightMargin;
+        private final int sideMargin;
         private final int bottomMargin;
         private final int spacing;
+        private final boolean isLandscape;
+        private final boolean isTablet;
 
-        private final boolean mIsRTL;
-
-        public CitySpacingItemDecoration(@NonNull DisplayMetrics displayMetrics, boolean isPortrait, boolean isTablet, boolean isRtl) {
-            boolean isPhoneInLandscapeMode = !isTablet && !isPortrait;
-
-            this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, displayMetrics);
-            this.rightMargin = (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, displayMetrics);
+        public CitySpacingItemDecoration(@NonNull DisplayMetrics displayMetrics, boolean isLandscape, boolean isTablet) {
+            this.sideMargin = (int) dpToPx(10, displayMetrics);
             this.spacing = (int) dpToPx(2, displayMetrics);
             this.bottomMargin = (int) dpToPx(10, displayMetrics);
-            this.mIsRTL = isRtl;
+            this.isLandscape = isLandscape;
+            this.isTablet = isTablet;
         }
 
         @Override
@@ -535,14 +541,14 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             // Side margins
-            outRect.left = mIsRTL ? rightMargin : leftMargin;
-            outRect.right = mIsRTL ? leftMargin : rightMargin;
+            outRect.left = sideMargin;
+            outRect.right = sideMargin;
 
             int itemCount = adapter.getItemCount();
 
             if (position == itemCount - 1) {
                 // Bottom margin for the very last city
-                outRect.bottom = bottomMargin;
+                outRect.bottom = isLandscape || isTablet ? bottomMargin : 0;
             } else {
                 // Bottom margin if it is a city in the middle of the list
                 outRect.bottom = (itemCount > 1) ? spacing : 0;

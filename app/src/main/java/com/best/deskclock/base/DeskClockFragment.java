@@ -59,6 +59,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     private boolean mIsCardBorderDisplayed;
     private boolean mIsAmoled;
     private boolean mIsVibrationEnabled;
+    private int mFabClearancePx;
 
     public DeskClockFragment(Tab tab) {
         mTab = tab;
@@ -84,6 +85,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         mIsCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
         mIsAmoled = SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE);
         mIsVibrationEnabled = SettingsDAO.isVibrationsEnabled(mPrefs);
+        mFabClearancePx = ThemeUtils.getFabClearanceMarginPx(mPrefs, mDisplayMetrics);
     }
 
     @Override
@@ -200,6 +202,10 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
 
     protected final boolean isVibrationsEnabled() {
         return mIsVibrationEnabled;
+    }
+
+    protected final int getFabClearancePx() {
+        return mFabClearancePx;
     }
 
     protected UiConfig.Fonts getFontsConfig() {

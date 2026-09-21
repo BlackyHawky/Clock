@@ -176,6 +176,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
         mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(getDisplayMetrics(), isRtl()));
 
+        ThemeUtils.applyFabPaddingToRecyclerView(requireContext(), mBinding.timerRecyclerView, getFabClearancePx());
+
         RecyclerView.ItemAnimator animator = mBinding.timerRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
             // Disable flash/blinking during updates (notifyItemChanged)

@@ -16,12 +16,10 @@
         android:id="@+id/stopwatch_circle_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/stopwatch_circle_land_margin_bottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/laps_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_goneMarginEnd="0dp"
         tools:ignore="InconsistentLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,8 +64,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/lap_background_margin_start"
-        android:layout_marginEnd="@dimen/lap_background_margin_end"
-        android:layout_marginBottom="@dimen/lap_background_margin_bottom"
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constrainedHeight="true"
