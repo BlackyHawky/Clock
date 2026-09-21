@@ -658,7 +658,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
             public void onAnimationEnd(@NonNull Animator animation) {
                 mBinding.fab.setLayerType(View.LAYER_TYPE_NONE, null);
 
-                getSelectedDeskClockFragment().onUpdateFab(mBinding.fab);
+                DeskClockFragment fragment = getSelectedDeskClockFragment();
+                if (fragment.isAdded() && fragment.getContext() != null) {
+                    fragment.onUpdateFab(mBinding.fab);
+                }
             }
         });
 
@@ -686,7 +689,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 mBinding.leftButton.setLayerType(View.LAYER_TYPE_NONE, null);
                 mBinding.rightButton.setLayerType(View.LAYER_TYPE_NONE, null);
 
-                getSelectedDeskClockFragment().onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
+                DeskClockFragment fragment = getSelectedDeskClockFragment();
+                if (fragment.isAdded() && fragment.getContext() != null) {
+                    fragment.onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
+                }
             }
         });
 

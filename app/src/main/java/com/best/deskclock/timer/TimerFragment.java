@@ -578,6 +578,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     viewTreeObserver.removeOnPreDrawListener(this);
                 }
 
+                if (!isAdded() || getView() == null || mBinding == null) {
+                    return true;
+                }
+
                 final float distanceY = requireView().getHeight() + requireView().getY();
                 final float translationDistance = animateDown ? -distanceY : distanceY;
 
@@ -600,6 +604,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     public void onAnimationStart(@NonNull Animator animation) {
                         super.onAnimationStart(animation);
 
+                        if (!isAdded() || mBinding == null) {
+                            return;
+                        }
+
                         // The fade-out animation and fab-shrinking animation should run together.
                         updateFab(FAB_AND_BUTTONS_SHRINK);
                     }
@@ -607,6 +615,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     @Override
                     public void onAnimationEnd(@NonNull Animator animation) {
                         super.onAnimationEnd(animation);
+
+                        if (!isAdded() || mBinding == null) {
+                            return;
+                        }
+
                         if (toTimers) {
                             showTimersView(FAB_AND_BUTTONS_EXPAND);
 
@@ -631,6 +644,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     @Override
                     public void onAnimationEnd(@NonNull Animator animation) {
                         super.onAnimationEnd(animation);
+
+                        if (!isAdded() || mBinding == null) {
+                            return;
+                        }
+
                         mBinding.timerContentView.setTranslationY(0f);
                         mBinding.timerSetupView.setTranslationY(0f);
                         mBinding.timerSpinnerSetupView.setTranslationY(0f);
