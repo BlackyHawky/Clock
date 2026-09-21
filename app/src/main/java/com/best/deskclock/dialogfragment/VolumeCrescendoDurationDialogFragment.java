@@ -291,8 +291,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         if (!mBinding.crescendoOffButton.isChecked()) {
             mBinding.editMinutes.requestFocus();
             mBinding.editMinutes.postDelayed(() -> {
-                if (mInput != null) {
-                    mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
+                if (getDialog() != null) {
+                    Utils.showKeyboard(getDialog().getWindow(), mBinding.editMinutes);
                 }
             }, Utils.UI_SETTLE_DELAY_MS);
         }
@@ -379,7 +379,10 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     private void maybeRequestHoursFocus() {
         if (!mBinding.crescendoOffButton.isChecked()) {
             mBinding.editMinutes.requestFocus();
-            mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
+
+            if (getDialog() != null) {
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.editMinutes);
+            }
         }
     }
 

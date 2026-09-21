@@ -332,8 +332,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         if (!mBinding.endOfRingtoneCheckbox.isChecked() && !mBinding.autoSilenceNeverCheckbox.isChecked()) {
             mBinding.editMinutes.requestFocus();
             mBinding.editMinutes.postDelayed(() -> {
-                if (mInput != null) {
-                    mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
+                if (getDialog() != null) {
+                    Utils.showKeyboard(getDialog().getWindow(), mBinding.editMinutes);
                 }
             }, Utils.UI_SETTLE_DELAY_MS);
         }
@@ -422,7 +422,10 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     private void maybeRequestMinutesFocus() {
         if (!mBinding.endOfRingtoneCheckbox.isChecked() && !mBinding.autoSilenceNeverCheckbox.isChecked()) {
             mBinding.editMinutes.requestFocus();
-            mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
+
+            if (getDialog() != null) {
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.editMinutes);
+            }
         }
     }
 

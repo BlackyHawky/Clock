@@ -15,7 +15,6 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,7 +55,6 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private boolean mMaxLengthReduce;
 
     private final TextWatcher mTextWatcher = new TextChangeListener();
-    private InputMethodManager mInput;
 
     @NonNull
     public static TimerSetNewDurationDialogFragment newInstance(int timerId, long durationMillis) {
@@ -110,8 +108,6 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
             editMinutes = savedInstanceState.getInt(ARG_EDIT_MINUTES, editMinutes);
             editSeconds = savedInstanceState.getInt(ARG_EDIT_SECONDS, editSeconds);
         }
-
-        mInput = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
         mBinding = TimerDialogEditNewTimeBinding.inflate(getLayoutInflater());
 
@@ -183,8 +179,8 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
 
         mBinding.editHours.requestFocus();
         mBinding.editHours.postDelayed(() -> {
-            if (mInput != null) {
-                mInput.showSoftInput(mBinding.editHours, InputMethodManager.SHOW_IMPLICIT);
+            if (getDialog() != null) {
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.editHours);
             }
         }, Utils.UI_SETTLE_DELAY_MS);
     }
@@ -203,8 +199,6 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         mBinding.editSeconds.setOnEditorActionListener(null);
         mBinding.editSeconds.removeTextChangedListener(mTextWatcher);
         mBinding.editSeconds.setOnFocusChangeListener(null);
-
-        mInput = null;
 
         mBinding = null;
 

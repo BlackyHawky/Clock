@@ -188,8 +188,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
 
         mBinding.editHours.requestFocus();
         mBinding.editHours.postDelayed(() -> {
-            if (mInput != null) {
-                mInput.showSoftInput(mBinding.editHours, InputMethodManager.SHOW_IMPLICIT);
+            if (getDialog() != null) {
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.editHours);
             }
         }, Utils.UI_SETTLE_DELAY_MS);
     }

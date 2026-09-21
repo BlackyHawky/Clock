@@ -10,7 +10,6 @@ import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,7 +17,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -264,9 +262,8 @@ public class LabelDialogFragment extends DialogFragment {
 
         mBinding.edit.requestFocus();
         mBinding.edit.postDelayed(() -> {
-            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.showSoftInput(mBinding.edit, InputMethodManager.SHOW_IMPLICIT);
+            if (getDialog() != null) {
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.edit);
             }
         }, Utils.UI_SETTLE_DELAY_MS);
     }

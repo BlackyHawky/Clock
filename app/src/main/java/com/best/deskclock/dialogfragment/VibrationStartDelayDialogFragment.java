@@ -7,7 +7,6 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -18,7 +17,6 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -64,7 +62,6 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     private Button mDefaultButton;
     private Typeface mTypeFace;
     private final TextWatcher mTextWatcher = new TextChangeListener();
-    private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
 
     /**
@@ -121,8 +118,6 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             editMinutes = savedInstanceState.getInt(ARG_EDIT_MINUTES, editMinutes);
             isNone = savedInstanceState.getBoolean(ARG_VIBRATION_DELAY_NONE, isNone);
         }
-
-        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         mBinding = VibrationStartDelayDialogBinding.inflate(getLayoutInflater());
 
@@ -192,8 +187,8 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         if (!mBinding.vibrationStartDelayNoneCheckbox.isChecked()) {
             mBinding.editMinutes.requestFocus();
             mBinding.editMinutes.postDelayed(() -> {
-                if (mInput != null) {
-                    mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
+                if (getDialog() != null) {
+                    Utils.showKeyboard(getDialog().getWindow(), mBinding.editMinutes);
                 }
             }, Utils.UI_SETTLE_DELAY_MS);
         }
@@ -204,8 +199,6 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         // Stop callbacks from the IME since there is no view to process them.
         mBinding.editMinutes.setOnEditorActionListener(null);
         mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
-
-        mInput = null;
 
         mBinding = null;
 
@@ -250,7 +243,10 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     private void maybeRequestMinutesFocus() {
         if (!mBinding.vibrationStartDelayNoneCheckbox.isChecked()) {
             mBinding.editMinutes.requestFocus();
-            mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
+
+            if (getDialog() != null) {
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.editMinutes);
+            }
         }
     }
 

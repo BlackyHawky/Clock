@@ -30,6 +30,7 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Ajorna</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">S\'ha ajornat 1 minut.</item>
+        <item quantity="many">S\'ha ajornat <xliff:g id="MINUTES">%d</xliff:g> minuts.</item>
         <item quantity="other">S\'ha ajornat <xliff:g id="MINUTES">%d</xliff:g> minuts.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">S\'ajorna fins a les <xliff:g id="TIME">%s</xliff:g></string>

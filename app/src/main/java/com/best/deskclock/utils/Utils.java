@@ -26,6 +26,7 @@ import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,9 @@ import androidx.core.os.ConfigurationCompat;
 import androidx.core.os.LocaleListCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.core.util.Function;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -160,6 +164,21 @@ public class Utils {
 
         tx.addToBackStack(null);
         fragment.show(tx, tag);
+    }
+
+    /**
+     * Displays the keyboard for a specific view.
+     *
+     * @param window The current window (can originate from an Activity or a Dialog).
+     * @param view   The view intended to receive focus and text input.
+     */
+    public static void showKeyboard(@Nullable Window window, @NonNull View view) {
+        if (window == null) {
+            return;
+        }
+
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(window, view);
+        controller.show(WindowInsetsCompat.Type.ime());
     }
 
     public static long now() {

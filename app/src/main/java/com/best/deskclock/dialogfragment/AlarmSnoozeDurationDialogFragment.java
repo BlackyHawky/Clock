@@ -253,8 +253,8 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         if (!mBinding.snoozeDurationNoneCheckbox.isChecked()) {
             mBinding.editHours.requestFocus();
             mBinding.editHours.postDelayed(() -> {
-                if (mInput != null) {
-                    mInput.showSoftInput(mBinding.editHours, InputMethodManager.SHOW_IMPLICIT);
+                if (getDialog() != null) {
+                    Utils.showKeyboard(getDialog().getWindow(), mBinding.editHours);
                 }
             }, Utils.UI_SETTLE_DELAY_MS);
         }
@@ -339,7 +339,10 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private void maybeRequestHoursFocus() {
         if (!mBinding.snoozeDurationNoneCheckbox.isChecked()) {
             mBinding.editHours.requestFocus();
-            mInput.showSoftInput(mBinding.editHours, InputMethodManager.SHOW_IMPLICIT);
+
+            if (getDialog() != null) {
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.editHours);
+            }
         }
     }
 
