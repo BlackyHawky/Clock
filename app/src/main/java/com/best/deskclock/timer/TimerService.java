@@ -145,9 +145,12 @@ public final class TimerService extends Service {
 
         mPrefs = getDefaultSharedPreferences(this);
         // Set up for flip and shake actions
-        mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
         mIsFlipActionEnabled = SettingsDAO.isFlipActionForTimersEnabled(mPrefs);
         mIsShakeActionEnabled = SettingsDAO.isShakeActionForTimersEnabled(mPrefs);
+
+        if (mIsFlipActionEnabled || mIsShakeActionEnabled) {
+            mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
+        }
 
         mAudioManager = getApplicationContext().getSystemService(AudioManager.class);
 
@@ -512,6 +515,10 @@ public final class TimerService extends Service {
     };
 
     private void attachListeners() {
+        if (mSensorManager == null) {
+            return;
+        }
+
         if (mIsFlipActionEnabled) {
             mFlipListener.reset();
             mSensorManager.registerListener(mFlipListener,
@@ -528,6 +535,10 @@ public final class TimerService extends Service {
     }
 
     private void detachListeners() {
+        if (mSensorManager == null) {
+            return;
+        }
+
         if (mIsFlipActionEnabled) {
             mSensorManager.unregisterListener(mFlipListener);
         }

@@ -737,7 +737,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mHeadphonesButtonPref.setSummary(mHeadphonesButtonPref.getEntry());
 
         SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
+        if (sensorManager == null || sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
             // DEFAULT_SHAKE_ACTION --> Nothing
             mFlipActionPref.setValue(DEFAULT_SHAKE_ACTION);
             mShakeActionPref.setValue(DEFAULT_SHAKE_ACTION);

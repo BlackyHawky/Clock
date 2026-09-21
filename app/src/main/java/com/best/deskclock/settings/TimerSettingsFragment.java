@@ -615,7 +615,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mTimerHeadphonesButtonActionPref.setOnPreferenceChangeListener(this);
 
         SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
+        if (sensorManager == null || sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
             mTimerFlipActionPref.setChecked(false);
             mTimerShakeActionPref.setChecked(false);
             mTimerFlipActionPref.setVisible(false);

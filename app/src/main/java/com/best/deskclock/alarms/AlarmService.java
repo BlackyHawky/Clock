@@ -369,9 +369,12 @@ public class AlarmService extends Service {
         mIsRegistered = true;
 
         // Setup for flip and shake actions
-        mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
         mFlipAction = SettingsDAO.getFlipAction(mPrefs);
         mShakeAction = SettingsDAO.getShakeAction(mPrefs);
+
+        if (mFlipAction != ALARM_NO_ACTION || mShakeAction != ALARM_NO_ACTION) {
+            mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
+        }
 
         mVibrator = getApplicationContext().getSystemService(Vibrator.class);
         mCameraManager = getApplicationContext().getSystemService(CameraManager.class);
@@ -757,6 +760,10 @@ public class AlarmService extends Service {
     }
 
     private void attachListeners() {
+        if (mSensorManager == null) {
+            return;
+        }
+
         if (mFlipAction != ALARM_NO_ACTION) {
             mFlipListener.reset();
             mSensorManager.registerListener(mFlipListener,
@@ -773,6 +780,10 @@ public class AlarmService extends Service {
     }
 
     private void detachListeners() {
+        if (mSensorManager == null) {
+            return;
+        }
+
         if (mFlipAction != ALARM_NO_ACTION) {
             mSensorManager.unregisterListener(mFlipListener);
         }
