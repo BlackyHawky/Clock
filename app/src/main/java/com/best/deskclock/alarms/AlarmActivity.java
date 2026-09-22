@@ -711,7 +711,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
                 if (mAlarm == null) {
                     LogUtils.wtf("Failed to retrieve alarm for instance: " + mAlarmInstance.mId);
-                    AlarmStateManager.deleteInstanceAndUpdateParent(getApplicationContext(), getPrefs(), mAlarmInstance, false);
+
+                    final Context appContext = getApplicationContext();
+                    final AlarmInstance instanceToDelete = mAlarmInstance;
+
+                    AppExecutors.getDiskIO().execute(() ->
+                        AlarmStateManager.deleteInstanceAndUpdateParent(appContext, getPrefs(), instanceToDelete, false)
+                    );
+
                     finish();
                     return;
                 }
@@ -1430,6 +1437,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mAlarmHandled = true;
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
+        final Context appContext = getApplicationContext();
+        final AlarmInstance currentInstance = mAlarmInstance;
+
         // If snooze duration has been set to "None", simply dismiss the alarm.
         if (isSnoozeDisabledForAlarmInstance()) {
             int titleResId;
@@ -1445,7 +1455,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             displayAlarmActionMessage(titleResId, null, getString(titleResId));
 
-            AlarmStateManager.deleteInstanceAndUpdateParent(getApplicationContext(), getPrefs(), mAlarmInstance, false);
+            AppExecutors.getDiskIO().execute(() ->
+                AlarmStateManager.deleteInstanceAndUpdateParent(appContext, getPrefs(), currentInstance, false)
+            );
 
             Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
@@ -1456,7 +1468,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, descriptionText, accessibilityText);
 
-            AlarmStateManager.setSnoozeState(getApplicationContext(), getPrefs(), mAlarmInstance, false);
+            AppExecutors.getDiskIO().execute(() ->
+                AlarmStateManager.setSnoozeState(appContext, getPrefs(), currentInstance, false)
+            );
 
             Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
         }
@@ -1472,6 +1486,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mAlarmHandled = true;
         LOGGER.v("Dismissed: %s", mAlarmInstance);
 
+        final Context appContext = getApplicationContext();
+        final AlarmInstance currentInstance = mAlarmInstance;
+
         int titleResId;
         int action;
 
@@ -1485,7 +1502,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         displayAlarmActionMessage(titleResId, null, getString(titleResId));
 
-        AlarmStateManager.deleteInstanceAndUpdateParent(getApplicationContext(), getPrefs(), mAlarmInstance, false);
+        AppExecutors.getDiskIO().execute(() ->
+            AlarmStateManager.deleteInstanceAndUpdateParent(appContext, getPrefs(), currentInstance, false)
+        );
 
         Events.sendAlarmEvent(action, R.string.label_deskclock);
 
