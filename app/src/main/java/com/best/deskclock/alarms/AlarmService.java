@@ -435,9 +435,9 @@ public class AlarmService extends Service {
                 Context appContext = getApplicationContext();
                 ContentResolver cr = appContext.getContentResolver();
 
-                AppExecutors.getDiskIO().execute(() -> {
-                    AlarmAlertWakeLock.acquireCpuWakeLock(appContext);
+                AlarmAlertWakeLock.acquireCpuWakeLock(appContext);
 
+                AppExecutors.getDiskIO().execute(() -> {
                     AlarmStateManager.handleIntent(appContext, mPrefs, intent);
 
                     // If state is changed to firing, actually fire the alarm!
