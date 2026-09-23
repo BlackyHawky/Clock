@@ -24,6 +24,7 @@
         android:paddingHorizontal="10dp"
         android:gravity="center"
         android:fontFeatureSettings="tnum"
+        android:includeFontPadding="false"
         android:textSize="48sp"
         android:textStyle="bold"
         android:focusable="true"
@@ -33,10 +34,11 @@
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/repeat_days_group"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
+        android:minHeight="48dp"
         android:gravity="center"
         app:singleSelection="false" />
 
@@ -52,8 +54,9 @@
             <LinearLayout
                 android:id="@+id/schedule_alarm_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
+                android:minHeight="48dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -96,9 +99,10 @@
             <LinearLayout
                 android:id="@+id/pause_alarm_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/schedule_alarm_layout">
@@ -174,9 +178,10 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/choose_ringtone"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 android:drawableStart="@drawable/ic_ringtone"
                 android:drawablePadding="10dp"
@@ -195,9 +200,10 @@
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/vibrate_on_off"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 android:button="@null"
                 android:drawableStart="@drawable/ic_vibrate"
@@ -214,9 +220,10 @@
             <LinearLayout
                 android:id="@+id/vibration_pattern_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -251,9 +258,10 @@
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/flash_on_off"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 android:button="@null"
                 android:drawableStart="@drawable/ic_flash"
@@ -270,9 +278,10 @@
             <LinearLayout
                 android:id="@+id/delete_alarm_after_use_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -320,9 +329,10 @@
             <LinearLayout
                 android:id="@+id/auto_silence_duration_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -370,9 +380,10 @@
             <LinearLayout
                 android:id="@+id/snooze_duration_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -408,9 +419,10 @@
             <LinearLayout
                 android:id="@+id/missed_alarm_repeat_limit_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -445,9 +457,10 @@
             <LinearLayout
                 android:id="@+id/math_hardness_level_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -482,9 +495,10 @@
             <LinearLayout
                 android:id="@+id/crescendo_duration_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -519,9 +533,10 @@
             <LinearLayout
                 android:id="@+id/alarm_volume_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -557,9 +572,10 @@
             <LinearLayout
                 android:id="@+id/alarm_background_image_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
+                android:minHeight="48dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/alarm_volume_layout">
@@ -602,9 +618,10 @@
             <LinearLayout
                 android:id="@+id/alarm_blur_intensity_layout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
+                android:minHeight="48dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -647,7 +664,7 @@
         android:paddingVertical="10dp">
 
         <com.google.android.material.button.MaterialButtonGroup
-            android:id="@+id/toggleButton"
+            android:id="@+id/alarm_button_group"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

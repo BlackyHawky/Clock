@@ -109,6 +109,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         Locale appLocale = mAdapter.getLocale();
         Typeface typeface = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
 
+        mTimerView.checkIsLandscapePhone(screen.isLandscape() && !screen.isTablet());
         mTimerView.setTimerTimeFont(typeface);
         mTimerView.setLocale(appLocale);
         mTimerView.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);

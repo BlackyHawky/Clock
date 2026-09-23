@@ -25,10 +25,12 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/timer_label"
             android:layout_width="0dp"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
+            android:minHeight="24dp"
             android:ellipsize="end"
             android:focusable="true"
             android:gravity="center_vertical"
+            android:includeFontPadding="false"
             android:maxLines="1"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +135,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.best.deskclock.uicomponents.AutoSizingTextView
         android:id="@+id/timer_end_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -142,6 +144,7 @@
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:gravity="end|center_vertical"
+        android:includeFontPadding="false"
         android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
@@ -165,14 +168,14 @@
         android:max="1000"
         app:indicatorColor="?attr/colorSecondary"
         app:indicatorDirectionLinear="endToStart"
-        app:layout_constraintTop_toBottomOf="@+id/timer_end_time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_goneMarginTop="16dp"
         app:trackColor="?attr/colorPrimaryInverse"
         app:trackStopIndicatorSize="0dp"
         app:trackThickness="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer_end_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_goneMarginTop="16dp"
         tools:progress="650" />
 
 </com.best.deskclock.timer.TimerItemCompact>

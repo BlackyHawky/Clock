@@ -50,7 +50,7 @@ public abstract class BaseTimerItem extends ConstraintLayout {
     protected Drawable mIconPlay, mIconPause, mIconStop, mIconDelete;
 
     protected int mColorPaused, mColorRunning, mColorExpired, mColorMissed;
-    protected boolean mIsTimerEndTimeDisplayed, mIsIndicatorStateDisplayed, mIsAddTimeZero;
+    protected boolean mIsLandscapePhone, mIsTimerEndTimeDisplayed, mIsIndicatorStateDisplayed, mIsAddTimeZero;
 
     protected String mLastLabel = "", mLastButtonTimeRaw = "";
     protected String mCachedAddButtonText, mCachedAddButtonContentDesc;
@@ -106,9 +106,15 @@ public abstract class BaseTimerItem extends ConstraintLayout {
         getTimeText().setTextColor(timeTextColor);
     }
 
+    public void checkIsLandscapePhone(boolean isLandscapePhone) {
+        mIsLandscapePhone = isLandscapePhone;
+    }
+
     public void setGeneralFonts(@NonNull Typeface regular, @NonNull Typeface bold) {
         getLabelText().setTypeface(bold);
-        getAddTimeButton().setTypeface(bold);
+        if (!mIsLandscapePhone) {
+            getAddTimeButton().setTypeface(bold);
+        }
         getEndTimeText().setTypeface(regular, Typeface.ITALIC);
     }
 
@@ -208,17 +214,17 @@ public abstract class BaseTimerItem extends ConstraintLayout {
         // Initialize the label
         final String label = timer.getLabel();
 
-        if (!TextUtils.equals(label, mLastLabel)) {
-            mLastLabel = label;
-
-            if (TextUtils.isEmpty(label)) {
-                getLabelText().setVisibility(GONE);
-            } else {
+        if (!TextUtils.isEmpty(label)) {
+            if (!TextUtils.equals(label, mLastLabel)) {
                 getLabelText().setText(label);
-                getLabelText().setAlpha(1f);
-                getLabelText().setVisibility(VISIBLE);
             }
+            getLabelText().setAlpha(1f);
+            getLabelText().setVisibility(VISIBLE);
+        } else {
+            getLabelText().setVisibility(GONE);
         }
+
+        mLastLabel = label;
 
         // Initialize the circle
         if (getProgressIndicator() != null) {
@@ -292,7 +298,7 @@ public abstract class BaseTimerItem extends ConstraintLayout {
 
         updateAddTimeButtonDisplay(timer.getState());
 
-        updateIndicator(timer.getState());
+        updateIndicator(timer.getState(), label);
 
         updateEndTimeDisplay(timer);
 
@@ -307,19 +313,21 @@ public abstract class BaseTimerItem extends ConstraintLayout {
             return;
         }
 
-        getAddTimeButton().setText(mCachedAddButtonText);
+        if (!mIsLandscapePhone) {
+            getAddTimeButton().setText(mCachedAddButtonText);
+        }
         getAddTimeButton().setContentDescription(mCachedAddButtonContentDesc);
         getAddTimeButton().setVisibility(VISIBLE);
     }
 
-    private void updateIndicator(@NonNull Timer.State state) {
+    private void updateIndicator(@NonNull Timer.State state, @Nullable String label) {
         if (!mIsIndicatorStateDisplayed) {
             getIndicatorState().setVisibility(GONE);
             return;
         }
 
         if (state == Timer.State.RESET) {
-            getIndicatorState().setVisibility(mLastLabel.isEmpty() ? INVISIBLE : GONE);
+            getIndicatorState().setVisibility(TextUtils.isEmpty(label) ? INVISIBLE : GONE);
             return;
         }
 

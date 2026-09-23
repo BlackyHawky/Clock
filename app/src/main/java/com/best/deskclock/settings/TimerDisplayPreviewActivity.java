@@ -338,6 +338,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             stopButton = normalBinding.playPauseButton;
         }
 
+        timerView.checkIsLandscapePhone(isLandscape() && !isTablet());
         timerView.setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
         timerView.setTimerTimeFont(timerFont);
         timerView.setIndicatorStateDisplay(mIsIndicatorStateDisplayed);

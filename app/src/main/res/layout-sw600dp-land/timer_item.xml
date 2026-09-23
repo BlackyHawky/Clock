@@ -6,25 +6,28 @@
 -->
 
 <!-- This TimerItem includes the circle because ample space exists. -->
-<com.best.deskclock.timer.TimerItem
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.best.deskclock.timer.TimerItem xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:background="@drawable/bg_card_for_preview"
+    tools:layout_marginBottom="2dp"
+    tools:layout_marginHorizontal="10dp"
     tools:layout_width="400dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"
         android:layout_width="0dp"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
+        android:minHeight="24dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:ellipsize="end"
         android:focusable="true"
         android:gravity="center_vertical"
+        android:includeFontPadding="false"
         android:maxLines="1"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,22 +47,29 @@
         tools:background="@drawable/bg_circle_for_preview"
         tools:backgroundTint="#FF99CC00" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/header_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="timer_label,timer_indicator_state" />
+
     <com.best.deskclock.uicomponents.CircleButtonsLayout
         android:id="@+id/circle_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/reset_button"
-        app:layout_constraintTop_toBottomOf="@+id/timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/header_barrier"
         app:layout_constraintHeight_max="@dimen/timer_circle_container_height_max"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_goneMarginTop="12dp"
         tools:ignore="InconsistentLayout">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -102,17 +112,19 @@
         app:iconTint="?android:attr/colorBackground"
         app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1"
         app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Medium" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.best.deskclock.uicomponents.AutoSizingTextView
         android:id="@+id/timer_end_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:minHeight="20dp"
         android:layout_marginVertical="12dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:gravity="end|center_vertical"
+        android:includeFontPadding="false"
         android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
@@ -120,8 +132,9 @@
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/circle_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer_indicator_state"
+        app:layout_constraintTop_toBottomOf="@+id/header_barrier"
         app:layout_constraintBottom_toTopOf="@+id/timer_add_time_button"
+        app:layout_constraintVertical_bias="0.5"
         tools:ignore="TextContrastCheck"
         tools:text="End time: 8:30 PM"
         tools:visibility="visible" />
@@ -131,9 +144,9 @@
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:maxLines="1"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
@@ -141,7 +154,9 @@
         android:textDirection="locale"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_barrier"
         app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
+        app:layout_constraintVertical_bias="1"
         app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Medium"
         app:strokeColor="?attr/colorOnSurfaceVariant"
         tools:text="+ 1:00"

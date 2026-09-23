@@ -54,8 +54,12 @@ public class TimerItem extends BaseTimerItem {
             mBinding.getRoot().setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
         }
 
-        if ((!isTablet && isLandscape) || isSingleTimer) {
+        if (isSingleTimer) {
             mBinding.timerEndTime.setGravity(Gravity.CENTER);
+        } else if ((!isTablet && isLandscape)) {
+            mBinding.timerEndTime.setGravity(areTimerButtonPositionsInverted
+                ? Gravity.END | Gravity.CENTER_VERTICAL
+                : Gravity.START | Gravity.CENTER_VERTICAL);
         } else {
             mBinding.timerEndTime.setGravity(areTimerButtonPositionsInverted
                 ? Gravity.START | Gravity.CENTER_VERTICAL

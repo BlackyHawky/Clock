@@ -63,7 +63,6 @@
         android:id="@+id/laps_background"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lap_background_margin_start"
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constrainedHeight="true"
