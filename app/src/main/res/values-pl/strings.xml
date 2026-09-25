@@ -725,4 +725,7 @@
     <string name="settings_language_swedish">Szwedzki</string>
     <string name="settings_language_laotian">Laotański</string>
     <string name="settings_language_persian">Perski</string>
+    <string name="central_fab_size_title">Rozmiar centralnego pływającego przycisku akcji</string>
+    <string name="side_fab_size_title">Rozmiar bocznych pływających przycisków akcji</string>
+    <string name="enable_city_flag_title">Wyświetl flagi krajów</string>
 </resources>

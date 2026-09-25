@@ -224,7 +224,7 @@
     <string name="title_theme">Thema</string>
     <string name="selected">Geselecteerd</string>
     <string name="display_background_border_title">Achtergrondranden weergeven</string>
-    <string name="display_background_border_summary">Gebruik een achtergrondrand voor sommige elementen (wekkers, steden, kookwekkerknoppen etc.)</string>
+    <string name="display_background_border_summary">Gebruik een omranding voor sommige elementen (wekkers, steden, kookwekkerknoppen etc.)</string>
     <string name="settings_vibration_title">Trillen inschakelen</string>
     <string name="more_options">Meer opties</string>
     <string name="settings_permission_message">Één of meer essentiële rechten zijn niet toegestaan. Niet toestemmen kan ervoor zorgen dat de app niet goed werkt.</string>
@@ -577,7 +577,7 @@
     <string name="background_image_toast_message_deleted">Afbeelding succesvol verwijderd</string>
     <string name="label_new_font">Nieuw lettertype</string>
     <string name="custom_font_title">Aangepast lettertype</string>
-    <string name="custom_font_title_variant">Aangepaste lettertype veranderen of verwijderen</string>
+    <string name="custom_font_title_variant">Aangepast lettertype veranderen of verwijderen</string>
     <string name="custom_font_dialog_title">Lettertype</string>
     <string name="custom_font_toast_message_selected">Lettertype succesvol geselecteerd</string>
     <string name="custom_font_toast_message_deleted">Lettertype succesvol verwijderd</string>
@@ -690,8 +690,8 @@
     <string name="timer_headphones_button_action_title">Verlopen kookwekkers terugzetten met de afspeel-/pauzeknop van de hoofdtelefoon</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Zaklamp aanzetten als kookwekker gaat</string>
     <string name="info">Informatie</string>
-    <string name="pause_alarm_info_message">Selecteer dagen van de week voor deze optie.</string>
-    <string name="delete_occasional_alarm_after_use_info_message">Deselecteer dagen van de week voor deze optie.</string>
+    <string name="pause_alarm_info_message">Selecteer weekdagen voor deze optie.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Deselecteer weekdagen voor deze optie.</string>
     <string name="auto_silence_info_message">\"Stil na\" ingesteld op \"%s\".\n\nSchakel rekensommen uit voor deze optie.</string>
     <string name="math_challenge_title_snooze">Los op om te sluimeren</string>
     <string name="math_challenge_title_dismiss">Los op om uit te zetten</string>
@@ -709,6 +709,9 @@
     <string name="sw_display_milliseconds_title">Milliseconden weergeven</string>
     <string name="button_action_mute">Dempen</string>
     <string name="settings_language_swedish">Zweeds</string>
-    <string name="settings_language_laotian">Laotiaan</string>
+    <string name="settings_language_laotian">Laotiaans</string>
     <string name="settings_language_persian">Perzisch</string>
+    <string name="enable_city_flag_title">Landenvlaggen weergeven</string>
+    <string name="central_fab_size_title">Grootte van de zwevende actieknop</string>
+    <string name="side_fab_size_title">Grootte van de secundaire actieknoppen</string>
 </resources>

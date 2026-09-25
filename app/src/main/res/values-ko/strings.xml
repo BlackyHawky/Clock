@@ -29,7 +29,7 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">알람을 껐습니다.</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">잠시 미루기</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">알람을 <xliff:g id="MINUTES">%d</xliff:g>분 뒤로 미룹니다.</item>
+        <item quantity="other">알람을 <xliff:g example="10" id="minutes">%d</xliff:g>분 뒤로 미룹니다.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550"><xliff:g id="time">%s</xliff:g>에 다시 울림</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"예정된 알람"</string>
@@ -54,19 +54,19 @@
     <string name="alarm_confirmation_toast_7" tools:ignore="StringFormatCount">지금부터 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 뒤에 알람이 울립니다.</string>
     <string name="alarm_confirmation_toast_8">지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 뒤에 알람이 울립니다.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>일</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g>일</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>시간</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g>시간</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>시간</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g>시간</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>분</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g>분</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>분</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g>분</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>초</item>
@@ -264,7 +264,7 @@
     <string name="widgets_settings_summary">위젯 스타일, 색상, 폰트 설정</string>
     <string name="widget_background_title">배경 표시</string>
     <string name="background_color_title">배경 색상</string>
-    <string name="display_city_title">위젯에 도시 이름 표시</string>
+    <string name="display_city_title">도시 이름 표시</string>
     <string name="clock_default_color_title">메인 시계에 기본 색상 사용</string>
     <string name="swipe_action_title">스와이프로 알람 잠시 미루기 또는 해제</string>
     <string name="alarm_title_font_size">알람 제목 폰트 크기</string>
@@ -444,7 +444,7 @@
     <string name="tab_title_visibility_when_selected">선택했을 때만</string>
     <string name="settings_keep_screen_on_title">화면 켜짐 유지</string>
     <string name="settings_keep_screen_on_summary">타이머 또는 스톱워치가 실행 중이고 그 탭이 켜져 있는 경우, 이 설정과 관계 없이 화면 켜짐이 유지됩니다.</string>
-    <string name="display_date_title">위젯에 날짜 표시</string>
+    <string name="display_date_title">날짜 표시</string>
     <string name="settings_toolbar_title">도구 모음에 제목 표시</string>
     <string name="ringtone_title_color">벨소리 제목 색상</string>
     <string name="settings_language_chinese_traditional_tw">중국어(번체, 대만)</string>
@@ -554,4 +554,57 @@
     <string name="display_settings_title">디스플레이 설정</string>
     <string name="settings_vibration_disabled_summary">기기 설정에서 진동이 꺼져 있습니다</string>
     <string name="settings_tab_animation_title">탭 전환 시 애니메이션</string>
+    <string name="info">정보</string>
+    <string name="alarm_volume_low">알람 볼륨이 낮습니다</string>
+    <string name="fix_alarm_volume">수정</string>
+    <string name="settings_language_swedish">스웨덴어</string>
+    <string name="settings_language_laotian">라오어</string>
+    <string name="settings_language_persian">페르시아어</string>
+    <string name="math_hardness_level_easy">쉬움</string>
+    <string name="math_hardness_level_normal">보통</string>
+    <string name="math_hardness_level_hard">어려움</string>
+    <string name="button_action_mute">음소거</string>
+    <string name="timezone_gambier">갬비어 제도</string>
+    <string name="timezone_pitcairn">핏케언 제도</string>
+    <string name="timezone_easter_island">이스터 섬</string>
+    <string name="timezone_chatham">채텀 섬</string>
+    <string name="timezone_norfolk">노퍽 섬</string>
+    <string name="timezone_macquarie">매쿼리 섬</string>
+    <string name="background_image_category_title">배경사진</string>
+    <string name="toast_message_restore_error">복원 실패</string>
+    <string name="toast_message_backup_error">백업 실패</string>
+    <string name="sw_display_milliseconds_title">밀리초 표시</string>
+    <string name="timezone_marquesas">마르키즈 제도</string>
+    <string name="math_challenge_new_problem">새 문제</string>
+    <string name="math_challenge_answer_hint">내 답변</string>
+    <string name="math_challenge_wrong_answer">오답</string>
+    <string name="math_challenge_category_title">수학 문제</string>
+    <string name="math_hardness_level_title">수학 난이도</string>
+    <string name="hour_hand_color_title">시침 색상</string>
+    <string name="enable_city_flag_title">국기 표시</string>
+    <string name="background_corner_radius_title">배경 모서리 반경</string>
+    <string name="minute_hand_color_title">분침 색상</string>
+    <string name="battery_color_title">배터리 잔량 색상</string>
+    <string name="headphones_button_title">헤드폰 재생/정지 버튼</string>
+    <string name="single_timer_mode_title">단일 타이머 모드</string>
+    <string name="customize_background_corner_radius_summary">홈 화면에서 지원하지 않아도 위젯 모서리를 둥글게 할 수 있습니다.</string>
+    <string name="pause_alarm_info_message">이 기능을 이용하려면 요일을 선택하세요.</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">해제 및\n삭제</string>
+    <string name="delete_occasional_alarm_after_use_info_message">이 기능을 이용하려면 요일을 선택 해제하세요.</string>
+    <string name="math_challenge_prompt">%1$d+%2$d의 값은?</string>
+    <string name="clock_dial_title">다이얼</string>
+    <string name="clock_dial_sun">해</string>
+    <string name="clock_second_hand_title">초침</string>
+    <string name="clock_second_hand_vintage">빈티지</string>
+    <string name="clock_second_hand_lollipop">롤리팝</string>
+    <string name="clock_dial_with_numbers">숫자 표시</string>
+    <string name="clock_dial_without_numbers">숫자 숨김</string>
+    <string name="clock_dial_with_roman_numbers">로마 숫자 표시</string>
+    <string name="label_indefinitely">무기한</string>
+    <string name="math_challenge_title_snooze">미루려면 문제 해결</string>
+    <string name="math_challenge_title_dismiss">해제하려면 문제 해결</string>
+    <string name="repetitive_alarm_is_dismissed">알람이 해제되었습니다. <xliff:g example="Next alarm Monday." id="alarm_day">%s에 다시 울립니다.</xliff:g></string>
+    <string name="alarm_minutes_warning_box_text">0분에서 59분까지의 값 입력</string>
+    <string name="timer_end_time_label">종료 시각: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="add_time_button_title">\"시간 추가\" 버튼</string>
 </resources>

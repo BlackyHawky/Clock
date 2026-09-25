@@ -713,4 +713,10 @@
     <string name="sw_display_milliseconds_title">Mostrar milisegundos</string>
     <string name="auto_silence_info_message">\"Silenciar después de\" establecido en \"%s\". \n\nDesactiva el nivel de dificultad matemática para acceder a esta función.</string>
     <string name="button_action_mute">Silenciar</string>
+    <string name="settings_language_swedish">Sueco</string>
+    <string name="settings_language_laotian">Laosiano o Lao</string>
+    <string name="settings_language_persian">Persa</string>
+    <string name="central_fab_size_title">Dimensión del botón flotante central</string>
+    <string name="side_fab_size_title">Dimensión de los botones flotantes laterales</string>
+    <string name="enable_city_flag_title">Mostrar banderas de los países</string>
 </resources>

@@ -723,4 +723,7 @@
     <string name="settings_language_swedish">Suédois</string>
     <string name="settings_language_laotian">Laotien</string>
     <string name="settings_language_persian">Persan</string>
+    <string name="central_fab_size_title">Taille du bouton d\'action flottant central</string>
+    <string name="side_fab_size_title">Taille des boutons d\'action flottants latéraux</string>
+    <string name="enable_city_flag_title">Afficher les drapeaux des pays</string>
 </resources>

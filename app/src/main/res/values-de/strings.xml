@@ -706,4 +706,8 @@
     <string name="settings_language_swedish">Schwedisch</string>
     <string name="settings_language_laotian">Laotisch</string>
     <string name="settings_language_persian">Persisch</string>
+    <string name="central_fab_size_title">Größe des zentralen, schwebenden Action-Buttons</string>
+    <string name="side_fab_size_title">Größe der seitlichen, schwebenden Action-Buttons</string>
+    <string name="button_action_mute">stumm schalten</string>
+    <string name="enable_city_flag_title">Länderfahnen anzeigen</string>
 </resources>

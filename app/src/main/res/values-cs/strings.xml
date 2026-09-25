@@ -725,4 +725,7 @@
     <string name="settings_language_swedish">Švédský</string>
     <string name="settings_language_laotian">Laoský</string>
     <string name="settings_language_persian">Peršan</string>
+    <string name="central_fab_size_title">Velikost prostředního plovoucího akčního tlačítka</string>
+    <string name="side_fab_size_title">Velikost postranních plovoucích akčních tlačítek</string>
+    <string name="enable_city_flag_title">Zobrazit vlajky zemí</string>
 </resources>

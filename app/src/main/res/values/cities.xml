@@ -731,7 +731,7 @@
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C175">I<xliff:g id="separator">=</xliff:g>Istanbul<xliff:g id="timezone">|Europe/Istanbul</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
-    <string name="C176">K<xliff:g id="separator">=</xliff:g>Kiev<xliff:g id="timezone">|Europe/Kiev</xliff:g></string>
+    <string name="C176">K<xliff:g id="separator">=</xliff:g>Kyiv<xliff:g id="timezone">|Europe/Kiev</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C177">L<xliff:g id="separator">=</xliff:g>Lisbon<xliff:g id="timezone">|Europe/Lisbon</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->

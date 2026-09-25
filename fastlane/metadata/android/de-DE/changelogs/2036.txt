@@ -1,0 +1,2 @@
+Viele Fehlerbehebungen und Verbesserungen, detailliert hier angeführt:
+https://github.com/BlackyHawky/Clock/releases/tag/2.32

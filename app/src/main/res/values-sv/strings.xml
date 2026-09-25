@@ -707,4 +707,7 @@
     <string name="settings_language_swedish">Svenska</string>
     <string name="settings_language_laotian">Laotisk</string>
     <string name="settings_language_persian">Persiska</string>
+    <string name="central_fab_size_title">Storleken på den centrala flytande åtgärdsknappen</string>
+    <string name="side_fab_size_title">Storlek på de sida vid sida flytande åtgärdsknapparna</string>
+    <string name="enable_city_flag_title">Visa landsflaggor</string>
 </resources>

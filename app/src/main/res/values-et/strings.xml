@@ -708,4 +708,16 @@
     <string name="settings_language_swedish">Rootsi</string>
     <string name="settings_language_laotian">Laose</string>
     <string name="settings_language_persian">Pärsia</string>
+    <string name="pause_alarm_info_message">Selle funktsionaalsuse kasutamiseks vali nädalapäevad.</string>
+    <string name="delete_occasional_alarm_after_use_info_message">Selle funktsionaalsuse kasutamiseks eemalda nädalapäevade valik.</string>
+    <string name="enable_city_flag_title">Kuva riikide lippe</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">Sinu seadistatud matemaatika keerukuse tase lähtestub.%s</string>
+    <string name="enable_per_alarm_math_hardness_level_title">Kasuta iga äratuse jaoks omaseadistatud matemaatika keerukuse taset</string>
+    <string name="button_action_mute">Summuta</string>
+    <string name="side_fab_size_title">Küljel hõljuvate tegevusnuppude suurused</string>
+    <string name="central_fab_size_title">Keskel hõljuva tegevusnupu suurus</string>
+    <string name="math_challenge_new_problem">Uus probleem</string>
+    <string name="math_challenge_title_dismiss">Loobumiseks lahenda</string>
+    <string name="math_challenge_title_snooze">Uinumiseks lahenda</string>
+    <string name="auto_silence_info_message">„Vaikus peale“ väärtuseks on hetkel „%s“.\n\nLigipääsuks sellele funktsionaalsusele lülita matemaatika keerukuse tase välja.</string>
 </resources>
