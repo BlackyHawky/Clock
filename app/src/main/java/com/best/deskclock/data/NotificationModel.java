@@ -101,6 +101,15 @@ final class NotificationModel {
         return "2";
     }
 
+    /**
+     * @return the group key for the expired timer notification
+     */
+    @NonNull
+    @SuppressWarnings("SameReturnValue")
+    public String getExpiredTimerNotificationGroupKey() {
+        return "5";
+    }
+
     //
     // Notification Sort keys
     //
@@ -121,6 +130,24 @@ final class NotificationModel {
     @SuppressWarnings("SameReturnValue")
     String getTimerNotificationSortKey() {
         return "1";
+    }
+
+    /**
+     * @return the sort key for the expired timer notification
+     */
+    @NonNull
+    @SuppressWarnings("SameReturnValue")
+    public String getExpiredTimerNotificationSortKey() {
+        return "2";
+    }
+
+    /**
+     * @return the sort key for the stopwatch notification
+     */
+    @NonNull
+    @SuppressWarnings("SameReturnValue")
+    public String getStopwatchNotificationSortKey() {
+        return "3";
     }
 
 }

@@ -978,7 +978,7 @@ final class TimerModel {
 
         // Otherwise build and post a foreground notification reflecting the latest expired timers.
         final Notification notification = mNotificationBuilder.buildHeadsUp(
-            mContext, expired, SettingsDAO.getLanguageCode(mPrefs), SettingsDAO.isSingleTimerModeEnabled(mPrefs));
+            mContext, expired, SettingsDAO.getLanguageCode(mPrefs), mNotificationModel, SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
         int foregroundServiceType = 0;
 

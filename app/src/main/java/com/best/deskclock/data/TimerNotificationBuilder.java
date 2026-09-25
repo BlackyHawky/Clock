@@ -10,6 +10,7 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.core.app.NotificationCompat.Action;
 import static androidx.core.app.NotificationCompat.Builder;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_TIME_BUTTON_VALUE_ZERO;
 import static com.best.deskclock.utils.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MISSED_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
@@ -126,25 +127,28 @@ class TimerNotificationBuilder {
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right Button: +x Minutes
-            final Intent addMinute = new Intent(context, TimerService.class)
-                .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
-                .setData(Uri.parse(URI_SCHEME_TIMER_ADD + timerId))
-                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+            String buttonTime = timer.getButtonTime();
+            if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(buttonTime)) {
+                final Intent addMinute = new Intent(context, TimerService.class)
+                    .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
+                    .setData(Uri.parse(URI_SCHEME_TIMER_ADD + timerId))
+                    .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-            @DrawableRes final int icon2 = R.drawable.ic_add;
-            int customTimeToAdd = Integer.parseInt(timer.getButtonTime());
-            int minutesToAdd = customTimeToAdd / 60;
-            int secondsToAdd = customTimeToAdd % 60;
+                @DrawableRes final int icon2 = R.drawable.ic_add;
+                int customTimeToAdd = Integer.parseInt(buttonTime);
+                int minutesToAdd = customTimeToAdd / 60;
+                int secondsToAdd = customTimeToAdd % 60;
 
-            final CharSequence title2 = secondsToAdd == 0
-                ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
-                String.valueOf(minutesToAdd))
-                : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
-                String.valueOf(minutesToAdd),
-                String.valueOf(secondsToAdd));
+                final CharSequence title2 = secondsToAdd == 0
+                    ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
+                    String.valueOf(minutesToAdd))
+                    : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
+                    String.valueOf(minutesToAdd),
+                    String.valueOf(secondsToAdd));
 
-            final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinute, timerId);
-            actions.add(new Action.Builder(icon2, title2, intent2).build());
+                final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinute, timerId);
+                actions.add(new Action.Builder(icon2, title2, intent2).build());
+            }
         } else {
             // Timer is paused.
             stateText = localizedContext.getString(R.string.timer_paused);
@@ -255,7 +259,7 @@ class TimerNotificationBuilder {
      * @return the notification for expired timers.
      */
     Notification buildHeadsUp(@NonNull Context context, @NonNull List<Timer> expired, @NonNull String languageCode,
-                              boolean isSingleTimerMode) {
+                              @NonNull NotificationModel nm, boolean isSingleTimerMode) {
 
         final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
         final Timer timer = expired.get(0);
@@ -289,21 +293,24 @@ class TimerNotificationBuilder {
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right Button: +x Minutes
-            final Intent addTime = TimerService.createAddCustomTimeToTimerIntent(context, timerId);
-            final PendingIntent intent2 = Utils.pendingServiceIntent(context, addTime, timerId);
-            @DrawableRes final int icon2 = R.drawable.ic_add;
-            int customTimeToAdd = Integer.parseInt(timer.getButtonTime());
-            int minutesToAdd = customTimeToAdd / 60;
-            int secondsToAdd = customTimeToAdd % 60;
+            String buttonTime = timer.getButtonTime();
+            if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(buttonTime)) {
+                final Intent addTime = TimerService.createAddCustomTimeToTimerIntent(context, timerId);
+                final PendingIntent intent2 = Utils.pendingServiceIntent(context, addTime, timerId);
+                @DrawableRes final int icon2 = R.drawable.ic_add;
+                int customTimeToAdd = Integer.parseInt(buttonTime);
+                int minutesToAdd = customTimeToAdd / 60;
+                int secondsToAdd = customTimeToAdd % 60;
 
-            final CharSequence title2 = secondsToAdd == 0
-                ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
-                String.valueOf(minutesToAdd))
-                : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
-                String.valueOf(minutesToAdd),
-                String.valueOf(secondsToAdd));
+                final CharSequence title2 = secondsToAdd == 0
+                    ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
+                    String.valueOf(minutesToAdd))
+                    : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
+                    String.valueOf(minutesToAdd),
+                    String.valueOf(secondsToAdd));
 
-            actions.add(new Action.Builder(icon2, title2, intent2).build());
+                actions.add(new Action.Builder(icon2, title2, intent2).build());
+            }
         } else {
             titleText = localizedContext.getString(R.string.timer_multi_times_up, count);
             stateText = null;
@@ -339,7 +346,9 @@ class TimerNotificationBuilder {
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setFullScreenIntent(pendingFullScreen, true)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-            .setColor(ContextCompat.getColor(context, R.color.notificationColor));
+            .setColor(ContextCompat.getColor(context, R.color.notificationColor))
+            .setGroup(nm.getExpiredTimerNotificationGroupKey())
+            .setSortKey(nm.getExpiredTimerNotificationSortKey());
 
         Bundle extras = new Bundle();
         extras.putLong("android.chronometerBase", base);

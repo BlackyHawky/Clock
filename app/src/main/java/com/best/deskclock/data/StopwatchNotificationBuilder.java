@@ -149,7 +149,8 @@ class StopwatchNotificationBuilder {
             .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
-            .setGroup(nm.getStopwatchNotificationGroupKey());
+            .setGroup(nm.getStopwatchNotificationGroupKey())
+            .setSortKey(nm.getStopwatchNotificationSortKey());
 
         // Add support for third-party apps to display active stopwatch
         Bundle extras = new Bundle();
