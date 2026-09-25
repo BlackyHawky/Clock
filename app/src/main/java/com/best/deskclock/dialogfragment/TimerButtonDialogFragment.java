@@ -6,7 +6,7 @@ package com.best.deskclock.dialogfragment;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_TIME_BUTTON_VALUE;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -35,7 +36,7 @@ import androidx.fragment.app.FragmentManager;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
-import com.best.deskclock.databinding.TimerDialogEditAddTimeBinding;
+import com.best.deskclock.databinding.TimerDialogEditTimerButtonBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -44,44 +45,47 @@ import com.google.android.material.color.MaterialColors;
 import java.util.Objects;
 
 /**
- * DialogFragment to edit timer add time button.
+ * DialogFragment to edit timer time buttons.
  */
-public class TimerAddTimeButtonDialogFragment extends DialogFragment {
+public class TimerButtonDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of TimerAddTimeButtonDialogFragment in the fragment manager.
+     * The tag that identifies instances of TimerButtonDialogFragment in the fragment manager.
      */
-    private static final String TAG = "add_time_button_dialog";
+    private static final String TAG = "time_button_dialog";
 
     private static final String ARG_EDIT_MINUTES = "arg_edit_minutes";
     private static final String ARG_EDIT_SECONDS = "arg_edit_seconds";
     private static final String ARG_TIMER_ID = "arg_timer_id";
     private static final String ARG_PREF_KEY = "arg_pref_key";
     public static final String RESULT_PREF_KEY = "result_pref_key";
-    public static final String REQUEST_KEY = "add_time_button_request_key";
-    public static final String ADD_TIME_BUTTON_VALUE = "add_time_button_value";
+    public static final String REQUEST_KEY = "time_button_request_key";
+    public static final String TIME_BUTTON_VALUE = "time_button_value";
     public static final String REQUEST_ADD_TIME_DURATION = "request_add_time_duration";
+    public static final String REQUEST_REMOVE_TIME_DURATION = "request_remove_time_duration";
+    private static final String ARG_IS_REMOVE_TYPE = "arg_is_remove_type";
 
-    private TimerDialogEditAddTimeBinding mBinding;
+    private TimerDialogEditTimerButtonBinding mBinding;
 
     private String mPrefKey;
 
     private Button mOkButton;
     private Button mDefaultButton;
     private int mTimerId;
+    private boolean mIsRemoveType;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
 
     /**
-     * Creates a new instance of {@link TimerAddTimeButtonDialogFragment} to be used
-     * in the settings screen for configuring the default time added by the timer button.
+     * Creates a new instance of {@link TimerButtonDialogFragment} to be used in the settings screen
+     * for configuring the default time added or subtracted by the timer buttons.
      *
      * @param key           The shared preference key used to persist the selected duration.
      * @param totalDuration The default duration in seconds to pre-fill the dialog with.
      *                      This value is split into minutes and seconds internally.
      */
     @NonNull
-    public static TimerAddTimeButtonDialogFragment newInstance(@NonNull String key, int totalDuration) {
+    public static TimerButtonDialogFragment newInstance(@NonNull String key, int totalDuration, boolean isRemoveType) {
         final Bundle args = new Bundle();
 
         int minutesButtonTime = totalDuration / 60;
@@ -90,21 +94,21 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         args.putString(ARG_PREF_KEY, key);
         args.putInt(ARG_EDIT_MINUTES, minutesButtonTime);
         args.putInt(ARG_EDIT_SECONDS, secondsButtonTime);
+        args.putBoolean(ARG_IS_REMOVE_TYPE, isRemoveType);
 
-        final TimerAddTimeButtonDialogFragment frag = new TimerAddTimeButtonDialogFragment();
+        final TimerButtonDialogFragment frag = new TimerButtonDialogFragment();
         frag.setArguments(args);
         return frag;
     }
 
     /**
-     * Creates a new instance of {@link TimerAddTimeButtonDialogFragment} to be used
-     * directly from an existing timer instance, typically when modifying the button time
-     * from within the timer UI.
+     * Creates a new instance of {@link TimerButtonDialogFragment} to be used directly from an existing timer instance,
+     * typically when modifying the button time from within the timer UI.
      *
      * @param timerId the {@link Timer} id whose current button time will be edited.
      */
     @NonNull
-    public static TimerAddTimeButtonDialogFragment newInstance(int timerId, int totalDuration) {
+    public static TimerButtonDialogFragment newInstance(int timerId, int totalDuration, boolean isRemoveType) {
         final Bundle args = new Bundle();
 
         int minutesButtonTime = totalDuration / 60;
@@ -113,16 +117,17 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         args.putInt(ARG_TIMER_ID, timerId);
         args.putInt(ARG_EDIT_MINUTES, minutesButtonTime);
         args.putInt(ARG_EDIT_SECONDS, secondsButtonTime);
+        args.putBoolean(ARG_IS_REMOVE_TYPE, isRemoveType);
 
-        final TimerAddTimeButtonDialogFragment frag = new TimerAddTimeButtonDialogFragment();
+        final TimerButtonDialogFragment frag = new TimerButtonDialogFragment();
         frag.setArguments(args);
         return frag;
     }
 
     /**
-     * Displays {@link TimerAddTimeButtonDialogFragment}.
+     * Displays {@link TimerButtonDialogFragment}.
      */
-    public static void show(@NonNull FragmentManager manager, @NonNull TimerAddTimeButtonDialogFragment fragment) {
+    public static void show(@NonNull FragmentManager manager, @NonNull TimerButtonDialogFragment fragment) {
         Utils.showDialogFragment(manager, fragment, TAG);
     }
 
@@ -144,8 +149,10 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
 
         mPrefKey = args.getString(ARG_PREF_KEY, null);
+        mIsRemoveType = args.getBoolean(ARG_IS_REMOVE_TYPE, false);
         int editMinutes = args.getInt(ARG_EDIT_MINUTES, 0);
         int editSeconds = args.getInt(ARG_EDIT_SECONDS, 0);
+
         if (savedInstanceState != null) {
             editMinutes = savedInstanceState.getInt(ARG_EDIT_MINUTES, editMinutes);
             editSeconds = savedInstanceState.getInt(ARG_EDIT_SECONDS, editSeconds);
@@ -153,7 +160,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        mBinding = TimerDialogEditAddTimeBinding.inflate(getLayoutInflater());
+        mBinding = TimerDialogEditTimerButtonBinding.inflate(getLayoutInflater());
 
         mBinding.dialogInputLayoutMinutes.setTypeface(typeFace);
         mBinding.dialogInputLayoutMinutes.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
@@ -197,14 +204,29 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             }
         });
 
+        mBinding.buttonTimeNote.setTypeface(typeFace, Typeface.ITALIC);
+
         String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
         String inputSecondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
+
+        Drawable icon = AppCompatResources.getDrawable(requireContext(), mIsRemoveType ? R.drawable.ic_less_time : R.drawable.ic_more_time);
+
+        int titleResId;
+        if (mPrefKey != null) {
+            titleResId = mIsRemoveType
+                ? R.string.timer_button_remove_time_box_title
+                : R.string.timer_button_time_box_title;
+        } else {
+            titleResId = mIsRemoveType
+                ? R.string.remove_time_button_title
+                : R.string.add_time_button_title;
+        }
 
         return CustomDialog.create(
             requireContext(),
             null,
-            mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_more_time),
-            getString(mPrefKey != null ? R.string.timer_button_time_box_title : R.string.add_time_button_title),
+            icon,
+            getString(titleResId),
             null,
             mBinding.getRoot(),
             getString(android.R.string.ok),
@@ -212,7 +234,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             getString(android.R.string.cancel),
             null,
             getString(R.string.label_default),
-            (d, w) -> applyDurationInSeconds(DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE),
+            (d, w) -> applyDurationInSeconds(DEFAULT_TIMER_TIME_BUTTON_VALUE),
             alertDialog -> {
                 mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
@@ -258,7 +280,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     }
 
     /**
-     * Sets the duration in seconds into the timer add button.
+     * Sets the duration in seconds into the timer "Add time" or "Remove time" button.
      */
     private void setDurationInSeconds() {
         String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
@@ -286,10 +308,10 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     private void applyDurationInSeconds(int totalSeconds) {
         Bundle result = new Bundle();
 
-        result.putInt(ADD_TIME_BUTTON_VALUE, totalSeconds);
+        result.putInt(TIME_BUTTON_VALUE, totalSeconds);
 
         if (mTimerId >= 0) {
-            getParentFragmentManager().setFragmentResult(REQUEST_ADD_TIME_DURATION, result);
+            getParentFragmentManager().setFragmentResult(mIsRemoveType ? REQUEST_REMOVE_TIME_DURATION : REQUEST_ADD_TIME_DURATION, result);
         } else {
             result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
             getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
@@ -374,11 +396,14 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         if (titleText != null) {
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
-                titleText.setText(getString(R.string.timer_button_time_box_title));
+                titleText.setText(getString(mIsRemoveType
+                    ? R.string.timer_button_remove_time_box_title
+                    : R.string.timer_button_time_box_title)
+                );
             } else {
                 titleText.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(
-                    requireContext(), R.drawable.ic_more_time), null, null, null);
-                titleText.setText(getString(R.string.add_time_button_title));
+                    requireContext(), mIsRemoveType ? R.drawable.ic_less_time : R.drawable.ic_more_time), null, null, null);
+                titleText.setText(getString(mIsRemoveType ? R.string.remove_time_button_title : R.string.add_time_button_title));
             }
 
         }
@@ -414,7 +439,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         int totalSeconds = minutes * 60 + seconds;
 
-        return totalSeconds != DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE;
+        return totalSeconds != DEFAULT_TIMER_TIME_BUTTON_VALUE;
     }
 
     /**
@@ -469,7 +494,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     }
 
     /**
-     * Handles completing the add time button edit from the IME keyboard.
+     * Handles completing the "Add time" or "Remove time" button edit from the IME keyboard.
      */
     private class ImeDoneListener implements TextView.OnEditorActionListener {
 

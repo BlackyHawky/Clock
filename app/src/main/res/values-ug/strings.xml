@@ -60,7 +60,6 @@
     <string name="timer_add_timer">ۋاقىت خاتىرىلىگۈچنى قوش</string>
     <string name="timer_start">باشلا</string>
     <string name="timer_add_custom_time_description">%s مىنۇت قوش</string>
-    <string name="timer_add_custom_time_for_notification">%s مىنۇت قوش</string>
     <string name="timer_stop">توختا</string>
     <string name="timer_times_up">ۋاقىت توشتى</string>
     <string name="timer_notification_label">ۋاقىت خاتىرىلىگۈچ</string>

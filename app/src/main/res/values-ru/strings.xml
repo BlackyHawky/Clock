@@ -148,7 +148,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Старт"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Удалить <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">Добавить %s минут</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">Добавить %s мин</string>
     <string name="timer_stop" msgid="3361154678667736722">"Стоп"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">Остановить все таймеры</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Таймер удален"</string>
@@ -262,7 +261,6 @@
     <string name="alarm_settings_summary">Настройка стиля, шрифта, сигнала по умолчанию, громкости, действий для отключения или отложения будильника, а также начало недели и время напоминания</string>
     <string name="gnu_gpl">Общая общественная лицензия GNU версии 3.0</string>
     <string name="clock_color_title">Цвет основных часов</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Настройка стиля, шрифта, часового пояса, даты и времени на устройстве</string>
     <string name="next_alarm_color_title">Цвет следующего будильника</string>
     <string name="first_launch_important_info_message">Чтобы гарантировать правильную работу приложения, &lt;b&gt;некоторые настройки вашего устройства должны быть изменены:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЯ РАСХОДА ЗАРЯДА БАТАРЕИ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;В зависимости от версии Android на вашем устройстве, некоторые из этих настроек уже оптимизированы (например, уведомления).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Вы можете изменить их сейчас или позже в настройках управления разрешениями:</string>
@@ -480,7 +478,6 @@
     <string name="snooze_title_color">Цвет надписи \"Отложить\"</string>
     <string name="dismiss_title_color">Цвет надписи \"Выключить\"</string>
     <string name="date_picker_style_calendar">Календарь</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Добавить %1$s мин %2$s с</string>
     <string name="alarm_is_dismissed_and_deleted">Будильник на <xliff:g example="14:20" id="alarm_time">%s</xliff:g> отключен и удален</string>
     <string name="label_minutes">Минуты</string>
     <string name="label_seconds">Секунды</string>

@@ -133,7 +133,6 @@
     <string name="timer_start" msgid="6158486445614356442">"પ્રારંભ કરો"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ને કાઢી નાખો"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s મિનિટ ઉમેરો"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s મિનિટ ઉમેરો"</string>
     <string name="timer_stop" msgid="3361154678667736722">"રોકો"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"બધા ટાઇમર્સ રોકો"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"ટાઇમર રદ કર્યું"</string>

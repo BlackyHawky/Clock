@@ -127,7 +127,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Mulai"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Hapus <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">Tambahkan %s Menit</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Tambahkan %s mnt"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Hentikan"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">Hentikan semua pengatur waktu</string>
     <string name="timer_canceled" msgid="7327923392567128060">Pengatur waktu dibatalkan</string>
@@ -280,8 +279,6 @@
     <string name="turn_off_media_title">Hentikan media ketika berakhir</string>
     <string name="timer_button_time_box_title">Menit untuk ditambahkan ke pengatur waktu</string>
     <string name="timer_add_custom_time_with_seconds_description">Tambahkan %1$s Menit %2$s Detik</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Tambahkan %1$s mnt %2$s dtk</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_end_time_label">Waktu akhir: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
     <plurals name="expired_timers_deleted">
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> pengatur waktu telah dihapus</item>

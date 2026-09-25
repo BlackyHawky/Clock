@@ -148,7 +148,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Spustit"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Smazat <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Přidat %s minutu"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Přidat %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Zastavit"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Zastavit všechny časovače"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Časovač zrušen"</string>
@@ -357,7 +356,6 @@
     <string name="alarm_notification_reminder_title">Připomínka v oznámení</string>
     <string name="snooze_duration_none">Žádný</string>
     <string name="sw_volume_down_action_title">Snížení hlasitosti</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_settings_summary">Přizpůsobit styl, písmo, výchozí vyzvánění, akci pro zastavení časovačů a řazení časovačů</string>
     <string name="alarm_title_default_color">Použít výchozí barvu pro název budíku</string>
     <string name="clock_default_color_title">Použít výchozí barvu pro hlavní hodiny</string>
@@ -488,7 +486,6 @@
     <string name="random_ringtone_title">Náhodné vyzvánění</string>
     <string name="warning">Varování</string>
     <string name="timer_button_time_seconds_warning_box_text">Zadejte hodnotu od 0 do 59 sekund</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Přidat %1$s min %2$s s</string>
     <string name="label_minutes">Minuty</string>
     <string name="label_seconds">Sekundy</string>
     <string name="timer_add_custom_time_with_seconds_description">Přidat %1$s minutu %2$s sekund</string>

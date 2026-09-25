@@ -134,7 +134,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Başlat"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536"><xliff:g id="NUMBER_STRING">%s</xliff:g> rakamını sil</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s Dakika Ekle"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s dk ekle"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Durdur"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">Tüm zamanlayıcıları durdur</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Zamanlayıcı iptal edildi"</string>
@@ -278,7 +277,6 @@
     <string name="swipe_action_title">Alarmları kapatmak veya ertelemek için kaydırın</string>
     <string name="power_button_title">Güç tuşu</string>
     <string name="add_label">Etiket ekle</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="display_ringtone_title">Zil sesi başlığını göster</string>
     <string name="selected">Seçildi</string>
     <string name="alarm_alert_dismiss_and_delete_text">Kapat &amp; Sil</string>
@@ -472,7 +470,6 @@
     <string name="random_ringtone_title">Rasgele zil sesi</string>
     <string name="warning">Uyaru</string>
     <string name="timer_button_time_seconds_warning_box_text">0 ile 59 saniye arasında bir değer girin</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s dak %2$s sn ekle</string>
     <string name="label_minutes">Dakikalar</string>
     <string name="label_seconds">Saniyeler</string>
     <string name="timer_add_custom_time_with_seconds_description">%1$s Dakika %2$s Saniye Ekle</string>

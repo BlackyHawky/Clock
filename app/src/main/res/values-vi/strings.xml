@@ -127,7 +127,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Bắt đầu"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Xóa <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Thêm %s phút"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Thêm %s phút"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Dừng"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Dừng tất cả các bộ hẹn giờ"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Đã hủy bộ tính giờ"</string>

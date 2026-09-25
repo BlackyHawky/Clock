@@ -42,6 +42,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.timer.ExpiredTimersActivity;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -58,6 +59,7 @@ class TimerNotificationBuilder {
     private static final String URI_SCHEME_TIMER_RESET = "timer:reset:";
     private static final String URI_SCHEME_TIMER_SHOW = "timer:show:";
     private static final String URI_SCHEME_TIMER_ADD = "timer:add:";
+    private static final String URI_SCHEME_TIMER_REMOVE = "timer:remove:";
 
     private static final int REQUEST_CODE_UPCOMING = 0;
 
@@ -126,28 +128,32 @@ class TimerNotificationBuilder {
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause, timerId);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
+            // Center Button: -x Minutes
+            if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(timer.getButtonRemoveTime())) {
+                final Intent removeMinute = new Intent(context, TimerService.class)
+                    .setAction(TimerService.ACTION_REMOVE_CUSTOM_TIME_TO_TIMER)
+                    .setData(Uri.parse(URI_SCHEME_TIMER_REMOVE + timerId))
+                    .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+
+                @DrawableRes final int icon2 = R.drawable.ic_minus;
+                final CharSequence title2 = formatButtonTimeText(localizedContext, timer, false);
+
+                final PendingIntent intent2 = Utils.pendingServiceIntent(context, removeMinute, timerId);
+                actions.add(new Action.Builder(icon2, title2, intent2).build());
+            }
+
             // Right Button: +x Minutes
-            String buttonTime = timer.getButtonTime();
-            if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(buttonTime)) {
+            if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(timer.getButtonAddTime())) {
                 final Intent addMinute = new Intent(context, TimerService.class)
                     .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
                     .setData(Uri.parse(URI_SCHEME_TIMER_ADD + timerId))
                     .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-                @DrawableRes final int icon2 = R.drawable.ic_add;
-                int customTimeToAdd = Integer.parseInt(buttonTime);
-                int minutesToAdd = customTimeToAdd / 60;
-                int secondsToAdd = customTimeToAdd % 60;
+                @DrawableRes final int icon3 = R.drawable.ic_add;
+                final CharSequence title3 = formatButtonTimeText(localizedContext, timer, true);
 
-                final CharSequence title2 = secondsToAdd == 0
-                    ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
-                    String.valueOf(minutesToAdd))
-                    : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
-                    String.valueOf(minutesToAdd),
-                    String.valueOf(secondsToAdd));
-
-                final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinute, timerId);
-                actions.add(new Action.Builder(icon2, title2, intent2).build());
+                final PendingIntent intent3 = Utils.pendingServiceIntent(context, addMinute, timerId);
+                actions.add(new Action.Builder(icon3, title3, intent3).build());
             }
         } else {
             // Timer is paused.
@@ -293,21 +299,11 @@ class TimerNotificationBuilder {
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right Button: +x Minutes
-            String buttonTime = timer.getButtonTime();
-            if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(buttonTime)) {
+            if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(timer.getButtonAddTime())) {
                 final Intent addTime = TimerService.createAddCustomTimeToTimerIntent(context, timerId);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, addTime, timerId);
                 @DrawableRes final int icon2 = R.drawable.ic_add;
-                int customTimeToAdd = Integer.parseInt(buttonTime);
-                int minutesToAdd = customTimeToAdd / 60;
-                int secondsToAdd = customTimeToAdd % 60;
-
-                final CharSequence title2 = secondsToAdd == 0
-                    ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
-                    String.valueOf(minutesToAdd))
-                    : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
-                    String.valueOf(minutesToAdd),
-                    String.valueOf(secondsToAdd));
+                final CharSequence title2 = formatButtonTimeText(localizedContext, timer, true);
 
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
             }
@@ -521,5 +517,22 @@ class TimerNotificationBuilder {
         content.setTextViewText(R.id.title, titleText);
         content.setTextViewText(R.id.state, stateText);
         return content;
+    }
+
+    @NonNull
+    private static String formatButtonTimeText(@NonNull Context context, @NonNull Timer timer, boolean isAddButton) {
+        int customTime = Integer.parseInt(isAddButton ? timer.getButtonAddTime() : timer.getButtonRemoveTime());
+        int minutes = customTime / 60;
+        int seconds = customTime % 60;
+        final String minText = FormattedTextUtils.getNumberFormattedQuantityString(context, R.plurals.minutes_short, minutes);
+        final String prefix = isAddButton ? "+ " : "- ";
+
+        if (seconds == 0) {
+            return prefix + minText;
+        }
+
+        final String minSecText = minText + " " + seconds;
+
+        return prefix + minSecText;
     }
 }

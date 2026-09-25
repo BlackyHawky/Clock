@@ -133,7 +133,6 @@
     <string name="timer_start" msgid="6158486445614356442">آغاز</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"حذف <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"افزودن %s دقیقه"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"افزودن %s دقیقه"</string>
     <string name="timer_stop" msgid="3361154678667736722">"توقف"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"توقف همه تایمرها"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"تایمر لغو شد"</string>
@@ -330,8 +329,6 @@
     <string name="timer_time_box_title">مدت زمان جدید تایمر</string>
     <string name="timer_button_time_box_title">دقایق برای افزودن به تایمر</string>
     <string name="timer_add_custom_time_with_seconds_description">افزودن %1$s دقیقه و %2$s ثانیه</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">افزودن %1$s دقیقه و %2$s ثانیه</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_end_time_label">زمان پایان: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
     <string name="sw_laps_title">دورها</string>
     <string name="sw_split_title">تقسیم</string>

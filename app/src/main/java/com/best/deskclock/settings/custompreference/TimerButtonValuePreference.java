@@ -2,7 +2,7 @@
 
 package com.best.deskclock.settings.custompreference;
 
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_TIME_BUTTON_VALUE;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -13,16 +13,16 @@ import androidx.preference.DialogPreference;
 
 import com.best.deskclock.R;
 
-public class TimerAddTimeButtonValuePreference extends DialogPreference {
+public class TimerButtonValuePreference extends DialogPreference {
 
-    public TimerAddTimeButtonValuePreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public TimerButtonValuePreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setPersistent(true);
     }
 
     @Override
     public CharSequence getSummary() {
-        int value = getAddTimeButtonValue();
+        int value = getButtonValue();
 
         int m = value / 60;
         int s = value % 60;
@@ -40,11 +40,11 @@ public class TimerAddTimeButtonValuePreference extends DialogPreference {
         }
     }
 
-    public int getAddTimeButtonValue() {
-        return getPersistedInt(DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE);
+    public int getButtonValue() {
+        return getPersistedInt(DEFAULT_TIMER_TIME_BUTTON_VALUE);
     }
 
-    public void setAddTimeButtonValue(int minutes) {
+    public void setButtonValue(int minutes) {
         persistInt(minutes);
         notifyChanged();
     }

@@ -134,7 +134,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Radera <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Lägg till %s minut"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Lägg till %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stopp"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Stoppa alla timer"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Timerinställningen avbröts"</string>
@@ -272,7 +271,6 @@
     <string name="whats_new_title">Nyheter</string>
     <string name="first_launch_version">Version %s</string>
     <string name="first_launch_important_info_title">VIKTIG INFORMATION</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_color_title">Klockfärg</string>
     <string name="background_color_title">Bakgrundsfärg</string>
     <string name="sw_volume_up_action_title">Volym upp</string>
@@ -461,7 +459,6 @@
     <string name="timer_button_time_minutes_warning_box_text">Ange ett värde mellan 0 och 60 minuter</string>
     <string name="timer_button_time_seconds_warning_box_text">Ange ett värde mellan 0 och 59 sekunder</string>
     <string name="timer_add_custom_time_with_seconds_description">Lägg till %1$s minut %2$s sekunder</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Lägg till %1$s min %2$s s</string>
     <string name="timer_time_box_title">Ny timerlängd</string>
     <string name="timer_time_warning_box_title">Felaktigt värde angivet</string>
     <string name="timer_creation_view_style_title">Stil för timervy vid skapande</string>

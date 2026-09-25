@@ -133,7 +133,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Бастау"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> жою"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s минут қосу"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s мин. қосу"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Тоқтату"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Барлық таймерлерді тоқтату"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Таймерден бас тартылды"</string>

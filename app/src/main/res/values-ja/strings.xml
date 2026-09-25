@@ -127,7 +127,6 @@
     <string name="timer_start" msgid="6158486445614356442">"開始"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g>を削除"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s分延長"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s分追加"</string>
     <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"タイマーをすべて停止"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"タイマーをキャンセルしました"</string>
@@ -249,7 +248,6 @@
     <string name="title_dark_theme_mode">ダークテーマモード</string>
     <string name="title_accent_color">アクセントカラー</string>
     <string name="add_label">ラベルを追加</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="green_accent_color">緑色</string>
     <string name="indigo_accent_color">藍色</string>
     <string name="auto_night_accent_color_title">ナイトモードにアクセントカラーを適用</string>

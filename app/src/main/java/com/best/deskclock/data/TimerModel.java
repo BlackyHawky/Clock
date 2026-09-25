@@ -254,7 +254,8 @@ final class TimerModel {
     /**
      * @param length            the length of the timer in milliseconds
      * @param label             describes the purpose of the timer
-     * @param buttonTime        the time indicated in the timer add time button
+     * @param buttonAddTime     the time indicated in the timer "Add time" button
+     * @param buttonRemoveTime  the time indicated in the timer "Remove time" button
      * @param ringtone          the timer ringtone
      * @param autoSilence       the auto silence duration
      * @param crescendoDuration the volume crescendo duration
@@ -266,13 +267,13 @@ final class TimerModel {
      * @return the newly added timer
      */
     @NonNull
-    Timer addTimer(long length, @Nullable String label, @NonNull String buttonTime, @Nullable Uri ringtone, int autoSilence,
-                   int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern, boolean isFlashOn, boolean turnOffMedia,
-                   boolean deleteAfterUse) {
+    Timer addTimer(long length, @Nullable String label, @NonNull String buttonAddTime, @NonNull String buttonRemoveTime,
+                   @Nullable Uri ringtone, int autoSilence, int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern,
+                   boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
 
         // Create the timer instance.
-        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, ringtone,
-            autoSilence, crescendoDuration, isVibrate, vibrationPattern, isFlashOn, turnOffMedia, deleteAfterUse);
+        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonAddTime, buttonRemoveTime,
+            ringtone, autoSilence, crescendoDuration, isVibrate, vibrationPattern, isFlashOn, turnOffMedia, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);

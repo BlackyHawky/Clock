@@ -251,10 +251,17 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.TimerAddTimeButtonValuePreference
+        <com.best.deskclock.settings.custompreference.TimerButtonValuePreference
             android:key="key_timer_add_time_button_value"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/default_time_to_add_to_timer_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.TimerButtonValuePreference
+            android:key="key_timer_remove_time_button_value"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/default_time_to_remove_to_timer_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

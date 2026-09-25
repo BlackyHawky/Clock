@@ -126,7 +126,6 @@
     <string name="timer_start" msgid="6158486445614356442">"စတင်ရန်"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ကို ဖျက်မယ်"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s မိနစ်ထည့်ပါ။"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s မိနစ် ထည့်ရန်"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ရပ်တန့်ရန်"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"အချိန်တိုင်းကိရိယာများအားလုံး ရပ်ရန်"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"တိုင်မာ ဖျက်သိမ်းလိုက်ပြီ"</string>

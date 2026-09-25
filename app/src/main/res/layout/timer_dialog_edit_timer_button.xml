@@ -4,6 +4,7 @@
 -->
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
@@ -48,6 +49,24 @@
                 tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            app:dividerColor="?attr/colorOutline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/button_time_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/timer_button_time_note"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textStyle="italic"
+            android:visibility="visible" />
 
     </LinearLayout>
 
