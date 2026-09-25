@@ -334,7 +334,7 @@ public final class RingtonePlayer {
 
                             requestAudioFocus(true);
 
-                            // Set the media volume for exernal audio devices
+                            // Set the media volume for external audio devices
                             if (mConfig.shouldUseCustomMediaVolume() && mAudioManager != null) {
                                 setMediaVolumeForExternalAudioDevices(getExternalAudioDeviceVolumeFromPrefs());
                             }
