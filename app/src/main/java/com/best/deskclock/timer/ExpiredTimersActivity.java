@@ -527,6 +527,7 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
         }
 
         timerView.checkIsLandscapePhone(isLandscape() && !isTablet());
+        timerView.checkIsSingleTimer(false);
         timerView.setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
         timerView.setTimerTimeFont(timerFont);
         timerView.setIndicatorStateDisplay(mIsIndicatorStateDisplayed);

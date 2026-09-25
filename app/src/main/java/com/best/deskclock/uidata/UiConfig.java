@@ -2,11 +2,15 @@
 
 package com.best.deskclock.uidata;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+
+import com.best.deskclock.R;
 
 import java.util.Locale;
 
@@ -100,5 +104,49 @@ public class UiConfig {
     public record Haptics(
         boolean isVibrationsEnabled
     ) {}
+
+    /**
+     * Helper class to hold formatted button string data.
+     */
+    public record ButtonTimeConfig(
+        boolean isZero,
+        @NonNull String text,
+        @NonNull String contentDescription) {}
+
+    /**
+     * Formats total seconds into a ButtonTimeConfig object containing text and content description.
+     */
+    @NonNull
+    public static ButtonTimeConfig formatButtonTime(
+        @NonNull Context context,
+        @NonNull Locale locale,
+        long totalSeconds,
+        boolean isRemoveType,
+        @StringRes int descMinutesResId,
+        @StringRes int descMinutesSecsResId) {
+
+        boolean isZero = totalSeconds == 0;
+        long minutes = totalSeconds / 60;
+        long seconds = totalSeconds % 60;
+
+        String buttonTimeFormatted = String.format(
+            locale,
+            minutes < 10 ? "%d:%02d" : "%02d:%02d",
+            minutes,
+            seconds
+        );
+
+        String prefix = isRemoveType ? "- " : "+ ";
+        String text = prefix + context.getString(R.string.timer_add_remove_custom_time, buttonTimeFormatted);
+
+        String contentDescription = (descMinutesResId == 0)
+            ? ""
+            : (seconds == 0
+               ? context.getString(descMinutesResId, String.valueOf(minutes))
+               : context.getString(descMinutesSecsResId, String.valueOf(minutes), String.valueOf(seconds))
+        );
+
+        return new ButtonTimeConfig(isZero, text, contentDescription);
+    }
 
 }

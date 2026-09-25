@@ -106,7 +106,6 @@
     <string name="timer_start">Aniciar</string>
     <string name="timer_descriptive_delete">Desaniciar <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description">Amestar %s minutu</string>
-    <string name="timer_add_custom_time_for_notification">Añadir %s min</string>
     <string name="timer_stop">Detener</string>
     <string name="timer_stop_all">Parar tolos temporizadores</string>
     <string name="timer_canceled">Encaboxóse\'l temporizador</string>

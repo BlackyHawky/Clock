@@ -31,12 +31,12 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     private final TimerAdapter mAdapter;
     public final BaseTimerItem mTimerView;
     public final MaterialButton addTimeButton;
+    public final MaterialButton removeTimeButton;
     public final View circleContainer;
     public final TextView timerTimeText;
     private final int mViewType;
 
     public TimerViewHolder(@NonNull View view, @NonNull TimerAdapter timerAdapter, int viewType) {
-
         super(view);
 
         mAdapter = timerAdapter;
@@ -56,6 +56,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 TimerItemBinding binding = TimerItemBinding.bind(view);
                 resetButton = binding.resetButton;
                 addTimeButton = binding.timerAddTimeButton;
+                removeTimeButton = binding.timerRemoveTimeButton;
                 circleContainer = binding.circleContainer;
                 timerTimeText = binding.timerTimeText;
                 playPauseButton = binding.playPauseButton;
@@ -64,6 +65,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
                 resetButton = compactBinding.resetButton;
                 addTimeButton = compactBinding.timerAddTimeButton;
+                removeTimeButton = compactBinding.timerRemoveTimeButton;
                 timerTimeText = compactBinding.timerTimeText;
                 playPauseButton = compactBinding.playPauseButton;
                 circleContainer = null;
@@ -92,6 +94,15 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             timerClickHandler.onAddTimeClicked(getTimer(), v);
         });
 
+        removeTimeButton.setOnClickListener(v -> {
+            if (getTimer().isReset()) {
+                return;
+            }
+
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+            timerClickHandler.onRemoveTimeClicked(getTimer(), v);
+        });
+
         if (circleContainer != null) {
             circleContainer.setOnClickListener(playPauseListener);
             circleContainer.setOnTouchListener(new Utils.CircleTouchListener());
@@ -108,8 +119,10 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         UiConfig.Screen screen = mAdapter.getScreen();
         Locale appLocale = mAdapter.getLocale();
         Typeface typeface = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
+        boolean isSingleTimer = mViewType == TimerAdapter.SINGLE_TIMER;
 
         mTimerView.checkIsLandscapePhone(screen.isLandscape() && !screen.isTablet());
+        mTimerView.checkIsSingleTimer(isSingleTimer);
         mTimerView.setTimerTimeFont(typeface);
         mTimerView.setLocale(appLocale);
         mTimerView.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
@@ -118,8 +131,9 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         mTimerView.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
 
         if (mTimerView instanceof TimerItem item) {
-            item.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isTablet(), screen.isLandscape(),
-                mViewType == TimerAdapter.SINGLE_TIMER, screen.isRtl());
+            item.setButtonPosition(
+                settings.areTimerButtonPositionsInverted, screen.isTablet(), screen.isLandscape(), isSingleTimer, screen.isRtl()
+            );
         } else if (mTimerView instanceof TimerItemCompact compactItem) {
             compactItem.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isRtl());
         }

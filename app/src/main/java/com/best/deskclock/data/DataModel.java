@@ -376,7 +376,8 @@ public final class DataModel {
     /**
      * @param length            the length of the timer in milliseconds
      * @param label             describes the purpose of the timer
-     * @param buttonTime        the time indicated in the timer time add button
+     * @param buttonAddTime     the time indicated in the "Add time" button
+     * @param buttonRemoveTime  the time indicated in the "Remove time" button
      * @param ringtone          the timer ringtone
      * @param autoSilence       the auto silence duration
      * @param crescendoDuration the volume crescendo duration
@@ -388,14 +389,14 @@ public final class DataModel {
      * @return the newly added timer
      */
     @NonNull
-    public Timer addTimer(long length, @Nullable String label, @NonNull String buttonTime, @Nullable Uri ringtone, int autoSilence,
-                          int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern, boolean isFlashOn,
-                          boolean turnOffMedia, boolean deleteAfterUse) {
+    public Timer addTimer(long length, @Nullable String label, @NonNull String buttonAddTime, @NonNull String buttonRemoveTime,
+                          @Nullable Uri ringtone, int autoSilence, int crescendoDuration, boolean isVibrate,
+                          @NonNull String vibrationPattern, boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
 
         enforceMainLooper();
 
-        return mTimerModel.addTimer(length, label, buttonTime, ringtone, autoSilence, crescendoDuration, isVibrate, vibrationPattern,
-            isFlashOn, turnOffMedia, deleteAfterUse
+        return mTimerModel.addTimer(length, label, buttonAddTime, buttonRemoveTime, ringtone, autoSilence, crescendoDuration, isVibrate,
+            vibrationPattern, isFlashOn, turnOffMedia, deleteAfterUse
         );
     }
 
@@ -493,6 +494,35 @@ public final class DataModel {
     }
 
     /**
+     * @param timer the timer from which to remove time
+     */
+    public void removeCustomTimeFromTimer(@NonNull Timer timer) {
+        removeCustomTimeFromTimer(null, timer);
+    }
+
+    /**
+     * @param service used to start foreground notifications for expired timers
+     * @param timer   the timer from which to remove time
+     */
+    public void removeCustomTimeFromTimer(@Nullable Service service, @NonNull Timer timer) {
+        enforceMainLooper();
+        final Timer updatedTimer = timer.removeCustomTime();
+
+        if (updatedTimer.isExpired() && !timer.isExpired()) {
+            if (service != null) {
+                expireTimer(service, updatedTimer);
+            } else {
+                Context context = DeskClockApplication.getAppContext();
+                Intent intent = TimerService.createTimerExpiredIntent(context, updatedTimer);
+
+                ContextCompat.startForegroundService(context, intent);
+            }
+        } else {
+            mTimerModel.updateTimer(updatedTimer);
+        }
+    }
+
+    /**
      * @param timer     the timer to which the new {@code newLength} belongs
      * @param newLength the new duration to store for the {@code timer}
      */
@@ -512,7 +542,8 @@ public final class DataModel {
      *
      * @param timer             the original timer to update
      * @param label             the new label for the timer
-     * @param buttonTime        the new custom duration for the add button
+     * @param buttonAddTime     the new custom duration for the "Add time" button
+     * @param buttonRemoveTime  the new custom duration for the "Remove time" button
      * @param ringtone          the new timer ringtone
      * @param autoSilence       the new custom auto silence duration
      * @param crescendoDuration the new custom volume crescendo duration
@@ -522,14 +553,16 @@ public final class DataModel {
      * @param turnOffMedia      {@code true} to turn off media upon expiration, {@code false} otherwise.
      * @param deleteAfterUse    {@code true} to automatically delete the timer after use, {@code false} otherwise
      */
-    public void updateAllTimerSettings(@NonNull Timer timer, @Nullable String label, @NonNull String buttonTime, @Nullable Uri ringtone,
-                                       int autoSilence, int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern,
-                                       boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
+    public void updateAllTimerSettings(@NonNull Timer timer, @Nullable String label, @NonNull String buttonAddTime,
+                                       @NonNull String buttonRemoveTime, @Nullable Uri ringtone, int autoSilence, int crescendoDuration,
+                                       boolean isVibrate, @NonNull String vibrationPattern, boolean isFlashOn, boolean turnOffMedia,
+                                       boolean deleteAfterUse) {
 
         enforceMainLooper();
 
         Timer updatedTimer = timer.setLabel(label)
-            .setButtonTime(buttonTime)
+            .setButtonAddTime(buttonAddTime)
+            .setButtonRemoveTime(buttonRemoveTime)
             .setRingtone(ringtone)
             .setAutoSilence(autoSilence)
             .setCrescendoDuration(crescendoDuration)

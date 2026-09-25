@@ -881,10 +881,17 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the default duration in seconds to add to timer when the "Add Minute" button is clicked.
+     * @return the default duration in seconds to add to timer when the "Add Time" button is clicked.
      */
     public static int getDefaultTimeToAddToTimer(@NonNull SharedPreferences prefs) {
-        return prefs.getInt(KEY_TIMER_ADD_TIME_BUTTON_VALUE, DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE);
+        return prefs.getInt(KEY_TIMER_ADD_TIME_BUTTON_VALUE, DEFAULT_TIMER_TIME_BUTTON_VALUE);
+    }
+
+    /**
+     * @return the default duration in seconds to subtract from timer when the "Remove Time" button is clicked.
+     */
+    public static int getDefaultTimeToRemoveToTimer(@NonNull SharedPreferences prefs) {
+        return prefs.getInt(KEY_TIMER_REMOVE_TIME_BUTTON_VALUE, DEFAULT_TIMER_TIME_BUTTON_VALUE);
     }
 
     /**

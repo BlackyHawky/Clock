@@ -533,6 +533,7 @@ public class HandleApiCalls extends Activity {
         // Create a new timer if one could not be reused.
         if (timer == null) {
             String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
+            String defaultTimeToRemoveToTimer = String.valueOf(SettingsDAO.getDefaultTimeToRemoveToTimer(mPrefs));
             String vibrationPattern = SettingsDAO.getTimerVibrationPattern(mPrefs);
             Uri ringtoneUri = mDataModel.getTimerRingtoneUri();
             int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
@@ -543,6 +544,7 @@ public class HandleApiCalls extends Activity {
             timer = mDataModel.addTimer(lengthMillis,
                 label,
                 defaultTimeToAddToTimer,
+                defaultTimeToRemoveToTimer,
                 ringtoneUri,
                 autoSilenceDuration,
                 volumeCrescendoDuration,

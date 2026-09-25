@@ -138,6 +138,20 @@
         app:strokeColor="?attr/colorOnSurfaceVariant" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_remove_time_button"
+        style="?attr/materialIconButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:icon="@drawable/ic_minus"
+        app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
+        app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
+        app:layout_goneMarginEnd="12dp"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small"
+        app:strokeColor="?attr/colorOnSurfaceVariant" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause_button"
         style="?attr/materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
@@ -148,7 +162,6 @@
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconTint="?android:attr/colorBackground"
-        app:layout_constraintStart_toStartOf="@+id/timer_add_time_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small"

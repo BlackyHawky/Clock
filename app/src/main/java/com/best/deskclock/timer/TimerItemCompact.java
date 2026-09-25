@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.BaseProgressIndicator;
@@ -52,6 +53,18 @@ public class TimerItemCompact extends BaseTimerItem {
     }
 
     @Override
+    protected void onTimerPlayPauseButtonUpdated(Timer.State state) {
+        if (mIsAddTimeZero || mIsRemoveTimeZero) {
+            mBinding.playPauseButton.setVisibility(VISIBLE);
+            return;
+        }
+
+        mBinding.playPauseButton.setVisibility(state == Timer.State.RUNNING || state == Timer.State.PAUSED
+            ? GONE : VISIBLE
+        );
+    }
+
+    @Override
     protected void onTimerTopUpdated() {
         if (mIsIndicatorStateDisplayed || !mLastLabel.isEmpty()) {
             mBinding.timerTop.setVisibility(VISIBLE);
@@ -64,10 +77,11 @@ public class TimerItemCompact extends BaseTimerItem {
     @Override protected TextView getLabelText() { return mBinding.timerLabel; }
     @Override protected TextView getEndTimeText() { return mBinding.timerEndTime; }
     @Override protected MaterialButton getAddTimeButton() { return mBinding.timerAddTimeButton; }
+    @Override protected MaterialButton getRemoveTimeButton() { return mBinding.timerRemoveTimeButton; }
     @Override protected View getIndicatorState() { return mBinding.timerIndicatorState; }
     @Override protected BaseProgressIndicator<?> getProgressIndicator() { return mBinding.linearProgressIndicator; }
     @Override protected View getResetButton() { return mBinding.resetButton; }
     @Override protected MaterialButton getPlayPauseButton() { return mBinding.playPauseButton; }
-    @Override protected int getAddTimeHiddenVisibility() { return GONE; }
+    @Override protected int getRemoveTimeHiddenVisibility() { return GONE; }
 
 }

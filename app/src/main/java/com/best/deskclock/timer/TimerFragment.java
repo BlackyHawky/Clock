@@ -455,6 +455,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 final long timerLength = getTimeInMillis();
                 String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(getPrefs()));
+                String defaultTimeToRemoveToTimer = String.valueOf(SettingsDAO.getDefaultTimeToRemoveToTimer(getPrefs()));
                 String vibrationPattern = SettingsDAO.getTimerVibrationPattern(getPrefs());
                 Uri ringtoneUri = getDataModel().getTimerRingtoneUri();
                 int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(getPrefs());
@@ -466,6 +467,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     timerLength,
                     defaultLabel,
                     defaultTimeToAddToTimer,
+                    defaultTimeToRemoveToTimer,
                     ringtoneUri,
                     autoSilenceDuration,
                     volumeCrescendoDuration,

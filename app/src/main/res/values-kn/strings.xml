@@ -134,7 +134,6 @@
     <string name="timer_start" msgid="6158486445614356442">"ಪ್ರಾರಂಭಿಸಿ"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ಅಳಿಸಿ"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s ನಿಮಿಷ ಸೇರಿಸಿ"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s ನಿಮಿಷ ಸೇರಿಸಿ"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ನಿಲ್ಲಿಸಿ"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"ಎಲ್ಲಾ ಟೈಮರ್‌ಗಳನ್ನು ನಿಲ್ಲಿಸಿ"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"ಟೈಮರ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ"</string>
