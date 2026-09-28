@@ -62,7 +62,8 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/end_of_ringtone_checkbox"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:background="?attr/selectableItemBackground"
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"
@@ -76,7 +77,8 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/auto_silence_never_checkbox"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:background="?attr/selectableItemBackground"
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"
