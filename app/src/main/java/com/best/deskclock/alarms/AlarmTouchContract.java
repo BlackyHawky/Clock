@@ -29,7 +29,7 @@ public interface AlarmTouchContract extends ItemTouchHelperContract {
      * @return {@code true} if swiping is permitted (e.g., no edit bottom sheets or delay dialogs are currently open),
      * {@code false} otherwise.
      */
-    boolean canSwipe();
+    boolean canSwipe(@NonNull RecyclerView.ViewHolder viewHolder);
 
     /**
      * Called when a ViewHolder has been fully swiped off the screen.

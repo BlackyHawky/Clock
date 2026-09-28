@@ -154,6 +154,12 @@ public final class ClockContract {
          * Type: STRING
          */
         String MATH_HARDNESS_LEVEL = "mathHardnessLevel";
+
+        /**
+         * True if alarm is locked
+         * <p>Type: BOOLEAN</p>
+         */
+        String LOCK = "lock";
     }
 
     /**

@@ -346,6 +346,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_display_locked_alarms_first"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_locked_alarms_first_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_enable_alarm_fab_long_press"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_alarm_fab_long_press_title"

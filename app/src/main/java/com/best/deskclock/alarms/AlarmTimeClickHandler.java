@@ -142,6 +142,11 @@ public final class AlarmTimeClickHandler {
     }
 
     public void onClockClicked(@NonNull Alarm alarm) {
+        if (alarm.lock) {
+            displayBottomSheetDialog(alarm, false);
+            return;
+        }
+
         mSelectedAlarm = alarm;
 
         if (mConfig.timePickerStyle().equals(SPINNER_TIME_PICKER_STYLE)) {
@@ -152,6 +157,10 @@ public final class AlarmTimeClickHandler {
     }
 
     public void onClockLongClicked(@NonNull Alarm alarm) {
+        if (alarm.lock) {
+            return;
+        }
+
         mSelectedAlarm = alarm;
         showAlarmDelayPickerDialog();
     }

@@ -54,70 +54,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     };
 
-    /**
-     * The default sort order for this table
-     */
-    private static final String DEFAULT_SORT_ORDER =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
-
-    /**
-     * The default sort order for this table with enabled alarms first
-     */
-    private static final String DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
-
-    /**
-     * The sort order by descending ID to display oldest alarms last.
-     */
-    private static final String SORT_ORDER_BY_DESCENDING_CREATION =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
-
-    /**
-     * The sort order that places enabled alarms first, then sorts alarms by descending ID
-     * with the oldest last.
-     */
-    private static final String SORT_ORDER_BY_DESCENDING_CREATION_WITH_ENABLED_FIRST =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
-
-    /**
-     * The sort order by ascending ID to display oldest alarms first.
-     */
-    private static final String SORT_ORDER_BY_ASCENDING_CREATION =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
-
-    /**
-     * The sort order that places enabled alarms first, then sorts alarms by ascending ID
-     * with the oldest first.
-     */
-    private static final String SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
-
-    /**
-     * The sort order by ascending sort_order to display manually sorted alarms.
-     */
-    private static final String SORT_ORDER_MANUALLY_ASC =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MANUAL_SORT_ORDER + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
-
-    /**
-     * The sort order that places enabled alarms first, then sorts manually.
-     */
-    private static final String SORT_ORDER_MANUALLY_WITH_ENABLED_FIRST =
-        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MANUAL_SORT_ORDER + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
-
     private static final String[] QUERY_COLUMNS = {
         _ID,
         YEAR,
@@ -144,7 +80,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         PAUSE_END_DATE,
         BACKGROUND_IMAGE,
         BLUR_INTENSITY,
-        MATH_HARDNESS_LEVEL
+        MATH_HARDNESS_LEVEL,
+        LOCK
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -173,6 +110,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BACKGROUND_IMAGE,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BLUR_INTENSITY,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MATH_HARDNESS_LEVEL,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LOCK,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -222,27 +160,28 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int BACKGROUND_IMAGE_INDEX = 23;
     private static final int BLUR_INTENSITY_INDEX = 24;
     private static final int MATH_HARDNESS_LEVEL_INDEX = 25;
+    private static final int LOCK_INDEX = 26;
 
-    private static final int INSTANCE_STATE_INDEX = 26;
-    public static final int INSTANCE_ID_INDEX = 27;
-    public static final int INSTANCE_YEAR_INDEX = 28;
-    public static final int INSTANCE_MONTH_INDEX = 29;
-    public static final int INSTANCE_DAY_INDEX = 30;
-    public static final int INSTANCE_HOUR_INDEX = 31;
-    public static final int INSTANCE_MINUTE_INDEX = 32;
-    public static final int INSTANCE_LABEL_INDEX = 33;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 34;
-    public static final int INSTANCE_VIBRATE_INDEX = 35;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 36;
-    public static final int INSTANCE_FLASH_INDEX = 37;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 38;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 39;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 40;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 41;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 42;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 43;
+    private static final int INSTANCE_STATE_INDEX = 27;
+    public static final int INSTANCE_ID_INDEX = 28;
+    public static final int INSTANCE_YEAR_INDEX = 29;
+    public static final int INSTANCE_MONTH_INDEX = 30;
+    public static final int INSTANCE_DAY_INDEX = 31;
+    public static final int INSTANCE_HOUR_INDEX = 32;
+    public static final int INSTANCE_MINUTE_INDEX = 33;
+    public static final int INSTANCE_LABEL_INDEX = 34;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 35;
+    public static final int INSTANCE_VIBRATE_INDEX = 36;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 37;
+    public static final int INSTANCE_FLASH_INDEX = 38;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 39;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 40;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 41;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 42;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 43;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 44;
 
-    private static final int COLUMN_COUNT = MATH_HARDNESS_LEVEL_INDEX + 1;
+    private static final int COLUMN_COUNT = LOCK_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
     // Public fields
     public long id;
@@ -273,6 +212,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String backgroundImage;
     public int blurIntensity;
     public String mathHardnessLevel;
+    public boolean lock;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -309,6 +249,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         this.blurIntensity = DEFAULT_BLUR_INTENSITY;
         this.mathHardnessLevel = DEFAULT_MATH_HARDNESS_LEVEL;
+        this.lock = false;
     }
 
     // Used to back up/restore the alarm
@@ -316,7 +257,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                  @NonNull String vibrationPattern, boolean flash, @NonNull Weekdays daysOfWeek, @NonNull String label, boolean syncByLabel,
                  @NonNull String alert, boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit,
                  int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
-                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel) {
+                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel, boolean lock) {
 
         this.id = id;
         this.enabled = enabled;
@@ -344,6 +285,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = backgroundImage;
         this.blurIntensity = blurIntensity;
         this.mathHardnessLevel = mathHardnessLevel;
+        this.lock = lock;
     }
 
     // Used to create a clone of the given alarm
@@ -375,6 +317,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.backgroundImage = original.backgroundImage;
         this.blurIntensity = original.blurIntensity;
         this.mathHardnessLevel = original.mathHardnessLevel;
+        this.lock = original.lock;
     }
 
     public Alarm(@NonNull Cursor c) {
@@ -403,6 +346,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         backgroundImage = c.getString(BACKGROUND_IMAGE_INDEX);
         blurIntensity = c.getInt(BLUR_INTENSITY_INDEX);
         mathHardnessLevel = c.getString(MATH_HARDNESS_LEVEL_INDEX);
+        lock = c.getInt(LOCK_INDEX) == 1;
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -444,6 +388,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         backgroundImage = p.readString();
         blurIntensity = p.readInt();
         mathHardnessLevel = p.readString();
+        lock = p.readInt() == 1;
     }
 
     @NonNull
@@ -477,6 +422,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(BACKGROUND_IMAGE, backgroundImage);
         values.put(BLUR_INTENSITY, blurIntensity);
         values.put(MATH_HARDNESS_LEVEL, mathHardnessLevel);
+        values.put(LOCK, lock ? 1 : 0);
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -515,6 +461,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(backgroundImage);
         p.writeInt(blurIntensity);
         p.writeString(mathHardnessLevel);
+        p.writeInt(lock ? 1 : 0);
     }
 
     public int describeContents() {
@@ -544,46 +491,43 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @return cursor loader with all the alarms.
      */
     @NonNull
-    public static CursorLoader getAlarmsCursorLoader(@NonNull Context context, boolean areEnabledAlarmsFirst, @NonNull String sortingPref) {
-        String sortOrder = DEFAULT_SORT_ORDER;
+    public static CursorLoader getAlarmsCursorLoader(@NonNull Context context, @NonNull String sortingPref, boolean areEnabledAlarmsFirst,
+                                                     boolean areLockedAlarmsFirst) {
 
-        switch (sortingPref) {
-            case DEFAULT_SORT_BY_ALARM_TIME -> {
-                if (areEnabledAlarmsFirst) {
-                    sortOrder = DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST;
-                }
-            }
+        StringBuilder sortOrder = new StringBuilder();
 
-            case SORT_ALARM_BY_DESCENDING_CREATION_ORDER -> {
-                if (areEnabledAlarmsFirst) {
-                    sortOrder = SORT_ORDER_BY_DESCENDING_CREATION_WITH_ENABLED_FIRST;
-                } else {
-                    sortOrder = SORT_ORDER_BY_DESCENDING_CREATION;
-                }
-            }
-
-            case SORT_ALARM_BY_ASCENDING_CREATION_ORDER -> {
-                if (areEnabledAlarmsFirst) {
-                    sortOrder = SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST;
-                } else {
-                    sortOrder = SORT_ORDER_BY_ASCENDING_CREATION;
-                }
-            }
-
-            case SORT_ALARM_MANUALLY -> {
-                if (areEnabledAlarmsFirst) {
-                    sortOrder = SORT_ORDER_MANUALLY_WITH_ENABLED_FIRST;
-                } else {
-                    sortOrder = SORT_ORDER_MANUALLY_ASC;
-                }
-            }
+        if (areLockedAlarmsFirst) {
+            sortOrder.append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(LOCK).append(" DESC, ");
         }
 
-        return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI, QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, sortOrder) {
+        if (areEnabledAlarmsFirst) {
+            sortOrder.append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(ENABLED).append(" DESC, ");
+        }
+
+        switch (sortingPref) {
+            case SORT_ALARM_BY_DESCENDING_CREATION_ORDER ->
+                sortOrder.append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(_ID).append(" DESC");
+
+            case SORT_ALARM_BY_ASCENDING_CREATION_ORDER ->
+                sortOrder.append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(_ID).append(" ASC");
+
+            case SORT_ALARM_MANUALLY ->
+                sortOrder.append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(MANUAL_SORT_ORDER).append(" ASC, ")
+                    .append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(HOUR).append(" ASC, ")
+                    .append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(MINUTES).append(" ASC, ")
+                    .append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(_ID).append(" DESC");
+
+            default ->
+                // Sort by alarm time
+                sortOrder.append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(HOUR).append(" ASC, ")
+                    .append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(MINUTES).append(" ASC, ")
+                    .append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(_ID).append(" DESC");
+        }
+
+        return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI, QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, sortOrder.toString()) {
             @Override
             public Cursor loadInBackground() {
-                // Prime the ringtone title cache for later access. Most alarms will refer to
-                // system ringtones.
+                // Prime the ringtone title cache for later access. Most alarms will refer to system ringtones.
                 DataModel.getDataModel().loadRingtoneTitles();
 
                 return super.loadInBackground();
@@ -750,7 +694,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || alarmVolume != other.alarmVolume
             || !Objects.equals(backgroundImage, other.backgroundImage)
             || blurIntensity != other.blurIntensity
-            || !Objects.equals(mathHardnessLevel, other.mathHardnessLevel);
+            || !Objects.equals(mathHardnessLevel, other.mathHardnessLevel)
+            || lock != other.lock;
     }
 
     public boolean isTomorrow(@NonNull Calendar now) {
@@ -1137,6 +1082,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", backgroundImage=" + backgroundImage +
             ", blurIntensity=" + blurIntensity +
             ", mathHardnessLevel=" + mathHardnessLevel +
+            ", lock=" + lock +
             '}';
     }
 

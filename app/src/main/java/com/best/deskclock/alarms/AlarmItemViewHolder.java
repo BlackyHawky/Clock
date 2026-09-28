@@ -105,6 +105,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         bindExpressiveCardBackground();
         bindAlarmLabel(mContext, alarm);
         bindClock(alarm);
+        bindLockAlarm(alarm);
         bindOnOffSwitch(alarm);
         bindRepeatText(alarm, alarmInstance);
         bindUpcomingDate(alarm, alarmInstance);
@@ -201,6 +202,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.digitalClock.setTypeface(alarmFont);
 
         mBinding.digitalClock.setTime(alarm.hour, alarm.minutes);
+    }
+
+    private void bindLockAlarm(@NonNull Alarm alarm) {
+        mBinding.lockIcon.setVisibility(alarm.lock ? VISIBLE : GONE);
     }
 
     private void bindRepeatText(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {

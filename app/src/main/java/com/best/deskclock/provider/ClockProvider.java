@@ -112,6 +112,8 @@ public class ClockProvider extends ContentProvider {
             ALARMS_TABLE_NAME + "." + AlarmsColumns.BLUR_INTENSITY);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.MATH_HARDNESS_LEVEL,
             ALARMS_TABLE_NAME + "." + AlarmsColumns.MATH_HARDNESS_LEVEL);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.LOCK,
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.LOCK);
 
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE,
             INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE);
