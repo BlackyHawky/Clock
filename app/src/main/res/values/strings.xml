@@ -39,6 +39,8 @@
     <string name="info">Info</string>
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
+    <!-- Label "Days" -->
+    <string name="label_days">Days</string>
     <!-- Label "Hours" -->
     <string name="label_hours">Hours</string>
     <!-- Label "Minutes" -->
@@ -122,13 +124,8 @@
     <string name="alarm_alert_snoozed_text">Snoozed</string>
     <!-- Button labels on the alarm dialog: Snooze -->
     <string name="alarm_alert_snooze_text">Snooze</string>
-    <!-- Toast that appears after Alarm is snoozed from the Alarm dialog. Says the alarm will snooze for xxx minutes.  -->
-    <plurals name="alarm_alert_snooze_set">
-        <!-- Duration for one minute -->
-        <item quantity="one">Snoozing for <xliff:g example="1" id="minutes">%d</xliff:g> minute.</item>
-        <!-- Duration for more than one minute -->
-        <item quantity="other">Snoozing for <xliff:g example="10" id="minutes">%d</xliff:g> minutes.</item>
-    </plurals>
+    <!-- Toast that appears after Alarm is snoozed. -->
+    <string name="alarm_alert_snooze_duration_message">Snoozing for <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
     <!-- Title for alarm ringtone picker screen [CHAR LIMIT=30] -->
     <string name="alarm_sound">Alarm sound</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
@@ -141,12 +138,14 @@
     <string name="label_unlock">Unlock</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
-    <!-- Message displayed in the alarm editing when the "Delete alarm once dismissed" feature is disabled -->
+    <!-- Message displayed in the alarm editing panel when the "Delete alarm once dismissed" feature is disabled -->
     <string name="delete_occasional_alarm_after_use_info_message">Deselect the days of the week to access this feature.</string>
-    <!-- Message displayed in the alarm editing when the "Silence after" feature is disabled -->
+    <!-- Message displayed in the alarm editing panel when the "Silence after" feature is disabled -->
     <string name="auto_silence_info_message">\"Silence after\" set to \"%s\".
         \n\nDisable the math hardness level to access this feature.
     </string>
+    <!-- Message displayed in the alarm editing panel related to the "Snooze length" feature -->
+    <string name="snooze_warning_message">When you snooze an alarm for multiple days, all scheduled occurrences during this period will be skipped.\n\nFor example: if you snooze a daily alarm for 3 days, it will not ring tomorrow or the day after. It will only ring at the end of those 3 days.</string>
     <!-- Text action displayed in the Snackbar when an alarm is deleted -->
     <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
@@ -190,6 +189,12 @@
         <!-- Duration for more than one day -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> days</item>
     </plurals>
+    <plurals name="days_short">
+        <!-- Duration for one day -->
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> d</item>
+        <!-- Duration for more than one day -->
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> d</item>
+    </plurals>
     <!-- Alarm confirmation toast, timer notification and world clock ahead/behind: hours -->
     <plurals name="hours">
         <!-- Duration for one hour -->
@@ -226,8 +231,12 @@
     <string name="fix_alarm_volume">Fix</string>
     <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
     <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
+    <!-- Text of dialog box to edit days to the alarm snooze duration. -->
+    <string name="alarm_days_warning_box_text">Enter a value from 0 to 31 days</string>
     <!-- Text of dialog box to edit hours to set a new duration to an existing timer. -->
     <string name="alarm_hours_warning_box_text">Enter a value from 0 to 24 hours</string>
+    <!-- Text of dialog box to edit hours to the alarm snooze duration. -->
+    <string name="alarm_hours_snooze_warning_box_text">Enter a value from 0 to 23 hours</string>
     <!-- Text of dialog box to edit minutes to set the notification reminder time. -->
     <string name="alarm_minutes_warning_box_text">Enter a value from 0 to 59 minutes</string>
     <!-- Text instruction for alarm icon on alarm lock screen when swipe action is enabled.

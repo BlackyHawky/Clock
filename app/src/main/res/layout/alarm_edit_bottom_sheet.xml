@@ -508,6 +508,18 @@
                         android:maxLines="1"
                         tools:text="1 min" />
 
+                    <ImageView
+                        android:id="@+id/snooze_duration_note"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_error_outlined"
+                        android:contentDescription="@null"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
                 </LinearLayout>
 
                 <LinearLayout

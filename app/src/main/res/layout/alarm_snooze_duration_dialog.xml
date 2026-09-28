@@ -17,9 +17,27 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_hours"
+            android:id="@+id/text_input_layout_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/label_days"
+                android:inputType="number"
+                android:maxLength="2"
+                tools:ignore="TextContrastCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_hours"
@@ -62,7 +80,8 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/snooze_duration_none_checkbox"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:background="?attr/selectableItemBackground"
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"

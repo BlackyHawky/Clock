@@ -30,9 +30,11 @@ import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -414,6 +416,42 @@ public class AlarmUtils {
         final int index = (showDays ? 1 : 0) | (showHours ? 2 : 0) | (showMinutes ? 4 : 0);
 
         return String.format(formats[index], daySeq, hourSeq, minSeq);
+    }
+
+    /**
+     * Formats a snooze duration in minutes into a readable text string containing days, hours, and minutes.
+     *
+     * @param context        The context used to access string resources.
+     * @param duration       The total snooze duration in minutes.
+     * @param useShortFormat {@code true} to use abbreviated time units (e.g., "1 d 2 hr"),
+     *                       {@code false} to use full words (e.g., "1 day 2 hours").
+     * @return A localized string representing the formatted snooze duration.
+     */
+    @NonNull
+    public static String getSnoozeText(@NonNull Context context, int duration, boolean useShortFormat) {
+        int d = duration / 1440;
+        int h = (duration % 1440) / 60;
+        int m = duration % 60;
+
+        List<String> parts = new ArrayList<>();
+
+        if (d > 0) {
+            parts.add(context.getResources().getQuantityString(useShortFormat ? R.plurals.days_short : R.plurals.days, d, d));
+        }
+
+        if (h > 0) {
+            parts.add(context.getResources().getQuantityString(useShortFormat ? R.plurals.hours_short : R.plurals.hours, h, h));
+        }
+
+        if (m > 0) {
+            parts.add(context.getResources().getQuantityString(useShortFormat ? R.plurals.minutes_short : R.plurals.minutes, m, m));
+        }
+
+        if (parts.isEmpty()) {
+            return context.getResources().getQuantityString(useShortFormat ? R.plurals.minutes_short : R.plurals.minutes, 0, 0);
+        }
+
+        return TextUtils.join(" ", parts);
     }
 
     public static void popAlarmSetToast(@NonNull Context context, int accentStyle, @Nullable Typeface font, long alarmTime) {

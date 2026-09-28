@@ -53,6 +53,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
     private static final String ALARM_SNOOZE_DURATION = "alarm_snooze_duration_";
     private static final String ARG_PREF_KEY = ALARM_SNOOZE_DURATION + "arg_pref_key";
+    private static final String ARG_EDIT_ALARM_DAYS = ALARM_SNOOZE_DURATION + "arg_edit_alarm_days";
     private static final String ARG_EDIT_ALARM_HOURS = ALARM_SNOOZE_DURATION + "arg_edit_alarm_hours";
     private static final String ARG_EDIT_ALARM_MINUTES = ALARM_SNOOZE_DURATION + "arg_edit_alarm_minutes";
     private static final String ARG_SNOOZE_DURATION_NONE = ALARM_SNOOZE_DURATION + "arg_crescendo_duration_none";
@@ -84,15 +85,19 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
         boolean isNone = snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED;
 
+        int days = 0;
         int hours = 0;
         int minutes = 0;
 
         if (!isNone) {
-            hours = snoozeDuration / 60;
+            // 1 day = 24 hours * 60 minutes = 1440 minutes
+            days = snoozeDuration / 1440;
+            hours = (snoozeDuration % 1440) / 60;
             minutes = snoozeDuration % 60;
         }
 
         args.putString(ARG_PREF_KEY, key);
+        args.putInt(ARG_EDIT_ALARM_DAYS, days);
         args.putInt(ARG_EDIT_ALARM_HOURS, hours);
         args.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
         args.putBoolean(ARG_SNOOZE_DURATION_NONE, isNone);
@@ -114,14 +119,18 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
         boolean isNone = snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED;
 
+        int days = 0;
         int hours = 0;
         int minutes = 0;
 
         if (!isNone) {
-            hours = snoozeDuration / 60;
+            // 1 day = 24 hours * 60 minutes = 1440 minutes
+            days = snoozeDuration / 1440;
+            hours = (snoozeDuration % 1440) / 60;
             minutes = snoozeDuration % 60;
         }
 
+        args.putInt(ARG_EDIT_ALARM_DAYS, days);
         args.putInt(ARG_EDIT_ALARM_HOURS, hours);
         args.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
         args.putBoolean(ARG_SNOOZE_DURATION_NONE, isNone);
@@ -142,12 +151,15 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
+        String daysStr = mBinding.editDays.getText() != null ? mBinding.editDays.getText().toString() : "";
         String hoursStr = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
         String minutesStr = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
+        int days = daysStr.isEmpty() ? 0 : Integer.parseInt(daysStr);
         int hours = hoursStr.isEmpty() ? 0 : Integer.parseInt(hoursStr);
         int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
 
+        outState.putInt(ARG_EDIT_ALARM_DAYS, days);
         outState.putInt(ARG_EDIT_ALARM_HOURS, hours);
         outState.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
 
@@ -163,11 +175,13 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         final Bundle args = requireArguments();
 
         mPrefKey = args.getString(ARG_PREF_KEY, null);
+        int editDays = args.getInt(ARG_EDIT_ALARM_DAYS, 0);
         int editHours = args.getInt(ARG_EDIT_ALARM_HOURS, 0);
         int editMinutes = args.getInt(ARG_EDIT_ALARM_MINUTES, 0);
         boolean isNone = args.getBoolean(ARG_SNOOZE_DURATION_NONE, false);
 
         if (savedInstanceState != null) {
+            editDays = savedInstanceState.getInt(ARG_EDIT_ALARM_DAYS, editDays);
             editHours = savedInstanceState.getInt(ARG_EDIT_ALARM_HOURS, editHours);
             editMinutes = savedInstanceState.getInt(ARG_EDIT_ALARM_MINUTES, editMinutes);
             isNone = savedInstanceState.getBoolean(ARG_SNOOZE_DURATION_NONE, isNone);
@@ -180,13 +194,28 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         mBinding.snoozeDurationNoneCheckbox.setTypeface(mTypeFace);
         mBinding.snoozeDurationNoneCheckbox.setChecked(isNone);
 
-        mBinding.editHours.setTypeface(mTypeFace);
-        mBinding.editHours.setText(String.valueOf(editHours));
+        mBinding.editDays.setTypeface(mTypeFace);
+        mBinding.editDays.setText(String.valueOf(editDays));
 
         updateInputSate();
 
+        mBinding.editDays.selectAll();
+        mBinding.editDays.requestFocus();
+        mBinding.editDays.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editDays.addTextChangedListener(mTextWatcher);
+        mBinding.editDays.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                mBinding.editDays.selectAll();
+            }
+        });
+
+        mBinding.editHours.setTypeface(mTypeFace);
+        if (!isNone) {
+            mBinding.editHours.setText(String.valueOf(editHours));
+        }
+        mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         mBinding.editHours.selectAll();
-        mBinding.editHours.requestFocus();
+        mBinding.editHours.setInputType(InputType.TYPE_CLASS_NUMBER);
         mBinding.editHours.addTextChangedListener(mTextWatcher);
         mBinding.editHours.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
@@ -215,7 +244,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
             isUpdatingCheckboxes = true;
             updateInputSate();
-            maybeRequestHoursFocus();
+            maybeRequestDaysFocus();
             isUpdatingCheckboxes = false;
         });
 
@@ -236,11 +265,12 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
+                String inputDaysText = mBinding.editDays.getText() != null ? mBinding.editDays.getText().toString() : "";
                 String inputHoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
                 String inputMinutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
-                mOkButton.setEnabled(!isInvalidInput(inputHoursText, inputMinutesText));
-                mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(inputHoursText, inputMinutesText));
+                mOkButton.setEnabled(!isInvalidInput(inputDaysText, inputHoursText, inputMinutesText));
+                mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(inputDaysText, inputHoursText, inputMinutesText));
             },
             isNone ? CustomDialog.SoftInputMode.NONE : CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
@@ -251,10 +281,10 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         super.onResume();
 
         if (!mBinding.snoozeDurationNoneCheckbox.isChecked()) {
-            mBinding.editHours.requestFocus();
-            mBinding.editHours.postDelayed(() -> {
+            mBinding.editDays.requestFocus();
+            mBinding.editDays.postDelayed(() -> {
                 if (getDialog() != null) {
-                    Utils.showKeyboard(getDialog().getWindow(), mBinding.editHours);
+                    Utils.showKeyboard(getDialog().getWindow(), mBinding.editDays);
                 }
             }, Utils.UI_SETTLE_DELAY_MS);
         }
@@ -263,6 +293,10 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         // Stop callbacks from the IME since there is no view to process them.
+        mBinding.editDays.setOnEditorActionListener(null);
+        mBinding.editDays.removeTextChangedListener(mTextWatcher);
+        mBinding.editDays.setOnFocusChangeListener(null);
+
         mBinding.editHours.setOnEditorActionListener(null);
         mBinding.editHours.removeTextChangedListener(mTextWatcher);
         mBinding.editHours.setOnFocusChangeListener(null);
@@ -293,20 +327,29 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private void updateInputSate() {
         boolean disable = mBinding.snoozeDurationNoneCheckbox.isChecked();
 
+        mBinding.textInputLayoutDays.setTypeface(mTypeFace);
         mBinding.textInputLayoutHours.setTypeface(mTypeFace);
         mBinding.textInputLayoutMinutes.setTypeface(mTypeFace);
 
+        mBinding.textInputLayoutDays.setEnabled(!disable);
         mBinding.textInputLayoutHours.setEnabled(!disable);
         mBinding.textInputLayoutMinutes.setEnabled(!disable);
 
         if (disable) {
+            mBinding.textInputLayoutDays.setHelperText(null);
             mBinding.textInputLayoutHours.setHelperText(null);
             mBinding.textInputLayoutMinutes.setHelperText(null);
+
+            mBinding.editDays.setText("");
             mBinding.editHours.setText("");
             mBinding.editMinutes.setText("");
         } else {
-            mBinding.textInputLayoutHours.setHelperText(getString(R.string.alarm_hours_warning_box_text));
-            mBinding.textInputLayoutMinutes.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
+            mBinding.textInputLayoutDays.setHelperText(getString(R.string.alarm_days_warning_box_text));
+            mBinding.textInputLayoutHours.setHelperText(getString(R.string.alarm_hours_snooze_warning_box_text));
+            mBinding.textInputLayoutMinutes.setHelperText(getString(R.string.alarm_minutes_warning_box_text));
+
+            TextView daysHelper = mBinding.textInputLayoutDays.findViewById(com.google.android.material.R.id.textinput_helper_text);
+            daysHelper.setTypeface(mTypeFace);
 
             TextView hoursHelper = mBinding.textInputLayoutHours.findViewById(com.google.android.material.R.id.textinput_helper_text);
             hoursHelper.setTypeface(mTypeFace);
@@ -314,34 +357,34 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             TextView minutesHelper = mBinding.textInputLayoutMinutes.findViewById(com.google.android.material.R.id.textinput_helper_text);
             minutesHelper.setTypeface(mTypeFace);
 
-            String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
+            String daysText = mBinding.editDays.getText() != null ? mBinding.editDays.getText().toString() : "";
 
-            if ("24".equals(hoursText)) {
-                mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                mBinding.editHours.setOnEditorActionListener(new ImeDoneListener());
+            if ("31".equals(daysText)) {
+                mBinding.editDays.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                mBinding.editDays.setOnEditorActionListener(new ImeDoneListener());
+                mBinding.textInputLayoutHours.setEnabled(false);
                 mBinding.textInputLayoutMinutes.setEnabled(false);
             } else {
-                mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.editDays.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.textInputLayoutHours.setEnabled(true);
                 mBinding.textInputLayoutMinutes.setEnabled(true);
             }
 
-            mBinding.editHours.setInputType(InputType.TYPE_CLASS_NUMBER);
+            mBinding.editDays.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
     }
 
     /**
-     * Requests focus for the hours input field and shows the keyboard
-     * if the "None" checkbox is not selected.
+     * Requests focus for the days input field and shows the keyboard if the "None" checkbox is not selected.
      *
-     * <p>This method ensures that the user can immediately start typing a duration
-     * when the dialog is in manual entry mode.</p>
+     * <p>This method ensures that the user can immediately start typing a duration when the dialog is in manual entry mode.</p>
      */
-    private void maybeRequestHoursFocus() {
+    private void maybeRequestDaysFocus() {
         if (!mBinding.snoozeDurationNoneCheckbox.isChecked()) {
-            mBinding.editHours.requestFocus();
+            mBinding.editDays.requestFocus();
 
             if (getDialog() != null) {
-                Utils.showKeyboard(getDialog().getWindow(), mBinding.editHours);
+                Utils.showKeyboard(getDialog().getWindow(), mBinding.editDays);
             }
         }
     }
@@ -350,6 +393,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * Set the alarm snooze duration in minutes.
      */
     private void setAlarmSnoozeDurationInMinutes() {
+        int days = 0;
         int hours = 0;
         int minutes = 0;
         int snoozeDurationInMinutes;
@@ -357,8 +401,13 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         if (mBinding.snoozeDurationNoneCheckbox.isChecked()) {
             snoozeDurationInMinutes = ALARM_SNOOZE_DURATION_DISABLED;
         } else {
+            String daysText = mBinding.editDays.getText() != null ? mBinding.editDays.getText().toString() : "";
             String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
             String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+
+            if (!daysText.isEmpty()) {
+                days = Integer.parseInt(daysText);
+            }
 
             if (!hoursText.isEmpty()) {
                 hours = Integer.parseInt(hoursText);
@@ -368,11 +417,11 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 minutes = Integer.parseInt(minutesText);
             }
 
-            if (hours == 0 && minutes == 0) {
+            if (days == 0 && hours == 0 && minutes == 0) {
                 mBinding.snoozeDurationNoneCheckbox.setChecked(true);
                 snoozeDurationInMinutes = ALARM_SNOOZE_DURATION_DISABLED;
             } else {
-                snoozeDurationInMinutes = hours * 60 + minutes;
+                snoozeDurationInMinutes = days * 1440 + hours * 60 + minutes;
             }
         }
 
@@ -401,9 +450,14 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * </ul>
      * {@code false} otherwise.
      */
-    private boolean isInvalidInput(@NonNull String hoursText, @NonNull String minutesText) {
+    private boolean isInvalidInput(@NonNull String daysText, @NonNull String hoursText, @NonNull String minutesText) {
+        int days = 0;
         int hours = 0;
         int minutes = 0;
+
+        if (!daysText.isEmpty()) {
+            days = Integer.parseInt(daysText);
+        }
 
         if (!hoursText.isEmpty()) {
             hours = Integer.parseInt(hoursText);
@@ -413,7 +467,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             minutes = Integer.parseInt(minutesText);
         }
 
-        return hours < 0 || hours > 24 || minutes < 0 || minutes > 59;
+        return days < 0 || days > 31 || hours < 0 || hours > 23 || minutes < 0 || minutes > 59;
     }
 
     /**
@@ -433,26 +487,34 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
 
+        String daysText = Objects.requireNonNull(mBinding.editDays.getText()).toString();
         String hoursText = Objects.requireNonNull(mBinding.editHours.getText()).toString();
         String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
-        boolean hoursInvalid = (!hoursText.isEmpty() && Integer.parseInt(hoursText) < 0)
-            || (!hoursText.isEmpty() && Integer.parseInt(hoursText) > 24);
-        boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
-            || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 59);
+
+        boolean daysInvalid = !daysText.isEmpty() && (Integer.parseInt(daysText) < 0 || Integer.parseInt(daysText) > 31);
+        boolean hoursInvalid = !hoursText.isEmpty() && (Integer.parseInt(hoursText) < 0 || Integer.parseInt(hoursText) > 23);
+        boolean minutesInvalid = !minutesText.isEmpty() && (Integer.parseInt(minutesText) < 0 || Integer.parseInt(minutesText) > 59);
+
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+
+        mBinding.textInputLayoutDays.setBoxStrokeColor(daysInvalid ? invalidColor : validColor);
+        mBinding.textInputLayoutDays.setHintTextColor(daysInvalid
+            ? ColorStateList.valueOf(invalidColor)
+            : ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutDays.setEnabled(!(hoursInvalid || minutesInvalid));
 
         mBinding.textInputLayoutHours.setBoxStrokeColor(hoursInvalid ? invalidColor : validColor);
         mBinding.textInputLayoutHours.setHintTextColor(hoursInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mBinding.textInputLayoutHours.setEnabled(!minutesInvalid);
+        mBinding.textInputLayoutHours.setEnabled(!(daysInvalid || minutesInvalid));
 
         mBinding.textInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mBinding.textInputLayoutMinutes.setHintTextColor(minutesInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mBinding.textInputLayoutMinutes.setEnabled(!hoursInvalid);
+        mBinding.textInputLayoutMinutes.setEnabled(!(daysInvalid || hoursInvalid));
 
         if (mOkButton != null) {
             mOkButton.setEnabled(false);
@@ -481,6 +543,10 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
+        mBinding.textInputLayoutDays.setBoxStrokeColor(validColor);
+        mBinding.textInputLayoutDays.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutDays.setEnabled(!mBinding.snoozeDurationNoneCheckbox.isChecked());
+
         mBinding.textInputLayoutHours.setBoxStrokeColor(validColor);
         mBinding.textInputLayoutHours.setHintTextColor(ColorStateList.valueOf(validColor));
         mBinding.textInputLayoutHours.setEnabled(!mBinding.snoozeDurationNoneCheckbox.isChecked());
@@ -494,9 +560,11 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         }
 
         if (mDefaultButton != null) {
+            String daysText = mBinding.editDays.getText() != null ? mBinding.editDays.getText().toString() : "";
             String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
             String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
-            mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(hoursText, minutesText));
+
+            mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(daysText, hoursText, minutesText));
         }
     }
 
@@ -504,11 +572,12 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * @return {@code true} if the alarm snooze duration is not the default value;
      * {@code false} otherwise.
      */
-    private boolean isNotDefaultAlarmSnoozeDuration(@NonNull String hoursText, @NonNull String minutesText) {
+    private boolean isNotDefaultAlarmSnoozeDuration(@NonNull String daysText, @NonNull String hoursText, @NonNull String minutesText) {
+        int days = daysText.isEmpty() ? 0 : Integer.parseInt(daysText);
         int hours = hoursText.isEmpty() ? 0 : Integer.parseInt(hoursText);
         int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
 
-        int snoozeDuration = hours * 60 + minutes;
+        int snoozeDuration = days * 1440 + hours * 60 + minutes;
 
         return snoozeDuration != DEFAULT_ALARM_SNOOZE_DURATION;
     }
@@ -527,37 +596,44 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 return;
             }
 
+            String daysText = mBinding.editDays.getText() != null ? mBinding.editDays.getText().toString() : "";
             String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
             String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
-            if (isInvalidInput(hoursText, minutesText)) {
+            if (isInvalidInput(daysText, hoursText, minutesText)) {
                 updateDialogForInvalidInput();
                 return;
             }
 
             updateDialogForValidInput();
 
-            int hours = 0;
+            int days = 0;
 
-            if (!hoursText.isEmpty()) {
-                hours = Integer.parseInt(hoursText);
+            if (!daysText.isEmpty()) {
+                days = Integer.parseInt(daysText);
             }
 
-            if (hours == 24) {
-                mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                mBinding.editHours.setOnEditorActionListener(new ImeDoneListener());
+            if (days == 31) {
+                mBinding.editDays.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                mBinding.editDays.setOnEditorActionListener(new ImeDoneListener());
+                mBinding.textInputLayoutHours.setEnabled(false);
                 mBinding.textInputLayoutMinutes.setEnabled(false);
+
+                if (!"0".equals(hoursText)) {
+                    mBinding.editHours.setText("0");
+                }
 
                 if (!"0".equals(minutesText)) {
                     mBinding.editMinutes.setText("0");
                 }
             } else {
-                mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.editDays.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.textInputLayoutHours.setEnabled(true);
                 mBinding.textInputLayoutMinutes.setEnabled(true);
             }
 
-            mBinding.editHours.setInputType(InputType.TYPE_CLASS_NUMBER);
-            mInput.restartInput(mBinding.editHours);
+            mBinding.editDays.setInputType(InputType.TYPE_CLASS_NUMBER);
+            mInput.restartInput(mBinding.editDays);
         }
 
         @Override
@@ -577,14 +653,17 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         @Override
         public boolean onEditorAction(@NonNull TextView v, int actionId, @Nullable KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String inputDaysText = Objects.requireNonNull(mBinding.editDays.getText()).toString();
                 String inputHoursText = Objects.requireNonNull(mBinding.editHours.getText()).toString();
                 String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
-                if (isInvalidInput(inputHoursText, inputMinutesText)) {
+
+                if (isInvalidInput(inputDaysText, inputHoursText, inputMinutesText)) {
                     updateDialogForInvalidInput();
                 } else {
                     setAlarmSnoozeDurationInMinutes();
                     dismiss();
                 }
+
                 return true;
             }
 

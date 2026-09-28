@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Тындырылды"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Ойготкуч өчүк"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Тындыра туруу"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">1 мүнөткө тындыруу.</item>
-        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> мүнөткө тындыруу.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> чейин тындыруу"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Кийинки ойготкуч"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Көз жаздымда калган ойготкучуңуз жок кылынды"</string>
