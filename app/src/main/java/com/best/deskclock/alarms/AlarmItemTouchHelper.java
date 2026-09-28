@@ -230,7 +230,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        if (!mContract.canSwipe()) {
+        if (!mContract.canSwipe(viewHolder)) {
             return 0;
         }
         return super.getSwipeDirs(recyclerView, viewHolder);

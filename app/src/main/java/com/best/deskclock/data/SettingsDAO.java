@@ -1131,6 +1131,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the locked alarms are displayed first; {@code false} otherwise.
+     */
+    public static boolean areLockedAlarmsDisplayedFirst(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_DISPLAY_LOCKED_ALARMS_FIRST, DEFAULT_DISPLAY_LOCKED_ALARMS_FIRST);
+    }
+
+    /**
      * @return {@code true} if the long press on the alarm FAB is enabled; {@code false} otherwise.
      */
     public static boolean isAlarmFabLongPressEnabled(@NonNull SharedPreferences prefs) {

@@ -636,6 +636,7 @@ public class HandleApiCalls extends Activity {
         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(prefs);
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(prefs);
+        alarm.lock = false;
     }
 
     @NonNull

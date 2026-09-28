@@ -353,6 +353,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         behavior.setSkipCollapsed(true);
 
+        bindCustomDragHandleTooltip();
+
         if (savedInstanceState != null) {
             mShowPauseAlarmNoteDialog = savedInstanceState.getBoolean(KEY_SHOW_PAUSE_ALARM_NOTE_DIALOG);
             mShowDeleteAlarmAfterUseNoteDialog = savedInstanceState.getBoolean(KEY_SHOW_DELETE_ALARM_AFTER_USE_NOTE_DIALOG);
@@ -362,32 +364,25 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         ThemeUtils.applyFontToTextViews(mBinding.getRoot(), mGeneralTypeface);
 
-        bindCustomDragHandleTooltip();
-        bindClock();
-        bindDaysOfWeekButtons();
-        bindSelectedDate();
-        bindPauseAlarm();
-        bindLabel();
-        bindRingtone();
-        bindVibrator();
-        bindVibrationPattern();
-        bindFlash();
-        bindDeleteAlarmAfterUse();
-        bindAutoSilenceValue();
-        bindSnoozeDurationValue();
-        bindMissedAlarmRepeatLimit();
-        bindAlarmHardnessLevel();
-        bindCrescendoDuration();
-        bindAlarmVolume();
-        bindSpace();
-        bindAlarmBackgroundImage();
-        bindBlurIntensity();
-        bindDeleteButton();
-        bindDuplicateButton();
-        bindPreviewButton();
-        bindSaveButton();
+        if (mAlarm.lock) {
+            mBinding.alarmEditContentView.setVisibility(View.GONE);
+            mBinding.alarmButtonGroup.setVisibility(View.GONE);
 
-        updateAllGroupBackgrounds();
+            mBinding.alarmLockView.setVisibility(View.VISIBLE);
+            mBinding.alarmLockButtonGroup.setVisibility(View.VISIBLE);
+
+            bindUnlockAlarm();
+            bindLockDuplicateButton();
+            bindLockPreviewButton();
+        } else {
+            mBinding.alarmLockView.setVisibility(View.GONE);
+            mBinding.alarmLockButtonGroup.setVisibility(View.GONE);
+
+            mBinding.alarmEditContentView.setVisibility(View.VISIBLE);
+            mBinding.alarmButtonGroup.setVisibility(View.VISIBLE);
+
+            bindAllAlarmSettings();
+        }
 
         dialog.setOnShowListener(dialogInterface -> {
             BottomSheetDialog d = (BottomSheetDialog) dialogInterface;
@@ -464,6 +459,59 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
 
         super.onDismiss(dialog);
+    }
+
+    private void bindUnlockAlarm() {
+        mBinding.unlockAlarmOnOff.setBackground(ThemeUtils.cardBackground(requireContext(), mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(), mCardStyleConfig.isBorderDisplayed(), mCardStyleConfig.isAmoledDarkMode()));
+
+        mBinding.unlockAlarmOnOff.setChecked(mAlarm.lock);
+        mBinding.unlockAlarmOnOff.setOnCheckedChangeListener(null);
+
+        mBinding.unlockAlarmOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isChecked) {
+                Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                mAlarm.lock = false;
+
+                mBinding.alarmLockView.setVisibility(View.GONE);
+                mBinding.alarmLockButtonGroup.setVisibility(View.GONE);
+
+                mBinding.alarmEditContentView.setVisibility(View.VISIBLE);
+                mBinding.alarmButtonGroup.setVisibility(View.VISIBLE);
+
+                bindAllAlarmSettings();
+            }
+        });
+    }
+
+    private void bindAllAlarmSettings() {
+        bindClock();
+        bindDaysOfWeekButtons();
+        bindSelectedDate();
+        bindPauseAlarm();
+        bindLabel();
+        bindRingtone();
+        bindVibrator();
+        bindVibrationPattern();
+        bindFlash();
+        bindDeleteAlarmAfterUse();
+        bindAutoSilenceValue();
+        bindSnoozeDurationValue();
+        bindMissedAlarmRepeatLimit();
+        bindAlarmHardnessLevel();
+        bindCrescendoDuration();
+        bindAlarmVolume();
+        bindSpace();
+        bindAlarmBackgroundImage();
+        bindBlurIntensity();
+        bindLockAlarm();
+        bindDeleteButton();
+        bindDuplicateButton();
+        bindPreviewButton();
+        bindSaveButton();
+
+        updateAllGroupBackgrounds();
     }
 
     private void bindCustomDragHandleTooltip() {
@@ -1065,6 +1113,16 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.alarmBlurIntensityLayout.setOnClickListener(openBlurIntensityFragment);
     }
 
+    private void bindLockAlarm() {
+        mBinding.lockAlarmOnOff.setChecked(mAlarm.lock);
+        mBinding.lockAlarmOnOff.setOnCheckedChangeListener(null);
+
+        mBinding.lockAlarmOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            mAlarm.lock = isChecked;
+        });
+    }
+
     private void bindDeleteButton() {
         mBinding.deleteButton.setOnClickListener(v -> {
             Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -1076,73 +1134,19 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindDuplicateButton() {
-        mBinding.duplicateButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        duplicateAlarm(mBinding.duplicateButton);
+    }
 
-            Events.sendAlarmEvent(R.string.action_duplicate, R.string.label_deskclock);
-
-            Alarm duplicatedAlarm = new Alarm(mAlarm);
-            duplicatedAlarm.id = Alarm.INVALID_ID;
-            duplicatedAlarm.instanceState = AlarmInstance.SILENT_STATE;
-            final AlarmUpdateHandler localUpdateHandler = mAlarmUpdateHandler;
-
-            if (!TextUtils.isEmpty(duplicatedAlarm.backgroundImage) &&
-                duplicatedAlarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
-
-                final Context appContext = requireContext().getApplicationContext();
-
-                AppExecutors.getDiskIO().execute(() -> {
-                    File sourceFile = new File(duplicatedAlarm.backgroundImage);
-
-                    if (sourceFile.exists()) {
-                        String safeTitle = FileUtils.toSafeFileName(
-                            FILE_SPECIFIC_ALARM_BACKGROUND + "_dup_" + System.currentTimeMillis()
-                        );
-                        Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, Uri.fromFile(sourceFile), safeTitle);
-
-                        if (copiedUri != null) {
-                            duplicatedAlarm.backgroundImage = copiedUri.getPath();
-                        } else {
-                            duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
-                        }
-                    } else {
-                        duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
-                    }
-
-                    if (localUpdateHandler != null) {
-                        localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
-                    }
-                });
-            } else {
-                if (localUpdateHandler != null) {
-                    localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
-                }
-            }
-
-            dismiss();
-        });
+    private void bindLockDuplicateButton() {
+        duplicateAlarm(mBinding.lockDuplicateButton);
     }
 
     private void bindPreviewButton() {
-        mBinding.previewButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        previewAlarm(mBinding.previewButton);
+    }
 
-            Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, mAlarm.hour);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, mAlarm.minutes);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_LABEL, mAlarm.label);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE, mAlarm.backgroundImage);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BLUR_INTENSITY, mAlarm.blurIntensity);
-
-            if (RingtoneUtils.RINGTONE_SILENT.equals(mAlarm.alert)) {
-                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, "");
-            } else {
-                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert.toString());
-            }
-
-            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, mIsFadeTransition);
-        });
+    private void bindLockPreviewButton() {
+        previewAlarm(mBinding.lockPreviewButton);
     }
 
     private void bindSaveButton() {
@@ -1437,6 +1441,76 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
     }
 
+    private void duplicateAlarm(@NonNull View view) {
+        view.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            Events.sendAlarmEvent(R.string.action_duplicate, R.string.label_deskclock);
+
+            Alarm duplicatedAlarm = new Alarm(mAlarm);
+            duplicatedAlarm.id = Alarm.INVALID_ID;
+            duplicatedAlarm.instanceState = AlarmInstance.SILENT_STATE;
+            final AlarmUpdateHandler localUpdateHandler = mAlarmUpdateHandler;
+
+            if (!TextUtils.isEmpty(duplicatedAlarm.backgroundImage) &&
+                duplicatedAlarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+
+                final Context appContext = requireContext().getApplicationContext();
+
+                AppExecutors.getDiskIO().execute(() -> {
+                    File sourceFile = new File(duplicatedAlarm.backgroundImage);
+
+                    if (sourceFile.exists()) {
+                        String safeTitle = FileUtils.toSafeFileName(
+                            FILE_SPECIFIC_ALARM_BACKGROUND + "_dup_" + System.currentTimeMillis()
+                        );
+                        Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, Uri.fromFile(sourceFile), safeTitle);
+
+                        if (copiedUri != null) {
+                            duplicatedAlarm.backgroundImage = copiedUri.getPath();
+                        } else {
+                            duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                        }
+                    } else {
+                        duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                    }
+
+                    if (localUpdateHandler != null) {
+                        localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+                    }
+                });
+            } else {
+                if (localUpdateHandler != null) {
+                    localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+                }
+            }
+
+            dismiss();
+        });
+    }
+
+    private void previewAlarm(@NonNull View view) {
+        view.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, mAlarm.hour);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, mAlarm.minutes);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_LABEL, mAlarm.label);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE, mAlarm.backgroundImage);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BLUR_INTENSITY, mAlarm.blurIntensity);
+
+            if (RingtoneUtils.RINGTONE_SILENT.equals(mAlarm.alert)) {
+                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, "");
+            } else {
+                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert.toString());
+            }
+
+            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, mIsFadeTransition);
+        });
+    }
+
     private void saveAlarmSettings() {
         if (mIsDeleted || mAlarm == null || mOriginalAlarm == null) {
             return;
@@ -1524,6 +1598,17 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         );
     }
 
+    private void updateFifthGroup() {
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(),
+            mCardStyleConfig.isAmoledDarkMode(),
+            mBinding.lockAlarmOnOff
+        );
+    }
+
     private void updateAllGroupBackgrounds() {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
@@ -1550,6 +1635,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         updateThirdGroup();
 
         updateFourthGroup();
+
+        updateFifthGroup();
     }
 
     private void showPauseAlarmNoteDialog() {

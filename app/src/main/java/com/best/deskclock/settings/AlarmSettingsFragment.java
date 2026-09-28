@@ -150,6 +150,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mEnablePerAlarmMathHardnessLevelPref;
     ListPreference mSortAlarmPref;
     SwitchPreferenceCompat mDisplayEnabledAlarmsFirstPref;
+    SwitchPreferenceCompat mDisplayLockedAlarmsFirstPref;
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
     SwitchPreferenceCompat mDisplayDismissButtonPref;
@@ -265,6 +266,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mEnablePerAlarmMathHardnessLevelPref = findPreference(KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL);
         mSortAlarmPref = findPreference(KEY_SORT_ALARM);
         mDisplayEnabledAlarmsFirstPref = findPreference(KEY_DISPLAY_ENABLED_ALARMS_FIRST);
+        mDisplayLockedAlarmsFirstPref = findPreference(KEY_DISPLAY_LOCKED_ALARMS_FIRST);
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
@@ -347,8 +349,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         final ContentResolver cr = appContext.getContentResolver();
 
         switch (pref.getKey()) {
-            case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_ENABLE_ALARM_FAB_LONG_PRESS,
-                 KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
+            case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
+                 KEY_ENABLE_ALARM_FAB_LONG_PRESS, KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ENABLE_PER_ALARM_AUTO_SILENCE -> {
@@ -360,8 +362,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.autoSilenceDuration = autoSilenceDuration;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.autoSilenceDuration = autoSilenceDuration;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -379,8 +383,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.mathHardnessLevel = mathHardnessLevel;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.mathHardnessLevel = mathHardnessLevel;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -398,8 +404,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.snoozeDuration = snoozeDuration;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.snoozeDuration = snoozeDuration;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -417,8 +425,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -437,8 +447,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 }
@@ -455,8 +467,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.alarmVolume = alarmVolume;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.alarmVolume = alarmVolume;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -474,8 +488,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.crescendoDuration = crescendoDuration;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.crescendoDuration = crescendoDuration;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -493,8 +509,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.vibrationPattern = vibrationPattern;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.vibrationPattern = vibrationPattern;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -545,8 +563,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.vibrate = true;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.vibrate = true;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -582,8 +602,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 AppExecutors.getDiskIO().execute(() -> {
                     List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                     for (Alarm alarm : currentAlarms) {
-                        alarm.flash = (boolean) newValue;
-                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        if (!alarm.lock) {
+                            alarm.flash = (boolean) newValue;
+                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        }
                     }
                 });
             }
@@ -595,8 +617,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                     AppExecutors.getDiskIO().execute(() -> {
                         List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                         for (Alarm alarm : currentAlarms) {
-                            alarm.deleteAfterUse = true;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            if (!alarm.lock) {
+                                alarm.deleteAfterUse = true;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
                         }
                     });
                 } else {
@@ -760,6 +784,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         mDisplayEnabledAlarmsFirstPref.setOnPreferenceChangeListener(this);
 
+        mDisplayLockedAlarmsFirstPref.setOnPreferenceChangeListener(this);
+
         mEnableAlarmFabLongPressPref.setOnPreferenceChangeListener(this);
 
         // Set the default first day of the week programmatically
@@ -804,8 +830,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                                 for (Alarm alarm : currentAlarms) {
-                                    alarm.autoSilenceDuration = newValue;
-                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    if (!alarm.lock) {
+                                        alarm.autoSilenceDuration = newValue;
+                                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    }
                                 }
                             });
                         }
@@ -830,8 +858,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                                 for (Alarm alarm : currentAlarms) {
-                                    alarm.snoozeDuration = newValue;
-                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    if (!alarm.lock) {
+                                        alarm.snoozeDuration = newValue;
+                                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    }
                                 }
                             });
                         }
@@ -854,8 +884,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                                 for (Alarm alarm : currentAlarms) {
-                                    alarm.crescendoDuration = newValue;
-                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    if (!alarm.lock) {
+                                        alarm.crescendoDuration = newValue;
+                                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    }
                                 }
                             });
                         }
@@ -878,8 +910,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                             AppExecutors.getDiskIO().execute(() -> {
                                 List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                                 for (Alarm alarm : currentAlarms) {
-                                    alarm.vibrationPattern = newValue;
-                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    if (!alarm.lock) {
+                                        alarm.vibrationPattern = newValue;
+                                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                    }
                                 }
                             });
                         }
@@ -917,8 +951,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                         AppExecutors.getDiskIO().execute(() -> {
                             List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                             for (Alarm alarm : currentAlarms) {
-                                alarm.mathHardnessLevel = newValue;
-                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                if (!alarm.lock) {
+                                    alarm.mathHardnessLevel = newValue;
+                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                }
                             }
                         });
                     }
@@ -1066,8 +1102,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 AppExecutors.getDiskIO().execute(() -> {
                     List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
                     for (Alarm alarm : currentAlarms) {
-                        alarmUpdater.update(alarm);
-                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        if (!alarm.lock) {
+                            alarmUpdater.update(alarm);
+                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        }
                     }
                 });
 

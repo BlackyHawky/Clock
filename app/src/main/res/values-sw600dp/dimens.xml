@@ -8,6 +8,7 @@
 <resources>
     <dimen name="alarm_empty_view_bottom_padding">80dp</dimen>
     <dimen name="alarm_selection_margin_bottom">64dp</dimen>
+    <dimen name="max_dimension_alarm_lock_view">300dp</dimen>
 
     <dimen name="city_analog_clock_size">150dp</dimen>
     <dimen name="city_empty_view_bottom_padding">80dp</dimen>
