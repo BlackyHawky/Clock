@@ -28,11 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Pospuesta"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma desactivada"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponer"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Pospuesta durante <xliff:g example="1" id="minutes">%d</xliff:g> minuto.</item>
-        <item quantity="many">Pospuesta durante <xliff:g example="10" id="minutes">%d</xliff:g> minutos.</item>
-        <item quantity="other">Pospuesta durante <xliff:g example="10" id="minutes">%d</xliff:g> minutos.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Pospuesta hasta: <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próxima alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Se han eliminado las alarmas perdidas"</string>

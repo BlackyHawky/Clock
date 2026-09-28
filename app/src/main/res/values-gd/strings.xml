@@ -16,12 +16,6 @@
     <string name="alarm_alert_snoozed_text">Na dhùsal</string>
     <string name="alarm_alert_off_text">Tha a’ chaismeachd dheth</string>
     <string name="alarm_alert_snooze_text">Dèan dùsal</string>
-    <plurals name="alarm_alert_snooze_set">
-        <item quantity="one">’Na dhùsal fad <xliff:g id="minutes">%d</xliff:g> mhionaid.</item>
-        <item quantity="two">’Na dhùsal fad <xliff:g id="minutes">%d</xliff:g> mhionaid.</item>
-        <item quantity="few">’Na dhùsal fad <xliff:g id="minutes">%d</xliff:g> mionaidean.</item>
-        <item quantity="other">’Na dhùsal fad <xliff:g id="minutes">%d</xliff:g> mionaid.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until">’Na dhùsal gus <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title">Tha caismeachd gu bhith ann</string>
     <string name="missed_alarm_has_been_deleted">Chaidh a’ chaismeachd a dh’fhalbh ort a sguabadh às</string>

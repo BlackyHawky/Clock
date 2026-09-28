@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"स्नुज गरियो"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"अलार्म बन्द"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"स्नुज"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">1 मिनेटको लागि स्नुज गर्दै।</item>
-        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> मिनेटको लागि स्नुज गर्दै।</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> सम्म स्नुज गर्दै"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आउने आलार्म"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"छुटेको आलार्म हटाइएको छ"</string>

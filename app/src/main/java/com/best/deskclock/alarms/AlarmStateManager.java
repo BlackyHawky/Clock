@@ -486,8 +486,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Display the snooze minutes in a toast.
         if (showToast) {
             AppExecutors.getMainThread().post(() -> {
-                String displayTime = String.format(
-                    context.getResources().getQuantityText(R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
+                String durationText = AlarmUtils.getSnoozeText(context, snoozeMinutes, true);
+                String displayTime = context.getString(R.string.alarm_alert_snooze_duration_message, durationText);
+
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     int style = ThemeUtils.getAccentStyle(context,
                         SettingsDAO.isAutoNightAccentColorEnabled(prefs),

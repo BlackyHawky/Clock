@@ -87,9 +87,9 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.PillView;
 import com.best.deskclock.uidata.UiConfig;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
-import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -1139,12 +1139,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         String.format("%s (%s)", getString(R.string.label_default), getString(R.string.snooze_duration_none));
                 } else {
                     // "Default (X min)"
-                    String defaultTimeStr = buildTimeString(mDefaultSnoozeMinutes);
+                    String defaultTimeStr = AlarmUtils.getSnoozeText(this, mDefaultSnoozeMinutes, true);
                     mSnoozeSelectorEntries[i] = String.format("%s (%s)", getString(R.string.label_default), defaultTimeStr);
                 }
             } else {
                 // "Snooze X min"
-                String timeStr = buildTimeString(snoozeValue);
+                String timeStr = AlarmUtils.getSnoozeText(this, snoozeValue, true);
                 mSnoozeSelectorEntries[i] = getString(R.string.alarm_alert_snooze_text) + " " + timeStr;
             }
         }
@@ -1277,22 +1277,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         button.setEnabled(enabled);
         button.setBackgroundTintList(ColorStateList.valueOf(enabled ? backgroundColor : Color.parseColor("#80808080")));
         button.setIconTint(ColorStateList.valueOf(enabled ? symbolColor : Color.parseColor("#60E6E0E9")));
-    }
-
-    @NonNull
-    private String buildTimeString(int totalMinutes) {
-        int hour = totalMinutes / 60;
-        int minute = totalMinutes % 60;
-
-        if (hour > 0 && minute > 0) {
-            String hourString = FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.hours_short, hour);
-            String minuteString = FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, minute);
-            return String.format("%s %s", hourString, minuteString);
-        } else if (hour > 0) {
-            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.hours_short, hour);
-        } else {
-            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, minute);
-        }
     }
 
     /**
@@ -1462,11 +1446,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
             int snoozeDuration = mAlarmInstance.mSnoozeDuration;
-            final String descriptionText = buildTimeString(snoozeDuration);
-            final String accessibilityText = getResources().getQuantityString(
-                R.plurals.alarm_alert_snooze_set, snoozeDuration, snoozeDuration);
+            final String snoozeText = AlarmUtils.getSnoozeText(this, snoozeDuration, false);
+            final String accessibilityText = getString(R.string.alarm_alert_snooze_duration_message, snoozeText);
 
-            displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, descriptionText, accessibilityText);
+            displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, snoozeText, accessibilityText);
 
             AppExecutors.getDiskIO().execute(() ->
                 AlarmStateManager.setSnoozeState(appContext, getPrefs(), currentInstance, false)

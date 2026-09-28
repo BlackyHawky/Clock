@@ -28,11 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Atlikts"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Izslēgts"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snauda"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="zero">Atlikts par <xliff:g id="MINUTES">%d</xliff:g> minūtēm.</item>
-        <item quantity="one">Atlikts par <xliff:g id="MINUTES">%d</xliff:g> minūti.</item>
-        <item quantity="other">Atlikts par <xliff:g id="MINUTES">%d</xliff:g> minūtēm.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Atlikts līdz: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Gaidāms signāls"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Jūsu nokavētais signāls ir dzēsts."</string>

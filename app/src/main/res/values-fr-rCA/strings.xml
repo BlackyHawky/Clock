@@ -28,11 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Reportée"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarme arrêtée"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Arrêt momentané"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Répétition après <xliff:g id="MINUTES">%d</xliff:g> minute.</item>
-        <item quantity="many">Répétition après <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
-        <item quantity="other">Répétition après <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Répéter à <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarme imminente"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Votre alarme manquée a été supprimée"</string>
