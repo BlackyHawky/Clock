@@ -23,6 +23,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_display_timer_delete_button"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_timer_delete_button_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_display_timer_end_time"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_timer_end_time_title"

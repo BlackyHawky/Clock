@@ -81,6 +81,7 @@ public class TimerItemCompact extends BaseTimerItem {
     @Override protected View getIndicatorState() { return mBinding.timerIndicatorState; }
     @Override protected BaseProgressIndicator<?> getProgressIndicator() { return mBinding.linearProgressIndicator; }
     @Override protected View getResetButton() { return mBinding.resetButton; }
+    @Override protected View getDeleteButton() { return mBinding.deleteTimerButton; }
     @Override protected MaterialButton getPlayPauseButton() { return mBinding.playPauseButton; }
     @Override protected int getRemoveTimeHiddenVisibility() { return GONE; }
 

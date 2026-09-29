@@ -55,6 +55,11 @@ public record TimerClickHandler(@NonNull TimerFragment mTimerFragment, @NonNull 
         mDataModel.resetTimer(timer, R.string.label_deskclock);
     }
 
+    public void onDeleteClicked(@NonNull Timer timer) {
+        Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
+        mDataModel.removeTimer(timer, R.string.label_deskclock);
+    }
+
     public void onAddTimeClicked(@NonNull Timer timer, @NonNull View v) {
         Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
         mDataModel.addCustomTimeToTimer(timer);

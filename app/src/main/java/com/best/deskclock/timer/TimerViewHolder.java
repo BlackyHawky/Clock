@@ -48,6 +48,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         final MaterialButton playPauseButton;
         final MaterialButton resetButton;
+        final View deleteButton;
 
         mTimerView.setGeneralFonts(fonts.general(), fonts.bold());
 
@@ -55,6 +56,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
                 TimerItemBinding binding = TimerItemBinding.bind(view);
                 resetButton = binding.resetButton;
+                deleteButton = binding.deleteTimerButton;
                 addTimeButton = binding.timerAddTimeButton;
                 removeTimeButton = binding.timerRemoveTimeButton;
                 circleContainer = binding.circleContainer;
@@ -64,6 +66,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
                 resetButton = compactBinding.resetButton;
+                deleteButton = compactBinding.deleteTimerButton;
                 addTimeButton = compactBinding.timerAddTimeButton;
                 removeTimeButton = compactBinding.timerRemoveTimeButton;
                 timerTimeText = compactBinding.timerTimeText;
@@ -83,6 +86,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         resetButton.setOnClickListener(v -> {
             Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             timerClickHandler.onResetClicked(getTimer());
+        });
+
+        deleteButton.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            timerClickHandler.onDeleteClicked(getTimer());
         });
 
         addTimeButton.setOnClickListener(v -> {
@@ -126,6 +134,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         mTimerView.setTimerTimeFont(typeface);
         mTimerView.setLocale(appLocale);
         mTimerView.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
+        mTimerView.displayDeleteButton(!settings.isSingleTimerMode && settings.isDeleteButtonDisplayed);
         mTimerView.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
         mTimerView.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
         mTimerView.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);

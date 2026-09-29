@@ -18,6 +18,9 @@ public class TimerSettings {
     /** True if timers are displayed in compact mode. */
     public boolean isCompactTimersDisplayed;
 
+    /** True if the "Delete" button is displayed on the timer card. */
+    public boolean isDeleteButtonDisplayed;
+
     /** True if the expected end time of the timer (e.g., "Ends at 14:30") should be displayed. */
     public boolean isTimerEndTimeDisplayed;
 

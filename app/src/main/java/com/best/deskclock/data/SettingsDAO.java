@@ -927,6 +927,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the "Delete" button is displayed on the timer card. {@code false} otherwise.
+     */
+    public static boolean isTimerDeleteButtonDisplayed(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_TIMER_DELETE_BUTTON, DEFAULT_DISPLAY_TIMER_DELETE_BUTTON);
+    }
+
+    /**
      * @return {@code true} if the timer end time is displayed. {@code false} otherwise.
      */
     public static boolean isTimerEndTimeDisplayed(@NonNull SharedPreferences prefs) {

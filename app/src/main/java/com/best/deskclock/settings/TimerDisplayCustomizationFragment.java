@@ -37,6 +37,7 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     SwitchPreferenceCompat mDisplayCompactTimersPref;
+    SwitchPreferenceCompat mDisplayDeleteButtonPref;
     SwitchPreferenceCompat mDisplayTimerEndTimePref;
     SwitchPreferenceCompat mInvertTimerButtonPositionsPref;
     SwitchPreferenceCompat mTransparentBackgroundPref;
@@ -127,6 +128,7 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         addPreferencesFromResource(R.xml.settings_timer_display);
 
         mDisplayCompactTimersPref = findPreference(KEY_DISPLAY_COMPACT_TIMERS);
+        mDisplayDeleteButtonPref = findPreference(KEY_DISPLAY_TIMER_DELETE_BUTTON);
         mDisplayTimerEndTimePref = findPreference(KEY_DISPLAY_TIMER_END_TIME);
         mInvertTimerButtonPositionsPref = findPreference(KEY_INVERT_TIMER_BUTTON_POSITIONS);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
@@ -160,7 +162,7 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
     @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DISPLAY_COMPACT_TIMERS, KEY_DISPLAY_TIMER_END_TIME, KEY_INVERT_TIMER_BUTTON_POSITIONS ->
+            case KEY_DISPLAY_COMPACT_TIMERS, KEY_DISPLAY_TIMER_DELETE_BUTTON, KEY_DISPLAY_TIMER_END_TIME, KEY_INVERT_TIMER_BUTTON_POSITIONS ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER -> {
@@ -245,6 +247,9 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
         mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet() && !SettingsDAO.isSingleTimerModeEnabled(getPrefs()));
         mDisplayCompactTimersPref.setOnPreferenceChangeListener(this);
+
+        mDisplayDeleteButtonPref.setVisible(!SettingsDAO.isSingleTimerModeEnabled(getPrefs()));
+        mDisplayDeleteButtonPref.setOnPreferenceChangeListener(this);
 
         mDisplayTimerEndTimePref.setOnPreferenceChangeListener(this);
 

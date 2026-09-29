@@ -530,6 +530,7 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
         timerView.checkIsSingleTimer(false);
         timerView.setGeneralFonts(getGeneralTypeface(), getGeneralBoldTypeface());
         timerView.setTimerTimeFont(timerFont);
+        timerView.displayDeleteButton(false);
         timerView.setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
         timerView.setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
         timerView.bindTimer(timer, false);
