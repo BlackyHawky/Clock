@@ -9,6 +9,10 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.FILE_SPECIFIC_ALARM_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE_NOTE_HIDDEN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSE_ALARM_NOTE_HIDDEN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_WARNING_HIDDEN;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -717,8 +721,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.cancelPauseAlarm.setOnClickListener(isRepeating ? resetPauseDate : null);
 
-        mBinding.pauseAlarmNote.setVisibility(isRepeating ? GONE : VISIBLE);
-        mBinding.pauseAlarmNote.setOnClickListener(isRepeating ? null : v -> showPauseAlarmNoteDialog());
+        boolean isNoteHidden = mPrefs.getBoolean(KEY_PAUSE_ALARM_NOTE_HIDDEN, false);
+        boolean showNoteIcon = !isRepeating && !isNoteHidden;
+
+        mBinding.pauseAlarmNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
+        mBinding.pauseAlarmNote.setOnClickListener(showNoteIcon ? v -> showPauseAlarmNoteDialog() : null);
     }
 
     private void bindLabel() {
@@ -832,14 +839,16 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void bindDeleteAlarmAfterUse() {
         final boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+        final boolean isNoteHidden = mPrefs.getBoolean(KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN, false);
+        final boolean showNoteIcon = isRepeating && !isNoteHidden;
 
-        mBinding.deleteAlarmAfterUseNote.setVisibility(isRepeating ? VISIBLE : GONE);
-        mBinding.deleteAlarmAfterUseNote.setOnClickListener(isRepeating ? v -> showDeleteAlarmAfterUseNoteDialog() : null);
+        mBinding.deleteAlarmAfterUseNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
+        mBinding.deleteAlarmAfterUseNote.setOnClickListener(showNoteIcon ? v -> showDeleteAlarmAfterUseNoteDialog() : null);
 
         mBinding.deleteAlarmAfterUse.setCompoundDrawablesRelativeWithIntrinsicBounds(
             mDeleteAlarmAfterUseDrawableStart,
             null,
-            isRepeating ? null : mDeleteAlarmAfterUseDrawableEnd,
+            showNoteIcon ? null : mDeleteAlarmAfterUseDrawableEnd,
             null
         );
 
@@ -867,8 +876,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.autoSilenceDurationLayout.setEnabled(!hasMathMission);
         mBinding.autoSilenceDurationTitle.setEnabled(!hasMathMission);
         mBinding.autoSilenceDurationValue.setEnabled(!hasMathMission);
-        mBinding.autoSilenceDurationValue.setVisibility(hasMathMission ? GONE : VISIBLE);
-        mBinding.autoSilenceNote.setVisibility(hasMathMission ? VISIBLE : GONE);
+
+        boolean isNoteHidden = mPrefs.getBoolean(KEY_AUTO_SILENCE_NOTE_HIDDEN, false);
+        boolean showNoteIcon = hasMathMission && !isNoteHidden;
+
+        mBinding.autoSilenceDurationValue.setVisibility(showNoteIcon ? GONE : VISIBLE);
+        mBinding.autoSilenceNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
 
         if (hasMathMission) {
             String noteText;
@@ -880,7 +893,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 noteText = getResources().getQuantityString(R.plurals.minutes_short, m, m);
             }
 
-            mBinding.autoSilenceNote.setOnClickListener(v -> showAutoSilenceNoteDialog(noteText));
+            mBinding.autoSilenceNote.setOnClickListener(showNoteIcon ? v -> showAutoSilenceNoteDialog(noteText) : null);
+
+            if (!showNoteIcon) {
+                mBinding.autoSilenceDurationValue.setText(noteText);
+            }
+
             mBinding.autoSilenceDurationLayout.setOnClickListener(null);
         } else {
             mBinding.autoSilenceDurationValue.setText(Utils.formatAutoSilenceDurationText(requireContext(), autoSilenceDuration));
@@ -920,6 +938,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindSnoozeDurationNote() {
+        if (mPrefs.getBoolean(KEY_SNOOZE_WARNING_HIDDEN, false)) {
+            mBinding.snoozeDurationNote.setOnClickListener(null);
+            mBinding.snoozeDurationNote.setVisibility(GONE);
+            return;
+        }
+
         if (!mAlarm.daysOfWeek.isRepeating() || mAlarm.snoozeDuration < 1440) {
             mBinding.snoozeDurationNote.setOnClickListener(null);
             mBinding.snoozeDurationNote.setVisibility(GONE);
@@ -1655,8 +1679,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             null,
             null,
             null,
-            null,
-            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_PAUSE_ALARM_NOTE_HIDDEN, true).apply();
+                bindPauseAlarm();
+            },
             (alertDialog -> alertDialog.setOnDismissListener(d -> mShowPauseAlarmNoteDialog = false)),
             CustomDialog.SoftInputMode.NONE
         );
@@ -1678,8 +1705,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             null,
             null,
             null,
-            null,
-            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN, true).apply();
+                bindDeleteAlarmAfterUse();
+            },
             (alertDialog -> alertDialog.setOnDismissListener(d -> mShowDeleteAlarmAfterUseNoteDialog = false)),
             CustomDialog.SoftInputMode.NONE
         );
@@ -1702,8 +1732,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             null,
             null,
             null,
-            null,
-            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_AUTO_SILENCE_NOTE_HIDDEN, true).apply();
+                bindAutoSilenceValue();
+            },
             (alertDialog -> alertDialog.setOnDismissListener(d -> {
                 mShowAutoSilenceNoteDialog = false;
                 mAutoSilenceDuration = null;
@@ -1728,8 +1761,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             null,
             null,
             null,
-            null,
-            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_SNOOZE_WARNING_HIDDEN, true).apply();
+                bindSnoozeDurationNote();
+            },
             (alertDialog -> alertDialog.setOnDismissListener(d -> mShowSnoozeNoteDialog = false)),
             CustomDialog.SoftInputMode.NONE
         );
