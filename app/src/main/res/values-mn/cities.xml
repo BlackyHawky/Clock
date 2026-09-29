@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">А<xliff:g id="SEPARATOR">=</xliff:g>Антигуа<xliff:g id="TIMEZONE">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">О<xliff:g id="SEPARATOR">=</xliff:g>Остин<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">Б<xliff:g id="SEPARATOR">=</xliff:g>Бостон<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">К<xliff:g id="SEPARATOR">=</xliff:g>Калгари<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">К<xliff:g id="SEPARATOR">=</xliff:g>Калгари<xliff:g id="TIMEZONE">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">К<xliff:g id="SEPARATOR">=</xliff:g>Колумб<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">Д<xliff:g id="SEPARATOR">=</xliff:g>Даллас<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">Н<xliff:g id="SEPARATOR">=</xliff:g>Ноксвилл<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">М<xliff:g id="SEPARATOR">=</xliff:g>Мемфис<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">М<xliff:g id="SEPARATOR">=</xliff:g>Майами<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">М<xliff:g id="SEPARATOR">=</xliff:g>Миннеаполис<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">О<xliff:g id="SEPARATOR">=</xliff:g>Оттава<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">О<xliff:g id="SEPARATOR">=</xliff:g>Оттава<xliff:g id="TIMEZONE">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">Ф<xliff:g id="SEPARATOR">=</xliff:g>Филадельфи<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">П<xliff:g id="SEPARATOR">=</xliff:g>Портленд<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">С<xliff:g id="SEPARATOR">=</xliff:g>Сан Диего<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>

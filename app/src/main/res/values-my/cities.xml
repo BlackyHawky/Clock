@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">A<xliff:g id="SEPARATOR">=</xliff:g>အန်တီဂွါ<xliff:g id="TIMEZONE">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">A<xliff:g id="SEPARATOR">=</xliff:g>အော်စတင်<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">B<xliff:g id="SEPARATOR">=</xliff:g>ဘော်စတွန်<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">C<xliff:g id="SEPARATOR">=</xliff:g>ကယ်လ်ဂေရီ<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">C<xliff:g id="SEPARATOR">=</xliff:g>ကယ်လ်ဂေရီ<xliff:g id="TIMEZONE">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">C<xliff:g id="SEPARATOR">=</xliff:g>ကိုလမ်ဘတ်စ်<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">D<xliff:g id="SEPARATOR">=</xliff:g>ဒဲလ်လပ်စ်<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">K<xliff:g id="SEPARATOR">=</xliff:g>နော့စ်ဗေလ်လီ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">M<xliff:g id="SEPARATOR">=</xliff:g>နောဖ<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">M<xliff:g id="SEPARATOR">=</xliff:g>မိုင်ယာမီ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">M<xliff:g id="SEPARATOR">=</xliff:g>မင်နီယာပိုလစ်စ်<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">O<xliff:g id="SEPARATOR">=</xliff:g>အော့ထာဝါ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">O<xliff:g id="SEPARATOR">=</xliff:g>အော့ထာဝါ<xliff:g id="TIMEZONE">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">P<xliff:g id="SEPARATOR">=</xliff:g>ဖီလာဒဲလ်ဖီးယား<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">P<xliff:g id="SEPARATOR">=</xliff:g>ပေါ့ထ်လန်<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">S<xliff:g id="SEPARATOR">=</xliff:g>ဆန်ဒီယေဂို<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>

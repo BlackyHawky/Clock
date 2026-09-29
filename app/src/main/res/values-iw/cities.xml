@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">א<xliff:g id="SEPARATOR">=</xliff:g>אנטיגואה<xliff:g id="TIMEZONE">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">א<xliff:g id="SEPARATOR">=</xliff:g>אוסטין<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">ב<xliff:g id="SEPARATOR">=</xliff:g>בוסטון<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">ק<xliff:g id="SEPARATOR">=</xliff:g>קלגרי<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">ק<xliff:g id="SEPARATOR">=</xliff:g>קלגרי<xliff:g id="TIMEZONE">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">ק<xliff:g id="SEPARATOR">=</xliff:g>קולומובוס<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">ד<xliff:g id="SEPARATOR">=</xliff:g>דאלאס<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">נ<xliff:g id="SEPARATOR">=</xliff:g>נוקסוויל<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">מ<xliff:g id="SEPARATOR">=</xliff:g>ממפיס<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">מ<xliff:g id="SEPARATOR">=</xliff:g>מיאמי<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">מ<xliff:g id="SEPARATOR">=</xliff:g>מיניאפוליס<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">א<xliff:g id="SEPARATOR">=</xliff:g>אוטווה<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">א<xliff:g id="SEPARATOR">=</xliff:g>אוטווה<xliff:g id="TIMEZONE">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">פ<xliff:g id="SEPARATOR">=</xliff:g>פילדלפיה<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">פ<xliff:g id="SEPARATOR">=</xliff:g>פורטלנד<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">ס<xliff:g id="separator">=</xliff:g>סאן דייגו<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>

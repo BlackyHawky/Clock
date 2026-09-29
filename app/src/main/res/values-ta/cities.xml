@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">ஆ<xliff:g id="SEPARATOR">=</xliff:g>ஆன்டிகுவா<xliff:g id="TIMEZONE">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">ஆ<xliff:g id="SEPARATOR">=</xliff:g>ஆஸ்டின்<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">ப<xliff:g id="SEPARATOR">=</xliff:g>பாஸ்டன்<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">க<xliff:g id="SEPARATOR">=</xliff:g>கல்கேரி<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">க<xliff:g id="SEPARATOR">=</xliff:g>கல்கேரி<xliff:g id="TIMEZONE">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">க<xliff:g id="SEPARATOR">=</xliff:g>கொலம்பஸ்<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">ட<xliff:g id="SEPARATOR">=</xliff:g>டல்லாஸ்<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">ந<xliff:g id="SEPARATOR">=</xliff:g>நாஷ்வில்<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">ம<xliff:g id="SEPARATOR">=</xliff:g>மெம்பிஸ்<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">ம<xliff:g id="SEPARATOR">=</xliff:g>மியாமி<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">ம<xliff:g id="SEPARATOR">=</xliff:g>மிநீயாபொலிஸ்<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">ஒ<xliff:g id="SEPARATOR">=</xliff:g>ஒட்டாவா<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">ஒ<xliff:g id="SEPARATOR">=</xliff:g>ஒட்டாவா<xliff:g id="TIMEZONE">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">ப<xliff:g id="SEPARATOR">=</xliff:g>பிலடெல்பியா<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">ப<xliff:g id="SEPARATOR">=</xliff:g>போர்ட்லேண்ட்<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">ச<xliff:g id="SEPARATOR">=</xliff:g>சான் டியாகோ<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
