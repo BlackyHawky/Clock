@@ -127,6 +127,10 @@ public class PreferencesKeys {
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = "key_turn_on_back_flash_for_triggered_alarm";
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING = "key_display_low_alarm_volume_warning";
+    public static final String KEY_PAUSE_ALARM_NOTE_HIDDEN = "key_pause_alarm_note_hidden";
+    public static final String KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN = "key_delete_after_use_note_hidden";
+    public static final String KEY_AUTO_SILENCE_NOTE_HIDDEN = "key_auto_silence_note_hidden";
+    public static final String KEY_SNOOZE_WARNING_HIDDEN = "key_snooze_warning_hidden";
 
     /**
      * SharedPreferences key used to indicate whether the styled repeat day display is enabled
