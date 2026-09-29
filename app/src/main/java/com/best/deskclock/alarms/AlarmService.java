@@ -12,7 +12,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EX
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,7 +36,6 @@ import androidx.core.app.ServiceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
-import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
@@ -432,42 +430,31 @@ public class AlarmService extends Service {
 
         switch (Objects.requireNonNull(intent.getAction())) {
             case AlarmStateManager.CHANGE_STATE_ACTION -> {
-                Context appContext = getApplicationContext();
-                ContentResolver cr = appContext.getContentResolver();
+                AlarmStateManager.handleIntent(this, mPrefs, intent);
 
-                AlarmAlertWakeLock.acquireCpuWakeLock(appContext);
+                // If state is changed to firing, actually fire the alarm!
+                final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
 
-                AppExecutors.getDiskIO().execute(() -> {
-                    AlarmStateManager.handleIntent(appContext, mPrefs, intent);
+                if (alarmState == AlarmInstance.FIRED_STATE) {
+                    final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
 
-                    // If state is changed to firing, actually fire the alarm!
-                    final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
+                    if (instance == null) {
+                        LogUtils.e("No instance found to start alarm: %d", instanceId);
 
-                    if (alarmState == AlarmInstance.FIRED_STATE) {
-                        final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
-
-                        if (instance == null) {
-                            LogUtils.e("No instance found to start alarm: %d", instanceId);
-
-                            if (mCurrentAlarm == null) {
-                                // Only release lock if we are not firing alarm
-                                AlarmAlertWakeLock.releaseCpuLock();
-                            }
-                            return;
-                        }
-
-                        if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
-                            LogUtils.e("Alarm already started for instance: %d", instanceId);
-                            return;
-                        }
-
-                        AppExecutors.getMainThread().post(() -> startAlarm(instance));
-                    } else {
                         if (mCurrentAlarm == null) {
+                            // Only release lock if we are not firing alarm
                             AlarmAlertWakeLock.releaseCpuLock();
                         }
+                        break;
                     }
-                });
+
+                    if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
+                        LogUtils.e("Alarm already started for instance: %d", instanceId);
+                        break;
+                    }
+
+                    startAlarm(instance);
+                }
             }
 
             case STOP_ALARM_ACTION -> {
@@ -628,32 +615,29 @@ public class AlarmService extends Service {
 
         cleanupAndStop();
 
-        ContentResolver cr = getApplicationContext().getContentResolver();
-        AppExecutors.getDiskIO().execute(() -> {
-            boolean alarmStarted = false;
+        boolean alarmStarted = false;
 
-            while (!mPendingAlarmIds.isEmpty()) {
-                Long nextId = mPendingAlarmIds.poll();
+        while (!mPendingAlarmIds.isEmpty()) {
+            Long nextId = mPendingAlarmIds.poll();
 
-                if (nextId == null) {
-                    continue;
-                }
-
-                AlarmInstance next = AlarmInstance.getInstance(cr, nextId);
-
-                if (next != null && next.mAlarmState == AlarmInstance.FIRED_STATE) {
-                    LogUtils.i("Launching the pending alarm: " + nextId);
-                    AppExecutors.getMainThread().post(() -> startAlarm(next));
-
-                    alarmStarted = true;
-                    break;
-                }
+            if (nextId == null) {
+                continue;
             }
 
-            if (!alarmStarted) {
-                stopSelf();
+            AlarmInstance next = AlarmInstance.getInstance(getContentResolver(), nextId);
+
+            if (next != null && next.mAlarmState == AlarmInstance.FIRED_STATE) {
+                LogUtils.i("Launching the pending alarm: " + nextId);
+                startAlarm(next);
+
+                alarmStarted = true;
+                break;
             }
-        });
+        }
+
+        if (!alarmStarted) {
+            stopSelf();
+        }
     }
 
     private void cleanupAndStop() {
