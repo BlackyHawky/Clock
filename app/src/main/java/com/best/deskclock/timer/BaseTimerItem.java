@@ -51,7 +51,8 @@ public abstract class BaseTimerItem extends ConstraintLayout {
     protected Drawable mIconPlay, mIconPause, mIconStop, mIconDelete;
 
     protected int mColorPaused, mColorRunning, mColorExpired, mColorMissed;
-    protected boolean mIsLandscapePhone, mIsTimerEndTimeDisplayed, mIsIndicatorStateDisplayed, mIsAddTimeZero, mIsRemoveTimeZero;
+    protected boolean mIsLandscapePhone, mIsDeleteButtonDisplayed, mIsTimerEndTimeDisplayed, mIsIndicatorStateDisplayed, mIsAddTimeZero,
+        mIsRemoveTimeZero;
 
     protected String mLastLabel = "", mLastButtonAddTimeRaw = "", mLastButtonRemoveTimeRaw = "";
     protected String mCachedAddButtonText, mCachedAddButtonContentDesc, mCachedRemoveButtonText, mCachedRemoveButtonContentDesc;
@@ -83,6 +84,7 @@ public abstract class BaseTimerItem extends ConstraintLayout {
     protected abstract View getIndicatorState();
     protected abstract BaseProgressIndicator<?> getProgressIndicator();
     protected abstract View getResetButton();
+    protected abstract View getDeleteButton();
     protected abstract MaterialButton getPlayPauseButton();
 
     protected abstract int getRemoveTimeHiddenVisibility();
@@ -139,6 +141,10 @@ public abstract class BaseTimerItem extends ConstraintLayout {
             mTimerEndTimeFormatPattern = formatPattern;
             refreshFormatters();
         }
+    }
+
+    public void displayDeleteButton(boolean isDeleteButtonDisplayed) {
+        mIsDeleteButtonDisplayed = isDeleteButtonDisplayed;
     }
 
     public void displayTimerEndTime(boolean isTimerEndTimeDisplayed) {
@@ -233,6 +239,8 @@ public abstract class BaseTimerItem extends ConstraintLayout {
         }
 
         mLastLabel = label;
+
+        updateDeleteButtonDisplay();
 
         // Initialize the circle
         if (getProgressIndicator() != null) {
@@ -376,6 +384,15 @@ public abstract class BaseTimerItem extends ConstraintLayout {
 
         mGradientDrawable.setColor(color);
         getIndicatorState().setVisibility(VISIBLE);
+    }
+
+    private void updateDeleteButtonDisplay() {
+        if (!mIsDeleteButtonDisplayed) {
+            getDeleteButton().setVisibility(GONE);
+            return;
+        }
+
+        getDeleteButton().setVisibility(VISIBLE);
     }
 
     private void updateEndTimeDisplay(@NonNull Timer timer) {
