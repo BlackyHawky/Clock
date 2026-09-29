@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">ㅇ<xliff:g id="separator">=</xliff:g>앤티가 섬<xliff:g id="timezone">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">ㅇ<xliff:g id="separator">=</xliff:g>오스틴<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">ㅂ<xliff:g id="separator">=</xliff:g>보스턴<xliff:g id="timezone">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">ㅋ<xliff:g id="separator">=</xliff:g>캘거리<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">ㅋ<xliff:g id="separator">=</xliff:g>캘거리<xliff:g id="timezone">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">ㅋ<xliff:g id="separator">=</xliff:g>콜럼버스<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">ㄷ<xliff:g id="separator">=</xliff:g>댈러스<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">ㄴ<xliff:g id="separator">=</xliff:g>녹스빌<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">ㅁ<xliff:g id="separator">=</xliff:g>멤피스<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">ㅁ<xliff:g id="separator">=</xliff:g>마이애미<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">ㅁ<xliff:g id="separator">=</xliff:g>미니애폴리스<xliff:g id="timezone">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">ㅇ<xliff:g id="separator">=</xliff:g>오타와<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">ㅇ<xliff:g id="separator">=</xliff:g>오타와<xliff:g id="timezone">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">ㅍ<xliff:g id="separator">=</xliff:g>필라델피아<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">ㅍ<xliff:g id="separator">=</xliff:g>포틀랜드<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">ㅅ<xliff:g id="separator">=</xliff:g>샌디에이고<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>

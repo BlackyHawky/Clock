@@ -809,7 +809,7 @@
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C216">B<xliff:g id="separator">=</xliff:g>Boston<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
-    <string name="C217">C<xliff:g id="separator">=</xliff:g>Calgary<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <string name="C217">C<xliff:g id="separator">=</xliff:g>Calgary<xliff:g id="timezone">|Canada/Mountain</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C218">C<xliff:g id="separator">=</xliff:g>Columbus<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
@@ -823,7 +823,7 @@
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C223">M<xliff:g id="separator">=</xliff:g>Minneapolis<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
-    <string name="C224">O<xliff:g id="separator">=</xliff:g>Ottawa<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <string name="C224">O<xliff:g id="separator">=</xliff:g>Ottawa<xliff:g id="timezone">|America/Montreal</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C225">P<xliff:g id="separator">=</xliff:g>Philadelphia<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->

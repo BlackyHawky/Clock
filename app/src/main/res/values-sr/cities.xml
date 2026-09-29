@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485"><xliff:g id="SEPARATOR">=</xliff:g>Антигва<xliff:g id="TIMEZONE">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744"><xliff:g id="SEPARATOR">=</xliff:g>Остин<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906"><xliff:g id="SEPARATOR">=</xliff:g>Бостон<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629"><xliff:g id="SEPARATOR">=</xliff:g>Калгари<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629"><xliff:g id="SEPARATOR">=</xliff:g>Калгари<xliff:g id="TIMEZONE">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157"><xliff:g id="SEPARATOR">=</xliff:g>Коламбус<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440"><xliff:g id="SEPARATOR">=</xliff:g>Далас<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621"><xliff:g id="SEPARATOR">=</xliff:g>Ноксвил<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544"><xliff:g id="SEPARATOR">=</xliff:g>Мемфис<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138"><xliff:g id="SEPARATOR">=</xliff:g>Мајами<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534"><xliff:g id="SEPARATOR">=</xliff:g>Минеаполис<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314"><xliff:g id="SEPARATOR">=</xliff:g>Отава<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314"><xliff:g id="SEPARATOR">=</xliff:g>Отава<xliff:g id="TIMEZONE">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262"><xliff:g id="SEPARATOR">=</xliff:g>Филаделфија<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110"><xliff:g id="SEPARATOR">=</xliff:g>Портланд<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001"><xliff:g id="SEPARATOR">=</xliff:g>Сан Дијего<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>

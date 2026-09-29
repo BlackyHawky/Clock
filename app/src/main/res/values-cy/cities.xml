@@ -212,14 +212,14 @@
     <string name="C214">A<xliff:g id="separator">=</xliff:g>Antigua<xliff:g id="timezone">|America/Antigua</xliff:g></string>
     <string name="C215">A<xliff:g id="separator">=</xliff:g>Austin<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C216">B<xliff:g id="separator">=</xliff:g>Boston<xliff:g id="timezone">|America/Efrog_Newydd</xliff:g></string>
-    <string name="C217">C<xliff:g id="separator">=</xliff:g>Calgary<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <string name="C217">C<xliff:g id="separator">=</xliff:g>Calgary<xliff:g id="timezone">|Canada/Mountain</xliff:g></string>
     <string name="C218">C<xliff:g id="separator">=</xliff:g>Columbus<xliff:g id="timezone">|America/Efrog_Newydd</xliff:g></string>
     <string name="C219">D<xliff:g id="separator">=</xliff:g>Dallas<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C220">K<xliff:g id="separator">=</xliff:g>Knoxville<xliff:g id="timezone">|America/Efrog_Newydd</xliff:g></string>
     <string name="C221">M<xliff:g id="separator">=</xliff:g>Memphis<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C222">M<xliff:g id="separator">=</xliff:g>Miami<xliff:g id="timezone">|America/Efrog_Newydd</xliff:g></string>
     <string name="C223">M<xliff:g id="separator">=</xliff:g>Minneapolis<xliff:g id="timezone">|America/Chicago</xliff:g></string>
-    <string name="C224">O<xliff:g id="separator">=</xliff:g>Ottawa<xliff:g id="timezone">|America/Efrog_Newydd</xliff:g></string>
+    <string name="C224">O<xliff:g id="separator">=</xliff:g>Ottawa<xliff:g id="timezone">|America/Montreal</xliff:g></string>
     <string name="C225">P<xliff:g id="separator">=</xliff:g>Philadelphia<xliff:g id="timezone">|America/Efrog_Newydd</xliff:g></string>
     <string name="C226">P<xliff:g id="separator">=</xliff:g>Portland<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <string name="C227">S<xliff:g id="separator">=</xliff:g>San Diego<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
