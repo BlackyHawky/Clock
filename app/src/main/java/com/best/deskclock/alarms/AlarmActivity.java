@@ -331,54 +331,44 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final long instanceId = AlarmInstance.getId(dataUri);
         ContentResolver cr = getApplicationContext().getContentResolver();
 
-        AppExecutors.getDiskIO().execute(() -> {
-            final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
+        mAlarmInstance = AlarmInstance.getInstance(cr, instanceId);
 
-            AppExecutors.getMainThread().post(() -> {
-                if (isFinishing() || isDestroyed()) {
-                    return;
-                }
+        if (mAlarmInstance == null) {
+            LOGGER.i("No alarm instance for instanceId: %d", instanceId);
+            finish();
+            return;
+        }
 
-                mAlarmInstance = instance;
+        // Verify that the alarm is still firing before showing the activity
+        if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
+            LOGGER.i("Skip displaying alarm for instance: %s", mAlarmInstance);
+            finish();
+            return;
+        }
 
-                if (mAlarmInstance == null) {
-                    LOGGER.i("No alarm instance for instanceId: %d", instanceId);
-                    finish();
-                    return;
-                }
+        if (mSensorManager != null && mProximitySensor != null) {
+            mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
 
-                // Verify that the alarm is still firing before showing the activity
-                if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
-                    LOGGER.i("Skip displaying alarm for instance: %s", mAlarmInstance);
-                    finish();
-                    return;
-                }
+        if (!mReceiverRegistered) {
+            // Register to get the alarm done/snooze/dismiss intent.
+            final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
+            filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
+            filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
+            filter.addAction(AlarmService.ALARM_MUTE_ACTION);
 
-                if (mSensorManager != null && mProximitySensor != null) {
-                    mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
-                }
+            if (SdkUtils.isAtLeastAndroid13()) {
+                registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                registerReceiver(mReceiver, filter);
+            }
 
-                if (!mReceiverRegistered) {
-                    // Register to get the alarm done/snooze/dismiss intent.
-                    final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
-                    filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
-                    filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
-                    filter.addAction(AlarmService.ALARM_MUTE_ACTION);
+            mReceiverRegistered = true;
+        }
 
-                    if (SdkUtils.isAtLeastAndroid13()) {
-                        registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-                    } else {
-                        registerReceiver(mReceiver, filter);
-                    }
+        bindAlarmService();
 
-                    mReceiverRegistered = true;
-                }
-
-                bindAlarmService();
-
-                resetAnimations();
-            });
-        });
+        resetAnimations();
     }
 
     @Override
@@ -689,45 +679,36 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         final long instanceId = AlarmInstance.getId(dataUri);
-        ContentResolver cr = getApplicationContext().getContentResolver();
 
-        AppExecutors.getDiskIO().execute(() -> {
-            final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
-            final Alarm alarm = instance != null ? Alarm.getAlarm(cr, instance.mAlarmId) : null;
+        final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
+        final Alarm alarm = instance != null ? Alarm.getAlarm(getContentResolver(), instance.mAlarmId) : null;
 
-            AppExecutors.getMainThread().post(() -> {
-                if (isFinishing() || isDestroyed()) {
-                    return;
-                }
+        mAlarmInstance = instance;
+        mAlarm = alarm;
 
-                mAlarmInstance = instance;
-                mAlarm = alarm;
+        if (mAlarmInstance == null || mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
+            LogUtils.i("AlarmActivity aborted: instance is null or no longer in FIRED_STATE.");
+            finish();
+            return;
+        }
 
-                if (mAlarmInstance == null || mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
-                    LogUtils.i("AlarmActivity aborted: instance is null or no longer in FIRED_STATE.");
-                    finish();
-                    return;
-                }
+        if (mAlarm == null) {
+            LogUtils.wtf("Failed to retrieve alarm for instance: " + mAlarmInstance.mId);
 
-                if (mAlarm == null) {
-                    LogUtils.wtf("Failed to retrieve alarm for instance: " + mAlarmInstance.mId);
+            final Context appContext = getApplicationContext();
+            final AlarmInstance instanceToDelete = mAlarmInstance;
 
-                    final Context appContext = getApplicationContext();
-                    final AlarmInstance instanceToDelete = mAlarmInstance;
+            AppExecutors.getDiskIO().execute(() ->
+                    AlarmStateManager.deleteInstanceAndUpdateParent(appContext, getPrefs(), instanceToDelete, false)
+            );
 
-                    AppExecutors.getDiskIO().execute(() ->
-                        AlarmStateManager.deleteInstanceAndUpdateParent(appContext, getPrefs(), instanceToDelete, false)
-                    );
+            finish();
+            return;
+        }
 
-                    finish();
-                    return;
-                }
+        initDefaultSnoozeValue();
 
-                initDefaultSnoozeValue();
-
-                finishUiInitialization();
-            });
-        });
+        finishUiInitialization();
     }
 
     private void finishUiInitialization() {
