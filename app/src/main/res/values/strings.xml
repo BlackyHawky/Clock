@@ -733,6 +733,8 @@
     <string name="vibration_pattern_escalating">Escalating</string>
     <!-- Setting title to change the vibration pattern to Tick-Tock -->
     <string name="vibration_pattern_tick_tock">Tick-Tock</string>
+    <!-- Setting title to enable live update notifications -->
+    <string name="live_update_notifications_title">Enable live update notifications</string>
 
     <!-- ******************************* -->
     <!-- **     INTERFACE SETTINGS    ** -->

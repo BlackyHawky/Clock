@@ -203,6 +203,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_ADD_TIME_BUTTON_VALUE = "key_timer_add_time_button_value";
     public static final String KEY_TIMER_REMOVE_TIME_BUTTON_VALUE = "key_timer_remove_time_button_value";
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = "key_turn_on_back_flash_for_expired_timer";
+    public static final String KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS = "key_timer_live_update_notifications";
 
     // Timer Display Customization
     public static final String KEY_TIMER_DURATION_FONT = "key_timer_duration_font";
@@ -234,6 +235,7 @@ public class PreferencesKeys {
     public static final String KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS = "key_sw_volume_up_action_after_long_press";
     public static final String KEY_SW_VOLUME_DOWN_ACTION = "key_sw_volume_down_action";
     public static final String KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS = "key_sw_volume_down_action_after_long_press";
+    public static final String KEY_SW_LIVE_UPDATE_NOTIFICATIONS = "key_sw_live_update_notifications";
 
     // Screensaver
     public static final String KEY_SCREENSAVER_CLOCK_STYLE = "key_screensaver_clock_style";

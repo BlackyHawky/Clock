@@ -77,4 +77,19 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="key_sw_live_update_notifications"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/live_update_notifications_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -895,12 +895,19 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the back flash should turn on when the timer is expired.
-     * {@code false} otherwise.
+     * @return {@code true} if the back flash should turn on when the timer is expired. {@code false} otherwise.
      */
     public static boolean shouldTurnOnBackFlashForExpiredTimer(@NonNull SharedPreferences pref) {
         // Default value must match the one in res/xml/settings_timer.xml
         return pref.getBoolean(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER, DEFAULT_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
+    }
+
+    /**
+     * @return {@code true} if live update notifications are enabled for timers. {@code false} otherwise.
+     */
+    public static boolean areTimerLiveUpdateNotificationsEnabled(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return pref.getBoolean(KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS, DEFAULT_LIVE_UPDATE_NOTIFICATIONS);
     }
 
     /**
@@ -1773,6 +1780,14 @@ public final class SettingsDAO {
     public static String getVolumeDownActionAfterLongPressForStopwatch(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_stopwatch.xml
         return prefs.getString(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, DEFAULT_SW_ACTION);
+    }
+
+    /**
+     * @return {@code true} if live update notifications are enabled for the stopwatch. {@code false} otherwise.
+     */
+    public static boolean areStopwatchLiveUpdateNotificationsEnabled(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return pref.getBoolean(KEY_SW_LIVE_UPDATE_NOTIFICATIONS, DEFAULT_LIVE_UPDATE_NOTIFICATIONS);
     }
 
     public static boolean isKeepAndroidOpenDialogDisplayed(@NonNull SharedPreferences prefs) {
