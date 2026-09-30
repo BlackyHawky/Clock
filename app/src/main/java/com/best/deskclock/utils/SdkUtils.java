@@ -115,4 +115,12 @@ public class SdkUtils {
         return isAtLeastVersion(Build.VERSION_CODES.UPSIDE_DOWN_CAKE);
     }
 
+    /**
+     * @return {@code true} if the API version is greater than or equal to 36 (Baklava).
+     * {@code false} otherwise.
+     */
+    public static boolean isAtLeastAndroid16() {
+        return isAtLeastVersion(Build.VERSION_CODES.BAKLAVA);
+    }
+
 }

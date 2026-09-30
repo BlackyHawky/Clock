@@ -250,6 +250,7 @@ public class PreferencesDefaultValues {
     public static final String VIBRATION_PATTERN_HEARTBEAT = "heartbeat";
     public static final String VIBRATION_PATTERN_ESCALATING = "escalating";
     public static final String VIBRATION_PATTERN_TICK_TOCK = "tick_tock";
+    public static final boolean DEFAULT_LIVE_UPDATE_NOTIFICATIONS = false;
 
     // Permission management
     public static final boolean DEFAULT_ENABLE_FOREGROUND_SERVICE = false;

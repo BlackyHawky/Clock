@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 10
+    def commitNumber = 11
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')
@@ -124,6 +124,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.core:core:1.19.1'
     implementation 'androidx.documentfile:documentfile:1.1.0'
     implementation 'androidx.media3:media3-exoplayer:1.11.1'
     implementation 'androidx.media3:media3-common:1.11.1'

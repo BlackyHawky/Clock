@@ -148,7 +148,7 @@ public final class AlarmNotifications {
     private static void updateUpcomingAlarmGroupNotification(@NonNull Context context, int canceledNotificationId,
                                                              @Nullable Notification postedNotification) {
 
-        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstUpcoming = getFirstActiveNotification(
             context, UPCOMING_GROUP_KEY, canceledNotificationId, postedNotification);
 
@@ -185,7 +185,7 @@ public final class AlarmNotifications {
     public static void updateMissedAlarmGroupNotification(@NonNull Context context, int canceledNotificationId,
                                                           @Nullable Notification postedNotification) {
 
-        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstMissed = getFirstActiveNotification(context, MISSED_GROUP_KEY,
             canceledNotificationId, postedNotification);
 

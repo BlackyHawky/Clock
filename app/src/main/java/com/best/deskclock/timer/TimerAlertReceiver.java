@@ -9,6 +9,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.best.deskclock.data.DataModel;
+
 /**
  * A {@link BroadcastReceiver} to safely launch {@link TimerService} when a timer expires.
  *
@@ -20,6 +22,11 @@ import androidx.core.content.ContextCompat;
 public class TimerAlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
+        if (TimerService.ACTION_UPDATE_NOTIFICATION.equals(intent.getAction())) {
+            DataModel.getDataModel().updateTimerNotification();
+            return;
+        }
+
         Intent serviceIntent = new Intent(intent);
         serviceIntent.setClass(context, TimerService.class);
 

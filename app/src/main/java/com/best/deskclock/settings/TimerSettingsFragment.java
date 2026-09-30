@@ -54,6 +54,7 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -101,6 +102,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mSingleTimerModePref;
     ListPreference mSortTimerPref;
     SwitchPreferenceCompat mTurnOnBackFlashForExpiredTimerPref;
+    SwitchPreferenceCompat mLiveUpdateNotificationsPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
@@ -196,6 +198,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mSingleTimerModePref = findPreference(KEY_SINGLE_TIMER_MODE);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mTurnOnBackFlashForExpiredTimerPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
+        mLiveUpdateNotificationsPref = findPreference(KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
         mIsAlarmTabHidden = !SettingsDAO.isAlarmTabVisible(getPrefs());
@@ -515,7 +518,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_HEADPHONES_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
-                 KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
+                 KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
@@ -640,6 +643,9 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
         mTurnOnBackFlashForExpiredTimerPref.setVisible(DeviceUtils.hasBackFlash(requireContext()));
         mTurnOnBackFlashForExpiredTimerPref.setOnPreferenceChangeListener(this);
+
+        mLiveUpdateNotificationsPref.setVisible(SdkUtils.isAtLeastAndroid16());
+        mLiveUpdateNotificationsPref.setOnPreferenceChangeListener(this);
 
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
     }

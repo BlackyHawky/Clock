@@ -8,7 +8,6 @@ package com.best.deskclock.data;
 
 import android.Manifest;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,6 +20,7 @@ import android.service.quicksettings.TileService;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.tiles.StopwatchTileService;
@@ -47,7 +47,7 @@ final class StopwatchModel {
     /**
      * Used to create and destroy system notifications related to the stopwatch.
      */
-    private final NotificationManager mNotificationManager;
+    private final NotificationManagerCompat mNotificationManager;
 
     /**
      * Update stopwatch notification when locale changes.
@@ -79,7 +79,7 @@ final class StopwatchModel {
         mContext = context.getApplicationContext();
         mPrefs = prefs;
         mNotificationModel = notificationModel;
-        mNotificationManager = mContext.getSystemService(NotificationManager.class);
+        mNotificationManager = NotificationManagerCompat.from(context);
 
         // Update stopwatch notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter();
@@ -258,8 +258,14 @@ final class StopwatchModel {
         }
 
         // Otherwise build and post a notification reflecting the latest stopwatch state.
-        final Notification notification = mNotificationBuilder.build(
-            mContext, mNotificationModel, stopwatch, SettingsDAO.getLanguageCode(mPrefs));
+        final String languageCode = SettingsDAO.getLanguageCode(mPrefs);
+        final Notification notification;
+
+        if (SdkUtils.isAtLeastAndroid16() && SettingsDAO.areStopwatchLiveUpdateNotificationsEnabled(mPrefs)) {
+            notification = mNotificationBuilder.buildLiveUpdateNotification(mContext, stopwatch, languageCode);
+        } else {
+            notification = mNotificationBuilder.build(mContext, stopwatch, languageCode);
+        }
 
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }

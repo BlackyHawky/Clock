@@ -6,6 +6,8 @@ import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesKeys.FILE_STOPWATCH_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_DISPLAY_MILLISECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_LIVE_UPDATE_NOTIFICATIONS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_MISCELLANEOUS_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION;
@@ -25,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -33,6 +36,7 @@ import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.FileUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -45,6 +49,8 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     ListPreference mVolumeUpActionAfterLongPressPref;
     ListPreference mVolumeDownActionPref;
     ListPreference mVolumeDownActionAfterLongPressPref;
+    PreferenceCategory mMiscellaneousCategoryPref;
+    SwitchPreferenceCompat mLiveUpdateNotificationsPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -121,6 +127,8 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
         mVolumeUpActionAfterLongPressPref = findPreference(KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS);
         mVolumeDownActionPref = findPreference(KEY_SW_VOLUME_DOWN_ACTION);
         mVolumeDownActionAfterLongPressPref = findPreference(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS);
+        mMiscellaneousCategoryPref = findPreference(KEY_SW_MISCELLANEOUS_CATEGORY);
+        mLiveUpdateNotificationsPref = findPreference(KEY_SW_LIVE_UPDATE_NOTIFICATIONS);
 
         setupPreferences();
     }
@@ -135,7 +143,7 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
     @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
-            case KEY_SW_DISPLAY_MILLISECONDS ->
+            case KEY_SW_DISPLAY_MILLISECONDS, KEY_SW_LIVE_UPDATE_NOTIFICATIONS ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
@@ -178,6 +186,10 @@ public class StopwatchSettingsFragment extends BaseSettingsScreenFragment
 
         mVolumeDownActionAfterLongPressPref.setOnPreferenceChangeListener(this);
         mVolumeDownActionAfterLongPressPref.setSummary(mVolumeDownActionAfterLongPressPref.getEntry());
+
+        mMiscellaneousCategoryPref.setVisible(SdkUtils.isAtLeastAndroid16());
+
+        mLiveUpdateNotificationsPref.setOnPreferenceChangeListener(this);
     }
 
 }
