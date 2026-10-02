@@ -202,7 +202,7 @@ class TimerNotificationBuilder {
             .setDefaults(0) // No sound on Android 7 and earlier versions
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_PROGRESS)
-            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setSmallIcon(R.drawable.ic_tab_timer_static)
             .setSortKey(nm.getTimerNotificationSortKey())
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
@@ -339,7 +339,7 @@ class TimerNotificationBuilder {
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setSmallIcon(R.drawable.ic_tab_timer_static)
             .setFullScreenIntent(pendingFullScreen, true)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
@@ -428,7 +428,7 @@ class TimerNotificationBuilder {
             .setDefaults(0) // No sound on Android 7 and earlier versions
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_EVENT)
-            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setSmallIcon(R.drawable.ic_tab_timer_static)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSortKey(nm.getTimerNotificationMissedSortKey())
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
@@ -469,7 +469,7 @@ class TimerNotificationBuilder {
 
         return new NotificationCompat.Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
             .setShowWhen(true)
-            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setSmallIcon(R.drawable.ic_tab_timer_static)
             .setGroup(nm.getTimerNotificationGroupKey())
             .setGroupSummary(true)
             .setOngoing(true)

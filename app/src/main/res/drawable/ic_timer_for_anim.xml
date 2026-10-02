@@ -12,8 +12,6 @@
     android:viewportHeight="24">
     <group
         android:name="hourglass_frame"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
         android:translateX="12"
         android:translateY="12">
         <group
@@ -28,7 +26,7 @@
                     android:name="bottom_inner_path"
                     android:fillAlpha="1"
                     android:fillColor="@android:color/white"
-                    android:pathData="M6.5-3.9c0 0-6.5 6.9-6.5 6.9c0 0-6.5-6.9-6.5-6.9c0 0 13 0 13 0 Z M 10-6.5c0 0-20 0-20 0c-0.9 0-1.3 1.1-0.7 1.7c0 0 10.7 11.3 10.7 11.3c0 0 10.7-11.3 10.7-11.3c0.6-0.6 0.2-1.7-0.7-1.7Z" />
+                    android:pathData="M2 5.5 5.41 2.07c.37-.37.58-.88.58-1.41L6-2.5c0-1.1-.9-2-2-2H-4c-1.1 0-2 .9-2 2V.66c0 .53.21 1.04.58 1.42L-2 5.5ZM-4 .59V-1.5c0-.55.45-1 1-1H3c.55 0 1 .45 1 1V.59c0 .27-.11.52-.29.71L0 5-3.71 1.29C-3.89 1.11-4 .85-4 .59Z" />
             </group>
             <group
                 android:name="hourglass_top"
@@ -38,14 +36,12 @@
                     android:name="top_inner_path"
                     android:fillAlpha="1"
                     android:fillColor="@android:color/white"
-                    android:pathData="M0-3c0 0 6.5 6.9 6.5 6.9c0 0-13 0-13 0c0 0 6.5-6.9 6.5-6.9 Z M 0-6.5c0 0-10.7 11.3-10.7 11.3c-0.6 0.6-0.2 1.7 0.7 1.7c0 0 20 0 20 0c0.9 0 1.3-1.1 0.7-1.7c0 0-10.7-11.3-10.7-11.3Z" />
+                    android:pathData="M-2-5.5-5.41-2.07c-.37.37-.58.88-.58 1.41L-6 2.5c0 1.1.9 2 2 2H4c1.1 0 2-.9 2-2V-.66c0-.53-.21-1.04-.58-1.42L2-5.5ZM4-.59V1.5c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V-.59c0-.27.11-.52.29-.71L0-5l3.71 3.71c.18.18.29.44.29.7Z" />
             </group>
         </group>
     </group>
     <group
         android:name="hourglass_fill"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
         android:translateX="12"
         android:translateY="12">
         <group
@@ -54,12 +50,12 @@
             android:translateY="-12">
             <clip-path
                 android:name="mask_1"
-                android:pathData="M24 13.4c0 0-24 0-24 0c0 0 0 10.6 0 10.6c0 0 24 0 24 0c0 0 0-10.6 0-10.6Z" />
+                android:pathData="M14 12l3.42 3.42c.37.38.58.89.58 1.42V20c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2l.01-3.16c0-.53.21-1.04.58-1.41L10 12z" />
             <path
                 android:name="fill_path"
                 android:fillAlpha="1"
                 android:fillColor="@android:color/white"
-                android:pathData="M22.7 22.3c0.6 0.6 0.2 1.7-0.7 1.7c0 0-20 0-20 0c-0.9 0-1.3-1.1-0.7-1.7c0 0 9.8-10.3 9.8-10.3c0 0-9.8-10.3-9.8-10.3c-0.6-0.6-0.2-1.7 0.7-1.7c0 0 20 0 20 0c0.9 0 1.3 1.1 0.7 1.7c0 0-9.8 10.3-9.8 10.3c0 0 9.8 10.3 9.8 10.3Z" />
+                android:pathData="M16 22H8c-1.1 0-2-.9-2-2V16.82c0-.53.21-1.04.59-1.42L10 12 6.58 8.58C6.21 8.2 6 7.69 6 7.16V4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2l-.01 3.16c0 .53-.21 1.04-.58 1.41L14 12l3.41 3.41c.37.38.58.88.58 1.41L18 20c0 1.1-.9 2-2 2Z" />
         </group>
     </group>
 </vector>
