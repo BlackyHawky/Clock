@@ -10,6 +10,8 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,10 +27,14 @@ import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Click handler for an alarm time item.
@@ -165,6 +171,30 @@ public final class AlarmTimeClickHandler {
         showAlarmDelayPickerDialog();
     }
 
+    public void onGlobeClicked(@NonNull Alarm alarm, @NonNull View view, @NonNull DisplayMetrics displayMetrics) {
+        TimeZone timeZone = alarm.getTimeZone();
+        TimeZone defaultTimeZone = TimeZone.getDefault();
+        long now = System.currentTimeMillis();
+
+        int alarmOffset = timeZone.getOffset(now);
+        int defaultOffset = defaultTimeZone.getOffset(now);
+
+        if (alarmOffset == defaultOffset) {
+            return;
+        }
+
+        int absoluteOffset = Math.abs(alarmOffset);
+        long hour = absoluteOffset / (1000 * 60 * 60);
+        long minute = (absoluteOffset / (1000 * 60)) % 60;
+        char sign = alarmOffset < 0 ? '-' : '+';
+
+        final Locale locale = Utils.getLocaleFromContext(mContext);
+
+        String tooltipText = String.format(locale, "UTC%c%d:%02d", sign, hour, minute);
+
+        CustomTooltip.showBelow(view, mConfig.fonts().general(), displayMetrics, tooltipText);
+    }
+
     public void showAlarmDelayPickerDialog() {
         Events.sendAlarmEvent(R.string.action_set_delay, R.string.label_deskclock);
 
@@ -220,7 +250,9 @@ public final class AlarmTimeClickHandler {
     }
 
     public void setAlarmWithDelay(int hour, int minute) {
-        Calendar alarmTime = Calendar.getInstance();
+        TimeZone timeZone = mSelectedAlarm == null ? TimeZone.getDefault() : mSelectedAlarm.getTimeZone();
+
+        Calendar alarmTime = Calendar.getInstance(timeZone);
         alarmTime.add(Calendar.HOUR_OF_DAY, hour);
         alarmTime.add(Calendar.MINUTE, minute);
 
@@ -252,7 +284,7 @@ public final class AlarmTimeClickHandler {
             mSelectedAlarm.daysOfWeek = Weekdays.fromBits(0);
         }
 
-        Calendar currentCalendar = Calendar.getInstance();
+        Calendar currentCalendar = Calendar.getInstance(mSelectedAlarm.getTimeZone());
 
         // Necessary when an existing alarm has been created in the past, and it is not enabled.
         // Even if the date is not specified, it is saved in AlarmInstance; we need to make

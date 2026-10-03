@@ -30,7 +30,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String ALARMS_TABLE_NAME = "alarm_templates";
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
 
-    private static final int DATABASE_VERSION = 28;
+    private static final int DATABASE_VERSION = 29;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(@Nullable Context context) {
@@ -65,7 +65,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             ClockContract.AlarmsColumns.BACKGROUND_IMAGE + " TEXT NOT NULL, " +
             ClockContract.AlarmsColumns.BLUR_INTENSITY + " INTEGER NOT NULL DEFAULT 0, " +
             ClockContract.AlarmsColumns.MATH_HARDNESS_LEVEL + " TEXT NOT NULL DEFAULT 'off', " +
-            ClockContract.AlarmsColumns.LOCK + " INTEGER NOT NULL DEFAULT 0);");
+            ClockContract.AlarmsColumns.LOCK + " INTEGER NOT NULL DEFAULT 0, " +
+            ClockContract.AlarmsColumns.TIMEZONE + " TEXT DEFAULT '');");
 
         LogUtils.i("Alarms Table created");
     }
@@ -91,6 +92,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT + " INTEGER NOT NULL, " +
             ClockContract.InstancesColumns.CRESCENDO_DURATION + " INTEGER NOT NULL, " +
             ClockContract.InstancesColumns.ALARM_VOLUME + " INTEGER NOT NULL, " +
+            ClockContract.InstancesColumns.TIMEZONE + " TEXT DEFAULT '', " +
             ClockContract.InstancesColumns.ALARM_ID + " INTEGER REFERENCES " +
             ALARMS_TABLE_NAME + "(" + ClockContract.AlarmsColumns._ID + ") " +
             "ON UPDATE CASCADE ON DELETE CASCADE);");
@@ -302,6 +304,16 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 + " INTEGER NOT NULL DEFAULT 0;");
 
             LogUtils.i("lock column added for version 28 upgrade.");
+        }
+
+        if (oldVersion < 29) {
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.TIMEZONE
+                + " TEXT DEFAULT '';");
+
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " + ClockContract.InstancesColumns.TIMEZONE
+                + " TEXT DEFAULT '';");
+
+            LogUtils.i("timezone column added for version 29 upgrade.");
         }
     }
 

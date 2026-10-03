@@ -19,10 +19,12 @@ import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
@@ -38,6 +40,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private boolean mIs24HourMode;
     private CharSequence mFormat12;
     private CharSequence mFormat24;
+    private final SimpleDateFormat mDateFormatNoYear;
+    private final SimpleDateFormat mDateFormatWithYear;
     private final boolean mUseExpressiveBackground;
 
     private final Drawable.ConstantState mBgSingle;
@@ -59,6 +63,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         mWeekdayOrder = weekdayOrder;
         mStateProvider = stateProvider;
         mIs24HourMode = is24HourMode;
+        mDateFormatNoYear = new SimpleDateFormat(dateConfig.pattern(), dateConfig.locale());
+        mDateFormatWithYear = new SimpleDateFormat(dateConfig.patternWithYear(), dateConfig.locale());
         mUseExpressiveBackground = !screen.isTablet() && !screen.isLandscape();
 
         if (mUseExpressiveBackground) {
@@ -102,6 +108,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     public Drawable.ConstantState getBgStandard() { return mBgStandard; }
     public CharSequence getFormat12() { return mFormat12; }
     public CharSequence getFormat24() { return mFormat24; }
+    public SimpleDateFormat getDateFormat(@NonNull TimeZone timeZone, boolean withYear) {
+        SimpleDateFormat sdf = withYear ? mDateFormatWithYear : mDateFormatNoYear;
+        sdf.setTimeZone(timeZone);
+        return sdf;
+    }
 
     @NonNull
     @Override

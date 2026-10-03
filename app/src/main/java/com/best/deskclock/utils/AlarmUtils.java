@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -86,7 +87,11 @@ public class AlarmUtils {
                                         @Nullable Typeface font, @NonNull Alarm alarm, @NonNull AlarmInstance instance) {
 
         final Context localizedContext = Utils.getLocalizedContext(context, customLanguageCode);
-        final String time = DateFormat.getTimeFormat(localizedContext).format(instance.getAlarmTime().getTime());
+
+        final java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(localizedContext);
+        timeFormat.setTimeZone(instance.getTimeZone());
+
+        final String time = timeFormat.format(instance.getAlarmTime().getTime());
         final Calendar nextTime = alarm.getNextAlarmTime(instance.getAlarmTime());
         final String date = getDateFormat(localizedContext, nextTime);
 
@@ -117,6 +122,7 @@ public class AlarmUtils {
         Locale locale = Utils.getLocaleFromContext(context);
         final String skeleton = context.getString(R.string.full_wday_month_day_no_year);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
+        simpleDateFormat.setTimeZone(calendar.getTimeZone());
 
         return simpleDateFormat.format(new Date(calendar.getTimeInMillis()));
     }
@@ -130,7 +136,8 @@ public class AlarmUtils {
      */
     @NonNull
     public static String formatAlarmDate(@NonNull Context context, @NonNull Alarm alarm) {
-        Calendar calendar = Calendar.getInstance();
+        TimeZone timeZone = alarm.getTimeZone();
+        Calendar calendar = Calendar.getInstance(timeZone);
         boolean isCurrentYear = alarm.year == calendar.get(Calendar.YEAR);
         calendar.set(alarm.year, alarm.month, alarm.day);
 
@@ -141,23 +148,50 @@ public class AlarmUtils {
 
         String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
 
-        return new SimpleDateFormat(pattern, locale).format(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+        simpleDateFormat.setTimeZone(timeZone);
+
+        return simpleDateFormat.format(calendar.getTime());
     }
 
     /**
-     * @return The text of the next alarm.
+     * @return The text of the next alarm including the time zone.
      */
     @Nullable
     public static String getNextAlarm(@NonNull Context context) {
+        return getNextAlarm(context, true);
+    }
+
+    /**
+     * @param includeTimeZoneSuffix {@code true} if the time zone suffix should be displayed, {@code fale} otherwise
+     * @return The text of the next alarm and the time zone if it differs from the device's current time zone.
+     */
+    @Nullable
+    public static String getNextAlarm(@NonNull Context context, boolean includeTimeZoneSuffix) {
         AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
         if (instance != null) {
-            Calendar alarmCalendar = Calendar.getInstance();
+            Calendar alarmCalendar = Calendar.getInstance(instance.getTimeZone());
             long alarmTime = instance.getAlarmTime().getTimeInMillis();
             alarmCalendar.setTimeInMillis(alarmTime);
-            return getFormattedTime(context, alarmCalendar);
+            return getFormattedTime(context, alarmCalendar, includeTimeZoneSuffix);
         }
 
         return null;
+    }
+
+    /**
+     * @return the time zone of the next alarm if it differs from the device's current time zone.
+     */
+    @NonNull
+    public static String getNextAlarmTimeZoneSuffix(@NonNull Context context) {
+        AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
+        if (instance != null) {
+            Calendar alarmCalendar = Calendar.getInstance(instance.getTimeZone());
+            alarmCalendar.setTimeInMillis(instance.getAlarmTime().getTimeInMillis());
+            return getAlarmTimeZoneSuffix(context, alarmCalendar);
+        }
+
+        return "";
     }
 
     /**
@@ -200,7 +234,7 @@ public class AlarmUtils {
             return false;
         }
 
-        Calendar alarmCalendar = Calendar.getInstance();
+        Calendar alarmCalendar = Calendar.getInstance(instance.getTimeZone());
         long alarmTime = instance.getAlarmTime().getTimeInMillis();
         alarmCalendar.setTimeInMillis(alarmTime);
         String alarmFormattedTime = isScreensaver
@@ -237,6 +271,17 @@ public class AlarmUtils {
     }
 
     /**
+     * Returns a human‑readable string representing the time of the next alarm including the time zone
+     * if it differs from the device's current time zone.
+     *
+     * @return a formatted string describing when the alarm will ring including the time zone
+     */
+    @NonNull
+    public static String getFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime) {
+        return getFormattedTime(context, alarmTime, true);
+    }
+
+    /**
      * Returns a human‑readable string representing the time of the next alarm.
      * <p>
      * The returned text adapts to the user's 12/24‑hour preference and includes
@@ -244,13 +289,15 @@ public class AlarmUtils {
      * For alarms scheduled further in the future, the formatted output expands
      * to include the weekday or full date depending on the distance in days.
      *
-     * @param context   the context used to access locale and time format settings
-     * @param alarmTime the time of the next scheduled alarm
+     * @param context               the context used to access locale and time format settings
+     * @param alarmTime             the time of the next scheduled alarm
+     * @param includeTimeZoneSuffix {@code true} if the time zone suffix should be displayed, {@code fale} otherwise
      * @return a formatted string describing when the alarm will ring
      */
     @NonNull
-    public static String getFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime) {
-        final Calendar now = Calendar.getInstance();
+    public static String getFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime, boolean includeTimeZoneSuffix) {
+        final TimeZone timeZone = alarmTime.getTimeZone();
+        final Calendar now = Calendar.getInstance(timeZone);
         final Calendar today = (Calendar) now.clone();
         final Calendar tomorrow = (Calendar) now.clone();
         tomorrow.add(Calendar.DAY_OF_YEAR, 1);
@@ -269,8 +316,20 @@ public class AlarmUtils {
             skeleton = context.getString(is24HourFormat ? R.string.time_24_hour : R.string.time_12_hour);
         } else {
             // Beyond tomorrow: show day or full date if distant
-            long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
-            long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+            Calendar todayMidnight = (Calendar) now.clone();
+            todayMidnight.set(Calendar.HOUR_OF_DAY, 0);
+            todayMidnight.set(Calendar.MINUTE, 0);
+            todayMidnight.set(Calendar.SECOND, 0);
+            todayMidnight.set(Calendar.MILLISECOND, 0);
+
+            Calendar targetMidnight = (Calendar) alarmTime.clone();
+            targetMidnight.set(Calendar.HOUR_OF_DAY, 0);
+            targetMidnight.set(Calendar.MINUTE, 0);
+            targetMidnight.set(Calendar.SECOND, 0);
+            targetMidnight.set(Calendar.MILLISECOND, 0);
+
+            long diffInMillis = targetMidnight.getTimeInMillis() - todayMidnight.getTimeInMillis();
+            long diffInDays = Math.round((double) diffInMillis / (24 * 60 * 60 * 1000));
 
             if (diffInDays >= 6) {
                 final boolean isDifferentYear = now.get(Calendar.YEAR) != alarmTime.get(Calendar.YEAR);
@@ -283,7 +342,17 @@ public class AlarmUtils {
 
         String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
-        String formattedTime = prefix + simpleDateFormat.format(alarmTime.getTime());
+        simpleDateFormat.setTimeZone(timeZone);
+
+        String timeZoneSuffix = "";
+        if (includeTimeZoneSuffix) {
+            String rawSuffix = getAlarmTimeZoneSuffix(context, alarmTime);
+            if (!TextUtils.isEmpty(rawSuffix)) {
+                timeZoneSuffix = rawSuffix;
+            }
+        }
+
+        String formattedTime = prefix + simpleDateFormat.format(alarmTime.getTime()) + timeZoneSuffix;
 
         return FormattedTextUtils.capitalizeFirstLetter(formattedTime, locale);
     }
@@ -302,6 +371,35 @@ public class AlarmUtils {
                 ? R.string.abbrev_wday_month_day_no_year_24_hour
                 : R.string.abbrev_wday_month_day_no_year_12_hour;
         }
+    }
+
+    /**
+     * Returns the alarm's time zone suffix (e.g., "UTC+9:00") only if it differs from the device's current time zone.
+     *
+     * @return The formatted suffix, or an empty string if the time zones are identical.
+     */
+    @NonNull
+    public static String getAlarmTimeZoneSuffix(@NonNull Context context, @NonNull Calendar alarmTime) {
+        TimeZone timeZone = alarmTime.getTimeZone();
+        TimeZone defaultTimeZone = TimeZone.getDefault();
+
+        long timeInMillis = alarmTime.getTimeInMillis();
+        int alarmOffset = timeZone.getOffset(timeInMillis);
+        int defaultOffset = defaultTimeZone.getOffset(timeInMillis);
+
+        if (alarmOffset == defaultOffset) {
+            return "";
+        }
+
+        int absoluteOffset = Math.abs(alarmOffset);
+        long hour = absoluteOffset / (1000 * 60 * 60);
+        long minute = (absoluteOffset / (1000 * 60)) % 60;
+        char sign = alarmOffset < 0 ? '-' : '+';
+
+        Locale locale = Utils.getLocaleFromContext(context);
+        String shortName = String.format(locale, "UTC%c%d:%02d", sign, hour, minute);
+
+        return " (" + shortName + ")";
     }
 
     /**

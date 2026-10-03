@@ -26,6 +26,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -54,7 +55,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+import java.util.TimeZone;
 
 public class WidgetUtils {
 
@@ -345,7 +346,7 @@ public class WidgetUtils {
     public static String getMultiLineNextAlarm(@NonNull Context context) {
         AlarmInstance instance = AlarmInstance.getNextFiringAlarm(context);
         if (instance != null) {
-            Calendar alarmCalendar = Calendar.getInstance();
+            Calendar alarmCalendar = Calendar.getInstance(instance.getTimeZone());
             alarmCalendar.setTimeInMillis(instance.getAlarmTime().getTimeInMillis());
             return getMultiLineFormattedTime(context, alarmCalendar);
         }
@@ -357,7 +358,8 @@ public class WidgetUtils {
      */
     @NonNull
     public static String getMultiLineFormattedTime(@NonNull Context context, @NonNull Calendar alarmTime) {
-        final Calendar now = Calendar.getInstance();
+        final TimeZone timeZone = alarmTime.getTimeZone();
+        final Calendar now = Calendar.getInstance(timeZone);
         final Calendar today = (Calendar) now.clone();
         final Calendar tomorrow = (Calendar) now.clone();
         tomorrow.add(Calendar.DAY_OF_YEAR, 1);
@@ -367,7 +369,16 @@ public class WidgetUtils {
 
         String timeSkeleton = context.getString(is24HourFormat ? R.string.time_24_hour : R.string.time_12_hour);
         String timePattern = DateFormat.getBestDateTimePattern(locale, timeSkeleton);
-        String timeStr = new SimpleDateFormat(timePattern, locale).format(alarmTime.getTime());
+        SimpleDateFormat timeFormat = new SimpleDateFormat(timePattern, locale);
+        timeFormat.setTimeZone(timeZone);
+
+        String timeZoneSuffix = "";
+        String rawSuffix = AlarmUtils.getAlarmTimeZoneSuffix(context, alarmTime);
+        if (!TextUtils.isEmpty(rawSuffix)) {
+            timeZoneSuffix = " (" + rawSuffix + ")";
+        }
+
+        String timeStr = timeFormat.format(alarmTime.getTime()) + timeZoneSuffix;
 
         String result;
 
@@ -380,8 +391,20 @@ public class WidgetUtils {
             //           8:30 AM"
             result = context.getString(R.string.alarm_tomorrow) + "\n" + timeStr;
         } else {
-            long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
-            long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+            Calendar todayMidnight = (Calendar) now.clone();
+            todayMidnight.set(Calendar.HOUR_OF_DAY, 0);
+            todayMidnight.set(Calendar.MINUTE, 0);
+            todayMidnight.set(Calendar.SECOND, 0);
+            todayMidnight.set(Calendar.MILLISECOND, 0);
+
+            Calendar targetMidnight = (Calendar) alarmTime.clone();
+            targetMidnight.set(Calendar.HOUR_OF_DAY, 0);
+            targetMidnight.set(Calendar.MINUTE, 0);
+            targetMidnight.set(Calendar.SECOND, 0);
+            targetMidnight.set(Calendar.MILLISECOND, 0);
+
+            long diffInMillis = targetMidnight.getTimeInMillis() - todayMidnight.getTimeInMillis();
+            long diffInDays = Math.round((double) diffInMillis / (24 * 60 * 60 * 1000));
 
             if (diffInDays >= 6) {
                 // Returns: "Sat, Oct 28
@@ -392,13 +415,17 @@ public class WidgetUtils {
                     : R.string.abbrev_wday_month_day_no_year);
 
                 String datePattern = DateFormat.getBestDateTimePattern(locale, dateSkeleton);
-                String dateStr = new SimpleDateFormat(datePattern, locale).format(alarmTime.getTime());
+                SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern, locale);
+                dateFormat.setTimeZone(timeZone);
+                String dateStr = dateFormat.format(alarmTime.getTime());
                 result = dateStr + "\n" + timeStr;
             } else {
                 // Returns: "Wed 8:30 AM"
                 String skeleton = context.getString(is24HourFormat ? R.string.abbrev_wday_24_hour : R.string.abbrev_wday_12_hour);
                 String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
-                result = new SimpleDateFormat(pattern, locale).format(alarmTime.getTime());
+                SimpleDateFormat shortFormat = new SimpleDateFormat(pattern, locale);
+                shortFormat.setTimeZone(timeZone);
+                result = shortFormat.format(alarmTime.getTime()) + timeZoneSuffix;
             }
         }
 

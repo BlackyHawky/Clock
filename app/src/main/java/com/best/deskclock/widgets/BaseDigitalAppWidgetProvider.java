@@ -128,6 +128,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getNextAlarmIconId();
 
     protected abstract int getNextAlarmViewId();
+    protected abstract int getTimeZoneViewId();
 
     protected abstract int getNoAlarmTitleViewId();
 
@@ -150,6 +151,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getNextAlarmIconCustomId();
 
     protected abstract int getNextAlarmCustomViewId();
+    protected abstract int getTimeZoneCustomViewId();
 
     protected abstract int getNoAlarmTitleCustomViewId();
 
@@ -198,7 +200,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                                           @NonNull Locale locale);
 
     protected abstract void configureNextAlarm(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                               @NonNull String nextAlarmTime, @NonNull Locale locale);
+                                               @NonNull String nextAlarmTime, @NonNull String timeZoneSuffix, @NonNull Locale locale);
 
     protected abstract void configureNextAlarmTitle(@NonNull RemoteViews rv, @NonNull SharedPreferences prefs,
                                                     @NonNull String nextAlarmTime, @Nullable String nextAlarmTitle, @NonNull Locale locale);
@@ -212,7 +214,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                                                @NonNull Locale locale);
 
     protected abstract void configureSizerNextAlarm(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                                    @NonNull String nextAlarmTime, @NonNull Locale locale);
+                                                    @NonNull String nextAlarmTime, @NonNull String timeZoneSuffix, @NonNull Locale locale);
 
     protected abstract void configureSizerNextAlarmTitle(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
                                                          @NonNull String nextAlarmTime, @NonNull Locale locale);
@@ -332,11 +334,12 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
         final String nextAlarmTime = getNextAlarmTime(context);
+        final String timeZoneSuffix = AlarmUtils.getNextAlarmTimeZoneSuffix(context);
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
 
         configureClock(rv, prefs);
         configureDate(rv, context, prefs, locale);
-        configureNextAlarm(rv, context, prefs, nextAlarmTime, locale);
+        configureNextAlarm(rv, context, prefs, nextAlarmTime, timeZoneSuffix, locale);
         configureNextAlarmTitle(rv, prefs, nextAlarmTime, nextAlarmTitle, locale);
 
         // Fetch the widget size selected by the user.
@@ -353,7 +356,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Create a size template that describes the widget bounds.
         final DigitalWidgetSizes template = new DigitalWidgetSizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
-        final DigitalWidgetSizes sizes = optimizeSizes(context, prefs, displayMetrics, template, nextAlarmTime, locale);
+        final DigitalWidgetSizes sizes = optimizeSizes(context, prefs, displayMetrics, template, nextAlarmTime, timeZoneSuffix, locale);
         if (LOGGER.isVerboseLoggable()) {
             LOGGER.v(sizes.toString());
         }
@@ -374,6 +377,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         safeSetTextSize(rv, getTopDateViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getDateViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNextAlarmViewId(), sizes.mFontSizePx);
+        safeSetTextSize(rv, getTimeZoneViewId(), sizes.mTimeZoneFontSizePx);
         safeSetTextSize(rv, getNoAlarmTitleViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNextAlarmTitleViewId(), sizes.mFontSizePx);
 
@@ -383,6 +387,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         safeSetTextSize(rv, getTopDateCustomViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getDateCustomViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNextAlarmCustomViewId(), sizes.mFontSizePx);
+        safeSetTextSize(rv, getTimeZoneCustomViewId(), sizes.mTimeZoneFontSizePx);
         safeSetTextSize(rv, getNoAlarmTitleCustomViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNextAlarmTitleCustomViewId(), sizes.mFontSizePx);
     }
@@ -450,7 +455,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      */
     protected DigitalWidgetSizes optimizeSizes(@NonNull Context context, @NonNull SharedPreferences prefs,
                                                @NonNull DisplayMetrics displayMetrics, @NonNull DigitalWidgetSizes template,
-                                               @NonNull String nextAlarmTime, @NonNull Locale locale) {
+                                               @NonNull String nextAlarmTime, @NonNull String timeZoneSuffix, @NonNull Locale locale) {
 
         // Inflate a test layout to compute sizes at different font sizes.
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -464,7 +469,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
         configureSizerClock(sizer, prefs);
         configureSizerDate(sizer, context, prefs, locale);
-        configureSizerNextAlarm(sizer, context, prefs, nextAlarmTime, locale);
+        configureSizerNextAlarm(sizer, context, prefs, nextAlarmTime, timeZoneSuffix, locale);
         configureSizerNextAlarmTitle(sizer, context, prefs, nextAlarmTime, locale);
 
         // Measure the widget at the largest possible size.

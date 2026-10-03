@@ -96,6 +96,7 @@
     <string name="action_set_time">Set Time</string>
     <string name="action_set_delay">Set Delay</string>
     <string name="action_set_date">Set Date</string>
+    <string name="action_set_timezone">Set Time Zone</string>
     <string name="action_set_label">Set Label</string>
     <string name="action_set_ringtone">Set Ringtone</string>
     <string name="action_set_background_image">Set Background Image</string>

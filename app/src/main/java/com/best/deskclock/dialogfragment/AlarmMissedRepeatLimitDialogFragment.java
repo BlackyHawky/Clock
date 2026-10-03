@@ -30,7 +30,7 @@ import com.best.deskclock.utils.Utils;
 public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of AlarmMissedRepeatLimitDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link AlarmMissedRepeatLimitDialogFragment} in the fragment manager.
      */
     private static final String TAG = "alarm_missed_repeat_count_dialog";
 

@@ -154,6 +154,7 @@ public final class AlarmUpdateHandler {
                     newInstance.mMissedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
                     newInstance.mCrescendoDuration = alarm.crescendoDuration;
                     newInstance.mAlarmVolume = alarm.alarmVolume;
+                    newInstance.mTimeZone = alarm.timeZone;
 
                     // If the alarm is in Missed state, mark it as Dismissed and clear its notification.
                     if (newInstance.mAlarmState == AlarmInstance.MISSED_STATE) {
@@ -348,7 +349,7 @@ public final class AlarmUpdateHandler {
     @NonNull
     private AlarmInstance setupAlarmInstance(@NonNull Alarm alarm) {
         final ContentResolver cr = mAppContext.getContentResolver();
-        AlarmInstance newInstance = alarm.createInstanceAfter(Calendar.getInstance());
+        AlarmInstance newInstance = alarm.createInstanceAfter(Calendar.getInstance(alarm.getTimeZone()));
         newInstance.addInstance(cr);
         // Register instance to state manager
         AlarmStateManager.registerInstance(mAppContext, mPrefs, newInstance, true);

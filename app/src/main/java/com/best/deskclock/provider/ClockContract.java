@@ -160,6 +160,12 @@ public final class ClockContract {
          * <p>Type: BOOLEAN</p>
          */
         String LOCK = "lock";
+
+        /**
+         * The alarm timezone
+         * <p>Type: STRING</p>
+         */
+        String TIMEZONE = "timeZone";
     }
 
     /**

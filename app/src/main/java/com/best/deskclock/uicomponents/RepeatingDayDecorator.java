@@ -23,6 +23,7 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.DayViewDecorator;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * A custom calendar day decorator used to visually highlight the specific days of the week when a repeating alarm is scheduled.
@@ -45,7 +46,7 @@ public class RepeatingDayDecorator extends DayViewDecorator {
     }
 
     private void initTransients() {
-        mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         mWeekdays = Weekdays.fromBits(mRepeatingBits);
     }
 

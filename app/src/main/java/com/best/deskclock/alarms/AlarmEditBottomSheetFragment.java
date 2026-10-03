@@ -56,6 +56,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.databinding.AlarmEditBottomSheetBinding;
@@ -64,6 +65,7 @@ import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmTimeZoneDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.BlurIntensityDialogFragment;
@@ -500,6 +502,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindDaysOfWeekButtons();
         bindSelectedDate();
         bindPauseAlarm();
+        bindTimeZone();
         bindLabel();
         bindRingtone();
         bindVibrator();
@@ -628,7 +631,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                         mAlarm.day = mOriginalAlarm.day;
                     } else {
                         // Otherwise, set the date to today.
-                        final Calendar now = Calendar.getInstance();
+                        final Calendar now = Calendar.getInstance(mAlarm.getTimeZone());
                         mAlarm.year = now.get(Calendar.YEAR);
                         mAlarm.month = now.get(Calendar.MONTH);
                         mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
@@ -665,7 +668,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 mBinding.scheduleAlarm.setText(AlarmUtils.formatAlarmDate(requireContext(), mAlarm));
 
                 mBinding.cancelScheduledAlarm.setOnClickListener(v -> {
-                    Calendar now = Calendar.getInstance();
+                    Calendar now = Calendar.getInstance(mAlarm.getTimeZone());
                     mAlarm.year = now.get(Calendar.YEAR);
                     mAlarm.month = now.get(Calendar.MONTH);
                     mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
@@ -726,6 +729,29 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.pauseAlarmNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
         mBinding.pauseAlarmNote.setOnClickListener(showNoteIcon ? v -> showPauseAlarmNoteDialog() : null);
+    }
+
+    private void bindTimeZone() {
+        if (TextUtils.isEmpty(mAlarm.timeZone)) {
+            mBinding.timezoneValue.setText(getString(R.string.label_default));
+        } else {
+            long currentTime = System.currentTimeMillis();
+            boolean isFlagEnabled = SettingsDAO.isCityFlagEnabled(mPrefs);
+
+            TimeZones timeZones = SettingsDAO.getTimeZones(requireContext(), currentTime, isFlagEnabled);
+            CharSequence displayName = timeZones.getTimeZoneName(mAlarm.timeZone);
+
+            mBinding.timezoneValue.setText(displayName != null ? displayName : mAlarm.timeZone);
+        }
+
+        mBinding.timezoneLayout.setOnClickListener(v -> {
+            Events.sendAlarmEvent(R.string.action_set_timezone, R.string.label_deskclock);
+
+            final AlarmTimeZoneDialogFragment fragment =
+                AlarmTimeZoneDialogFragment.newInstance(mAlarm.timeZone);
+
+            AlarmTimeZoneDialogFragment.show(getChildFragmentManager(), fragment);
+        });
     }
 
     private void bindLabel() {
@@ -1241,6 +1267,26 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 applyDate(year, month, day);
             });
 
+        childFragmentManager.setFragmentResultListener(AlarmTimeZoneDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                boolean wasNotSpecified = !mAlarm.isSpecifiedDate();
+
+                mAlarm.timeZone = bundle.getString(AlarmTimeZoneDialogFragment.RESULT_TIMEZONE, "");
+
+                // If the alarm has no specified date or if the date is outdated,
+                // its year, month, and day are updated to match "Today" in the new country.
+                if (wasNotSpecified || mAlarm.isDateInThePast()) {
+                    Calendar now = Calendar.getInstance(mAlarm.getTimeZone());
+                    mAlarm.year = now.get(Calendar.YEAR);
+                    mAlarm.month = now.get(Calendar.MONTH);
+                    mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
+
+                    bindSelectedDate();
+                }
+
+                bindTimeZone();
+            });
+
         childFragmentManager.setFragmentResultListener(LabelDialogFragment.REQUEST_KEY, this,
             (requestKey, bundle) -> {
                 mAlarm.label = bundle.getString(LabelDialogFragment.RESULT_LABEL);
@@ -1382,7 +1428,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void applyDelay(int hoursToAdd, int minutesToAdd) {
-        Calendar alarmTime = Calendar.getInstance();
+        Calendar alarmTime = Calendar.getInstance(mAlarm.getTimeZone());
         alarmTime.add(Calendar.HOUR_OF_DAY, hoursToAdd);
         alarmTime.add(Calendar.MINUTE, minutesToAdd);
 
@@ -1397,7 +1443,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mAlarm.daysOfWeek = Weekdays.fromBits(0);
         }
 
-        Calendar currentCalendar = Calendar.getInstance();
+        Calendar currentCalendar = Calendar.getInstance(mAlarm.getTimeZone());
 
         // Necessary when an existing alarm has been created in the past, and it is not enabled.
         // Even if the date is not specified, it is saved in AlarmInstance; we need to make
@@ -1559,6 +1605,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         if (timeChanged) {
             mAlarm.enabled = true;
+            mAlarm.fixDateIfPast();
         }
 
         AlarmVisualCache.invalidate(mAlarm.id);
@@ -1643,7 +1690,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mCardStyleConfig.isBorderDisplayed(),
             mCardStyleConfig.isAmoledDarkMode(),
             mBinding.scheduleAlarmLayout,
-            mBinding.pauseAlarmLayout
+            mBinding.pauseAlarmLayout,
+            mBinding.timezoneLayout
         );
 
         ThemeUtils.applyExpressiveBackgroundsToGroup(

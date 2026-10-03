@@ -453,7 +453,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                                       boolean showToast) {
 
         final int snoozeMinutes = instance.mSnoozeDuration;
-        Calendar newAlarmTime = Calendar.getInstance();
+        Calendar newAlarmTime = Calendar.getInstance(instance.getTimeZone());
         // If the "Snooze duration" setting has been set to "None" simply dismiss the alarm.
         if (snoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
             deleteInstanceAndUpdateParent(context, prefs, instance, true);
@@ -849,9 +849,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
         } else if (currentTime.after(alarmTime)) {
             // There is a chance that the TIME_SET occurred right when the alarm should go off, so
             // we need to add a check to see if we should fire the alarm instead of marking it missed.
-            Calendar alarmBuffer = Calendar.getInstance();
+            Calendar alarmBuffer = Calendar.getInstance(instance.getTimeZone());
             alarmBuffer.setTime(alarmTime.getTime());
             alarmBuffer.add(Calendar.SECOND, ALARM_FIRE_BUFFER);
+
             if (currentTime.before(alarmBuffer)) {
                 setFiredState(context, prefs, instance);
             } else {
@@ -923,7 +924,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 LogUtils.e("Found instance without matching alarm; deleting instance %s", instance);
                 continue;
             }
-            final Calendar priorAlarmTime = alarm.getPreviousAlarmTime(instance.getAlarmTime());
+            final Calendar priorAlarmTime = alarm.getPreviousAlarmTime();
             final Calendar missedTTLTime = instance.getMissedTimeToLive();
             if (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime)) {
                 final Calendar oldAlarmTime = instance.getAlarmTime();
