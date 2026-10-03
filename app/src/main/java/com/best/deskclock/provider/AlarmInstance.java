@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 public final class AlarmInstance implements ClockContract.InstancesColumns {
 
@@ -67,7 +69,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         MISSED_ALARM_REPEAT_COUNT,
         MISSED_ALARM_REPEAT_LIMIT,
         CRESCENDO_DURATION,
-        ALARM_VOLUME
+        ALARM_VOLUME,
+        TIMEZONE
     };
 
     /**
@@ -94,8 +97,9 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int MISSED_ALARM_MAX_COUNT_INDEX = 17;
     private static final int CRESCENDO_DURATION_INDEX = 18;
     private static final int ALARM_VOLUME_INDEX = 19;
+    private static final int TIMEZONE_INDEX = 20;
 
-    private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
+    private static final int COLUMN_COUNT = TIMEZONE_INDEX + 1;
     // Public fields
     public long mId;
     public int mYear;
@@ -118,6 +122,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mCrescendoDuration;
     // Alarm volume level in steps; not a percentage
     public int mAlarmVolume;
+    public String mTimeZone;
 
     public AlarmInstance(@NonNull Calendar calendar, @NonNull Long alarmId) {
         this(calendar);
@@ -140,6 +145,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mMissedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
         mCrescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
         mAlarmVolume = DEFAULT_ALARM_VOLUME;
+        mTimeZone = "";
     }
 
     public AlarmInstance(@NonNull AlarmInstance instance) {
@@ -163,6 +169,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mMissedAlarmRepeatLimit = instance.mMissedAlarmRepeatLimit;
         this.mCrescendoDuration = instance.mCrescendoDuration;
         this.mAlarmVolume = instance.mAlarmVolume;
+        this.mTimeZone = instance.mTimeZone;
     }
 
     public AlarmInstance(@NonNull Cursor c, boolean joinedTable) {
@@ -184,6 +191,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMissedAlarmRepeatLimit = c.getInt(Alarm.INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX);
             mCrescendoDuration = c.getInt(Alarm.INSTANCE_CRESCENDO_DURATION_INDEX);
             mAlarmVolume = c.getInt(Alarm.INSTANCE_ALARM_VOLUME_INDEX);
+            mTimeZone = c.getString(Alarm.INSTANCE_TIMEZONE_INDEX);
         } else {
             mId = c.getLong(ID_INDEX);
             mYear = c.getInt(YEAR_INDEX);
@@ -202,6 +210,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMissedAlarmRepeatLimit = c.getInt(MISSED_ALARM_MAX_COUNT_INDEX);
             mCrescendoDuration = c.getInt(CRESCENDO_DURATION_INDEX);
             mAlarmVolume = c.getInt(ALARM_VOLUME_INDEX);
+            mTimeZone = c.getString(TIMEZONE_INDEX);
         }
         if (c.isNull(RINGTONE_INDEX)) {
             // Should we be saving this with the current ringtone or leave it null
@@ -249,6 +258,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(MISSED_ALARM_REPEAT_LIMIT, mMissedAlarmRepeatLimit);
         values.put(CRESCENDO_DURATION, mCrescendoDuration);
         values.put(ALARM_VOLUME, mAlarmVolume);
+        values.put(TIMEZONE, mTimeZone);
 
         return values;
     }
@@ -477,7 +487,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      */
     @NonNull
     public Calendar getAlarmTime() {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(getTimeZone());
         calendar.set(Calendar.YEAR, mYear);
         calendar.set(Calendar.MONTH, mMonth);
         calendar.set(Calendar.DAY_OF_MONTH, mDay);
@@ -494,6 +504,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
         mMinute = calendar.get(Calendar.MINUTE);
+        mTimeZone = calendar.getTimeZone().getID();
     }
 
     /**
@@ -553,6 +564,11 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return calendar;
     }
 
+    @NonNull
+    public TimeZone getTimeZone() {
+        return TextUtils.isEmpty(mTimeZone) ? TimeZone.getDefault() : TimeZone.getTimeZone(mTimeZone);
+    }
+
     @Override
     public boolean equals(@Nullable Object o) {
         if (!(o instanceof final AlarmInstance other)) return false;
@@ -588,6 +604,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             ", mMissedAlarmRepeatLimit=" + mMissedAlarmRepeatLimit +
             ", mCrescendoDuration=" + mCrescendoDuration +
             ", mAlarmVolume=" + mAlarmVolume +
+            ", mTimeZone=" + mTimeZone +
             '}';
     }
 }

@@ -116,6 +116,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getTimeZoneViewId() {
+        return R.id.timeZone;
+    }
+
+    @Override
     protected int getNoAlarmTitleViewId() {
         return R.id.noAlarmTitle;
     }
@@ -171,6 +176,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getTimeZoneCustomViewId() {
+        return R.id.timeZoneForCustomColor;
+    }
+
+    @Override
     protected int getNoAlarmTitleCustomViewId() {
         return R.id.noAlarmTitleForCustomColor;
     }
@@ -222,7 +232,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected String getNextAlarmTime(@NonNull Context context) {
-        return AlarmUtils.getNextAlarm(context);
+        return AlarmUtils.getNextAlarm(context, false);
     }
 
     @Override
@@ -281,7 +291,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureNextAlarm(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                      @NonNull String nextAlarmTime, @NonNull Locale locale) {
+                                      @NonNull String nextAlarmTime, @NonNull String timeZoneSuffix, @NonNull Locale locale) {
 
         final Context localizedContext = Utils.getLocalizedContext(context, SettingsDAO.getLanguageCode(prefs));
         final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
@@ -290,7 +300,9 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
+            rv.setViewVisibility(getTimeZoneViewId(), GONE);
             rv.setViewVisibility(getNextAlarmCustomViewId(), GONE);
+            rv.setViewVisibility(getTimeZoneCustomViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconCustomId(), GONE);
 
             String noAlarmTitle = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
@@ -316,15 +328,34 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
                 rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
                 rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
                 rv.setViewVisibility(getNextAlarmCustomViewId(), GONE);
+                rv.setViewVisibility(getTimeZoneCustomViewId(), GONE);
                 rv.setViewVisibility(getNextAlarmIconCustomId(), GONE);
                 rv.setTextViewText(getNextAlarmViewId(), nextAlarmText);
+
+                if (TextUtils.isEmpty(timeZoneSuffix)) {
+                    rv.setViewVisibility(getTimeZoneViewId(), GONE);
+                } else {
+                    rv.setViewVisibility(getTimeZoneViewId(), VISIBLE);
+                    rv.setTextViewText(getTimeZoneViewId(), timeZoneSuffix);
+                }
             } else {
+                int customAlarmColor = WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs);
+
                 rv.setViewVisibility(getNextAlarmViewId(), GONE);
+                rv.setViewVisibility(getTimeZoneViewId(), GONE);
                 rv.setViewVisibility(getNextAlarmIconId(), GONE);
                 rv.setViewVisibility(getNextAlarmCustomViewId(), VISIBLE);
                 rv.setViewVisibility(getNextAlarmIconCustomId(), VISIBLE);
-                rv.setTextColor(getNextAlarmCustomViewId(), WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs));
+                rv.setTextColor(getNextAlarmCustomViewId(), customAlarmColor);
                 rv.setTextViewText(getNextAlarmCustomViewId(), nextAlarmText);
+
+                if (TextUtils.isEmpty(timeZoneSuffix)) {
+                    rv.setViewVisibility(getTimeZoneCustomViewId(), GONE);
+                } else {
+                    rv.setViewVisibility(getTimeZoneCustomViewId(), VISIBLE);
+                    rv.setTextViewText(getTimeZoneCustomViewId(), timeZoneSuffix);
+                    rv.setTextColor(getTimeZoneCustomViewId(), customAlarmColor);
+                }
             }
         }
     }
@@ -409,13 +440,15 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureSizerNextAlarm(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                           @NonNull String nextAlarmTime, @NonNull Locale locale) {
+                                           @NonNull String nextAlarmTime, @NonNull String timeZoneSuffix, @NonNull Locale locale) {
 
         final Context localizedContext = Utils.getLocalizedContext(context, SettingsDAO.getLanguageCode(prefs));
         final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
         final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());
+        final TextView timeZone = sizer.findViewById(getTimeZoneViewId());
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
         final TextView nextAlarmForCustomColor = sizer.findViewById(getNextAlarmCustomViewId());
+        final TextView timeZoneForCustomColor = sizer.findViewById(getTimeZoneCustomViewId());
         final TextView noAlarmTitle = sizer.findViewById(getNoAlarmTitleViewId());
         final TextView noAlarmTitleForCustomColor = sizer.findViewById(getNoAlarmTitleCustomViewId());
 
@@ -425,8 +458,10 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         if (TextUtils.isEmpty(nextAlarmTime)) {
             nextAlarm.setVisibility(GONE);
+            timeZone.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(GONE);
+            timeZoneForCustomColor.setVisibility(GONE);
             nextAlarmIconForCustomColor.setVisibility(GONE);
 
             String noAlarm = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
@@ -452,11 +487,20 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
                 nextAlarm.setVisibility(VISIBLE);
                 nextAlarmIcon.setVisibility(VISIBLE);
                 nextAlarmForCustomColor.setVisibility(GONE);
+                timeZoneForCustomColor.setVisibility(GONE);
                 nextAlarmIconForCustomColor.setVisibility(GONE);
                 nextAlarm.setText(nextAlarmText);
                 nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
+
+                if (TextUtils.isEmpty(timeZoneSuffix)) {
+                    timeZone.setVisibility(GONE);
+                } else {
+                    timeZone.setVisibility(VISIBLE);
+                    timeZone.setText(timeZoneSuffix);
+                }
             } else {
                 nextAlarm.setVisibility(GONE);
+                timeZone.setVisibility(GONE);
                 nextAlarmIcon.setVisibility(GONE);
                 nextAlarmForCustomColor.setVisibility(VISIBLE);
                 nextAlarmIconForCustomColor.setVisibility(VISIBLE);
@@ -464,6 +508,14 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
                 nextAlarmForCustomColor.setTextColor(customAlarmColor);
                 nextAlarmIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
                 nextAlarmIconForCustomColor.setTextColor(customAlarmColor);
+
+                if (TextUtils.isEmpty(timeZoneSuffix)) {
+                    timeZoneForCustomColor.setVisibility(GONE);
+                } else {
+                    timeZoneForCustomColor.setVisibility(VISIBLE);
+                    timeZoneForCustomColor.setText(timeZoneSuffix);
+                    timeZoneForCustomColor.setTextColor(customAlarmColor);
+                }
             }
         }
     }
@@ -525,16 +577,20 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         if (WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs)) {
             final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());
+            final TextView timeZone = sizer.findViewById(getTimeZoneViewId());
             final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
 
             nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+            timeZone.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mTimeZoneFontSizePx);
             nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
             nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
         } else {
             final TextView nextAlarmForCustomColor = sizer.findViewById(getNextAlarmCustomViewId());
+            final TextView timeZoneForCustomColor = sizer.findViewById(getTimeZoneCustomViewId());
             final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
 
             nextAlarmForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+            timeZoneForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mTimeZoneFontSizePx);
             nextAlarmIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
             nextAlarmIconForCustomColor.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
         }

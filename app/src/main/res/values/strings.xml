@@ -98,6 +98,8 @@
     <string name="pause_alarm_range">Paused: %1$s</string>
     <!-- Message displayed in the alarm editing when the "Pause alarm" feature is disabled -->
     <string name="pause_alarm_info_message">Select days of the week to access this feature.</string>
+    <!-- Label title in the alarm editing panel to set timezone -->
+    <string name="timezone_title">Time zone</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->

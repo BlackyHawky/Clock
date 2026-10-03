@@ -12,7 +12,7 @@
     android:id="@+id/alarm_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="130dp"
+    android:minHeight="134dp"
     android:importantForAccessibility="no"
     android:paddingVertical="6dp"
     tools:background="@drawable/bg_card_for_preview"
@@ -37,6 +37,37 @@
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@string/category_alarm"
         tools:ignore="TextContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/alarm_icon_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/globe_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_globe_clock"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lock_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_lock"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
 
     <com.best.deskclock.uicomponents.TextTime
         android:id="@+id/digital_clock"
@@ -88,27 +119,17 @@
         tools:text="Jan, 01 Monday"
         tools:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/lock_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:src="@drawable/ic_lock"
-        android:contentDescription="@null"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/on_off_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
+        android:layout_marginTop="2dp"
         app:thumbIconTint="@color/switch_thumb_icon_tint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lock_icon"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_icon_layout"
         app:layout_constraintBottom_toTopOf="@+id/preemptive_dismiss_button"
+        app:layout_goneMarginTop="0dp"
         tools:thumbIcon="@drawable/alarm_switch_thumb_icon"
         tools:ignore="TouchTargetSizeCheck" />
 

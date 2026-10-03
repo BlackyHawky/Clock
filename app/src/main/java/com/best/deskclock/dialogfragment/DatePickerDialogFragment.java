@@ -49,7 +49,7 @@ public class DatePickerDialogFragment {
 
         Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
 
-        Calendar now = Calendar.getInstance();
+        Calendar now = Calendar.getInstance(alarm.getTimeZone());
         Calendar selectionDate = (Calendar) now.clone();
         Calendar minDate = (Calendar) now.clone();
 
@@ -111,7 +111,7 @@ public class DatePickerDialogFragment {
             ? MaterialDatePicker.INPUT_MODE_CALENDAR
             : MaterialDatePicker.INPUT_MODE_TEXT);
 
-        Calendar now = Calendar.getInstance();
+        Calendar now = Calendar.getInstance(alarm.getTimeZone());
         Calendar selectionDate = (Calendar) now.clone();
 
         // Date selection
@@ -209,7 +209,7 @@ public class DatePickerDialogFragment {
 
         builder.setTheme(R.style.AppMaterialCalendarTheme);
 
-        Calendar now = Calendar.getInstance();
+        Calendar now = Calendar.getInstance(alarm.getTimeZone());
         boolean timePassed = alarm.isTimeBeforeOrEqual(now);
 
         Calendar utcNow = Calendar.getInstance(TimeZone.getTimeZone("UTC"));

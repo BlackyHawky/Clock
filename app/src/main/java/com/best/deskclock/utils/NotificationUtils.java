@@ -226,10 +226,11 @@ public class NotificationUtils {
         final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
         final Locale locale = Utils.getLocaleFromContext(localizedContext);
         final boolean is24HourFormat = DateFormat.is24HourFormat(localizedContext);
-        final int skeletonResId = getSkeletonResId(is24HourFormat, Calendar.getInstance(), instance.getAlarmTime());
+        final int skeletonResId = getSkeletonResId(is24HourFormat, instance);
         final String skeleton = localizedContext.getString(skeletonResId);
         final String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+        simpleDateFormat.setTimeZone(instance.getTimeZone());
         final String alarmTimeStr = simpleDateFormat.format(instance.getAlarmTime().getTime());
         final String formattedText = instance.mLabel.isEmpty() ? alarmTimeStr : alarmTimeStr + " - " + instance.mLabel;
 
@@ -237,7 +238,10 @@ public class NotificationUtils {
     }
 
     @StringRes
-    private static int getSkeletonResId(boolean is24HourFormat, @NonNull Calendar now, @NonNull Calendar alarmTime) {
+    private static int getSkeletonResId(boolean is24HourFormat, @NonNull AlarmInstance instance) {
+        final Calendar now = Calendar.getInstance(instance.getTimeZone());
+        final Calendar alarmTime = instance.getAlarmTime();
+
         final int currentYear = now.get(Calendar.YEAR);
         final int instanceYear = alarmTime.get(Calendar.YEAR);
         final int currentDayOfYear = now.get(Calendar.DAY_OF_YEAR);

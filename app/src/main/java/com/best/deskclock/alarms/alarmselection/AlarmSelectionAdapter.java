@@ -24,6 +24,7 @@ import com.best.deskclock.utils.ClockUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAdapter.ViewHolder> {
 
@@ -54,7 +55,11 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
 
     public UiConfig.Fonts getFonts() { return mFonts; }
     public Weekdays.Order getWeekdayOrder() { return mWeekdayOrder; }
-    public SimpleDateFormat getDateFormat() { return mDateFormat; }
+    public SimpleDateFormat getDateFormat(@NonNull TimeZone timeZone) {
+        mDateFormat.setTimeZone(timeZone);
+        return mDateFormat;
+    }
+
     public boolean is24HourFormat() { return mIs24HourMode; }
     public CharSequence getFormat12() { return mFormat12; }
     public CharSequence getFormat24() { return mFormat24; }
@@ -120,12 +125,12 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
                 final String string = alarm.daysOfWeek.toAccessibilityString(context, mAdapter.getWeekdayOrder());
                 mBinding.daysOfWeek.setContentDescription(string);
             } else {
-                Calendar calendar = Calendar.getInstance();
+                Calendar calendar = Calendar.getInstance(alarm.getTimeZone());
 
                 if (alarm.isTomorrow(calendar) && !alarm.isSpecifiedDate()) {
                     mBinding.daysOfWeek.setText(context.getResources().getString(R.string.alarm_tomorrow));
                 } else if (alarm.isSpecifiedDate()) {
-                    if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
+                    if (alarm.isSpecifiedDateTomorrow()) {
                         mBinding.daysOfWeek.setText(context.getResources().getString(R.string.alarm_tomorrow));
                     } else if (alarm.isDateInThePast()) {
                         // If the date has passed, the new alarm will be scheduled either the same day
@@ -144,7 +149,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
 
                         calendar.set(year, month, dayOfMonth);
 
-                        String formattedDate = mAdapter.getDateFormat().format(calendar.getTime());
+                        String formattedDate = mAdapter.getDateFormat(alarm.getTimeZone()).format(calendar.getTime());
 
                         mBinding.daysOfWeek.setText(context.getResources().getString(R.string.alarm_scheduled_for, formattedDate));
                     }

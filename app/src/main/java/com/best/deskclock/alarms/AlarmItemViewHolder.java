@@ -13,7 +13,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.text.format.DateFormat;
 import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
@@ -33,8 +32,9 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
+import java.util.TimeZone;
 
 /**
  * ViewHolder for alarm items.
@@ -56,7 +56,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public int mTotalCount = 0;
 
     public AlarmItemViewHolder(@NonNull AlarmItemBinding binding, @NonNull AlarmAdapter alarmAdapter) {
-
         super(binding.getRoot());
 
         mContext = binding.getRoot().getContext();
@@ -77,6 +76,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             mItemHolder.getAlarmTimeClickHandler().onClockLongClicked(mItemHolder.item);
             return true;
         });
+
+        // Globe icon handler
+        mBinding.globeIcon.setOnClickListener(v ->
+            mItemHolder.getAlarmTimeClickHandler().onGlobeClicked(mItemHolder.item, mBinding.globeIcon, screen.metrics()));
 
         // Upcoming date font
         mBinding.upcomingDate.setTypeface(currentFonts.general());
@@ -106,6 +109,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         bindAlarmLabel(mContext, alarm);
         bindClock(alarm);
         bindLockAlarm(alarm);
+        bindGlobeIcon(alarm);
         bindOnOffSwitch(alarm);
         bindRepeatText(alarm, alarmInstance);
         bindUpcomingDate(alarm, alarmInstance);
@@ -208,6 +212,17 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.lockIcon.setVisibility(alarm.lock ? VISIBLE : GONE);
     }
 
+    private void bindGlobeIcon(@NonNull Alarm alarm) {
+        TimeZone alarmTimeZone = alarm.getTimeZone();
+        TimeZone defaultTimeZone = TimeZone.getDefault();
+
+        long now = System.currentTimeMillis();
+        int alarmOffset = alarmTimeZone.getOffset(now);
+        int defaultOffset = defaultTimeZone.getOffset(now);
+
+        mBinding.globeIcon.setVisibility(alarmOffset != defaultOffset ? VISIBLE : GONE);
+    }
+
     private void bindRepeatText(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
         // Check if the alarm was recently dismissed to bypass the database synchronization delay.
         final boolean isRecentlyDismissed = AlarmVisualCache.isDismissed(alarm.id);
@@ -226,7 +241,13 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             } else if (alarm.isSpecifiedDate()) {
                 setSpecifiedDateDescription(alarm);
             } else {
-                setDaysOfWeekText(mContext.getString(R.string.alarm_tomorrow));
+                mLocalCalendar.setTimeZone(alarm.getTimeZone());
+                mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
+                if (alarm.isTomorrow(mLocalCalendar)) {
+                    setDaysOfWeekText(mContext.getString(R.string.alarm_tomorrow));
+                } else {
+                    setDaysOfWeekText(mContext.getString(R.string.alarm_today));
+                }
             }
 
         // Standard fallbacks
@@ -254,8 +275,23 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
         Calendar nextAlarmTime = alarm.getNextAlarmTimeCalendar(alarmInstance);
 
-        long diffInMillis = nextAlarmTime.getTimeInMillis() - System.currentTimeMillis();
-        long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+        mLocalCalendar.setTimeZone(alarm.getTimeZone());
+        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
+
+        Calendar today = (Calendar) mLocalCalendar.clone();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        Calendar targetDay = (Calendar) nextAlarmTime.clone();
+        targetDay.set(Calendar.HOUR_OF_DAY, 0);
+        targetDay.set(Calendar.MINUTE, 0);
+        targetDay.set(Calendar.SECOND, 0);
+        targetDay.set(Calendar.MILLISECOND, 0);
+
+        long diffInMillis = targetDay.getTimeInMillis() - today.getTimeInMillis();
+        long diffInDays = Math.round((double) diffInMillis / (24 * 60 * 60 * 1000));
 
         if (diffInDays < 6) {
             mBinding.upcomingDate.setVisibility(GONE);
@@ -263,11 +299,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
-        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
         boolean isDifferentYear = mLocalCalendar.get(Calendar.YEAR) != nextAlarmTime.get(Calendar.YEAR);
-        String formattedDate = DateFormat.format(isDifferentYear
-            ? mAdapter.getDateFormat().patternWithYear()
-            : mAdapter.getDateFormat().pattern(), nextAlarmTime).toString();
+        SimpleDateFormat simpleDateFormat = mAdapter.getDateFormat(alarm.getTimeZone(), isDifferentYear);
+        String formattedDate = simpleDateFormat.format(nextAlarmTime.getTime());
+
         mBinding.upcomingDate.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, mAdapter.getDateFormat().locale()));
         mBinding.upcomingDate.setVisibility(VISIBLE);
 
@@ -373,6 +408,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setNonRepeatingDefaultDescription(@NonNull Alarm alarm) {
+        mLocalCalendar.setTimeZone(alarm.getTimeZone());
         mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
 
         if (alarm.isTomorrow(mLocalCalendar)) {
@@ -383,9 +419,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setSpecifiedDateDescription(@NonNull Alarm alarm) {
+        mLocalCalendar.setTimeZone(alarm.getTimeZone());
         mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
 
-        if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
+        if (alarm.isSpecifiedDateTomorrow()) {
             setDaysOfWeekText(mContext.getString(R.string.alarm_tomorrow));
         } else if (alarm.isDateInThePast()) {
             setDaysOfWeekText(getTodayOrTomorrowBasedOnTime(alarm, mLocalCalendar));

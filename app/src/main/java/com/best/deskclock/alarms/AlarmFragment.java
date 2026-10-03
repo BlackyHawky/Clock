@@ -961,6 +961,7 @@ public final class AlarmFragment extends DeskClockFragment
         alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
         alarm.lock = false;
+        alarm.timeZone = "";
 
         return alarm;
     }
