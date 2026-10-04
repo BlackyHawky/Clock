@@ -22,6 +22,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VISIBLE_TABS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -84,6 +85,7 @@ public class HandleApiCalls extends Activity {
     private DataModel mDataModel;
     private UiDataModel mUiDataModel;
 
+    @SuppressLint("ThreadConstraint")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

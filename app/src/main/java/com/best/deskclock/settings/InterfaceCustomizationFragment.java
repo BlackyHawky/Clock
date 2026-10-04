@@ -6,6 +6,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -177,6 +178,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         sortListPreference(mLanguageCodePref);
     }
 
+    @SuppressLint("ThreadConstraint")
     @Override
     public void onResume() {
         super.onResume();
@@ -197,6 +199,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         }
     }
 
+    @SuppressLint("ThreadConstraint")
     @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
