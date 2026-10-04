@@ -132,8 +132,15 @@ final class FormattedStringModel {
         // Look up the cached formatted value using the value.
         String formatted = valueCache.get(value);
         if (formatted == null) {
-            final String sign = "";
-            formatted = String.format(Locale.getDefault(), sign + "%0" + length + "d", value);
+            String formatPattern = switch (length) {
+                case 1 -> "%01d";
+                case 2 -> "%02d";
+                case 3 -> "%03d";
+                case 4 -> "%04d";
+                default -> "%0" + length + "d";
+            };
+
+            formatted = String.format(Locale.getDefault(), formatPattern, value);
             valueCache.put(value, formatted);
         }
 
