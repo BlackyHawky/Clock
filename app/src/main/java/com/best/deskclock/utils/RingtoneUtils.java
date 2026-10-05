@@ -31,7 +31,6 @@ import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.RingtoneModel;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -196,13 +195,17 @@ public class RingtoneUtils {
             .build());
 
         for (Uri uri : ringtoneUris) {
+            if (uri == null) {
+                continue;
+            }
+
             try {
                 LogUtils.d("Trying to prepare MediaPlayer for URI: " + uri);
                 player.reset();
                 player.setDataSource(storageContext, uri);
                 player.prepare();
                 return player;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 if (!DeviceUtils.isUserUnlocked(storageContext) && uri.toString().startsWith("content://media")) {
                     LogUtils.w("MediaStore URI not accessible before unlock: " + uri);
                 } else {

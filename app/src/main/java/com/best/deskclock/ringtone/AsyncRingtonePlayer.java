@@ -22,6 +22,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -173,7 +174,9 @@ public final class AsyncRingtonePlayer {
             // See https://github.com/BlackyHawky/Clock/issues/395
             if (Build.MANUFACTURER.equalsIgnoreCase("oneplus")) {
                 if (DeviceUtils.isUserUnlocked(context)) {
-                    if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
+                    Uri defaultAlarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+
+                    if (Objects.equals(defaultAlarmUri, ringtoneUri)) {
                         ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
                     }
                 } else {
