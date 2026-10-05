@@ -2,6 +2,7 @@
 
 package com.best.deskclock.timer;
 
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 import com.best.deskclock.uidata.UiConfig;
+import com.best.deskclock.utils.Utils;
 
 /**
  * Custom {@link androidx.recyclerview.widget.ItemTouchHelper.Callback} for managing drag & drop of timer items in a RecyclerView.
@@ -42,6 +44,14 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                if (SystemClock.elapsedRealtime() - TimerViewHolder.getLastClickTime() < Utils.MIN_CLICK_INTERVAL) {
+                    if (rv.getParent() != null) {
+                        rv.getParent().requestDisallowInterceptTouchEvent(true);
+                    }
+
+                    return true;
+                }
+
                 if (e.getAction() == MotionEvent.ACTION_DOWN) {
                     View child = rv.findChildViewUnder(e.getX(), e.getY());
                     if (child != null) {

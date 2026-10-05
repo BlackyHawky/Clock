@@ -118,7 +118,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private String mFontPath;
     private boolean mIsToolBarDisplayed;
     private long mLastFabClickTime = 0;
-    private static final long MIN_CLICK_INTERVAL = 500;
 
     private AlertDialog mKeepAndroidOpenDialog = null;
 
@@ -618,7 +617,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             long currentTime = SystemClock.elapsedRealtime();
             final boolean isStopwatch = currentFragment instanceof StopwatchFragment;
 
-            if (isStopwatch || (currentTime - mLastFabClickTime >= MIN_CLICK_INTERVAL)) {
+            if (isStopwatch || (currentTime - mLastFabClickTime >= Utils.MIN_CLICK_INTERVAL)) {
                 mLastFabClickTime = currentTime;
                 currentFragment.onFabClick();
             } else {

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.SystemClock;
 import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public static final float CLOCK_ENABLED_ALPHA = 1f;
     public static final float CLOCK_DISABLED_ALPHA = 0.6f;
     public static final int ALPHA_ANIMATION_DURATION = 300;
+    private static long mLastClickTime = 0;
+
 
     public final AlarmItemBinding mBinding;
 
@@ -66,13 +69,26 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         UiConfig.Screen screen = mAdapter.getScreen();
         UiConfig.Haptics haptics = mAdapter.getHaptics();
 
-        itemView.setOnClickListener(v ->
-            mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item, false)
-        );
+        itemView.setOnClickListener(v -> {
+            long currentTime = SystemClock.elapsedRealtime();
+
+            if (currentTime - mLastClickTime >= Utils.MIN_CLICK_INTERVAL) {
+                mLastClickTime = currentTime;
+                mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item, false);
+            }
+        });
 
         // Clock handler
-        mBinding.digitalClock.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().onClockClicked(mItemHolder.item));
+        mBinding.digitalClock.setOnClickListener(v -> {
+            long currentTime = SystemClock.elapsedRealtime();
+
+            if (currentTime - mLastClickTime >= Utils.MIN_CLICK_INTERVAL) {
+                mLastClickTime = currentTime;
+                mItemHolder.getAlarmTimeClickHandler().onClockClicked(mItemHolder.item);
+            }
+        });
         mBinding.digitalClock.setOnLongClickListener(v -> {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
             mItemHolder.getAlarmTimeClickHandler().onClockLongClicked(mItemHolder.item);
             return true;
         });
@@ -442,6 +458,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         // or the next day depending on the time.
         // The text is therefore updated accordingly.
         return mContext.getString(alarm.isTimeBeforeOrEqual(now) ? R.string.alarm_tomorrow : R.string.alarm_today);
+    }
+
+    public static long getLastClickTime() {
+        return mLastClickTime;
     }
 
 }
