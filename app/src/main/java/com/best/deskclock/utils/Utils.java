@@ -66,6 +66,12 @@ public class Utils {
     public static final long UI_SETTLE_DELAY_MS = 200;
 
     /**
+     * The minimum time interval in milliseconds required between consecutive clicks.
+     * Prevents unintended double actions, such as opening multiple dialogs or triggering conflicting touch events.
+     */
+    public static final long MIN_CLICK_INTERVAL = 500;
+
+    /**
      * Ensures that the current code is running on the main (UI) thread.
      *
      * @throws IllegalAccessError if called from a background thread.

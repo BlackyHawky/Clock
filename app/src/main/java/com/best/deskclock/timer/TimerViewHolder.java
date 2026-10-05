@@ -8,6 +8,7 @@ package com.best.deskclock.timer;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,6 +27,8 @@ import com.google.android.material.button.MaterialButton;
 import java.util.Locale;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
+
+    private static long mLastClickTime = 0;
 
     private int mTimerId;
     private final TimerAdapter mAdapter;
@@ -76,7 +79,13 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             default -> throw new IllegalArgumentException("Unknown ViewType: " + viewType);
         }
 
-        itemView.setOnClickListener(v -> timerClickHandler.displayBottomSheetDialog(getTimer()));
+        itemView.setOnClickListener(v -> {
+            long currentTime = SystemClock.elapsedRealtime();
+            if (currentTime - mLastClickTime >= Utils.MIN_CLICK_INTERVAL) {
+                mLastClickTime = currentTime;
+                timerClickHandler.displayBottomSheetDialog(getTimer());
+            }
+        });
 
         View.OnClickListener playPauseListener = v -> {
             Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -247,6 +256,10 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
      */
     public void stopUpdating() {
         mTimerView.removeCallbacks(mUpdateRunnable);
+    }
+
+    public static long getLastClickTime() {
+        return mLastClickTime;
     }
 
 }

@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.SystemClock;
 import android.text.TextPaint;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -118,6 +119,15 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                // If the BottomSheet is opening, block the ViewPager from sliding.
+                if (SystemClock.elapsedRealtime() - AlarmItemViewHolder.getLastClickTime() < Utils.MIN_CLICK_INTERVAL) {
+                    if (rv.getParent() != null) {
+                        rv.getParent().requestDisallowInterceptTouchEvent(true);
+                    }
+
+                    return true;
+                }
+
                 switch (e.getAction()) {
                     // Prevent the alarm from dragging if the alarm time is long-pressed.
                     case MotionEvent.ACTION_DOWN -> {
@@ -167,7 +177,10 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                         boolean isSwipeToDeleteDirection = screen.isRtl() ? (dx < 0) : (dx > 0);
 
                         if (rv.getParent() != null) {
-                            if (isSwipeToDeleteDirection) {
+                            if (mIsTouchingClock) {
+                                // Disable ViewPager swiping when long-pressing the alarm time.
+                                rv.getParent().requestDisallowInterceptTouchEvent(true);
+                            } else if (isSwipeToDeleteDirection) {
                                 // Confirm that the ViewPager is blocked if the user swipes in the correct direction to delete an alarm.
                                 rv.getParent().requestDisallowInterceptTouchEvent(true);
                             } else if (Math.abs(dx) > dy && Math.abs(dx) > mTouchSlop) {
