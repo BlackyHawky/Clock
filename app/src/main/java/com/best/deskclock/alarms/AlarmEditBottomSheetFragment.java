@@ -880,6 +880,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.deleteAlarmAfterUseLayout.setEnabled(!isRepeating);
         mBinding.deleteAlarmAfterUse.setEnabled(!isRepeating);
+
+        mBinding.deleteAlarmAfterUseLayout.setOnClickListener(v -> mBinding.deleteAlarmAfterUse.toggle());
+
         mBinding.deleteAlarmAfterUse.setOnCheckedChangeListener(null);
         mBinding.deleteAlarmAfterUse.setChecked(!isRepeating && mAlarm.deleteAfterUse);
 
