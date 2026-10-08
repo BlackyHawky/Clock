@@ -23,6 +23,8 @@
     <string name="label_never">Never</string>
     <!-- Label "None" (male form) -->
     <string name="label_none">None</string>
+    <!-- Label "Category" -->
+    <string name="label_category">Category</string>
     <!-- Label "Cities" -->
     <string name="label_cities">Cities</string>
     <!-- Label "Indefinitely" -->
@@ -81,6 +83,16 @@
     <!-- String that represents that the user specified that they want to select an alarm to dismiss by specifying
      a 'label' but they didn't specify any labels. [CHAR LIMIT=NONE] -->
     <string name="no_label_specified">No label specified</string>
+    <!-- Title of dialog box to create a new category -->
+    <string name="create_category">Create category</string>
+    <!-- Title of dialog box to rename an existing category -->
+    <string name="rename_category">Rename category</string>
+    <!-- Dialog label to select all categories. -->
+    <string name="label_all_categories">All</string>
+    <!-- Title of dialog box when a category already exists -->
+    <string name="category_error">Category already created</string>
+    <!-- Description of the "Add category" button -->
+    <string name="add_category_description">Add category</string>
 
     <!-- ******************* -->
     <!-- **     ALARM     ** -->
@@ -643,6 +655,20 @@
     <string name="vibration_category_title">Vibration</string>
     <!-- Category title for alarm actions -->
     <string name="actions_category_title">Actions</string>
+    <!-- Category title for alarm sorting -->
+    <string name="sorting_title">Sorting</string>
+    <!-- Setting title to sort alarms by category -->
+    <string name="enable_alarm_sorting_by_category_title">Sort alarms by category</string>
+    <!-- Setting title to set the category to select when opening the application -->
+    <string name="default_alarm_category_title">Category to select when opening the application</string>
+    <!-- Setting title to display a badge when alarms are enabled -->
+    <string name="display_enabled_alarm_badge_title">Display a badge when alarms are enabled</string>
+    <!-- Setting title to delete alarms for a category when the category is deleted -->
+    <string name="delete_alarms_with_category_title">Delete alarms when deleting a category</string>
+    <!-- Setting summary related to the "Delete alarms for a category when that category is deleted" setting -->
+    <string name="delete_alarms_with_category_summary">If disabled, alarms will be moved to the default category</string>
+    <!-- Setting title to switch to the new category once created -->
+    <string name="switch_to_new_category_title">Switch to the new category once created</string>
     <!-- Setting title for customizing the display -->
     <string name="display_settings_title">Display settings</string>
     <!-- Setting title for changing the sorting order to By name. -->

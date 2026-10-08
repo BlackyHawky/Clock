@@ -323,7 +323,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/miscellaneous_category_title"
+        android:title="@string/sorting_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
@@ -352,6 +352,54 @@
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_alarm_sorting_by_category"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_alarm_sorting_by_category_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_default_alarm_category"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/default_alarm_category_title"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_switch_to_new_category"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/switch_to_new_category_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_display_enabled_alarm_badge"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_enabled_alarm_badge_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_delete_alarms_with_category"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/delete_alarms_with_category_title"
+            android:summary="@string/delete_alarms_with_category_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
             android:key="key_enable_alarm_fab_long_press"

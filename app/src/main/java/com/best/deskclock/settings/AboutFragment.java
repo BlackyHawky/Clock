@@ -47,6 +47,7 @@ import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.ClockContract;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
 import com.best.deskclock.tiles.AlarmTileService;
 import com.best.deskclock.tiles.StopwatchTileService;
@@ -461,6 +462,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
     @SuppressLint("ApplySharedPref")
     private void resetPreferences() {
         final Context appContext = requireContext().getApplicationContext();
+        final ContentResolver cr = appContext.getContentResolver();
 
         BackupAndRestoreManager.isRestoringBackupOrIsResettingApp = true;
 
@@ -468,18 +470,21 @@ public class AboutFragment extends BaseSettingsScreenFragment
             SharedPreferences.Editor editor = getPrefs().edit();
             Map<String, ?> settings = getPrefs().getAll();
 
-            releaseAllCustomRingtonePermissions();
+            releaseAllCustomRingtonePermissions(cr);
             deleteAllCustomRingtoneFiles();
 
             FileUtils.wipeAllCustomFiles(appContext);
 
             LogUtils.clearSavedLocalLogs(appContext);
 
-            final List<Alarm> alarms = Alarm.getAlarms(appContext.getContentResolver(), null);
+            final List<Alarm> alarms = Alarm.getAlarms(cr, null);
             for (Alarm alarm : alarms) {
                 AlarmStateManager.deleteAllInstances(appContext, getPrefs(), alarm.id);
-                Alarm.deleteAlarm(appContext.getContentResolver(), alarm.id);
+                Alarm.deleteAlarm(cr, alarm.id);
             }
+
+            // Deletion of all custom alarm categories
+            cr.delete(ClockContract.CategoryColumns.CONTENT_URI, null, null);
 
             for (Map.Entry<String, ?> entry : settings.entrySet()) {
                 String key = entry.getKey();
@@ -564,8 +569,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
      * <p>This ensures that the app no longer holds long-term access to
      * external audio files selected through the Storage Access Framework.</p>
      */
-    private void releaseAllCustomRingtonePermissions() {
-        ContentResolver contentResolver = requireContext().getContentResolver();
+    private void releaseAllCustomRingtonePermissions(ContentResolver contentResolver) {
         Set<String> ids = getPrefs().getStringSet(RINGTONE_IDS, Collections.emptySet());
 
         for (String id : ids) {

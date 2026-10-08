@@ -68,7 +68,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
      *
      * @param pref The {@link MultiSelectListPreference} associated with this dialog.
      *             Its configuration and current value will be used to initialize the dialog.
-     * @return A fully configured instance of {@link CustomListPreferenceDialogFragment} ready to be displayed.
+     * @return A fully configured instance of {@link CustomMultiSelectListPreferenceDialogFragment} ready to be displayed.
      */
     @NonNull
     public static CustomMultiSelectListPreferenceDialogFragment newInstance(@NonNull MultiSelectListPreference pref) {
@@ -148,6 +148,9 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             checkBox.setTypeface(typeface);
             checkBox.setChecked(mNewValues.contains(value));
+            // Prevent the CheckBox animation on the currently selected item when the Dialog opens.
+            checkBox.jumpDrawablesToCurrentState();
+
             checkBox.setTag(value);
 
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {

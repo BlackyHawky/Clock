@@ -11,21 +11,20 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_MANUALLY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ENABLED_ALARMS_FIRST;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_LOCKED_ALARMS_FIRST;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -33,9 +32,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
@@ -44,10 +46,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.os.BundleCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
@@ -75,11 +79,13 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.databinding.AlarmFragmentBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
+import com.best.deskclock.dialogfragment.CategoryDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
 import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.ClockContract;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.EmptyViewController;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
@@ -90,14 +96,18 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -118,8 +128,11 @@ public final class AlarmFragment extends DeskClockFragment
 
     private static final String KEY_SIDE_BUTTONS_VISIBLE = "side_buttons_visible";
 
+    private static final String SAVE_STATE_CATEGORY_ID = "save_state_category_id";
+
     private AlarmFragmentBinding mBinding;
 
+    private UiConfig.CardStyle mCardStyle;
     private String mAlarmFontPath;
     private Typeface mAlarmTypeface;
 
@@ -130,6 +143,11 @@ public final class AlarmFragment extends DeskClockFragment
     private String mSortingPref;
     private boolean mAreEnabledAlarmsFirst;
     private boolean mAreLockedAlarmsFirst;
+    private boolean mAreSortedByCategory;
+    private boolean mShouldSwitchToNewCategory;
+    private Drawable mDefaultTabIndicator;
+    private boolean mIsEnabledAlarmBadgeDisplayed;
+    private boolean mDeleteAlarmsWithCategory;
     private boolean mIs24HourFormat;
     private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mSideButtonsVisible = false;
@@ -140,7 +158,8 @@ public final class AlarmFragment extends DeskClockFragment
         if (key != null) {
             switch (key) {
                 case KEY_ALARM_FONT, KEY_SORT_ALARM, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
-                     KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
+                     KEY_ENABLE_ALARM_SORTING_BY_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
+                     KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
 
                     mAreSettingsChanged = true;
 
@@ -158,6 +177,7 @@ public final class AlarmFragment extends DeskClockFragment
     private long mScrollToAlarmId = Alarm.INVALID_ID;
     private long mCurrentUpdateToken;
     private String mLastSortOrder = null;
+    private long mCurrentCategoryId;
 
     // Controllers
     private AlarmAdapter mItemAdapter;
@@ -170,6 +190,36 @@ public final class AlarmFragment extends DeskClockFragment
         public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (RingtoneUtils.VOLUME_CHANGED_ACTION.equals(intent.getAction())) {
                 updateWarningBannerVisibility();
+            }
+        }
+    };
+
+    private final TabLayout.OnTabSelectedListener mAlarmTabListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            updateTabTypeface(tab, true);
+
+            Object tag = tab.getTag();
+            if (tag instanceof Long) {
+                mCurrentCategoryId = (Long) tag;
+                LoaderManager.getInstance(AlarmFragment.this).restartLoader(0, null, AlarmFragment.this);
+            }
+        }
+
+        @Override public void onTabUnselected(TabLayout.Tab tab) {
+            updateTabTypeface(tab, false);
+        }
+
+        @Override public void onTabReselected(TabLayout.Tab tab) {
+            Object tag = tab.getTag();
+            if (tag instanceof Long) {
+                long categoryId = (Long) tag;
+
+                if (categoryId != Alarm.DEFAULT_CATEGORY_ID) {
+                    String categoryName = tab.getText() != null ? tab.getText().toString() : "";
+                    CategoryDialogFragment dialog = CategoryDialogFragment.newInstance(categoryId, categoryName);
+                    CategoryDialogFragment.show(getParentFragmentManager(), dialog);
+                }
             }
         }
     };
@@ -187,6 +237,9 @@ public final class AlarmFragment extends DeskClockFragment
 
         if (savedInstanceState != null) {
             mSideButtonsVisible = savedInstanceState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
+            mCurrentCategoryId = savedInstanceState.getLong(SAVE_STATE_CATEGORY_ID, Alarm.DEFAULT_CATEGORY_ID);
+        } else {
+            mCurrentCategoryId = SettingsDAO.getDefaultAlarmCategory(getPrefs());
         }
 
         refreshSettings();
@@ -309,6 +362,8 @@ public final class AlarmFragment extends DeskClockFragment
             }
         }
 
+        setupAlarmCategoryTabs();
+
         setupFragmentResultListeners();
 
         getPrefs().registerOnSharedPreferenceChangeListener(mPrefListener);
@@ -354,12 +409,27 @@ public final class AlarmFragment extends DeskClockFragment
 
                 long alarmId = intent.getLongExtra(SCROLL_TO_ALARM_INTENT_EXTRA, Alarm.INVALID_ID);
                 if (alarmId != Alarm.INVALID_ID) {
-                    setSmoothScrollStableId(alarmId);
-                    if (mCursorLoader != null && mCursorLoader.isStarted()) {
-                        // We need to force a reload here to make sure we have the latest view
-                        // of the data to scroll to.
-                        mCursorLoader.forceLoad();
-                    }
+                    Context appContext = requireContext().getApplicationContext();
+                    ContentResolver cr = appContext.getContentResolver();
+
+                    AppExecutors.getDiskIO().execute(() -> {
+                        Alarm targetAlarm = Alarm.getAlarm(cr, alarmId);
+
+                        AppExecutors.getMainThread().post(() -> {
+                            if (targetAlarm != null && isAdded()) {
+
+                                setSmoothScrollStableId(alarmId);
+
+                                if (mAreSortedByCategory && isCategoryMissing(mCurrentCategoryId, targetAlarm.categoryIds)) {
+                                    selectAlarmTab(targetAlarm.categoryIds[0]);
+                                } else if (mCursorLoader != null && mCursorLoader.isStarted()) {
+                                    // We need to force a reload here to make sure we have the latest view
+                                    // of the data to scroll to.
+                                    mCursorLoader.forceLoad();
+                                }
+                            }
+                        });
+                    });
                 }
 
                 if (intent.hasExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION)) {
@@ -453,6 +523,7 @@ public final class AlarmFragment extends DeskClockFragment
         }
 
         outState.putBoolean(KEY_SIDE_BUTTONS_VISIBLE, mSideButtonsVisible);
+        outState.putLong(SAVE_STATE_CATEGORY_ID, mCurrentCategoryId);
     }
 
     @Override
@@ -464,6 +535,8 @@ public final class AlarmFragment extends DeskClockFragment
         mAreSettingsChanged = false;
 
         mBinding.alarmRecyclerView.setAdapter(null);
+
+        mBinding.alarmCategoryTabs.clearOnTabSelectedListeners();
 
         mBinding = null;
 
@@ -484,7 +557,8 @@ public final class AlarmFragment extends DeskClockFragment
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        return Alarm.getAlarmsCursorLoader(requireContext(), mSortingPref, mAreEnabledAlarmsFirst, mAreLockedAlarmsFirst);
+        return Alarm.getAlarmsCursorLoader(
+            requireContext(), mSortingPref, mAreEnabledAlarmsFirst, mAreLockedAlarmsFirst, mAreSortedByCategory, mCurrentCategoryId);
     }
 
     @Override
@@ -776,6 +850,413 @@ public final class AlarmFragment extends DeskClockFragment
 
                 mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
             });
+
+        parentFragmentManager.setFragmentResultListener(
+            CategoryDialogFragment.REQUEST_KEY, this, (requestKey, result) -> {
+                long categoryId = result.getLong(CategoryDialogFragment.RESULT_CATEGORY_ID);
+                int action = result.getInt(CategoryDialogFragment.RESULT_ACTION);
+                String categoryName = result.getString(CategoryDialogFragment.RESULT_CATEGORY_NAME);
+
+                Context appContext = requireContext().getApplicationContext();
+
+                AppExecutors.getDiskIO().execute(() -> {
+                    if (action == CategoryDialogFragment.ACTION_SAVE) {
+                        ContentValues values = new ContentValues();
+                        values.put(ClockContract.CategoryColumns.NAME, categoryName);
+
+                        if (categoryId == -1) {
+                            // New category
+                            Uri newUri = appContext.getContentResolver().insert(ClockContract.CategoryColumns.CONTENT_URI, values);
+
+                            if (newUri != null && mShouldSwitchToNewCategory) {
+                                mCurrentCategoryId = ContentUris.parseId(newUri);
+                            }
+                        } else {
+                            // Renaming
+                            Uri updateUri = ContentUris.withAppendedId(ClockContract.CategoryColumns.CONTENT_URI, categoryId);
+                            appContext.getContentResolver().update(updateUri, values, null, null);
+                        }
+
+                    } else if (action == CategoryDialogFragment.ACTION_DELETE) {
+                        // Delete the category from the database
+                        Uri deleteUri = ContentUris.withAppendedId(ClockContract.CategoryColumns.CONTENT_URI, categoryId);
+                        appContext.getContentResolver().delete(deleteUri, null, null);
+
+                        // If the deleted category was the default one, reset to "Default".
+                        long defaultStartupCategoryId = SettingsDAO.getDefaultAlarmCategory(getPrefs());
+                        if (defaultStartupCategoryId == categoryId) {
+                            getPrefs().edit().putString(KEY_DEFAULT_ALARM_CATEGORY, String.valueOf(Alarm.DEFAULT_CATEGORY_ID)).apply();
+                        }
+
+                        // Search for all alarms that had this category.
+                        String selection = ClockContract.AlarmsColumns.CATEGORY_IDS + " LIKE ?";
+                        String[] selectionArgs = new String[]{"%," + categoryId + ",%"};
+
+                        try (Cursor cursor = appContext.getContentResolver().query(
+                            ClockContract.AlarmsColumns.CONTENT_URI,
+                            new String[]{ClockContract.AlarmsColumns._ID, ClockContract.AlarmsColumns.CATEGORY_IDS},
+                            selection, selectionArgs, null
+                        )) {
+                            if (cursor != null && cursor.moveToFirst()) {
+                                int idIndex = cursor.getColumnIndexOrThrow(ClockContract.AlarmsColumns._ID);
+                                int catIdsIndex = cursor.getColumnIndexOrThrow(ClockContract.AlarmsColumns.CATEGORY_IDS);
+
+                                do {
+                                    long alarmId = cursor.getLong(idIndex);
+
+                                    if (mDeleteAlarmsWithCategory) {
+                                        // Delete alarms with the category
+                                        AlarmStateManager.deleteAllInstances(appContext, getPrefs(), alarmId);
+                                        Alarm.deleteAlarm(appContext.getContentResolver(), alarmId);
+                                    } else {
+                                        long[] oldIds = Alarm.parseCategoryIds(cursor.getString(catIdsIndex));
+
+                                        // Filter to remove the deleted ID
+                                        List<Long> newIdsList = new ArrayList<>();
+                                        for (long id : oldIds) {
+                                            if (id != categoryId) newIdsList.add(id);
+                                        }
+
+                                        long[] newIds = new long[newIdsList.size()];
+                                        for (int i = 0; i < newIdsList.size(); i++) newIds[i] = newIdsList.get(i);
+
+                                        // Move all alarms from this category to the "Default" category
+                                        ContentValues values = new ContentValues();
+                                        values.put(ClockContract.AlarmsColumns.CATEGORY_IDS, Alarm.formatCategoryIds(newIds));
+                                        Uri updateUri = ContentUris.withAppendedId(ClockContract.AlarmsColumns.CONTENT_URI, alarmId);
+                                        appContext.getContentResolver().update(updateUri, values, null, null);
+                                    }
+                                } while (cursor.moveToNext());
+                            }
+                        }
+
+                        // Return to the "Default" category
+                        mCurrentCategoryId = Alarm.DEFAULT_CATEGORY_ID;
+                    }
+
+                    // Refresh the interface
+                    AppExecutors.getMainThread().post(() -> {
+                        if (isAdded()) {
+                            LoaderManager.getInstance(this).restartLoader(0, null, this);
+
+                            reloadAlarmCategoryTabs();
+                        }
+                    });
+                });
+            });
+    }
+
+    private void setupAlarmCategoryTabs() {
+        reloadAlarmCategoryTabs();
+    }
+
+    private void reloadAlarmCategoryTabs() {
+        if (!mAreSortedByCategory) {
+            mBinding.addCategoryButton.setVisibility(GONE);
+            mBinding.alarmCategoryTabsContainer.setVisibility(GONE);
+            mBinding.alarmCategoryTabs.clearOnTabSelectedListeners();
+
+            mBinding.alarmRecyclerView.setPadding(
+                mBinding.alarmRecyclerView.getPaddingLeft(),
+                0,
+                mBinding.alarmRecyclerView.getPaddingRight(),
+                mBinding.alarmRecyclerView.getPaddingBottom()
+            );
+
+            mBinding.alarmRecyclerView.scrollToPosition(0);
+
+            return;
+        }
+
+        mBinding.alarmCategoryTabsContainer.setVisibility(View.VISIBLE);
+
+        mBinding.addCategoryButton.setVisibility(VISIBLE);
+        mBinding.addCategoryButton.setOnClickListener(v -> showCreateAlarmCategoryDialog());
+        mBinding.addCategoryButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(
+                v, getGeneralTypeface(), getDisplayMetrics(), getString(R.string.add_category_description), false);
+            return true;
+        });
+
+        mBinding.alarmRecyclerView.setPadding(
+            mBinding.alarmRecyclerView.getPaddingLeft(),
+            (int) dpToPx(10, getDisplayMetrics()),
+            mBinding.alarmRecyclerView.getPaddingRight(),
+            mBinding.alarmRecyclerView.getPaddingBottom()
+        );
+
+        mBinding.alarmRecyclerView.scrollToPosition(0);
+
+        Context appContext = requireContext().getApplicationContext();
+        ContentResolver cr = appContext.getContentResolver();
+
+        AppExecutors.getDiskIO().execute(() -> {
+            List<Long> categoryIds = new ArrayList<>();
+            List<String> categoryNames = new ArrayList<>();
+
+            // Search for existing categories in the database and store them in the lists `categoryIds` and `categoryNames`.
+            try (Cursor cursor = cr.query(
+                ClockContract.CategoryColumns.CONTENT_URI,
+                new String[]{ClockContract.CategoryColumns._ID, ClockContract.CategoryColumns.NAME},
+                null,
+                null,
+                ClockContract.CategoryColumns.SORT_ORDER + " ASC"
+            )) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int idIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns._ID);
+                    int nameIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns.NAME);
+
+                    do {
+                        categoryIds.add(cursor.getLong(idIndex));
+                        categoryNames.add(cursor.getString(nameIndex));
+                    } while (cursor.moveToNext());
+                }
+            }
+
+            AppExecutors.getMainThread().post(() -> {
+                if (mBinding == null || !isAdded()) {
+                    return;
+                }
+
+                // Set margin for the "Add category" button
+                boolean isLandscapePhone = isLandscape() && !isTablet();
+                int margin = (int) dpToPx(10, getDisplayMetrics());
+                int endMargin = isLandscapePhone ? getFabClearancePx() + margin : margin;
+
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mBinding.addCategoryButton.getLayoutParams();
+                params.setMarginEnd(endMargin);
+                mBinding.addCategoryButton.setLayoutParams(params);
+
+                configureTabContainer();
+
+                mBinding.alarmCategoryTabs.clearOnTabSelectedListeners();
+                mBinding.alarmCategoryTabs.removeAllTabs();
+
+                // Add "Default" tab
+                TabLayout.Tab defaultTab = mBinding.alarmCategoryTabs.newTab()
+                    .setText(getString(R.string.label_default))
+                    .setTag(Alarm.DEFAULT_CATEGORY_ID);
+
+                configureTabBackground(defaultTab);
+
+                boolean isDefaultSelected = (mCurrentCategoryId == Alarm.DEFAULT_CATEGORY_ID);
+
+                mBinding.alarmCategoryTabs.addTab(defaultTab, isDefaultSelected);
+
+                updateTabTypeface(defaultTab, isDefaultSelected);
+
+                setCustomTabTooltip(defaultTab);
+
+                // Add tabs created by the user
+                for (int i = 0; i < categoryIds.size(); i++) {
+                    long id = categoryIds.get(i);
+                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.newTab().setText(categoryNames.get(i)).setTag(id);
+                    boolean isSelected = (mCurrentCategoryId == id);
+
+                    configureTabBackground(tab);
+                    mBinding.alarmCategoryTabs.addTab(tab, isSelected);
+                    updateTabTypeface(tab, isSelected);
+                    setCustomTabTooltip(tab);
+                }
+
+                mBinding.alarmCategoryTabs.addOnTabSelectedListener(mAlarmTabListener);
+
+                updateCategoryBadges();
+
+                mBinding.alarmCategoryTabs.post(() -> {
+                    int selectedPos = mBinding.alarmCategoryTabs.getSelectedTabPosition();
+
+                    if (selectedPos > 0) {
+                        mBinding.alarmCategoryTabs.setScrollPosition(selectedPos, 0f, true);
+                    }
+                });
+            });
+        });
+    }
+
+    private void configureTabContainer() {
+        if (mDefaultTabIndicator == null) {
+            mDefaultTabIndicator = mBinding.alarmCategoryTabs.getTabSelectedIndicator();
+        }
+
+        if (!mCardStyle.isBackgroundDisplayed() && !mCardStyle.isBorderDisplayed()) {
+            mBinding.alarmCategoryTabsContainer.setStrokeWidth(0);
+            mBinding.alarmCategoryTabsContainer.setRadius(0);
+            mBinding.alarmCategoryTabs.setSelectedTabIndicator(mDefaultTabIndicator);
+        } else {
+            mBinding.alarmCategoryTabsContainer.setStrokeWidth((int) dpToPx(1, getDisplayMetrics()));
+            mBinding.alarmCategoryTabsContainer.setRadius(dpToPx(200, getDisplayMetrics()));
+            mBinding.alarmCategoryTabs.setSelectedTabIndicator(null);
+        }
+    }
+
+    private void configureTabBackground(TabLayout.Tab tab) {
+        if (mCardStyle.isBackgroundDisplayed()) {
+            if (mCardStyle.isBorderDisplayed()) {
+                tab.view.setBackgroundResource(R.drawable.bg_tab_fill_outline);
+            } else {
+                tab.view.setBackgroundResource(R.drawable.bg_tab_fill);
+            }
+        } else {
+            if (mCardStyle.isBorderDisplayed()) {
+                tab.view.setBackgroundResource(R.drawable.bg_tab_outline);
+            } else {
+                tab.view.setBackgroundResource(R.drawable.bg_tab_transparent);
+            }
+        }
+    }
+
+    private void updateTabTypeface(TabLayout.Tab tab, boolean isSelected) {
+        if (tab == null) {
+            return;
+        }
+
+        Typeface typeface = isSelected ? getGeneralBoldTypeface() : getGeneralTypeface();
+
+        for (int i = 0; i < tab.view.getChildCount(); i++) {
+            View child = tab.view.getChildAt(i);
+            if (child instanceof TextView textView) {
+                textView.setTypeface(typeface);
+                break;
+            }
+        }
+    }
+
+    private void setCustomTabTooltip(TabLayout.Tab tab) {
+        if (tab == null) {
+            return;
+        }
+
+        CharSequence nativeText = tab.getContentDescription();
+        if (TextUtils.isEmpty(nativeText)) {
+            nativeText = tab.getText();
+        }
+
+        final String tooltipText = nativeText != null ? nativeText.toString() : "";
+
+        TooltipCompat.setTooltipText(tab.view, null);
+
+        tab.view.setOnLongClickListener(v -> {
+            if (!tooltipText.isEmpty()) {
+                CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), tooltipText, false);
+            }
+
+            return true;
+        });
+    }
+
+    private void updateCategoryBadges() {
+        int tabPadding = (int) dpToPx(16, getDisplayMetrics());
+
+        if (!mIsEnabledAlarmBadgeDisplayed) {
+            if (mBinding != null) {
+                for (int i = 0; i < mBinding.alarmCategoryTabs.getTabCount(); i++) {
+                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.getTabAt(i);
+                    if (tab != null) {
+                        tab.removeBadge();
+                        tab.view.setPaddingRelative(tabPadding, 0, tabPadding, 0);
+                    }
+                }
+            }
+
+            return;
+        }
+
+        Context appContext = requireContext().getApplicationContext();
+        ContentResolver cr = appContext.getContentResolver();
+
+        AppExecutors.getDiskIO().execute(() -> {
+            Map<Long, Integer> activeAlarmsCount = new HashMap<>();
+
+            try (Cursor cursor = cr.query(
+                ClockContract.AlarmsColumns.CONTENT_URI,
+                new String[]{ClockContract.AlarmsColumns.CATEGORY_IDS},
+                ClockContract.AlarmsColumns.ENABLED + " = 1",
+                null,
+                null
+            )) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int categoryIdsIndex = cursor.getColumnIndexOrThrow(ClockContract.AlarmsColumns.CATEGORY_IDS);
+                    do {
+                        String idsString = cursor.getString(categoryIdsIndex);
+                        long[] categoryIds = Alarm.parseCategoryIds(idsString);
+
+                        for (long categoryId : categoryIds) {
+                            Integer count = activeAlarmsCount.get(categoryId);
+                            activeAlarmsCount.put(categoryId, count == null ? 1 : count + 1);
+                        }
+                    } while (cursor.moveToNext());
+                }
+            }
+
+            AppExecutors.getMainThread().post(() -> {
+                if (mBinding == null || !isAdded()) {
+                    return;
+                }
+
+                if (!mIsEnabledAlarmBadgeDisplayed) {
+                    return;
+                }
+
+                for (int i = 0; i < mBinding.alarmCategoryTabs.getTabCount(); i++) {
+                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.getTabAt(i);
+                    int paddingEnd = (int) dpToPx(30, getDisplayMetrics());
+
+                    if (tab != null && tab.getTag() instanceof Long) {
+                        long categoryId = (Long) tab.getTag();
+                        Integer count = activeAlarmsCount.get(categoryId);
+
+                        if (count != null && count > 0) {
+                            tab.view.setPaddingRelative(tabPadding, 0, paddingEnd, 0);
+
+                            BadgeDrawable badge = tab.getOrCreateBadge();
+                            badge.setNumber(count);
+
+                            int horizontalOffset = (int) dpToPx(4, getDisplayMetrics());
+                            badge.setHorizontalOffset(-horizontalOffset);
+                        } else {
+                            tab.removeBadge();
+                            tab.view.setPaddingRelative(tabPadding, 0, tabPadding, 0);
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    private void showCreateAlarmCategoryDialog() {
+        CategoryDialogFragment dialog = CategoryDialogFragment.newInstance();
+        CategoryDialogFragment.show(getParentFragmentManager(), dialog);
+    }
+
+    /**
+     * Visually forces the selection of a specific tab (useful when cancelling the click on the "+" icon)
+     */
+    private void selectAlarmTab(long targetCategoryId) {
+        for (int i = 0; i < mBinding.alarmCategoryTabs.getTabCount(); i++) {
+            TabLayout.Tab tab = mBinding.alarmCategoryTabs.getTabAt(i);
+
+            if (tab != null) {
+                Object tag = tab.getTag();
+                if (tag instanceof Long && (Long) tag == targetCategoryId) {
+                    tab.select();
+                    break;
+                }
+            }
+        }
+    }
+
+    private boolean isCategoryMissing(long categoryId, long[] alarmCategoryIds) {
+        if (alarmCategoryIds == null) {
+            return true;
+        }
+
+        for (long id : alarmCategoryIds) {
+            if (id == categoryId)
+                return false;
+        }
+
+        return true;
     }
 
     /**
@@ -820,9 +1301,10 @@ public final class AlarmFragment extends DeskClockFragment
             return;
         }
 
-        if (Objects.requireNonNull(mBinding.alarmRecyclerView.getItemAnimator()).isRunning()) {
+        RecyclerView.ItemAnimator animator = mBinding.alarmRecyclerView.getItemAnimator();
+        if (animator != null && animator.isRunning()) {
             // RecyclerView is currently animating -> defer update.
-            mBinding.alarmRecyclerView.getItemAnimator().isRunning(() -> setAdapterItems(items, updateToken));
+            animator.isRunning(() -> setAdapterItems(items, updateToken));
         } else if (mBinding.alarmRecyclerView.isComputingLayout()) {
             // RecyclerView is currently computing a layout -> defer update.
             mBinding.alarmRecyclerView.post(() -> {
@@ -847,6 +1329,8 @@ public final class AlarmFragment extends DeskClockFragment
             }
 
             updateUIStatesAndAnimate(noAlarms, hasActiveAlarms);
+
+            updateCategoryBadges();
 
             // Scroll to the selected alarm.
             if (mScrollToAlarmId != Alarm.INVALID_ID) {
@@ -892,8 +1376,22 @@ public final class AlarmFragment extends DeskClockFragment
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
-            SnackbarManager.show(
-                Snackbar.make(mBinding.alarmRootView, R.string.missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG), getGeneralTypeface());
+            Context appContext = requireContext().getApplicationContext();
+            ContentResolver cr = appContext.getContentResolver();
+
+            AppExecutors.getDiskIO().execute(() -> {
+                Alarm alarm = Alarm.getAlarm(cr, alarmId);
+
+                if (alarm == null) {
+                    AppExecutors.getMainThread().post(() -> {
+                        if (mBinding != null && isAdded()) {
+                            SnackbarManager.show(Snackbar.make(
+                                mBinding.alarmRootView, R.string.missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG), getGeneralTypeface()
+                            );
+                        }
+                    });
+                }
+            });
         }
     }
 
@@ -962,6 +1460,7 @@ public final class AlarmFragment extends DeskClockFragment
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
         alarm.lock = false;
         alarm.timeZone = "";
+        alarm.categoryIds = new long[]{mCurrentCategoryId};
 
         return alarm;
     }
@@ -972,6 +1471,10 @@ public final class AlarmFragment extends DeskClockFragment
      * <p>It handles potential race conditions between the database Loader and the async callback.</p>
      */
     public void setPendingAlarmToEdit(@NonNull Alarm newAlarm) {
+        if (isCategoryMissing(mCurrentCategoryId, newAlarm.categoryIds)) {
+            selectAlarmTab(newAlarm.categoryIds[0]);
+        }
+
         // Check if the database Loader has already updated the adapter before this callback.
         boolean alreadyInList = false;
         for (int i = 0; i < mItemAdapter.getItemCount(); i++) {
@@ -1192,6 +1695,12 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     private void refreshSettings() {
+        mCardStyle = new UiConfig.CardStyle(
+            SettingsDAO.isCardBackgroundDisplayed(getPrefs()),
+            SettingsDAO.isCardBorderDisplayed(getPrefs()),
+            SettingsDAO.getDarkMode(getPrefs()).equals(AMOLED_DARK_MODE)
+        );
+
         String newFontPath = SettingsDAO.getAlarmFont(getPrefs());
 
         if (!Objects.equals(mAlarmFontPath, newFontPath)) {
@@ -1203,12 +1712,19 @@ public final class AlarmFragment extends DeskClockFragment
         mSortingPref = SettingsDAO.getAlarmSorting(getPrefs());
         mAreEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(getPrefs());
         mAreLockedAlarmsFirst = SettingsDAO.areLockedAlarmsDisplayedFirst(getPrefs());
+        mAreSortedByCategory = SettingsDAO.areAlarmsSortedByCategory(getPrefs());
+        mShouldSwitchToNewCategory = SettingsDAO.shouldSwitchToNewCategory(getPrefs());
+        mIsEnabledAlarmBadgeDisplayed = SettingsDAO.isEnabledAlarmBadgeDisplayed(getPrefs());
+        mDeleteAlarmsWithCategory = SettingsDAO.areAlarmsDeletedWithCategory(getPrefs());
         mIs24HourFormat = getDataModel().is24HourFormat();
 
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(getPrefs());
     }
 
     private void applySettingsChanges() {
+        boolean wasSortedByCategory = mAreSortedByCategory;
+        boolean wasBadgeEnabled = mIsEnabledAlarmBadgeDisplayed;
+
         refreshSettings();
 
         if (mItemAdapter != null) {
@@ -1218,6 +1734,14 @@ public final class AlarmFragment extends DeskClockFragment
         }
 
         updateWarningBannerVisibility();
+
+        if (wasSortedByCategory != mAreSortedByCategory) {
+            setupAlarmCategoryTabs();
+
+            LoaderManager.getInstance(this).restartLoader(0, null, this);
+        } else if (wasBadgeEnabled != mIsEnabledAlarmBadgeDisplayed) {
+            updateCategoryBadges();
+        }
 
         mAreSettingsChanged = false;
     }

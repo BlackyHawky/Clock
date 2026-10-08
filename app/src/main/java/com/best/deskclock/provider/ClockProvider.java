@@ -40,6 +40,9 @@ public class ClockProvider extends ContentProvider {
     private static final int INSTANCES = 3;
     private static final int INSTANCES_ID = 4;
     private static final int ALARMS_WITH_INSTANCES = 5;
+    private static final int CATEGORIES = 6;
+    private static final int CATEGORIES_ID = 7;
+
     /**
      * Projection map used by query for snoozed alarms.
      */
@@ -116,6 +119,8 @@ public class ClockProvider extends ContentProvider {
             ALARMS_TABLE_NAME + "." + AlarmsColumns.LOCK);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.TIMEZONE,
             ALARMS_TABLE_NAME + "." + AlarmsColumns.TIMEZONE);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.CATEGORY_IDS,
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.CATEGORY_IDS);
 
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE,
             INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE);
@@ -163,6 +168,8 @@ public class ClockProvider extends ContentProvider {
         sURIMatcher.addURI(ClockContract.AUTHORITY, "instances", INSTANCES);
         sURIMatcher.addURI(ClockContract.AUTHORITY, "instances/#", INSTANCES_ID);
         sURIMatcher.addURI(ClockContract.AUTHORITY, "alarms_with_instances", ALARMS_WITH_INSTANCES);
+        sURIMatcher.addURI(ClockContract.AUTHORITY, "categories", CATEGORIES);
+        sURIMatcher.addURI(ClockContract.AUTHORITY, "categories/#", CATEGORIES_ID);
     }
 
     private ClockDatabaseHelper mOpenHelper;
@@ -207,21 +214,33 @@ public class ClockProvider extends ContentProvider {
         int match = sURIMatcher.match(uri);
         switch (match) {
             case ALARMS -> qb.setTables(ALARMS_TABLE_NAME);
+
             case ALARMS_ID -> {
                 qb.setTables(ALARMS_TABLE_NAME);
                 qb.appendWhere(AlarmsColumns._ID + "=");
                 qb.appendWhere(Objects.requireNonNull(uri.getLastPathSegment()));
             }
+
             case INSTANCES -> qb.setTables(INSTANCES_TABLE_NAME);
+
             case INSTANCES_ID -> {
                 qb.setTables(INSTANCES_TABLE_NAME);
                 qb.appendWhere(InstancesColumns._ID + "=");
                 qb.appendWhere(Objects.requireNonNull(uri.getLastPathSegment()));
             }
+
             case ALARMS_WITH_INSTANCES -> {
                 qb.setTables(ALARM_JOIN_INSTANCE_TABLE_STATEMENT);
                 qb.appendWhere(ALARM_JOIN_INSTANCE_WHERE_STATEMENT);
                 qb.setProjectionMap(sAlarmsWithInstancesProjection);
+            }
+
+            case CATEGORIES -> qb.setTables(ClockDatabaseHelper.CATEGORIES_TABLE_NAME);
+
+            case CATEGORIES_ID -> {
+                qb.setTables(ClockDatabaseHelper.CATEGORIES_TABLE_NAME);
+                qb.appendWhere(ClockContract.CategoryColumns._ID + "=");
+                qb.appendWhere(Objects.requireNonNull(uri.getLastPathSegment()));
             }
             default -> throw new IllegalArgumentException("Unknown URI " + uri);
         }
@@ -246,6 +265,8 @@ public class ClockProvider extends ContentProvider {
             case ALARMS_ID -> "vnd.android.cursor.item/alarms";
             case INSTANCES -> "vnd.android.cursor.dir/instances";
             case INSTANCES_ID -> "vnd.android.cursor.item/instances";
+            case CATEGORIES -> "vnd.android.cursor.dir/categories";
+            case CATEGORIES_ID -> "vnd.android.cursor.item/categories";
             default -> throw new IllegalArgumentException("Unknown URI");
         };
     }
@@ -253,21 +274,32 @@ public class ClockProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String where, @Nullable String[] whereArgs) {
         int count;
-        String alarmId;
+        String id = null;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+
         switch (sURIMatcher.match(uri)) {
+            case ALARMS -> count = db.update(ALARMS_TABLE_NAME, values, where, whereArgs);
+
             case ALARMS_ID -> {
-                alarmId = uri.getLastPathSegment();
-                count = db.update(ALARMS_TABLE_NAME, values, AlarmsColumns._ID + "=" + alarmId, null);
+                id = uri.getLastPathSegment();
+                count = db.update(ALARMS_TABLE_NAME, values, AlarmsColumns._ID + "=" + id, null);
             }
+
             case INSTANCES_ID -> {
-                alarmId = uri.getLastPathSegment();
-                count = db.update(INSTANCES_TABLE_NAME, values, InstancesColumns._ID + "=" + alarmId, null);
+                id = uri.getLastPathSegment();
+                count = db.update(INSTANCES_TABLE_NAME, values, InstancesColumns._ID + "=" + id, null);
             }
+
+            case CATEGORIES_ID -> {
+                id = uri.getLastPathSegment();
+                count = db.update(ClockDatabaseHelper.CATEGORIES_TABLE_NAME, values,
+                    ClockContract.CategoryColumns._ID + "=" + id, null);
+            }
+
             default -> throw new UnsupportedOperationException("Cannot update URI: " + uri);
         }
 
-        LogUtils.v("*** notifyChange() id: " + alarmId + " url " + uri);
+        LogUtils.v("*** notifyChange() id: " + id + " url " + uri);
         notifyChange(uri);
         return count;
     }
@@ -280,6 +312,7 @@ public class ClockProvider extends ContentProvider {
         rowId = switch (sURIMatcher.match(uri)) {
             case ALARMS -> mOpenHelper.fixAlarmInsert(initialValues);
             case INSTANCES -> db.insert(INSTANCES_TABLE_NAME, null, initialValues);
+            case CATEGORIES -> db.insert(ClockDatabaseHelper.CATEGORIES_TABLE_NAME, null, initialValues);
             default -> throw new IllegalArgumentException("Cannot insert from URI: " + uri);
         };
 
@@ -295,6 +328,7 @@ public class ClockProvider extends ContentProvider {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (sURIMatcher.match(uri)) {
             case ALARMS -> count = db.delete(ALARMS_TABLE_NAME, where, whereArgs);
+
             case ALARMS_ID -> {
                 primaryKey = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(where)) {
@@ -304,7 +338,9 @@ public class ClockProvider extends ContentProvider {
                 }
                 count = db.delete(ALARMS_TABLE_NAME, where, whereArgs);
             }
+
             case INSTANCES -> count = db.delete(INSTANCES_TABLE_NAME, where, whereArgs);
+
             case INSTANCES_ID -> {
                 primaryKey = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(where)) {
@@ -314,10 +350,23 @@ public class ClockProvider extends ContentProvider {
                 }
                 count = db.delete(INSTANCES_TABLE_NAME, where, whereArgs);
             }
+
+            case CATEGORIES -> count = db.delete(ClockDatabaseHelper.CATEGORIES_TABLE_NAME, where, whereArgs);
+
+            case CATEGORIES_ID -> {
+                primaryKey = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(where)) {
+                    where = ClockContract.CategoryColumns._ID + "=" + primaryKey;
+                } else {
+                    where = ClockContract.CategoryColumns._ID + "=" + primaryKey + " AND (" + where + ")";
+                }
+                count = db.delete(ClockDatabaseHelper.CATEGORIES_TABLE_NAME, where, whereArgs);
+            }
             default -> throw new IllegalArgumentException("Cannot delete from URI: " + uri);
         }
 
         notifyChange(uri);
+
         return count;
     }
 

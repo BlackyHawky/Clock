@@ -307,6 +307,44 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/timezone_layout" />
 
+                <LinearLayout
+                    android:id="@+id/alarm_category_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="2dp"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_label">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/category_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_folder"
+                        android:paddingStart="@null"
+                        android:paddingEnd="10dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:focusable="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/label_category" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/category_value"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="end|center_vertical"
+                        android:focusable="true"
+                        android:maxLines="3"
+                        tools:text="Work" />
+
+                </LinearLayout>
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/choose_ringtone"
                     android:layout_width="0dp"
@@ -326,7 +364,7 @@
                     android:singleLine="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/edit_label"
+                    app:layout_constraintTop_toBottomOf="@id/alarm_category_layout"
                     tools:text="Standard (Hassium)" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox

@@ -120,48 +120,6 @@ public final class ClockContract {
         String ALARM_VOLUME = "alarmVolume";
 
         /**
-         * Manuel sort order.
-         * <p>Type: INTEGER</p>
-         */
-        String MANUAL_SORT_ORDER = "manualSortOrder";
-
-        /**
-         * Start of the pause.
-         * <p>Type: LONG</p>
-         */
-        String PAUSE_START_DATE = "pauseStartDate";
-
-        /**
-         * End of the pause.
-         * <p>Type: LONG</p>
-         */
-        String PAUSE_END_DATE = "pauseEndDate";
-
-        /**
-         * The alarm background image
-         * Type: STRING
-         */
-        String BACKGROUND_IMAGE = "backgroundImage";
-
-        /**
-         * The blur intensity of the alarm background image
-         * Type: INTEGER
-         */
-        String BLUR_INTENSITY = "blurIntensity";
-
-        /**
-         * The math hardness level to dismiss or snooze the alarms
-         * Type: STRING
-         */
-        String MATH_HARDNESS_LEVEL = "mathHardnessLevel";
-
-        /**
-         * True if alarm is locked
-         * <p>Type: BOOLEAN</p>
-         */
-        String LOCK = "lock";
-
-        /**
          * The alarm timezone
          * <p>Type: STRING</p>
          */
@@ -171,7 +129,7 @@ public final class ClockContract {
     /**
      * Constants for the Alarms table, which contains the user created alarms.
      */
-    protected interface AlarmsColumns extends AlarmSettingColumns, BaseColumns {
+    public interface AlarmsColumns extends AlarmSettingColumns, BaseColumns {
 
         /**
          * The content:// style URL for this table.
@@ -236,6 +194,54 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String DELETE_AFTER_USE = "delete_after_use";
+
+        /**
+         * Manuel sort order.
+         * <p>Type: INTEGER</p>
+         */
+        String MANUAL_SORT_ORDER = "manualSortOrder";
+
+        /**
+         * Start of the pause.
+         * <p>Type: LONG</p>
+         */
+        String PAUSE_START_DATE = "pauseStartDate";
+
+        /**
+         * End of the pause.
+         * <p>Type: LONG</p>
+         */
+        String PAUSE_END_DATE = "pauseEndDate";
+
+        /**
+         * The alarm background image
+         * Type: STRING
+         */
+        String BACKGROUND_IMAGE = "backgroundImage";
+
+        /**
+         * The blur intensity of the alarm background image
+         * Type: INTEGER
+         */
+        String BLUR_INTENSITY = "blurIntensity";
+
+        /**
+         * The math hardness level to dismiss or snooze the alarms
+         * Type: STRING
+         */
+        String MATH_HARDNESS_LEVEL = "mathHardnessLevel";
+
+        /**
+         * True if alarm is locked
+         * <p>Type: BOOLEAN</p>
+         */
+        String LOCK = "lock";
+
+        /**
+         * The categories where alarms are stored (Formatted as a comma-separated string, e.g. ",0,3,15,")
+         * Type: TEXT
+         */
+        String CATEGORY_IDS = "categoryIds";
     }
 
     /**
@@ -353,4 +359,27 @@ public final class ClockContract {
          */
         String MISSED_ALARM_REPEAT_COUNT = "missed_alarm_repeat_count";
     }
+
+    public interface CategoryColumns extends BaseColumns {
+
+        /**
+         * The content:// style URL for this table.
+         */
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/categories");
+
+        /**
+         * The name of the category (e.g. "Work", "Study").
+         *
+         * <p>Type: STRING</p>
+         */
+        String NAME = "name";
+
+        /**
+         * The manual sort order of the category to arrange the tabs.
+         *
+         * <p>Type: INTEGER</p>
+         */
+        String SORT_ORDER = "sort_order";
+    }
+
 }

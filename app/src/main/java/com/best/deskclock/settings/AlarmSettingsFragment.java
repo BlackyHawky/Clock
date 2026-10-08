@@ -53,6 +53,7 @@ import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationStartDelayDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.ClockContract;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.custompreference.AlarmMathHardnessLevelPreference;
 import com.best.deskclock.settings.custompreference.AlarmNotificationReminderPreference;
@@ -72,6 +73,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmSettingsFragment extends BaseSettingsScreenFragment
@@ -151,6 +153,11 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     ListPreference mSortAlarmPref;
     SwitchPreferenceCompat mDisplayEnabledAlarmsFirstPref;
     SwitchPreferenceCompat mDisplayLockedAlarmsFirstPref;
+    SwitchPreferenceCompat mEnableAlarmSortingByCategoryPref;
+    ListPreference mDefaultCategoryPref;
+    SwitchPreferenceCompat mShouldSwitchToNewCategoryPref;
+    SwitchPreferenceCompat mDisplayEnabledAlarmBadgePref;
+    SwitchPreferenceCompat mDeleteAlarmsWithCategoryPref;
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
     SwitchPreferenceCompat mDisplayDismissButtonPref;
@@ -267,6 +274,11 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mSortAlarmPref = findPreference(KEY_SORT_ALARM);
         mDisplayEnabledAlarmsFirstPref = findPreference(KEY_DISPLAY_ENABLED_ALARMS_FIRST);
         mDisplayLockedAlarmsFirstPref = findPreference(KEY_DISPLAY_LOCKED_ALARMS_FIRST);
+        mEnableAlarmSortingByCategoryPref = findPreference(KEY_ENABLE_ALARM_SORTING_BY_CATEGORY);
+        mDefaultCategoryPref = findPreference(KEY_DEFAULT_ALARM_CATEGORY);
+        mShouldSwitchToNewCategoryPref = findPreference(KEY_SWITCH_TO_NEW_CATEGORY);
+        mDisplayEnabledAlarmBadgePref = findPreference(KEY_DISPLAY_ENABLED_ALARM_BADGE);
+        mDeleteAlarmsWithCategoryPref = findPreference(KEY_DELETE_ALARMS_WITH_CATEGORY);
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
@@ -350,8 +362,18 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         switch (pref.getKey()) {
             case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
+                 KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
                  KEY_ENABLE_ALARM_FAB_LONG_PRESS, KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            case KEY_ENABLE_ALARM_SORTING_BY_CATEGORY -> {
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                final boolean isAlarmSortingByCategoryEnabled = (boolean) newValue;
+                mDisplayEnabledAlarmBadgePref.setVisible(isAlarmSortingByCategoryEnabled);
+                mDeleteAlarmsWithCategoryPref.setVisible(isAlarmSortingByCategoryEnabled);
+                mShouldSwitchToNewCategoryPref.setVisible(isAlarmSortingByCategoryEnabled);
+            }
 
             case KEY_ENABLE_PER_ALARM_AUTO_SILENCE -> {
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -694,6 +716,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     private void setupPreferences() {
         final boolean isAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs());
         final boolean isAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs());
+        final boolean areSortedByCategory = SettingsDAO.areAlarmsSortedByCategory(getPrefs());
 
         mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
 
@@ -786,6 +809,19 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         mDisplayLockedAlarmsFirstPref.setOnPreferenceChangeListener(this);
 
+        mEnableAlarmSortingByCategoryPref.setOnPreferenceChangeListener(this);
+
+        setupDefaultCategoryPref();
+
+        mShouldSwitchToNewCategoryPref.setVisible(areSortedByCategory);
+        mShouldSwitchToNewCategoryPref.setOnPreferenceChangeListener(this);
+
+        mDisplayEnabledAlarmBadgePref.setVisible(areSortedByCategory);
+        mDisplayEnabledAlarmBadgePref.setOnPreferenceChangeListener(this);
+
+        mDeleteAlarmsWithCategoryPref.setVisible(areSortedByCategory);
+        mDeleteAlarmsWithCategoryPref.setOnPreferenceChangeListener(this);
+
         mEnableAlarmFabLongPressPref.setOnPreferenceChangeListener(this);
 
         // Set the default first day of the week programmatically
@@ -805,6 +841,70 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
 
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
+    }
+
+    private void setupDefaultCategoryPref() {
+        mDefaultCategoryPref.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
+
+        Context appContext = requireContext().getApplicationContext();
+        ContentResolver cr = appContext.getContentResolver();
+
+        AppExecutors.getDiskIO().execute(() -> {
+            List<CharSequence> entriesList = new ArrayList<>();
+            List<CharSequence> valuesList = new ArrayList<>();
+
+            // Add the "Default" category in the first position
+            entriesList.add(getString(R.string.label_default));
+            valuesList.add(String.valueOf(Alarm.DEFAULT_CATEGORY_ID));
+
+            // Retrieve custom categories
+            try (Cursor cursor = cr.query(
+                ClockContract.CategoryColumns.CONTENT_URI,
+                new String[]{ClockContract.CategoryColumns._ID, ClockContract.CategoryColumns.NAME},
+                null,
+                null,
+                ClockContract.CategoryColumns.SORT_ORDER + " ASC"
+            )) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int idIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns._ID);
+                    int nameIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns.NAME);
+
+                    do {
+                        entriesList.add(cursor.getString(nameIndex));
+                        valuesList.add(String.valueOf(cursor.getLong(idIndex)));
+                    } while (cursor.moveToNext());
+                }
+            }
+
+            AppExecutors.getMainThread().post(() -> {
+                if (isAdded()) {
+                    boolean hasCustomCategories = entriesList.size() > 1;
+                    mDefaultCategoryPref.setVisible(hasCustomCategories);
+
+                    if (hasCustomCategories) {
+                        CharSequence[] entries = entriesList.toArray(new CharSequence[0]);
+                        CharSequence[] entryValues = valuesList.toArray(new CharSequence[0]);
+
+                        mDefaultCategoryPref.setEntries(entries);
+                        mDefaultCategoryPref.setEntryValues(entryValues);
+
+                        // If the category no longer exists, it reverts to "Default".
+                        String currentValue = mDefaultCategoryPref.getValue();
+                        boolean valueExists = false;
+                        for (CharSequence value : entryValues) {
+                            if (value.toString().equals(currentValue)) {
+                                valueExists = true;
+                                break;
+                            }
+                        }
+
+                        if (!valueExists) {
+                            mDefaultCategoryPref.setValue(String.valueOf(Alarm.DEFAULT_CATEGORY_ID));
+                        }
+                    }
+                }
+            });
+        });
     }
 
     private void setupFragmentResultListeners() {

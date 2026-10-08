@@ -647,6 +647,7 @@ public class HandleApiCalls extends Activity {
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(prefs);
         alarm.lock = false;
         alarm.timeZone = "";
+        alarm.categoryIds = new long[]{Alarm.DEFAULT_CATEGORY_ID};
     }
 
     @NonNull

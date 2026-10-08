@@ -20,6 +20,8 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -39,6 +41,7 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.ClockContract;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -56,6 +59,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -177,6 +181,26 @@ public class BackupAndRestoreManager {
         // Convert the alarms to a JSONArray
         JSONArray alarmsArray = new JSONArray();
         JSONArray alarmsWithDateArray = new JSONArray();
+        JSONArray categoriesArray = new JSONArray();
+
+        try (Cursor cursor = context.getContentResolver().query(
+            ClockContract.CategoryColumns.CONTENT_URI,
+            new String[]{ClockContract.CategoryColumns._ID, ClockContract.CategoryColumns.NAME},
+            null, null, ClockContract.CategoryColumns.SORT_ORDER + " ASC"
+        )) {
+            if (cursor != null && cursor.moveToFirst()) {
+                int idIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns._ID);
+                int nameIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns.NAME);
+                do {
+                    JSONObject categoryObject = new JSONObject();
+                    categoryObject.put("id", cursor.getLong(idIndex));
+                    categoryObject.put("name", cursor.getString(nameIndex));
+                    categoriesArray.put(categoryObject);
+                } while (cursor.moveToNext());
+            }
+        }
+
+        jsonObject.put("Alarm categories", categoriesArray);
 
         List<Alarm> alarms = Alarm.getAlarms(context.getContentResolver(), null);
         for (Alarm alarm : alarms) {
@@ -207,6 +231,16 @@ public class BackupAndRestoreManager {
             alarmObject.put("mathHardnessLevel", alarm.mathHardnessLevel);
             alarmObject.put("lock", alarm.lock);
             alarmObject.put("timeZone", alarm.timeZone);
+
+            JSONArray categoryIdsArray = new JSONArray();
+            if (alarm.categoryIds != null) {
+                for (long id : alarm.categoryIds) {
+                    categoryIdsArray.put(id);
+                }
+            } else {
+                categoryIdsArray.put(Alarm.DEFAULT_CATEGORY_ID);
+            }
+            alarmObject.put("categoryIds", categoryIdsArray);
 
             if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                 alarmsArray.put(alarmObject);
@@ -371,11 +405,54 @@ public class BackupAndRestoreManager {
             Alarm.deleteAlarm(contentResolver, alarm.id);
         }
 
+        Map<Long, Long> categoryIdMapping = new HashMap<>();
+        categoryIdMapping.put(Alarm.DEFAULT_CATEGORY_ID, Alarm.DEFAULT_CATEGORY_ID);
+
+        if (jsonObject.has("Alarm categories")) {
+            JSONArray categoriesArray = jsonObject.getJSONArray("Alarm categories");
+            for (int i = 0; i < categoriesArray.length(); i++) {
+                JSONObject catObj = categoriesArray.getJSONObject(i);
+                long oldId = catObj.optLong("id", -1);
+                String name = catObj.optString("name", "");
+
+                if (oldId != -1 && !TextUtils.isEmpty(name)) {
+                    long newId = -1;
+
+                    // Check if a category with this name already exists.
+                    try (Cursor cursor = contentResolver.query(
+                        ClockContract.CategoryColumns.CONTENT_URI,
+                        new String[]{ClockContract.CategoryColumns._ID},
+                        ClockContract.CategoryColumns.NAME + "=?",
+                        new String[]{name}, null
+                    )) {
+                        if (cursor != null && cursor.moveToFirst()) {
+                            // If it exists, retrieve its current ID.
+                            newId = cursor.getLong(0);
+                        }
+                    }
+
+                    // If it does not exist, create it.
+                    if (newId == -1) {
+                        ContentValues values = new ContentValues();
+                        values.put(ClockContract.CategoryColumns.NAME, name);
+                        Uri newUri = contentResolver.insert(ClockContract.CategoryColumns.CONTENT_URI, values);
+                        if (newUri != null) {
+                            newId = ContentUris.parseId(newUri);
+                        }
+                    }
+
+                    if (newId != -1) {
+                        categoryIdMapping.put(oldId, newId);
+                    }
+                }
+            }
+        }
+
         if (jsonObject.has("Alarms")) {
             JSONArray alarmsArray = jsonObject.getJSONArray("Alarms");
             for (int i = 0; i < alarmsArray.length(); i++) {
                 JSONObject alarmObject = alarmsArray.getJSONObject(i);
-                restoreAlarm(context, prefs, contentResolver, alarmObject, false);
+                restoreAlarm(context, prefs, contentResolver, alarmObject, false, categoryIdMapping);
             }
         }
 
@@ -383,7 +460,7 @@ public class BackupAndRestoreManager {
             JSONArray alarmsWithDateArray = jsonObject.getJSONArray("Alarms with specified date");
             for (int i = 0; i < alarmsWithDateArray.length(); i++) {
                 JSONObject alarmObject = alarmsWithDateArray.getJSONObject(i);
-                restoreAlarm(context, prefs, contentResolver, alarmObject, true);
+                restoreAlarm(context, prefs, contentResolver, alarmObject, true, categoryIdMapping);
             }
         }
 
@@ -395,7 +472,8 @@ public class BackupAndRestoreManager {
      * If the alarm is enabled, a future instance will be scheduled.
      */
     private static void restoreAlarm(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull ContentResolver contentResolver,
-                                     @NonNull JSONObject alarmObject, boolean hasSpecifiedDate) throws JSONException {
+                                     @NonNull JSONObject alarmObject, boolean hasSpecifiedDate,
+                                     @NonNull Map<Long, Long> categoryIdMapping) throws JSONException {
 
         AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
@@ -425,6 +503,29 @@ public class BackupAndRestoreManager {
         String mathHardnessLevel = alarmObject.optString("mathHardnessLevel", DEFAULT_MATH_HARDNESS_LEVEL);
         boolean lock = alarmObject.optBoolean("lock", false);
         String timeZone = alarmObject.optString("timeZone", "");
+        long[] categoryIds = new long[]{Alarm.DEFAULT_CATEGORY_ID};
+        JSONArray catIdsArray = alarmObject.optJSONArray("categoryIds");
+
+        if (catIdsArray != null && catIdsArray.length() > 0) {
+            List<Long> mappedIds = new ArrayList<>();
+
+            for (int i = 0; i < catIdsArray.length(); i++) {
+                long oldId = catIdsArray.optLong(i, Alarm.DEFAULT_CATEGORY_ID);
+
+                if (categoryIdMapping.containsKey(oldId)) {
+                    mappedIds.add(categoryIdMapping.get(oldId));
+                } else {
+                    mappedIds.add(Alarm.DEFAULT_CATEGORY_ID);
+                }
+            }
+
+            if (!mappedIds.isEmpty()) {
+                categoryIds = new long[mappedIds.size()];
+                for (int i = 0; i < mappedIds.size(); i++) {
+                    categoryIds[i] = mappedIds.get(i);
+                }
+            }
+        }
 
         if (!TextUtils.isEmpty(oldBackgroundImage)) {
             String fileName = new File(oldBackgroundImage).getName();
@@ -470,7 +571,7 @@ public class BackupAndRestoreManager {
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
             missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate, newBackgroundImage,
-            blurIntensity, mathHardnessLevel, lock, timeZone);
+            blurIntensity, mathHardnessLevel, lock, timeZone, categoryIds);
 
         restoredAlarm.addAlarm(contentResolver);
 

@@ -133,6 +133,8 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
 
             if (i == currentIndex) {
                 radioButton.setChecked(true);
+                // Prevent the RadioButton animation on the currently selected item when the Dialog opens.
+                radioButton.jumpDrawablesToCurrentState();
             }
 
             radioButton.setOnClickListener(v -> {

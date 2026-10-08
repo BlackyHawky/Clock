@@ -197,6 +197,29 @@
         <item name="colorSurfaceContainerHigh">?attr/colorSurface</item>
     </style>
 
+    <!-- ================ -->
+    <!--    ALARM TABS    -->
+    <!-- ================ -->
+    <style name="CustomTabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabGravity">start</item>
+        <item name="tabPaddingStart">16dp</item>
+        <item name="tabPaddingEnd">16dp</item>
+        <item name="tabTextAppearance">@style/CustomTabTextStyle</item>
+    </style>
+
+    <style name="CustomTabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
     <!-- ============ -->
     <!--    THEMES    -->
     <!-- ============ -->

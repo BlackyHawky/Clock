@@ -15,11 +15,13 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSE_ALARM_NOTE_H
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_WARNING_HIDDEN;
 
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -61,6 +63,7 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.databinding.AlarmEditBottomSheetBinding;
 import com.best.deskclock.databinding.DeskClockBinding;
+import com.best.deskclock.dialogfragment.AlarmCategoryDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
@@ -79,6 +82,7 @@ import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.ClockContract;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
@@ -106,6 +110,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -504,6 +509,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindPauseAlarm();
         bindTimeZone();
         bindLabel();
+        bindCategory();
         bindRingtone();
         bindVibrator();
         bindVibrationPattern();
@@ -538,6 +544,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             if (!tooltipText.isEmpty()) {
                 CustomTooltip.showBelow(v, mGeneralTypeface, mDisplayMetrics, tooltipText);
             }
+
             return true;
         });
     }
@@ -768,6 +775,57 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             final LabelDialogFragment fragment = LabelDialogFragment.newInstance(mAlarm.label, mAlarm.syncByLabel);
             LabelDialogFragment.show(getChildFragmentManager(), fragment);
+        });
+    }
+
+    private void bindCategory() {
+        if (!SettingsDAO.areAlarmsSortedByCategory(mPrefs)) {
+            mBinding.alarmCategoryLayout.setVisibility(GONE);
+            return;
+        }
+
+        Context appContext = requireContext().getApplicationContext();
+        ContentResolver cr = appContext.getContentResolver();
+
+        AppExecutors.getDiskIO().execute(() -> {
+            boolean hasCustomCategories = false;
+
+            try (Cursor cursor = cr.query(
+                ClockContract.CategoryColumns.CONTENT_URI,
+                new String[]{ClockContract.CategoryColumns._ID},
+                null,
+                null,
+                null
+            )) {
+                if (cursor != null && cursor.getCount() > 0) {
+                    hasCustomCategories = true;
+                }
+            }
+
+            final boolean isCategorySelectable = hasCustomCategories;
+
+            AppExecutors.getMainThread().post(() -> {
+                if (mBinding == null || !isAdded()) {
+                    return;
+                }
+
+                if (isCategorySelectable) {
+                    mBinding.alarmCategoryLayout.setVisibility(VISIBLE);
+
+                    updateCategoryText(appContext, cr, mAlarm.categoryIds);
+
+                    mBinding.alarmCategoryLayout.setOnClickListener(v -> {
+                        Events.sendAlarmEvent(R.string.action_set_category, R.string.label_deskclock);
+
+                        final AlarmCategoryDialogFragment fragment = AlarmCategoryDialogFragment.newInstance(mAlarm.categoryIds);
+                        AlarmCategoryDialogFragment.show(getChildFragmentManager(), fragment);
+                    });
+                } else {
+                    mBinding.alarmCategoryLayout.setVisibility(GONE);
+
+                    mAlarm.categoryIds = new long[]{Alarm.DEFAULT_CATEGORY_ID};
+                }
+            });
         });
     }
 
@@ -1270,6 +1328,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 applyDate(year, month, day);
             });
 
+        childFragmentManager.setFragmentResultListener(
+            AlarmCategoryDialogFragment.REQUEST_KEY, this, (requestKey, result) -> {
+              mAlarm.categoryIds = result.getLongArray(AlarmCategoryDialogFragment.RESULT_CATEGORY_IDS);
+
+                bindCategory();
+            });
+
         childFragmentManager.setFragmentResultListener(AlarmTimeZoneDialogFragment.REQUEST_KEY, this,
             (requestKey, bundle) -> {
                 boolean wasNotSpecified = !mAlarm.isSpecifiedDate();
@@ -1516,6 +1581,73 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.scheduleAlarm.setText(getString(text));
     }
 
+    private void updateCategoryText(@NonNull Context appContext, @NonNull ContentResolver contentResolver, long[] categoryIds) {
+        if (categoryIds == null || categoryIds.length == 0) {
+            mBinding.categoryValue.setText(R.string.label_default);
+            mAlarm.categoryIds = new long[]{Alarm.DEFAULT_CATEGORY_ID};
+            return;
+        }
+
+        AppExecutors.getDiskIO().execute(() -> {
+            List<String> names = new ArrayList<>();
+            List<String> queryIds = new ArrayList<>();
+            boolean hasDefault = false;
+
+            // Separate the "0" (Default) ID from the actual IDs stored in the database.
+            for (long id : categoryIds) {
+                if (id == Alarm.DEFAULT_CATEGORY_ID) {
+                    hasDefault = true;
+                } else {
+                    queryIds.add(String.valueOf(id));
+                }
+            }
+
+            if (hasDefault) {
+                names.add(appContext.getString(R.string.label_default));
+            }
+
+            // If there are custom categories, retrieve them all in a single query.
+            if (!queryIds.isEmpty()) {
+                StringBuilder placeholders = new StringBuilder();
+                for (int i = 0; i < queryIds.size(); i++) {
+                    placeholders.append("?");
+                    if (i < queryIds.size() - 1) {
+                        placeholders.append(",");
+                    }
+                }
+
+                try (Cursor cursor = contentResolver.query(
+                    ClockContract.CategoryColumns.CONTENT_URI,
+                    new String[]{ClockContract.CategoryColumns.NAME},
+                    ClockContract.CategoryColumns._ID + " IN (" + placeholders + ")",
+                    queryIds.toArray(new String[0]),
+                    ClockContract.CategoryColumns.SORT_ORDER + " ASC" // Respect the sort order
+                )) {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        int nameIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns.NAME);
+                        do {
+                            names.add(cursor.getString(nameIndex));
+                        } while (cursor.moveToNext());
+                    }
+                }
+            }
+
+            // Assemble the final text (e.g., "Default, Work, Sport")
+            final String finalNames = TextUtils.join(", ", names);
+
+            AppExecutors.getMainThread().post(() -> {
+                if (mBinding != null && isAdded()) {
+                    if (names.isEmpty()) {
+                        mBinding.categoryValue.setText(R.string.label_default);
+                        mAlarm.categoryIds = new long[]{Alarm.DEFAULT_CATEGORY_ID};
+                    } else {
+                        mBinding.categoryValue.setText(finalNames);
+                    }
+                }
+            });
+        });
+    }
+
     private void duplicateAlarm(@NonNull View view) {
         view.setOnClickListener(v -> {
             Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -1704,6 +1836,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mCardStyleConfig.isBorderDisplayed(),
             mCardStyleConfig.isAmoledDarkMode(),
             mBinding.editLabel,
+            mBinding.alarmCategoryLayout,
             mBinding.chooseRingtone
         );
 

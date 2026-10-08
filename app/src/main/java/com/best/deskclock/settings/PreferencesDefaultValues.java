@@ -135,6 +135,10 @@ public class PreferencesDefaultValues {
     public static final String SORT_ALARM_MANUALLY = "5";
     public static final boolean DEFAULT_DISPLAY_ENABLED_ALARMS_FIRST = false;
     public static final boolean DEFAULT_DISPLAY_LOCKED_ALARMS_FIRST = false;
+    public static final boolean DEFAULT_ENABLE_ALARM_SORTING_BY_CATEGORY = false;
+    public static final boolean DEFAULT_SWITCH_TO_NEW_CATEGORY = true;
+    public static final boolean DEFAULT_DISPLAY_ENABLED_ALARM_BADGE = false;
+    public static final boolean DEFAULT_DELETE_ALARMS_WITH_CATEGORY = false;
     public static final boolean DEFAULT_ENABLE_ALARM_FAB_LONG_PRESS = false;
     public static final String DEFAULT_WEEK_START = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
     public static final boolean DEFAULT_DISPLAY_DISMISS_BUTTON = false;

@@ -31,6 +31,7 @@ import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.DataModel.HeadphonesButtonBehavior;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -1151,6 +1152,47 @@ public final class SettingsDAO {
     public static boolean areLockedAlarmsDisplayedFirst(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return prefs.getBoolean(KEY_DISPLAY_LOCKED_ALARMS_FIRST, DEFAULT_DISPLAY_LOCKED_ALARMS_FIRST);
+    }
+
+    /**
+     * @return {@code true} if alarms are sorted by category; {@code false} otherwise.
+     */
+    public static boolean areAlarmsSortedByCategory(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_ALARM_SORTING_BY_CATEGORY, DEFAULT_ENABLE_ALARM_SORTING_BY_CATEGORY);
+    }
+
+    /**
+     * @return the ID of the category tab that should be selected by default upon opening the app.
+     */
+    public static long getDefaultAlarmCategory(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        String defaultCategoryIdStr = String.valueOf(Alarm.DEFAULT_CATEGORY_ID);
+        final String categoryIdString = prefs.getString(KEY_DEFAULT_ALARM_CATEGORY, defaultCategoryIdStr);
+        return Long.parseLong(categoryIdString);
+    }
+
+    /**
+     * @return {@code true} if the app should automatically switch to a newly created category tab; {@code false} otherwise.
+     */
+    public static boolean shouldSwitchToNewCategory(@NonNull SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SWITCH_TO_NEW_CATEGORY, DEFAULT_SWITCH_TO_NEW_CATEGORY);
+    }
+
+    /**
+     * @return {@code true} if a badge is displayed when alarms are enabled; {@code false} otherwise.
+     */
+    public static boolean isEnabledAlarmBadgeDisplayed(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_DISPLAY_ENABLED_ALARM_BADGE, DEFAULT_DISPLAY_ENABLED_ALARM_BADGE);
+    }
+
+    /**
+     * @return {@code true} if alarms inside a category should be deleted when the category is deleted; {@code false} otherwise.
+     */
+    public static boolean areAlarmsDeletedWithCategory(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_DELETE_ALARMS_WITH_CATEGORY, DEFAULT_DELETE_ALARMS_WITH_CATEGORY);
     }
 
     /**

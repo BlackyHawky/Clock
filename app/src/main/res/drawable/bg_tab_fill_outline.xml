@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/tab_ripple_color">
+
+    <item android:id="@android:id/mask"
+        android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/black" />
+            <corners android:radius="200dp" />
+        </shape>
+    </item>
+
+    <item
+        android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp"
+        android:drawable="@drawable/bg_tab_selector_fill_outline" />
+
+</ripple>

@@ -31,6 +31,8 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +44,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * Alarms start with an invalid id when it hasn't been saved to the database.
      */
     public static final long INVALID_ID = -1;
+
+    public static final long DEFAULT_CATEGORY_ID = 0;
 
     public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<>() {
         @NonNull
@@ -83,7 +87,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         BLUR_INTENSITY,
         MATH_HARDNESS_LEVEL,
         LOCK,
-        TIMEZONE
+        TIMEZONE,
+        CATEGORY_IDS
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -114,6 +119,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MATH_HARDNESS_LEVEL,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LOCK,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + TIMEZONE,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + CATEGORY_IDS,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -166,28 +172,29 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int MATH_HARDNESS_LEVEL_INDEX = 25;
     private static final int LOCK_INDEX = 26;
     private static final int TIMEZONE_INDEX = 27;
+    private static final int CATEGORY_ID_INDEX = 28;
 
-    private static final int INSTANCE_STATE_INDEX = 28;
-    public static final int INSTANCE_ID_INDEX = 29;
-    public static final int INSTANCE_YEAR_INDEX = 30;
-    public static final int INSTANCE_MONTH_INDEX = 31;
-    public static final int INSTANCE_DAY_INDEX = 32;
-    public static final int INSTANCE_HOUR_INDEX = 33;
-    public static final int INSTANCE_MINUTE_INDEX = 34;
-    public static final int INSTANCE_LABEL_INDEX = 35;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 36;
-    public static final int INSTANCE_VIBRATE_INDEX = 37;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 38;
-    public static final int INSTANCE_FLASH_INDEX = 39;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 40;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 41;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 42;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 43;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 44;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 45;
-    public static final int INSTANCE_TIMEZONE_INDEX = 46;
+    private static final int INSTANCE_STATE_INDEX = 29;
+    public static final int INSTANCE_ID_INDEX = 30;
+    public static final int INSTANCE_YEAR_INDEX = 31;
+    public static final int INSTANCE_MONTH_INDEX = 32;
+    public static final int INSTANCE_DAY_INDEX = 33;
+    public static final int INSTANCE_HOUR_INDEX = 34;
+    public static final int INSTANCE_MINUTE_INDEX = 35;
+    public static final int INSTANCE_LABEL_INDEX = 36;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 37;
+    public static final int INSTANCE_VIBRATE_INDEX = 38;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 39;
+    public static final int INSTANCE_FLASH_INDEX = 40;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 41;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 42;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 43;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 44;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 45;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 46;
+    public static final int INSTANCE_TIMEZONE_INDEX = 47;
 
-    private static final int COLUMN_COUNT = TIMEZONE_INDEX + 1;
+    private static final int COLUMN_COUNT = CATEGORY_ID_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_TIMEZONE_INDEX + 1;
     // Public fields
     public long id;
@@ -220,6 +227,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String mathHardnessLevel;
     public boolean lock;
     public String timeZone;
+    public long[] categoryIds;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -258,6 +266,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.mathHardnessLevel = DEFAULT_MATH_HARDNESS_LEVEL;
         this.lock = false;
         this.timeZone = "";
+        this.categoryIds = new long[]{DEFAULT_CATEGORY_ID};
     }
 
     // Used to back up/restore the alarm
@@ -266,7 +275,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                  @NonNull String alert, boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit,
                  int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
                  @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel, boolean lock,
-                 @NonNull String timeZone) {
+                 @NonNull String timeZone, long[] categoryIds) {
 
         this.id = id;
         this.enabled = enabled;
@@ -296,6 +305,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.mathHardnessLevel = mathHardnessLevel;
         this.lock = lock;
         this.timeZone = timeZone;
+        this.categoryIds = categoryIds;
     }
 
     // Used to create a clone of the given alarm
@@ -329,6 +339,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.mathHardnessLevel = original.mathHardnessLevel;
         this.lock = original.lock;
         this.timeZone = original.timeZone;
+        this.categoryIds = original.categoryIds;
     }
 
     public Alarm(@NonNull Cursor c) {
@@ -359,6 +370,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         mathHardnessLevel = c.getString(MATH_HARDNESS_LEVEL_INDEX);
         lock = c.getInt(LOCK_INDEX) == 1;
         timeZone = c.getString(TIMEZONE_INDEX);
+        String categoriesStr = c.getString(CATEGORY_ID_INDEX);
+        categoryIds = parseCategoryIds(categoriesStr);
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -402,6 +415,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         mathHardnessLevel = p.readString();
         lock = p.readInt() == 1;
         timeZone = p.readString();
+        categoryIds = p.createLongArray();
     }
 
     @NonNull
@@ -437,6 +451,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(MATH_HARDNESS_LEVEL, mathHardnessLevel);
         values.put(LOCK, lock ? 1 : 0);
         values.put(TIMEZONE, timeZone);
+        values.put(CATEGORY_IDS, formatCategoryIds(categoryIds));
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -477,6 +492,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(mathHardnessLevel);
         p.writeInt(lock ? 1 : 0);
         p.writeString(timeZone);
+        p.writeLongArray(categoryIds);
     }
 
     public int describeContents() {
@@ -507,7 +523,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     @NonNull
     public static CursorLoader getAlarmsCursorLoader(@NonNull Context context, @NonNull String sortingPref, boolean areEnabledAlarmsFirst,
-                                                     boolean areLockedAlarmsFirst) {
+                                                     boolean areLockedAlarmsFirst, boolean isSortedByCategory, long categoryId) {
 
         StringBuilder sortOrder = new StringBuilder();
 
@@ -539,7 +555,17 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     .append(ClockDatabaseHelper.ALARMS_TABLE_NAME).append(".").append(_ID).append(" DESC");
         }
 
-        return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI, QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, sortOrder.toString()) {
+        String selection = null;
+        String[] selectionArgs = null;
+
+        if (isSortedByCategory) {
+            selection = CATEGORY_IDS + " LIKE ?";
+            selectionArgs = new String[]{ "%," + categoryId + ",%" };
+        }
+
+        return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI, QUERY_ALARMS_WITH_INSTANCES_COLUMNS, selection, selectionArgs,
+            sortOrder.toString()) {
+
             @Override
             public Cursor loadInBackground() {
                 // Prime the ringtone title cache for later access. Most alarms will refer to system ringtones.
@@ -601,7 +627,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public static List<Alarm> getEnabledAlarms(@NonNull Context context) {
         final String selection = String.format("%s=?", Alarm.ENABLED);
         final String[] args = {"1"};
-        return Alarm.getAlarms(context.getContentResolver(), selection, args);
+        return getAlarms(context.getContentResolver(), selection, args);
     }
 
     public Alarm addAlarm(@NonNull ContentResolver contentResolver) {
@@ -711,7 +737,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || !Objects.equals(backgroundImage, other.backgroundImage)
             || blurIntensity != other.blurIntensity
             || !Objects.equals(mathHardnessLevel, other.mathHardnessLevel)
-            || lock != other.lock;
+            || lock != other.lock
+            || categoryIds != other.categoryIds;
     }
 
     public boolean isTomorrow(@NonNull Calendar now) {
@@ -1067,6 +1094,49 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return TextUtils.isEmpty(timeZone) ? TimeZone.getDefault() : TimeZone.getTimeZone(timeZone);
     }
 
+    /**
+     * Converts the database string (e.g., ",0,5,") into an array [0, 5]
+     */
+    public static long[] parseCategoryIds(String dbString) {
+        if (TextUtils.isEmpty(dbString)) {
+            return new long[]{DEFAULT_CATEGORY_ID};
+        }
+
+        String[] parts = dbString.split(",");
+        List<Long> tempList = new ArrayList<>();
+
+        for (String part : parts) {
+            if (!part.isEmpty()) {
+                try {
+                    tempList.add(Long.parseLong(part));
+                } catch (NumberFormatException ignored) {}
+            }
+        }
+
+        long[] result = new long[tempList.size()];
+        for (int i = 0; i < tempList.size(); i++) {
+            result[i] = tempList.get(i);
+        }
+
+        return result;
+    }
+
+    /**
+     * Convert the array [0, 5] into a string for the database (e.g., ",0,5,").
+     */
+    public static String formatCategoryIds(long[] ids) {
+        if (ids == null || ids.length == 0) {
+            return "," + DEFAULT_CATEGORY_ID + ",";
+        }
+
+        StringBuilder sb = new StringBuilder(",");
+        for (long id : ids) {
+            sb.append(id).append(",");
+        }
+
+        return sb.toString();
+    }
+
     @Override
     public boolean equals(@Nullable Object o) {
         if (!(o instanceof final Alarm other)) return false;
@@ -1110,6 +1180,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", mathHardnessLevel=" + mathHardnessLevel +
             ", lock=" + lock +
             ", timeZone=" + timeZone +
+            ", categoryIds=" + Arrays.toString(categoryIds) +
             '}';
     }
 
