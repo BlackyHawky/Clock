@@ -2471,25 +2471,4 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mActiveDialog.show();
     }
 
-    private void showCombinedDaysNoteDialog() {
-        mActiveDialog = CustomDialog.create(
-            requireContext(),
-            null,
-            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_help),
-            getString(R.string.info),
-            getString(R.string.combined_days_info_message),
-            null,
-            getString(android.R.string.ok),
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            CustomDialog.SoftInputMode.NONE
-        );
-
-        mActiveDialog.show();
-    }
-
 }
