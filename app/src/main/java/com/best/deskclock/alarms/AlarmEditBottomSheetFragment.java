@@ -2045,7 +2045,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mActiveDialog.show();
     }
 
-<<<<<<< HEAD
     private void showSnoozeNoteDialog() {
         mShowSnoozeNoteDialog = true;
 
