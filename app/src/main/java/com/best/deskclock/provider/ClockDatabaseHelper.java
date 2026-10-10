@@ -30,7 +30,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String ALARMS_TABLE_NAME = "alarm_templates";
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
 
-    private static final int DATABASE_VERSION = 30;
+    private static final int DATABASE_VERSION = 31;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(@Nullable Context context) {
@@ -325,6 +325,20 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     + " TEXT NOT NULL DEFAULT '';");
 
                 LogUtils.i("combinedDays column added for version 30 upgrade.");
+            }
+        }
+
+        if (oldVersion < 31) {
+            // Fork releases 2.32/2.33 and the old multi-date preview used schema version 28
+            // for combinedDays without adding the upstream lock column (also added upstream
+            // at v28). Their upgrades skipped the oldVersion < 28 branch above, and installs
+            // that already hit the no-such-column crash have version 30 with the column still
+            // missing — so add it whenever it is absent, regardless of the version number.
+            if (!columnExists(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.LOCK)) {
+                db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.LOCK
+                    + " INTEGER NOT NULL DEFAULT 0;");
+
+                LogUtils.i("lock column added for version 31 repair (was missing despite prior upgrade).");
             }
         }
     }
