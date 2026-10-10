@@ -2,7 +2,6 @@
 
 package com.best.deskclock.dialogfragment;
 
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 
 import android.graphics.Typeface;
@@ -107,9 +106,9 @@ public class DatePickerDialogFragment {
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
 
         // Set date picker style
-        builder.setInputMode(datePickerStyle.equals(DEFAULT_DATE_PICKER_STYLE)
-            ? MaterialDatePicker.INPUT_MODE_CALENDAR
-            : MaterialDatePicker.INPUT_MODE_TEXT);
+        builder.setInputMode(datePickerStyle.equals(SPINNER_DATE_PICKER_STYLE)
+            ? MaterialDatePicker.INPUT_MODE_TEXT
+            : MaterialDatePicker.INPUT_MODE_CALENDAR);
 
         Calendar now = Calendar.getInstance(alarm.getTimeZone());
         Calendar selectionDate = (Calendar) now.clone();
