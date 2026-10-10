@@ -43,6 +43,7 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -881,6 +882,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     container.post(() -> {
                         int index = container.indexOfChild(activePicker[0]);
                         if (index >= 0) {
+                            Calendar pickedCal = Calendar.getInstance();
+                            pickedCal.clear();
+                            pickedCal.set(year, month, day);
                             DatePicker fresh =
                                 (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
                             fresh.setMinDate(minMillis);
