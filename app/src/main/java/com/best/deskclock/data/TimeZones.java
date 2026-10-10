@@ -21,7 +21,7 @@ public record TimeZones(@NonNull CharSequence[] timeZoneIds, @NonNull CharSequen
      * @return the timezone name with the {@code timeZoneId}; {@code null} if it does not exist
      */
     @Nullable
-    CharSequence getTimeZoneName(@Nullable CharSequence timeZoneId) {
+    public CharSequence getTimeZoneName(@Nullable CharSequence timeZoneId) {
         for (int i = 0; i < timeZoneIds.length; i++) {
             if (TextUtils.equals(timeZoneId, timeZoneIds[i])) {
                 return timeZoneNames[i];

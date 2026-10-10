@@ -66,7 +66,6 @@ import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
-import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -677,10 +676,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
             int snoozeValue = mSnoozeSelectorValues[i];
 
             if (snoozeValue == -1) {
-                String defaultTimeStr = buildTimeString(mDefaultSnoozeMinutes);
+                String defaultTimeStr = AlarmUtils.getSnoozeText(this, mDefaultSnoozeMinutes, true);
                 mSnoozeSelectorEntries[i] = String.format("%s (%s)", getString(R.string.label_default), defaultTimeStr);
             } else {
-                String timeStr = buildTimeString(snoozeValue);
+                String timeStr = AlarmUtils.getSnoozeText(this, snoozeValue, true);
                 mSnoozeSelectorEntries[i] = getString(R.string.alarm_alert_snooze_text) + " " + timeStr;
             }
         }
@@ -786,17 +785,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         button.setIconTint(ColorStateList.valueOf(enabled ? symbolColor : Color.parseColor("#60E6E0E9")));
     }
 
-    private String buildTimeString(int totalMinutes) {
-        int hour = totalMinutes / 60;
-        int minute = totalMinutes % 60;
-
-        if (hour > 0) {
-            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.hours_short, hour);
-        } else {
-            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, minute);
-        }
-    }
-
     /**
      * Updates the displayed snooze text according to the current selector index.
      */
@@ -897,7 +885,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
             Utils.executeVibrations(mVibrator, new long[]{700, 200, 100, 500}, -1);
         }
 
-        displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, buildTimeString(mSnoozeSelectorIndex == 0 ? DEFAULT_SNOOZE_VALUE : mSnoozeMinutes));
+        displayAlarmActionMessage(R.string.alarm_alert_snoozed_text,
+            AlarmUtils.getSnoozeText(this, mSnoozeSelectorIndex == 0 ? DEFAULT_SNOOZE_VALUE : mSnoozeMinutes, false));
     }
 
     /**

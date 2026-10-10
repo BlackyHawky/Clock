@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Отложено"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Изключено</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Отлагане"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Отложено за 1 минута.</item>
-        <item quantity="other">Отложено за <xliff:g id="MINUTES">%d</xliff:g> минути.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Отложено до <xliff:g id="TIME">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Предстоящ будилник"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Пропуснатият будилник е премахнат</string>
@@ -134,7 +130,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Старт"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Премахване на <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">Добавяне на %s минути</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Добавяне на %s мин"</string>
     <string name="timer_stop" msgid="3361154678667736722">Стоп</string>
     <string name="timer_stop_all" msgid="9080780442843034376">Спиране на всички отброявания</string>
     <string name="timer_canceled" msgid="7327923392567128060">Отброяването е премахнато</string>
@@ -361,7 +356,6 @@
     <string name="display_enabled_alarms_first_title">Включените будилници се показват първи</string>
     <string name="enable_alarm_fab_long_press_title">Задържане върху бутона за будилници за след период</string>
     <string name="enable_alarm_fab_long_press_summary">Когато е изключено, ще бъдат показани два бутона за създаване на будилници</string>
-    <string name="date_picker_style_calendar">Календар</string>
     <string name="date_picker_style_text">Текст</string>
     <string name="alarm_settings_general_summary">Настройката може да бъде променена за всеки будилник поотделно в разширения преглед</string>
     <string name="slide_zone_color_title">Цвят на мястото за плъзване</string>
@@ -408,8 +402,6 @@
     <string name="timer_button_time_seconds_warning_box_text">Въведете стойност от 0 до 59 секунди</string>
     <string name="timer_time_warning_box_title">Въведена е неприемлива стойност</string>
     <string name="timer_add_custom_time_with_seconds_description">Добавяне на %1$s минути и %2$s секунди</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Добавяне на %1$s мин, %2$s сек</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Задаване на стила, часовия пояс и променяне на часа и датата</string>
     <string name="hide_clock_am_pm_pref">Скриване на текста AM/PM</string>
     <string name="clock_dial_with_numbers">С цифри</string>

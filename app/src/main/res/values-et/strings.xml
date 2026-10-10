@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">Edasilükatud</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Äratus väljas</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Lükka edasi"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Lükkame edasi <xliff:g example="1" id="minutes">%d</xliff:g> minuti võrra.</item>
-        <item quantity="other">Lükkame edasi <xliff:g example="10" id="minutes">%d</xliff:g> minuti võrra.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Lükkame äratuse edasi kuni <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Tulevane äratus"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Märkamata jäänud äratus on kustutatud</string>
@@ -134,7 +130,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Alusta"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Numbri <xliff:g id="number_string">%s</xliff:g> kustutamine</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Lisa %s minut"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Lisa %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">Lõpeta</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Kõigi taimerite peatamine"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Taimer on tühistatud"</string>
@@ -245,7 +240,6 @@
     <string name="style_category_title">Välimus</string>
     <string name="alarm_notification_reminder_title">Teavituse meeldetuletus</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Äratuse käivitamisel lülita vibreerimine sisse</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="app_slogan" tools:ignore="StringFormatInvalid">AOSP-l põhinev, 100% avatud lähtekoodiga kell</string>
     <string name="display_background_border_summary">See eelistus võimaldab mõnede rakenduse elementide (äratused, linnad, taimeri nupud, jne) puhul kuvada taustu äärejoontega</string>
     <string name="display_background_border_title">Kuva taustade äärejooni</string>
@@ -475,14 +469,12 @@
     <string name="settings_language_chinese_traditional_tw">hiina keel (traditsiooniline, Taivan)</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> äratusest on loobutud ja ta on kustutatud</string>
     <string name="alarm_scheduled_for">Ajastatud: %s</string>
-    <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_text">Tekst</string>
     <string name="date_picker_style_title">Kuupäevavalija stiil</string>
     <string name="schedule_alarm_title">Ajasta äratus</string>
     <string name="random_ringtone_title">Juhuslik helin</string>
     <string name="warning">Hoiatus</string>
     <string name="timer_button_time_seconds_warning_box_text">Sisesta väärtus 0 ja 59 sekundi vahemikust</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Lisa %1$s min %2$s sek</string>
     <string name="label_minutes">Minuteid</string>
     <string name="label_seconds">Sekundeid</string>
     <string name="timer_add_custom_time_with_seconds_description">Lisa %1$s minutit ja %2$s sekundit</string>

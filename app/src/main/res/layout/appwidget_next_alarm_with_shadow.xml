@@ -119,6 +119,40 @@
                 android:shadowDy="2"
                 tools:visibility="gone" />
 
+            <TextView
+                android:id="@+id/timeZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@null"
+                android:paddingEnd="3dp"
+                android:gravity="start|center_vertical"
+                android:ellipsize="none"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/next_alarm_widget_alarm_color"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="(UTC+10:00)"
+                tools:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/timeZoneForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@null"
+                android:paddingEnd="3dp"
+                android:gravity="start|center_vertical"
+                android:ellipsize="none"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:visibility="gone" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -66,6 +66,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 /**
  * This class lists all settings that can be backed up or restored.
@@ -204,6 +205,9 @@ public class BackupAndRestoreManager {
             alarmObject.put("backgroundImage", alarm.backgroundImage);
             alarmObject.put("blurIntensity", alarm.blurIntensity);
             alarmObject.put("mathHardnessLevel", alarm.mathHardnessLevel);
+            alarmObject.put("lock", alarm.lock);
+            alarmObject.put("timeZone", alarm.timeZone);
+            alarmObject.put("combinedDays", alarm.combinedDays.toJson());
 
             if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                 alarmsArray.put(alarmObject);
@@ -420,6 +424,9 @@ public class BackupAndRestoreManager {
         String newBackgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         int blurIntensity = alarmObject.optInt("blurIntensity", DEFAULT_BLUR_INTENSITY);
         String mathHardnessLevel = alarmObject.optString("mathHardnessLevel", DEFAULT_MATH_HARDNESS_LEVEL);
+        boolean lock = alarmObject.optBoolean("lock", false);
+        String timeZone = alarmObject.optString("timeZone", "");
+        String combinedDaysJson = alarmObject.optString("combinedDays", "");
 
         if (!TextUtils.isEmpty(oldBackgroundImage)) {
             String fileName = new File(oldBackgroundImage).getName();
@@ -455,7 +462,8 @@ public class BackupAndRestoreManager {
             month = alarmObject.getInt("month");
             day = alarmObject.getInt("day");
         } else {
-            Calendar calendar = Calendar.getInstance();
+            TimeZone tz = TextUtils.isEmpty(timeZone) ? TimeZone.getDefault() : TimeZone.getTimeZone(timeZone);
+            Calendar calendar = Calendar.getInstance(tz);
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
             day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -464,12 +472,12 @@ public class BackupAndRestoreManager {
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
             missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate, newBackgroundImage,
-            blurIntensity, mathHardnessLevel);
+            blurIntensity, mathHardnessLevel, lock, timeZone, combinedDaysJson);
 
         restoredAlarm.addAlarm(contentResolver);
 
         if (restoredAlarm.enabled) {
-            AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance());
+            AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance(restoredAlarm.getTimeZone()));
             alarmInstance.addInstance(contentResolver);
             AlarmStateManager.registerInstance(context, prefs, alarmInstance, false);
             LogUtils.i("BackupAndRestoreManager scheduled alarm instance: %s", alarmInstance);

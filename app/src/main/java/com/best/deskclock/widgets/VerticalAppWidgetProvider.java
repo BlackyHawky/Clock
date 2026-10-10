@@ -118,6 +118,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getTimeZoneViewId() {
+        return 0;
+    }
+
+    @Override
     protected int getNoAlarmTitleViewId() {
         return 0;
     }
@@ -170,6 +175,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected int getNextAlarmCustomViewId() {
         return R.id.nextAlarmForCustomColor;
+    }
+
+    @Override
+    protected int getTimeZoneCustomViewId() {
+        return 0;
     }
 
     @Override
@@ -326,7 +336,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureNextAlarm(@NonNull RemoteViews rv, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                      @NonNull String nextAlarmTime, @NonNull Locale locale) {
+                                      @NonNull String nextAlarmTime, @NonNull String timeZoneSuffix, @NonNull Locale locale) {
 
         if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnVerticalWidget(prefs)) {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
@@ -451,7 +461,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureSizerNextAlarm(@NonNull View sizer, @NonNull Context context, @NonNull SharedPreferences prefs,
-                                           @NonNull String nextAlarmTime, @NonNull Locale locale) {
+                                           @NonNull String nextAlarmTime, @NonNull String timeZoneSuffix, @NonNull Locale locale) {
 
         final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
         final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());

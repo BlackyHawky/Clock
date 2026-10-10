@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"याद दिलाया"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"अलार्म बंद"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"याद दिलाएं"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one"><xliff:g id="MINUTES">%d</xliff:g> मिनट के लिए याद दिलाया जा रहा है.</item>
-        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> मिनट के लिए याद दिलाया जा रहा है.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> के बाद दोबारा याद दिलाया जाएगा"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आगामी अलार्म"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"आपका छूटा हुआ अलार्म हटा दिया गया है"</string>
@@ -133,7 +129,6 @@
     <string name="timer_start" msgid="6158486445614356442">"प्रारंभ करें"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> हटाएं"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s मिनट जोड़ें"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s मिनट जोड़ें"</string>
     <string name="timer_stop" msgid="3361154678667736722">"रोकें"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"सभी टाइमर रोकें"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"टाइमर रोक दिया गया"</string>

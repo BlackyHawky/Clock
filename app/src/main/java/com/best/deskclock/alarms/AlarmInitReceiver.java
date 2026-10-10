@@ -134,9 +134,9 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                         long snoozeTime = intent.getLongExtra(SNOOZE_TIME, 0L);
                         if (snoozeTime > System.currentTimeMillis()) {
                             AlarmNotifications.clearNotification(appContext, alarmInstance);
-                            Calendar c = Calendar.getInstance();
-                            c.setTimeInMillis(snoozeTime);
-                            alarmInstance.setAlarmTime(c);
+                            Calendar calendar = Calendar.getInstance(alarmInstance.getTimeZone());
+                            calendar.setTimeInMillis(snoozeTime);
+                            alarmInstance.setAlarmTime(calendar);
                             alarmInstance.mAlarmState = AlarmInstance.SNOOZE_STATE;
                             alarmInstance.updateInstance(cr);
                         }

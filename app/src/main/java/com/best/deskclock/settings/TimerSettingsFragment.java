@@ -39,14 +39,14 @@ import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
-import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
+import com.best.deskclock.dialogfragment.TimerButtonDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.custompreference.AlarmVolumePreference;
 import com.best.deskclock.settings.custompreference.AutoSilenceDurationPreference;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
-import com.best.deskclock.settings.custompreference.TimerAddTimeButtonValuePreference;
+import com.best.deskclock.settings.custompreference.TimerButtonValuePreference;
 import com.best.deskclock.settings.custompreference.VibrationPatternPreference;
 import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
@@ -54,6 +54,7 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -101,6 +102,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mSingleTimerModePref;
     ListPreference mSortTimerPref;
     SwitchPreferenceCompat mTurnOnBackFlashForExpiredTimerPref;
+    SwitchPreferenceCompat mLiveUpdateNotificationsPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
@@ -196,6 +198,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mSingleTimerModePref = findPreference(KEY_SINGLE_TIMER_MODE);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mTurnOnBackFlashForExpiredTimerPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
+        mLiveUpdateNotificationsPref = findPreference(KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
         mIsAlarmTabHidden = !SettingsDAO.isAlarmTabVisible(getPrefs());
@@ -332,7 +335,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             SettingsDAO.getTimerAutoSilenceDuration(getPrefs()),
                             timer.getVolumeCrescendoDuration(),
@@ -359,7 +363,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(getPrefs()),
@@ -425,7 +430,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
@@ -452,7 +458,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
@@ -496,7 +503,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                     getDataModel().updateAllTimerSettings(
                         timer,
                         timer.getLabel(),
-                        timer.getButtonTime(),
+                        timer.getButtonAddTime(),
+                        timer.getButtonRemoveTime(),
                         timer.getRingtoneUri(),
                         timer.getAutoSilence(),
                         timer.getVolumeCrescendoDuration(),
@@ -510,7 +518,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_HEADPHONES_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
-                 KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
+                 KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
@@ -551,10 +559,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
             String currentValue = vibrationPatternPreference.getPattern();
             VibrationPatternDialogFragment dialogFragment = VibrationPatternDialogFragment.newInstance(pref.getKey(), currentValue);
             VibrationPatternDialogFragment.show(getParentFragmentManager(), dialogFragment);
-        } else if (pref instanceof TimerAddTimeButtonValuePreference timerAddTimeButtonValuePreference) {
-            int currentValue = timerAddTimeButtonValuePreference.getAddTimeButtonValue();
-            TimerAddTimeButtonDialogFragment dialogFragment = TimerAddTimeButtonDialogFragment.newInstance(pref.getKey(), currentValue);
-            TimerAddTimeButtonDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else if (pref instanceof TimerButtonValuePreference timerButtonValuePreference) {
+            int currentValue = timerButtonValuePreference.getButtonValue();
+            boolean isRemoveType = pref.getKey().equals(KEY_TIMER_REMOVE_TIME_BUTTON_VALUE);
+            TimerButtonDialogFragment dialogFragment = TimerButtonDialogFragment.newInstance(pref.getKey(), currentValue, isRemoveType);
+            TimerButtonDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else {
             super.onDisplayPreferenceDialog(pref);
         }
@@ -635,6 +644,9 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mTurnOnBackFlashForExpiredTimerPref.setVisible(DeviceUtils.hasBackFlash(requireContext()));
         mTurnOnBackFlashForExpiredTimerPref.setOnPreferenceChangeListener(this);
 
+        mLiveUpdateNotificationsPref.setVisible(SdkUtils.isAtLeastAndroid16());
+        mLiveUpdateNotificationsPref.setOnPreferenceChangeListener(this);
+
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
     }
 
@@ -660,7 +672,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                                 getDataModel().updateAllTimerSettings(
                                     timer,
                                     timer.getLabel(),
-                                    timer.getButtonTime(),
+                                    timer.getButtonAddTime(),
+                                    timer.getButtonRemoveTime(),
                                     timer.getRingtoneUri(),
                                     newValue,
                                     timer.getVolumeCrescendoDuration(),
@@ -694,7 +707,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                                 getDataModel().updateAllTimerSettings(
                                     timer,
                                     timer.getLabel(),
-                                    timer.getButtonTime(),
+                                    timer.getButtonAddTime(),
+                                    timer.getButtonRemoveTime(),
                                     timer.getRingtoneUri(),
                                     timer.getAutoSilence(),
                                     newValue,
@@ -728,7 +742,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                                 getDataModel().updateAllTimerSettings(
                                     timer,
                                     timer.getLabel(),
-                                    timer.getButtonTime(),
+                                    timer.getButtonAddTime(),
+                                    timer.getButtonRemoveTime(),
                                     timer.getRingtoneUri(),
                                     timer.getAutoSilence(),
                                     timer.getVolumeCrescendoDuration(),
@@ -744,16 +759,16 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 }
             });
 
-        // Add time button value preference
-        parentFragmentManager.setFragmentResultListener(TimerAddTimeButtonDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+        // "Add time" and "Remove time" button value preferences
+        parentFragmentManager.setFragmentResultListener(TimerButtonDialogFragment.REQUEST_KEY, viewLifecycleOwner,
             (requestKey, bundle) -> {
-                String key = bundle.getString(TimerAddTimeButtonDialogFragment.RESULT_PREF_KEY);
-                int newValue = bundle.getInt(TimerAddTimeButtonDialogFragment.ADD_TIME_BUTTON_VALUE);
+                String key = bundle.getString(TimerButtonDialogFragment.RESULT_PREF_KEY);
+                int newValue = bundle.getInt(TimerButtonDialogFragment.TIME_BUTTON_VALUE);
 
                 if (key != null) {
-                    TimerAddTimeButtonValuePreference pref = findPreference(key);
+                    TimerButtonValuePreference pref = findPreference(key);
                     if (pref != null) {
-                        pref.setAddTimeButtonValue(newValue);
+                        pref.setButtonValue(newValue);
                     }
                 }
             });
@@ -775,7 +790,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
@@ -793,7 +809,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
@@ -811,7 +828,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             SettingsDAO.getTimerAutoSilenceDuration(getPrefs()),
                             timer.getVolumeCrescendoDuration(),
@@ -829,7 +847,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                         getDataModel().updateAllTimerSettings(
                             timer,
                             timer.getLabel(),
-                            timer.getButtonTime(),
+                            timer.getButtonAddTime(),
+                            timer.getButtonRemoveTime(),
                             timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(getPrefs()),

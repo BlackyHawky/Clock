@@ -114,6 +114,7 @@ public class PreferencesKeys {
     public static final String KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL = "key_enable_per_alarm_math_hardness_level";
     public static final String KEY_SORT_ALARM = "key_sort_alarm";
     public static final String KEY_DISPLAY_ENABLED_ALARMS_FIRST = "key_display_enabled_alarms_first";
+    public static final String KEY_DISPLAY_LOCKED_ALARMS_FIRST = "key_display_locked_alarms_first";
     public static final String KEY_ENABLE_ALARM_FAB_LONG_PRESS = "key_enable_alarm_fab_long_press";
     public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_DISPLAY_DISMISS_BUTTON = "key_display_dismiss_button";
@@ -126,6 +127,10 @@ public class PreferencesKeys {
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = "key_turn_on_back_flash_for_triggered_alarm";
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING = "key_display_low_alarm_volume_warning";
+    public static final String KEY_PAUSE_ALARM_NOTE_HIDDEN = "key_pause_alarm_note_hidden";
+    public static final String KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN = "key_delete_after_use_note_hidden";
+    public static final String KEY_AUTO_SILENCE_NOTE_HIDDEN = "key_auto_silence_note_hidden";
+    public static final String KEY_SNOOZE_WARNING_HIDDEN = "key_snooze_warning_hidden";
 
     /**
      * SharedPreferences key used to indicate whether the styled repeat day display is enabled
@@ -196,11 +201,14 @@ public class PreferencesKeys {
     public static final String KEY_SORT_TIMER = "key_sort_timer";
     public static final String KEY_TIMER_ORDER = "timerOrder";
     public static final String KEY_TIMER_ADD_TIME_BUTTON_VALUE = "key_timer_add_time_button_value";
+    public static final String KEY_TIMER_REMOVE_TIME_BUTTON_VALUE = "key_timer_remove_time_button_value";
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = "key_turn_on_back_flash_for_expired_timer";
+    public static final String KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS = "key_timer_live_update_notifications";
 
     // Timer Display Customization
     public static final String KEY_TIMER_DURATION_FONT = "key_timer_duration_font";
     public static final String KEY_DISPLAY_COMPACT_TIMERS = "key_display_compact_timers";
+    public static final String KEY_DISPLAY_TIMER_DELETE_BUTTON = "key_display_timer_delete_button";
     public static final String KEY_DISPLAY_TIMER_END_TIME = "key_display_timer_end_time";
     public static final String KEY_INVERT_TIMER_BUTTON_POSITIONS = "key_invert_timer_button_positions";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
@@ -227,6 +235,7 @@ public class PreferencesKeys {
     public static final String KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS = "key_sw_volume_up_action_after_long_press";
     public static final String KEY_SW_VOLUME_DOWN_ACTION = "key_sw_volume_down_action";
     public static final String KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS = "key_sw_volume_down_action_after_long_press";
+    public static final String KEY_SW_LIVE_UPDATE_NOTIFICATIONS = "key_sw_live_update_notifications";
 
     // Screensaver
     public static final String KEY_SCREENSAVER_CLOCK_STYLE = "key_screensaver_clock_style";

@@ -28,11 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">Ajornada</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma apagada"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Ajorna</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">S\'ha ajornat 1 minut.</item>
-        <item quantity="many">S\'ha ajornat <xliff:g id="MINUTES">%d</xliff:g> minuts.</item>
-        <item quantity="other">S\'ha ajornat <xliff:g id="MINUTES">%d</xliff:g> minuts.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">S\'ajorna fins a les <xliff:g id="TIME">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Propera alarma</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">S\'ha suprimit l\'alarma desatesa</string>
@@ -141,7 +136,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Inicia"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Suprimeix <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Afegeix %s minut"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Afegeix %s minut"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Atura"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Atura els temporitzadors"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"S\'ha cancel·lat el temporitzador"</string>

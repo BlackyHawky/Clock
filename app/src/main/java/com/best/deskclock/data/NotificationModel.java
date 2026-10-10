@@ -84,15 +84,6 @@ final class NotificationModel {
     // "4" in AlarmNotifications
 
     /**
-     * @return the group key for the stopwatch notification
-     */
-    @NonNull
-    @SuppressWarnings("SameReturnValue")
-    String getStopwatchNotificationGroupKey() {
-        return "3";
-    }
-
-    /**
      * @return the group key for the timer notification
      */
     @NonNull
@@ -139,15 +130,6 @@ final class NotificationModel {
     @SuppressWarnings("SameReturnValue")
     public String getExpiredTimerNotificationSortKey() {
         return "2";
-    }
-
-    /**
-     * @return the sort key for the stopwatch notification
-     */
-    @NonNull
-    @SuppressWarnings("SameReturnValue")
-    public String getStopwatchNotificationSortKey() {
-        return "3";
     }
 
 }

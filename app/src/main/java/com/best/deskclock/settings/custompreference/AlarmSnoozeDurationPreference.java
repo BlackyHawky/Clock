@@ -13,11 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.utils.AlarmUtils;
 
 /**
  * A custom {@link DialogPreference} that allows users to select the snooze duration for alarms.
  * <p>
- * This preference stores the snooze duration in minutes using Android's shared preferences system.
+ * This preference stores the snooze duration in minutes using Android's SharedPreferences system.
  * When shown in the preferences UI, it opens a custom dialog where the user can input hours and minutes.
  * </p>
  */
@@ -37,23 +38,10 @@ public class AlarmSnoozeDurationPreference extends DialogPreference {
 
     @Override
     public CharSequence getSummary() {
-        int minutes = getSnoozeDuration();
-
-        if (minutes == ALARM_SNOOZE_DURATION_DISABLED) {
+        if (getSnoozeDuration() == ALARM_SNOOZE_DURATION_DISABLED) {
             return getContext().getString(R.string.snooze_duration_none);
-        }
-
-        int h = minutes / 60;
-        int m = minutes % 60;
-
-        if (h > 0 && m > 0) {
-            String hoursString = getContext().getResources().getQuantityString(R.plurals.hours, h, h);
-            String minutesString = getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
-            return String.format("%s %s", hoursString, minutesString);
-        } else if (h > 0) {
-            return getContext().getResources().getQuantityString(R.plurals.hours, h, h);
         } else {
-            return getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
+            return AlarmUtils.getSnoozeText(getContext(), getSnoozeDuration(), false);
         }
     }
 

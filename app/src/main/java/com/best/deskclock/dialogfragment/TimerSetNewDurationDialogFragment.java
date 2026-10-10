@@ -158,7 +158,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         return CustomDialog.create(
             context,
             null,
-            AppCompatResources.getDrawable(context, R.drawable.ic_hourglass_top),
+            AppCompatResources.getDrawable(context, R.drawable.ic_tab_timer_static),
             getString(R.string.timer_time_box_title),
             null,
             mBinding.getRoot(),

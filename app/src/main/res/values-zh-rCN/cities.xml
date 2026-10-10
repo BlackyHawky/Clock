@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">A<xliff:g id="separator">=</xliff:g>安提瓜<xliff:g id="timezone">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">A<xliff:g id="separator">=</xliff:g>奥斯汀<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">B<xliff:g id="separator">=</xliff:g>波士顿<xliff:g id="timezone">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">K<xliff:g id="separator">=</xliff:g>卡尔加里<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">K<xliff:g id="separator">=</xliff:g>卡尔加里<xliff:g id="timezone">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">G<xliff:g id="separator">=</xliff:g>哥伦布<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">D<xliff:g id="separator">=</xliff:g>达拉斯<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">N<xliff:g id="separator">=</xliff:g>诺克斯维尔<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">M<xliff:g id="separator">=</xliff:g>孟菲斯<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">M<xliff:g id="separator">=</xliff:g>迈阿密<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">M<xliff:g id="separator">=</xliff:g>明尼阿波利斯<xliff:g id="timezone">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">W<xliff:g id="separator">=</xliff:g>渥太华<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">W<xliff:g id="separator">=</xliff:g>渥太华<xliff:g id="timezone">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">F<xliff:g id="separator">=</xliff:g>费城<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">B<xliff:g id="separator">=</xliff:g>波特兰<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">S<xliff:g id="separator">=</xliff:g>圣地亚哥<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>

@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Одложен"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Аларм искл."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Одложи аларм"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Одложи за <xliff:g id="MINUTES">%d</xliff:g> минута.</item>
-        <item quantity="other">Одложи за <xliff:g id="MINUTES">%d</xliff:g> минути.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Одложи до <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Претстоен аларм"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Вашиот пропуштен аларм е избришан"</string>
@@ -133,7 +129,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Започни"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Избриши <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Додај %s минута"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Додај %s мин"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Запри"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Запри ги сите тајмери"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Тајмерот е откажан"</string>

@@ -30,7 +30,7 @@
         android:maxLines="1"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timer_indicator_state"
+        app:layout_constraintEnd_toStartOf="@+id/delete_timer_button"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck"
         tools:text="2m Timer" />
@@ -45,6 +45,23 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@drawable/bg_circle_for_preview"
         tools:backgroundTint="#FF99CC00" />
+
+    <ImageButton
+        android:id="@+id/delete_timer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_delete"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="gone"
+        android:contentDescription="@string/delete"
+        app:tint="?attr/colorPrimary"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toStartOf="@+id/timer_indicator_state"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/header_barrier"
@@ -138,6 +155,20 @@
         app:strokeColor="?attr/colorOnSurfaceVariant" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_remove_time_button"
+        style="?attr/materialIconButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:icon="@drawable/ic_minus"
+        app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
+        app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
+        app:layout_goneMarginEnd="12dp"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small"
+        app:strokeColor="?attr/colorOnSurfaceVariant" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause_button"
         style="?attr/materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
@@ -148,7 +179,6 @@
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconTint="?android:attr/colorBackground"
-        app:layout_constraintStart_toStartOf="@+id/timer_add_time_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small"

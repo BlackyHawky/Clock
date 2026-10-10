@@ -9,6 +9,10 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.FILE_SPECIFIC_ALARM_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE_NOTE_HIDDEN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSE_ALARM_NOTE_HIDDEN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_WARNING_HIDDEN;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -23,12 +27,24 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.content.res.Resources;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -46,23 +62,30 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.databinding.AlarmEditBottomSheetBinding;
 import com.best.deskclock.databinding.DeskClockBinding;
+import com.best.deskclock.databinding.SpinnerDatePickerBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmTimeZoneDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.BlurIntensityDialogFragment;
+import com.best.deskclock.dialogfragment.CalendarPickerDialogFragment;
 import com.best.deskclock.dialogfragment.DatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
@@ -95,6 +118,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -102,6 +126,7 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import java.io.File;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
@@ -118,6 +143,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private static final String KEY_SHOW_PAUSE_ALARM_NOTE_DIALOG = "show_pause_alarm_note_dialog";
     private static final String KEY_SHOW_DELETE_ALARM_AFTER_USE_NOTE_DIALOG = "show_delete_alarm_after_use_note_dialog";
     private static final String KEY_SHOW_AUTO_SILENCE_NOTE_DIALOG = "show_auto_silence_note_dialog";
+    private static final String KEY_SHOW_SNOOZE_NOTE_DIALOG = "show_snooze_note_dialog";
     private static final String KEY_AUTO_SILENCE_DURATION = "auto_silence_duration";
 
     private AlarmEditBottomSheetBinding mBinding;
@@ -153,6 +179,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private boolean mShowPauseAlarmNoteDialog = false;
     private boolean mShowDeleteAlarmAfterUseNoteDialog = false;
     private boolean mShowAutoSilenceNoteDialog = false;
+    private boolean mShowSnoozeNoteDialog = false;
     private String mAutoSilenceDuration = null;
 
     @NonNull
@@ -314,6 +341,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         outState.putBoolean(KEY_SHOW_DELETE_ALARM_AFTER_USE_NOTE_DIALOG, mShowDeleteAlarmAfterUseNoteDialog);
         outState.putBoolean(KEY_SHOW_AUTO_SILENCE_NOTE_DIALOG, mShowAutoSilenceNoteDialog);
         outState.putString(KEY_AUTO_SILENCE_DURATION, mAutoSilenceDuration);
+        outState.putBoolean(KEY_SHOW_SNOOZE_NOTE_DIALOG, mShowSnoozeNoteDialog);
     }
 
     @NonNull
@@ -353,41 +381,37 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         behavior.setSkipCollapsed(true);
 
+        bindCustomDragHandleTooltip();
+
         if (savedInstanceState != null) {
             mShowPauseAlarmNoteDialog = savedInstanceState.getBoolean(KEY_SHOW_PAUSE_ALARM_NOTE_DIALOG);
             mShowDeleteAlarmAfterUseNoteDialog = savedInstanceState.getBoolean(KEY_SHOW_DELETE_ALARM_AFTER_USE_NOTE_DIALOG);
             mShowAutoSilenceNoteDialog = savedInstanceState.getBoolean(KEY_SHOW_AUTO_SILENCE_NOTE_DIALOG);
             mAutoSilenceDuration = savedInstanceState.getString(KEY_AUTO_SILENCE_DURATION);
+            mShowSnoozeNoteDialog = savedInstanceState.getBoolean(KEY_SHOW_SNOOZE_NOTE_DIALOG);
         }
 
         ThemeUtils.applyFontToTextViews(mBinding.getRoot(), mGeneralTypeface);
 
-        bindCustomDragHandleTooltip();
-        bindClock();
-        bindDaysOfWeekButtons();
-        bindSelectedDate();
-        bindPauseAlarm();
-        bindLabel();
-        bindRingtone();
-        bindVibrator();
-        bindVibrationPattern();
-        bindFlash();
-        bindDeleteAlarmAfterUse();
-        bindAutoSilenceValue();
-        bindSnoozeDurationValue();
-        bindMissedAlarmRepeatLimit();
-        bindAlarmHardnessLevel();
-        bindCrescendoDuration();
-        bindAlarmVolume();
-        bindSpace();
-        bindAlarmBackgroundImage();
-        bindBlurIntensity();
-        bindDeleteButton();
-        bindDuplicateButton();
-        bindPreviewButton();
-        bindSaveButton();
+        if (mAlarm.lock) {
+            mBinding.alarmEditContentView.setVisibility(View.GONE);
+            mBinding.alarmButtonGroup.setVisibility(View.GONE);
 
-        updateAllGroupBackgrounds();
+            mBinding.alarmLockView.setVisibility(View.VISIBLE);
+            mBinding.alarmLockButtonGroup.setVisibility(View.VISIBLE);
+
+            bindUnlockAlarm();
+            bindLockDuplicateButton();
+            bindLockPreviewButton();
+        } else {
+            mBinding.alarmLockView.setVisibility(View.GONE);
+            mBinding.alarmLockButtonGroup.setVisibility(View.GONE);
+
+            mBinding.alarmEditContentView.setVisibility(View.VISIBLE);
+            mBinding.alarmButtonGroup.setVisibility(View.VISIBLE);
+
+            bindAllAlarmSettings();
+        }
 
         dialog.setOnShowListener(dialogInterface -> {
             BottomSheetDialog d = (BottomSheetDialog) dialogInterface;
@@ -433,6 +457,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             showDeleteAlarmAfterUseNoteDialog();
         } else if (mShowAutoSilenceNoteDialog && (mActiveDialog == null || !mActiveDialog.isShowing())) {
             showAutoSilenceNoteDialog(mAutoSilenceDuration);
+        } else if (mShowSnoozeNoteDialog && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            showSnoozeNoteDialog();
         }
     }
 
@@ -464,6 +490,61 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
 
         super.onDismiss(dialog);
+    }
+
+    private void bindUnlockAlarm() {
+        mBinding.unlockAlarmOnOff.setBackground(ThemeUtils.cardBackground(requireContext(), mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(), mCardStyleConfig.isBorderDisplayed(), mCardStyleConfig.isAmoledDarkMode()));
+
+        mBinding.unlockAlarmOnOff.setChecked(mAlarm.lock);
+        mBinding.unlockAlarmOnOff.setOnCheckedChangeListener(null);
+
+        mBinding.unlockAlarmOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isChecked) {
+                Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                mAlarm.lock = false;
+
+                mBinding.alarmLockView.setVisibility(View.GONE);
+                mBinding.alarmLockButtonGroup.setVisibility(View.GONE);
+
+                mBinding.alarmEditContentView.setVisibility(View.VISIBLE);
+                mBinding.alarmButtonGroup.setVisibility(View.VISIBLE);
+
+                bindAllAlarmSettings();
+            }
+        });
+    }
+
+    private void bindAllAlarmSettings() {
+        bindClock();
+        bindDaysOfWeekButtons();
+        bindSelectedDate();
+        bindPauseAlarm();
+        bindTimeZone();
+        bindLabel();
+        bindRingtone();
+        bindVibrator();
+        bindVibrationPattern();
+        bindFlash();
+        bindDeleteAlarmAfterUse();
+        bindAutoSilenceValue();
+        bindSnoozeDurationValue();
+        bindSnoozeDurationNote();
+        bindMissedAlarmRepeatLimit();
+        bindAlarmHardnessLevel();
+        bindCrescendoDuration();
+        bindAlarmVolume();
+        bindSpace();
+        bindAlarmBackgroundImage();
+        bindBlurIntensity();
+        bindLockAlarm();
+        bindDeleteButton();
+        bindDuplicateButton();
+        bindPreviewButton();
+        bindSaveButton();
+
+        updateAllGroupBackgrounds();
     }
 
     private void bindCustomDragHandleTooltip() {
@@ -547,7 +628,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             updateDaysOfWeekButtonVisuals(dayButtons[i], isChecked);
         }
 
-        mBinding.repeatDaysGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+        if (mDaysOfWeekListener != null) {
+            mBinding.repeatDaysGroup.removeOnButtonCheckedListener(mDaysOfWeekListener);
+        }
+        mDaysOfWeekListener = (group, checkedId, isChecked) -> {
             for (int i = 0; i < dayButtons.length; i++) {
                 if (dayButtons[i].getId() == checkedId) {
                     Utils.performHapticFeedback(dayButtons[i], mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -559,6 +643,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     if (!mAlarm.daysOfWeek.isRepeating()) {
                         mAlarm.pauseStartDate = 0;
                         mAlarm.pauseEndDate = 0;
+                        // Clear deselected dates when no weekdays are selected (deselected dates only apply to weekdays)
+                        mAlarm.combinedDays = mAlarm.combinedDays.clearDeselected();
                     }
 
                     if (mAlarm.daysOfWeek.getBits() == mOriginalAlarm.daysOfWeek.getBits()) {
@@ -569,7 +655,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                         mAlarm.day = mOriginalAlarm.day;
                     } else {
                         // Otherwise, set the date to today.
-                        final Calendar now = Calendar.getInstance();
+                        final Calendar now = Calendar.getInstance(mAlarm.getTimeZone());
                         mAlarm.year = now.get(Calendar.YEAR);
                         mAlarm.month = now.get(Calendar.MONTH);
                         mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
@@ -578,44 +664,744 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     bindSelectedDate();
                     bindPauseAlarm();
                     bindDeleteAlarmAfterUse();
+                    bindSnoozeDurationNote();
+                    if (mCalendarExpanded && mInlineCalendarAdapter != null) {
+                        mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+                        updateCleanupButtonVisibility();
+                        updateClearButtonVisibility();
+                    }
                     break;
                 }
             }
+        };
+        mBinding.repeatDaysGroup.addOnButtonCheckedListener(mDaysOfWeekListener);
+    }
+
+    private boolean mCalendarExpanded = false;
+    private InlineCalendarAdapter mInlineCalendarAdapter;
+
+    // Listener of the weekday row; avoids stacking a second listener every time
+    // bindDaysOfWeekButtons() is invoked (date picker result, time change, restore, ...).
+    private MaterialButtonToggleGroup.OnButtonCheckedListener mDaysOfWeekListener;
+
+    private void bindSelectedDate() {
+        CombinedDays combinedDays = mAlarm.combinedDays;
+        boolean hasOverrides = !combinedDays.isEmpty();
+
+        if (hasOverrides) {
+            int excluded = combinedDays.getDeselectedDateCount();
+            int selected = combinedDays.getSelectedDateCount();
+            if (excluded > 0 && selected > 0) {
+                mBinding.scheduleAlarm.setText(
+                    getString(R.string.dates_overridden_count, excluded, selected));
+            } else if (excluded > 0) {
+                mBinding.scheduleAlarm.setText(
+                    getString(R.string.dates_excluded_only_count, excluded));
+            } else {
+                mBinding.scheduleAlarm.setText(
+                    getString(R.string.dates_added_only_count, selected));
+            }
+        } else {
+            mBinding.scheduleAlarm.setText(R.string.schedule_alarm_title);
+        }
+
+        mBinding.scheduleAlarmExpandIcon.setRotation(mCalendarExpanded ? 90f : 0f);
+        mBinding.inlineCalendarContainer.getRoot().setVisibility(mCalendarExpanded ? VISIBLE : GONE);
+
+        if (mCalendarExpanded) {
+            setupInlineCalendar();
+        }
+
+        mBinding.scheduleAlarmLayout.setOnClickListener(v -> {
+            mCalendarExpanded = !mCalendarExpanded;
+            bindSelectedDate();
+        });
+
+        // Clear all overrides (lives in the schedule alarm row, so it is reachable even
+        // when the inline calendar is collapsed)
+        mBinding.clearAllOverrides.setOnClickListener(v -> {
+            mAlarm.combinedDays = mAlarm.combinedDays.clear();
+            if (mInlineCalendarAdapter != null) {
+                mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+            }
+            updateCalendarSummary();
+            bindSelectedDate();
+            updateCleanupButtonVisibility();
+            updateClearButtonVisibility();
         });
     }
 
-    private void bindSelectedDate() {
-        int openCalendarText = R.string.schedule_alarm_title;
+    /**
+     * Opens the single-date action dialog, honoring the "Date picker style" setting.
+     * <p>
+     * The dialog embeds the matching date selector (spinner or text input, never the calendar
+     * view) together with the action buttons, so the date is picked and acted on in one step.
+     */
+    private void launchDateAction() {
+        boolean useSpinner = SettingsDAO.getMaterialDatePickerStyle(mPrefs).equals(SPINNER_DATE_PICKER_STYLE);
 
-        mBinding.scheduleAlarmLayout.setOnClickListener(v -> DatePickerDialogFragment.show(
-            getChildFragmentManager(),
-            mAlarm,
-            mMaterialDatePickerStyle,
-            mFirstDayOfWeek,
-            mGeneralTypeface,
-            this::applyDate)
+        Calendar now = Calendar.getInstance();
+        boolean timePassed = mAlarm.isTimeBeforeOrEqual(now);
+
+        Calendar minCal = Calendar.getInstance();
+        minCal.set(Calendar.HOUR_OF_DAY, 0);
+        minCal.set(Calendar.MINUTE, 0);
+        minCal.set(Calendar.SECOND, 0);
+        minCal.set(Calendar.MILLISECOND, 0);
+        if (timePassed) {
+            minCal.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        long minMillis = minCal.getTimeInMillis();
+
+        Calendar selection = (Calendar) minCal.clone();
+        final int[] pickedDate = new int[]{
+            selection.get(Calendar.YEAR),
+            selection.get(Calendar.MONTH),
+            selection.get(Calendar.DAY_OF_MONTH)
+        };
+        final int minYear = minCal.get(Calendar.YEAR);
+        final int minMonth = minCal.get(Calendar.MONTH);
+        final int minDay = minCal.get(Calendar.DAY_OF_MONTH);
+        final boolean[] textValid = new boolean[]{true};
+
+        LinearLayout container = new LinearLayout(requireContext());
+        container.setOrientation(LinearLayout.VERTICAL);
+        int padding = (int) dpToPx(16, mDisplayMetrics);
+        container.setPadding(padding, padding / 2, padding, padding / 4);
+
+        MaterialButton goTo = makeActionButton(R.string.date_action_go_to);
+        MaterialButton toggle = makeActionButton(R.string.date_action_toggle);
+        MaterialButton add = makeActionButton(R.string.date_action_add);
+        MaterialButton remove = makeActionButton(R.string.date_action_remove);
+        MaterialButton close = makeActionButton(R.string.dialog_close);
+
+        int stateOnColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+        int stateOffColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+
+        TextView actionStateText = new TextView(requireContext());
+        actionStateText.setTypeface(mGeneralTypeface, Typeface.BOLD);
+        actionStateText.setGravity(Gravity.CENTER);
+        actionStateText.setMaxLines(1);
+        actionStateText.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+
+        LinearLayout rowOne = new LinearLayout(requireContext());
+        rowOne.setOrientation(LinearLayout.HORIZONTAL);
+
+        LinearLayout rowTwo = new LinearLayout(requireContext());
+        rowTwo.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (MaterialButton button : new MaterialButton[]{toggle, add, remove, goTo, close}) {
+            button.setSingleLine(true);
+        }
+        int inRowSideMargin = (int) dpToPx(4, mDisplayMetrics);
+        int inRowTopMargin = (int) dpToPx(4, mDisplayMetrics);
+        for (MaterialButton button : new MaterialButton[]{toggle, add, remove}) {
+            LinearLayout.LayoutParams rowParams =
+                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            rowParams.setMarginStart(inRowSideMargin);
+            rowParams.setMarginEnd(inRowSideMargin);
+            button.setLayoutParams(rowParams);
+        }
+        for (MaterialButton button : new MaterialButton[]{goTo, close}) {
+            LinearLayout.LayoutParams rowParams =
+                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            rowParams.setMarginStart(inRowSideMargin);
+            rowParams.setMarginEnd(inRowSideMargin);
+            rowParams.topMargin = inRowTopMargin;
+            button.setLayoutParams(rowParams);
+        }
+
+        LinearLayout.LayoutParams stateParams =
+            new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+        stateParams.topMargin = inRowTopMargin;
+        actionStateText.setLayoutParams(stateParams);
+
+        LinearLayout.LayoutParams rowOneParams =
+            new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        rowOneParams.bottomMargin = (int) dpToPx(8, mDisplayMetrics);
+        rowOne.setLayoutParams(rowOneParams);
+
+        rowOne.addView(toggle);
+        rowOne.addView(add);
+        rowOne.addView(remove);
+        rowTwo.addView(actionStateText);
+        rowTwo.addView(goTo);
+        rowTwo.addView(close);
+
+        final AlertDialog[] dialogHolder = new AlertDialog[1];
+
+        Runnable refreshStates = () -> {
+            boolean valid = useSpinner || textValid[0];
+            boolean active = false;
+            if (valid) {
+                Calendar picked = Calendar.getInstance();
+                picked.clear();
+                picked.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+                valid = picked.getTimeInMillis() >= minMillis;
+                active = mAlarm.combinedDays.isDateActive(
+                    pickedDate[0], pickedDate[1], pickedDate[2], mAlarm.daysOfWeek);
+            }
+
+            goTo.setEnabled(valid);
+            toggle.setEnabled(valid);
+            add.setEnabled(valid && !active);
+            remove.setEnabled(valid && active);
+
+            actionStateText.setText(active
+                ? R.string.date_action_state_on : R.string.date_action_state_off);
+            actionStateText.setTextColor(active ? stateOnColor : stateOffColor);
+
+            if (dialogHolder[0] != null) {
+                Calendar picked = Calendar.getInstance();
+                picked.clear();
+                picked.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+                String dateLabel = new java.text.SimpleDateFormat("EEE, MMM d", Locale.getDefault())
+                    .format(picked.getTime());
+                dialogHolder[0].setTitle(getString(R.string.date_action_title, dateLabel));
+            }
+        };
+
+        if (useSpinner) {
+            final DatePicker spinnerPicker =
+                (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
+            final DatePicker[] activePicker = new DatePicker[]{spinnerPicker};
+            final int[] lastMonth = new int[]{pickedDate[1]};
+            final DatePicker.OnDateChangedListener[] listenerHolder = new DatePicker.OnDateChangedListener[1];
+            listenerHolder[0] = (view, year, month, day) -> {
+                pickedDate[0] = year;
+                pickedDate[1] = month;
+                pickedDate[2] = day;
+                if (month != lastMonth[0]) {
+                    lastMonth[0] = month;
+                    // After a month change the framework keeps a stale ghost day (e.g. the
+                    // previous month's last day) above the clamped minimum day. Rebuild the
+                    // active picker once laid out so the day spinner starts from a clean state.
+                    container.post(() -> {
+                        int index = container.indexOfChild(activePicker[0]);
+                        if (index >= 0) {
+                            Calendar pickedCal = Calendar.getInstance();
+                            pickedCal.clear();
+                            pickedCal.set(year, month, day);
+                            DatePicker fresh =
+                                (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
+                            fresh.setMinDate(minMillis);
+                            fresh.init(pickedCal.get(Calendar.YEAR), pickedCal.get(Calendar.MONTH),
+                                pickedCal.get(Calendar.DAY_OF_MONTH), listenerHolder[0]);
+                            container.removeViewAt(index);
+                            container.addView(fresh, index);
+                            activePicker[0] = fresh;
+                            clampWheelsToMinimum(fresh, minYear, minMonth, minDay, year, month);
+                        }
+                    });
+                }
+                refreshStates.run();
+                // The framework re-enables wheel wrap and re-indexes the month names on every
+                // date change, so a one-time setWrapSelectorWheel(false) is undone and the
+                // min month's previous value (Sep) flashes as a ghost. Re-clamp after each
+                // change so the wheels stay linear and clamped to the minimum (see
+                // clampWheelsToMinimum).
+                clampWheelsToMinimum(activePicker[0], minYear, minMonth, minDay,
+                    pickedDate[0], pickedDate[1]);
+            };
+            spinnerPicker.setMinDate(minMillis);
+            spinnerPicker.init(pickedDate[0], pickedDate[1], pickedDate[2], listenerHolder[0]);
+            container.addView(spinnerPicker);
+            clampWheelsToMinimum(spinnerPicker, minYear, minMonth, minDay,
+                pickedDate[0], pickedDate[1]);
+        } else {
+            final String datePattern =
+                android.text.format.DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMdd");
+            EditText input = new EditText(requireContext());
+            input.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
+            input.setHint(datePattern);
+            input.setTypeface(mGeneralTypeface);
+
+            Calendar init = Calendar.getInstance();
+            init.clear();
+            init.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+            input.setText(new java.text.SimpleDateFormat(datePattern, Locale.getDefault()).format(init.getTime()));
+
+            input.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    textValid[0] = parseDateInput(s.toString(), datePattern, pickedDate);
+                    refreshStates.run();
+                }
+            });
+            container.addView(input);
+        }
+
+        container.addView(rowOne);
+        container.addView(rowTwo);
+
+        Calendar label = Calendar.getInstance();
+        label.clear();
+        label.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+        String initialLabel = new java.text.SimpleDateFormat("EEE, MMM d", Locale.getDefault()).format(label.getTime());
+
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.date_action_title, initialLabel))
+            .setView(container)
+            .create();
+        dialogHolder[0] = dialog;
+
+        refreshStates.run();
+
+        goTo.setOnClickListener(v -> {
+            dialog.dismiss();
+            goToDate(pickedDate[0], pickedDate[1], pickedDate[2]);
+        });
+        toggle.setOnClickListener(v -> {
+            boolean active = mAlarm.combinedDays.isDateActive(
+                pickedDate[0], pickedDate[1], pickedDate[2], mAlarm.daysOfWeek);
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], !active);
+            refreshStates.run();
+        });
+        add.setOnClickListener(v -> {
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], true);
+            refreshStates.run();
+        });
+        remove.setOnClickListener(v -> {
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], false);
+            refreshStates.run();
+        });
+        close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    /**
+     * Normalizes the spinner wheels. The day and month wheels are kept linear (no wrap) so a
+     * circular adjacency never shows an out-of-range value (e.g. the last day of the month
+     * right above day 1). While the selected date lies inside the minimum's month, the wheels
+     * are additionally clamped to the minimum so no past value (yesterday / previous month)
+     * is ever offered or visible.
+     * <p>
+     * The month wheel renders localized month names indexed from its minimum value, so the
+     * name array has to be re-indexed exactly like the framework does in
+     * {@code DatePickerSpinnerDelegate.updateSpinners()} - otherwise the labels shift.
+     *
+     * @param picker     the active spinner picker
+     * @param minYear    the minimum year (inclusive)
+     * @param minMonth   the minimum month (inclusive)
+     * @param minDay     the minimum day of month (inclusive)
+     * @param pickYear   the currently selected year
+     * @param pickMonth  the currently selected month
+     */
+    private void clampWheelsToMinimum(DatePicker picker, int minYear, int minMonth, int minDay,
+                                      int pickYear, int pickMonth) {
+        try {
+            Resources res = Resources.getSystem();
+            NumberPicker day = picker.findViewById(res.getIdentifier("day", "id", "android"));
+            NumberPicker month = picker.findViewById(res.getIdentifier("month", "id", "android"));
+            NumberPicker year = picker.findViewById(res.getIdentifier("year", "id", "android"));
+            if (day == null || month == null || year == null) {
+                return;
+            }
+            // Keep the wheels linear (no wrap) in every month so a circular adjacency never
+            // shows an out-of-range value - e.g. at day 1 the previous value of the generic
+            // wrapped wheel is the month's last day ("30" right above "1"), which looks like a
+            // ghost. The framework enables wrap in its generic range; we always turn it off.
+            day.setWrapSelectorWheel(false);
+            month.setWrapSelectorWheel(false);
+            if (pickYear != minYear || pickMonth != minMonth) {
+                return;
+            }
+            Calendar firstOfMonth = Calendar.getInstance();
+            firstOfMonth.clear();
+            firstOfMonth.set(pickYear, pickMonth, 1);
+            day.setMinValue(minDay);
+            day.setMaxValue(firstOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+            if (day.getValue() < minDay) {
+                day.setValue(minDay);
+            }
+            String[] monthNames = new java.text.DateFormatSymbols().getShortMonths();
+            month.setDisplayedValues(null);
+            month.setMinValue(minMonth);
+            month.setMaxValue(11);
+            month.setDisplayedValues(
+                java.util.Arrays.copyOfRange(monthNames, minMonth, month.getMaxValue() + 1));
+            if (month.getValue() < minMonth) {
+                month.setValue(minMonth);
+            }
+            year.setMinValue(minYear);
+        } catch (RuntimeException ignored) {
+        }
+    }
+
+    /**
+     * Parses a date from the given text using the locale date pattern.
+     *
+     * @return true if the text is a valid, complete date; the parsed fields are written to {@code out}
+     */
+    private boolean parseDateInput(String text, String datePattern, int[] out) {
+        java.text.SimpleDateFormat parser = new java.text.SimpleDateFormat(datePattern, Locale.getDefault());
+        parser.setLenient(false);
+        try {
+            java.util.Date date = parser.parse(text);
+            if (date == null) {
+                return false;
+            }
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            out[0] = calendar.get(Calendar.YEAR);
+            out[1] = calendar.get(Calendar.MONTH);
+            out[2] = calendar.get(Calendar.DAY_OF_MONTH);
+            return true;
+        } catch (java.text.ParseException e) {
+            return false;
+        }
+    }
+
+    private MaterialButton makeActionButton(@StringRes int textRes) {
+        MaterialButton button = new MaterialButton(requireContext(), null,
+            com.google.android.material.R.attr.materialButtonOutlinedStyle);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
         );
+        params.bottomMargin = (int) dpToPx(8, mDisplayMetrics);
+        button.setLayoutParams(params);
+        button.setText(textRes);
+        button.setAllCaps(false);
+        button.setTypeface(mGeneralTypeface);
+        return button;
+    }
 
-        if (mAlarm.daysOfWeek.isRepeating()) {
-            clearSelectedDate(openCalendarText);
-        } else if (mAlarm.isSpecifiedDate()) {
-            if (mAlarm.isDateInThePast()) {
-                clearSelectedDate(openCalendarText);
+    /**
+     * Activates or deactivates a specific date, mirroring the semantics of a tap on the
+     * inline calendar cell: weekday-based alarms exclude the date, non-repeating alarms
+     * select/deselect it explicitly.
+     */
+    private void applyDateAction(int year, int month, int day, boolean activate) {
+        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(year, month, day);
+        int calendarDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        boolean matchesWeekday = mAlarm.daysOfWeek.isBitOn(calendarDayOfWeek);
+
+        if (isRepeating && matchesWeekday) {
+            if (activate) {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeDeselectedDate(year, month, day);
             } else {
-                mBinding.scheduleAlarm.setText(AlarmUtils.formatAlarmDate(requireContext(), mAlarm));
-
-                mBinding.cancelScheduledAlarm.setOnClickListener(v -> {
-                    Calendar now = Calendar.getInstance();
-                    mAlarm.year = now.get(Calendar.YEAR);
-                    mAlarm.month = now.get(Calendar.MONTH);
-                    mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
-
-                    bindSelectedDate();
-                });
-                mBinding.cancelScheduledAlarm.setVisibility(VISIBLE);
+                mAlarm.combinedDays = mAlarm.combinedDays.addDeselectedDate(year, month, day);
             }
         } else {
-            clearSelectedDate(openCalendarText);
+            if (activate) {
+                mAlarm.combinedDays = mAlarm.combinedDays.addSelectedDate(year, month, day);
+            } else {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeSelectedDate(year, month, day);
+            }
+        }
+
+        mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+        updateCalendarSummary();
+        bindSelectedDate();
+        updateCleanupButtonVisibility();
+        updateClearButtonVisibility();
+    }
+
+    /**
+     * Navigates the inline calendar to the month of a specific date.
+     */
+    private void goToDate(int year, int month, int day) {
+        mInlineCalendarAdapter.setMonth(year, month);
+        updateMonthLabel(year, month);
+    }
+
+    private void setupInlineCalendar() {
+        Calendar now = Calendar.getInstance();
+        int displayYear = mInlineCalendarAdapter != null
+            ? mInlineCalendarAdapter.getYear() : now.get(Calendar.YEAR);
+        int displayMonth = mInlineCalendarAdapter != null
+            ? mInlineCalendarAdapter.getMonth() : now.get(Calendar.MONTH);
+
+        if (mInlineCalendarAdapter == null) {
+            int activeColor = MaterialColors.getColor(requireContext(),
+                com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+            int activeTextColor = MaterialColors.getColor(requireContext(),
+                com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+            int inactiveTextColor = MaterialColors.getColor(requireContext(),
+                com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+            int todayStrokeColor = 0xFF858585;
+
+            mInlineCalendarAdapter = new InlineCalendarAdapter(
+                displayYear, displayMonth,
+                mAlarm.daysOfWeek,
+                mAlarm.combinedDays,
+                this::onInlineCalendarDateToggled,
+                mFirstDayOfWeek,
+                activeColor, activeTextColor, inactiveTextColor,
+                todayStrokeColor, Color.TRANSPARENT,
+                mGeneralTypeface
+            );
+            mInlineCalendarAdapter.setAlarmTime(mAlarm.hour, mAlarm.minutes);
+
+            mBinding.inlineCalendarContainer.calendarGrid.setLayoutManager(
+                new GridLayoutManager(requireContext(), 7));
+            mBinding.inlineCalendarContainer.calendarGrid.setAdapter(mInlineCalendarAdapter);
+
+            // Prev month
+            mBinding.inlineCalendarContainer.prevMonth.setOnClickListener(v -> {
+                Calendar navNow = Calendar.getInstance();
+                int curYear = navNow.get(Calendar.YEAR);
+                int curMonth = navNow.get(Calendar.MONTH);
+                int dispYear = mInlineCalendarAdapter.getYear();
+                int dispMonth = mInlineCalendarAdapter.getMonth();
+                if (dispYear == curYear && dispMonth <= curMonth) return;
+                int newMonth = dispMonth - 1;
+                int newYear = dispYear;
+                if (newMonth < 0) { newMonth = 11; newYear--; }
+                mInlineCalendarAdapter.setMonth(newYear, newMonth);
+                updateMonthLabel(newYear, newMonth);
+            });
+
+            // Next month (clamped to the year-picker horizon)
+            mBinding.inlineCalendarContainer.nextMonth.setOnClickListener(v -> {
+                final int maxYear = Calendar.getInstance().get(Calendar.YEAR) + 100;
+                int newMonth = mInlineCalendarAdapter.getMonth() + 1;
+                int newYear = mInlineCalendarAdapter.getYear();
+                if (newMonth > 11) { newMonth = 0; newYear++; }
+                if (newYear > maxYear) return;
+                mInlineCalendarAdapter.setMonth(newYear, newMonth);
+                updateMonthLabel(newYear, newMonth);
+            });
+
+            // Prev year
+            mBinding.inlineCalendarContainer.prevYear.setOnClickListener(v -> {
+                Calendar navNow = Calendar.getInstance();
+                int curYear = navNow.get(Calendar.YEAR);
+                int curMonth = navNow.get(Calendar.MONTH);
+                int dispYear = mInlineCalendarAdapter.getYear();
+                int dispMonth = mInlineCalendarAdapter.getMonth();
+                // Jump to current month if within 12 months, otherwise back 1 year
+                int targetYear;
+                int targetMonth;
+                if (dispYear == curYear && dispMonth == curMonth) {
+                    return; // Already at current month
+                }
+                int yearDiff = dispYear - curYear;
+                int monthDiff = yearDiff * 12 + (dispMonth - curMonth);
+                if (monthDiff <= 12) {
+                    targetYear = curYear;
+                    targetMonth = curMonth;
+                } else {
+                    targetYear = dispYear - 1;
+                    targetMonth = dispMonth;
+                }
+                mInlineCalendarAdapter.setMonth(targetYear, targetMonth);
+                updateMonthLabel(targetYear, targetMonth);
+            });
+
+            // Next year (clamped to the year-picker horizon)
+            mBinding.inlineCalendarContainer.nextYear.setOnClickListener(v -> {
+                final int maxYear = Calendar.getInstance().get(Calendar.YEAR) + 100;
+                int newYear = mInlineCalendarAdapter.getYear() + 1;
+                int month = mInlineCalendarAdapter.getMonth();
+                if (newYear > maxYear) return;
+                mInlineCalendarAdapter.setMonth(newYear, month);
+                updateMonthLabel(newYear, month);
+            });
+
+            // Jump back to the current month
+            mBinding.inlineCalendarContainer.homeButton.setOnClickListener(v -> {
+                Calendar navNow = Calendar.getInstance();
+                int curYear = navNow.get(Calendar.YEAR);
+                int curMonth = navNow.get(Calendar.MONTH);
+                mInlineCalendarAdapter.setMonth(curYear, curMonth);
+                updateMonthLabel(curYear, curMonth);
+            });
+
+            // Single-date action (add / remove / toggle / go to)
+            mBinding.inlineCalendarContainer.dateActionButton.setOnClickListener(v -> launchDateAction());
+
+            // Month/year label tap -> year picker
+            mBinding.inlineCalendarContainer.monthYearButton.setOnClickListener(v -> showYearPicker());
+
+            // Cleanup: tap summary row or the refresh icon
+            Runnable cleanupAction = () -> {
+                mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek);
+                mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+                updateCalendarSummary();
+                bindSelectedDate();
+                updateCleanupButtonVisibility();
+                updateClearButtonVisibility();
+            };
+            mBinding.inlineCalendarContainer.calendarSummaryRow.setOnClickListener(v -> cleanupAction.run());
+            mBinding.inlineCalendarContainer.cleanupOverrides.setOnClickListener(v -> cleanupAction.run());
+        } else {
+            // Refresh existing adapter with current data
+            mInlineCalendarAdapter.setMonth(displayYear, displayMonth);
+        }
+
+        // Month/year label and navigation
+        updateMonthLabel(displayYear, displayMonth);
+        updateCleanupButtonVisibility();
+        updateClearButtonVisibility();
+        updateCalendarSummary();
+    }
+
+    private void updateCleanupButtonVisibility() {
+        boolean hasRedundant = mAlarm.combinedDays.hasRedundantOverrides(mAlarm.daysOfWeek);
+        mBinding.inlineCalendarContainer.cleanupOverrides.setVisibility(hasRedundant ? VISIBLE : GONE);
+    }
+
+    private void updateClearButtonVisibility() {
+        boolean hasOverrides = !mAlarm.combinedDays.isEmpty();
+        mBinding.clearAllOverrides.setVisibility(hasOverrides ? VISIBLE : GONE);
+    }
+
+    private void showYearPicker() {
+        int displayYear = mInlineCalendarAdapter != null
+            ? mInlineCalendarAdapter.getYear()
+            : Calendar.getInstance().get(Calendar.YEAR);
+        int currentRealYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        int startYear = currentRealYear;
+        int endYear = currentRealYear + 100;
+
+        int activeColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorTertiary, Color.BLACK);
+        int activeTextColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+        int normalTextColor = MaterialColors.getColor(requireContext(),
+            com.google.android.material.R.attr.colorOnSurface, Color.BLACK);
+
+        final AlertDialog[] dialogRef = new AlertDialog[1];
+
+        YearPickerAdapter adapter = new YearPickerAdapter(
+            startYear, endYear, displayYear,
+            selectedYear -> {
+                int month = mInlineCalendarAdapter != null
+                    ? mInlineCalendarAdapter.getMonth()
+                    : Calendar.getInstance().get(Calendar.MONTH);
+                if (mInlineCalendarAdapter != null) {
+                    mInlineCalendarAdapter.setMonth(selectedYear, month);
+                }
+                updateMonthLabel(selectedYear, month);
+                if (dialogRef[0] != null) {
+                    dialogRef[0].dismiss();
+                }
+            },
+            activeColor, activeTextColor, normalTextColor,
+            mGeneralTypeface
+        );
+
+        RecyclerView recyclerView = new RecyclerView(requireContext());
+        int padding = (int) (16 * getResources().getDisplayMetrics().density);
+        recyclerView.setPadding(padding, padding, padding, 0);
+        recyclerView.setClipToPadding(false);
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+        recyclerView.setAdapter(adapter);
+
+        // Scroll to the displayed year
+        int scrollToPosition = displayYear - startYear;
+        recyclerView.scrollToPosition(Math.max(0, scrollToPosition - 3));
+
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+            .setTitle(R.string.select_year)
+            .setView(recyclerView)
+            .setNegativeButton(android.R.string.cancel, null)
+            .create();
+        dialogRef[0] = dialog;
+        dialog.show();
+    }
+
+    private void updateMonthLabel(int year, int month) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        cal.set(year, month, 1);
+        String pattern = android.text.format.DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMMMyyyy");
+        mBinding.inlineCalendarContainer.monthYearLabel.setText(
+            new java.text.SimpleDateFormat(pattern, Locale.getDefault()).format(cal.getTime()));
+
+        Calendar now = Calendar.getInstance();
+        int curYear = now.get(Calendar.YEAR);
+        int curMonth = now.get(Calendar.MONTH);
+        boolean atCurrentMonth = (year == curYear && month == curMonth);
+        boolean beforeCurrentMonth = (year < curYear) || (year == curYear && month < curMonth);
+        mBinding.inlineCalendarContainer.prevMonth.setEnabled(!atCurrentMonth);
+        mBinding.inlineCalendarContainer.prevMonth.setAlpha(atCurrentMonth ? 0.3f : 1f);
+        mBinding.inlineCalendarContainer.prevYear.setEnabled(!atCurrentMonth && !beforeCurrentMonth);
+        mBinding.inlineCalendarContainer.prevYear.setAlpha((atCurrentMonth || beforeCurrentMonth) ? 0.3f : 1f);
+        mBinding.inlineCalendarContainer.homeButton.setEnabled(!atCurrentMonth);
+        mBinding.inlineCalendarContainer.homeButton.setAlpha(atCurrentMonth ? 0.3f : 1f);
+    }
+
+    private void onInlineCalendarDateToggled(int year, int month, int day) {
+        // Reject dates strictly before local "today"; the calendar dims those cells anyway.
+        final Calendar now = Calendar.getInstance();
+        final int todayYear = now.get(Calendar.YEAR);
+        final int todayMonth = now.get(Calendar.MONTH);
+        final int todayDay = now.get(Calendar.DAY_OF_MONTH);
+        if (year < todayYear
+            || (year == todayYear && month < todayMonth)
+            || (year == todayYear && month == todayMonth && day < todayDay)) {
+            return;
+        }
+
+        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month, day);
+        int calendarDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+        if (isRepeating && mAlarm.daysOfWeek.isBitOn(calendarDayOfWeek)) {
+            if (mAlarm.combinedDays.isDateDeselected(year, month, day)) {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeDeselectedDate(year, month, day);
+            } else {
+                mAlarm.combinedDays = mAlarm.combinedDays.addDeselectedDate(year, month, day);
+            }
+        } else {
+            if (mAlarm.combinedDays.isDateSelected(year, month, day)) {
+                mAlarm.combinedDays = mAlarm.combinedDays.removeSelectedDate(year, month, day);
+            } else {
+                mAlarm.combinedDays = mAlarm.combinedDays.addSelectedDate(year, month, day);
+            }
+        }
+
+        mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+        updateCalendarSummary();
+        bindSelectedDate();
+        updateCleanupButtonVisibility();
+        updateClearButtonVisibility();
+    }
+
+    private void updateCalendarSummary() {
+        CombinedDays combinedDays = mAlarm.combinedDays;
+        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+
+        if (combinedDays.isEmpty()) {
+            if (isRepeating) {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(R.string.no_dates_excluded);
+            } else {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(R.string.no_dates_selected);
+            }
+        } else {
+            int excluded = combinedDays.getDeselectedDateCount();
+            int selected = combinedDays.getSelectedDateCount();
+            if (excluded > 0 && selected > 0) {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(
+                    getString(R.string.dates_summary_added_excluded, selected, excluded));
+            } else if (selected > 0) {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(
+                    getString(R.string.dates_summary_added, selected));
+            } else {
+                mBinding.inlineCalendarContainer.calendarSummary.setText(
+                    getString(R.string.dates_summary_excluded, excluded));
+            }
         }
     }
 
@@ -661,8 +1447,34 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.cancelPauseAlarm.setOnClickListener(isRepeating ? resetPauseDate : null);
 
-        mBinding.pauseAlarmNote.setVisibility(isRepeating ? GONE : VISIBLE);
-        mBinding.pauseAlarmNote.setOnClickListener(isRepeating ? null : v -> showPauseAlarmNoteDialog());
+        boolean isNoteHidden = mPrefs.getBoolean(KEY_PAUSE_ALARM_NOTE_HIDDEN, false);
+        boolean showNoteIcon = !isRepeating && !isNoteHidden;
+
+        mBinding.pauseAlarmNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
+        mBinding.pauseAlarmNote.setOnClickListener(showNoteIcon ? v -> showPauseAlarmNoteDialog() : null);
+    }
+
+    private void bindTimeZone() {
+        if (TextUtils.isEmpty(mAlarm.timeZone)) {
+            mBinding.timezoneValue.setText(getString(R.string.label_default));
+        } else {
+            long currentTime = System.currentTimeMillis();
+            boolean isFlagEnabled = SettingsDAO.isCityFlagEnabled(mPrefs);
+
+            TimeZones timeZones = SettingsDAO.getTimeZones(requireContext(), currentTime, isFlagEnabled);
+            CharSequence displayName = timeZones.getTimeZoneName(mAlarm.timeZone);
+
+            mBinding.timezoneValue.setText(displayName != null ? displayName : mAlarm.timeZone);
+        }
+
+        mBinding.timezoneLayout.setOnClickListener(v -> {
+            Events.sendAlarmEvent(R.string.action_set_timezone, R.string.label_deskclock);
+
+            final AlarmTimeZoneDialogFragment fragment =
+                AlarmTimeZoneDialogFragment.newInstance(mAlarm.timeZone);
+
+            AlarmTimeZoneDialogFragment.show(getChildFragmentManager(), fragment);
+        });
     }
 
     private void bindLabel() {
@@ -776,19 +1588,24 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void bindDeleteAlarmAfterUse() {
         final boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+        final boolean isNoteHidden = mPrefs.getBoolean(KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN, false);
+        final boolean showNoteIcon = isRepeating && !isNoteHidden;
 
-        mBinding.deleteAlarmAfterUseNote.setVisibility(isRepeating ? VISIBLE : GONE);
-        mBinding.deleteAlarmAfterUseNote.setOnClickListener(isRepeating ? v -> showDeleteAlarmAfterUseNoteDialog() : null);
+        mBinding.deleteAlarmAfterUseNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
+        mBinding.deleteAlarmAfterUseNote.setOnClickListener(showNoteIcon ? v -> showDeleteAlarmAfterUseNoteDialog() : null);
 
         mBinding.deleteAlarmAfterUse.setCompoundDrawablesRelativeWithIntrinsicBounds(
             mDeleteAlarmAfterUseDrawableStart,
             null,
-            isRepeating ? null : mDeleteAlarmAfterUseDrawableEnd,
+            showNoteIcon ? null : mDeleteAlarmAfterUseDrawableEnd,
             null
         );
 
         mBinding.deleteAlarmAfterUseLayout.setEnabled(!isRepeating);
         mBinding.deleteAlarmAfterUse.setEnabled(!isRepeating);
+
+        mBinding.deleteAlarmAfterUseLayout.setOnClickListener(v -> mBinding.deleteAlarmAfterUse.toggle());
+
         mBinding.deleteAlarmAfterUse.setOnCheckedChangeListener(null);
         mBinding.deleteAlarmAfterUse.setChecked(!isRepeating && mAlarm.deleteAfterUse);
 
@@ -811,8 +1628,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.autoSilenceDurationLayout.setEnabled(!hasMathMission);
         mBinding.autoSilenceDurationTitle.setEnabled(!hasMathMission);
         mBinding.autoSilenceDurationValue.setEnabled(!hasMathMission);
-        mBinding.autoSilenceDurationValue.setVisibility(hasMathMission ? GONE : VISIBLE);
-        mBinding.autoSilenceNote.setVisibility(hasMathMission ? VISIBLE : GONE);
+
+        boolean isNoteHidden = mPrefs.getBoolean(KEY_AUTO_SILENCE_NOTE_HIDDEN, false);
+        boolean showNoteIcon = hasMathMission && !isNoteHidden;
+
+        mBinding.autoSilenceDurationValue.setVisibility(showNoteIcon ? GONE : VISIBLE);
+        mBinding.autoSilenceNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
 
         if (hasMathMission) {
             String noteText;
@@ -824,7 +1645,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 noteText = getResources().getQuantityString(R.plurals.minutes_short, m, m);
             }
 
-            mBinding.autoSilenceNote.setOnClickListener(v -> showAutoSilenceNoteDialog(noteText));
+            mBinding.autoSilenceNote.setOnClickListener(showNoteIcon ? v -> showAutoSilenceNoteDialog(noteText) : null);
+
+            if (!showNoteIcon) {
+                mBinding.autoSilenceDurationValue.setText(noteText);
+            }
+
             mBinding.autoSilenceDurationLayout.setOnClickListener(null);
         } else {
             mBinding.autoSilenceDurationValue.setText(Utils.formatAutoSilenceDurationText(requireContext(), autoSilenceDuration));
@@ -851,7 +1677,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.snoozeDurationLayout.setVisibility(VISIBLE);
 
-        mBinding.snoozeDurationValue.setText(formatSnoozeDurationText(snoozeDuration));
+        mBinding.snoozeDurationValue.setText(snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED
+            ? getString(R.string.snooze_duration_none)
+            : AlarmUtils.getSnoozeText(requireContext(), snoozeDuration, true));
 
         mBinding.snoozeDurationLayout.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_set_snooze_duration, R.string.label_deskclock);
@@ -859,6 +1687,23 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             final AlarmSnoozeDurationDialogFragment fragment = AlarmSnoozeDurationDialogFragment.newInstance(mAlarm.snoozeDuration);
             AlarmSnoozeDurationDialogFragment.show(getChildFragmentManager(), fragment);
         });
+    }
+
+    private void bindSnoozeDurationNote() {
+        if (mPrefs.getBoolean(KEY_SNOOZE_WARNING_HIDDEN, false)) {
+            mBinding.snoozeDurationNote.setOnClickListener(null);
+            mBinding.snoozeDurationNote.setVisibility(GONE);
+            return;
+        }
+
+        if (!mAlarm.daysOfWeek.isRepeating() || mAlarm.snoozeDuration < 1440) {
+            mBinding.snoozeDurationNote.setOnClickListener(null);
+            mBinding.snoozeDurationNote.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.snoozeDurationNote.setOnClickListener(v -> showSnoozeNoteDialog());
+        mBinding.snoozeDurationNote.setVisibility(VISIBLE);
     }
 
     private void bindMissedAlarmRepeatLimit() {
@@ -1065,6 +1910,16 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.alarmBlurIntensityLayout.setOnClickListener(openBlurIntensityFragment);
     }
 
+    private void bindLockAlarm() {
+        mBinding.lockAlarmOnOff.setChecked(mAlarm.lock);
+        mBinding.lockAlarmOnOff.setOnCheckedChangeListener(null);
+
+        mBinding.lockAlarmOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            mAlarm.lock = isChecked;
+        });
+    }
+
     private void bindDeleteButton() {
         mBinding.deleteButton.setOnClickListener(v -> {
             Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -1076,73 +1931,19 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindDuplicateButton() {
-        mBinding.duplicateButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        duplicateAlarm(mBinding.duplicateButton);
+    }
 
-            Events.sendAlarmEvent(R.string.action_duplicate, R.string.label_deskclock);
-
-            Alarm duplicatedAlarm = new Alarm(mAlarm);
-            duplicatedAlarm.id = Alarm.INVALID_ID;
-            duplicatedAlarm.instanceState = AlarmInstance.SILENT_STATE;
-            final AlarmUpdateHandler localUpdateHandler = mAlarmUpdateHandler;
-
-            if (!TextUtils.isEmpty(duplicatedAlarm.backgroundImage) &&
-                duplicatedAlarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
-
-                final Context appContext = requireContext().getApplicationContext();
-
-                AppExecutors.getDiskIO().execute(() -> {
-                    File sourceFile = new File(duplicatedAlarm.backgroundImage);
-
-                    if (sourceFile.exists()) {
-                        String safeTitle = FileUtils.toSafeFileName(
-                            FILE_SPECIFIC_ALARM_BACKGROUND + "_dup_" + System.currentTimeMillis()
-                        );
-                        Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, Uri.fromFile(sourceFile), safeTitle);
-
-                        if (copiedUri != null) {
-                            duplicatedAlarm.backgroundImage = copiedUri.getPath();
-                        } else {
-                            duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
-                        }
-                    } else {
-                        duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
-                    }
-
-                    if (localUpdateHandler != null) {
-                        localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
-                    }
-                });
-            } else {
-                if (localUpdateHandler != null) {
-                    localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
-                }
-            }
-
-            dismiss();
-        });
+    private void bindLockDuplicateButton() {
+        duplicateAlarm(mBinding.lockDuplicateButton);
     }
 
     private void bindPreviewButton() {
-        mBinding.previewButton.setOnClickListener(v -> {
-            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        previewAlarm(mBinding.previewButton);
+    }
 
-            Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, mAlarm.hour);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, mAlarm.minutes);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_LABEL, mAlarm.label);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE, mAlarm.backgroundImage);
-            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BLUR_INTENSITY, mAlarm.blurIntensity);
-
-            if (RingtoneUtils.RINGTONE_SILENT.equals(mAlarm.alert)) {
-                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, "");
-            } else {
-                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert.toString());
-            }
-
-            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, mIsFadeTransition);
-        });
+    private void bindLockPreviewButton() {
+        previewAlarm(mBinding.lockPreviewButton);
     }
 
     private void bindSaveButton() {
@@ -1189,7 +1990,33 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 int month = bundle.getInt(SpinnerDatePickerDialogFragment.BUNDLE_KEY_MONTH);
                 int day = bundle.getInt(SpinnerDatePickerDialogFragment.BUNDLE_KEY_DAY);
 
-                applyDate(year, month, day);
+                mAlarm.year = year;
+                mAlarm.month = month;
+                mAlarm.day = day;
+                bindSelectedDate();
+                bindDaysOfWeekButtons();
+                bindPauseAlarm();
+                bindDeleteAlarmAfterUse();
+            });
+
+        childFragmentManager.setFragmentResultListener(AlarmTimeZoneDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                boolean wasNotSpecified = !mAlarm.isSpecifiedDate();
+
+                mAlarm.timeZone = bundle.getString(AlarmTimeZoneDialogFragment.RESULT_TIMEZONE, "");
+
+                // If the alarm has no specified date or if the date is outdated,
+                // its year, month, and day are updated to match "Today" in the new country.
+                if (wasNotSpecified || mAlarm.isDateInThePast()) {
+                    Calendar now = Calendar.getInstance(mAlarm.getTimeZone());
+                    mAlarm.year = now.get(Calendar.YEAR);
+                    mAlarm.month = now.get(Calendar.MONTH);
+                    mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
+
+                    bindSelectedDate();
+                }
+
+                bindTimeZone();
             });
 
         childFragmentManager.setFragmentResultListener(LabelDialogFragment.REQUEST_KEY, this,
@@ -1220,6 +2047,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             (requestKey, bundle) -> {
                 mAlarm.snoozeDuration = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
                 bindSnoozeDurationValue();
+                bindSnoozeDurationNote();
                 bindMissedAlarmRepeatLimit();
                 updateThirdGroup();
             });
@@ -1253,6 +2081,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             (requestKey, bundle) -> {
                 mAlarm.blurIntensity = bundle.getInt(BlurIntensityDialogFragment.RESULT_BLUR_INTENSITY_VALUE);
                 bindBlurIntensity();
+            });
+
+        childFragmentManager.setFragmentResultListener(CalendarPickerDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                String json = bundle.getString(CalendarPickerDialogFragment.RESULT_DATES_JSON, "");
+                mAlarm.combinedDays = CombinedDays.fromJson(json);
+                bindSelectedDate();
             });
     }
 
@@ -1297,11 +2132,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTimeInMillis(selection);
 
-                applyDate(
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-                );
+                mAlarm.year = calendar.get(Calendar.YEAR);
+                mAlarm.month = calendar.get(Calendar.MONTH);
+                mAlarm.day = calendar.get(Calendar.DAY_OF_MONTH);
+                bindSelectedDate();
+                bindDaysOfWeekButtons();
+                bindPauseAlarm();
+                bindDeleteAlarmAfterUse();
             });
         }
     }
@@ -1332,7 +2169,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void applyDelay(int hoursToAdd, int minutesToAdd) {
-        Calendar alarmTime = Calendar.getInstance();
+        Calendar alarmTime = Calendar.getInstance(mAlarm.getTimeZone());
         alarmTime.add(Calendar.HOUR_OF_DAY, hoursToAdd);
         alarmTime.add(Calendar.MINUTE, minutesToAdd);
 
@@ -1343,11 +2180,16 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mAlarm.hour = hour;
         mAlarm.minutes = minute;
 
+        if (mInlineCalendarAdapter != null) {
+            mInlineCalendarAdapter.setAlarmTime(hour, minute);
+            mInlineCalendarAdapter.notifyDataSetChanged();
+        }
+
         if (isFromDelay) {
             mAlarm.daysOfWeek = Weekdays.fromBits(0);
         }
 
-        Calendar currentCalendar = Calendar.getInstance();
+        Calendar currentCalendar = Calendar.getInstance(mAlarm.getTimeZone());
 
         // Necessary when an existing alarm has been created in the past, and it is not enabled.
         // Even if the date is not specified, it is saved in AlarmInstance; we need to make
@@ -1373,26 +2215,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindClock();
     }
 
-    private void applyDate(int year, int month, int day) {
-        if (mAlarm.daysOfWeek.isRepeating()) {
-            mAlarm.daysOfWeek = Weekdays.NONE;
-        }
-
-        if (mAlarm.isPauseSet()) {
-            mAlarm.pauseStartDate = 0;
-            mAlarm.pauseEndDate = 0;
-        }
-
-        mAlarm.year = year;
-        mAlarm.month = month;
-        mAlarm.day = day;
-
-        bindSelectedDate();
-        bindDaysOfWeekButtons();
-        bindPauseAlarm();
-        bindDeleteAlarmAfterUse();
-    }
-
     private void updateDaysOfWeekButtonVisuals(@NonNull MaterialButton dayButton, boolean isSelected) {
         final int backgroundColor = isSelected
             ? MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorTertiary, Color.BLACK)
@@ -1412,35 +2234,87 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         dayButton.setTextColor(textColor);
     }
 
-    private void clearSelectedDate(@StringRes int text) {
-        mBinding.cancelScheduledAlarm.setVisibility(GONE);
-        mBinding.scheduleAlarm.setText(getString(text));
+    private void duplicateAlarm(@NonNull View view) {
+        view.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            Events.sendAlarmEvent(R.string.action_duplicate, R.string.label_deskclock);
+
+            Alarm duplicatedAlarm = new Alarm(mAlarm);
+            duplicatedAlarm.id = Alarm.INVALID_ID;
+            duplicatedAlarm.instanceState = AlarmInstance.SILENT_STATE;
+            final AlarmUpdateHandler localUpdateHandler = mAlarmUpdateHandler;
+
+            if (!TextUtils.isEmpty(duplicatedAlarm.backgroundImage) &&
+                duplicatedAlarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+
+                final Context appContext = requireContext().getApplicationContext();
+
+                AppExecutors.getDiskIO().execute(() -> {
+                    File sourceFile = new File(duplicatedAlarm.backgroundImage);
+
+                    if (sourceFile.exists()) {
+                        String safeTitle = FileUtils.toSafeFileName(
+                            FILE_SPECIFIC_ALARM_BACKGROUND + "_dup_" + System.currentTimeMillis()
+                        );
+                        Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, Uri.fromFile(sourceFile), safeTitle);
+
+                        if (copiedUri != null) {
+                            duplicatedAlarm.backgroundImage = copiedUri.getPath();
+                        } else {
+                            duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                        }
+                    } else {
+                        duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                    }
+
+                    if (localUpdateHandler != null) {
+                        localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+                    }
+                });
+            } else {
+                if (localUpdateHandler != null) {
+                    localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+                }
+            }
+
+            dismiss();
+        });
     }
 
-    @NonNull
-    private String formatSnoozeDurationText(int duration) {
-        if (duration == ALARM_SNOOZE_DURATION_DISABLED) {
-            return getString(R.string.snooze_duration_none);
-        }
+    private void previewAlarm(@NonNull View view) {
+        view.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-        int h = duration / 60;
-        int m = duration % 60;
+            Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, mAlarm.hour);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, mAlarm.minutes);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_LABEL, mAlarm.label);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE, mAlarm.backgroundImage);
+            previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_BLUR_INTENSITY, mAlarm.blurIntensity);
 
-        if (h > 0 && m > 0) {
-            String hoursString = getResources().getQuantityString(R.plurals.hours_short, h, h);
-            String minutesString = getResources().getQuantityString(R.plurals.minutes_short, m, m);
-            return String.format("%s %s", hoursString, minutesString);
-        } else if (h > 0) {
-            return getResources().getQuantityString(R.plurals.hours_short, h, h);
-        } else {
-            return getResources().getQuantityString(R.plurals.minutes_short, m, m);
-        }
+            if (RingtoneUtils.RINGTONE_SILENT.equals(mAlarm.alert)) {
+                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, "");
+            } else {
+                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE, mAlarm.alert.toString());
+            }
+
+            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, mIsFadeTransition);
+        });
     }
 
     private void saveAlarmSettings() {
         if (mIsDeleted || mAlarm == null || mOriginalAlarm == null) {
             return;
         }
+
+        // Clean up redundant overrides and past dates before saving
+        mAlarm.combinedDays = mAlarm.combinedDays.cleanup(mAlarm.daysOfWeek)
+            .removePastDates(mAlarm.hour, mAlarm.minutes);
+
+        // Reset the transient dismissal exclusions when the alarm is saved.
+        mAlarm.combinedDays = mAlarm.combinedDays.clearDismissed();
 
         boolean timeChanged = mAlarm.hasTimeChanged(mOriginalAlarm);
         boolean minorFieldsChanged = mAlarm.hasMinorFieldsChanged(mOriginalAlarm);
@@ -1459,6 +2333,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         if (timeChanged) {
             mAlarm.enabled = true;
+            mAlarm.fixDateIfPast();
         }
 
         AlarmVisualCache.invalidate(mAlarm.id);
@@ -1524,6 +2399,17 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         );
     }
 
+    private void updateFifthGroup() {
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mDisplayMetrics,
+            mCardStyleConfig.isBackgroundDisplayed(),
+            mCardStyleConfig.isBorderDisplayed(),
+            mCardStyleConfig.isAmoledDarkMode(),
+            mBinding.lockAlarmOnOff
+        );
+    }
+
     private void updateAllGroupBackgrounds() {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
@@ -1532,7 +2418,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mCardStyleConfig.isBorderDisplayed(),
             mCardStyleConfig.isAmoledDarkMode(),
             mBinding.scheduleAlarmLayout,
-            mBinding.pauseAlarmLayout
+            mBinding.pauseAlarmLayout,
+            mBinding.timezoneLayout
         );
 
         ThemeUtils.applyExpressiveBackgroundsToGroup(
@@ -1550,6 +2437,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         updateThirdGroup();
 
         updateFourthGroup();
+
+        updateFifthGroup();
     }
 
     private void showPauseAlarmNoteDialog() {
@@ -1566,8 +2455,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             null,
             null,
             null,
-            null,
-            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_PAUSE_ALARM_NOTE_HIDDEN, true).apply();
+                bindPauseAlarm();
+            },
             (alertDialog -> alertDialog.setOnDismissListener(d -> mShowPauseAlarmNoteDialog = false)),
             CustomDialog.SoftInputMode.NONE
         );
@@ -1589,8 +2481,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             null,
             null,
             null,
-            null,
-            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_DELETE_ALARM_AFTER_USE_NOTE_HIDDEN, true).apply();
+                bindDeleteAlarmAfterUse();
+            },
             (alertDialog -> alertDialog.setOnDismissListener(d -> mShowDeleteAlarmAfterUseNoteDialog = false)),
             CustomDialog.SoftInputMode.NONE
         );
@@ -1613,12 +2508,41 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             null,
             null,
             null,
-            null,
-            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_AUTO_SILENCE_NOTE_HIDDEN, true).apply();
+                bindAutoSilenceValue();
+            },
             (alertDialog -> alertDialog.setOnDismissListener(d -> {
                 mShowAutoSilenceNoteDialog = false;
                 mAutoSilenceDuration = null;
             })),
+            CustomDialog.SoftInputMode.NONE
+        );
+
+        mActiveDialog.show();
+    }
+
+    private void showSnoozeNoteDialog() {
+        mShowSnoozeNoteDialog = true;
+
+        mActiveDialog = CustomDialog.create(
+            requireContext(),
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error_outlined),
+            getString(R.string.info),
+            getString(R.string.snooze_warning_message),
+            null,
+            getString(android.R.string.ok),
+            null,
+            null,
+            null,
+            getString(R.string.do_not_show_again),
+            (d, w) -> {
+                mPrefs.edit().putBoolean(KEY_SNOOZE_WARNING_HIDDEN, true).apply();
+                bindSnoozeDurationNote();
+            },
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mShowSnoozeNoteDialog = false)),
             CustomDialog.SoftInputMode.NONE
         );
 

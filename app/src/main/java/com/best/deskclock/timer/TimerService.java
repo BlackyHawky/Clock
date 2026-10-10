@@ -84,8 +84,9 @@ public final class TimerService extends Service {
      * Adds minutes or hour to the timer.
      */
     public static final String ACTION_ADD_CUSTOM_TIME_TO_TIMER = ACTION_PREFIX + "ADD_CUSTOM_TIME_TO_TIMER";
+    public static final String ACTION_REMOVE_CUSTOM_TIME_TO_TIMER = ACTION_PREFIX + "REMOVE_CUSTOM_TIME_TO_TIMER";
     private static final String ACTION_TIMER_EXPIRED = ACTION_PREFIX + "TIMER_EXPIRED";
-    private static final String ACTION_UPDATE_NOTIFICATION = ACTION_PREFIX + "UPDATE_NOTIFICATION";
+    public static final String ACTION_UPDATE_NOTIFICATION = ACTION_PREFIX + "UPDATE_NOTIFICATION";
     public static final String ACTION_RESET_EXPIRED_TIMERS = ACTION_PREFIX + "RESET_EXPIRED_TIMERS";
     public static final String ACTION_RESET_MISSED_TIMERS = ACTION_PREFIX + "RESET_MISSED_TIMERS";
 
@@ -241,6 +242,10 @@ public final class TimerService extends Service {
                     case ACTION_ADD_CUSTOM_TIME_TO_TIMER -> {
                         Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, label);
                         dataModel.addCustomTimeToTimer(timer);
+                    }
+                    case ACTION_REMOVE_CUSTOM_TIME_TO_TIMER -> {
+                        Events.sendTimerEvent(R.string.action_remove_custom_time_to_timer, label);
+                        dataModel.removeCustomTimeFromTimer(this, timer);
                     }
                     case ACTION_RESET_TIMER -> {
                         dataModel.resetTimer(timer, label);

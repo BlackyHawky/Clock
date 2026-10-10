@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"به تعویق افتاده"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"هشدار خاموش"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"تعویق"</string>
-    <plurals name="alarm_alert_snooze_set" msgid="3212729193036041768">
-        <item quantity="one">تعویق به مدت <xliff:g id="minutes">%d</xliff:g> دقیقه.</item>
-        <item quantity="other">تعویق به مدت <xliff:g id="minutes">%d</xliff:g> دقیقه.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"تعویق تا <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"هشدار بعدی"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"هشدار بی‌پاسخ حذف شد"</string>
@@ -133,7 +129,6 @@
     <string name="timer_start" msgid="6158486445614356442">آغاز</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"حذف <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"افزودن %s دقیقه"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"افزودن %s دقیقه"</string>
     <string name="timer_stop" msgid="3361154678667736722">"توقف"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"توقف همه تایمرها"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"تایمر لغو شد"</string>
@@ -266,7 +261,6 @@
     <string name="connect_external_audio_device_title">برای دسترسی به این تنظیم، یک دستگاه صوتی خارجی را متصل کنید</string>
     <string name="disconnect_external_audio_device_title">برای دسترسی به این تنظیم، دستگاه صوتی خارجی را قطع کنید</string>
     <string name="system_media_volume_summary">فقط زمانی کار می‌کند که یک دستگاه صوتی خارجی متصل باشد</string>
-    <string name="date_picker_style_calendar">تقویم</string>
     <string name="date_picker_style_text">متن</string>
     <string name="snooze_duration_none">هیچکدام</string>
     <string name="schedule_alarm_title">هشدار برنامه‌ریزی شده</string>
@@ -330,8 +324,6 @@
     <string name="timer_time_box_title">مدت زمان جدید تایمر</string>
     <string name="timer_button_time_box_title">دقایق برای افزودن به تایمر</string>
     <string name="timer_add_custom_time_with_seconds_description">افزودن %1$s دقیقه و %2$s ثانیه</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">افزودن %1$s دقیقه و %2$s ثانیه</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_end_time_label">زمان پایان: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
     <string name="sw_laps_title">دورها</string>
     <string name="sw_split_title">تقسیم</string>

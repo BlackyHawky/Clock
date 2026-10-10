@@ -22,6 +22,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VISIBLE_TABS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -35,7 +36,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.AlarmClock;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
 import androidx.annotation.NonNull;
@@ -66,7 +66,6 @@ import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -86,6 +85,7 @@ public class HandleApiCalls extends Activity {
     private DataModel mDataModel;
     private UiDataModel mUiDataModel;
 
+    @SuppressLint("ThreadConstraint")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,8 +182,10 @@ public class HandleApiCalls extends Activity {
         Utils.enforceNotMainLooper();
 
         final Context appContext = context.getApplicationContext();
-        final Date alarmTime = instance.getAlarmTime().getTime();
-        final String time = DateFormat.getTimeFormat(appContext).format(alarmTime);
+        java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(appContext);
+        timeFormat.setTimeZone(instance.getTimeZone());
+
+        final String time = timeFormat.format(instance.getAlarmTime().getTime());
 
         if (instance.mAlarmState == FIRED_STATE || instance.mAlarmState == SNOOZE_STATE) {
             // Always dismiss alarms that are fired or snoozed.
@@ -303,7 +305,10 @@ public class HandleApiCalls extends Activity {
     private static void snoozeAlarm(@NonNull Activity activity, @NonNull SharedPreferences prefs, @NonNull AlarmInstance alarmInstance) {
         Utils.enforceNotMainLooper();
 
-        final String time = DateFormat.getTimeFormat(activity).format(alarmInstance.getAlarmTime().getTime());
+        java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
+        timeFormat.setTimeZone(alarmInstance.getTimeZone());
+
+        final String time = timeFormat.format(alarmInstance.getAlarmTime().getTime());
         final String reason = activity.getString(R.string.alarm_is_snoozed, time);
         AlarmStateManager.setSnoozeState(activity, prefs, alarmInstance, true);
 
@@ -400,7 +405,11 @@ public class HandleApiCalls extends Activity {
         final AlarmInstance alarmInstance = alarm.createInstanceAfter(now);
         setupInstance(alarmInstance, skipUi);
 
-        final String time = DateFormat.getTimeFormat(this).format(alarmInstance.getAlarmTime().getTime());
+        java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(this);
+        timeFormat.setTimeZone(alarmInstance.getTimeZone());
+
+        final String time = timeFormat.format(alarmInstance.getAlarmTime().getTime());
+
         Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
     }
 
@@ -533,6 +542,7 @@ public class HandleApiCalls extends Activity {
         // Create a new timer if one could not be reused.
         if (timer == null) {
             String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
+            String defaultTimeToRemoveToTimer = String.valueOf(SettingsDAO.getDefaultTimeToRemoveToTimer(mPrefs));
             String vibrationPattern = SettingsDAO.getTimerVibrationPattern(mPrefs);
             Uri ringtoneUri = mDataModel.getTimerRingtoneUri();
             int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
@@ -543,6 +553,7 @@ public class HandleApiCalls extends Activity {
             timer = mDataModel.addTimer(lengthMillis,
                 label,
                 defaultTimeToAddToTimer,
+                defaultTimeToRemoveToTimer,
                 ringtoneUri,
                 autoSilenceDuration,
                 volumeCrescendoDuration,
@@ -634,6 +645,8 @@ public class HandleApiCalls extends Activity {
         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(prefs);
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(prefs);
+        alarm.lock = false;
+        alarm.timeZone = "";
     }
 
     @NonNull

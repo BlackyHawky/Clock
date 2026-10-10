@@ -13,12 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="?attr/dialogPreferredPadding"
-        android:paddingEnd="@null">
+        android:paddingEnd="?attr/dialogPreferredPadding">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/math_hardness_level_off"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="@string/label_off"
             android:textSize="16sp"
             android:textColor="?android:attr/textColorSecondary"
@@ -28,7 +29,8 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/math_hardness_level_easy"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="@string/math_hardness_level_easy"
             android:textSize="16sp"
             android:textColor="?android:attr/textColorSecondary"
@@ -38,7 +40,8 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/math_hardness_level_normal"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="@string/math_hardness_level_normal"
             android:textSize="16sp"
             android:textColor="?android:attr/textColorSecondary"
@@ -48,7 +51,8 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/math_hardness_level_hard"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="@string/math_hardness_level_hard"
             android:textSize="16sp"
             android:textColor="?android:attr/textColorSecondary"

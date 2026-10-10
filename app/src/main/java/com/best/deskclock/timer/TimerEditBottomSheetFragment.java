@@ -51,7 +51,7 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerEditBottomSheetBinding;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
-import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
+import com.best.deskclock.dialogfragment.TimerButtonDialogFragment;
 import com.best.deskclock.dialogfragment.TimerSetNewDurationDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
@@ -66,7 +66,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
+public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     public static final String TAG = "timer_edit_bottom_sheet";
     private static final String ARG_TIMER_TAG = "arg_timer_tag";
@@ -74,6 +74,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private static final String STATE_TIMER_TIME_TEXT = "state_timer_time_text";
     private static final String STATE_TIMER_LABEL = "state_timer_label";
     private static final String STATE_ADD_TIME_BUTTON_VALUE = "state_add_time_button_value";
+    private static final String STATE_REMOVE_TIME_BUTTON_VALUE = "state_remove_time_button_value";
     private static final String STATE_TIMER_RINGTONE_URI = "state_timer_ringtone_uri";
     private static final String STATE_VIBRATE = "state_vibrate";
     private static final String STATE_VIBRATION_PATTERN = "state_vibration_pattern";
@@ -97,6 +98,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private long mTimerTimeText;
     private String mTimerLabel;
     private int mAddTimeButtonValue;
+    private int mRemoveTimeButtonValue;
     private Uri mTimerRingtoneUri;
     private boolean mVibrate;
     private String mVibrationPattern;
@@ -173,6 +175,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             outState.putLong(STATE_TIMER_TIME_TEXT, mTimerTimeText);
             outState.putString(STATE_TIMER_LABEL, mTimerLabel);
             outState.putInt(STATE_ADD_TIME_BUTTON_VALUE, mAddTimeButtonValue);
+            outState.putInt(STATE_REMOVE_TIME_BUTTON_VALUE, mRemoveTimeButtonValue);
             outState.putParcelable(STATE_TIMER_RINGTONE_URI, mTimerRingtoneUri);
             outState.putBoolean(STATE_VIBRATE, mVibrate);
             outState.putString(STATE_VIBRATION_PATTERN, mVibrationPattern);
@@ -215,6 +218,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mTimerTimeText = savedInstanceState.getLong(STATE_TIMER_TIME_TEXT);
             mTimerLabel = savedInstanceState.getString(STATE_TIMER_LABEL);
             mAddTimeButtonValue = savedInstanceState.getInt(STATE_ADD_TIME_BUTTON_VALUE);
+            mRemoveTimeButtonValue = savedInstanceState.getInt(STATE_REMOVE_TIME_BUTTON_VALUE);
             mTimerRingtoneUri = BundleCompat.getParcelable(savedInstanceState, STATE_TIMER_RINGTONE_URI, Uri.class);
             mVibrate = savedInstanceState.getBoolean(STATE_VIBRATE);
             mVibrationPattern = savedInstanceState.getString(STATE_VIBRATION_PATTERN);
@@ -226,7 +230,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         } else {
             mTimerTimeText = timer.getLength();
             mTimerLabel = timer.getLabel();
-            mAddTimeButtonValue = Integer.parseInt(timer.getButtonTime());
+            mAddTimeButtonValue = Integer.parseInt(timer.getButtonAddTime());
+            mRemoveTimeButtonValue = Integer.parseInt(timer.getButtonRemoveTime());
             mTimerRingtoneUri = timer.getRingtoneUri();
             mVibrate = timer.isVibrate();
             mVibrationPattern = timer.getVibrationPattern();
@@ -250,6 +255,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindTimerTimeText();
         bindLabel();
         bindAddTimeButtonValue();
+        bindRemoveTimeButtonValue();
         bindRingtone();
         bindVibrator();
         bindVibrationPattern();
@@ -342,27 +348,53 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        long totalSeconds = mAddTimeButtonValue;
-        long buttonTimeMinutes = (totalSeconds) / 60;
-        long buttonTimeSeconds = totalSeconds % 60;
-
-        String buttonTimeFormatted = String.format(
+        UiConfig.ButtonTimeConfig config = UiConfig.formatButtonTime(
+            requireContext(),
             Utils.getLocaleFromContext(requireContext()),
-            buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
-            buttonTimeMinutes,
-            buttonTimeSeconds);
+            mAddTimeButtonValue,
+            false,
+            0,
+            0
+        );
 
-        mBinding.addTimeButton.setText(getString(R.string.timer_add_custom_time, buttonTimeFormatted));
+        mBinding.addTimeButton.setText(config.text());
 
         View.OnClickListener addTimeButtonListener = v -> {
             Events.sendTimerEvent(R.string.action_set_add_time_button_value, R.string.label_deskclock);
 
-            final TimerAddTimeButtonDialogFragment fragment = TimerAddTimeButtonDialogFragment.newInstance(mTimerId, mAddTimeButtonValue);
-            TimerAddTimeButtonDialogFragment.show(getChildFragmentManager(), fragment);
+            final TimerButtonDialogFragment fragment = TimerButtonDialogFragment.newInstance(mTimerId, mAddTimeButtonValue, false);
+            TimerButtonDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
         mBinding.addTimeButtonLayout.setOnClickListener(addTimeButtonListener);
         mBinding.addTimeButton.setOnClickListener(addTimeButtonListener);
+    }
+
+    private void bindRemoveTimeButtonValue() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        UiConfig.ButtonTimeConfig config = UiConfig.formatButtonTime(
+            requireContext(),
+            Utils.getLocaleFromContext(requireContext()),
+            mRemoveTimeButtonValue,
+            true,
+            0,
+            0
+        );
+
+        mBinding.removeTimeButton.setText(config.text());
+
+        View.OnClickListener removeTimeButtonListener = v -> {
+            Events.sendTimerEvent(R.string.action_set_remove_time_button_value, R.string.label_deskclock);
+
+            final TimerButtonDialogFragment fragment = TimerButtonDialogFragment.newInstance(mTimerId, mRemoveTimeButtonValue, true);
+            TimerButtonDialogFragment.show(getChildFragmentManager(), fragment);
+        };
+
+        mBinding.removeTimeButtonLayout.setOnClickListener(removeTimeButtonListener);
+        mBinding.removeTimeButton.setOnClickListener(removeTimeButtonListener);
     }
 
     private void bindRingtone() {
@@ -570,7 +602,9 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     }
 
     private void bindDeleteButton() {
-        if (getTimer() == null) {
+        final Timer timer = getTimer();
+
+        if (timer == null) {
             return;
         }
 
@@ -578,7 +612,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mIsDeleted = true;
             Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
-            mDataModel.removeTimer(getTimer(), R.string.label_deskclock);
+            mDataModel.removeTimer(timer, R.string.label_deskclock);
             dismiss();
         });
     }
@@ -608,6 +642,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mTimerTimeText,
                 mTimerLabel,
                 String.valueOf(mAddTimeButtonValue),
+                String.valueOf(mRemoveTimeButtonValue),
                 mTimerRingtoneUri,
                 mTimerAutoSilence,
                 mVolumeCrescendoDuration,
@@ -671,10 +706,16 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 bindLabel();
             });
 
-        childFragmentManager.setFragmentResultListener(TimerAddTimeButtonDialogFragment.REQUEST_ADD_TIME_DURATION, this,
+        childFragmentManager.setFragmentResultListener(TimerButtonDialogFragment.REQUEST_ADD_TIME_DURATION, this,
             (requestKey, bundle) -> {
-                mAddTimeButtonValue = bundle.getInt(TimerAddTimeButtonDialogFragment.ADD_TIME_BUTTON_VALUE);
+                mAddTimeButtonValue = bundle.getInt(TimerButtonDialogFragment.TIME_BUTTON_VALUE);
                 bindAddTimeButtonValue();
+            });
+
+        childFragmentManager.setFragmentResultListener(TimerButtonDialogFragment.REQUEST_REMOVE_TIME_DURATION, this,
+            (requestKey, bundle) -> {
+                mRemoveTimeButtonValue = bundle.getInt(TimerButtonDialogFragment.TIME_BUTTON_VALUE);
+                bindRemoveTimeButtonValue();
             });
 
         childFragmentManager.setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY, this,
@@ -716,6 +757,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 timer,
                 mTimerLabel,
                 String.valueOf(mAddTimeButtonValue),
+                String.valueOf(mRemoveTimeButtonValue),
                 mTimerRingtoneUri,
                 mTimerAutoSilence,
                 mVolumeCrescendoDuration,
@@ -737,6 +779,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mCardStyleConfig.isAmoledDarkMode(),
             mBinding.timerLabel,
             mBinding.addTimeButtonLayout,
+            mBinding.removeTimeButtonLayout,
             mBinding.chooseRingtone
         );
 

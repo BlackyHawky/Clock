@@ -128,6 +128,7 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
             radioButton.setTag(i);
             radioButton.setPadding((int) dpToPx(20, getResources().getDisplayMetrics()), 0, 0, 0);
             radioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            radioButton.setMinHeight((int) dpToPx(48, getResources().getDisplayMetrics()));
             radioButton.setTypeface(typeface);
 
             if (i == currentIndex) {

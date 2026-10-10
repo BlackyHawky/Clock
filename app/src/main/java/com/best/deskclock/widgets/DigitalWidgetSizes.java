@@ -40,6 +40,11 @@ public class DigitalWidgetSizes {
     public int mFontSizePx;
 
     /**
+     * The size of the time zone font.
+     */
+    public int mTimeZoneFontSizePx;
+
+    /**
      * The size of the widget font.
      */
     public int mWidgetFontSizePx;
@@ -73,6 +78,7 @@ public class DigitalWidgetSizes {
     public void setWidgetFontSizePx(int widgetFontSizePx, float fontScaleFactor) {
         mWidgetFontSizePx = widgetFontSizePx;
         mFontSizePx = max(1, round(widgetFontSizePx / fontScaleFactor));
+        mTimeZoneFontSizePx = (int) (mFontSizePx * 0.7f);
         mIconFontSizePx = (int) (mFontSizePx * 1.4f);
         mIconPaddingPx = mFontSizePx / 3;
     }

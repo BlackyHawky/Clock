@@ -55,6 +55,11 @@ public record TimerClickHandler(@NonNull TimerFragment mTimerFragment, @NonNull 
         mDataModel.resetTimer(timer, R.string.label_deskclock);
     }
 
+    public void onDeleteClicked(@NonNull Timer timer) {
+        Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
+        mDataModel.removeTimer(timer, R.string.label_deskclock);
+    }
+
     public void onAddTimeClicked(@NonNull Timer timer, @NonNull View v) {
         Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
         mDataModel.addCustomTimeToTimer(timer);
@@ -62,11 +67,30 @@ public record TimerClickHandler(@NonNull TimerFragment mTimerFragment, @NonNull 
         Context context = mTimerFragment.requireContext();
 
         final long currentTime = timer.getRemainingTime();
-        final String buttonTime = timer.getButtonTime();
+        final String buttonTime = timer.getButtonAddTime();
 
         if (currentTime > 0) {
             ViewCompat.setStateDescription(v, TimerStringFormatter.formatString(
                 context, R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true)
+            );
+        }
+    }
+
+    public void onRemoveTimeClicked(@NonNull Timer timer, @NonNull View v) {
+        if (timer.isReset()) {
+            return;
+        }
+
+        Events.sendTimerEvent(R.string.action_remove_custom_time_to_timer, R.string.label_deskclock);
+        mDataModel.removeCustomTimeFromTimer(timer);
+
+        Context context = mTimerFragment.requireContext();
+        final long currentTime = timer.getRemainingTime();
+        final String buttonTime = timer.getButtonRemoveTime();
+
+        if (currentTime > 0) {
+            ViewCompat.setStateDescription(v, TimerStringFormatter.formatString(
+                context, R.string.timer_accessibility_custom_time_removed, buttonTime, currentTime, true)
             );
         }
     }

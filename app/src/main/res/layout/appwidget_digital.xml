@@ -162,6 +162,32 @@
                     android:maxLines="1"
                     tools:visibility="gone" />
 
+                <TextView
+                    android:id="@+id/timeZone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@null"
+                    android:paddingEnd="3dp"
+                    android:gravity="start|center_vertical"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    tools:text="(UTC+10:00)"
+                    tools:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/timeZoneForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@null"
+                    android:paddingEnd="3dp"
+                    android:gravity="start|center_vertical"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    tools:visibility="gone" />
+
             </LinearLayout>
 
             <LinearLayout

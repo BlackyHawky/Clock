@@ -17,6 +17,15 @@
             android:key="key_display_compact_timers"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_compact_timers_title"
+            android:summary="@string/display_compact_timers_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_display_timer_delete_button"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_timer_delete_button_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />

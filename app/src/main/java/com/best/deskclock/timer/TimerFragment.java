@@ -87,10 +87,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
         if (key != null) {
             switch (key) {
-                case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS, KEY_DISPLAY_TIMER_END_TIME,
-                     KEY_INVERT_TIMER_BUTTON_POSITIONS, KEY_SINGLE_TIMER_MODE, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
-                     KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
-                     KEY_MISSED_TIMER_INDICATOR_COLOR -> {
+                case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS,
+                     KEY_DISPLAY_TIMER_DELETE_BUTTON, KEY_DISPLAY_TIMER_END_TIME, KEY_INVERT_TIMER_BUTTON_POSITIONS, KEY_SINGLE_TIMER_MODE,
+                     KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR,
+                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_MISSED_TIMER_INDICATOR_COLOR -> {
 
                     mAreSettingsChanged = true;
 
@@ -455,6 +455,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 final long timerLength = getTimeInMillis();
                 String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(getPrefs()));
+                String defaultTimeToRemoveToTimer = String.valueOf(SettingsDAO.getDefaultTimeToRemoveToTimer(getPrefs()));
                 String vibrationPattern = SettingsDAO.getTimerVibrationPattern(getPrefs());
                 Uri ringtoneUri = getDataModel().getTimerRingtoneUri();
                 int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(getPrefs());
@@ -466,6 +467,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     timerLength,
                     defaultLabel,
                     defaultTimeToAddToTimer,
+                    defaultTimeToRemoveToTimer,
                     ringtoneUri,
                     autoSilenceDuration,
                     volumeCrescendoDuration,
@@ -762,6 +764,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mSettings.isSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(getPrefs());
         mSettings.isCompactTimersDisplayed = SettingsDAO.isCompactTimersDisplayed(getPrefs());
         mSettings.savedTimerOrder = getPrefs().getString(KEY_TIMER_ORDER, null);
+        mSettings.isDeleteButtonDisplayed = SettingsDAO.isTimerDeleteButtonDisplayed(getPrefs());
         mSettings.isTimerEndTimeDisplayed = SettingsDAO.isTimerEndTimeDisplayed(getPrefs());
         mSettings.areTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
         mSettings.isIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());

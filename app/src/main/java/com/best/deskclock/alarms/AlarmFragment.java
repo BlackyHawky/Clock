@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_MA
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ENABLED_ALARMS_FIRST;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_LOCKED_ALARMS_FIRST;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_ALARM;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
@@ -128,6 +129,7 @@ public final class AlarmFragment extends DeskClockFragment
     private Weekdays.Order mWeekdayOrder;
     private String mSortingPref;
     private boolean mAreEnabledAlarmsFirst;
+    private boolean mAreLockedAlarmsFirst;
     private boolean mIs24HourFormat;
     private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mSideButtonsVisible = false;
@@ -137,7 +139,8 @@ public final class AlarmFragment extends DeskClockFragment
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
         if (key != null) {
             switch (key) {
-                case KEY_ALARM_FONT, KEY_SORT_ALARM, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
+                case KEY_ALARM_FONT, KEY_SORT_ALARM, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
+                     KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
 
                     mAreSettingsChanged = true;
 
@@ -209,7 +212,6 @@ public final class AlarmFragment extends DeskClockFragment
             requireContext(), getPrefs(), getGeneralTypeface(), this, mBinding.alarmRootView, isVibrationsEnabled());
 
         AlarmTimeClickHandler.Config uiConfig = new AlarmTimeClickHandler.Config(
-            SettingsDAO.getMaterialTimePickerStyle(getPrefs()),
             getFontsConfig(),
             SettingsDAO.getGlobalIntentId(getPrefs())
         );
@@ -404,7 +406,7 @@ public final class AlarmFragment extends DeskClockFragment
                 }
 
                 // If the sort order has changed since last time, reload the alarms
-                String currentSortOrder = mSortingPref + "_enabledFirst=" + mAreEnabledAlarmsFirst;
+                String currentSortOrder = mSortingPref + "_enabledFirst=" + mAreEnabledAlarmsFirst+ "_lockedFirst=" + mAreLockedAlarmsFirst;
 
                 if (!currentSortOrder.equals(mLastSortOrder)) {
                     mLastSortOrder = currentSortOrder;
@@ -481,7 +483,7 @@ public final class AlarmFragment extends DeskClockFragment
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        return Alarm.getAlarmsCursorLoader(requireContext(), mAreEnabledAlarmsFirst, mSortingPref);
+        return Alarm.getAlarmsCursorLoader(requireContext(), mSortingPref, mAreEnabledAlarmsFirst, mAreLockedAlarmsFirst);
     }
 
     @Override
@@ -512,6 +514,10 @@ public final class AlarmFragment extends DeskClockFragment
             collator.setStrength(Collator.SECONDARY);
 
             Collections.sort(itemHolders, (h1, h2) -> {
+                if (mAreLockedAlarmsFirst && h1.item.lock != h2.item.lock) {
+                    return h1.item.lock ? -1 : 1;
+                }
+
                 if (mAreEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
                     return h1.item.enabled ? -1 : 1;
                 }
@@ -524,6 +530,10 @@ public final class AlarmFragment extends DeskClockFragment
             // Sort by next alarm time if requested
             Calendar now = Calendar.getInstance();
             Collections.sort(itemHolders, (h1, h2) -> {
+                if (mAreLockedAlarmsFirst && h1.item.lock != h2.item.lock) {
+                    return h1.item.lock ? -1 : 1;
+                }
+
                 if (mAreEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
                     // Sort enabled alarms before disabled ones: true comes before false
                     return h1.item.enabled ? -1 : 1;
@@ -627,11 +637,19 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     @Override
-    public boolean canSwipe() {
+    public boolean canSwipe(@NonNull RecyclerView.ViewHolder viewHolder) {
+        if (!(viewHolder instanceof AlarmItemViewHolder alarmItemViewHolder)) {
+            return false;
+        }
+
+        AlarmItemHolder itemHolder = alarmItemViewHolder.getItemHolder();
+
         Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
         Fragment delayDialog = getParentFragmentManager().findFragmentByTag(AlarmDelayPickerDialogFragment.TAG);
 
-        return !(bottomSheet != null && bottomSheet.isAdded()) && !(delayDialog != null && delayDialog.isAdded());
+        return !(bottomSheet != null && bottomSheet.isAdded())
+            && !(delayDialog != null && delayDialog.isAdded())
+            && !itemHolder.item.lock;
     }
 
     @Override
@@ -941,6 +959,8 @@ public final class AlarmFragment extends DeskClockFragment
         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
         alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
+        alarm.lock = false;
+        alarm.timeZone = "";
 
         return alarm;
     }
@@ -1181,6 +1201,7 @@ public final class AlarmFragment extends DeskClockFragment
         mWeekdayOrder = SettingsDAO.getWeekdayOrder(getPrefs());
         mSortingPref = SettingsDAO.getAlarmSorting(getPrefs());
         mAreEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(getPrefs());
+        mAreLockedAlarmsFirst = SettingsDAO.areLockedAlarmsDisplayedFirst(getPrefs());
         mIs24HourFormat = getDataModel().is24HourFormat();
 
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(getPrefs());

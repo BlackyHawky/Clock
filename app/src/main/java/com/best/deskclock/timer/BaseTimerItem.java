@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -50,14 +51,15 @@ public abstract class BaseTimerItem extends ConstraintLayout {
     protected Drawable mIconPlay, mIconPause, mIconStop, mIconDelete;
 
     protected int mColorPaused, mColorRunning, mColorExpired, mColorMissed;
-    protected boolean mIsLandscapePhone, mIsTimerEndTimeDisplayed, mIsIndicatorStateDisplayed, mIsAddTimeZero;
+    protected boolean mIsLandscapePhone, mIsDeleteButtonDisplayed, mIsTimerEndTimeDisplayed, mIsIndicatorStateDisplayed, mIsAddTimeZero,
+        mIsRemoveTimeZero;
 
-    protected String mLastLabel = "", mLastButtonTimeRaw = "";
-    protected String mCachedAddButtonText, mCachedAddButtonContentDesc;
+    protected String mLastLabel = "", mLastButtonAddTimeRaw = "", mLastButtonRemoveTimeRaw = "";
+    protected String mCachedAddButtonText, mCachedAddButtonContentDesc, mCachedRemoveButtonText, mCachedRemoveButtonContentDesc;
 
     /** The last state of the timer that was rendered; used to avoid expensive operations. */
     protected Timer.State mLastState;
-    protected boolean mLastDeleteAfterUse;
+    protected boolean mLastDeleteAfterUse, mIsSingleTimer;
 
     protected CharSequence mTimerEndTimeFormatPattern;
     protected SimpleDateFormat mTimeFormat, mDayFormat;
@@ -78,12 +80,15 @@ public abstract class BaseTimerItem extends ConstraintLayout {
     protected abstract TextView getLabelText();
     protected abstract TextView getEndTimeText();
     protected abstract MaterialButton getAddTimeButton();
+    protected abstract MaterialButton getRemoveTimeButton();
     protected abstract View getIndicatorState();
     protected abstract BaseProgressIndicator<?> getProgressIndicator();
     protected abstract View getResetButton();
+    protected abstract View getDeleteButton();
     protected abstract MaterialButton getPlayPauseButton();
 
-    protected abstract int getAddTimeHiddenVisibility();
+    protected abstract int getRemoveTimeHiddenVisibility();
+    protected void onTimerPlayPauseButtonUpdated(Timer.State state) {}
     protected void onTimerTopUpdated() {}
 
     protected void onFinishInflateShared() {
@@ -110,10 +115,15 @@ public abstract class BaseTimerItem extends ConstraintLayout {
         mIsLandscapePhone = isLandscapePhone;
     }
 
+    public void checkIsSingleTimer(boolean isSingleTimer) {
+        mIsSingleTimer = isSingleTimer;
+    }
+
     public void setGeneralFonts(@NonNull Typeface regular, @NonNull Typeface bold) {
         getLabelText().setTypeface(bold);
         if (!mIsLandscapePhone) {
             getAddTimeButton().setTypeface(bold);
+            getRemoveTimeButton().setTypeface(bold);
         }
         getEndTimeText().setTypeface(regular, Typeface.ITALIC);
     }
@@ -131,6 +141,10 @@ public abstract class BaseTimerItem extends ConstraintLayout {
             mTimerEndTimeFormatPattern = formatPattern;
             refreshFormatters();
         }
+    }
+
+    public void displayDeleteButton(boolean isDeleteButtonDisplayed) {
+        mIsDeleteButtonDisplayed = isDeleteButtonDisplayed;
     }
 
     public void displayTimerEndTime(boolean isTimerEndTimeDisplayed) {
@@ -226,6 +240,8 @@ public abstract class BaseTimerItem extends ConstraintLayout {
 
         mLastLabel = label;
 
+        updateDeleteButtonDisplay();
+
         // Initialize the circle
         if (getProgressIndicator() != null) {
             getProgressIndicator().animate().cancel();
@@ -236,32 +252,40 @@ public abstract class BaseTimerItem extends ConstraintLayout {
         getTimeText().animate().cancel();
         getTimeText().setAlpha(1f);
 
-        // Initialize the time value to add to timer in the "Add time" button
-        String buttonTime = timer.getButtonTime();
-
-        if (!buttonTime.equals(mLastButtonTimeRaw)) {
-            mLastButtonTimeRaw = buttonTime;
-
-            long totalSeconds = Long.parseLong(buttonTime);
-            mIsAddTimeZero = totalSeconds == 0;
-
-            long buttonTimeMinutes = (totalSeconds) / 60;
-            long buttonTimeSeconds = totalSeconds % 60;
-
-            String buttonTimeFormatted = String.format(
+        // Initialize "Add time" button configuration
+        String buttonAddTime = timer.getButtonAddTime();
+        if (!buttonAddTime.equals(mLastButtonAddTimeRaw)) {
+            mLastButtonAddTimeRaw = buttonAddTime;
+            UiConfig.ButtonTimeConfig config = UiConfig.formatButtonTime(
+                getContext(),
                 mLocale,
-                buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
-                buttonTimeMinutes,
-                buttonTimeSeconds
+                Long.parseLong(buttonAddTime),
+                false,
+                R.string.timer_add_custom_time_description,
+                R.string.timer_add_custom_time_with_seconds_description
             );
 
-            mCachedAddButtonText = getContext().getString(R.string.timer_add_custom_time, buttonTimeFormatted);
+            mIsAddTimeZero = config.isZero();
+            mCachedAddButtonText = config.text();
+            mCachedAddButtonContentDesc = config.contentDescription();
+        }
 
-            mCachedAddButtonContentDesc = buttonTimeSeconds == 0
-                ? getContext().getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
-                : getContext().getString(R.string.timer_add_custom_time_with_seconds_description,
-                String.valueOf(buttonTimeMinutes),
-                String.valueOf(buttonTimeSeconds));
+        // Initialize "Remove time" button configuration
+        String buttonRemoveTime = timer.getButtonRemoveTime();
+        if (!buttonRemoveTime.equals(mLastButtonRemoveTimeRaw)) {
+            mLastButtonRemoveTimeRaw = buttonRemoveTime;
+            UiConfig.ButtonTimeConfig config = UiConfig.formatButtonTime(
+                getContext(),
+                mLocale,
+                Long.parseLong(buttonRemoveTime),
+                true,
+                R.string.timer_remove_custom_time_description,
+                R.string.timer_remove_custom_time_with_seconds_description
+            );
+
+            mIsRemoveTimeZero = config.isZero();
+            mCachedRemoveButtonText = config.text();
+            mCachedRemoveButtonContentDesc = config.contentDescription();
         }
 
         final boolean deleteAfterUse = timer.getDeleteAfterUse();
@@ -296,7 +320,11 @@ public abstract class BaseTimerItem extends ConstraintLayout {
             }
         }
 
+        onTimerPlayPauseButtonUpdated(timer.getState());
+
         updateAddTimeButtonDisplay(timer.getState());
+
+        updateRemoveTimeButtonDisplay(timer.getState());
 
         updateIndicator(timer.getState(), label);
 
@@ -309,15 +337,30 @@ public abstract class BaseTimerItem extends ConstraintLayout {
 
     protected void updateAddTimeButtonDisplay(@NonNull Timer.State state) {
         if (state == Timer.State.RESET || mIsAddTimeZero) {
-            getAddTimeButton().setVisibility(getAddTimeHiddenVisibility());
+            getAddTimeButton().setVisibility(GONE);
             return;
         }
 
         if (!mIsLandscapePhone) {
             getAddTimeButton().setText(mCachedAddButtonText);
         }
+
         getAddTimeButton().setContentDescription(mCachedAddButtonContentDesc);
         getAddTimeButton().setVisibility(VISIBLE);
+    }
+
+    protected void updateRemoveTimeButtonDisplay(@NonNull Timer.State state) {
+        if (state == Timer.State.RESET || state == Timer.State.EXPIRED || state == Timer.State.MISSED || mIsRemoveTimeZero) {
+            getRemoveTimeButton().setVisibility(mIsSingleTimer ? GONE : getRemoveTimeHiddenVisibility());
+            return;
+        }
+
+        if (!mIsLandscapePhone) {
+            getRemoveTimeButton().setText(mCachedRemoveButtonText);
+        }
+
+        getRemoveTimeButton().setContentDescription(mCachedRemoveButtonContentDesc);
+        getRemoveTimeButton().setVisibility(VISIBLE);
     }
 
     private void updateIndicator(@NonNull Timer.State state, @Nullable String label) {
@@ -341,6 +384,15 @@ public abstract class BaseTimerItem extends ConstraintLayout {
 
         mGradientDrawable.setColor(color);
         getIndicatorState().setVisibility(VISIBLE);
+    }
+
+    private void updateDeleteButtonDisplay() {
+        if (!mIsDeleteButtonDisplayed) {
+            getDeleteButton().setVisibility(GONE);
+            return;
+        }
+
+        getDeleteButton().setVisibility(VISIBLE);
     }
 
     private void updateEndTimeDisplay(@NonNull Timer timer) {

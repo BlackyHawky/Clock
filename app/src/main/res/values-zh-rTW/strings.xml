@@ -28,9 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"已延後"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"關閉鬧鐘"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"貪睡"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">延後 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"延後到<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"預定的鬧鐘"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"您錯過的鬧鐘已刪除"</string>
@@ -127,7 +124,6 @@
     <string name="timer_start" msgid="6158486445614356442">"開始"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"刪除 <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"增加 %s 分鐘"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"增加 %s 分鐘"</string>
     <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"停止所有計時器"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"已取消計時器"</string>
@@ -248,7 +244,6 @@
     <string name="permission_granted">已授予</string>
     <string name="alarm_label_box_title">鬧鐘標籤</string>
     <string name="label_default">預設</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="alarm_missed_channel">錯過的鬧鐘</string>
     <string name="clock_color_title">時鐘顏色</string>
     <string name="whats_new_title">有什麼新功能</string>
@@ -460,11 +455,9 @@
     <string name="schedule_alarm_title">排定鬧鐘</string>
     <string name="alarm_scheduled_for">已預定 %s</string>
     <string name="date_picker_style_title">選取日期面板樣式</string>
-    <string name="date_picker_style_calendar">日曆</string>
     <string name="date_picker_style_text">文字</string>
     <string name="random_ringtone_title">隨機鈴聲</string>
     <string name="timer_button_time_seconds_warning_box_text">請輸入 0–59 秒</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">新增 %1$s 分 %2$s 秒</string>
     <string name="label_seconds">秒</string>
     <string name="label_minutes">分</string>
     <string name="timer_add_custom_time_with_seconds_description">新增 %1$s 分 %2$s 秒</string>

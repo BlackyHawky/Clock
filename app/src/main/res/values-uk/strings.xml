@@ -28,12 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Відкладено"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Будильник вимкнено</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Відкласти"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Відкладено на <xliff:g example="1" id="minutes">%d</xliff:g> хвилину.</item>
-        <item quantity="few">Відкладено на <xliff:g example="2" id="minutes">%d</xliff:g> хвилини.</item>
-        <item quantity="many">Відкладено на <xliff:g example="10" id="minutes">%d</xliff:g> хвилин.</item>
-        <item quantity="other">Відкладено на <xliff:g example="10" id="minutes">%d</xliff:g> хвилин.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Відкласти сигнал до <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Наступний будильник"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Пропущений сигнал видалено"</string>
@@ -147,7 +141,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Почати"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Видалити <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Додати %s хвилину"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Додати %s хв"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Зупинити"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Зупинити всі таймери"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Таймер скасовано"</string>
@@ -325,7 +318,6 @@
     <string name="screensaver_bold_date_title">Дата жирним</string>
     <string name="settings_vibration_summary">Впливає лише на деякі кнопки (напр., запуск/пауза таймера або перемикачі)</string>
     <string name="alarm_label_box_title">Мітка будильника</string>
-    <string name="timer_add_custom_time">+%s</string>
     <string name="timer_label_box_title">Мітка таймера</string>
     <string name="timer_button_time_box_title">Хвилини для додавання до таймера</string>
     <string name="license">Ліцензія з відкритим кодом</string>
@@ -491,13 +483,11 @@
     <string name="settings_language_chinese_traditional_tw">Китайська (традиційна, Тайвань)</string>
     <string name="alarm_is_dismissed_and_deleted">Будильник <xliff:g example="14:20" id="alarm_time">%s</xliff:g> вимкнено і видалено</string>
     <string name="alarm_scheduled_for">Заплановано на %s</string>
-    <string name="date_picker_style_calendar">Календар</string>
     <string name="date_picker_style_text">Текст</string>
     <string name="schedule_alarm_title">Запланувати будильник</string>
     <string name="date_picker_style_title">Стиль вікна зміни дати</string>
     <string name="random_ringtone_title">Випадкова мелодія сигналу</string>
     <string name="warning">Попередження</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Додати %1$s хв %2$s с</string>
     <string name="timer_button_time_seconds_warning_box_text">Уведіть значення від 0 до 59 секунд</string>
     <string name="label_minutes">Хвилини</string>
     <string name="timer_add_custom_time_with_seconds_description">Додати %1$s хвилину %2$s секунд</string>

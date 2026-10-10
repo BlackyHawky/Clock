@@ -12,7 +12,7 @@
     android:id="@+id/alarm_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="130dp"
+    android:minHeight="134dp"
     android:importantForAccessibility="no"
     android:paddingVertical="6dp"
     tools:background="@drawable/bg_card_for_preview"
@@ -37,6 +37,37 @@
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@string/category_alarm"
         tools:ignore="TextContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/alarm_icon_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/globe_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_globe_clock"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lock_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_lock"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
 
     <com.best.deskclock.uicomponents.TextTime
         android:id="@+id/digital_clock"
@@ -65,39 +96,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/preemptive_dismiss_button"
         app:layout_constraintTop_toBottomOf="@+id/digital_clock"
-        app:layout_constraintBottom_toTopOf="@+id/upcoming_date"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintHorizontal_bias="0.0"
-        tools:text="Mon, Tue, Wed" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/upcoming_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="14sp"
-        android:textColor="?attr/colorTertiary"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/preemptive_dismiss_button"
-        app:layout_constraintTop_toBottomOf="@+id/days_of_week"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_bias="0.0"
-        tools:text="Jan, 01 Monday"
-        tools:visibility="visible" />
+        tools:text="Mon, Tue, Wed" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/on_off_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
+        android:layout_marginTop="2dp"
         app:thumbIconTint="@color/switch_thumb_icon_tint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/preemptive_dismiss_button"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_icon_layout"
+        app:layout_constraintBottom_toTopOf="@+id/preemptive_dismiss_button"
+        app:layout_goneMarginTop="0dp"
         tools:thumbIcon="@drawable/alarm_switch_thumb_icon"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -106,10 +120,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:minHeight="40dp"
-        android:padding="10dp"
-        android:includeFontPadding="false"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="2dp"
         android:gravity="center"
         android:maxLines="2"
         android:textColor="?attr/colorAccent"
@@ -118,7 +132,6 @@
         app:layout_constraintTop_toBottomOf="@+id/on_off_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedWidth="true"
-        app:layout_constraintHorizontal_bias="1.0"
         tools:text="@string/alarm_alert_dismiss_and_delete_text_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

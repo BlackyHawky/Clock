@@ -28,9 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">알람을 잠시 미룹니다.</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">알람을 껐습니다.</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">잠시 미루기</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">알람을 <xliff:g example="10" id="minutes">%d</xliff:g>분 뒤로 미룹니다.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550"><xliff:g id="time">%s</xliff:g>에 다시 울림</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"예정된 알람"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"부재중 알람이 삭제되었습니다."</string>
@@ -127,7 +124,6 @@
     <string name="timer_start" msgid="6158486445614356442">"시작"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> 삭제"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s분 추가"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s분 추가"</string>
     <string name="timer_stop" msgid="3361154678667736722">"중지"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"모든 타이머 정지"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"타이머 취소됨"</string>
@@ -411,7 +407,6 @@
     <string name="settings_vibration_summary">타이머 시작/일시중지, 스위치 등 일부 인터페이스 버튼에만 적용됩니다.</string>
     <string name="settings_fade_transitions_title">앱 내에서 화면 변경 시 페이드 효과 사용</string>
     <string name="settings_vibration_title">진동 사용</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_button_time_box_title">타이머에 추가할 시간(분)</string>
     <string name="sw_volume_down_action_title">볼륨 아래</string>
     <string name="timer_label_box_title">타이머 라벨</string>
@@ -457,13 +452,11 @@
     <string name="description_snooze_button">눌러서 알람 잠시 미루기</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> 알람을 해제하고 삭제했습니다.</string>
     <string name="date_picker_style_title">날씨 선택 도구 스타일</string>
-    <string name="date_picker_style_calendar">캘린더</string>
     <string name="date_picker_style_text">텍스트</string>
     <string name="advanced_audio_playback_title">고급 오디오 재생 사용</string>
     <string name="advanced_audio_playback_summary">“외부 오디오 장치와의 호환성을 높이고 반복 시 소리 끊김 현상을 방지합니다.\n\n일부 벨소리를 사용할 때 오디오가 불안정해질 수 있습니다.</string>
     <string name="label_hours">시간</string>
     <string name="alarm_hours_warning_box_text">0에서 24시간 사이의 값을 입력하세요.</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s분 %2$s초 추가</string>
     <string name="label_seconds">초</string>
     <string name="warning">경고</string>
     <string name="schedule_alarm_title">알람 예약</string>

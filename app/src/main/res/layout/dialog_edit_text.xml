@@ -45,7 +45,7 @@
             android:id="@+id/sync_alarm_by_label_checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
+            android:minHeight="48dp"
             android:background="?attr/selectableItemBackground"
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"

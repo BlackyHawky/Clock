@@ -10,14 +10,18 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
@@ -25,10 +29,14 @@ import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Click handler for an alarm time item.
@@ -38,7 +46,7 @@ public final class AlarmTimeClickHandler {
     public static final String TAG = "AlarmTimeClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
 
-    public record Config(@NonNull String timePickerStyle, @NonNull UiConfig.Fonts fonts, int globalIntentId) {}
+    public record Config(@NonNull UiConfig.Fonts fonts, int globalIntentId) {}
 
     private final AlarmFragment mAlarmFragment;
     private final Context mContext;
@@ -59,6 +67,14 @@ public final class AlarmTimeClickHandler {
 
     public Alarm getSelectedAlarm() {
         return mSelectedAlarm;
+    }
+
+    /**
+     * @return the currently configured time picker style, read live from preferences so that a
+     * setting change takes effect immediately instead of only after the activity is recreated.
+     */
+    private String getTimePickerStyle() {
+        return SettingsDAO.getMaterialTimePickerStyle(DeskClockApplication.getDefaultSharedPreferences(mContext));
     }
 
     public void setSelectedAlarm(@Nullable Alarm selectedAlarm) {
@@ -84,6 +100,16 @@ public final class AlarmTimeClickHandler {
             // If the alarm is set for a specific date and that date is already in the past,
             // update it to the current date. An alarm cannot be scheduled in the past.
             alarm.fixDateIfPast();
+
+            // Clean up past dates from combined days
+            if (!alarm.combinedDays.isEmpty()) {
+                alarm.combinedDays = alarm.combinedDays.removePastDates(alarm.hour, alarm.minutes);
+            }
+
+            // Reset the transient dismissal exclusions when the alarm is re-enabled.
+            if (newState && alarm.combinedDays.hasDismissedDates()) {
+                alarm.combinedDays = alarm.combinedDays.clearDismissed();
+            }
 
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
@@ -121,7 +147,7 @@ public final class AlarmTimeClickHandler {
         final Alarm alarm = itemHolder.item;
 
         // For occasional alarms, handle in the same way as the Delete button.
-        if (alarm.isDeleteAfterUse()) {
+        if (alarm.isDeletedAfterDismissal()) {
             mAlarmFragment.removeItem(itemHolder);
 
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
@@ -142,9 +168,14 @@ public final class AlarmTimeClickHandler {
     }
 
     public void onClockClicked(@NonNull Alarm alarm) {
+        if (alarm.lock) {
+            displayBottomSheetDialog(alarm, false);
+            return;
+        }
+
         mSelectedAlarm = alarm;
 
-        if (mConfig.timePickerStyle().equals(SPINNER_TIME_PICKER_STYLE)) {
+        if (getTimePickerStyle().equals(SPINNER_TIME_PICKER_STYLE)) {
             showSpinnerTimePickerDialog(alarm.hour, alarm.minutes);
         } else {
             showMaterialTimePicker(alarm.hour, alarm.minutes);
@@ -152,8 +183,36 @@ public final class AlarmTimeClickHandler {
     }
 
     public void onClockLongClicked(@NonNull Alarm alarm) {
+        if (alarm.lock) {
+            return;
+        }
+
         mSelectedAlarm = alarm;
         showAlarmDelayPickerDialog();
+    }
+
+    public void onGlobeClicked(@NonNull Alarm alarm, @NonNull View view, @NonNull DisplayMetrics displayMetrics) {
+        TimeZone timeZone = alarm.getTimeZone();
+        TimeZone defaultTimeZone = TimeZone.getDefault();
+        long now = System.currentTimeMillis();
+
+        int alarmOffset = timeZone.getOffset(now);
+        int defaultOffset = defaultTimeZone.getOffset(now);
+
+        if (alarmOffset == defaultOffset) {
+            return;
+        }
+
+        int absoluteOffset = Math.abs(alarmOffset);
+        long hour = absoluteOffset / (1000 * 60 * 60);
+        long minute = (absoluteOffset / (1000 * 60)) % 60;
+        char sign = alarmOffset < 0 ? '-' : '+';
+
+        final Locale locale = Utils.getLocaleFromContext(mContext);
+
+        String tooltipText = String.format(locale, "UTC%c%d:%02d", sign, hour, minute);
+
+        CustomTooltip.showBelow(view, mConfig.fonts().general(), displayMetrics, tooltipText);
     }
 
     public void showAlarmDelayPickerDialog() {
@@ -186,7 +245,7 @@ public final class AlarmTimeClickHandler {
             TAG,
             hours,
             minutes,
-            mConfig.timePickerStyle(),
+            getTimePickerStyle(),
             mConfig.fonts().alarmClockFont(),
             mConfig.fonts().general()
         );
@@ -211,7 +270,9 @@ public final class AlarmTimeClickHandler {
     }
 
     public void setAlarmWithDelay(int hour, int minute) {
-        Calendar alarmTime = Calendar.getInstance();
+        TimeZone timeZone = mSelectedAlarm == null ? TimeZone.getDefault() : mSelectedAlarm.getTimeZone();
+
+        Calendar alarmTime = Calendar.getInstance(timeZone);
         alarmTime.add(Calendar.HOUR_OF_DAY, hour);
         alarmTime.add(Calendar.MINUTE, minute);
 
@@ -243,7 +304,7 @@ public final class AlarmTimeClickHandler {
             mSelectedAlarm.daysOfWeek = Weekdays.fromBits(0);
         }
 
-        Calendar currentCalendar = Calendar.getInstance();
+        Calendar currentCalendar = Calendar.getInstance(mSelectedAlarm.getTimeZone());
 
         // Necessary when an existing alarm has been created in the past, and it is not enabled.
         // Even if the date is not specified, it is saved in AlarmInstance; we need to make
@@ -260,6 +321,14 @@ public final class AlarmTimeClickHandler {
         }
 
         mSelectedAlarm.enabled = true;
+
+        // Keep the combined-days state consistent with the new alarm time. Drop dates whose
+        // occurrence has already passed today and reset transient dismissal skips, matching the
+        // behavior of the editor's save and of re-enabling an alarm.
+        if (!mSelectedAlarm.combinedDays.isEmpty()) {
+            mSelectedAlarm.combinedDays = mSelectedAlarm.combinedDays.removePastDates(hour, minute)
+                .clearDismissed();
+        }
 
         AlarmVisualCache.invalidate(mSelectedAlarm.id);
 

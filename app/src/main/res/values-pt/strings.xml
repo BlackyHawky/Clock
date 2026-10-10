@@ -28,11 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Adiado"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarme desativado"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Soneca"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">adiado por <xliff:g id="MINUTES">%d</xliff:g> minuto.</item>
-        <item quantity="many">Adiado por <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
-        <item quantity="other">Adiado por <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Em soneca até <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarme próximo"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Seu alarme perdido foi excluído"</string>
@@ -140,7 +135,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Excluir <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Adicionar %s minuto"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Adicionar %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Parar"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Parar todos os timers"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Timer cancelado"</string>
@@ -390,7 +384,6 @@
     <string name="permission_highly_recommended">Altamente recomendado</string>
     <string name="permission_status_title">Status:</string>
     <string name="permission_dialog_revoke_title">Revogar acesso</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="backup_restore_dialog_message">Deseja fazer backup ou restaurar as configurações a partir de um arquivo?</string>
     <string name="backup_restore_title">Backup &amp; Restauração</string>
     <string name="backup_restore_summary">Fazer backup ou restaurar configurações, exceto alarmes, timers e toques</string>

@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"സ്‌നൂസ് ചെയ്‌തു"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"അലാറം ഓഫാണ്"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"സ്‌നൂസ് ചെയ്യുക"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">ഒരു മിനിറ്റ് നേരത്തേക്ക് സ്‌നൂസ് ചെയ്യുന്നു.</item>
-        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> മിനിറ്റ് നേരത്തേക്ക് സ്‌നൂസ് ചെയ്യുന്നു.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> വരെ സ്‌നൂസ് ചെയ്യുന്നു"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"വരാനിരിക്കുന്ന അലാറം"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"നിങ്ങൾ നഷ്‌ടപ്പെടുത്തിയ അലാറം ഇല്ലാതാക്കി"</string>
@@ -133,7 +129,6 @@
     <string name="timer_start" msgid="6158486445614356442">"ആരംഭിക്കൂ"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ഇല്ലാതാക്കുക"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s മിനിറ്റ് ചേർക്കുക"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s മിനിറ്റ് ചേർക്കുക"</string>
     <string name="timer_stop" msgid="3361154678667736722">"നിര്‍ത്തുക"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"എല്ലാ ടൈമറുകളും നിർത്തുക"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"ടൈമർ റദ്ദാക്കി"</string>

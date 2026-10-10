@@ -8,6 +8,7 @@ package com.best.deskclock.timer;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,16 +28,18 @@ import java.util.Locale;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
+    private static long mLastClickTime = 0;
+
     private int mTimerId;
     private final TimerAdapter mAdapter;
     public final BaseTimerItem mTimerView;
     public final MaterialButton addTimeButton;
+    public final MaterialButton removeTimeButton;
     public final View circleContainer;
     public final TextView timerTimeText;
     private final int mViewType;
 
     public TimerViewHolder(@NonNull View view, @NonNull TimerAdapter timerAdapter, int viewType) {
-
         super(view);
 
         mAdapter = timerAdapter;
@@ -48,6 +51,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         final MaterialButton playPauseButton;
         final MaterialButton resetButton;
+        final View deleteButton;
 
         mTimerView.setGeneralFonts(fonts.general(), fonts.bold());
 
@@ -55,7 +59,9 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
                 TimerItemBinding binding = TimerItemBinding.bind(view);
                 resetButton = binding.resetButton;
+                deleteButton = binding.deleteTimerButton;
                 addTimeButton = binding.timerAddTimeButton;
+                removeTimeButton = binding.timerRemoveTimeButton;
                 circleContainer = binding.circleContainer;
                 timerTimeText = binding.timerTimeText;
                 playPauseButton = binding.playPauseButton;
@@ -63,7 +69,9 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
                 resetButton = compactBinding.resetButton;
+                deleteButton = compactBinding.deleteTimerButton;
                 addTimeButton = compactBinding.timerAddTimeButton;
+                removeTimeButton = compactBinding.timerRemoveTimeButton;
                 timerTimeText = compactBinding.timerTimeText;
                 playPauseButton = compactBinding.playPauseButton;
                 circleContainer = null;
@@ -71,7 +79,13 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             default -> throw new IllegalArgumentException("Unknown ViewType: " + viewType);
         }
 
-        itemView.setOnClickListener(v -> timerClickHandler.displayBottomSheetDialog(getTimer()));
+        itemView.setOnClickListener(v -> {
+            long currentTime = SystemClock.elapsedRealtime();
+            if (currentTime - mLastClickTime >= Utils.MIN_CLICK_INTERVAL) {
+                mLastClickTime = currentTime;
+                timerClickHandler.displayBottomSheetDialog(getTimer());
+            }
+        });
 
         View.OnClickListener playPauseListener = v -> {
             Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -83,6 +97,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             timerClickHandler.onResetClicked(getTimer());
         });
 
+        deleteButton.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            timerClickHandler.onDeleteClicked(getTimer());
+        });
+
         addTimeButton.setOnClickListener(v -> {
             if (getTimer().isReset()) {
                 return;
@@ -90,6 +109,15 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
             Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
             timerClickHandler.onAddTimeClicked(getTimer(), v);
+        });
+
+        removeTimeButton.setOnClickListener(v -> {
+            if (getTimer().isReset()) {
+                return;
+            }
+
+            Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+            timerClickHandler.onRemoveTimeClicked(getTimer(), v);
         });
 
         if (circleContainer != null) {
@@ -108,18 +136,22 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         UiConfig.Screen screen = mAdapter.getScreen();
         Locale appLocale = mAdapter.getLocale();
         Typeface typeface = fonts.timerFont() != null ? fonts.timerFont() : fonts.bold();
+        boolean isSingleTimer = mViewType == TimerAdapter.SINGLE_TIMER;
 
         mTimerView.checkIsLandscapePhone(screen.isLandscape() && !screen.isTablet());
+        mTimerView.checkIsSingleTimer(isSingleTimer);
         mTimerView.setTimerTimeFont(typeface);
         mTimerView.setLocale(appLocale);
         mTimerView.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
+        mTimerView.displayDeleteButton(!settings.isSingleTimerMode && settings.isDeleteButtonDisplayed);
         mTimerView.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
         mTimerView.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
         mTimerView.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
 
         if (mTimerView instanceof TimerItem item) {
-            item.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isTablet(), screen.isLandscape(),
-                mViewType == TimerAdapter.SINGLE_TIMER, screen.isRtl());
+            item.setButtonPosition(
+                settings.areTimerButtonPositionsInverted, screen.isTablet(), screen.isLandscape(), isSingleTimer, screen.isRtl()
+            );
         } else if (mTimerView instanceof TimerItemCompact compactItem) {
             compactItem.setButtonPosition(settings.areTimerButtonPositionsInverted, screen.isRtl());
         }
@@ -224,6 +256,10 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
      */
     public void stopUpdating() {
         mTimerView.removeCallbacks(mUpdateRunnable);
+    }
+
+    public static long getLastClickTime() {
+        return mLastClickTime;
     }
 
 }

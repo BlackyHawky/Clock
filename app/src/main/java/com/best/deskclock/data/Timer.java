@@ -42,7 +42,8 @@ import java.util.concurrent.TimeUnit;
  * @param mLastStartWallClockTime The time since epoch at which the timer was last started.
  * @param mRemainingTime          The time at which the timer is scheduled to expire; negative if it is already expired.
  * @param mLabel                  A message describing the meaning of the timer.
- * @param mButtonTime             The time indicated in the add time button of the timer.
+ * @param mButtonAddTime          The time indicated in the "Add time" button of the timer.
+ * @param mButtonRemoveTime       The time indicated in the "Remove time" button of the timer.
  * @param mRingtoneUri            The timer ringtone.
  * @param mAutoSilence            The auto silence duration.
  * @param mCrescendoDuration      The volume crescendo duration.
@@ -53,9 +54,9 @@ import java.util.concurrent.TimeUnit;
  * @param mDeleteAfterUse         A flag indicating the timer should be deleted when it is reset.
  */
 public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLength, long mLastStartTime, long mLastStartWallClockTime,
-                    long mRemainingTime, @Nullable String mLabel, @NonNull  String mButtonTime, @Nullable Uri mRingtoneUri,
-                    int mAutoSilence, int mCrescendoDuration, boolean mVibrate, @NonNull String mVibrationPattern, boolean mFlashOn,
-                    boolean mTurnOffMedia, boolean mDeleteAfterUse) {
+                    long mRemainingTime, @Nullable String mLabel, @NonNull String mButtonAddTime, @NonNull String mButtonRemoveTime,
+                    @Nullable Uri mRingtoneUri, int mAutoSilence, int mCrescendoDuration, boolean mVibrate,
+                    @NonNull String mVibrationPattern, boolean mFlashOn, boolean mTurnOffMedia, boolean mDeleteAfterUse) {
 
     /**
      * The minimum duration of a timer.
@@ -122,8 +123,12 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
         return mLabel;
     }
 
-    public String getButtonTime() {
-        return mButtonTime;
+    public String getButtonAddTime() {
+        return mButtonAddTime;
+    }
+
+    public String getButtonRemoveTime() {
+        return mButtonRemoveTime;
     }
 
     public String getVibrationPattern() {
@@ -150,8 +155,8 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, label, mButtonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, label, mButtonAddTime,
+            mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -162,20 +167,34 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, RESET, newLength, newLength, UNUSED, UNUSED, newLength, mLabel, mButtonTime, mRingtoneUri, mAutoSilence,
-            mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, RESET, newLength, newLength, UNUSED, UNUSED, newLength, mLabel, mButtonAddTime, mButtonRemoveTime,
+            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
-     * @return a copy of this timer with the given button time
+     * @return a copy of this timer with the given "Add time" button
      */
-    Timer setButtonTime(@NonNull String buttonTime) {
-        if (TextUtils.equals(mButtonTime, buttonTime)) {
+    Timer setButtonAddTime(@NonNull String buttonTime) {
+        if (TextUtils.equals(mButtonAddTime, buttonTime)) {
             return this;
         }
 
         return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, buttonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+            mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia,
+            mDeleteAfterUse);
+    }
+
+    /**
+     * @return a copy of this timer with the given "Remove time" button
+     */
+    Timer setButtonRemoveTime(@NonNull String buttonTime) {
+        if (TextUtils.equals(mButtonRemoveTime, buttonTime)) {
+            return this;
+        }
+
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, buttonTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn,
+            mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -186,8 +205,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            ringtone, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, ringtone, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn,
+            mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -198,8 +218,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            mRingtoneUri, autoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, mRingtoneUri, autoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn,
+            mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -210,8 +231,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            mRingtoneUri, mAutoSilence, crescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, mRingtoneUri, mAutoSilence, crescendoDuration, mVibrate, mVibrationPattern, mFlashOn,
+            mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -222,8 +244,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, isVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, isVibrate, mVibrationPattern, mFlashOn,
+            mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -234,8 +257,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, vibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, vibrationPattern, mFlashOn,
+            mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -246,8 +270,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, isFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, isFlashOn,
+            mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -258,8 +283,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, deleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn,
+            mTurnOffMedia, deleteAfterUse);
     }
 
     /**
@@ -270,8 +296,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, turnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel,
+            mButtonAddTime, mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn,
+            turnOffMedia, mDeleteAfterUse);
     }
 
     public long getLength() {
@@ -368,13 +395,20 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        final long delta = remainingTime - mRemainingTime;
-        final long totalLength = mTotalLength + delta;
+        final long totalLength = getTotalLength(remainingTime);
 
         final long lastStartTime;
         final long lastWallClockTime;
         final State state;
-        if (remainingTime > 0 && (mState == EXPIRED || mState == MISSED)) {
+
+        if (remainingTime <= 0 && (mState == RUNNING || mState == PAUSED)) {
+            // If subtracting time causes the timer to enter the expired state, align the expiration time
+            // with the present time so that the expiration countdown starts from 0
+            state = EXPIRED;
+            remainingTime = 0;
+            lastStartTime = now();
+            lastWallClockTime = wallClock();
+        } else if (remainingTime > 0 && (mState == EXPIRED || mState == MISSED)) {
             state = RUNNING;
             lastStartTime = now();
             lastWallClockTime = wallClock();
@@ -384,8 +418,26 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             lastWallClockTime = mLastStartWallClockTime;
         }
 
-        return new Timer(mId, state, mLength, totalLength, lastStartTime, lastWallClockTime, remainingTime, mLabel, mButtonTime,
-            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, state, mLength, totalLength, lastStartTime, lastWallClockTime, remainingTime, mLabel, mButtonAddTime,
+            mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia,
+            mDeleteAfterUse);
+    }
+
+    private long getTotalLength(long remainingTime) {
+        final long delta = remainingTime - mRemainingTime;
+        final long totalLength;
+
+        if (delta > 0) {
+            // If time is added:
+            // - If the new time remains less than the initial time: base it on the initial time
+            // - If the new time is greater than or equal to the initial time: progression reset.
+            totalLength = Math.max(remainingTime, mLength);
+        } else {
+            // If time is removed: the total duration remains fixed
+            totalLength = mTotalLength;
+        }
+
+        return totalLength;
     }
 
     /**
@@ -426,8 +478,8 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, RUNNING, mLength, mTotalLength, now(), wallClock(), mRemainingTime, mLabel, mButtonTime, mRingtoneUri,
-            mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, RUNNING, mLength, mTotalLength, now(), wallClock(), mRemainingTime, mLabel, mButtonAddTime, mButtonRemoveTime,
+            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -441,8 +493,8 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
         }
 
         final long remainingTime = getRemainingTime();
-        return new Timer(mId, PAUSED, mLength, mTotalLength, UNUSED, UNUSED, remainingTime, mLabel, mButtonTime, mRingtoneUri, mAutoSilence,
-            mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, PAUSED, mLength, mTotalLength, UNUSED, UNUSED, remainingTime, mLabel, mButtonAddTime, mButtonRemoveTime,
+            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -454,8 +506,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
         }
 
         final long remainingTime = Math.min(0L, getRemainingTime());
-        return new Timer(mId, EXPIRED, mLength, 0L, now(), wallClock(), remainingTime, mLabel, mButtonTime, mRingtoneUri,
-            mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, EXPIRED, mLength, 0L, now(), wallClock(), remainingTime, mLabel, mButtonAddTime,
+            mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia,
+            mDeleteAfterUse);
     }
 
     /**
@@ -467,8 +520,8 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
         }
 
         final long remainingTime = Math.min(0L, getRemainingTime());
-        return new Timer(mId, MISSED, mLength, 0L, now(), wallClock(), remainingTime, mLabel, mButtonTime, mRingtoneUri,
-            mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, MISSED, mLength, 0L, now(), wallClock(), remainingTime, mLabel, mButtonAddTime, mButtonRemoveTime,
+            mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -479,8 +532,8 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, RESET, mLength, mLength, UNUSED, UNUSED, mLength, mLabel, mButtonTime, mRingtoneUri, mAutoSilence,
-            mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, RESET, mLength, mLength, UNUSED, UNUSED, mLength, mLabel, mButtonAddTime, mButtonRemoveTime, mRingtoneUri,
+            mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
     }
 
     /**
@@ -498,8 +551,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
         final long delta = Math.max(0, wallClockTime - mLastStartWallClockTime);
         final long remainingTime = mRemainingTime - delta;
 
-        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonTime, mRingtoneUri,
-            mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonAddTime,
+            mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia,
+            mDeleteAfterUse);
     }
 
     /**
@@ -521,8 +575,9 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonTime, mRingtoneUri,
-            mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonAddTime,
+            mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia,
+            mDeleteAfterUse);
     }
 
     /**
@@ -532,11 +587,30 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
     Timer addCustomTime() {
         // Expired and missed timers restart with the time indicated on the add time button.
         if (mState == EXPIRED || mState == MISSED) {
-            return setRemainingTime(Integer.parseInt(mButtonTime) * SECOND_IN_MILLIS);
+            return setRemainingTime(Integer.parseInt(mButtonAddTime) * SECOND_IN_MILLIS);
         }
 
         // Otherwise try to add time indicated on the add time button to the remaining time.
-        return setRemainingTime(mRemainingTime + Integer.parseInt(mButtonTime) * SECOND_IN_MILLIS);
+        return setRemainingTime(mRemainingTime + Integer.parseInt(mButtonAddTime) * SECOND_IN_MILLIS);
+    }
+
+    /**
+     * @return a copy of this timer with minutes subtracted from the remaining time and total
+     * length, or this Timer if the minutes could not be subtracted
+     */
+    Timer removeCustomTime() {
+        if (mState == EXPIRED || mState == MISSED || mState == RESET) {
+            return this;
+        }
+
+        long removeSecondsMillis = Integer.parseInt(mButtonRemoveTime) * SECOND_IN_MILLIS;
+        long newRemainingTime = mRemainingTime - removeSecondsMillis;
+
+        if (newRemainingTime <= 0) {
+            return setRemainingTime(0);
+        }
+
+        return setRemainingTime(newRemainingTime);
     }
 
     @Override
@@ -562,15 +636,17 @@ public record Timer(int mId, @NonNull State mState, long mLength, long mTotalLen
         if (mState != timer.mState) return false;
         if (!TextUtils.equals(mLabel, timer.mLabel)) return false;
         if (!TextUtils.equals(mVibrationPattern, timer.mVibrationPattern)) return false;
+        if (!TextUtils.equals(mButtonRemoveTime, timer.mButtonRemoveTime)) return false;
 
-        return TextUtils.equals(mButtonTime, timer.mButtonTime);
+        return TextUtils.equals(mButtonAddTime, timer.mButtonAddTime);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime, mRingtoneUri,
-            mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia, mDeleteAfterUse
+            mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonAddTime,
+            mButtonRemoveTime, mRingtoneUri, mAutoSilence, mCrescendoDuration, mVibrate, mVibrationPattern, mFlashOn, mTurnOffMedia,
+            mDeleteAfterUse
         );
     }
 

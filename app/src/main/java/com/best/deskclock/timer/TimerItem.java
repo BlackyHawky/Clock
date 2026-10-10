@@ -74,10 +74,12 @@ public class TimerItem extends BaseTimerItem {
     @Override protected TextView getLabelText() { return mBinding.timerLabel; }
     @Override protected TextView getEndTimeText() { return mBinding.timerEndTime; }
     @Override protected MaterialButton getAddTimeButton() { return mBinding.timerAddTimeButton; }
+    @Override protected MaterialButton getRemoveTimeButton() { return mBinding.timerRemoveTimeButton; }
     @Override protected View getIndicatorState() { return mBinding.timerIndicatorState; }
     @Override protected BaseProgressIndicator<?> getProgressIndicator() { return mBinding.circularProgressIndicator; }
     @Override protected View getResetButton() { return mBinding.resetButton; }
+    @Override protected View getDeleteButton() { return mBinding.deleteTimerButton; }
     @Override protected MaterialButton getPlayPauseButton() { return mBinding.playPauseButton; }
-    @Override protected int getAddTimeHiddenVisibility() { return INVISIBLE; }
+    @Override protected int getRemoveTimeHiddenVisibility() { return INVISIBLE; }
 
 }

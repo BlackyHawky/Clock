@@ -18,7 +18,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -33,12 +32,14 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.service.quicksettings.TileService;
 import android.util.ArraySet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
@@ -106,7 +107,7 @@ final class TimerModel {
     /**
      * Used to create and destroy system notifications related to timers.
      */
-    private final NotificationManager mNotificationManager;
+    private final NotificationManagerCompat mNotificationManager;
 
     /**
      * Update timer notification when locale changes.
@@ -176,7 +177,7 @@ final class TimerModel {
         mPrefs = prefs;
         mRingtoneModel = ringtoneModel;
         mNotificationModel = notificationModel;
-        mNotificationManager = mContext.getSystemService(NotificationManager.class);
+        mNotificationManager = NotificationManagerCompat.from(context);
         mAlarmManager = mContext.getSystemService(AlarmManager.class);
 
         prefs.registerOnSharedPreferenceChangeListener(mPrefListener);
@@ -254,7 +255,8 @@ final class TimerModel {
     /**
      * @param length            the length of the timer in milliseconds
      * @param label             describes the purpose of the timer
-     * @param buttonTime        the time indicated in the timer add time button
+     * @param buttonAddTime     the time indicated in the timer "Add time" button
+     * @param buttonRemoveTime  the time indicated in the timer "Remove time" button
      * @param ringtone          the timer ringtone
      * @param autoSilence       the auto silence duration
      * @param crescendoDuration the volume crescendo duration
@@ -266,13 +268,13 @@ final class TimerModel {
      * @return the newly added timer
      */
     @NonNull
-    Timer addTimer(long length, @Nullable String label, @NonNull String buttonTime, @Nullable Uri ringtone, int autoSilence,
-                   int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern, boolean isFlashOn, boolean turnOffMedia,
-                   boolean deleteAfterUse) {
+    Timer addTimer(long length, @Nullable String label, @NonNull String buttonAddTime, @NonNull String buttonRemoveTime,
+                   @Nullable Uri ringtone, int autoSilence, int crescendoDuration, boolean isVibrate, @NonNull String vibrationPattern,
+                   boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
 
         // Create the timer instance.
-        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, ringtone,
-            autoSilence, crescendoDuration, isVibrate, vibrationPattern, isFlashOn, turnOffMedia, deleteAfterUse);
+        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonAddTime, buttonRemoveTime,
+            ringtone, autoSilence, crescendoDuration, isVibrate, vibrationPattern, isFlashOn, turnOffMedia, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);
@@ -320,6 +322,8 @@ final class TimerModel {
     void updateTimer(@NonNull Timer timer) {
         final Timer before = doUpdateTimer(timer);
 
+        updateNotificationProgressBar(timer);
+
         // Update the notification after updating the timer data.
         updateNotification();
 
@@ -352,6 +356,8 @@ final class TimerModel {
             updateNotification();
         }
 
+        cancelNotificationProgressBar(timer);
+
         // Update the timer tile after removing the timer data.
         updateQuickSettingsTile();
     }
@@ -374,6 +380,8 @@ final class TimerModel {
             updateNotification();
         }
 
+        cancelNotificationProgressBar(timer);
+
         // Update the timer tile after updating the timer data.
         updateQuickSettingsTile();
     }
@@ -385,6 +393,8 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             doUpdateAfterRebootTimer(timer);
+
+            updateNotificationProgressBar(timer);
         }
 
         // Update the notifications once after all timers are updated.
@@ -403,6 +413,8 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             doUpdateAfterTimeSetTimer(timer);
+
+            updateNotificationProgressBar(timer);
         }
 
         // Update the notifications once after all timers are updated.
@@ -753,7 +765,7 @@ final class TimerModel {
             // Cancel the existing timer expiration callback.
             intent.setClass(mContext, TimerAlertReceiver.class);
             final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
 
             if (pi != null) {
                 mAlarmManager.cancel(pi);
@@ -772,7 +784,7 @@ final class TimerModel {
         // Update the existing timer expiration callback.
         intent.setClass(mContext, TimerAlertReceiver.class);
         final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         if (remainingTime <= WAKELOCK_THRESHOLD_MS) {
             PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(mContext);
@@ -893,13 +905,25 @@ final class TimerModel {
 
         final boolean inForeground = mNotificationModel.isApplicationInForeground();
 
+        final Timer primaryTimer = getPrimaryTimer(inForeground);
+
         for (Timer timer : getMutableTimers()) {
             int notificationId = mNotificationModel.getUnexpiredTimerNotificationId(timer.getId());
 
             // Notifications should be displayed if the app is not open and the timer is unexpired.
             if (!inForeground && (timer.isRunning() || timer.isPaused())) {
-                Notification notification = mNotificationBuilder.build(
-                    mContext, mNotificationModel, timer, SettingsDAO.getLanguageCode(mPrefs));
+                final String languageCode = SettingsDAO.getLanguageCode(mPrefs);
+                final Notification notification;
+
+                if (SdkUtils.isAtLeastAndroid16() && SettingsDAO.areTimerLiveUpdateNotificationsEnabled(mPrefs)) {
+                    boolean isPrimary = (primaryTimer != null && timer.getId() == primaryTimer.getId());
+
+                    notification = mNotificationBuilder.buildLiveUpdateNotification(
+                        mContext, mNotificationModel, timer, languageCode, isPrimary);
+                } else {
+                    notification = mNotificationBuilder.build(mContext, mNotificationModel, timer, languageCode);
+                }
+
                 mNotificationManager.notify(notificationId, notification);
             } else {
                 mNotificationManager.cancel(notificationId);
@@ -908,6 +932,39 @@ final class TimerModel {
 
         // Display or delete the summary notification
         updateSummaryNotification();
+    }
+
+    /**
+     * Retrieves the most relevant active timer to display when the application is in the background.
+     *
+     * <p>Priority is given to running timers over paused ones. If multiple timers share
+     * the same state, the one with the shortest remaining time is selected.</p>
+     *
+     * @param inForeground {@code true} if the application is currently in the foreground
+     * @return the primary {@link Timer}, or {@code null} if the app is in the foreground or if no active timers exist
+     */
+    @Nullable
+    public Timer getPrimaryTimer(boolean inForeground) {
+        Timer primaryTimer = null;
+
+        if (!inForeground) {
+            for (Timer timer : getMutableTimers()) {
+                if (timer.isRunning() || timer.isPaused()) {
+                    if (primaryTimer == null) {
+                        primaryTimer = timer;
+                    } else if (timer.isRunning() && primaryTimer.isPaused()) {
+                        // A running timer always takes priority over a paused timer.
+                        primaryTimer = timer;
+                    } else if (timer.isRunning() == primaryTimer.isRunning()
+                        && timer.getRemainingTime() < primaryTimer.getRemainingTime()) {
+                        // For the same status, select the timer with the shortest remaining time.
+                        primaryTimer = timer;
+                    }
+                }
+            }
+        }
+
+        return primaryTimer;
     }
 
     /**
@@ -987,6 +1044,81 @@ final class TimerModel {
         }
 
         ServiceCompat.startForeground(mService, notificationId, notification, foregroundServiceType);
+    }
+
+    /**
+     * Schedules background alarms to update the notification progress bar at specific
+     * milestones (25%, 50%, and 75% of the total duration).
+     *
+     * <p>This feature is only applicable for devices running Android 16 and above.
+     * Any existing progress bar updates for this timer are canceled before scheduling new ones.</p>
+     *
+     * @param timer the timer for which to schedule progress bar updates
+     */
+    private void updateNotificationProgressBar(@NonNull Timer timer) {
+        if (!SdkUtils.isAtLeastAndroid16() || !SettingsDAO.areTimerLiveUpdateNotificationsEnabled(mPrefs)) {
+            return;
+        }
+
+        cancelNotificationProgressBar(timer);
+
+        if (!timer.isRunning()) {
+            return;
+        }
+
+        final long totalLength = timer.getTotalLength();
+        if (totalLength <= 0) {
+            return;
+        }
+
+        final long currentElapsedTime = totalLength - timer.getRemainingTime();
+        final double[] milestones = {0.25, 0.50, 0.75};
+
+        for (int i = 0; i < milestones.length; i++) {
+            long targetElapsedTime = (long) (totalLength * milestones[i]);
+
+            if (targetElapsedTime > currentElapsedTime) {
+                long timeUntilTrigger = targetElapsedTime - currentElapsedTime;
+                long triggerTime = SystemClock.elapsedRealtime() + timeUntilTrigger;
+
+                Intent intent = TimerService.createUpdateNotificationIntent(mContext);
+                intent.setClass(mContext, TimerAlertReceiver.class);
+
+                int requestCode = (timer.getId() * 10) + i;
+                final PendingIntent pi = PendingIntent.getBroadcast(mContext, requestCode, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+                schedulePendingIntent(mAlarmManager, triggerTime, pi);
+            }
+        }
+    }
+
+    /**
+     * Cancels any previously scheduled background alarms responsible for updating the notification progress bar
+     * of the specified timer.
+     *
+     * <p>This method has no effect on devices running below Android 16.</p>
+     *
+     * @param timer the timer whose progress bar updates should be canceled
+     */
+    private void cancelNotificationProgressBar(@NonNull Timer timer) {
+        if (!SdkUtils.isAtLeastAndroid16() || !SettingsDAO.areTimerLiveUpdateNotificationsEnabled(mPrefs)) {
+            return;
+        }
+
+        for (int i = 0; i < 3; i++) {
+            Intent intent = TimerService.createUpdateNotificationIntent(mContext);
+            intent.setClass(mContext, TimerAlertReceiver.class);
+
+            int requestCode = (timer.getId() * 10) + i;
+            final PendingIntent pi = PendingIntent.getBroadcast(mContext, requestCode, intent,
+                PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+
+            if (pi != null) {
+                mAlarmManager.cancel(pi);
+                pi.cancel();
+            }
+        }
     }
 
     /**

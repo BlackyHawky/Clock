@@ -142,6 +142,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             final String value = Objects.requireNonNull(entryValues)[i].toString();
 
             checkBox.setLayoutParams(params);
+            checkBox.setMinHeight((int) dpToPx(48, getResources().getDisplayMetrics()));
             checkBox.setText(entries[i]);
             checkBox.setPadding((int) dpToPx(20, getResources().getDisplayMetrics()), 0, 0, 0);
             checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);

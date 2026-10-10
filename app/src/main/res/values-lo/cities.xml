@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">A<xliff:g id="SEPARATOR">=</xliff:g>ແອນ​ຕິກວາ<xliff:g id="TIMEZONE">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">A<xliff:g id="SEPARATOR">=</xliff:g>ອອ​ສ​ຕິນ<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">B<xliff:g id="SEPARATOR">=</xliff:g>ບອ​ສ​ຕັນ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">C<xliff:g id="SEPARATOR">=</xliff:g>ຄາ​ລ​ກາ​ຣີ<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">C<xliff:g id="SEPARATOR">=</xliff:g>ຄາ​ລ​ກາ​ຣີ<xliff:g id="TIMEZONE">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">C<xliff:g id="SEPARATOR">=</xliff:g>ໂຄ​ລົມ​ບັ​ສ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">D<xliff:g id="SEPARATOR">=</xliff:g>ດາ​ລ​ລັ​ສ<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">K<xliff:g id="SEPARATOR">=</xliff:g>ນັອກ​ວິ​ລ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">M<xliff:g id="SEPARATOR">=</xliff:g>ເມັມ​ພິ​ສ<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">M<xliff:g id="SEPARATOR">=</xliff:g>ໄມ​ອະ​ມີ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">M<xliff:g id="SEPARATOR">=</xliff:g>ມິນ​ນາ​ໂປ​ລິ​ສ<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">O<xliff:g id="SEPARATOR">=</xliff:g>ອອດ​ຕາ​ວາ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">O<xliff:g id="SEPARATOR">=</xliff:g>ອອດ​ຕາ​ວາ<xliff:g id="TIMEZONE">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">P<xliff:g id="SEPARATOR">=</xliff:g>ຟິ​ລາ​ເດລ​ເຟຍ<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">P<xliff:g id="SEPARATOR">=</xliff:g>ພອດ​ແລນ<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">S<xliff:g id="SEPARATOR">=</xliff:g>ຊານ​ດິ​ເອ​ໂກ<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>

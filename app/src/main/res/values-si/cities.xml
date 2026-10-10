@@ -212,14 +212,14 @@
     <string name="C214" msgid="5230836436291372485">අ<xliff:g id="SEPARATOR">=</xliff:g>ඇන්ටිගුවා<xliff:g id="TIMEZONE">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">ඔ<xliff:g id="SEPARATOR">=</xliff:g>ඔස්ටින්<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">බ<xliff:g id="SEPARATOR">=</xliff:g>බොස්ටන්<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">ක<xliff:g id="SEPARATOR">=</xliff:g>කැල්ගරි<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">ක<xliff:g id="SEPARATOR">=</xliff:g>කැල්ගරි<xliff:g id="TIMEZONE">|Canada/Mountain</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">ක<xliff:g id="SEPARATOR">=</xliff:g>කොලොම්බස්<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">ඩ<xliff:g id="SEPARATOR">=</xliff:g>ඩලස්<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">න<xliff:g id="SEPARATOR">=</xliff:g>නොක්ස්විල්<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C221" msgid="8383807404322146544">ම<xliff:g id="SEPARATOR">=</xliff:g>මෙම්ෆිස්<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C222" msgid="3700668026644596138">ම<xliff:g id="SEPARATOR">=</xliff:g>මියාමි<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C223" msgid="221323185158028534">ම<xliff:g id="SEPARATOR">=</xliff:g>මිනැපොලිස්<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C224" msgid="5283127526588257314">ඔ<xliff:g id="SEPARATOR">=</xliff:g>ඔටාවා<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C224" msgid="5283127526588257314">ඔ<xliff:g id="SEPARATOR">=</xliff:g>ඔටාවා<xliff:g id="TIMEZONE">|America/Montreal</xliff:g></string>
     <string name="C225" msgid="2397752406722350262">ෆ<xliff:g id="SEPARATOR">=</xliff:g>ෆිලඩෙල්ෆියා<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
     <string name="C226" msgid="9121074377966278110">ප<xliff:g id="SEPARATOR">=</xliff:g>පෝට්ලන්ඩ්<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C227" msgid="5652209241017010001">ස<xliff:g id="SEPARATOR">=</xliff:g>සැන් ඩියාගෝ<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>

@@ -90,7 +90,7 @@ public class PreferencesDefaultValues {
     // Alarm
     public static final String DEFAULT_TIME_PICKER_STYLE = "analog";
     public static final String SPINNER_TIME_PICKER_STYLE = "spinner";
-    public static final String DEFAULT_DATE_PICKER_STYLE = "calendar";
+    public static final String DEFAULT_DATE_PICKER_STYLE = "spinner";
     public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
     public static final boolean DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE = true;
     public static final int DEFAULT_AUTO_SILENCE_DURATION = 600;
@@ -134,6 +134,7 @@ public class PreferencesDefaultValues {
     public static final String SORT_ALARM_BY_ASCENDING_CREATION_ORDER = "4";
     public static final String SORT_ALARM_MANUALLY = "5";
     public static final boolean DEFAULT_DISPLAY_ENABLED_ALARMS_FIRST = false;
+    public static final boolean DEFAULT_DISPLAY_LOCKED_ALARMS_FIRST = false;
     public static final boolean DEFAULT_ENABLE_ALARM_FAB_LONG_PRESS = false;
     public static final String DEFAULT_WEEK_START = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
     public static final boolean DEFAULT_DISPLAY_DISMISS_BUTTON = false;
@@ -175,6 +176,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_TIMER_CREATION_VIEW_STYLE = "keypad";
     public static final String TIMER_CREATION_VIEW_SPINNER_STYLE = "spinner";
     public static final boolean DEFAULT_DISPLAY_COMPACT_TIMERS = false;
+    public static final boolean DEFAULT_DISPLAY_TIMER_DELETE_BUTTON = false;
     public static final boolean DEFAULT_DISPLAY_TIMER_END_TIME = false;
     public static final boolean DEFAULT_INVERT_TIMER_BUTTON_POSITIONS = false;
     public static final boolean DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = false;
@@ -201,7 +203,7 @@ public class PreferencesDefaultValues {
     public static final String SORT_TIMER_BY_ASCENDING_DURATION = "1";
     public static final String SORT_TIMER_BY_DESCENDING_DURATION = "2";
     public static final String SORT_TIMER_BY_NAME = "3";
-    public static final int DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE = 60;
+    public static final int DEFAULT_TIMER_TIME_BUTTON_VALUE = 60;
     public static final String TIMER_TIME_BUTTON_VALUE_ZERO = "0";
     public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = false;
 
@@ -248,6 +250,7 @@ public class PreferencesDefaultValues {
     public static final String VIBRATION_PATTERN_HEARTBEAT = "heartbeat";
     public static final String VIBRATION_PATTERN_ESCALATING = "escalating";
     public static final String VIBRATION_PATTERN_TICK_TOCK = "tick_tock";
+    public static final boolean DEFAULT_LIVE_UPDATE_NOTIFICATIONS = false;
 
     // Permission management
     public static final boolean DEFAULT_ENABLE_FOREGROUND_SERVICE = false;

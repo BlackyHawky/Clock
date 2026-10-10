@@ -881,19 +881,33 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the default duration in seconds to add to timer when the "Add Minute" button is clicked.
+     * @return the default duration in seconds to add to timer when the "Add Time" button is clicked.
      */
     public static int getDefaultTimeToAddToTimer(@NonNull SharedPreferences prefs) {
-        return prefs.getInt(KEY_TIMER_ADD_TIME_BUTTON_VALUE, DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE);
+        return prefs.getInt(KEY_TIMER_ADD_TIME_BUTTON_VALUE, DEFAULT_TIMER_TIME_BUTTON_VALUE);
     }
 
     /**
-     * @return {@code true} if the back flash should turn on when the timer is expired.
-     * {@code false} otherwise.
+     * @return the default duration in seconds to subtract from timer when the "Remove Time" button is clicked.
+     */
+    public static int getDefaultTimeToRemoveToTimer(@NonNull SharedPreferences prefs) {
+        return prefs.getInt(KEY_TIMER_REMOVE_TIME_BUTTON_VALUE, DEFAULT_TIMER_TIME_BUTTON_VALUE);
+    }
+
+    /**
+     * @return {@code true} if the back flash should turn on when the timer is expired. {@code false} otherwise.
      */
     public static boolean shouldTurnOnBackFlashForExpiredTimer(@NonNull SharedPreferences pref) {
         // Default value must match the one in res/xml/settings_timer.xml
         return pref.getBoolean(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER, DEFAULT_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
+    }
+
+    /**
+     * @return {@code true} if live update notifications are enabled for timers. {@code false} otherwise.
+     */
+    public static boolean areTimerLiveUpdateNotificationsEnabled(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return pref.getBoolean(KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS, DEFAULT_LIVE_UPDATE_NOTIFICATIONS);
     }
 
     /**
@@ -917,6 +931,14 @@ public final class SettingsDAO {
     public static boolean isCompactTimersDisplayed(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getBoolean(KEY_DISPLAY_COMPACT_TIMERS, DEFAULT_DISPLAY_COMPACT_TIMERS);
+    }
+
+    /**
+     * @return {@code true} if the "Delete" button is displayed on the timer card. {@code false} otherwise.
+     */
+    public static boolean isTimerDeleteButtonDisplayed(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_TIMER_DELETE_BUTTON, DEFAULT_DISPLAY_TIMER_DELETE_BUTTON);
     }
 
     /**
@@ -1121,6 +1143,14 @@ public final class SettingsDAO {
     public static boolean areEnabledAlarmsDisplayedFirst(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return prefs.getBoolean(KEY_DISPLAY_ENABLED_ALARMS_FIRST, DEFAULT_DISPLAY_ENABLED_ALARMS_FIRST);
+    }
+
+    /**
+     * @return {@code true} if the locked alarms are displayed first; {@code false} otherwise.
+     */
+    public static boolean areLockedAlarmsDisplayedFirst(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_DISPLAY_LOCKED_ALARMS_FIRST, DEFAULT_DISPLAY_LOCKED_ALARMS_FIRST);
     }
 
     /**
@@ -1750,6 +1780,14 @@ public final class SettingsDAO {
     public static String getVolumeDownActionAfterLongPressForStopwatch(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_stopwatch.xml
         return prefs.getString(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, DEFAULT_SW_ACTION);
+    }
+
+    /**
+     * @return {@code true} if live update notifications are enabled for the stopwatch. {@code false} otherwise.
+     */
+    public static boolean areStopwatchLiveUpdateNotificationsEnabled(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return pref.getBoolean(KEY_SW_LIVE_UPDATE_NOTIFICATIONS, DEFAULT_LIVE_UPDATE_NOTIFICATIONS);
     }
 
     public static boolean isKeepAndroidOpenDialogDisplayed(@NonNull SharedPreferences prefs) {

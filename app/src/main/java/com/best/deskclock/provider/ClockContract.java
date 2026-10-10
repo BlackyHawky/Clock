@@ -154,6 +154,24 @@ public final class ClockContract {
          * Type: STRING
          */
         String MATH_HARDNESS_LEVEL = "mathHardnessLevel";
+
+        /**
+         * True if alarm is locked
+         * <p>Type: BOOLEAN</p>
+         */
+        String LOCK = "lock";
+
+        /**
+         * The alarm timezone
+         * <p>Type: STRING</p>
+         */
+        String TIMEZONE = "timeZone";
+
+        /**
+         * Combined days data (selected and deselected dates as JSON)
+         * <p>Type: STRING</p>
+         */
+        String COMBINED_DAYS = "combinedDays";
     }
 
     /**

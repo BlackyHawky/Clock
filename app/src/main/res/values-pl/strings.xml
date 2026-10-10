@@ -28,12 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Uśpiony"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm wyłączony"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Drzemka"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Drzemka przez <xliff:g example="1" id="minutes">%d</xliff:g> minutę.</item>
-        <item quantity="few">Drzemka przez <xliff:g example="2" id="minutes">%d</xliff:g> minuty.</item>
-        <item quantity="many">Drzemka przez <xliff:g example="5" id="minutes">%d</xliff:g> minut.</item>
-        <item quantity="other">Drzemka przez <xliff:g example="5" id="minutes">%d</xliff:g> minut.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Drzemka do <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchodzący alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zignorowany przez Ciebie alarm został usunięty"</string>
@@ -148,7 +142,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Usuń <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Dodaj %s minutę"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Dodaj %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Zatrzymaj wszystkie minutniki"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Minutnik anulowany"</string>
@@ -422,7 +415,6 @@
     <string name="city_clock_default_color_title">Użyj domyślnego koloru dla zegara miejskiego</string>
     <string name="city_clock_color_title">Niestandardowy kolor zegara miejskiego</string>
     <string name="city_name_default_color_title">Użyj domyślnego koloru dla nazwy miasta</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Włącz wibracje, gdy alarm jest uśpiony lub odrzucony</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Podwójna wibracja, gdy alarm jest uśpiony i pojedyncza wibracja, gdy alarm jest odrzucony</string>
     <string name="timer_button_time_box_title">Minuty do dodania do minutnika</string>
@@ -484,12 +476,10 @@
     <string name="schedule_alarm_title">Zaplanuj alarm</string>
     <string name="alarm_scheduled_for">Zaplanowano na %s</string>
     <string name="date_picker_style_title">Styl selektora daty</string>
-    <string name="date_picker_style_calendar">Kalendarz</string>
     <string name="warning">Ostrzeżenie</string>
     <string name="random_ringtone_title">Losowy dzwonek</string>
     <string name="timer_button_time_seconds_warning_box_text">Wprowadź wartość od 0 do 59 sekund</string>
     <string name="timer_add_custom_time_with_seconds_description">Dodaj %1$s minutę %2$s sekundy</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">Dodaj %1$s min %2$s s</string>
     <string name="label_minutes">Minuty</string>
     <string name="label_seconds">Sekundy</string>
     <string name="label_hours">Godziny</string>

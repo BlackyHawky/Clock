@@ -28,9 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"បាន​ផ្អាក"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"បិទសំឡេងរោទ៍"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ផ្អាក"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">ផ្អាក <xliff:g id="MINUTES">%d</xliff:g> នាទី។</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ផ្អាក​រហូតដល់ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ម៉ោងរោទ៍បន្ទាប់"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ការ​ខកខាន​ជូនដំណឹង​របស់​​អ្នក​ត្រូវ​បាន​លុប"</string>
@@ -127,7 +124,6 @@
     <string name="timer_start" msgid="6158486445614356442">"ចាប់ផ្ដើម"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"លុប <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"បន្ថែម %s នាទី។"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"បន្ថែម %s​នាទី"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ឈប់"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"បញ្ឈប់កម្មវិធីកំណត់ពេលទាំងអស់"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"បានលុបចោល​​​កម្មវិធី​កំណត់ម៉ោង"</string>

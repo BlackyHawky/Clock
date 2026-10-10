@@ -4,6 +4,9 @@ package com.best.deskclock.dialogfragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,6 +100,8 @@ public class SpinnerDatePickerDialogFragment extends DialogFragment {
         mBinding.spinnerDatePicker.setMinDate(minDate);
         mBinding.spinnerDatePicker.init(year, month, day, null);
 
+        disableNumberPickerWrap(mBinding.spinnerDatePicker);
+
         return CustomDialog.create(
             requireContext(),
             R.style.SpinnerDialogTheme,
@@ -135,4 +140,17 @@ public class SpinnerDatePickerDialogFragment extends DialogFragment {
 
         getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
     }
+
+    private void disableNumberPickerWrap(ViewGroup viewGroup) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+
+            if (child instanceof NumberPicker numberPicker) {
+                numberPicker.setWrapSelectorWheel(false);
+            } else if (child instanceof ViewGroup childViewGroup) {
+                disableNumberPickerWrap(childViewGroup);
+            }
+        }
+    }
+
 }

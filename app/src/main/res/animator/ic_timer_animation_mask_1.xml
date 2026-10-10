@@ -11,14 +11,14 @@
         android:duration="333"
         android:interpolator="@android:interpolator/fast_out_slow_in"
         android:propertyName="pathData"
-        android:valueFrom="M 24,13.3999938965 c 0,0.0 -24,0.0 -24,0.0 c 0,0.0 0,10.6000061035 0,10.6000061035 c 0,0 24,0 24,0 c 0,0 0,-10.6000061035 0,-10.6000061035 Z"
-        android:valueTo="M 24,13.3999938965 c 0,0.0 -24,0.0 -24,0.0 c 0,0.0 0,10.6000061035 0,10.6000061035 c 0,0 24,0 24,0 c 0,0 0,-10.6000061035 0,-10.6000061035 Z"
+        android:valueFrom="M14 12l3.42 3.42c.37.38.58.89.58 1.42V20c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2l.01-3.16c0-.53.21-1.04.58-1.41L10 12z"
+        android:valueTo="M14 12l3.42 3.42c.37.38.58.89.58 1.42V20c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2l.01-3.16c0-.53.21-1.04.58-1.41L10 12z"
         android:valueType="pathType" />
     <objectAnimator
         android:duration="1000"
         android:interpolator="@android:interpolator/fast_out_slow_in"
         android:propertyName="pathData"
-        android:valueFrom="M 24,13.3999938965 c 0,0.0 -24,0.0 -24,0.0 c 0,0.0 0,10.6000061035 0,10.6000061035 c 0,0 24,0 24,0 c 0,0 0,-10.6000061035 0,-10.6000061035 Z"
-        android:valueTo="M 24,0.00173950195312 c 0,0.0 -24,0.0 -24,0.0 c 0,0.0 0,10.6982574463 0,10.6982574463 c 0,0.0 24,0.0 24,0.0 c 0,0.0 0,-10.6982574463 0,-10.6982574463 Z"
+        android:valueFrom="M14 12l3.42 3.42c.37.38.58.89.58 1.42V20c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2l.01-3.16c0-.53.21-1.04.58-1.41L10 12z"
+        android:valueTo="M10 12l-3.42-3.42c-.37-.38-.58-.89-.58-1.42V4c-0-1.1.9-2 2-2H16c1.1-0 2 .9 2 2l-.01 3.16c0 .53-.21 1.04-.58 1.41L14 12z"
         android:valueType="pathType" />
 </set>

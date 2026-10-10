@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">Gesluimerd</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Wekker uit"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Sluimeren</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Sluimeren voor <xliff:g example="1" id="minutes">%d</xliff:g> minuut.</item>
-        <item quantity="other">Sluimeren voor <xliff:g example="10" id="minutes">%d</xliff:g> minuten.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Sluimeren tot <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Aankomende wekker</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Je gemiste wekker is verwijderd"</string>
@@ -134,7 +130,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Starten"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536"><xliff:g id="number_string">%s</xliff:g> verwijderen</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s minuut toevoegen"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s min. toevoegen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stoppen"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">Alle kookwekkers stoppen</string>
     <string name="timer_canceled" msgid="7327923392567128060">Kookwekker geannuleerd</string>
@@ -315,7 +310,6 @@
     <string name="auto_silence_end_of_ringtone">Einde van wekkergeluid</string>
     <string name="timer_label_box_title">Kookwekkernaam</string>
     <string name="timer_button_time_box_title">Minuten aan kookwekker toevoegen</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Stijl, lettertype, tijdzone en systeemtijd aanpassen</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
     <string name="timer_settings_summary">Stijl, lettertype, geluid, acties om te stoppen en kookwekkers sorteren</string>
@@ -468,14 +462,12 @@
     <string name="description_dismiss_button_for_occasional_alarm">Tik om wekker uit te zetten en te verwijderen</string>
     <string name="settings_language_chinese_traditional_tw">Chinees (traditioneel, Taiwan)</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> wekker uitgezet en verwijderd</string>
-    <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_title">Datumkiezer</string>
     <string name="alarm_scheduled_for">Ingeroosterd voor %s</string>
     <string name="schedule_alarm_title">Inroosteren</string>
     <string name="random_ringtone_title">Willekeurig geluid</string>
     <string name="date_picker_style_text">Tekst</string>
     <string name="warning">Waarschuwing</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s min. %2$s sec. toevoegen</string>
     <string name="label_minutes">Minuten</string>
     <string name="label_seconds">Seconden</string>
     <string name="timer_button_time_seconds_warning_box_text">Voer een waarde in tussen 0 en 59 seconden</string>

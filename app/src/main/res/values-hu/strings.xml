@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Szundi"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Ébresztő KI</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Szundi"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Szundi 1 percre.</item>
-        <item quantity="other">Szundi <xliff:g id="MINUTES">%d</xliff:g> percre.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Szundi <xliff:g id="time">%s</xliff:g> időpontig</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Közelgő ébresztő</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Az elmulasztott ébresztője törlésre került</string>
@@ -134,7 +130,6 @@
     <string name="timer_start" msgid="6158486445614356442">Indítás</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536"><xliff:g id="number_string">%s</xliff:g> törlése</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s perc hozzáadása"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s perc hozzáadása"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Leállítás"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Az összes időzítő leállítása"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Időzítés visszavonva"</string>
@@ -395,7 +390,6 @@
     <string name="display_enabled_alarms_first_title">Bekapcsolt állapot szerint</string>
     <string name="enable_alarm_fab_long_press_title">Műveleti gomb hosszan nyomásával létrehozható késleltetett ébresztő</string>
     <string name="enable_alarm_fab_long_press_summary">Kikapcsolása esetén, két gomb áll rendelkezésre az ébresztés létrehozásához</string>
-    <string name="date_picker_style_calendar">Naptár</string>
     <string name="date_picker_style_text">Szöveg</string>
     <string name="alarm_settings_general_summary">Ez a beállítás megváltoztatható minden ébresztőnél a haladó nézetben</string>
     <string name="slide_zone_color_title">Csúsztató zóna szín</string>
@@ -441,8 +435,6 @@
     <string name="timer_button_time_seconds_warning_box_text">Adjon meg egy értéket 0 és 59 másodperc között</string>
     <string name="timer_time_warning_box_title">Hibás értéket adott meg</string>
     <string name="timer_add_custom_time_with_seconds_description">%1$s perc %2$s másodperc hozzáadása</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s p %2$s mp hozzáadása</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_second_hand_vintage">Antik</string>
     <string name="clock_style_analog_material">Analóg (Material)</string>
     <string name="clock_dial_title">Számlap</string>

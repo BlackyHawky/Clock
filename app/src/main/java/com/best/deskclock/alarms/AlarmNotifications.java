@@ -148,7 +148,7 @@ public final class AlarmNotifications {
     private static void updateUpcomingAlarmGroupNotification(@NonNull Context context, int canceledNotificationId,
                                                              @Nullable Notification postedNotification) {
 
-        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstUpcoming = getFirstActiveNotification(
             context, UPCOMING_GROUP_KEY, canceledNotificationId, postedNotification);
 
@@ -185,7 +185,7 @@ public final class AlarmNotifications {
     public static void updateMissedAlarmGroupNotification(@NonNull Context context, int canceledNotificationId,
                                                           @Nullable Notification postedNotification) {
 
-        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstMissed = getFirstActiveNotification(context, MISSED_GROUP_KEY,
             canceledNotificationId, postedNotification);
 
@@ -242,11 +242,11 @@ public final class AlarmNotifications {
 
         final int id = instance.hashCode();
 
-        final String contentTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        final String contentTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.occasional_alarm_alert_predismiss_title
             : R.string.alarm_alert_predismiss_title);
 
-        final String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        final String dismissActionTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
@@ -307,7 +307,7 @@ public final class AlarmNotifications {
             return;
         }
 
-        String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        String dismissActionTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
@@ -428,7 +428,7 @@ public final class AlarmNotifications {
             return;
         }
 
-        String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        String dismissActionTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 

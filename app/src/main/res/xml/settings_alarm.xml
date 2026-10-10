@@ -43,7 +43,7 @@
             android:title="@string/date_picker_style_title"
             android:entries="@array/date_picker_style_entries"
             android:entryValues="@array/date_picker_style_values"
-            android:defaultValue="calendar"
+            android:defaultValue="spinner"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -341,6 +341,14 @@
             android:key="key_display_enabled_alarms_first"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_enabled_alarms_first_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_display_locked_alarms_first"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_locked_alarms_first_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />

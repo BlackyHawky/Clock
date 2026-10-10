@@ -28,10 +28,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"உறக்கத்தில்"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"அலாரம் ஆஃப்"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"உறக்கநிலை"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">அடுத்த 1 நிமிடத்தில் நினைவூட்டு.</item>
-        <item quantity="other">அடுத்த <xliff:g id="MINUTES">%d</xliff:g> நிமிடங்களில் நினைவூட்டு.</item>
-    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> வரை உறக்கநிலையில் வை"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">அடுத்த வரும் அறிவிப்பொலி</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"உங்கள் தவறிய அலாரம் நீக்கப்பட்டது"</string>
@@ -133,7 +129,6 @@
     <string name="timer_start" msgid="6158486445614356442">"தொடங்கு"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g>ஐ நீக்கு"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s நிமிடத்தைச் சேர்"</string>
-    <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s நிமிடம் சேர்"</string>
     <string name="timer_stop" msgid="3361154678667736722">"நிறுத்து"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"எல்லா டைமர்களையும் நிறுத்து"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"டைமர் ரத்துசெய்யப்பட்டது"</string>
@@ -352,7 +347,6 @@
     <string name="display_enabled_alarms_first_title">இயக்கப்பட்ட அலாரங்களை முதலில் காண்பி</string>
     <string name="enable_alarm_fab_long_press_title">தாமதத்துடன் அலாரங்களை உருவாக்க, செயல் பட்டனை நீண்ட நேரம் அழுத்துவதை இயக்கவும்</string>
     <string name="enable_alarm_fab_long_press_summary">முடக்கப்பட்டிருந்தால், அலாரங்களை உருவாக்க இரண்டு பொத்தான்கள் காட்டப்படும்</string>
-    <string name="date_picker_style_calendar">நாள்காட்டி</string>
     <string name="date_picker_style_text">உரை</string>
     <string name="alarm_settings_general_summary">விரிவாக்கப்பட்ட அலாரக் காட்சியில் ஒவ்வொரு அலாரத்திற்கும் இந்த அமைப்பை மாற்றலாம்</string>
     <string name="slide_zone_color_title">ச்லைடு மண்டலத்தின் நிறம்</string>
@@ -400,8 +394,6 @@
     <string name="timer_button_time_seconds_warning_box_text">0 முதல் 59 வினாடிகள் வரையிலான மதிப்பை உள்ளிடவும்</string>
     <string name="timer_time_warning_box_title">தவறான மதிப்பு உள்ளிடப்பட்டுள்ளது</string>
     <string name="timer_add_custom_time_with_seconds_description">%1$s மணித்துளி %2$s வினாடிகளைச் சேர்க்கவும்</string>
-    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s மணித்துளி %2$s sஐச் சேர்க்கவும்</string>
-    <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">நடை, நேர மண்டலத்தை அமைக்கவும் மற்றும் சாதனத்தின் தேதி மற்றும் நேரத்தை மாற்றவும்</string>
     <string name="hide_clock_am_pm_pref">AM/PM உரையை மறை</string>
     <string name="clock_dial_with_numbers">எண்களுடன்</string>
