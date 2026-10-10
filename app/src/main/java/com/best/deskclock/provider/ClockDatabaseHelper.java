@@ -67,7 +67,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             ClockContract.AlarmsColumns.MATH_HARDNESS_LEVEL + " TEXT NOT NULL DEFAULT 'off', " +
             ClockContract.AlarmsColumns.LOCK + " INTEGER NOT NULL DEFAULT 0, " +
             ClockContract.AlarmsColumns.TIMEZONE + " TEXT DEFAULT '', " +
-            ClockContract.AlarmsColumns.COMBINED_DAYS + " TEXT NOT NULL DEFAULT '';");
+            ClockContract.AlarmsColumns.COMBINED_DAYS + " TEXT NOT NULL DEFAULT ''" + ");");
 
         LogUtils.i("Alarms Table created");
     }
@@ -318,10 +318,31 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 30) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.COMBINED_DAYS
-                + " TEXT NOT NULL DEFAULT '';");
+            // The old multi-date preview already added this column at v28; only add it when
+            // it is actually missing so the upgrade is idempotent for those installs.
+            if (!columnExists(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.COMBINED_DAYS)) {
+                db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.COMBINED_DAYS
+                    + " TEXT NOT NULL DEFAULT '';");
 
-            LogUtils.i("combinedDays column added for version 30 upgrade.");
+                LogUtils.i("combinedDays column added for version 30 upgrade.");
+            }
+        }
+    }
+
+    private static boolean columnExists(SQLiteDatabase db, String table, String column) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("PRAGMA table_info(" + table + ")", null);
+            while (cursor != null && cursor.moveToNext()) {
+                if (column.equals(cursor.getString(cursor.getColumnIndexOrThrow("name")))) {
+                    return true;
+                }
+            }
+            return false;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 
