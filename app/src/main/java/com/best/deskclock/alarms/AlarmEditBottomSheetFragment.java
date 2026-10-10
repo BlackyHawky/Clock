@@ -34,6 +34,7 @@ import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.content.res.Resources;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -757,6 +758,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             selection.get(Calendar.MONTH),
             selection.get(Calendar.DAY_OF_MONTH)
         };
+        final int minYear = minCal.get(Calendar.YEAR);
+        final int minMonth = minCal.get(Calendar.MONTH);
+        final int minDay = minCal.get(Calendar.DAY_OF_MONTH);
         final boolean[] textValid = new boolean[]{true};
 
         LinearLayout container = new LinearLayout(requireContext());
@@ -880,18 +884,29 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                             DatePicker fresh =
                                 (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
                             fresh.setMinDate(minMillis);
-                            fresh.init(pickedDate[0], pickedDate[1], pickedDate[2], listenerHolder[0]);
+                            fresh.init(pickedCal.get(Calendar.YEAR), pickedCal.get(Calendar.MONTH),
+                                pickedCal.get(Calendar.DAY_OF_MONTH), listenerHolder[0]);
                             container.removeViewAt(index);
                             container.addView(fresh, index);
                             activePicker[0] = fresh;
+                            clampWheelsToMinimum(fresh, minYear, minMonth, minDay, year, month);
                         }
                     });
                 }
                 refreshStates.run();
+                // The framework re-enables wheel wrap and re-indexes the month names on every
+                // date change, so a one-time setWrapSelectorWheel(false) is undone and the
+                // min month's previous value (Sep) flashes as a ghost. Re-clamp after each
+                // change so the wheels stay linear and clamped to the minimum (see
+                // clampWheelsToMinimum).
+                clampWheelsToMinimum(activePicker[0], minYear, minMonth, minDay,
+                    pickedDate[0], pickedDate[1]);
             };
             spinnerPicker.setMinDate(minMillis);
             spinnerPicker.init(pickedDate[0], pickedDate[1], pickedDate[2], listenerHolder[0]);
             container.addView(spinnerPicker);
+            clampWheelsToMinimum(spinnerPicker, minYear, minMonth, minDay,
+                pickedDate[0], pickedDate[1]);
         } else {
             final String datePattern =
                 android.text.format.DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMdd");
@@ -960,6 +975,65 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
+    }
+
+    /**
+     * Normalizes the spinner wheels. The day and month wheels are kept linear (no wrap) so a
+     * circular adjacency never shows an out-of-range value (e.g. the last day of the month
+     * right above day 1). While the selected date lies inside the minimum's month, the wheels
+     * are additionally clamped to the minimum so no past value (yesterday / previous month)
+     * is ever offered or visible.
+     * <p>
+     * The month wheel renders localized month names indexed from its minimum value, so the
+     * name array has to be re-indexed exactly like the framework does in
+     * {@code DatePickerSpinnerDelegate.updateSpinners()} - otherwise the labels shift.
+     *
+     * @param picker     the active spinner picker
+     * @param minYear    the minimum year (inclusive)
+     * @param minMonth   the minimum month (inclusive)
+     * @param minDay     the minimum day of month (inclusive)
+     * @param pickYear   the currently selected year
+     * @param pickMonth  the currently selected month
+     */
+    private void clampWheelsToMinimum(DatePicker picker, int minYear, int minMonth, int minDay,
+                                      int pickYear, int pickMonth) {
+        try {
+            Resources res = Resources.getSystem();
+            NumberPicker day = picker.findViewById(res.getIdentifier("day", "id", "android"));
+            NumberPicker month = picker.findViewById(res.getIdentifier("month", "id", "android"));
+            NumberPicker year = picker.findViewById(res.getIdentifier("year", "id", "android"));
+            if (day == null || month == null || year == null) {
+                return;
+            }
+            // Keep the wheels linear (no wrap) in every month so a circular adjacency never
+            // shows an out-of-range value - e.g. at day 1 the previous value of the generic
+            // wrapped wheel is the month's last day ("30" right above "1"), which looks like a
+            // ghost. The framework enables wrap in its generic range; we always turn it off.
+            day.setWrapSelectorWheel(false);
+            month.setWrapSelectorWheel(false);
+            if (pickYear != minYear || pickMonth != minMonth) {
+                return;
+            }
+            Calendar firstOfMonth = Calendar.getInstance();
+            firstOfMonth.clear();
+            firstOfMonth.set(pickYear, pickMonth, 1);
+            day.setMinValue(minDay);
+            day.setMaxValue(firstOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+            if (day.getValue() < minDay) {
+                day.setValue(minDay);
+            }
+            String[] monthNames = new java.text.DateFormatSymbols().getShortMonths();
+            month.setDisplayedValues(null);
+            month.setMinValue(minMonth);
+            month.setMaxValue(11);
+            month.setDisplayedValues(
+                java.util.Arrays.copyOfRange(monthNames, minMonth, month.getMaxValue() + 1));
+            if (month.getValue() < minMonth) {
+                month.setValue(minMonth);
+            }
+            year.setMinValue(minYear);
+        } catch (RuntimeException ignored) {
+        }
     }
 
     /**
