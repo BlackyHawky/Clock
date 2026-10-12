@@ -123,7 +123,7 @@
     <color name="blackColorSecondary">#777777</color>
     <color name="blackColorTertiary">#3C3C3C</color>
     <color name="blackColorInverseSurface">#222222</color>
-    <color name="blackSurfaceContainerLowest">#EEEEEE</color>
+    <color name="blackSurfaceContainerLowest">#FAFAFA</color>
     <color name="blackColorBackground">@android:color/white</color>
     <color name="blackColorGray1">#D9D9D9</color>
     <color name="blackColorGray2">#EEEEEE</color>

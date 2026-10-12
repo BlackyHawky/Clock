@@ -8,6 +8,8 @@ package com.best.deskclock.clock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -51,10 +53,10 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final List<City> mCities;
     private final boolean mHasBlackAccentColor;
 
-    private final Drawable.ConstantState mBgSingle;
-    private final Drawable.ConstantState mBgTop;
-    private final Drawable.ConstantState mBgMiddle;
-    private final Drawable.ConstantState mBgBottom;
+    private Drawable.ConstantState mBgSingle;
+    private Drawable.ConstantState mBgTop;
+    private Drawable.ConstantState mBgMiddle;
+    private Drawable.ConstantState mBgBottom;
 
     public SelectedCitiesAdapter(@NonNull Context context, @NonNull DataModel dataModel, @NonNull List<City> cities,
                                  @NonNull UiConfig.Fonts fonts, @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle,
@@ -69,17 +71,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         mHasBlackAccentColor = hasBlackAccentColor;
         mSettings = clockSettings;
 
-        mBgSingle = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
-            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 0, 1).getConstantState();
-        // position=0, totalCount=3 -> Top
-        mBgTop = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
-            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 0, 3).getConstantState();
-        // position=1, totalCount=3 -> Middle
-        mBgMiddle = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
-            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 1, 3).getConstantState();
-        // position=2, totalCount=3 -> Bottom
-        mBgBottom = ThemeUtils.expressiveCardBackground(context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
-            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), 2, 3).getConstantState();
+        updateBackgrounds(context, screen, cardStyle);
     }
 
     public UiConfig.Fonts getFonts() { return mFonts; }
@@ -218,6 +210,38 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void updateFonts(@NonNull UiConfig.Fonts fonts) {
         mFonts = fonts;
         notifyDataSetChanged();
+    }
+
+    public void updateBackgrounds(@NonNull Context context, @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle) {
+        boolean enableRipple = mSettings.isCityNoteEnabled || SORT_CITIES_MANUALLY.equals(mSettings.citySorting);
+
+        mBgSingle = createCardState(context, screen, cardStyle, 0, 1, enableRipple);
+        // position=0, totalCount=3 -> Top
+        mBgTop = createCardState(context, screen, cardStyle, 0, 3, enableRipple);
+        // position=1, totalCount=3 -> Middle
+        mBgMiddle = createCardState(context, screen, cardStyle, 1, 3, enableRipple);
+        // position=2, totalCount=3 -> Bottom
+        mBgBottom = createCardState(context, screen, cardStyle, 2, 3, enableRipple);
+
+        if (getItemCount() > 0) {
+            notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_BACKGROUND);
+        }
+    }
+
+    private Drawable.ConstantState createCardState(@NonNull Context context, @NonNull UiConfig.Screen screen,
+                                                   @NonNull UiConfig.CardStyle cardStyle, int position, int totalCount,
+                                                   boolean enableRipple) {
+
+        Drawable background = ThemeUtils.expressiveCardBackground(
+            context, screen.metrics(), cardStyle.isBackgroundDisplayed(),
+            cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode(), position, totalCount
+        );
+
+        if (enableRipple) {
+            background = ThemeUtils.rippleDrawable(context, background);
+        }
+
+        return background.getConstantState();
     }
 
     public void notifyCityNoteChanged(@NonNull String cityId) {

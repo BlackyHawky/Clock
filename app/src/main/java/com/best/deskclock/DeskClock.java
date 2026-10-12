@@ -795,6 +795,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         final int primaryColor = MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         final int onBackgroundColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
+        final boolean isIndicatorDisplayed = SettingsDAO.isTabIndicatorDisplayed(getPrefs());
 
         String tabTitleVisibility = SettingsDAO.getTabTitleVisibility(getPrefs());
         final boolean shouldUpdateTypeface = !tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER) && mFontPath != null;
@@ -811,7 +812,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
             return mNavigationListener.onNavigationItemSelected(item);
         });
 
-        mBinding.deskClockBottomMenu.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(getPrefs()));
+        mBinding.deskClockBottomMenu.setItemActiveIndicatorEnabled(isIndicatorDisplayed);
+
+        if (isIndicatorDisplayed) {
+            mBinding.deskClockBottomMenu.setItemRippleColor(
+                AppCompatResources.getColorStateList(this, R.color.ripple_color_primary));
+        } else {
+            mBinding.deskClockBottomMenu.setItemRippleColor(ColorStateList.valueOf(Color.TRANSPARENT));
+        }
 
         if (tabTitleVisibility.equals(DEFAULT_TAB_TITLE_VISIBILITY)) {
             mBinding.deskClockBottomMenu.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
@@ -822,14 +830,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
         }
 
         mBinding.deskClockBottomMenu.setItemIconTintList(new ColorStateList(
-            new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-            new int[]{primaryColor, primaryColor, onBackgroundColor}));
+            new int[][]{{android.R.attr.state_selected}, {}},
+            new int[]{primaryColor, onBackgroundColor}));
 
         if (isNight() && SettingsDAO.getDarkMode(getPrefs()).equals(AMOLED_DARK_MODE)) {
             mBinding.deskClockBottomMenu.setBackgroundColor(Color.BLACK);
             mBinding.deskClockBottomMenu.setItemTextColor(new ColorStateList(
-                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{primaryColor, primaryColor, Color.WHITE}));
+                new int[][]{{android.R.attr.state_selected}, {}},
+                new int[]{primaryColor, Color.WHITE}));
         } else {
             final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(getPrefs());
 
@@ -840,8 +848,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             }
 
             mBinding.deskClockBottomMenu.setItemTextColor(new ColorStateList(
-                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{primaryColor, primaryColor, onBackgroundColor}));
+                new int[][]{{android.R.attr.state_selected}, {}},
+                new int[]{primaryColor, onBackgroundColor}));
         }
     }
 

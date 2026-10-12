@@ -43,6 +43,7 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
@@ -667,9 +668,9 @@ public class ThemeUtils {
      */
     @NonNull
     public static RippleDrawable rippleDrawable(@NonNull Context context, @NonNull Drawable background) {
-        int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
+        ColorStateList rippleColor = AppCompatResources.getColorStateList(context, R.color.ripple_color_primary);
 
-        return new RippleDrawable(ColorStateList.valueOf(rippleColor), background, null);
+        return new RippleDrawable(rippleColor, background, null);
     }
 
     /**

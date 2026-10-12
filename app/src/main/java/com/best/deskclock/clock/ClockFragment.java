@@ -344,6 +344,7 @@ public final class ClockFragment extends DeskClockFragment {
         updateMainClock();
 
         if (mCityAdapter != null) {
+            mCityAdapter.updateBackgrounds(requireContext(), getScreenConfig(), getCardStyleConfig());
             mCityAdapter.updateSettings(mSettings);
             mCityAdapter.updateFonts(getFontsConfig());
         }
