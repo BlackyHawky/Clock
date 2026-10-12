@@ -155,6 +155,7 @@ public class ScreensaverActivity extends BaseActivity {
             mBinding, mSettings.isUppercase, mSettings.isNextAlarmDisplayed, mSettings.isDateItalic, mSettings.isNextAlarmItalic);
 
         startPositionUpdater();
+
         if (mBackgroundAnimator != null) {
             mBackgroundAnimator.start();
         }
@@ -285,6 +286,10 @@ public class ScreensaverActivity extends BaseActivity {
      * schedule future callbacks to move the time display each minute.
      */
     private void startPositionUpdater() {
+        if (mBinding == null) {
+            return;
+        }
+
         mBinding.saverContainer.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
     }
 

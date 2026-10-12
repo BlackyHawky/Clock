@@ -218,6 +218,7 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver configuration changed");
 
         startPositionUpdater();
+
         if (mBackgroundAnimator != null) {
             mBackgroundAnimator.start();
         }
@@ -243,6 +244,10 @@ public final class Screensaver extends DreamService {
      * schedule future callbacks to move the time display each minute.
      */
     private void startPositionUpdater() {
+        if (mBinding == null) {
+            return;
+        }
+
         mBinding.saverContainer.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
     }
 
