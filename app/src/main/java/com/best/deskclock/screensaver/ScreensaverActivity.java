@@ -239,6 +239,11 @@ public class ScreensaverActivity extends BaseActivity {
         int flags = getWindowFlags();
         boolean shouldScreenRemainOn = pluggedIn || SettingsDAO.shouldScreensaverScreenRemainOn(getPrefs());
 
+        if (SdkUtils.isAtLeastAndroid81()) {
+            setShowWhenLocked(shouldScreenRemainOn);
+            setTurnScreenOn(shouldScreenRemainOn);
+        }
+
         if (shouldScreenRemainOn) {
             winParams.flags |= flags;
         } else {
@@ -246,11 +251,6 @@ public class ScreensaverActivity extends BaseActivity {
         }
 
         win.setAttributes(winParams);
-
-        if (SdkUtils.isAtLeastAndroid81()) {
-            setShowWhenLocked(shouldScreenRemainOn);
-            setTurnScreenOn(shouldScreenRemainOn);
-        }
     }
 
     /**

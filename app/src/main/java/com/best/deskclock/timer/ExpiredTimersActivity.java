@@ -180,8 +180,6 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
             return;
         }
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
-
         if (SdkUtils.isAtLeastAndroid81()) {
             setTurnScreenOn(true);
             setShowWhenLocked(true);
@@ -189,6 +187,8 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
             //noinspection deprecation
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (isPortrait()) {

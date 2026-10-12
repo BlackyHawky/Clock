@@ -290,8 +290,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
-
         if (SdkUtils.isAtLeastAndroid81()) {
             setTurnScreenOn(true);
             setShowWhenLocked(true);
@@ -299,6 +297,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             //noinspection deprecation
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (isPortrait()) {
