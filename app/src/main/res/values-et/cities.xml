@@ -173,7 +173,7 @@
     <string name="C173" msgid="6620286361619640304"><xliff:g id="separator">=</xliff:g>Helsingi<xliff:g id="timezone">|Europe/Helsinki</xliff:g></string>
     <string name="C174" msgid="2279016324825973473"><xliff:g id="separator">=</xliff:g>Mani saar<xliff:g id="timezone">|Europe/Isle_of_Man</xliff:g></string>
     <string name="C175" msgid="3290185117135612679"><xliff:g id="separator">=</xliff:g>Istanbul<xliff:g id="timezone">|Europe/Istanbul</xliff:g></string>
-    <string name="C176" msgid="8375703098860926099"><xliff:g id="separator">=</xliff:g>Kiiev<xliff:g id="timezone">|Europe/Kiev</xliff:g></string>
+    <string name="C176" msgid="8375703098860926099">K<xliff:g id="separator">=</xliff:g>Kõjiv/Kiiev<xliff:g id="timezone">|Europe/Kiev</xliff:g></string>
     <string name="C177" msgid="6500868250597874838"><xliff:g id="separator">=</xliff:g>Lissabon<xliff:g id="timezone">|Europe/Lisbon</xliff:g></string>
     <string name="C178" msgid="8805696770032311110"><xliff:g id="separator">=</xliff:g>London<xliff:g id="timezone">|Europe/London</xliff:g></string>
     <string name="C179" msgid="3767343883668628062"><xliff:g id="separator">=</xliff:g>Luksemburg<xliff:g id="timezone">|Europe/Luxembourg</xliff:g></string>

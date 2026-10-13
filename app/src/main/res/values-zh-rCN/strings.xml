@@ -76,7 +76,7 @@
     <string name="settings" msgid="5849739030579520686">"设置"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"暂停时长"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">逐步增大音量</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">之后静音</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">闹铃时长</string>
     <string name="label_never" msgid="4821982647348750809">从不</string>
     <string name="label_off">关闭</string>
     <string name="week_start_title" msgid="4268917518596832096">一周的第一天</string>
@@ -221,7 +221,7 @@
     <string name="ignore_battery_optimizations_dialog_title">电池优化</string>
     <string name="first_launch_button_later">稍后</string>
     <string name="first_launch_button_now">现在</string>
-    <string name="first_launch_main_feature_title">主要特点</string>
+    <string name="first_launch_main_feature_title">主要功能</string>
     <string name="app_slogan">基于 AOSP 的 100% FOSS 时钟</string>
     <string name="permission_dialog_revoke_title">撤销访问权限</string>
     <string name="selected">已选择</string>
@@ -230,7 +230,7 @@
     <string name="version">版本</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">闹钟触发时启用振动</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="notifications_dialog_text">除了设置闹钟外，这款应用还具有定时器和秒表模式。\n\n为了使所有模块的通知都能正确显示，尤其是为了触发闹钟，我们建议为此应用激活通知。</string>
+    <string name="notifications_dialog_text">除了设置闹钟外，这款应用还具有定时器和秒表模式。\n\n为了使所有模块的通知都能正确显示，尤其是为了触发闹钟，我们建议为此应用启用通知。</string>
     <string name="FSN_dialog_text">自 Android 14 以来，为了在屏幕关闭时触发闹钟，必须启用“全屏通知”权限。</string>
     <string name="notifications_permission_title">启用通知</string>
     <string name="notifications_dialog_title">通知</string>
@@ -259,7 +259,7 @@
     <string name="add_label">添加标签</string>
     <string name="clock_settings_summary">自定义样式、字体、时区以及设备日期和时间</string>
     <string name="timer_button_time_box_title">添加到定时器的分钟数</string>
-    <string name="features_title">主要特点</string>
+    <string name="features_title">主要功能</string>
     <string name="license">开放源代码许可</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">关闭</string>
@@ -638,11 +638,11 @@
     <string name="single_timer_mode_warning_message">定时器将被移除。%s</string>
     <string name="settings_vibration_disabled_summary">设备设置中已禁用振动</string>
     <string name="settings_tab_animation_title">切换标签页时的动画</string>
-    <string name="tab_animation_cube">Cube</string>
-    <string name="tab_animation_depth">Depth</string>
-    <string name="tab_animation_flip">Flip</string>
-    <string name="tab_animation_gate">Gate</string>
-    <string name="tab_animation_zoom_out">Zoom-out</string>
+    <string name="tab_animation_cube">魔方</string>
+    <string name="tab_animation_depth">叠加</string>
+    <string name="tab_animation_flip">翻转</string>
+    <string name="tab_animation_gate">旋转</string>
+    <string name="tab_animation_zoom_out">平移</string>
     <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> 定时器</string>
     <string name="timer_end_time_label">结束时间：<xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
     <string name="invert_timer_button_positions_title">反转定时器按钮的位置</string>
@@ -672,7 +672,29 @@
     <string name="enable_per_timer_vibration_pattern_title">为每个定时器使用自定义振动模式</string>
     <string name="timer_headphones_button_action_title">使用耳机播放/暂停按钮重置已结束的定时器</string>
     <string name="turn_on_back_flash_for_expired_timer_title">定时器结束时开启后置闪光灯</string>
-    <string name="settings_language_swedish">瑞典</string>
-    <string name="settings_language_laotian">老挝人</string>
+    <string name="settings_language_swedish">瑞典语</string>
+    <string name="settings_language_laotian">老挝语</string>
     <string name="settings_language_persian">波斯语</string>
+    <string name="info">信息</string>
+    <string name="pause_alarm_info_message">选择一周中的哪几天以访问此功能。</string>
+    <string name="delete_occasional_alarm_after_use_info_message">取消选择一周中的哪几天以访问此功能。</string>
+    <string name="auto_silence_info_message">“闹铃时长”已设为“%s”。\n\n禁用数学难度级别以访问此功能。</string>
+    <string name="math_challenge_title_snooze">解题以暂停</string>
+    <string name="math_challenge_title_dismiss">解题以关闭</string>
+    <string name="math_challenge_new_problem">新题目</string>
+    <string name="math_challenge_answer_hint">您的答案</string>
+    <string name="math_challenge_prompt">%1$d + %2$d 等于多少？</string>
+    <string name="math_challenge_wrong_answer">答案错误</string>
+    <string name="central_fab_size_title">中央悬浮操作按钮的大小</string>
+    <string name="side_fab_size_title">侧边悬浮操作按钮的大小</string>
+    <string name="button_action_mute">静音</string>
+    <string name="math_challenge_category_title">数学挑战</string>
+    <string name="math_hardness_level_title">数学难度级别</string>
+    <string name="math_hardness_level_easy">简单</string>
+    <string name="math_hardness_level_normal">普通</string>
+    <string name="math_hardness_level_hard">困难</string>
+    <string name="enable_per_alarm_math_hardness_level_title">为每个闹钟使用自定义数学难度级别</string>
+    <string name="enable_per_alarm_math_hardness_level_dialog_message">自定义数学难度级别将被重置。%s</string>
+    <string name="enable_city_flag_title">显示国家/地区旗帜</string>
+    <string name="sw_display_milliseconds_title">显示毫秒</string>
 </resources>

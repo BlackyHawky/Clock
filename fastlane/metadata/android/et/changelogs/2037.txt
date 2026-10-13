@@ -1,0 +1,3 @@
+Parandasime äratuse käivitumise vea, mis tekkis versioonis 2.32.
+Kõik muud veaparandused ja täiendused on kirjeldatud siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.33

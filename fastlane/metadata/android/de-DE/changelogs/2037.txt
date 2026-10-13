@@ -1,0 +1,3 @@
+Das Problem mit der Weckerauslösung, eingeführt in Version 2.32, wurde behoben.
+Alle anderen Korrekturen und Verbesserungen sind hier zu finden:
+https://github.com/BlackyHawky/Clock/releases/tag/2.33

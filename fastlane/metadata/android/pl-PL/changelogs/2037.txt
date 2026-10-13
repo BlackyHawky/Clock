@@ -1,0 +1,3 @@
+Naprawiono problem z wyzwalaniem alarmu, który pojawił się w wersji 2.32.
+Szczegóły dotyczące pozostałych poprawek i ulepszeń znajdują się tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.33

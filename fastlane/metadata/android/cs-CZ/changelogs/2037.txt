@@ -1,0 +1,3 @@
+Opraven problém se spouštěním alarmu, který se objevil ve verzi 2.32.
+Všechny ostatní opravy a vylepšení jsou popsány zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.33

@@ -385,10 +385,10 @@
     <string name="alarm_title_color">Kleur wekkernaam</string>
     <string name="auto_night_accent_color_title">Accentkleur op donkere modus toepassen</string>
     <string name="night_accent_color_title">Accentkleur donkere modus</string>
-    <string name="blue_gray_accent_color">Blauwgrijs</string>
+    <string name="blue_gray_accent_color">Grijs</string>
     <string name="brown_accent_color">Bruin</string>
     <string name="red_accent_color">Rood</string>
-    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="amoled_dark_theme_mode">Zwart</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Gelegenheidswekkers standaard verwijderen</string>
     <string name="alarm_settings_general_summary">Deze instelling kan per wekker aangepast worden in het uitvouwmenu</string>
     <string name="dismiss_button_color">Kleur uitzetknop</string>
@@ -705,6 +705,6 @@
     <string name="settings_language_laotian">Laotiaans</string>
     <string name="settings_language_persian">Perzisch</string>
     <string name="enable_city_flag_title">Landenvlaggen weergeven</string>
-    <string name="central_fab_size_title">Grootte van de zwevende actieknop</string>
-    <string name="side_fab_size_title">Grootte van de secundaire actieknoppen</string>
+    <string name="central_fab_size_title">Grootte van zwevende actieknop</string>
+    <string name="side_fab_size_title">Grootte van secundaire actieknoppen</string>
 </resources>

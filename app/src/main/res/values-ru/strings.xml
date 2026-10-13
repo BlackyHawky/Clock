@@ -716,4 +716,7 @@
     <string name="settings_language_swedish">Шведский</string>
     <string name="settings_language_laotian">Лаосский</string>
     <string name="settings_language_persian">Персидский</string>
+    <string name="central_fab_size_title">Размер центральной плавающей кнопки</string>
+    <string name="side_fab_size_title">Размер боковых плавающих кнопок</string>
+    <string name="enable_city_flag_title">Показывать флаги стран</string>
 </resources>

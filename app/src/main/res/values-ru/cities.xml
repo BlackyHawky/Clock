@@ -173,7 +173,7 @@
     <string name="C173" msgid="6620286361619640304">Х<xliff:g id="SEPARATOR">=</xliff:g>Хельсинки<xliff:g id="TIMEZONE">|Europe/Helsinki</xliff:g></string>
     <string name="C174" msgid="2279016324825973473">О<xliff:g id="SEPARATOR">=</xliff:g>Остров Мэн<xliff:g id="TIMEZONE">|Europe/Isle_of_Man</xliff:g></string>
     <string name="C175" msgid="3290185117135612679">С<xliff:g id="SEPARATOR">=</xliff:g>Стамбул<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g></string>
-    <string name="C176" msgid="8375703098860926099">К<xliff:g id="SEPARATOR">=</xliff:g>Киев<xliff:g id="TIMEZONE">|Europe/Kiev</xliff:g></string>
+    <string name="C176" msgid="8375703098860926099">К<xliff:g id="separator">=</xliff:g>Киев<xliff:g id="timezone">|Europe/Kiev</xliff:g></string>
     <string name="C177" msgid="6500868250597874838">Л<xliff:g id="SEPARATOR">=</xliff:g>Лиссабон<xliff:g id="TIMEZONE">|Europe/Lisbon</xliff:g></string>
     <string name="C178" msgid="8805696770032311110">Л<xliff:g id="SEPARATOR">=</xliff:g>Лондон<xliff:g id="TIMEZONE">|Europe/London</xliff:g></string>
     <string name="C179" msgid="3767343883668628062">Л<xliff:g id="SEPARATOR">=</xliff:g>Люксембург<xliff:g id="TIMEZONE">|Europe/Luxembourg</xliff:g></string>

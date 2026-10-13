@@ -61,7 +61,7 @@
     <string name="C57" msgid="5971109906791493563"><xliff:g id="SEPARATOR">=</xliff:g>Knox<xliff:g id="TIMEZONE">|America/Indiana/Knox</xliff:g></string>
     <string name="C58" msgid="7657721717096348613"><xliff:g id="SEPARATOR">=</xliff:g>Marengo<xliff:g id="TIMEZONE">|America/Indiana/Marengo</xliff:g></string>
     <string name="C59" msgid="2053523400941417307">P<xliff:g id="separator">=</xliff:g>Petersburg<xliff:g id="timezone">|America/Indiana/Petersburg</xliff:g></string>
-    <string name="C60" msgid="8112283891039465817"><xliff:g id="SEPARATOR">=</xliff:g>Tell City<xliff:g id="TIMEZONE">|America/Indiana/Tell_City</xliff:g></string>
+    <string name="C60" msgid="8112283891039465817">T<xliff:g id="separator">=</xliff:g>Tell City<xliff:g id="timezone">|America/Indiana/Tell_City</xliff:g></string>
     <string name="C61" msgid="7778713489993559227"><xliff:g id="SEPARATOR">=</xliff:g>Vevay<xliff:g id="TIMEZONE">|America/Indiana/Vevay</xliff:g></string>
     <string name="C62" msgid="2667958702401099683"><xliff:g id="SEPARATOR">=</xliff:g>Vincennes<xliff:g id="TIMEZONE">|America/Indiana/Vincennes</xliff:g></string>
     <string name="C63" msgid="2251274863869460838"><xliff:g id="SEPARATOR">=</xliff:g>Winamac<xliff:g id="TIMEZONE">|America/Indiana/Winamac</xliff:g></string>
@@ -173,7 +173,7 @@
     <string name="C173" msgid="6620286361619640304"><xliff:g id="SEPARATOR">=</xliff:g>Helsinki<xliff:g id="TIMEZONE">|Europe/Helsinki</xliff:g></string>
     <string name="C174" msgid="2279016324825973473"><xliff:g id="SEPARATOR">=</xliff:g>Isla de Man<xliff:g id="TIMEZONE">|Europe/Isle_of_Man</xliff:g></string>
     <string name="C175" msgid="3290185117135612679">E<xliff:g id="SEPARATOR">=</xliff:g>Estambul<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g></string>
-    <string name="C176" msgid="8375703098860926099"><xliff:g id="SEPARATOR">=</xliff:g>Kiev<xliff:g id="TIMEZONE">|Europe/Kiev</xliff:g></string>
+    <string name="C176" msgid="8375703098860926099">K<xliff:g id="separator">=</xliff:g>Kyiv<xliff:g id="timezone">|Europe/Kiev</xliff:g></string>
     <string name="C177" msgid="6500868250597874838"><xliff:g id="SEPARATOR">=</xliff:g>Lisboa<xliff:g id="TIMEZONE">|Europe/Lisbon</xliff:g></string>
     <string name="C178" msgid="8805696770032311110"><xliff:g id="SEPARATOR">=</xliff:g>Londres<xliff:g id="TIMEZONE">|Europe/London</xliff:g></string>
     <string name="C179" msgid="3767343883668628062"><xliff:g id="SEPARATOR">=</xliff:g>Luxemburgo<xliff:g id="TIMEZONE">|Europe/Luxembourg</xliff:g></string>

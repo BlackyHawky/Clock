@@ -3,13 +3,19 @@ Does not use internet permission, and thus is 100% offline.
 
 Features:
 <ul>
-  <li>Set the alarms to a specific date;</li>
-  <li>Flip and shake action to dismiss/postpone alarm;</li>
-  <li>Turn off/postpone the alarm with the power button or volume buttons;</li>
+  <li>Set alarms to a specific date;</li>
+  <li>Set alarms to a specific time zone;</li>
+  <li>To dismiss or snooze alarms:</li>
+    <ul>
+      <li>Support for flip and shake actions;</li>
+      <li>Use the power button or volume buttons;</li>
+      <li>Solve math problems.</li>
+    </ul>
   <li>For some Snapdragon devices only, the alarm is triggered when they are switched off</li>
     <ul>
       <li>Unfortunately, this feature may not work on some devices despite the presence of the <i>"com.qualcomm.qti.poweroffalarm"</i> system app.</li>
     </ul>
+  <li>Advanced alarm sorting;</li>
   <li>Swipe to delete an alarm;</li>
   <li>Duplicate alarms;</li>
   <li>Customizable alarm title;</li>
@@ -22,6 +28,7 @@ Features:
   <li>Display home time when traveling;</li>
   <li>Display the time in many cities around the world;</li>
   <li>Timer and stopwatch included;</li>
+  <li>Support for live update notifications for timers and the stopwatch;</li>
   <li>Possibility of sharing your stopwatch with your contacts;</li>
   <li>Customizable screensaver;</li>
   <li>Modern widgets;</li>
