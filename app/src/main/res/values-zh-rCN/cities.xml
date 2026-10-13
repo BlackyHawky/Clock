@@ -355,4 +355,6 @@
     <string name="C359">Y<xliff:g id="separator">=</xliff:g>尤克拉<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
     <string name="C360">H<xliff:g id="separator">=</xliff:g>豪勋爵岛<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
     <string name="C361">C<xliff:g id="separator">=</xliff:g>查塔姆群岛<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
+    <string name="C362">A<xliff:g id="separator">=</xliff:g>Adak<xliff:g id="timezone">|America/Adak</xliff:g></string>
+    <string name="C363">G<xliff:g id="separator">=</xliff:g>Gambier Islands<xliff:g id="timezone">|Pacific/Gambier</xliff:g></string>
 </resources>

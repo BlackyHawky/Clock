@@ -355,4 +355,6 @@
     <string name="C359">E<xliff:g id="SEPARATOR">=</xliff:g>Eucla<xliff:g id="TIMEZONE">|Australia/Eucla</xliff:g></string>
     <string name="C360">L<xliff:g id="SEPARATOR">=</xliff:g>Lord Howe-eiland<xliff:g id="TIMEZONE">|Australia/Lord_Howe</xliff:g></string>
     <string name="C361">C<xliff:g id="SEPARATOR">=</xliff:g>Chatham-eilanden<xliff:g id="TIMEZONE">|Pacific/Chatham</xliff:g></string>
+    <string name="C362">A<xliff:g id="separator">=</xliff:g>Adak<xliff:g id="timezone">|America/Adak</xliff:g></string>
+    <string name="C363">G<xliff:g id="separator">=</xliff:g>Gambier Islands<xliff:g id="timezone">|Pacific/Gambier</xliff:g></string>
 </resources>
