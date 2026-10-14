@@ -94,6 +94,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
+import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -113,6 +114,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
@@ -136,6 +138,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private boolean mIsFadeTransition;
     private SharedPreferences mPrefs;
     private UiConfig.CardStyle mCardStyleConfig;
+    private Locale mLocale;
     private Typeface mGeneralTypeface;
     private Typeface mAlarmFont;
     private Typeface mAlarmBoldTypeface;
@@ -278,6 +281,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)
         );
 
+        mLocale = Utils.getLocaleFromContext(requireContext());
         mDataModel = DataModel.getDataModel();
         mUiDataModel = UiDataModel.getUiDataModel();
         mDisplayMetrics = getResources().getDisplayMetrics();
@@ -598,11 +602,18 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         for (int i = 0; i < 7; i++) {
             MaterialButton dayButton = (MaterialButton) inflater.inflate(R.layout.day_button, mBinding.repeatDaysGroup, false);
             int weekday = weekdays.get(i);
+            String longWeekday = mUiDataModel.getLongWeekday(weekday);
 
             dayButton.setId(View.generateViewId());
             dayButton.setTypeface(mGeneralTypeface);
             dayButton.setText(mUiDataModel.getShortWeekday(weekday));
-            dayButton.setContentDescription(mUiDataModel.getLongWeekday(weekday));
+            dayButton.setContentDescription(longWeekday);
+            dayButton.setOnLongClickListener(v -> {
+                Utils.performHapticFeedback(v, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                CustomTooltip.showAbove(
+                    v, mGeneralTypeface, mDisplayMetrics, FormattedTextUtils.capitalizeFirstLetter(longWeekday, mLocale), false);
+                return true;
+            });
 
             mBinding.repeatDaysGroup.addView(dayButton);
             dayButtons[i] = dayButton;
@@ -1134,7 +1145,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         final int currentVolume = Math.min(mAlarm.alarmVolume, maxVolume);
 
         int volumePercent = (int) (((float) currentVolume / maxVolume) * 100);
-        String formatted = String.format(Utils.getLocaleFromContext(requireContext()), "%d%%", volumePercent);
+        String formatted = String.format(mLocale, "%d%%", volumePercent);
         mBinding.alarmVolumeValue.setText(formatted);
 
         Drawable icon = AppCompatResources.getDrawable(requireContext(), volumePercent < 50
