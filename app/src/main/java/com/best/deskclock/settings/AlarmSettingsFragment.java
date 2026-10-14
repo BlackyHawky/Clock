@@ -370,6 +370,10 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 final boolean isAlarmSortingByCategoryEnabled = (boolean) newValue;
+                final boolean hasCustomCategories = mDefaultCategoryPref.getEntries() != null
+                    && mDefaultCategoryPref.getEntries().length > 1;
+
+                mDefaultCategoryPref.setVisible(isAlarmSortingByCategoryEnabled && hasCustomCategories);
                 mDisplayEnabledAlarmBadgePref.setVisible(isAlarmSortingByCategoryEnabled);
                 mDeleteAlarmsWithCategoryPref.setVisible(isAlarmSortingByCategoryEnabled);
                 mShouldSwitchToNewCategoryPref.setVisible(isAlarmSortingByCategoryEnabled);
@@ -811,7 +815,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         mEnableAlarmSortingByCategoryPref.setOnPreferenceChangeListener(this);
 
-        setupDefaultCategoryPref();
+        setupDefaultCategoryPref(areSortedByCategory);
 
         mShouldSwitchToNewCategoryPref.setVisible(areSortedByCategory);
         mShouldSwitchToNewCategoryPref.setOnPreferenceChangeListener(this);
@@ -843,7 +847,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
     }
 
-    private void setupDefaultCategoryPref() {
+    private void setupDefaultCategoryPref(boolean areSortedByCategory) {
         mDefaultCategoryPref.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
         Context appContext = requireContext().getApplicationContext();
@@ -879,7 +883,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             AppExecutors.getMainThread().post(() -> {
                 if (isAdded()) {
                     boolean hasCustomCategories = entriesList.size() > 1;
-                    mDefaultCategoryPref.setVisible(hasCustomCategories);
+                    mDefaultCategoryPref.setVisible(areSortedByCategory && hasCustomCategories);
 
                     if (hasCustomCategories) {
                         CharSequence[] entries = entriesList.toArray(new CharSequence[0]);
