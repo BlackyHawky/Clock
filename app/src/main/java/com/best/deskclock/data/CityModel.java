@@ -21,6 +21,7 @@ import android.util.ArraySet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
@@ -35,6 +36,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
@@ -91,6 +93,12 @@ final class CityModel {
      */
     private City mHomeCity;
 
+    /**
+     * The last known language tag.
+     * Used to detect locale changes and invalidate the cached city data.
+     */
+    private String mCachedLocaleTag;
+
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     CityModel(@NonNull Context context, @NonNull SharedPreferences prefs) {
         mContext = context.getApplicationContext();
@@ -126,6 +134,8 @@ final class CityModel {
      * @return a list of all cities in their display order
      */
     List<City> getAllCities() {
+        checkLocaleCache();
+
         if (mAllCities == null) {
             // Create a set of selections to identify the unselected cities.
             final List<City> selected = new ArrayList<>(getSelectedCities());
@@ -160,6 +170,8 @@ final class CityModel {
      * @return a list of cities not selected for display
      */
     List<City> getUnselectedCities() {
+        checkLocaleCache();
+
         if (mUnselectedCities == null) {
             // Create a set of selections to identify the unselected cities.
             final List<City> selected = new ArrayList<>(getSelectedCities());
@@ -195,6 +207,8 @@ final class CityModel {
      * @return a list of cities selected for display
      */
     List<City> getSelectedCities() {
+        checkLocaleCache();
+
         if (mSelectedCities == null) {
             final List<City> selectedCities = CityDAO.getSelectedCities(mPrefs, getCityMap());
 
@@ -272,6 +286,8 @@ final class CityModel {
     }
 
     private Map<String, City> getCityMap() {
+        checkLocaleCache();
+
         if (mCityMap == null) {
             mCityMap = CityDAO.getCities(mContext, mPrefs);
         }
@@ -288,6 +304,32 @@ final class CityModel {
             return new City.UtcOffsetComparator();
         }
         throw new IllegalStateException("unexpected city sort: " + citySort);
+    }
+
+    /**
+     * Checks if the application locale has changed before returning cached data.
+     *
+     * <p>While Android 13+ handles locale changes via {@code ACTION_APPLICATION_LOCALE_CHANGED} in a BroadcastReceiver,
+     * that broadcast is asynchronous. This method provides a synchronous fallback to prevent race conditions during
+     * Activity recreation, and serves as the primary cache invalidation mechanism for Android 12 and below.</p>
+     */
+    private void checkLocaleCache() {
+        String currentTag = AppCompatDelegate.getApplicationLocales().toLanguageTags();
+
+        if (currentTag.isEmpty()) {
+            currentTag = Locale.getDefault().toLanguageTag();
+        }
+
+        if (mCachedLocaleTag == null) {
+            mCachedLocaleTag = currentTag;
+        } else if (!mCachedLocaleTag.equals(currentTag)) {
+            mCachedLocaleTag = currentTag;
+            mCityMap = null;
+            mHomeCity = null;
+            mAllCities = null;
+            mSelectedCities = null;
+            mUnselectedCities = null;
+        }
     }
 
     /**
