@@ -711,4 +711,42 @@
     <string name="central_fab_size_title">Dimensión del botón flotante central</string>
     <string name="side_fab_size_title">Dimensión de los botones flotantes laterales</string>
     <string name="enable_city_flag_title">Mostrar banderas de los países</string>
+    <string name="label_category">Categoría</string>
+    <string name="do_not_show_again">No mostrar más</string>
+    <string name="label_days">Días</string>
+    <string name="create_category">Nueva categoría</string>
+    <string name="rename_category">Renombrar categoría</string>
+    <string name="label_all_categories">Todo</string>
+    <string name="category_error">La categoría ya existe</string>
+    <string name="add_category_description">Añadir una categoría</string>
+    <string name="timezone_title">Zona horaria</string>
+    <string name="alarm_alert_snooze_duration_message">Pospuesto durante <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
+    <string name="label_lock">Bloquear</string>
+    <string name="label_unlock">Desbloquear</string>
+    <string name="snooze_warning_message">Al posponer una alarma durante varios días, se omitirán todas las repeticiones programadas para ese período.\n\nPor ejemplo: si pospones una alarma diaria durante 3 días, no sonará mañana ni pasado mañana. Volverá a sonar únicamente al finalizar esos 3 días.</string>
+    <plurals name="days_short">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> día</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> días</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> días</item>
+    </plurals>
+    <string name="alarm_days_warning_box_text">Ingresa un valor de 0 a 31 días</string>
+    <string name="alarm_hours_snooze_warning_box_text">Ingresa un valor de 0 a 23 horas</string>
+    <string name="timer_accessibility_custom_time_removed">Se ha quitado %1$s minuto al temporizador, quedan <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
+    <string name="remove_time_button_title">Restar tiempo</string>
+    <string name="timer_button_remove_time_box_title">Minutos que se quitarán del temporizador</string>
+    <string name="timer_remove_custom_time_description">Quitar %s minuto(s)</string>
+    <string name="timer_remove_custom_time_with_seconds_description">Quitar %1$s minuto(s) y %2$s segundo(s)</string>
+    <string name="timer_button_time_note">Nota: Establezca el valor en 0 para ocultar este botón.</string>
+    <string name="sorting_title">Ordenar</string>
+    <string name="enable_alarm_sorting_by_category_title">Ordenar por categoría</string>
+    <string name="default_alarm_category_title">Categoría que se seleccionará al abrir la aplicación</string>
+    <string name="display_enabled_alarm_badge_title">Mostrar notificación si hay alarmas activadas</string>
+    <string name="delete_alarms_with_category_title">Eliminar alarmas al borrar la categoría</string>
+    <string name="delete_alarms_with_category_summary">Si se desactiva, las alarmas irán a la categoría predeterminada</string>
+    <string name="switch_to_new_category_title">Ir a la nueva categoría tras crearla</string>
+    <string name="live_update_notifications_title">Notificaciones en directo</string>
+    <string name="display_locked_alarms_first_title">Alarmas bloqueadas primero</string>
+    <string name="default_time_to_remove_to_timer_title">Duración predeterminada a restar</string>
+    <string name="display_compact_timers_summary">Ahorra espacio en pantalla, pero muestra un máximo de 3 botones.\n\nSi el botón \"Reproducir/Pausa\" se oculta para mostrar los botones de tiempo personalizados, toca la cuenta atrás para pausar</string>
+    <string name="display_timer_delete_button_title">Mostrar el botón \"Eliminar\" en la tarjeta del temporizador</string>
 </resources>

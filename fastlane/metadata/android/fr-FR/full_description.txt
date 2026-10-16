@@ -3,12 +3,19 @@ Elle n'utilise pas d'autorisation Internet et est donc 100% hors ligne.
 
 Caractéristiques :
 <ul>
-  <li>L'action de retourner ou de secouer l'appareil permet d'arrêter ou de reporter l'alarme ;</li>
-  <li>Désactiver ou reporter l'alarme à l'aide du bouton d'alimentation ou des boutons du volume ;</li>
+  <li>Réglez les alarmes à une date précise ;</li>
+  <li>Réglez les alarmes sur un fuseau horaire spécifique ;</li>
+  <li>Pour rejeter ou répéter les alarmes :</li>
+    <ul>
+      <li>Prise en charge des actions de retournement et de secousse ;</li>
+      <li>Utiliser le bouton d'alimentation ou les boutons du volume ;</li>
+      <li>Résoudre des problèmes mathématiques.</li>
+    </ul>
   <li>Pour quelques appareils Snapdragon uniquement, l'alarme se déclenche lorsqu'ils sont éteints ;</li>
     <ul>
       <li>Malheureusement, cette fonctionnalité peut ne pas fonctionner sur certains appareils malgré la présence de l'application système <i>"com.qualcomm.qti.poweroffalarm"</i>.</li>
     </ul>
+  <li>Tri avancé des alarmes ;</li>
   <li>Glisser pour supprimer une alarme ;</li>
   <li>Dupliquer les alarmes;</li>
   <li>Titre de l'alarme personnalisable ;</li>
@@ -21,6 +28,7 @@ Caractéristiques :
   <li>Affichage de l'heure locale lors des voyages ;</li>
   <li>Afficher l'heure dans de nombreuses villes du monde ;</li>
   <li>Minuteur et chronomètre inclus;</li>
+  <li>Prise en charge des notifications de mise à jour en temps réel pour les minuteurs et le chronomètre ;</li>
   <li>Possibilité de partager votre chronomètre avec vos contacts ;</li>
   <li>Écran de veille personnalisable ;</li>
   <li>Widgets modernes ;</li>

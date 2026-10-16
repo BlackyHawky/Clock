@@ -1,0 +1,4 @@
+Improve alarm reliability and add major features.
+
+All other fixes and improvements are detailed here:
+https://github.com/BlackyHawky/Clock/releases/tag/2.34

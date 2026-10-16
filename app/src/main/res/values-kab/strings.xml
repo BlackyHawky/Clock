@@ -206,4 +206,8 @@
     <string name="FSN_dialog_title">Ilɣa n ugdil aččuran</string>
     <string name="restore_button_title">Err-it-id</string>
     <string name="toast_message_backup_error">Aḥraz ur yeddi ara</string>
+    <string name="label_category">Taggayt</string>
+    <string name="label_days">Ussan</string>
+    <string name="create_category">Snulfu-d taggayt</string>
+    <string name="vibration_category_title">Angugu</string>
 </resources>

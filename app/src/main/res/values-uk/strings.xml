@@ -28,7 +28,7 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Відкладено"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Будильник вимкнено</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Відкласти"</string>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Відкласти сигнал до <xliff:g id="time">%s</xliff:g></string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Відкладено до <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Наступний будильник"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Пропущений сигнал видалено"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Залишилося менше хвилини"</string>
@@ -729,4 +729,43 @@
     <string name="enable_city_flag_title">Показувати прапори країн</string>
     <string name="central_fab_size_title">Розмір центральної плаваючої кнопки</string>
     <string name="side_fab_size_title">Розмір бічних плаваючих кнопок</string>
+    <plurals name="days_short">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> д</item>
+        <item quantity="few"><xliff:g example="1" id="number">%s</xliff:g> д</item>
+        <item quantity="many"><xliff:g example="1" id="number">%s</xliff:g> д</item>
+        <item quantity="other"><xliff:g example="1" id="number">%s</xliff:g> д</item>
+    </plurals>
+    <string name="label_category">Категорія</string>
+    <string name="do_not_show_again">Не показувати знову</string>
+    <string name="label_days">Дні</string>
+    <string name="create_category">Створити категорію</string>
+    <string name="rename_category">Перейменувати категорію</string>
+    <string name="label_all_categories">Усі</string>
+    <string name="add_category_description">Додати категорію</string>
+    <string name="category_error">Категорію вже створено</string>
+    <string name="timezone_title">Часовий пояс</string>
+    <string name="label_lock">Заблокувати</string>
+    <string name="label_unlock">Розблокувати</string>
+    <string name="alarm_days_warning_box_text">Уведіть значення від 0 до 31 днів</string>
+    <string name="alarm_hours_snooze_warning_box_text">Уведіть значення від 0 до 23 годин</string>
+    <string name="remove_time_button_title">Кнопка «Видалити час»</string>
+    <string name="timer_button_remove_time_box_title">Хвилини для віднімання від таймера</string>
+    <string name="sorting_title">Сортування</string>
+    <string name="switch_to_new_category_title">Переходити до нової категорії після її створення</string>
+    <string name="display_locked_alarms_first_title">Спочатку показувати заблоковані будильники</string>
+    <string name="default_time_to_remove_to_timer_title">Час за замовчуванням, який віднімається від таймерів</string>
+    <string name="display_timer_delete_button_title">Показувати кнопку «Видалити» на картці таймера</string>
+    <string name="alarm_alert_snooze_duration_message">Відкладено на <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
+    <string name="snooze_warning_message">Якщо Ви відкладете будильник на кілька днів, усі заплановані на цей період спрацювання буде пропущено.\n\nНаприклад: якщо відкласти щоденний будильник на 3 дні, він не спрацює ні завтра, ні післязавтра. Він прозвучить лише після завершення цих трьох днів.</string>
+    <string name="timer_accessibility_custom_time_removed">Таймер скорочено на %1$s хвилин, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
+    <string name="timer_remove_custom_time_description">Відняти %s хвилину</string>
+    <string name="timer_remove_custom_time_with_seconds_description">Відняти %1$s хвилину %2$s секунд</string>
+    <string name="timer_button_time_note">Примітка: щоб приховати кнопку, встановіть значення 0.</string>
+    <string name="enable_alarm_sorting_by_category_title">Сортувати будильники за категоріями</string>
+    <string name="default_alarm_category_title">Категорія, яку вибирати при відкритті додатка</string>
+    <string name="display_enabled_alarm_badge_title">Показувати позначку, коли ввімкнено будильник</string>
+    <string name="delete_alarms_with_category_title">Видаляти будильники при видаленні категорії</string>
+    <string name="delete_alarms_with_category_summary">Якщо вимкнено, будильники буде переміщено до категорії за замовчуванням</string>
+    <string name="live_update_notifications_title">Увімкнути сповіщення про оновлення в реальному часі</string>
+    <string name="display_compact_timers_summary">Економить місце на екрані, але відображає не більше 3 кнопок.\n\nЯкщо кнопку «Почати/Призупинити» приховано для відображення користувацьких кнопок часу, натисніть на індикатор відліку, щоб призупинити</string>
 </resources>
