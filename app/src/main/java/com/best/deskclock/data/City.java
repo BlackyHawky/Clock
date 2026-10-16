@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.best.deskclock.utils.Utils;
 
 import java.text.Collator;
+import java.text.Normalizer;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
@@ -99,18 +100,6 @@ public final class City {
         mTimeZone = tz;
     }
 
-    /**
-     * Strips out any characters considered optional for matching purposes. These include spaces,
-     * dashes, periods and apostrophes.
-     *
-     * @param token a city name or search term
-     * @return the given {@code token} without any characters considered optional when matching
-     */
-    @NonNull
-    public static String removeSpecialCharacters(@NonNull String token) {
-        return token.replaceAll("[ -.']", "");
-    }
-
     public String getId() {
         return mId;
     }
@@ -176,6 +165,21 @@ public final class City {
     }
 
     /**
+     * Strips out any characters considered optional for matching purposes. These include spaces,
+     * dashes, periods, apostrophes and accents.
+     *
+     * @param token a city name or search term
+     * @return the given {@code token} without any characters considered optional when matching
+     */
+    @NonNull
+    public static String removeSpecialCharacters(@NonNull String token) {
+        String normalized = Normalizer.normalize(token, Normalizer.Form.NFD);
+        String withoutAccents = normalized.replaceAll("\\p{M}+", "");
+
+        return withoutAccents.replaceAll("[ -.']", "");
+    }
+
+    /**
      * @return The country flag emoji or a globe emoji for non-country zones.
      */
     @NonNull
@@ -194,13 +198,13 @@ public final class City {
     /**
      * @param upperCaseQueryNoSpecialCharacters search term with all special characters removed
      *                                          to match against the upper case city name
-     * @return {@code true} if the name of this city starts with the given query
+     * @return {@code true} if the city name contains the given query
      */
     public boolean matches(@NonNull String upperCaseQueryNoSpecialCharacters, @NonNull Locale locale) {
         // By removing all special characters, prefix matching becomes more liberal, and it is easier
         // to locate the desired city. e.g. "St. Lucia" is matched by "StL", "St.L", "St L", "St. L"
-        return getNameUpperCaseNoSpecialCharacters(locale).startsWith(upperCaseQueryNoSpecialCharacters)
-            || getEnglishNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters);
+        return getNameUpperCaseNoSpecialCharacters(locale).contains(upperCaseQueryNoSpecialCharacters)
+            || getEnglishNameUpperCaseNoSpecialCharacters().contains(upperCaseQueryNoSpecialCharacters);
     }
 
     @NonNull
