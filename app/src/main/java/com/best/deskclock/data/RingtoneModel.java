@@ -11,14 +11,12 @@ import static android.media.RingtoneManager.TITLE_COLUMN_INDEX;
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_CUSTOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.UriPermission;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.media.Ringtone;
@@ -28,7 +26,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.ArrayMap;
-import android.util.ArraySet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,10 +44,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -210,25 +205,6 @@ public final class RingtoneModel {
     @NonNull
     public List<CustomRingtone> getCustomRingtones() {
         return Collections.unmodifiableList(getMutableCustomRingtones());
-    }
-
-    @SuppressLint("NewApi")
-    void loadRingtonePermissions() {
-        final List<CustomRingtone> ringtones = getMutableCustomRingtones();
-        if (ringtones.isEmpty()) {
-            return;
-        }
-
-        final List<UriPermission> uriPermissions = mContext.getContentResolver().getPersistedUriPermissions();
-        final Set<Uri> permissions = new ArraySet<>(uriPermissions.size());
-        for (UriPermission uriPermission : uriPermissions) {
-            permissions.add(uriPermission.getUri());
-        }
-
-        for (ListIterator<CustomRingtone> i = ringtones.listIterator(); i.hasNext(); ) {
-            final CustomRingtone ringtone = i.next();
-            i.set(ringtone.setHasPermissions(permissions.contains(ringtone.getUri())));
-        }
     }
 
     void loadRingtoneTitles() {

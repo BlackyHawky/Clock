@@ -277,7 +277,7 @@ public class RingtoneUtils {
 
         if (Looper.myLooper() == Looper.getMainLooper()) {
             for (CustomRingtone custom : DataModel.getDataModel().getCustomRingtones()) {
-                if (custom.hasPermissions()) {
+                if (isRingtoneUriReadable(context, custom.getUri())) {
                     uris.add(custom.getUri());
                 }
             }
@@ -286,7 +286,7 @@ public class RingtoneUtils {
             RingtoneModel ringtoneModel = new RingtoneModel(context, prefs);
 
             for (CustomRingtone custom : ringtoneModel.getCustomRingtones()) {
-                if (custom.hasPermissions()) {
+                if (isRingtoneUriReadable(context, custom.getUri())) {
                     uris.add(custom.getUri());
                 }
             }
