@@ -578,6 +578,8 @@
     <string name="more_options">More options</string>
     <!-- Text that explains what happens to alarms and timers after removing the custom ringtone sound they use [CHAR LIMIT=NONE] -->
     <string name="confirm_remove_custom_ringtone">Alarms and timers using this sound will play the default sound instead.</string>
+    <!-- Dialog message when deleting all custom ringtones. -->
+    <string name="confirm_remove_all_custom_ringtones">Are you sure you want to remove all custom ringtones?\n\nAlarms and timers currently using them will be reset to the default sound.</string>
     <!-- Text shown in the progress dialog while custom ringtones are being added.
          %1$d = number of ringtones already processed
          %2$d = total number of ringtones to add -->
