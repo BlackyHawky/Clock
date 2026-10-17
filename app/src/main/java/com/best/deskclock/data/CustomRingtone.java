@@ -16,9 +16,8 @@ import androidx.annotation.NonNull;
  * @param mId             The unique identifier of the custom ringtone.
  * @param mUri            The uri that allows playback of the ringtone.
  * @param mTitle          The title describing the file at the given uri; typically the file name.
- * @param mHasPermissions {@code true} iff the application has permission to read the content of {@code mUri uri}.
  */
-public record CustomRingtone(long mId, @NonNull Uri mUri, @NonNull String mTitle, boolean mHasPermissions)
+public record CustomRingtone(long mId, @NonNull Uri mUri, @NonNull String mTitle)
     implements Comparable<CustomRingtone> {
 
     public long getId() {
@@ -31,18 +30,6 @@ public record CustomRingtone(long mId, @NonNull Uri mUri, @NonNull String mTitle
 
     public String getTitle() {
         return mTitle;
-    }
-
-    public boolean hasPermissions() {
-        return mHasPermissions;
-    }
-
-    CustomRingtone setHasPermissions(boolean hasPermissions) {
-        if (mHasPermissions == hasPermissions) {
-            return this;
-        }
-
-        return new CustomRingtone(mId, mUri, mTitle, hasPermissions);
     }
 
     @Override

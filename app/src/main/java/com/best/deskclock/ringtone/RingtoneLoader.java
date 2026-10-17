@@ -60,7 +60,6 @@ public class RingtoneLoader extends AsyncTaskLoader<List<RingtoneAdapter.Rington
     public List<RingtoneAdapter.RingtoneItem> loadInBackground() {
         // Prime the ringtone title cache for later access.
         mDataModel.loadRingtoneTitles();
-        mDataModel.loadRingtonePermissions();
 
         // Fetch the standard system ringtones.
         final RingtoneManager ringtoneManager = new RingtoneManager(getContext());
