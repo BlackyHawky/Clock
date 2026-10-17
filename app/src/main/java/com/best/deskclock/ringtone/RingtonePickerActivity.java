@@ -13,10 +13,10 @@ import static android.provider.OpenableColumns.DISPLAY_NAME;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
@@ -24,6 +24,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -61,10 +63,13 @@ import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This activity presents a set of ringtones from which the user may select one. The set includes:
@@ -438,6 +443,33 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     public void onLoaderReset(@NonNull Loader<List<RingtoneAdapter.RingtoneItem>> loader) {
     }
 
+    @SuppressLint("AlwaysShowAction")
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        if (!mDataModel.getCustomRingtones().isEmpty()) {
+            menu.add(0, Menu.NONE, 0, R.string.remove_sound)
+                .setIcon(AppCompatResources.getDrawable(this, R.drawable.ic_playlist_remove))
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+            mBaseBinding.actionBar.post(() ->
+                ThemeUtils.applyToolbarTooltips(mBaseBinding.actionBar, getGeneralTypeface(), getDisplayMetrics()));
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == 0) {
+            RemoveAllCustomRingtonesDialogFragment.show(mFragmentManager);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * This method adjusts the space occupied by system elements (such as the status bar,
      * navigation bar or screen notch) and adjust the display of the application interface
@@ -559,64 +591,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     /**
-     * This DialogFragment informs the user of the side effects of removing a custom ringtone while
-     * it is in use by alarms and/or timers and prompts them to confirm the removal.
-     */
-    public static class ConfirmRemoveCustomRingtoneDialogFragment extends DialogFragment {
-
-        private static final String ARG_RINGTONE_URI_TO_REMOVE = "arg_ringtone_uri_to_remove";
-
-        static void show(@NonNull FragmentManager manager, @NonNull Uri toRemove) {
-            if (manager.isDestroyed()) {
-                return;
-            }
-
-            final Bundle args = new Bundle();
-            args.putParcelable(ARG_RINGTONE_URI_TO_REMOVE, toRemove);
-
-            final DialogFragment fragment = new ConfirmRemoveCustomRingtoneDialogFragment();
-            fragment.setArguments(args);
-            fragment.show(manager, "confirm_ringtone_remove");
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            final Bundle arguments = requireArguments();
-            final Uri toRemove = BundleCompat.getParcelable(arguments, ARG_RINGTONE_URI_TO_REMOVE, Uri.class);
-
-            if (toRemove == null) {
-                dismiss();
-                return super.onCreateDialog(savedInstanceState);
-            }
-
-            final DialogInterface.OnClickListener okListener = (dialog, which) ->
-                ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
-
-            final int message = RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)
-                ? R.string.confirm_remove_custom_ringtone
-                : R.string.custom_ringtone_lost_permissions;
-
-            return CustomDialog.create(
-                requireContext(),
-                null,
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
-                getString(R.string.warning),
-                getString(message),
-                null,
-                getString(R.string.remove_sound),
-                okListener,
-                getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                null,
-                CustomDialog.SoftInputMode.NONE
-            );
-        }
-    }
-
-    /**
      * This task locates a displayable string in the background that is fit for use as the title of
      * the audio content. It adds a custom ringtone using the uri and title on the main thread.
      */
@@ -671,6 +645,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
+
+                // Force a menu refresh to display the "Reset" icon
+                invalidateOptionsMenu();
             });
         });
     }
@@ -777,6 +754,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 }
 
                 mProgressDialog.dismiss();
+
+                // Force a menu refresh to display the "Reset" icon
+                invalidateOptionsMenu();
             });
         });
     }
@@ -790,13 +770,14 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      */
     private void removeCustomRingtoneAsync(@NonNull Uri removeUri) {
         final Context appContext = getApplicationContext();
+        final ContentResolver cr = appContext.getContentResolver();
 
         AppExecutors.getDiskIO().execute(() -> {
             final Uri systemDefaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
             // Update all alarms that use the custom ringtone to use the system default.
-            final ContentResolver cr = appContext.getContentResolver();
             final List<Alarm> alarms = Alarm.getAlarms(cr, null);
+
             for (Alarm alarm : alarms) {
                 if (removeUri.equals(alarm.alert)) {
                     alarm.alert = systemDefaultRingtoneUri;
@@ -897,4 +878,188 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             });
         });
     }
+
+    /**
+     * Removes all custom ringtones.
+     *
+     * <p>Taking this action has side effects because all alarms that use any custom ringtone are reassigned
+     * to the Android system default alarm ringtone. Defaults for alarms and timers are also reset
+     * if they relied on custom ringtones.</p>
+     */
+    private void removeAllCustomRingtonesAsync() {
+        final List<CustomRingtone> customRingtones = mDataModel.getCustomRingtones();
+
+        if (customRingtones.isEmpty()) {
+            return;
+        }
+
+        final Context appContext = getApplicationContext();
+        final ContentResolver cr = appContext.getContentResolver();
+
+        AppExecutors.getDiskIO().execute(() -> {
+            final Set<Uri> customUris = new HashSet<>();
+
+            for (CustomRingtone ringtone : customRingtones) {
+                customUris.add(ringtone.getUri());
+            }
+
+            final Uri systemDefaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+
+            // Update all alarms that use one of these ringtones
+            final List<Alarm> alarms = Alarm.getAlarms(cr, null);
+            for (Alarm alarm : alarms) {
+                if (customUris.contains(alarm.alert)) {
+                    alarm.alert = systemDefaultRingtoneUri;
+                    AlarmUpdateHandler alarmUpdateHandler = new AlarmUpdateHandler(
+                        appContext, getPrefs(), getGeneralTypeface(), null, null, mIsVibrationsEnabled);
+
+                    alarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                }
+            }
+
+            // Revoke permissions
+            for (Uri uri : customUris) {
+                try {
+                    cr.releasePersistableUriPermission(uri, FLAG_GRANT_READ_URI_PERMISSION);
+                } catch (SecurityException ignore) {
+                    LogUtils.w("SecurityException while releasing read permission for " + uri);
+                }
+            }
+
+            AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
+                // Delete all custom ringtones
+                for (Uri uri : customUris) {
+                    mDataModel.removeCustomRingtone(uri);
+                }
+
+                // Reset the default alarm ringtone if necessary
+                if (customUris.contains(mDataModel.getAlarmRingtoneUriFromSettings())) {
+                    mDataModel.setAlarmRingtoneUriFromSettings(systemDefaultRingtoneUri);
+                }
+
+                // Reset the default timer ringtone if necessary
+                if (customUris.contains(mDataModel.getTimerRingtoneUri())) {
+                    final Uri timerRingtoneUri = mDataModel.getDefaultTimerRingtoneUri();
+                    mDataModel.setTimerRingtoneUri(timerRingtoneUri);
+                }
+
+                // Update the interface selection
+                if (customUris.contains(mSelectedRingtoneUri) || RingtoneUtils.isRandomCustomRingtone(mSelectedRingtoneUri)) {
+                    final RingtoneHolder currentlyPlaying = getRingtoneHolder(mSelectedRingtoneUri);
+                    if (currentlyPlaying != null) {
+                        stopPlayingRingtone(currentlyPlaying, false);
+                    }
+
+                    final RingtoneHolder defaultRingtone = getRingtoneHolder(mDefaultRingtoneUri);
+                    if (defaultRingtone != null) {
+                        defaultRingtone.setSelected(true);
+                        mSelectedRingtoneUri = defaultRingtone.getUri();
+                    } else {
+                        mSelectedRingtoneUri = mDefaultRingtoneUri;
+                    }
+                }
+
+                // Reload the list and force a menu update
+                LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
+                invalidateOptionsMenu();
+            });
+        });
+    }
+
+    /**
+     * This DialogFragment informs the user of the side effects of removing a custom ringtone while
+     * it is in use by alarms and/or timers and prompts them to confirm the removal.
+     */
+    public static class ConfirmRemoveCustomRingtoneDialogFragment extends DialogFragment {
+
+        private static final String ARG_RINGTONE_URI_TO_REMOVE = "arg_ringtone_uri_to_remove";
+
+        static void show(@NonNull FragmentManager manager, @NonNull Uri toRemove) {
+            if (manager.isDestroyed()) {
+                return;
+            }
+
+            final Bundle args = new Bundle();
+            args.putParcelable(ARG_RINGTONE_URI_TO_REMOVE, toRemove);
+
+            final DialogFragment fragment = new ConfirmRemoveCustomRingtoneDialogFragment();
+            fragment.setArguments(args);
+            fragment.show(manager, "confirm_ringtone_remove");
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            final Bundle arguments = requireArguments();
+            final Uri toRemove = BundleCompat.getParcelable(arguments, ARG_RINGTONE_URI_TO_REMOVE, Uri.class);
+
+            if (toRemove == null) {
+                dismiss();
+                return super.onCreateDialog(savedInstanceState);
+            }
+
+            final int message = RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)
+                ? R.string.confirm_remove_custom_ringtone
+                : R.string.custom_ringtone_lost_permissions;
+
+            return CustomDialog.create(
+                requireContext(),
+                null,
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
+                getString(R.string.warning),
+                getString(message),
+                null,
+                getString(R.string.remove_sound),
+                (d, w) -> ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove),
+                getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                null,
+                CustomDialog.SoftInputMode.NONE
+            );
+        }
+    }
+
+    /**
+     * This DialogFragment informs the user of the side effects of removing all custom ringtones while
+     * it is in use by alarms and/or timers and prompts them to confirm the removal.
+     */
+    public static class RemoveAllCustomRingtonesDialogFragment extends DialogFragment {
+
+        static void show(@NonNull FragmentManager manager) {
+            if (manager.isDestroyed()) {
+                return;
+            }
+
+            final DialogFragment fragment = new RemoveAllCustomRingtonesDialogFragment();
+            fragment.show(manager, "remove_all_custom_ringtones");
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            return CustomDialog.create(
+                requireContext(),
+                null,
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
+                getString(R.string.warning),
+                getString(R.string.confirm_remove_all_custom_ringtones),
+                null,
+                getString(android.R.string.ok),
+                (d, w) -> ((RingtonePickerActivity) requireActivity()).removeAllCustomRingtonesAsync(),
+                getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                null,
+                CustomDialog.SoftInputMode.NONE
+            );
+        }
+    }
+
 }
