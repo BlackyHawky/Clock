@@ -52,6 +52,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uicomponents.CustomDialog;
 
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -300,6 +301,21 @@ public class Utils {
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
             }
         }
+    }
+
+    /**
+     * Strips out any characters considered optional for matching purposes. These include spaces,
+     * dashes, periods, apostrophes and accents.
+     *
+     * @param token a search term
+     * @return the given {@code token} without any characters considered optional when matching
+     */
+    @NonNull
+    public static String removeSpecialCharacters(@NonNull String token) {
+        String normalized = Normalizer.normalize(token, Normalizer.Form.NFD);
+        String withoutAccents = normalized.replaceAll("\\p{M}+", "");
+
+        return withoutAccents.replaceAll("[ -.']", "");
     }
 
     /**

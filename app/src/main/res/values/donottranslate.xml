@@ -112,6 +112,9 @@
     <string name="action_set_missed_alarm_repeat_limit">Set Missed Alarm Repeat Limit</string>
     <string name="action_set_crescendo_duration">Set Crescendo Duration</string>
     <string name="action_set_alarm_volume">Set Alarm Volume</string>
+    <string name="action_set_alarm_task">Set Alarm Task</string>
+    <string name="action_launch_alarm_task">Launch Alarm Task</string>
+    <string name="action_launch_alarm_app">Launch Alarm App</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
     <string name="label_deskclock">DeskClock</string>

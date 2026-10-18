@@ -42,6 +42,13 @@
         android:name="android.hardware.camera.flash"
         android:required="false" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <application
         android:name="com.best.deskclock.DeskClockApplication"
         android:allowBackup="false"
@@ -192,6 +199,13 @@
             android:theme="@style/Theme.DeskClock.Wallpaper"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="DiscouragedApi, NonResizeableActivity" />
+
+        <activity android:name="com.best.deskclock.alarms.AlarmActionRoutingActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:exported="false"
+            android:theme="@android:style/Theme.NoDisplay" />
 
         <activity
             android:name="com.best.deskclock.settings.AlarmDisplayPreviewActivity"
