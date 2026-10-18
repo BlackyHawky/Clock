@@ -755,6 +755,45 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/task_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="2dp"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/alarm_volume_layout">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/task_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_task"
+                        android:paddingStart="@null"
+                        android:paddingEnd="10dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:focusable="true"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@string/task_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/task_value"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="end|center_vertical"
+                        android:focusable="true"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        tools:text="Weather" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/alarm_background_image_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -763,7 +802,7 @@
                     android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/alarm_volume_layout">
+                    app:layout_constraintTop_toBottomOf="@id/task_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alarm_background_image_title"

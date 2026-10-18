@@ -152,6 +152,20 @@
     <string name="label_lock">Lock</string>
     <!-- Setting labels on Set alarm screen: Lock off -->
     <string name="label_unlock">Unlock</string>
+    <!-- Setting labels on Set alarm screen: Task -->
+    <string name="task_title">Task</string>
+    <!-- Task name -->
+    <string name="task_name">Name</string>
+    <!-- Task URL -->
+    <string name="task_url">URL</string>
+    <!-- Helper text for the task URL -->
+    <string name="task_url_helper_text">Must start with \"http://\" or \"https://\" or \"app://\"</string>
+    <!-- Dialog title to select an app that will be launched after dismissing/snoozing the alarm. -->
+    <string name="select_app_title">Select app</string>
+    <!-- Text displayed while apps are loading -->
+    <string name="loading_apps_title">Loading apps</string>
+    <!-- Text in the app selector search bar -->
+    <string name="search_app_title">Search for an app</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
     <!-- Message displayed in the alarm editing panel when the "Delete alarm once dismissed" feature is disabled -->
