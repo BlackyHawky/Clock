@@ -63,7 +63,7 @@ public class AlarmSchedulerTest {
         return new Alarm(1L, true, year, month, day, hour, minute, true,
             "vibrationPattern", true, weekdays, "test", false, "content://ringtone",
             false, 10, 5, 1, 0, 5, 0, pauseStart, pauseEnd, "", 0, "easy",
-            false, "", combinedJson);
+            false, "", new long[]{Alarm.DEFAULT_CATEGORY_ID}, combinedJson);
     }
 
     @Test
