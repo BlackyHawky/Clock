@@ -1461,6 +1461,8 @@ public final class AlarmFragment extends DeskClockFragment
         alarm.lock = false;
         alarm.timeZone = "";
         alarm.categoryIds = new long[]{mCurrentCategoryId};
+        alarm.taskName = "";
+        alarm.taskUrl = "";
 
         return alarm;
     }

@@ -38,8 +38,10 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePlayer;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -189,6 +191,11 @@ public class AlarmService extends Service {
                         // Set the alarm state to dismissed.
                         AlarmStateManager.deleteInstanceAndUpdateParent(context, mPrefs, mCurrentAlarm, true);
                         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
+
+                        Alarm alarm = Alarm.getAlarm(context.getContentResolver(), mCurrentAlarm.mAlarmId);
+                        if (alarm != null) {
+                            AlarmUtils.launchTask(context, alarm);
+                        }
                     }
 
                     case ALARM_MUTE_ACTION -> {
@@ -787,7 +794,7 @@ public class AlarmService extends Service {
                     SettingsDAO.getGlobalIntentId(mPrefs))
                 );
 
-            case ALARM_DISMISS ->
+            case ALARM_DISMISS -> {
                 startService(AlarmStateManager.createStateChangeIntent(
                     this,
                     mCurrentAlarm,
@@ -795,6 +802,12 @@ public class AlarmService extends Service {
                     AlarmInstance.DISMISSED_STATE,
                     SettingsDAO.getGlobalIntentId(mPrefs))
                 );
+
+                Alarm alarm = Alarm.getAlarm(getContentResolver(), mCurrentAlarm.mAlarmId);
+                if (alarm != null) {
+                    AlarmUtils.launchTask(this, alarm);
+                }
+            }
 
             case ALARM_MUTE -> {
                 stopAlarmKlaxon();

@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import com.best.deskclock.utils.Utils;
 
 import java.text.Collator;
-import java.text.Normalizer;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
@@ -68,7 +67,7 @@ public final class City {
 
     /**
      * A cached upper case form of the {@link #mName} used in case-insensitive name comparisons
-     * which ignore {@link #removeSpecialCharacters(String)} special characters.
+     * which ignore {@code Utils.removeSpecialCharacters(String)} special characters.
      */
     private String mNameUpperCaseNoSpecialCharacters;
 
@@ -79,7 +78,7 @@ public final class City {
 
     /**
      * A cached upper case form of the {@link #mEnglishName} used in case-insensitive name comparisons
-     * which ignore {@link #removeSpecialCharacters(String)} special characters.
+     * which ignore {@code Utils.removeSpecialCharacters(String)} special characters.
      */
     private String mEnglishNameUpperCaseNoSpecialCharacters;
 
@@ -139,7 +138,7 @@ public final class City {
      */
     private String getNameUpperCaseNoSpecialCharacters(@NonNull Locale locale) {
         if (mNameUpperCaseNoSpecialCharacters == null) {
-            mNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getNameUpperCase(locale));
+            mNameUpperCaseNoSpecialCharacters = Utils.removeSpecialCharacters(getNameUpperCase(locale));
         }
         return mNameUpperCaseNoSpecialCharacters;
     }
@@ -159,24 +158,9 @@ public final class City {
      */
     private String getEnglishNameUpperCaseNoSpecialCharacters() {
         if (mEnglishNameUpperCaseNoSpecialCharacters == null) {
-            mEnglishNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getEnglishNameUpperCase());
+            mEnglishNameUpperCaseNoSpecialCharacters = Utils.removeSpecialCharacters(getEnglishNameUpperCase());
         }
         return mEnglishNameUpperCaseNoSpecialCharacters;
-    }
-
-    /**
-     * Strips out any characters considered optional for matching purposes. These include spaces,
-     * dashes, periods, apostrophes and accents.
-     *
-     * @param token a city name or search term
-     * @return the given {@code token} without any characters considered optional when matching
-     */
-    @NonNull
-    public static String removeSpecialCharacters(@NonNull String token) {
-        String normalized = Normalizer.normalize(token, Normalizer.Form.NFD);
-        String withoutAccents = normalized.replaceAll("\\p{M}+", "");
-
-        return withoutAccents.replaceAll("[ -.']", "");
     }
 
     /**
