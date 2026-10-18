@@ -31,7 +31,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
     static final String CATEGORIES_TABLE_NAME = "alarm_categories";
 
-    private static final int DATABASE_VERSION = 31;
+    // The multi-date preview releases used fork-side schema versions 30 (combinedDays) and
+    // 31 (lock repair) which collide with upstream's v30 (categories) and this chain's v31
+    // (combinedDays). Bumping to 32 makes onUpgrade run for those preview installs so the
+    // idempotent blocks and repair passes below can heal their missing category columns.
+    private static final int DATABASE_VERSION = 32;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(@Nullable Context context) {
