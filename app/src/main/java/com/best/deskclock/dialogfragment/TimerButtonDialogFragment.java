@@ -50,7 +50,7 @@ import java.util.Objects;
 public class TimerButtonDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of TimerButtonDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link TimerButtonDialogFragment} in the fragment manager.
      */
     private static final String TAG = "time_button_dialog";
 
@@ -365,18 +365,13 @@ public class TimerButtonDialogFragment extends DialogFragment {
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
             || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mBinding.dialogInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mBinding.dialogInputLayoutMinutes.setHintTextColor(minutesInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.dialogInputLayoutMinutes.setBoxStrokeColor(invalidColor);
+        mBinding.dialogInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(invalidColor));
         mBinding.dialogInputLayoutMinutes.setEnabled(!secondsInvalid);
 
-        mBinding.dialogInputLayoutSeconds.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
-        mBinding.dialogInputLayoutSeconds.setHintTextColor(secondsInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.dialogInputLayoutSeconds.setBoxStrokeColor(invalidColor);
+        mBinding.dialogInputLayoutSeconds.setHintTextColor(ColorStateList.valueOf(invalidColor));
         mBinding.dialogInputLayoutSeconds.setEnabled(!minutesInvalid);
 
         if (mOkButton != null) {

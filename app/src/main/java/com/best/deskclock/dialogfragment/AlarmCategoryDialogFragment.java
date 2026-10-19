@@ -47,7 +47,11 @@ import java.util.Set;
  */
 public class AlarmCategoryDialogFragment extends DialogFragment {
 
-    public static final String TAG = "AlarmCategoryDialogFragment";
+    /**
+     * The tag that identifies instances of {@link AlarmCategoryDialogFragment} in the fragment manager.
+     */
+    public static final String TAG = "alarm_category_dialog";
+
     public static final String REQUEST_KEY = "request_alarm_category";
     public static final String RESULT_CATEGORY_IDS = "result_category_ids";
 

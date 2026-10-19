@@ -41,7 +41,7 @@ import com.google.android.material.slider.Slider;
 public class AlarmVolumeDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of AlarmVolumeDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link AlarmVolumeDialogFragment} in the fragment manager.
      */
     public static final String TAG = "set_alarm_volume_dialog";
 

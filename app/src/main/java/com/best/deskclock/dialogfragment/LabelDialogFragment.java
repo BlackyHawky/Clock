@@ -10,6 +10,7 @@ import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -45,7 +46,7 @@ import java.util.Objects;
 public class LabelDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of LabelDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link LabelDialogFragment} in the fragment manager.
      */
     private static final String TAG = "label_dialog";
 
@@ -152,6 +153,7 @@ public class LabelDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        final Typeface generalTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(requireContext())));
         final Bundle args = requireArguments();
         mIsAlarm = args.getBoolean(ARG_IS_ALARM, false);
         String label = args.getString(ARG_LABEL);
@@ -176,19 +178,24 @@ public class LabelDialogFragment extends DialogFragment {
         final Drawable drawable;
         int iconResId;
         final CharSequence title;
+        final CharSequence hint;
 
         if (mIsAlarm) {
             iconResId = R.drawable.ic_label;
             title = getString(R.string.alarm_label_box_title);
+            hint = getString(R.string.label_description);
         } else if (isTimer()) {
             iconResId = R.drawable.ic_label;
             title = getString(R.string.timer_label_box_title);
+            hint = getString(R.string.label_description);
         } else if (isCity()) {
             iconResId = R.drawable.ic_note;
             title = getString(R.string.city_note_dialog_title, cityName);
+            hint = getString(R.string.city_note_hint);
         } else {
             iconResId = 0;
             title = null;
+            hint = null;
         }
 
         // Load the icon if applicable
@@ -200,8 +207,12 @@ public class LabelDialogFragment extends DialogFragment {
 
         mBinding = DialogEditTextBinding.inflate(getLayoutInflater());
 
+        mBinding.textInputLayout.setTypeface(generalTypeface);
+        mBinding.edit.setTypeface(generalTypeface);
+
+        mBinding.textInputLayout.setHint(hint);
+
         mBinding.edit.setText(label);
-        mBinding.edit.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(requireContext()))));
         mBinding.edit.addTextChangedListener(mTextWatcher);
         mBinding.edit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mBinding.edit.selectAll();
@@ -221,6 +232,7 @@ public class LabelDialogFragment extends DialogFragment {
         if (mIsAlarm) {
             mBinding.divider.setVisibility(VISIBLE);
 
+            mBinding.syncAlarmByLabelCheckbox.setTypeface(generalTypeface);
             mBinding.syncAlarmByLabelCheckbox.setVisibility(VISIBLE);
             mBinding.syncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
             mBinding.syncAlarmByLabelCheckbox.setChecked(syncAlarmByLabel);

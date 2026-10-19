@@ -47,9 +47,9 @@ import java.util.Objects;
 public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of VolumeCrescendoDurationDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link VolumeCrescendoDurationDialogFragment} in the fragment manager.
      */
-    private static final String TAG = "set_volume_crescendo_duration_dialog";
+    private static final String TAG = "volume_crescendo_duration_dialog";
 
     private static final String VOLUME_CRESCENDO_DURATION = "volume_crescendo_duration_";
     private static final String ARG_PREF_KEY = VOLUME_CRESCENDO_DURATION + "arg_pref_key";
@@ -480,18 +480,13 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
             || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mBinding.textInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mBinding.textInputLayoutMinutes.setHintTextColor(minutesInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(invalidColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(invalidColor));
         mBinding.textInputLayoutMinutes.setEnabled(!secondsInvalid);
 
-        mBinding.textInputLayoutSeconds.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
-        mBinding.textInputLayoutSeconds.setHintTextColor(secondsInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutSeconds.setBoxStrokeColor(invalidColor);
+        mBinding.textInputLayoutSeconds.setHintTextColor(ColorStateList.valueOf(invalidColor));
         mBinding.textInputLayoutSeconds.setEnabled(!minutesInvalid);
 
         if (mOkButton != null) {
