@@ -27,6 +27,9 @@ import com.best.deskclock.utils.Utils;
 
 public class AlarmMathHardnessLevelDialogFragment extends DialogFragment {
 
+    /**
+     * The tag that identifies instances of {@link AlarmMathHardnessLevelDialogFragment} in the fragment manager.
+     */
     private static final String TAG = "math_hardness_dialog";
 
     private static final String ARG_PREF_KEY = "arg_pref_key";

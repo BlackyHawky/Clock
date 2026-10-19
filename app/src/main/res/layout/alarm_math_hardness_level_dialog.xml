@@ -22,7 +22,6 @@
             android:minHeight="48dp"
             android:text="@string/label_off"
             android:textSize="16sp"
-            android:textColor="?android:attr/textColorSecondary"
             android:paddingStart="20dp"
             android:paddingEnd="@null" />
 
@@ -33,7 +32,6 @@
             android:minHeight="48dp"
             android:text="@string/math_hardness_level_easy"
             android:textSize="16sp"
-            android:textColor="?android:attr/textColorSecondary"
             android:paddingStart="20dp"
             android:paddingEnd="@null" />
 
@@ -44,7 +42,6 @@
             android:minHeight="48dp"
             android:text="@string/math_hardness_level_normal"
             android:textSize="16sp"
-            android:textColor="?android:attr/textColorSecondary"
             android:paddingStart="20dp"
             android:paddingEnd="@null" />
 
@@ -55,7 +52,6 @@
             android:minHeight="48dp"
             android:text="@string/math_hardness_level_hard"
             android:textSize="16sp"
-            android:textColor="?android:attr/textColorSecondary"
             android:paddingStart="20dp"
             android:paddingEnd="@null" />
 

@@ -33,6 +33,9 @@ import com.best.deskclock.utils.Utils;
  */
 public class VibrationPatternDialogFragment extends DialogFragment {
 
+    /**
+     * The tag that identifies instances of {@link VibrationPatternDialogFragment} in the fragment manager.
+     */
     private static final String TAG = "vibration_pattern_dialog";
 
     private static final String ARG_PREF_KEY = "arg_pref_key";

@@ -46,7 +46,7 @@ import java.util.Objects;
 public class CategoryDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of CategoryDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link CategoryDialogFragment} in the fragment manager.
      */
     public static final String TAG = "category_dialog";
 

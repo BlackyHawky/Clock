@@ -36,7 +36,11 @@ import com.google.android.material.radiobutton.MaterialRadioButton;
  */
 public class AlarmTimeZoneDialogFragment extends DialogFragment  {
 
-    public static final String TAG = "AlarmTimeZoneDialogFragment";
+    /**
+     * The tag that identifies instances of {@link AlarmTimeZoneDialogFragment} in the fragment manager.
+     */
+    public static final String TAG = "alarm_time_zone_dialog";
+
     public static final String REQUEST_KEY = "request_alarm_time_zone";
     public static final String RESULT_TIMEZONE = "result_time_zone";
     private static final String ARG_SELECTED_TIMEZONE = "arg_selected_timezone";
@@ -44,7 +48,9 @@ public class AlarmTimeZoneDialogFragment extends DialogFragment  {
     private DialogListPreferenceCustomBinding mBinding;
 
     /**
-     * @param timeZone L'ID du fuseau actuel (ex: "America/New_York"), ou "" / null pour l'heure locale.
+     * Creates a new instance of {@link AlarmTimeZoneDialogFragment} for use in the alarm editing panel,
+     * where the time zone is configured for a specific alarm.
+     * @param timeZone The ID of the current time zone (e.g., "America/New_York"), or "" / null for local time.
      */
     @NonNull
     public static AlarmTimeZoneDialogFragment newInstance(@Nullable String timeZone) {

@@ -44,7 +44,7 @@ import java.util.Objects;
 public class VibrationStartDelayDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of VibrationStartDelayDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link VibrationStartDelayDialogFragment} in the fragment manager.
      */
     private static final String TAG = "vibration_start_delay_dialog";
 
@@ -315,16 +315,10 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
 
-        String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
-        boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
-            || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 10);
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mBinding.textInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mBinding.textInputLayoutMinutes.setHintTextColor(minutesInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(invalidColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(invalidColor));
 
         if (mOkButton != null) {
             mOkButton.setEnabled(false);

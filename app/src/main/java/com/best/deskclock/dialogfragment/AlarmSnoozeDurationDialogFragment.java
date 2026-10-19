@@ -47,7 +47,7 @@ import java.util.Objects;
 public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of AlarmSnoozeDurationDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link AlarmSnoozeDurationDialogFragment} in the fragment manager.
      */
     private static final String TAG = "set_alarm_snooze_duration_dialog";
 
@@ -496,24 +496,17 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         boolean minutesInvalid = !minutesText.isEmpty() && (Integer.parseInt(minutesText) < 0 || Integer.parseInt(minutesText) > 59);
 
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mBinding.textInputLayoutDays.setBoxStrokeColor(daysInvalid ? invalidColor : validColor);
-        mBinding.textInputLayoutDays.setHintTextColor(daysInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutDays.setBoxStrokeColor(invalidColor);
+        mBinding.textInputLayoutDays.setHintTextColor(ColorStateList.valueOf(invalidColor));
         mBinding.textInputLayoutDays.setEnabled(!(hoursInvalid || minutesInvalid));
 
-        mBinding.textInputLayoutHours.setBoxStrokeColor(hoursInvalid ? invalidColor : validColor);
-        mBinding.textInputLayoutHours.setHintTextColor(hoursInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutHours.setBoxStrokeColor(invalidColor);
+        mBinding.textInputLayoutHours.setHintTextColor(ColorStateList.valueOf(invalidColor));
         mBinding.textInputLayoutHours.setEnabled(!(daysInvalid || minutesInvalid));
 
-        mBinding.textInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mBinding.textInputLayoutMinutes.setHintTextColor(minutesInvalid
-            ? ColorStateList.valueOf(invalidColor)
-            : ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(invalidColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(invalidColor));
         mBinding.textInputLayoutMinutes.setEnabled(!(daysInvalid || hoursInvalid));
 
         if (mOkButton != null) {

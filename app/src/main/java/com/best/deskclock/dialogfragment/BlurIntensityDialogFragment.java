@@ -30,9 +30,9 @@ import com.best.deskclock.utils.Utils;
 public class BlurIntensityDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of BlurIntensityDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link BlurIntensityDialogFragment} in the fragment manager.
      */
-    public static final String TAG = "set_blur_intensity_dialog";
+    public static final String TAG = "blur_intensity_dialog";
 
     public static final String REQUEST_KEY = "blur_intensity_request_key";
     public static final String RESULT_BLUR_INTENSITY_VALUE = "result_blur_intensity_value";
