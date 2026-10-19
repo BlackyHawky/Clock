@@ -39,9 +39,9 @@ import java.util.concurrent.TimeUnit;
 public class TimerSetNewDurationDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of TimerSetNewDurationDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link TimerSetNewDurationDialogFragment} in the fragment manager.
      */
-    private static final String TAG = "set_new_duration_dialog";
+    private static final String TAG = "new_duration_dialog";
 
     private static final String ARG_EDIT_HOURS = "arg_edit_hours";
     private static final String ARG_EDIT_MINUTES = "arg_edit_minutes";

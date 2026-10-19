@@ -42,7 +42,7 @@ import java.util.Locale;
 public class SpinnerTimePickerDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of SpinnerTimePickerDialogFragment in the fragment manager.
+     * The tag that identifies instances of {@link SpinnerTimePickerDialogFragment} in the fragment manager.
      */
     private static final String TAG = "alarm_time_picker_dialog";
     private static final String ARG_HOURS = "arg_hours";

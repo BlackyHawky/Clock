@@ -25,7 +25,6 @@
                 android:id="@+id/edit_minutes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
                 android:hint="@string/label_minutes"
                 android:inputType="number"
                 android:maxLength="2"
@@ -43,7 +42,6 @@
                 android:id="@+id/edit_seconds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
                 android:hint="@string/label_seconds"
                 android:inputType="number"
                 android:maxLength="2"
@@ -70,7 +68,6 @@
             android:drawablePadding="20dp"
             android:text="@string/auto_silence_end_of_ringtone"
             android:textSize="16sp"
-            android:textColor="?android:attr/textColorSecondary"
             tools:ignore="RtlSymmetry"
             tools:checked="false" />
 
@@ -85,7 +82,6 @@
             android:drawablePadding="20dp"
             android:text="@string/label_never"
             android:textSize="16sp"
-            android:textColor="?android:attr/textColorSecondary"
             tools:ignore="RtlSymmetry"
             tools:checked="true" />
 
