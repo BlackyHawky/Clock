@@ -1409,6 +1409,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the "Do Not Disturb" mode should be disabled when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    public static boolean shouldDisableDNDForTriggeredAlarm(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_DISABLE_DND_FOR_TRIGGERED_ALARM, DEFAULT_DISABLE_DND_FOR_TRIGGERED_ALARM);
+    }
+
+    /**
      * @return {@code true} if the back flash should turn on when the alarm is triggered.
      * {@code false} otherwise.
      */

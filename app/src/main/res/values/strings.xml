@@ -148,6 +148,8 @@
     <string name="alarm_vibrate">Vibrate</string>
     <!-- Setting labels on Set alarm screen: Flash on or off -->
     <string name="alarm_flash">Flash</string>
+    <!-- Setting labels on Set alarm screen: DND on or off -->
+    <string name="disable_dnd">Disable \"Do Not Disturb\"</string>
     <!-- Setting labels on Set alarm screen: Lock on -->
     <string name="label_lock">Lock</string>
     <!-- Setting labels on Set alarm screen: Lock off -->
@@ -1021,6 +1023,8 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Double vibration when alarm is snoozed and single vibration when alarm is dismissed</string>
     <!-- Setting title to turn on flash when alarm is triggered -->
     <string name="turn_on_back_flash_for_triggered_alarm_title">Turn on back flash when alarm is triggered</string>
+    <!-- Setting title to disable "Do Not Disturb" mode when alarm is triggered -->
+    <string name="disable_DND_for_triggered_alarm_title">Disable \"Do Not Disturb\" mode when alarm is triggered</string>
     <!-- Setting title to display the button for deleting single alarms in the alarm editing panel -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
     <!-- Dialog message when the "Enable automatic deletion of occasional alarms by default" setting is disabled. -->
@@ -1459,6 +1463,7 @@
     <string name="permissions_category_title">Permissions</string>
     <string name="permission_requirement_title">Requirement: </string>
     <string name="permission_highly_recommended">Highly recommended</string>
+    <string name="permission_optional">Optional</string>
     <string name="permission_status_title">Status: </string>
     <string name="permission_info_title">For Xiaomi devices only</string>
     <string name="permission_granted">Granted</string>
@@ -1478,6 +1483,10 @@
     <string name="notifications_dialog_title">Notifications</string>
     <string name="notifications_dialog_text">In addition to setting alarms, this app also has a timer and a stopwatch mode.
         \n\nIn order for notifications to appear correctly for all modules and especially for the alarm to be triggered, we recommend activating notifications for this application.</string>
+    <!-- "Do Not Disturb" permission -->
+    <string name="dnd_permission_title">DO NOT DISTURB</string>
+    <string name="dnd_dialog_title">Do Not Disturb</string>
+    <string name="dnd_dialog_text">This permission allows the app to automatically turn off \"Do Not Disturb\" mode when your alarm goes off.\n\nWe recommend enabling it so you don\'t miss important calls or messages after waking up.</string>
     <!-- Full screen notifications permission -->
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
     <string name="FSN_dialog_title">Full Screen Notifications</string>

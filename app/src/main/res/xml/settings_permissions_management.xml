@@ -26,6 +26,13 @@
             app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+            android:key="key_dnd_permission"
+            android:layout="@layout/settings_preference_permission"
+            android:title="@string/dnd_permission_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
             android:key="key_full_screen_notification_permission"
             android:layout="@layout/settings_preference_permission"
             android:title="@string/FSN_permission_title"

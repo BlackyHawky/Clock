@@ -10,6 +10,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,6 +45,7 @@ import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -574,6 +576,8 @@ public class AlarmService extends Service {
 
         mCurrentAlarm = instance;
 
+        disableDNDIfNeeded(this, instance);
+
         AlarmNotifications.showAlarmNotification(
             this, mCurrentAlarm, SettingsDAO.getLanguageCode(mPrefs), SettingsDAO.getGlobalIntentId(mPrefs));
 
@@ -611,6 +615,34 @@ public class AlarmService extends Service {
         sendBroadcast(intent);
 
         attachListeners();
+    }
+
+    private void disableDNDIfNeeded(@NonNull Context context, @NonNull AlarmInstance instance) {
+        NotificationManager notificationManager = context.getApplicationContext().getSystemService(NotificationManager.class);
+
+        if (notificationManager == null) {
+            return;
+        }
+
+        if (notificationManager.getCurrentInterruptionFilter() == NotificationManager.INTERRUPTION_FILTER_ALL) {
+            LogUtils.i("DND already disabled by the alarm");
+            return;
+        }
+
+        Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+
+        if (alarm != null && alarm.disableDND) {
+            if (PermissionUtils.isDNDPermissionEnabled(this)) {
+                try {
+                    notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+                    LogUtils.i("DND disabled by the alarm");
+                } catch (SecurityException e) {
+                    LogUtils.e("Permission error when disabling DND", e);
+                }
+            } else {
+                LogUtils.w("Cannot disable DND: missing ACCESS_NOTIFICATION_POLICY permission");
+            }
+        }
     }
 
     private void stopCurrentAlarm() {

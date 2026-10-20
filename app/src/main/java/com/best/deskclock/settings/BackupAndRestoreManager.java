@@ -233,6 +233,7 @@ public class BackupAndRestoreManager {
             alarmObject.put("timeZone", alarm.timeZone);
             alarmObject.put("taskName", alarm.taskName);
             alarmObject.put("taskUrl", alarm.taskUrl);
+            alarmObject.put("disableDND", alarm.disableDND);
 
             JSONArray categoryIdsArray = new JSONArray();
             if (alarm.categoryIds != null) {
@@ -509,6 +510,7 @@ public class BackupAndRestoreManager {
         JSONArray catIdsArray = alarmObject.optJSONArray("categoryIds");
         String taskName = alarmObject.optString("taskName", "");
         String taskUrl = alarmObject.optString("taskUrl", "");
+        boolean disableDND = alarmObject.optBoolean("disableDND", false);
 
         if (catIdsArray != null && catIdsArray.length() > 0) {
             List<Long> mappedIds = new ArrayList<>();
@@ -575,7 +577,7 @@ public class BackupAndRestoreManager {
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
             missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate, newBackgroundImage,
-            blurIntensity, mathHardnessLevel, lock, timeZone, categoryIds, taskName, taskUrl);
+            blurIntensity, mathHardnessLevel, lock, timeZone, categoryIds, taskName, taskUrl, disableDND);
 
         restoredAlarm.addAlarm(contentResolver);
 

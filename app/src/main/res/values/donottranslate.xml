@@ -106,6 +106,7 @@
     <string name="action_set_vibration_pattern">Set Vibration Pattern</string>
     <string name="action_set_math_hardness_level">Set Math Hardness Level</string>
     <string name="action_toggle_flash">Toggle Flash</string>
+    <string name="action_toggle_dnd">Toggle DND</string>
     <string name="action_delete_alarm_after_use">Delete Alarm After Use</string>
     <string name="action_set_auto_silence_duration">Set Auto Silence Duration</string>
     <string name="action_set_snooze_duration">Set Snooze Duration</string>
