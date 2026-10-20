@@ -19,8 +19,7 @@ public class PermissionUtils {
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
 
     /**
-     * @return {@code true} when Ignore Battery Optimizations permission is granted;
-     * {@code false} otherwise.
+     * @return {@code true} when Ignore Battery Optimizations permission is granted; {@code false} otherwise.
      */
     public static boolean isIgnoringBatteryOptimizations(@NonNull Context context) {
         final PowerManager powerManager = context.getApplicationContext().getSystemService(PowerManager.class);
@@ -39,8 +38,15 @@ public class PermissionUtils {
     }
 
     /**
-     * @return {@code true} when Full Screen Notifications permission is granted for Android 14+;
-     * {@code false} otherwise.
+     * @return {@code true} when "Do Not Disturb" permission is granted; {@code false} otherwise.
+     */
+    public static boolean isDNDPermissionEnabled(@NonNull Context context) {
+        NotificationManager notificationManager = context.getApplicationContext().getSystemService(NotificationManager.class);
+        return notificationManager.isNotificationPolicyAccessGranted();
+    }
+
+    /**
+     * @return {@code true} when Full Screen Notifications permission is granted for Android 14+; {@code false} otherwise.
      */
     public static boolean areFullScreenNotificationsEnabled(@NonNull Context context) {
         if (SdkUtils.isAtLeastAndroid14()) {

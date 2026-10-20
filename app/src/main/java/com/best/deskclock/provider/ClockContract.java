@@ -254,6 +254,12 @@ public final class ClockContract {
          * Type: STRING
          */
         String TASK_URL = "taskURL";
+
+        /**
+         * True if "Do Not Disturb" mode should be disabled.
+         * <p>Type: BOOLEAN</p>
+         */
+        String DISABLE_DND = "disableDND";
     }
 
     /**

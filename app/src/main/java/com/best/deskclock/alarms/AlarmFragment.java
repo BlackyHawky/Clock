@@ -1463,6 +1463,7 @@ public final class AlarmFragment extends DeskClockFragment
         alarm.categoryIds = new long[]{mCurrentCategoryId};
         alarm.taskName = "";
         alarm.taskUrl = "";
+        alarm.disableDND = SettingsDAO.shouldDisableDNDForTriggeredAlarm(getPrefs());
 
         return alarm;
     }

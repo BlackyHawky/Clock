@@ -96,6 +96,7 @@ import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
+import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -519,6 +520,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindVibrator();
         bindVibrationPattern();
         bindFlash();
+        bindDisableDND();
         bindDeleteAlarmAfterUse();
         bindAutoSilenceValue();
         bindSnoozeDurationValue();
@@ -959,6 +961,22 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.deleteAlarmAfterUse.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             mAlarm.deleteAfterUse = isChecked;
+        });
+    }
+
+    private void bindDisableDND() {
+        if (!PermissionUtils.isDNDPermissionEnabled(requireContext())) {
+            mBinding.dndOnOff.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.dndOnOff.setVisibility(VISIBLE);
+        mBinding.dndOnOff.setOnCheckedChangeListener(null);
+        mBinding.dndOnOff.setChecked(mAlarm.disableDND);
+        mBinding.dndOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            Events.sendAlarmEvent(R.string.action_toggle_dnd, R.string.label_deskclock);
+            mAlarm.disableDND = isChecked;
         });
     }
 
@@ -1796,7 +1814,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mBinding.vibrateOnOff,
             mBinding.vibrationPatternLayout,
             mBinding.flashOnOff,
-            mBinding.deleteAlarmAfterUseLayout
+            mBinding.deleteAlarmAfterUseLayout,
+            mBinding.dndOnOff
         );
     }
 
