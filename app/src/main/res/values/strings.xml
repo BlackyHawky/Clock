@@ -148,6 +148,8 @@
     <string name="alarm_vibrate">Vibrate</string>
     <!-- Setting labels on Set alarm screen: Flash on or off -->
     <string name="alarm_flash">Flash</string>
+    <!-- Setting labels on Set alarm screen: DND on or off -->
+    <string name="disable_dnd">Disable \"Do Not Disturb\"</string>
     <!-- Setting labels on Set alarm screen: Lock on -->
     <string name="label_lock">Lock</string>
     <!-- Setting labels on Set alarm screen: Lock off -->
@@ -1021,6 +1023,8 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Double vibration when alarm is snoozed and single vibration when alarm is dismissed</string>
     <!-- Setting title to turn on flash when alarm is triggered -->
     <string name="turn_on_back_flash_for_triggered_alarm_title">Turn on back flash when alarm is triggered</string>
+    <!-- Setting title to disable "Do Not Disturb" mode when alarm is triggered -->
+    <string name="disable_DND_for_triggered_alarm_title">Disable \"Do Not Disturb\" mode when alarm is triggered</string>
     <!-- Setting title to display the button for deleting single alarms in the alarm editing panel -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
     <!-- Dialog message when the "Enable automatic deletion of occasional alarms by default" setting is disabled. -->
@@ -1459,6 +1463,7 @@
     <string name="permissions_category_title">Permissions</string>
     <string name="permission_requirement_title">Requirement: </string>
     <string name="permission_highly_recommended">Highly recommended</string>
+    <string name="permission_optional">Optional</string>
     <string name="permission_status_title">Status: </string>
     <string name="permission_info_title">For Xiaomi devices only</string>
     <string name="permission_granted">Granted</string>
@@ -1486,6 +1491,10 @@
     <string name="show_lockscreen_permission_title">SHOW ON LOCK SCREEN</string>
     <string name="show_lockscreen_dialog_title">Show on lock screen</string>
     <string name="show_lockscreen_dialog_text">On Xiaomi devices, you should manually enable the \"Show on lock screen\" permission from the device settings in order for the application to work properly.</string>
+    <!-- "Do Not Disturb" permission -->
+    <string name="dnd_permission_title">DO NOT DISTURB</string>
+    <string name="dnd_dialog_title">Do Not Disturb</string>
+    <string name="dnd_dialog_text">This permission allows the app to automatically turn off \"Do Not Disturb\" mode when your alarm goes off.\n\nWe recommend enabling it so you don\'t miss important calls or messages after waking up.</string>
     <!-- Foreground service -->
     <string name="foreground_service_title">Display a foreground notification</string>
     <string name="foreground_service_dialog_message">To prevent your device from aggressively closing the app and missing alarms, this will display a persistent, silent notification.\n\nThis ensures the app stays in memory, though it may slightly increase battery usage.\n\nNote: Enabling this setting is not necessary for most devices. Only enable it if you experience missed alarms.</string>

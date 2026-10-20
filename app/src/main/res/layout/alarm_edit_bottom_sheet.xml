@@ -490,13 +490,33 @@
 
                 </LinearLayout>
 
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/dnd_on_off"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="2dp"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="10dp"
+                    android:button="@null"
+                    android:drawableStart="@drawable/ic_bedtime_off"
+                    android:drawableEnd="@drawable/ic_selector_checkbox"
+                    android:drawablePadding="10dp"
+                    android:text="@string/disable_dnd"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/delete_alarm_after_use_layout"
+                    tools:ignore="RtlSymmetry"
+                    tools:checked="true" />
+
                 <Space
                     android:id="@+id/space"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/delete_alarm_after_use_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/dnd_on_off"
                     app:layout_constraintBottom_toTopOf="@+id/auto_silence_duration_layout" />
 
                 <LinearLayout
