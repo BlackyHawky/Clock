@@ -69,6 +69,7 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -161,6 +162,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
     SwitchPreferenceCompat mDisplayDismissButtonPref;
+    SwitchPreferenceCompat mDisableDNDForTriggeredAlarmPref;
     SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
     SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
@@ -282,6 +284,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
+        mDisableDNDForTriggeredAlarmPref = findPreference(KEY_DISABLE_DND_FOR_TRIGGERED_ALARM);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
         mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
@@ -622,6 +625,20 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 mWeekStartPref.setSummary(mWeekStartPref.getEntries()[index]);
             }
 
+            case KEY_DISABLE_DND_FOR_TRIGGERED_ALARM -> {
+                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                AppExecutors.getDiskIO().execute(() -> {
+                    List<Alarm> currentAlarms = Alarm.getAlarms(cr, null);
+                    for (Alarm alarm : currentAlarms) {
+                        if (!alarm.lock) {
+                            alarm.disableDND = (boolean) newValue;
+                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        }
+                    }
+                });
+            }
+
             case KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM -> {
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
@@ -838,6 +855,9 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mWeekStartPref.setOnPreferenceChangeListener(this);
 
         mDisplayDismissButtonPref.setOnPreferenceChangeListener(this);
+
+        mDisableDNDForTriggeredAlarmPref.setVisible(PermissionUtils.isDNDPermissionEnabled(requireContext()));
+        mDisableDNDForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
 
         mTurnOnBackFlashForTriggeredAlarmPref.setVisible(DeviceUtils.hasBackFlash(requireContext()));
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);

@@ -10,6 +10,7 @@ import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTI
 import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT;
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DND_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_FOREGROUND_SERVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FULL_SCREEN_NOTIFICATION_PERMISSION;
@@ -81,11 +82,13 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         private static final String[] DYNAMIC_PERMISSION_KEYS = {
             KEY_IGNORE_BATTERY_OPTIMIZATIONS,
             KEY_NOTIFICATION_PERMISSION,
+            KEY_DND_PERMISSION,
             KEY_FULL_SCREEN_NOTIFICATION_PERMISSION
         };
 
         PermissionsManagementPreference mIgnoreBatteryOptimizationsPref;
         PermissionsManagementPreference mNotificationPermissionPref;
+        PermissionsManagementPreference mDNDPermissionPref;
         PermissionsManagementPreference mFullScreenNotificationPref;
         PermissionsManagementPreference mShowLockScreenPref;
         SwitchPreferenceCompat mEnableForegroundServicePref;
@@ -103,6 +106,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mIgnoreBatteryOptimizationsPref = findPreference(KEY_IGNORE_BATTERY_OPTIMIZATIONS);
             mNotificationPermissionPref = findPreference(KEY_NOTIFICATION_PERMISSION);
+            mDNDPermissionPref = findPreference(KEY_DND_PERMISSION);
             mFullScreenNotificationPref = findPreference(KEY_FULL_SCREEN_NOTIFICATION_PERMISSION);
             mShowLockScreenPref = findPreference(KEY_SHOW_LOCKSCREEN_PERMISSION);
             mEnableForegroundServicePref = findPreference(KEY_ENABLE_FOREGROUND_SERVICE);
@@ -138,8 +142,12 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 switch (mPendingRevocationPrefKey) {
                     case KEY_NOTIFICATION_PERMISSION ->
                         displayRevocationDialog(KEY_NOTIFICATION_PERMISSION, getNotificationSettingsIntent());
+
+                    case KEY_DND_PERMISSION -> displayRevocationDialog(KEY_DND_PERMISSION, getDNDSettingsIntent());
+
                     case KEY_IGNORE_BATTERY_OPTIMIZATIONS ->
                         displayRevocationDialog(KEY_IGNORE_BATTERY_OPTIMIZATIONS, getIgnoreBatteryOptimizationsIntentRevoke());
+
                     case KEY_FULL_SCREEN_NOTIFICATION_PERMISSION ->
                         displayRevocationDialog(KEY_FULL_SCREEN_NOTIFICATION_PERMISSION, getFullScreenNotificationsIntent());
                 }
@@ -178,6 +186,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             switch (pref.getKey()) {
                 case KEY_IGNORE_BATTERY_OPTIMIZATIONS -> launchIgnoreBatteryOptimizationsSettings();
                 case KEY_NOTIFICATION_PERMISSION -> grantOrRevokeNotificationsPermission();
+                case KEY_DND_PERMISSION -> grantOrRevokeDNDPermission();
                 case KEY_FULL_SCREEN_NOTIFICATION_PERMISSION -> grantOrRevokeFullScreenNotificationsPermission();
                 case KEY_SHOW_LOCKSCREEN_PERMISSION -> grantShowOnLockScreenPermissionXiaomi();
             }
@@ -189,6 +198,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mIgnoreBatteryOptimizationsPref.setOnPreferenceClickListener(this);
 
             mNotificationPermissionPref.setOnPreferenceClickListener(this);
+
+            mDNDPermissionPref.setOnPreferenceClickListener(this);
 
             mFullScreenNotificationPref.setVisible(SdkUtils.isAtLeastAndroid14());
             mFullScreenNotificationPref.setOnPreferenceClickListener(this);
@@ -293,6 +304,21 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 .addFlags(FLAG_ACTIVITY_NEW_TASK)
                 : new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
                 .setData(Uri.fromParts("package", requireContext().getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
+        }
+
+        /**
+         * Grant or revoke "Do Not Disturb" permission.
+         */
+        private void grantOrRevokeDNDPermission() {
+            if (PermissionUtils.isDNDPermissionEnabled(requireContext())) {
+                displayRevocationDialog(KEY_DND_PERMISSION, getDNDSettingsIntent());
+            } else {
+                startActivity(getDNDSettingsIntent());
+            }
+        }
+
+        private Intent getDNDSettingsIntent() {
+            return new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
         }
 
         /**

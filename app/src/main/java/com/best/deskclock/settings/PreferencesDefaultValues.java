@@ -147,6 +147,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_VIBRATION_START_DELAY = 0;
     public static final boolean DEFAULT_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = false;
     public static final boolean DEFAULT_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = false;
+    public static final boolean DEFAULT_DISABLE_DND_FOR_TRIGGERED_ALARM = false;
     public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = false;
     public static final boolean DEFAULT_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = false;
     public static final boolean DEFAULT_DISPLAY_LOW_ALARM_VOLUME_WARNING = true;

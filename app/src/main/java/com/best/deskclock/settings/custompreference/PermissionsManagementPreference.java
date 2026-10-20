@@ -5,12 +5,14 @@ package com.best.deskclock.settings.custompreference;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DND_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FULL_SCREEN_NOTIFICATION_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_IGNORE_BATTERY_OPTIMIZATIONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NOTIFICATION_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHOW_LOCKSCREEN_PERMISSION;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -30,6 +32,7 @@ import com.best.deskclock.databinding.SettingsPreferencePermissionBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.color.MaterialColors;
 
 public class PermissionsManagementPreference extends Preference {
 
@@ -61,6 +64,8 @@ public class PermissionsManagementPreference extends Preference {
         mBinding.statusTitle.setTypeface(mRegularTypeface);
         mBinding.statusState.setTypeface(mRegularTypeface);
 
+        setAdviceText();
+
         if (isShowLockScreenPermissionPreference()) {
             mBinding.statusTitle.setText(getContext().getString(R.string.permission_info_title));
             mBinding.statusState.setVisibility(GONE);
@@ -69,6 +74,8 @@ public class PermissionsManagementPreference extends Preference {
 
             if (isIgnoreBatteryOptimizationsPreference()) {
                 setStatusText(PermissionUtils.isIgnoringBatteryOptimizations(getContext()));
+            } else if (isDNDPermissionPreference()) {
+                setStatusText(PermissionUtils.isDNDPermissionEnabled(getContext()));
             } else if (isNotificationPermissionPreference()) {
                 setStatusText(PermissionUtils.areNotificationsEnabled(getContext()));
             } else if (isFullScreenNotificationPermissionPreference()) {
@@ -121,13 +128,23 @@ public class PermissionsManagementPreference extends Preference {
     /**
      * Sets the permission status text.
      */
-    public void setStatusText(boolean isGranted) {
+    private void setStatusText(boolean isGranted) {
         if (isGranted) {
             mBinding.statusState.setText(getContext().getString(R.string.permission_granted));
             mBinding.statusState.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGranted));
         } else {
             mBinding.statusState.setText(getContext().getString(R.string.permission_denied));
             mBinding.statusState.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAlert));
+        }
+    }
+
+    private void setAdviceText() {
+        if (isDNDPermissionPreference()) {
+            mBinding.requirementAdvice.setText(getContext().getString(R.string.permission_optional));
+            mBinding.requirementAdvice.setTextColor(MaterialColors.getColor(getContext(), android.R.attr.textColorPrimary, Color.BLACK));
+        } else {
+            mBinding.requirementAdvice.setText(getContext().getString(R.string.permission_highly_recommended));
+            mBinding.requirementAdvice.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAlert));
         }
     }
 
@@ -145,6 +162,14 @@ public class PermissionsManagementPreference extends Preference {
      */
     private boolean isNotificationPermissionPreference() {
         return getKey().equals(KEY_NOTIFICATION_PERMISSION);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the "Do Not Disturb" permission;
+     * {@code false} otherwise.
+     */
+    private boolean isDNDPermissionPreference() {
+        return getKey().equals(KEY_DND_PERMISSION);
     }
 
     /**
@@ -179,6 +204,10 @@ public class PermissionsManagementPreference extends Preference {
             iconId = R.drawable.ic_notifications;
             titleId = R.string.notifications_dialog_title;
             messageId = R.string.notifications_dialog_text;
+        } else if (isDNDPermissionPreference()) {
+            iconId = R.drawable.ic_bedtime;
+            titleId = R.string.dnd_dialog_title;
+            messageId = R.string.dnd_dialog_text;
         } else if (isFullScreenNotificationPermissionPreference()) {
             iconId = R.drawable.ic_fullscreen;
             titleId = R.string.FSN_dialog_title;
