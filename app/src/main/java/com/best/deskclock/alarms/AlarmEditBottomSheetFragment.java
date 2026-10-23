@@ -460,6 +460,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             saveAlarmSettings();
         }
 
+        // Prevent the search bar from collapsing by ignoring the automatic menu invalidation
+        // triggered when the bottom sheet is dismissed.
+        if (getActivity() instanceof DeskClock deskClock) {
+            deskClock.setIgnoreNextMenuInvalidation(true);
+        }
+
         // When the per-alarm volume feature is enabled, AlarmFragment temporarily "freezes"
         // its volume warning banner.
         // This prevents the banner from glitching or disappearing when the user tests

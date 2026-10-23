@@ -96,6 +96,7 @@ import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -175,6 +176,23 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * {@code true} when a settings change necessitates recreating this activity.
      */
     private boolean mShouldRecreate = false;
+
+    /**
+     * {@code true} to ignore the next menu invalidation.
+     *
+     * <p>This acts as a workaround for an Android framework bug where dismissing a
+     * DialogFragment (or BottomSheetDialogFragment) incorrectly triggers a menu
+     * invalidation on the host Activity, causing expanded action views (like a
+     * SearchView) to unexpectedly collapse.</p>
+     *
+     * @see <a href="https://issuetracker.google.com/issues/244854449#comment3">Google Issue Tracker #244854449</a>
+     */
+    private boolean mIgnoreNextMenuInvalidation = false;
+
+    /**
+     * {@code true} when the user is actively scrolling between tabs.
+     */
+    private boolean mIsScrollingTabs = false;
 
     /**
      * List of supported preference keys used to monitor UI and behavior changes within
@@ -350,14 +368,19 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        menu.add(0, Menu.NONE, 1, R.string.settings).setIcon(R.drawable.ic_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, R.id.menu_settings, 2, R.string.settings)
+            .setIcon(R.drawable.ic_settings)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         if (PermissionUtils.areEssentialPermissionsNotGranted(this)) {
             final Drawable warningIcon = AppCompatResources.getDrawable(this, R.drawable.ic_error);
             if (warningIcon != null) {
                 DrawableCompat.setTint(warningIcon, ContextCompat.getColor(this, R.color.colorAlert));
             }
-            menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label).setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+            menu.add(0, R.id.menu_permission, 1, R.string.denied_permission_label)
+                .setIcon(warningIcon)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
         mBinding.toolbar.post(() -> ThemeUtils.applyToolbarTooltips(mBinding.toolbar, mGeneralTypeface, getDisplayMetrics()));
@@ -367,17 +390,35 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == 0) {
+        if (item.getItemId() == R.id.menu_settings) {
             final Intent settingIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingIntent);
             return true;
-        } else if (item.getItemId() == 1) {
+        } else if (item.getItemId() == R.id.menu_permission) {
             final Intent permissionManagementIntent = new Intent(this, PermissionsManagementActivity.class);
             startActivity(permissionManagementIntent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void invalidateOptionsMenu() {
+        if (mIgnoreNextMenuInvalidation) {
+            mIgnoreNextMenuInvalidation = false;
+            return;
+        }
+        super.invalidateOptionsMenu();
+    }
+
+    @Override
+    public void invalidateMenu() {
+        if (mIgnoreNextMenuInvalidation) {
+            mIgnoreNextMenuInvalidation = false;
+            return;
+        }
+        super.invalidateMenu();
     }
 
     /**
@@ -1138,6 +1179,29 @@ public class DeskClock extends BaseActivity implements FabContainer {
     }
 
     /**
+     * Sets whether the activity should ignore the next menu invalidation.
+     *
+     * @param ignore {@code true} to ignore the next menu invalidation.
+     */
+    public void setIgnoreNextMenuInvalidation(boolean ignore) {
+        mIgnoreNextMenuInvalidation = ignore;
+    }
+
+    /**
+     * Returns whether the tabs are currently being scrolled.
+     *
+     * @return {@code true} if the user is actively scrolling between tabs.
+     */
+    public boolean isScrollingTabs() {
+        return mIsScrollingTabs;
+    }
+
+    @NonNull
+    public MaterialToolbar getToolBar() {
+        return mBinding.toolbar;
+    }
+
+    /**
      * @return a Snackbar that displays the message with the given id for 5 seconds
      */
     @NonNull
@@ -1171,6 +1235,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         @Override
         public void onPageScrollStateChanged(int state) {
+            // Instantly hide the Search button when scrolling tabs
+            boolean isScrolling = (state != SCROLL_STATE_IDLE);
+
+            if (mIsScrollingTabs != isScrolling) {
+                mIsScrollingTabs = isScrolling;
+                invalidateOptionsMenu();
+            }
+
             if (mPriorState == SCROLL_STATE_IDLE && state == SCROLL_STATE_SETTLING) {
                 // The user has tapped a tab button; play the hide and show animations linearly.
                 mHideAnimation.removeListener(mAutoStartShowListener);

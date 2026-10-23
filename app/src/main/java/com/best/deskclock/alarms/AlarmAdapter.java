@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.data.Weekdays;
@@ -18,6 +19,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private final UiConfig.Screen mScreen;
     private final UiConfig.Haptics mHaptics;
     private List<AlarmItemHolder> mItems = new ArrayList<>();
+    private List<AlarmItemHolder> mAllItems = new ArrayList<>();
+    private String mCurrentQuery = "";
     private final AlarmStateProvider mStateProvider;
     private Weekdays.Order mWeekdayOrder;
     private boolean mIs24HourMode;
@@ -194,12 +198,41 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
             }
         }
 
-        mItems = items;
+        mAllItems = new ArrayList<>(items);
+
+        applyFilter(mCurrentQuery);
+    }
+
+    public void filter(@Nullable String query) {
+        mCurrentQuery = query == null ? "" : query;
+
+        applyFilter(mCurrentQuery);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void applyFilter(@NonNull String query) {
+        if (query.trim().isEmpty()) {
+            mItems = new ArrayList<>(mAllItems);
+        } else {
+            mItems = new ArrayList<>();
+
+            String cleanedQuery = Utils.removeSpecialCharacters(query).toLowerCase(mDateFormat.locale());
+
+            for (AlarmItemHolder holder : mAllItems) {
+                if (holder.cleanedLabel.contains(cleanedQuery)) {
+                    mItems.add(holder);
+                }
+            }
+        }
+
         notifyDataSetChanged();
     }
 
     public void removeItem(@NonNull AlarmItemHolder itemHolder) {
+        mAllItems.remove(itemHolder);
+
         int position = mItems.indexOf(itemHolder);
+
         if (position != -1) {
             mItems.remove(position);
             notifyItemRemoved(position);
@@ -215,6 +248,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
             for (int i = fromPosition; i > toPosition; i--) {
                 Collections.swap(mItems, i, i - 1);
             }
+        }
+
+        if (mCurrentQuery.trim().isEmpty()) {
+            mAllItems = new ArrayList<>(mItems);
         }
 
         notifyItemMoved(fromPosition, toPosition);
