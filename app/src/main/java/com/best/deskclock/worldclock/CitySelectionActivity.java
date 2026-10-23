@@ -7,7 +7,6 @@
 package com.best.deskclock.worldclock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 
 import android.annotation.SuppressLint;
@@ -41,6 +40,7 @@ import com.best.deskclock.databinding.CityListHeaderMainTitleBinding;
 import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Locale;
 
@@ -60,6 +60,7 @@ import java.util.Locale;
 public final class CitySelectionActivity extends BaseActivity {
 
     private static final String KEY_SEARCH_QUERY = "search_query";
+    private static final String KEY_IS_SEARCH_FOCUSED = "is_search_focused";
 
     private CitiesActivityBinding mBinding;
 
@@ -69,6 +70,7 @@ public final class CitySelectionActivity extends BaseActivity {
     private CityAdapter mCitiesAdapter;
 
     public SearchView mSearchView;
+    private boolean mIsSearchFocused = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,12 +140,11 @@ public final class CitySelectionActivity extends BaseActivity {
             }
         });
 
-        mSearchView.post(() -> mSearchView.clearFocus());
-
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(@NonNull String query) {
-                return false;
+                mSearchView.clearFocus();
+                return true;
             }
 
             @Override
@@ -153,6 +154,27 @@ public final class CitySelectionActivity extends BaseActivity {
                 return true;
             }
         });
+
+        mSearchView.setOnQueryTextFocusChangeListener((view, hasFocus) -> mIsSearchFocused = hasFocus);
+
+        if (savedInstanceState != null) {
+            String query = savedInstanceState.getString(KEY_SEARCH_QUERY, "");
+            mIsSearchFocused = savedInstanceState.getBoolean(KEY_IS_SEARCH_FOCUSED, false);
+
+            mSearchView.setQuery(query, false);
+
+            mCitiesAdapter.filter(query);
+
+            if (mIsSearchFocused) {
+                mSearchView.requestFocus();
+
+                mSearchView.postDelayed(() -> Utils.showKeyboard(getWindow(), mSearchView), Utils.UI_SETTLE_DELAY_MS);
+            } else {
+                mSearchView.clearFocus();
+            }
+        } else {
+            mSearchView.post(() -> mSearchView.clearFocus());
+        }
 
         CityListHeaderMainTitleBinding headerBinding =
             CityListHeaderMainTitleBinding.inflate(getLayoutInflater(), mBinding.citiesList, false);
@@ -167,11 +189,6 @@ public final class CitySelectionActivity extends BaseActivity {
 
         updateFastScrolling();
 
-        if (savedInstanceState != null) {
-            String query = savedInstanceState.getString(KEY_SEARCH_QUERY, "");
-            mSearchView.setQuery(query, false);
-        }
-
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -181,10 +198,11 @@ public final class CitySelectionActivity extends BaseActivity {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        bundle.putString(KEY_SEARCH_QUERY, mSearchView.getQuery().toString());
+        outState.putString(KEY_SEARCH_QUERY, mSearchView.getQuery().toString());
+        outState.putBoolean(KEY_IS_SEARCH_FOCUSED, mIsSearchFocused);
     }
 
     @Override
@@ -207,6 +225,7 @@ public final class CitySelectionActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         mSearchView = null;
+        mIsSearchFocused = false;
 
         mBinding = null;
 
