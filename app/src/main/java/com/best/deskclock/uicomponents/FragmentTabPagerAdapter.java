@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.best.deskclock.DeskClock;
@@ -127,6 +128,7 @@ public final class FragmentTabPagerAdapter extends PagerAdapter {
 
         if (fragment != mCurrentPrimaryItem) {
             fragment.setMenuVisibility(false);
+            mCurrentTransaction.setMaxLifecycle(fragment, Lifecycle.State.STARTED);
         }
 
         return fragment;
@@ -148,9 +150,22 @@ public final class FragmentTabPagerAdapter extends PagerAdapter {
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
+
+                if (mCurrentTransaction == null) {
+                    mCurrentTransaction = mFragmentManager.beginTransaction();
+                }
+
+                mCurrentTransaction.setMaxLifecycle(mCurrentPrimaryItem, Lifecycle.State.STARTED);
             }
 
             fragment.setMenuVisibility(true);
+
+            if (mCurrentTransaction == null) {
+                mCurrentTransaction = mFragmentManager.beginTransaction();
+            }
+
+            mCurrentTransaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+
             mCurrentPrimaryItem = fragment;
         }
     }
