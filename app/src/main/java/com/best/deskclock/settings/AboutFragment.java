@@ -197,19 +197,19 @@ public class AboutFragment extends BaseSettingsScreenFragment
                 menu.clear();
 
                 if (BuildConfig.DEBUG || SettingsDAO.isDebugSettingsDisplayed(getPrefs())) {
-                    menu.add(0, MENU_BUG_REPORT, 0, R.string.log_backup_icon_title)
+                    menu.add(0, R.id.menu_bug_report, 0, R.string.log_backup_icon_title)
                         .setIcon(R.drawable.ic_bug_report)
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                 }
 
-                menu.add(0, MENU_RESET_SETTINGS, 0, R.string.reset_settings_title)
+                menu.add(0, R.id.menu_reset_settings, 0, R.string.reset_settings_title)
                     .setIcon(R.drawable.ic_reset_settings)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == MENU_BUG_REPORT) {
+                if (item.getItemId() == R.id.menu_bug_report) {
                     SimpleDateFormat fileFormat = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.US);
                     String currentDateAndTime = fileFormat.format(new Date());
 
@@ -221,7 +221,7 @@ public class AboutFragment extends BaseSettingsScreenFragment
 
                     exportLogs.launch(intent);
                     return true;
-                } else if (item.getItemId() == MENU_RESET_SETTINGS) {
+                } else if (item.getItemId() == R.id.menu_reset_settings) {
                     showResetSettingsDialog();
                     return true;
                 }

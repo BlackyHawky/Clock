@@ -84,10 +84,6 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     private String mPendingFilePath = null;
     private boolean mPendingFileIsFont = false;
 
-    protected static final int MENU_ABOUT = 1;
-    protected static final int MENU_BUG_REPORT = 2;
-    protected static final int MENU_RESET_SETTINGS = 3;
-
     private CollapsingToolbarBaseLayoutBinding mActivityBinding;
 
     private SharedPreferences mPrefs;
@@ -184,7 +180,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menu.clear();
 
-                menu.add(0, MENU_ABOUT, 0, R.string.about_title)
+                menu.add(0, R.id.menu_about, 0, R.string.about_title)
                     .setIcon(R.drawable.ic_about)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
@@ -199,7 +195,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == MENU_ABOUT) {
+                if (item.getItemId() == R.id.menu_about) {
                     Fragment existingFragment =
                         requireActivity().getSupportFragmentManager().findFragmentByTag(AboutFragment.class.getSimpleName());
 

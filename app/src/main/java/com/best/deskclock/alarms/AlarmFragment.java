@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -37,26 +38,36 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.os.BundleCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -71,6 +82,7 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.DeskClockFragment;
@@ -97,6 +109,7 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -125,10 +138,11 @@ public final class AlarmFragment extends DeskClockFragment
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
 
     private static final String KEY_SELECTED_ALARM = "key_selected_alarm";
-
     private static final String KEY_SIDE_BUTTONS_VISIBLE = "side_buttons_visible";
-
     private static final String SAVE_STATE_CATEGORY_ID = "save_state_category_id";
+    private static final String KEY_IS_SEARCH_MODE = "is_search_mode";
+    private static final String KEY_IS_SEARCH_FOCUSED = "is_search_focused";
+    private static final String KEY_SEARCH_QUERY = "search_query";
 
     private AlarmFragmentBinding mBinding;
 
@@ -150,6 +164,9 @@ public final class AlarmFragment extends DeskClockFragment
     private boolean mDeleteAlarmsWithCategory;
     private boolean mIs24HourFormat;
     private boolean mIsLowAlarmVolumeWarningEnabled;
+    private boolean mIsSearchMode = false;
+    private boolean mIsSearchFocused = false;
+    private String mCurrentSearchQuery = "";
     private boolean mSideButtonsVisible = false;
     private boolean mIsUiTransitioning = false;
     private boolean mIsReordering = false;
@@ -310,6 +327,17 @@ public final class AlarmFragment extends DeskClockFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (savedInstanceState != null) {
+            mIsSearchMode = savedInstanceState.getBoolean(KEY_IS_SEARCH_MODE, false);
+            mIsSearchFocused = savedInstanceState.getBoolean(KEY_IS_SEARCH_FOCUSED, false);
+            mCurrentSearchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY, "");
+            Alarm restoredAlarm = BundleCompat.getParcelable(savedInstanceState, KEY_SELECTED_ALARM, Alarm.class);
+
+            if (restoredAlarm != null && mAlarmTimeClickHandler != null) {
+                mAlarmTimeClickHandler.setSelectedAlarm(restoredAlarm);
+            }
+        }
+
         String datePattern = DateFormat.getBestDateTimePattern(getLocale(), getString(R.string.abbrev_wday_month_day_no_year));
         String datePatternWithYear = DateFormat.getBestDateTimePattern(getLocale(), getString(R.string.abbrev_wday_month_day_with_year));
 
@@ -339,6 +367,35 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
+        mItemAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+
+                checkEmptyState();
+            }
+        });
+
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                // Do not populate the menu while scrolling between tabs.
+                // This ensures the search icon disappears instantly instead of lingering during the swipe.
+                if (getActivity() instanceof DeskClock deskClock && deskClock.isScrollingTabs()) {
+                    return;
+                }
+
+                MenuItem searchItem = menu.add(0, R.id.menu_alarm_search, 0, R.string.search_alarm_title);
+
+                configureSearchBar(searchItem);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
         AlarmItemTouchHelper callback = new AlarmItemTouchHelper(
             requireContext(), this, mBinding.alarmRecyclerView, getFontsConfig(), getScreenConfig(), getHapticsConfig());
 
@@ -353,14 +410,6 @@ public final class AlarmFragment extends DeskClockFragment
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
 
         updateWarningBannerVisibility();
-
-        if (savedInstanceState != null) {
-            Alarm restoredAlarm = BundleCompat.getParcelable(savedInstanceState, KEY_SELECTED_ALARM, Alarm.class);
-
-            if (restoredAlarm != null && mAlarmTimeClickHandler != null) {
-                mAlarmTimeClickHandler.setSelectedAlarm(restoredAlarm);
-            }
-        }
 
         setupAlarmCategoryTabs();
 
@@ -495,15 +544,30 @@ public final class AlarmFragment extends DeskClockFragment
     public void onPause() {
         super.onPause();
 
-        // When the user places the app in the background by pressing "home",
-        // dismiss the toast bar. However, since there is no way to determine if
-        // home was pressed, just dismiss any existing toast bar when restarting
-        // the app.
+        // When the user places the app in the background by pressing "home", dismiss the toast bar.
+        // However, since there is no way to determine if home was pressed, just dismiss any existing toast bar
+        // when restarting the app.
         mAlarmUpdateHandler.hideUndoBar();
 
-        // Hide side buttons only if we're leaving the activity (not rotating the screen)
+        // Hide side buttons and reset the search bar only if we're leaving the activity (not rotating the screen)
         if (!requireActivity().isChangingConfigurations()) {
             resetFabAndButtonsState();
+
+            if (mIsSearchMode) {
+                mIsSearchMode = false;
+                mIsSearchFocused = false;
+                mCurrentSearchQuery = "";
+
+                if (mAreSortedByCategory) {
+                    mBinding.alarmCategoryTabsContainer.setVisibility(VISIBLE);
+                }
+
+                if (mItemAdapter != null) {
+                    mItemAdapter.filter("");
+                }
+
+                requireActivity().invalidateOptionsMenu();
+            }
         }
     }
 
@@ -517,6 +581,10 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        outState.putBoolean(KEY_IS_SEARCH_MODE, mIsSearchMode);
+        outState.putBoolean(KEY_IS_SEARCH_FOCUSED, mIsSearchFocused);
+        outState.putString(KEY_SEARCH_QUERY, mCurrentSearchQuery);
 
         if (mAlarmTimeClickHandler != null && mAlarmTimeClickHandler.getSelectedAlarm() != null) {
             outState.putParcelable(KEY_SELECTED_ALARM, mAlarmTimeClickHandler.getSelectedAlarm());
@@ -533,13 +601,13 @@ public final class AlarmFragment extends DeskClockFragment
         getPrefs().unregisterOnSharedPreferenceChangeListener(mPrefListener);
 
         mAreSettingsChanged = false;
+        mIsSearchMode = false;
+        mIsSearchFocused = false;
 
         mBinding.alarmRecyclerView.setAdapter(null);
-
         mBinding.alarmCategoryTabs.clearOnTabSelectedListeners();
 
         mBinding = null;
-
         mEmptyViewController = null;
         mAlarmUpdateHandler = null;
         mAlarmTimeClickHandler = null;
@@ -557,8 +625,10 @@ public final class AlarmFragment extends DeskClockFragment
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        boolean sortByCategory = !mIsSearchMode && mAreSortedByCategory;
+
         return Alarm.getAlarmsCursorLoader(
-            requireContext(), mSortingPref, mAreEnabledAlarmsFirst, mAreLockedAlarmsFirst, mAreSortedByCategory, mCurrentCategoryId);
+            requireContext(), mSortingPref, mAreEnabledAlarmsFirst, mAreLockedAlarmsFirst, sortByCategory, mCurrentCategoryId);
     }
 
     @Override
@@ -571,7 +641,7 @@ public final class AlarmFragment extends DeskClockFragment
         for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
             final Alarm alarm = new Alarm(data);
             final AlarmInstance alarmInstance = new AlarmInstance(data, true);
-            final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
+            final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, alarmInstance, getLocale(), mAlarmTimeClickHandler);
 
             itemHolders.add(itemHolder);
         }
@@ -650,6 +720,11 @@ public final class AlarmFragment extends DeskClockFragment
 
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
+        if (mIsSearchMode) {
+            fab.setVisibility(INVISIBLE);
+            return;
+        }
+
         fab.setImageResource(R.drawable.ic_add);
         fab.setContentDescription(getString(R.string.button_alarms));
 
@@ -676,6 +751,12 @@ public final class AlarmFragment extends DeskClockFragment
 
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
+        if (mIsSearchMode) {
+            left.setVisibility(INVISIBLE);
+            right.setVisibility(INVISIBLE);
+            return;
+        }
+
         if (SettingsDAO.isAlarmFabLongPressEnabled(getPrefs())) {
             left.setVisibility(INVISIBLE);
             right.setVisibility(INVISIBLE);
@@ -708,6 +789,10 @@ public final class AlarmFragment extends DeskClockFragment
 
     @Override
     public boolean canDrag() {
+        if (mIsSearchMode) {
+            return false;
+        }
+
         return SORT_ALARM_MANUALLY.equals(mSortingPref);
     }
 
@@ -772,13 +857,6 @@ public final class AlarmFragment extends DeskClockFragment
         return new UiConfig.Fonts(getGeneralTypeface(), getGeneralBoldTypeface(), getAlarmBoldTypeface(), null, null, null);
     }
 
-    /**
-     * Perform smooth scroll to position.
-     */
-    public void smoothScrollTo(int position) {
-        mBinding.alarmRecyclerView.smoothScrollToPosition(position);
-    }
-
     @NonNull
     private LinearLayoutManager getLayoutManager() {
         if (isTablet() && isLandscape()) {
@@ -792,6 +870,162 @@ public final class AlarmFragment extends DeskClockFragment
         return new LinearLayoutManager(requireContext());
     }
 
+    private void checkEmptyState() {
+        if (mBinding == null || mItemAdapter == null) {
+            return;
+        }
+
+        boolean noAlarms = mItemAdapter.getItemCount() == 0;
+
+        boolean hasActiveAlarms = false;
+
+        for (AlarmItemHolder holder : mItemAdapter.getItems()) {
+            if (holder.item.enabled) {
+                hasActiveAlarms = true;
+                break;
+            }
+        }
+
+        updateUIStatesAndAnimate(noAlarms, hasActiveAlarms);
+    }
+
+    private void configureSearchBar(@NonNull MenuItem searchItem) {
+        final Drawable toolbarSearchIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search);
+
+        if (toolbarSearchIcon != null) {
+            DrawableCompat.setTint(
+                toolbarSearchIcon,
+                MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
+            );
+        }
+
+        searchItem.setIcon(toolbarSearchIcon);
+        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        final SearchView searchView = new SearchView(requireContext());
+        searchView.setLayoutParams(new Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        searchView.setQueryHint(getString(R.string.search_alarm_title));
+        searchView.setIconifiedByDefault(false);
+        searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        searchView.setBackground(ThemeUtils.pillBackgroundFromAttr(
+            requireContext(), getResources().getDisplayMetrics(), com.google.android.material.R.attr.colorSecondaryContainer)
+        );
+
+        // Apply custom font to the search text
+        TextView searchText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchText.setTypeface(getGeneralTypeface());
+
+        // Use a rounded icon for the search icon
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+        if (searchIcon != null) {
+            searchIcon.setImageResource(R.drawable.ic_search);
+        }
+
+        // Hide the bottom bar of the search field
+        View searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_plate);
+        if (searchPlate != null) {
+            searchPlate.setBackground(null);
+        }
+
+        searchItem.setActionView(searchView);
+
+        MenuItem.OnActionExpandListener expandListener = new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(@NonNull MenuItem item) {
+                mIsSearchMode = true;
+
+                updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+
+                mBinding.alarmCategoryTabsContainer.setVisibility(GONE);
+
+                LoaderManager.getInstance(AlarmFragment.this).restartLoader(0, null, AlarmFragment.this);
+
+                if (getActivity() instanceof DeskClock deskClock) {
+                    deskClock.getToolBar().post(() ->
+                        ThemeUtils.applyToolbarTooltips(deskClock.getToolBar(), getGeneralTypeface(), getDisplayMetrics()));
+                }
+
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(@NonNull MenuItem item) {
+                mIsSearchMode = false;
+                mCurrentSearchQuery = "";
+
+                updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+
+                if (mAreSortedByCategory) {
+                    mBinding.alarmCategoryTabsContainer.setVisibility(VISIBLE);
+                }
+
+                if (mItemAdapter != null) {
+                    mItemAdapter.filter("");
+                }
+
+                LoaderManager.getInstance(AlarmFragment.this).restartLoader(0, null, AlarmFragment.this);
+
+                return true;
+            }
+        };
+
+        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(@NonNull String query) {
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(@NonNull String newText) {
+                mCurrentSearchQuery = newText;
+                if (mItemAdapter != null) {
+                    mItemAdapter.filter(newText);
+                }
+
+                return true;
+            }
+        };
+
+        View.OnFocusChangeListener focusListener = (view, hasFocus) -> mIsSearchFocused = hasFocus;
+
+        // Restoring state after a device rotation
+        if (mIsSearchMode) {
+            mBinding.alarmCategoryTabsContainer.setVisibility(GONE);
+
+            if (mBinding != null) {
+                mBinding.getRoot().post(() -> {
+                    if (!isAdded()) {
+                        return;
+                    }
+
+                    searchItem.expandActionView();
+                    searchView.setQuery(mCurrentSearchQuery, false);
+
+                    if (mIsSearchFocused) {
+                        searchView.requestFocus();
+                        searchView.postDelayed(() -> {
+                            if (isAdded() && getActivity() != null) {
+                                Utils.showKeyboard(getActivity().getWindow(), searchView);
+                            }
+                        }, Utils.UI_SETTLE_DELAY_MS);
+                    } else {
+                        searchView.clearFocus();
+                    }
+
+                    searchItem.setOnActionExpandListener(expandListener);
+                    searchView.setOnQueryTextListener(textListener);
+                    searchView.setOnQueryTextFocusChangeListener(focusListener);
+                });
+            }
+        } else {
+            searchItem.setOnActionExpandListener(expandListener);
+            searchView.setOnQueryTextListener(textListener);
+            searchView.setOnQueryTextFocusChangeListener(focusListener);
+        }
+    }
+
     private void setupFragmentResultListeners() {
         // We use Fragment Result API instead of a direct listener to safely pass data back from
         // DialogFragment. This approach allows the result to survive configuration changes and
@@ -802,8 +1036,7 @@ public final class AlarmFragment extends DeskClockFragment
         FragmentManager parentFragmentManager = getParentFragmentManager();
         LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
 
-        parentFragmentManager.setFragmentResultListener(
-            AlarmEditBottomSheetFragment.REQUEST_KEY, viewLifecycleOwner,
+        parentFragmentManager.setFragmentResultListener(AlarmEditBottomSheetFragment.REQUEST_KEY, viewLifecycleOwner,
             (requestKey, bundle) -> {
                 long alarmId = bundle.getLong(AlarmEditBottomSheetFragment.SCROLL_TO_ALARM_ID, Alarm.INVALID_ID);
                 if (alarmId != Alarm.INVALID_ID) {
@@ -851,8 +1084,8 @@ public final class AlarmFragment extends DeskClockFragment
                 mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
             });
 
-        parentFragmentManager.setFragmentResultListener(
-            CategoryDialogFragment.REQUEST_KEY, this, (requestKey, result) -> {
+        parentFragmentManager.setFragmentResultListener(CategoryDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, result) -> {
                 long categoryId = result.getLong(CategoryDialogFragment.RESULT_CATEGORY_ID);
                 int action = result.getInt(CategoryDialogFragment.RESULT_ACTION);
                 String categoryName = result.getString(CategoryDialogFragment.RESULT_CATEGORY_NAME);
@@ -968,7 +1201,7 @@ public final class AlarmFragment extends DeskClockFragment
             return;
         }
 
-        mBinding.alarmCategoryTabsContainer.setVisibility(View.VISIBLE);
+        mBinding.alarmCategoryTabsContainer.setVisibility(VISIBLE);
 
         mBinding.addCategoryButton.setVisibility(VISIBLE);
         mBinding.addCategoryButton.setOnClickListener(v -> showCreateAlarmCategoryDialog());
@@ -1317,18 +1550,12 @@ public final class AlarmFragment extends DeskClockFragment
 
             mItemAdapter.setItems(items);
 
-            // Show or hide the empty view as appropriate.
-            final boolean noAlarms = items.isEmpty();
-            boolean hasActiveAlarms = false;
-
-            for (AlarmItemHolder holder : items) {
-                if (holder.item.enabled) {
-                    hasActiveAlarms = true;
-                    break;
-                }
+            if (mIsSearchMode && !TextUtils.isEmpty(mCurrentSearchQuery)) {
+                mItemAdapter.filter(mCurrentSearchQuery);
             }
 
-            updateUIStatesAndAnimate(noAlarms, hasActiveAlarms);
+            // Show or hide the empty view as appropriate.
+            checkEmptyState();
 
             updateCategoryBadges();
 
@@ -1370,7 +1597,7 @@ public final class AlarmFragment extends DeskClockFragment
             final int finalPosition = alarmPosition;
             mBinding.alarmRecyclerView.post(() -> {
                 if (mBinding != null) {
-                    smoothScrollTo(finalPosition);
+                    mBinding.alarmRecyclerView.smoothScrollToPosition(finalPosition);
                 }
             });
         } else {
@@ -1603,25 +1830,34 @@ public final class AlarmFragment extends DeskClockFragment
         // Check if the empty view state is about to toggle.
         boolean emptyStateWillChange = mEmptyViewController.isEmpty() != noAlarms;
 
+        // Only animate if the view has finished drawing (isLaidOut) and the window is stable (hasWindowFocus).
+        // This bypasses the TransitionManager during device rotations and prevents the empty state image
+        // from getting stuck in an invisible state.
+        boolean canAnimate = mBinding.alarmRootView.isLaidOut() && mBinding.alarmRootView.hasWindowFocus();
+
         Transition transitionToTrack = null;
 
         if (bannerWillChange) {
-            TransitionSet combinedTransition = new TransitionSet()
-                .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                .addTransition(mEmptyViewController.getTransition())
-                .addTransition(new ChangeBounds())
-                .addTransition(new Fade().addTarget(mBinding.alarmVolumeWarningBanner.volumeWarningBanner));
+            if (canAnimate) {
+                TransitionSet combinedTransition = new TransitionSet()
+                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                    .addTransition(mEmptyViewController.getTransition())
+                    .addTransition(new ChangeBounds())
+                    .addTransition(new Fade().addTarget(mBinding.alarmVolumeWarningBanner.volumeWarningBanner));
 
-            TransitionManager.beginDelayedTransition(mBinding.alarmRootView, combinedTransition);
+                TransitionManager.beginDelayedTransition(mBinding.alarmRootView, combinedTransition);
+                transitionToTrack = combinedTransition;
+            }
 
             mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(targetVisibility);
-            mEmptyViewController.setEmpty(noAlarms, false);
-
-            transitionToTrack = combinedTransition;
+            mEmptyViewController.setEmpty(noAlarms, canAnimate);
         } else if (emptyStateWillChange) {
+            if (canAnimate) {
+                transitionToTrack = mEmptyViewController.getTransition();
+            }
+
             // The state will change, the EmptyViewController will trigger its own delayed transition.
-            transitionToTrack = mEmptyViewController.getTransition();
-            mEmptyViewController.setEmpty(noAlarms, true);
+            mEmptyViewController.setEmpty(noAlarms, canAnimate);
         } else {
             mEmptyViewController.setEmpty(noAlarms, false);
         }

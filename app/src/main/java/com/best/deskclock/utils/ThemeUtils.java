@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -426,6 +427,19 @@ public class ThemeUtils {
                         if (title != null) {
                             CustomTooltip.showBelow(v, typeface, displayMetrics, title.toString());
                         }
+                        return true;
+                    });
+                }
+            } else if (child instanceof ImageButton) {
+                CharSequence contentDesc = child.getContentDescription();
+
+                if (contentDesc != null) {
+                    // Disable the system tooltip
+                    ViewCompat.setTooltipText(child, null);
+
+                    // Install the tooltip custom
+                    child.setOnLongClickListener(v -> {
+                        CustomTooltip.showBelow(v, typeface, displayMetrics, contentDesc.toString());
                         return true;
                     });
                 }

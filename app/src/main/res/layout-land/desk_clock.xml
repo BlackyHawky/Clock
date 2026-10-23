@@ -25,6 +25,8 @@
             android:layout_height="wrap_content"
             app:titleMarginStart="14dp"
             app:titleTextAppearance="?attr/textAppearanceTitleLarge"
+            app:collapseIcon="@drawable/ic_arrow_back"
+            app:collapseContentDescription="@string/label_back"
             tools:ignore="RtlSymmetry"
             tools:title="Alarm">
 
