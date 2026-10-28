@@ -42,7 +42,6 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mHideAmPmPref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
     SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
-    CustomSliderPreference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayTopDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
@@ -85,7 +84,6 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
         mHideAmPmPref = findPreference(KEY_DIGITAL_WIDGET_HIDE_AM_PM);
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
         mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
-        mBackgroundCornerRadiusPref = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
         mDisplayDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayTopDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
@@ -124,6 +122,10 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
                 mAppWidgetId = extras.getInt(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
             }
         }
+
+        updateMaxClockFontSizeState();
+
+        invalidatePreferencesVisibility();
     }
 
     @Override
@@ -133,6 +135,10 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
         saveCheckedPreferenceStates();
 
         updateDigitalWidget();
+
+        updateMaxClockFontSizeState();
+
+        invalidatePreferencesVisibility();
     }
 
     @Override
@@ -140,267 +146,172 @@ public class AppWidgetDigitalSettingsFragment extends BaseSettingsScreenFragment
         switch (pref.getKey()) {
             case KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
                  KEY_DIGITAL_WIDGET_SECONDS_DISPLAYED, KEY_DIGITAL_WIDGET_HIDE_AM_PM, KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE,
-                 KEY_DIGITAL_WIDGET_ENABLE_CITY_FLAG, KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                 KEY_DIGITAL_WIDGET_ENABLE_CITY_FLAG, KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                 KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                 KEY_DIGITAL_WIDGET_DISPLAY_DATE, KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM,
+                 KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE, KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED,
+                 KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR, KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR,
+                 KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR,
+                 KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR, KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR,
+                 KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-            case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean displayBackground = (boolean) newValue;
-                boolean isCustomColor = !WidgetDAO.isDigitalWidgetDefaultBackgroundColor(getPrefs());
-                boolean isRadiusCustomizable = WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(getPrefs());
-
-                mCustomizeBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                    ? displayBackground
-                    : displayBackground && isCustomColor);
-                mBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                    ? displayBackground && isRadiusCustomizable
-                    : displayBackground && isCustomColor && isRadiusCustomizable);
-                mDefaultBackgroundColorPref.setVisible(displayBackground);
-                mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
-            }
-
-            case KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
-            }
-
-            case KEY_DIGITAL_WIDGET_DISPLAY_DATE -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean isDateDisplayed = (boolean) newValue;
-
-                mDisplayTopDatePref.setVisible(isDateDisplayed);
-                mDefaultDateColorPref.setVisible(isDateDisplayed);
-                mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-                    && !WidgetDAO.isDigitalWidgetDefaultDateColor(getPrefs()));
-            }
-
-            case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean isNextAlarmDisplayed = (boolean) newValue;
-                boolean isNextAlarmTitleDisplayed = WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(getPrefs());
-
-                mDisplayNextAlarmTitlePref.setVisible(isNextAlarmDisplayed);
-                mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed && isNextAlarmTitleDisplayed);
-                mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed
-                    && isNextAlarmTitleDisplayed
-                    && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(getPrefs()));
-
-                mDefaultNextAlarmColorPref.setVisible(isNextAlarmDisplayed);
-                mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-                    && !WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(getPrefs()));
-            }
-
-            case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean isNextAlarmTitleDisplayed = (boolean) newValue;
-
-                mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed);
-                mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed
-                    && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(getPrefs()));
-            }
-
-            case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean areWorldCitiesDisplayed = (boolean) newValue;
-                boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(getPrefs());
-
-                mEnableCityFlagPref.setVisible(areWorldCitiesDisplayed);
-                mDefaultCityClockColorPref.setVisible(areWorldCitiesDisplayed);
-                mCustomCityClockColorPref.setVisible(areWorldCitiesDisplayed
-                    && !WidgetDAO.isDigitalWidgetDefaultCityClockColor(getPrefs()));
-                mDefaultCityNameColorPref.setVisible(areWorldCitiesDisplayed);
-                mCustomCityNameColorPref.setVisible(areWorldCitiesDisplayed
-                    && !WidgetDAO.isDigitalWidgetDefaultCityNameColor(getPrefs()));
-                mDefaultCityNoteColorPref.setVisible(areWorldCitiesDisplayed && isCityNoteEnabled);
-                mCustomCityNoteColorPref.setVisible(areWorldCitiesDisplayed
-                    && isCityNoteEnabled
-                    && !WidgetDAO.isDigitalWidgetDefaultCityNoteColor(getPrefs()));
-
-                mDigitalWidgetMaxClockFontSizePref.setEnabled(!areWorldCitiesDisplayed);
-                if (areWorldCitiesDisplayed) {
-                    mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
-                } else {
-                    mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
-                }
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean isCustomColor = !(boolean) newValue;
-                boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnDigitalWidget(getPrefs());
-                boolean isRadiusCustomizable = WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(getPrefs());
-
-                mCustomBackgroundColorPref.setVisible(isCustomColor);
-
-                if (!SdkUtils.isAtLeastAndroid12()) {
-                    mCustomizeBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground);
-                    mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
-                }
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomClockColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
-                mCustomDateColorPref.setVisible(!(boolean) newValue);
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomNextAlarmTitleColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomCityClockColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomCityNameColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomCityNoteColorPref.setVisible(!(boolean) newValue);
-            }
         }
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
+
+        if (KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED.equals(pref.getKey())) {
+            updateMaxClockFontSizeState();
+        }
+
+        blockSearchResetForAWhile();
+
+        if (getView() != null) {
+            getView().post(() -> {
+                if (isAdded()) {
+                    invalidatePreferencesVisibility();
+                }
+            });
+        }
+
         return true;
     }
 
-    private void setupPreferences() {
-        final boolean areWorldCitiesDisplayed = WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(getPrefs());
+    @Override
+    protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
+        final boolean displayBackground = mShowBackgroundOnDigitalWidgetPref.isChecked();
+        final boolean isCustomBgColor = !mDefaultBackgroundColorPref.isChecked();
+        final boolean isRadiusCustomizable = mCustomizeBackgroundCornerRadiusPref.isChecked();
+
+        final boolean displayDate = mDisplayDatePref.isChecked();
+
+        final boolean displayNextAlarm = mDisplayNextAlarmPref.isChecked();
+        final boolean displayNextAlarmTitle = displayNextAlarm && mDisplayNextAlarmTitlePref.isChecked();
+
         List<City> selectedCities = getDataModel().getSelectedCities();
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), getPrefs());
-        final boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(getPrefs());
-        final boolean isNextAlarmDisplayed = WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(getPrefs());
-        final boolean isNextAlarmTitleDisplayed = WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(getPrefs());
+        final boolean canShowCitiesCategory = SettingsDAO.isClockTabVisible(getPrefs()) && (!selectedCities.isEmpty() || showHomeClock);
+        final boolean areWorldCitiesDisplayed = canShowCitiesCategory && mShowCitiesOnDigitalWidgetPref.isChecked();
 
-        mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
+        return switch (key) {
+            case KEY_DIGITAL_WIDGET_HIDE_AM_PM -> !DateFormat.is24HourFormat(requireContext());
 
-        mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> SdkUtils.isAtLeastAndroid12()
+                ? displayBackground
+                : (displayBackground && isCustomBgColor);
 
-        mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS -> SdkUtils.isAtLeastAndroid12()
+                ? (displayBackground && isRadiusCustomizable)
+                : (displayBackground && isCustomBgColor && isRadiusCustomizable);
 
-        mHideAmPmPref.setVisible(!DateFormat.is24HourFormat(requireContext()));
-        mHideAmPmPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> displayBackground;
 
-        mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR -> displayBackground && isCustomBgColor;
 
-        boolean isBackgroundVisible = WidgetDAO.isBackgroundDisplayedOnDigitalWidget(getPrefs());
-        boolean isBackgroundCornerRadiusCustomizable = WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(getPrefs());
-        boolean isCustomColor = !WidgetDAO.isDigitalWidgetDefaultBackgroundColor(getPrefs());
+            case KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE, KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> displayDate;
 
-        if (SdkUtils.isAtLeastAndroid12()) {
-            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible);
-            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isBackgroundCornerRadiusCustomizable);
-        } else {
-            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isCustomColor);
-            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible
-                && isCustomColor
-                && isBackgroundCornerRadiusCustomizable);
-        }
+            case KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR -> displayDate && !mDefaultDateColorPref.isChecked();
 
-        mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE, KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> displayNextAlarm;
 
-        mDisplayDatePref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR -> displayNextAlarm && !mDefaultNextAlarmColorPref.isChecked();
 
-        mDisplayTopDatePref.setVisible(WidgetDAO.isDateDisplayedOnDigitalWidget(getPrefs()));
-        mDisplayTopDatePref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR -> displayNextAlarmTitle;
 
-        mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_TITLE_COLOR -> displayNextAlarmTitle && !mDefaultNextAlarmTitleColorPref.isChecked();
 
-        mDisplayNextAlarmTitlePref.setVisible(isNextAlarmDisplayed);
-        mDisplayNextAlarmTitlePref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> canShowCitiesCategory;
 
-        mShowCitiesOnDigitalWidgetPref.setVisible(SettingsDAO.isClockTabVisible(getPrefs()) && (!selectedCities.isEmpty() || showHomeClock));
-        mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_ENABLE_CITY_FLAG, KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR,
+                 KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> areWorldCitiesDisplayed;
 
-        mEnableCityFlagPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed);
-        mEnableCityFlagPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR -> areWorldCitiesDisplayed && !mDefaultCityClockColorPref.isChecked();
 
-        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR -> areWorldCitiesDisplayed && !mDefaultCityNameColorPref.isChecked();
 
-        mDefaultBackgroundColorPref.setVisible(isBackgroundVisible);
-        mDefaultBackgroundColorPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR -> areWorldCitiesDisplayed && SettingsDAO.isCityNoteEnabled(getPrefs());
 
-        mCustomBackgroundColorPref.setVisible(isBackgroundVisible && isCustomColor);
-        mCustomBackgroundColorPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR -> areWorldCitiesDisplayed && SettingsDAO.isCityNoteEnabled(getPrefs())
+                && !mDefaultCityNoteColorPref.isChecked();
 
-        mDefaultClockColorPref.setOnPreferenceChangeListener(this);
+            case KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR -> !mDefaultClockColorPref.isChecked();
 
-        mCustomClockColorPref.setVisible(!WidgetDAO.isDigitalWidgetDefaultClockColor(getPrefs()));
-        mCustomClockColorPref.setOnPreferenceChangeListener(this);
+            default -> super.isPreferenceVisible(pref, key);
+        };
+    }
 
-        mDefaultDateColorPref.setVisible(WidgetDAO.isDateDisplayedOnDigitalWidget(getPrefs()));
-        mDefaultDateColorPref.setOnPreferenceChangeListener(this);
+    private void updateMaxClockFontSizeState() {
+        List<City> selectedCities = getDataModel().getSelectedCities();
+        final boolean showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), getPrefs());
+        final boolean canShowCitiesCategory = SettingsDAO.isClockTabVisible(getPrefs()) && (!selectedCities.isEmpty() || showHomeClock);
+        final boolean areWorldCitiesDisplayed = canShowCitiesCategory && mShowCitiesOnDigitalWidgetPref.isChecked();
 
-        mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible() && !WidgetDAO.isDigitalWidgetDefaultDateColor(getPrefs()));
-        mCustomDateColorPref.setOnPreferenceChangeListener(this);
-
-        mDefaultNextAlarmColorPref.setVisible(isNextAlarmDisplayed);
-        mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
-
-        mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-            && !WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(getPrefs()));
-        mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
-
-        mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed && isNextAlarmTitleDisplayed);
-        mDefaultNextAlarmTitleColorPref.setOnPreferenceChangeListener(this);
-
-        mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed
-            && isNextAlarmTitleDisplayed
-            && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(getPrefs()));
-        mCustomNextAlarmTitleColorPref.setOnPreferenceChangeListener(this);
-
-        mDefaultCityClockColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed);
-        mDefaultCityClockColorPref.setOnPreferenceChangeListener(this);
-
-        mCustomCityClockColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible()
-            && areWorldCitiesDisplayed
-            && !WidgetDAO.isDigitalWidgetDefaultCityClockColor(getPrefs()));
-        mCustomCityClockColorPref.setOnPreferenceChangeListener(this);
-
-        mDefaultCityNameColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed);
-        mDefaultCityNameColorPref.setOnPreferenceChangeListener(this);
-
-        mCustomCityNameColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible()
-            && areWorldCitiesDisplayed
-            && !WidgetDAO.isDigitalWidgetDefaultCityNameColor(getPrefs()));
-        mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
-
-        mDefaultCityNoteColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed && isCityNoteEnabled);
-        mDefaultCityNoteColorPref.setOnPreferenceChangeListener(this);
-
-        mCustomCityNoteColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible()
-            && areWorldCitiesDisplayed
-            && isCityNoteEnabled
-            && !WidgetDAO.isDigitalWidgetDefaultCityNoteColor(getPrefs()));
-        mCustomCityNoteColorPref.setOnPreferenceChangeListener(this);
-
-        if (mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed) {
+        if (areWorldCitiesDisplayed) {
             mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
             mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
         } else {
             mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
             mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
         }
+    }
+
+    private void setupPreferences() {
+        mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
+
+        mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
+
+        mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
+        mHideAmPmPref.setOnPreferenceChangeListener(this);
+
+        mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
+
+        mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
+
+        mDefaultBackgroundColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomBackgroundColorPref.setOnPreferenceChangeListener(this);
+
+        mDisplayDatePref.setOnPreferenceChangeListener(this);
+
+        mDisplayTopDatePref.setOnPreferenceChangeListener(this);
+
+        mDefaultDateColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomDateColorPref.setOnPreferenceChangeListener(this);
+
+        mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
+
+        mDisplayNextAlarmTitlePref.setOnPreferenceChangeListener(this);
+
+        mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
+
+        mDefaultNextAlarmTitleColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomNextAlarmTitleColorPref.setOnPreferenceChangeListener(this);
+
+        mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
+
+        mEnableCityFlagPref.setOnPreferenceChangeListener(this);
+
+        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
+
+        mDefaultClockColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomClockColorPref.setOnPreferenceChangeListener(this);
+
+        mDefaultCityClockColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomCityClockColorPref.setOnPreferenceChangeListener(this);
+
+        mDefaultCityNameColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
+
+        mDefaultCityNoteColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomCityNoteColorPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {

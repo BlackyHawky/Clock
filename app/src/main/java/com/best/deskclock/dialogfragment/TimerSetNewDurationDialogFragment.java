@@ -182,7 +182,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
             if (getDialog() != null) {
                 Utils.showKeyboard(getDialog().getWindow(), mBinding.editHours);
             }
-        }, Utils.UI_SETTLE_DELAY_MS);
+        }, Utils.UI_SETTLE_SHORT_DELAY_MS);
     }
 
     @Override

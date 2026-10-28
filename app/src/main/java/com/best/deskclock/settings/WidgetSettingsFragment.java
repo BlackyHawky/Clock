@@ -40,6 +40,15 @@ public class WidgetSettingsFragment extends BaseSettingsScreenFragment implement
         mNextAlarmWidgetCustomizationPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION);
 
         setupPreferences();
+
+        invalidatePreferencesVisibility();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        invalidatePreferencesVisibility();
     }
 
     @Override

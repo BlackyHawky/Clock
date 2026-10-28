@@ -25,10 +25,8 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimeZones;
-import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.Utils;
@@ -46,13 +44,11 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     ListPreference mClockStylePref;
     ListPreference mClockDialPref;
     ListPreference mClockDialMaterialPref;
-    CustomSliderPreference mAnalogClockSizePref;
     SwitchPreferenceCompat mDisplayClockSecondsPref;
     ListPreference mClockSecondHandPref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     Preference mDigitalClockFontPref;
     SwitchPreferenceCompat mDisplayTextUppercasePref;
-    CustomSliderPreference mDigitalClockFontSizePref;
     ListPreference mSortCitiesPref;
     SwitchPreferenceCompat mEnableCityFlagPref;
     SwitchPreferenceCompat mEnableCityNotePref;
@@ -62,6 +58,10 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (isAdded() && mIsSearchMode) {
+                blockSearchResetForAWhile();
+            }
+
             if (result.getResultCode() != RESULT_OK) {
                 return;
             }
@@ -129,13 +129,11 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mClockStylePref = findPreference(KEY_CLOCK_STYLE);
         mClockDialPref = findPreference(KEY_CLOCK_DIAL);
         mClockDialMaterialPref = findPreference(KEY_CLOCK_DIAL_MATERIAL);
-        mAnalogClockSizePref = findPreference(KEY_ANALOG_CLOCK_SIZE);
         mDisplayClockSecondsPref = findPreference(KEY_DISPLAY_CLOCK_SECONDS);
         mClockSecondHandPref = findPreference(KEY_CLOCK_SECOND_HAND);
         mDisplayNextAlarmPref = findPreference(KEY_DISPLAY_NEXT_ALARM);
         mDigitalClockFontPref = findPreference(KEY_DIGITAL_CLOCK_FONT);
         mDisplayTextUppercasePref = findPreference(KEY_DISPLAY_TEXT_UPPERCASE);
-        mDigitalClockFontSizePref = findPreference(KEY_DIGITAL_CLOCK_FONT_SIZE);
         mSortCitiesPref = findPreference(KEY_SORT_CITIES);
         mEnableCityFlagPref = findPreference(KEY_ENABLE_CITY_FLAG);
         mEnableCityNotePref = findPreference(KEY_ENABLE_CITY_NOTE);
@@ -149,6 +147,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mDigitalClock = mClockStyleValues[2];
 
         setupPreferences();
+
+        invalidatePreferencesVisibility();
     }
 
     @Override
@@ -156,6 +156,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         super.onResume();
 
         restoreCustomFileDialogIfNeeded(KEY_DIGITAL_CLOCK_FONT, mDigitalClockFontPref, fontPickerLauncher, null);
+
+        invalidatePreferencesVisibility();
     }
 
     @Override
@@ -164,17 +166,6 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
             case KEY_CLOCK_STYLE -> {
                 final int clockIndex = mClockStylePref.findIndexOfValue((String) newValue);
                 mClockStylePref.setSummary(mClockStylePref.getEntries()[clockIndex]);
-
-                boolean isAnalogClock = newValue.equals(mAnalogClock);
-                boolean isMaterialAnalogClock = newValue.equals(mMaterialAnalogClock);
-                boolean isDigitalClock = newValue.equals(mDigitalClock);
-
-                mClockDialPref.setVisible(isAnalogClock);
-                mClockDialMaterialPref.setVisible(isMaterialAnalogClock);
-                mAnalogClockSizePref.setVisible(!isDigitalClock);
-                mClockSecondHandPref.setVisible(isAnalogClock && SettingsDAO.areClockSecondsDisplayed(getPrefs()));
-                mDigitalClockFontPref.setVisible(isDigitalClock);
-                mDigitalClockFontSizePref.setVisible(isDigitalClock);
             }
 
             case KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_CLOCK_SECOND_HAND, KEY_HOME_TIME_ZONE,
@@ -184,10 +175,8 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
                 preference.setSummary(preference.getEntries()[index]);
             }
 
-            case KEY_DISPLAY_CLOCK_SECONDS -> {
+            case KEY_DISPLAY_CLOCK_SECONDS, KEY_DISPLAY_NEXT_ALARM, KEY_DISPLAY_TEXT_UPPERCASE ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mClockSecondHandPref.setVisible((boolean) newValue && SettingsDAO.getClockStyle(getPrefs()) == DataModel.ClockStyle.ANALOG);
-            }
 
             case KEY_AUTO_HOME_CLOCK -> {
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -211,14 +200,21 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
                 }
             }
 
-            case KEY_DISPLAY_NEXT_ALARM, KEY_DISPLAY_TEXT_UPPERCASE ->
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
             case KEY_ENABLE_CITY_NOTE -> {
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
             }
+        }
+
+        blockSearchResetForAWhile();
+
+        if (getView() != null) {
+            getView().post(() -> {
+                if (isAdded()) {
+                    invalidatePreferencesVisibility();
+                }
+            });
         }
 
         return true;
@@ -234,39 +230,47 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_DIGITAL_CLOCK_FONT -> selectCustomFile(
-                mDigitalClockFontPref, fontPickerLauncher, SettingsDAO.getDigitalClockFont(getPrefs()), KEY_DIGITAL_CLOCK_FONT, true, null);
+                mDigitalClockFontPref, fontPickerLauncher, SettingsDAO.getDigitalClockFont(getPrefs()), KEY_DIGITAL_CLOCK_FONT, true,
+                false, null);
         }
 
         return true;
     }
 
-    private void setupPreferences() {
+    @Override
+    protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
         final boolean isAnalogClock = mClockStylePref.getValue().equals(mAnalogClock);
         final boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
         final boolean isDigitalClock = mClockStylePref.getValue().equals(mDigitalClock);
+        final boolean displaySeconds = mDisplayClockSecondsPref.isChecked();
 
+        return switch (key) {
+            case KEY_CLOCK_DIAL -> isAnalogClock;
+            case KEY_CLOCK_DIAL_MATERIAL -> isMaterialAnalogClock;
+            case KEY_ANALOG_CLOCK_SIZE -> !isDigitalClock;
+            case KEY_CLOCK_SECOND_HAND -> isAnalogClock && displaySeconds;
+            case KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE -> isDigitalClock;
+            default -> super.isPreferenceVisible(pref, key);
+        };
+    }
+
+    private void setupPreferences() {
         mClockStylePref.setSummary(mClockStylePref.getEntry());
         mClockStylePref.setOnPreferenceChangeListener(this);
 
-        mClockDialPref.setVisible(isAnalogClock);
         mClockDialPref.setSummary(mClockDialPref.getEntry());
         mClockDialPref.setOnPreferenceChangeListener(this);
 
-        mClockDialMaterialPref.setVisible(isMaterialAnalogClock);
         mClockDialMaterialPref.setSummary(mClockDialMaterialPref.getEntry());
         mClockDialMaterialPref.setOnPreferenceChangeListener(this);
 
-        mAnalogClockSizePref.setVisible(!isDigitalClock);
-
         mDisplayClockSecondsPref.setOnPreferenceChangeListener(this);
 
-        mClockSecondHandPref.setVisible(isAnalogClock && SettingsDAO.areClockSecondsDisplayed(getPrefs()));
         mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
         mClockSecondHandPref.setOnPreferenceChangeListener(this);
 
         mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
 
-        mDigitalClockFontPref.setVisible(isDigitalClock);
         mDigitalClockFontPref.setTitle(getString(SettingsDAO.getDigitalClockFont(getPrefs()) == null
             ? R.string.custom_font_title
             : R.string.custom_font_title_variant));
@@ -274,15 +278,11 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
 
         mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
 
-        mDigitalClockFontSizePref.setVisible(isDigitalClock);
-
         mSortCitiesPref.setSummary(mSortCitiesPref.getEntry());
         mSortCitiesPref.setOnPreferenceChangeListener(this);
 
         mEnableCityFlagPref.setOnPreferenceChangeListener(this);
-
         mEnableCityNotePref.setOnPreferenceChangeListener(this);
-
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 
         mHomeTimeZonePref.setEnabled(SettingsDAO.getAutoShowHomeClock(getPrefs()));

@@ -168,7 +168,7 @@ public final class CitySelectionActivity extends BaseActivity {
             if (mIsSearchFocused) {
                 mSearchView.requestFocus();
 
-                mSearchView.postDelayed(() -> Utils.showKeyboard(getWindow(), mSearchView), Utils.UI_SETTLE_DELAY_MS);
+                mSearchView.postDelayed(() -> Utils.showKeyboard(getWindow(), mSearchView), Utils.UI_SETTLE_SHORT_DELAY_MS);
             } else {
                 mSearchView.clearFocus();
             }
