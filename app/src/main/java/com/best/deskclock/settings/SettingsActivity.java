@@ -80,9 +80,6 @@ import java.util.zip.ZipOutputStream;
  */
 public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
-    private static final String KEY_APPBAR_EXPANDED = "key_appbar_expanded";
-    private boolean mIsAppBarExpanded = true;
-
     @Override
     protected String getActivityTitle() {
         // Already defined in the fragment.
@@ -93,33 +90,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBaseBinding.appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-            // verticalOffset == 0 when extended, negative when collapsed
-            mIsAppBarExpanded = (verticalOffset == 0);
-        });
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new SettingsFragment())
                 .disallowAddToBackStack()
                 .commit();
         }
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_APPBAR_EXPANDED)) {
-            final boolean shouldExpand = savedInstanceState.getBoolean(KEY_APPBAR_EXPANDED);
-            mBaseBinding.appBar.setExpanded(shouldExpand, false);
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_APPBAR_EXPANDED, mIsAppBarExpanded);
     }
 
     public static class SettingsFragment extends BaseSettingsScreenFragment implements Preference.OnPreferenceClickListener {
@@ -269,7 +245,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             setupPreferences();
 
-            updateSettingsVisibility();
+            invalidatePreferencesVisibility();
 
             requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
@@ -297,9 +273,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 showBackupRestoreDialog();
             }
 
-            updateSettingsVisibility();
-
-            displayWarningIfEssentialPermissionAreNotGranted();
+            invalidatePreferencesVisibility();
         }
 
         @Override
@@ -316,31 +290,34 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         public boolean onPreferenceClick(@NonNull Preference pref) {
             switch (pref.getKey()) {
                 case KEY_INTERFACE_CUSTOMIZATION -> animateAndShowFragment(new InterfaceCustomizationFragment());
-
                 case KEY_CLOCK_SETTINGS -> animateAndShowFragment(new ClockSettingsFragment());
-
                 case KEY_ALARM_SETTINGS -> animateAndShowFragment(new AlarmSettingsFragment());
-
                 case KEY_TIMER_SETTINGS -> animateAndShowFragment(new TimerSettingsFragment());
-
                 case KEY_STOPWATCH_SETTINGS -> animateAndShowFragment(new StopwatchSettingsFragment());
-
                 case KEY_SCREENSAVER_SETTINGS -> animateAndShowFragment(new ScreensaverSettingsActivity.ScreensaverSettingsFragment());
-
                 case KEY_WIDGETS_SETTINGS -> animateAndShowFragment(new WidgetSettingsFragment());
-
-                case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT ->
-                    animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
-
+                case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> animateAndShowFragment(
+                    new PermissionsManagementActivity.PermissionsManagementFragment()
+                );
                 case KEY_BACKUP_RESTORE_PREFERENCES -> showBackupRestoreDialog();
             }
 
             return true;
         }
 
-        private void setupPreferences() {
-            mPermissionMessage.setVisible(PermissionUtils.areEssentialPermissionsNotGranted(requireContext()));
+        @Override
+        protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
+            return switch (key) {
+                case KEY_CLOCK_SETTINGS -> SettingsDAO.isClockTabVisible(getPrefs());
+                case KEY_ALARM_SETTINGS -> SettingsDAO.isAlarmTabVisible(getPrefs());
+                case KEY_TIMER_SETTINGS -> SettingsDAO.isTimerTabVisible(getPrefs());
+                case KEY_STOPWATCH_SETTINGS -> SettingsDAO.isStopwatchTabVisible(getPrefs());
+                case KEY_PERMISSION_MESSAGE -> PermissionUtils.areEssentialPermissionsNotGranted(requireContext());
+                default -> super.isPreferenceVisible(pref, key);
+            };
+        }
 
+        private void setupPreferences() {
             mInterfaceCustomizationPref.setOnPreferenceClickListener(this);
 
             mClockSettingsPref.setOnPreferenceClickListener(this);
@@ -358,30 +335,16 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mPermissionsManagement.setOnPreferenceClickListener(this);
 
             mBackupRestorePref.setOnPreferenceClickListener(this);
-        }
 
-        private void updateSettingsVisibility() {
-            mClockSettingsPref.setVisible(SettingsDAO.isClockTabVisible(getPrefs()));
-            mAlarmSettingsPref.setVisible(SettingsDAO.isAlarmTabVisible(getPrefs()));
-            mTimerSettingsPref.setVisible(SettingsDAO.isTimerTabVisible(getPrefs()));
-            mStopwatchSettingsPref.setVisible(SettingsDAO.isStopwatchTabVisible(getPrefs()));
-        }
-
-        private void displayWarningIfEssentialPermissionAreNotGranted() {
-            if (PermissionUtils.areEssentialPermissionsNotGranted(requireContext())) {
-                mPermissionMessage.setVisible(true);
-                final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
-                final String messagePermission = requireContext().getString(R.string.settings_permission_message);
-                final Spannable spannableMessagePermission = new SpannableString(messagePermission);
-                spannableMessagePermission.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAlert)),
-                    0, messagePermission.length(), 0);
-                spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
-                builderPermissionMessage.append(spannableMessagePermission);
-                mPermissionMessage.setTitle(builderPermissionMessage);
-                mPermissionMessage.setOnPreferenceClickListener(this);
-            } else {
-                mPermissionMessage.setVisible(false);
-            }
+            final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
+            final String messagePermission = requireContext().getString(R.string.settings_permission_message);
+            final Spannable spannableMessagePermission = new SpannableString(messagePermission);
+            spannableMessagePermission.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAlert)),
+                0, messagePermission.length(), 0);
+            spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
+            builderPermissionMessage.append(spannableMessagePermission);
+            mPermissionMessage.setTitle(builderPermissionMessage);
+            mPermissionMessage.setOnPreferenceClickListener(this);
         }
 
         private void showBackupRestoreDialog() {

@@ -35,8 +35,8 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
+import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.settings.custompreference.PermissionsManagementPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
@@ -75,6 +75,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         private static final String KEY_SHOW_NOTIF_RATIONALE = "show_notif_rationale";
         private static final String KEY_PENDING_REVOCATION_PREF = "pending_revocation_pref";
 
+        private boolean mIsFirstResume = true;
         private boolean mShowForegroundServiceDialog = false;
         private boolean mShowNotificationRationaleDialog = false;
         private String mPendingRevocationPrefKey = null;
@@ -153,11 +154,15 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 }
             }
 
-            updateEssentialPermissionsPref();
+            if (!mIsFirstResume) {
+                updateEssentialPermissionsPref();
 
-            for (String key : DYNAMIC_PERMISSION_KEYS) {
-                updateSinglePreference(key);
+                for (String key : DYNAMIC_PERMISSION_KEYS) {
+                    updateSinglePreference(key);
+                }
             }
+
+            mIsFirstResume = false;
         }
 
         @Override
@@ -192,6 +197,11 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             }
 
             return true;
+        }
+
+        @Override
+        protected boolean shouldShowSearchMenu() {
+            return false;
         }
 
         private void setupPreferences() {

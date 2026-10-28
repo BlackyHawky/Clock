@@ -649,6 +649,10 @@
     <!-- **     COMMON SETTINGS    ** -->
     <!-- **************************** -->
 
+    <!-- Category title for general settings. -->
+    <string name="general_category_title">General</string>
+    <!-- Category title for advanced settings. -->
+    <string name="advanced_category_title">Advanced</string>
     <!-- Category title for style settings. -->
     <string name="style_category_title">Style</string>
     <!-- Category title for color settings. -->

@@ -10,4 +10,5 @@
     <item type="id" name="menu_about" />
     <item type="id" name="menu_bug_report" />
     <item type="id" name="menu_reset_settings" />
+    <item type="id" name="menu_settings_search" />
 </resources>

@@ -64,7 +64,19 @@ public class Utils {
      * A short delay (in milliseconds) used to let the UI settle before executing certain actions,
      * such as showing the soft keyboard or requesting focus.
      */
-    public static final long UI_SETTLE_DELAY_MS = 200;
+    public static final long UI_SETTLE_SHORT_DELAY_MS = 200;
+
+    /**
+     * A medium delay (in milliseconds) used to let the UI settle before executing certain actions,
+     * such as showing the soft keyboard or requesting focus.
+     */
+    public static final long UI_SETTLE_MEDIUM_DELAY_MS = 400;
+
+    /**
+     * A long delay (in milliseconds) used to let the UI settle before executing certain actions,
+     * such as showing the soft keyboard or requesting focus.
+     */
+    public static final long UI_SETTLE_LONG_DELAY_MS = 600;
 
     /**
      * The minimum time interval in milliseconds required between consecutive clicks.

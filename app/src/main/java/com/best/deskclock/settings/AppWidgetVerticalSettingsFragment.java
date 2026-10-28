@@ -21,7 +21,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -35,7 +34,6 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
     SwitchPreferenceCompat mDisplayTextShadowPref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
     SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
-    CustomSliderPreference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
@@ -65,7 +63,6 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
         mDisplayTextShadowPref = findPreference(KEY_VERTICAL_WIDGET_DISPLAY_TEXT_SHADOW);
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_VERTICAL_WIDGET_DISPLAY_BACKGROUND);
         mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
-        mBackgroundCornerRadiusPref = findPreference(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS);
         mDisplayDatePref = findPreference(KEY_VERTICAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM);
         mApplyHorizontalPaddingPref = findPreference(KEY_VERTICAL_WIDGET_APPLY_HORIZONTAL_PADDING);
@@ -93,6 +90,8 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
                 mAppWidgetId = extras.getInt(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
             }
         }
+
+        invalidatePreferencesVisibility();
     }
 
     @Override
@@ -102,90 +101,72 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
         saveCheckedPreferenceStates();
 
         updateVerticalDigitalWidget();
+
+        invalidatePreferencesVisibility();
     }
 
     @Override
     public boolean onPreferenceChange(@NonNull Preference pref, @NonNull Object newValue) {
         switch (pref.getKey()) {
-            case KEY_VERTICAL_WIDGET_DISPLAY_BACKGROUND -> {
+            case KEY_VERTICAL_WIDGET_DISPLAY_BACKGROUND, KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                 KEY_VERTICAL_WIDGET_DISPLAY_DATE, KEY_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM, KEY_VERTICAL_WIDGET_DISPLAY_TEXT_UPPERCASE,
+                 KEY_VERTICAL_WIDGET_DISPLAY_TEXT_SHADOW, KEY_VERTICAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                 KEY_VERTICAL_WIDGET_DEFAULT_BACKGROUND_COLOR, KEY_VERTICAL_WIDGET_DEFAULT_HOURS_COLOR,
+                 KEY_VERTICAL_WIDGET_DEFAULT_MINUTES_COLOR, KEY_VERTICAL_WIDGET_DEFAULT_DATE_COLOR,
+                 KEY_VERTICAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean displayBackground = (boolean) newValue;
-                boolean isCustomColor = !WidgetDAO.isVerticalWidgetDefaultBackgroundColor(getPrefs());
-                boolean isRadiusCustomizable = WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(getPrefs());
-
-                mCustomizeBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                    ? displayBackground
-                    : displayBackground && isCustomColor);
-                mBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                    ? displayBackground && isRadiusCustomizable
-                    : displayBackground && isCustomColor && isRadiusCustomizable);
-                mDefaultBackgroundColorPref.setVisible(displayBackground);
-                mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
-            }
-
-            case KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
-            }
-
-            case KEY_VERTICAL_WIDGET_DISPLAY_DATE -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mDefaultDateColorPref.setVisible((boolean) newValue);
-                mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-                    && !WidgetDAO.isVerticalWidgetDefaultDateColor(getPrefs()));
-            }
-
-            case KEY_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mDefaultNextAlarmColorPref.setVisible((boolean) newValue);
-                mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-                    && !WidgetDAO.isVerticalWidgetDefaultNextAlarmColor(getPrefs()));
-            }
-
-            case KEY_VERTICAL_WIDGET_DISPLAY_TEXT_UPPERCASE,
-                 KEY_VERTICAL_WIDGET_DISPLAY_TEXT_SHADOW,
-                 KEY_VERTICAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-            case KEY_VERTICAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-
-                boolean isCustomColor = !(boolean) newValue;
-                boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnVerticalWidget(getPrefs());
-                boolean isRadiusCustomizable = WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(getPrefs());
-
-                mCustomBackgroundColorPref.setVisible(isCustomColor);
-
-                if (!SdkUtils.isAtLeastAndroid12()) {
-                    mCustomizeBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground);
-                    mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
-                }
-            }
-
-            case KEY_VERTICAL_WIDGET_DEFAULT_HOURS_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomHoursColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_VERTICAL_WIDGET_DEFAULT_MINUTES_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomMinutesColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_VERTICAL_WIDGET_DEFAULT_DATE_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomDateColorPref.setVisible(!(boolean) newValue);
-            }
-
-            case KEY_VERTICAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
-                Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
-                mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
-            }
         }
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), VerticalAppWidgetProvider.class);
+
+        blockSearchResetForAWhile();
+
+        if (getView() != null) {
+            getView().post(() -> {
+                if (isAdded()) {
+                    invalidatePreferencesVisibility();
+                }
+            });
+        }
+
         return true;
+    }
+
+    @Override
+    protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
+        final boolean displayBackground = mShowBackgroundOnDigitalWidgetPref.isChecked();
+        final boolean isCustomBgColor = !mDefaultBackgroundColorPref.isChecked();
+        final boolean isRadiusCustomizable = mCustomizeBackgroundCornerRadiusPref.isChecked();
+        final boolean displayDate = mDisplayDatePref.isChecked();
+        final boolean displayNextAlarm = mDisplayNextAlarmPref.isChecked();
+
+        return switch (key) {
+            case KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> SdkUtils.isAtLeastAndroid12()
+                ? displayBackground
+                : (displayBackground && isCustomBgColor);
+
+            case KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS -> SdkUtils.isAtLeastAndroid12()
+                ? (displayBackground && isRadiusCustomizable)
+                : (displayBackground && isCustomBgColor && isRadiusCustomizable);
+
+            case KEY_VERTICAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> displayBackground;
+
+            case KEY_VERTICAL_WIDGET_CUSTOM_BACKGROUND_COLOR -> displayBackground && isCustomBgColor;
+
+            case KEY_VERTICAL_WIDGET_CUSTOM_HOURS_COLOR -> !mDefaultHoursColorPref.isChecked();
+
+            case KEY_VERTICAL_WIDGET_CUSTOM_MINUTES_COLOR -> !mDefaultMinutesColorPref.isChecked();
+
+            case KEY_VERTICAL_WIDGET_DEFAULT_DATE_COLOR -> displayDate;
+
+            case KEY_VERTICAL_WIDGET_CUSTOM_DATE_COLOR -> displayDate && !mDefaultDateColorPref.isChecked();
+
+            case KEY_VERTICAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> displayNextAlarm;
+
+            case KEY_VERTICAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR -> displayNextAlarm && !mDefaultNextAlarmColorPref.isChecked();
+
+            default -> super.isPreferenceVisible(pref, key);
+        };
     }
 
     private void setupPreferences() {
@@ -195,21 +176,6 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
 
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
-        boolean isBackgroundVisible = WidgetDAO.isBackgroundDisplayedOnVerticalWidget(getPrefs());
-        boolean isBackgroundCornerRadiusCustomizable =
-            WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(getPrefs());
-        boolean isCustomColor = !WidgetDAO.isVerticalWidgetDefaultBackgroundColor(getPrefs());
-
-        if (SdkUtils.isAtLeastAndroid12()) {
-            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible);
-            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isBackgroundCornerRadiusCustomizable);
-        } else {
-            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isCustomColor);
-            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible
-                && isCustomColor
-                && isBackgroundCornerRadiusCustomizable);
-        }
-
         mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
 
         mDisplayDatePref.setOnPreferenceChangeListener(this);
@@ -218,34 +184,24 @@ public class AppWidgetVerticalSettingsFragment extends BaseSettingsScreenFragmen
 
         mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
 
-        mDefaultBackgroundColorPref.setVisible(isBackgroundVisible);
         mDefaultBackgroundColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomBackgroundColorPref.setVisible(isBackgroundVisible && isCustomColor);
         mCustomBackgroundColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultHoursColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomHoursColorPref.setVisible(!WidgetDAO.isVerticalWidgetDefaultHoursColor(getPrefs()));
         mCustomHoursColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultMinutesColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomMinutesColorPref.setVisible(!WidgetDAO.isVerticalWidgetDefaultMinutesColor(getPrefs()));
         mCustomMinutesColorPref.setOnPreferenceChangeListener(this);
 
-        mDefaultDateColorPref.setVisible(WidgetDAO.isDateDisplayedOnVerticalWidget(getPrefs()));
         mDefaultDateColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-            && !WidgetDAO.isVerticalWidgetDefaultDateColor(getPrefs()));
         mCustomDateColorPref.setOnPreferenceChangeListener(this);
 
-        mDefaultNextAlarmColorPref.setVisible(WidgetDAO.isNextAlarmDisplayedOnVerticalWidget(getPrefs()));
         mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-            && !WidgetDAO.isVerticalWidgetDefaultNextAlarmColor(getPrefs()));
         mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
     }
 

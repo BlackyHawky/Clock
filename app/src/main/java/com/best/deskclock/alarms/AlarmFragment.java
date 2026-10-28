@@ -1010,7 +1010,7 @@ public final class AlarmFragment extends DeskClockFragment
                             if (isAdded() && getActivity() != null) {
                                 Utils.showKeyboard(getActivity().getWindow(), searchView);
                             }
-                        }, Utils.UI_SETTLE_DELAY_MS);
+                        }, Utils.UI_SETTLE_SHORT_DELAY_MS);
                     } else {
                         searchView.clearFocus();
                     }

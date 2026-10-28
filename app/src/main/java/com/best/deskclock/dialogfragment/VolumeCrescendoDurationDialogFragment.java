@@ -294,7 +294,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 if (getDialog() != null) {
                     Utils.showKeyboard(getDialog().getWindow(), mBinding.editMinutes);
                 }
-            }, Utils.UI_SETTLE_DELAY_MS);
+            }, Utils.UI_SETTLE_SHORT_DELAY_MS);
         }
     }
 

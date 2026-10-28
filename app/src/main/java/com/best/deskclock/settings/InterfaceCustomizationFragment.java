@@ -81,6 +81,10 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (isAdded() && mIsSearchMode) {
+                blockSearchResetForAWhile();
+            }
+
             if (result.getResultCode() != RESULT_OK) {
                 return;
             }
@@ -171,11 +175,13 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         setupPreferences();
 
         sortListPreference(mAccentColorPref);
-        if (mNightAccentColorPref.isShown()) {
-            sortListPreference(mNightAccentColorPref);
-        }
+        sortListPreference(mNightAccentColorPref);
         sortListPreference(mTabAnimationPref);
         sortListPreference(mLanguageCodePref);
+
+        updateVibrationState();
+
+        invalidatePreferencesVisibility();
     }
 
     @SuppressLint("ThreadConstraint")
@@ -197,6 +203,10 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
                 requireContext().getApplicationContext(), SettingsDAO.getLanguageCode(getPrefs()));
             isLanguageChanged = false;
         }
+
+        updateVibrationState();
+
+        invalidatePreferencesVisibility();
     }
 
     @SuppressLint("ThreadConstraint")
@@ -245,8 +255,6 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
                 updateTabToDisplayPreference(newSelectedTabs);
 
-                mTabAnimationPref.setVisible(newSelectedTabs.size() > 1);
-
                 boolean wasClockVisible = oldSelectedTabs.contains(PreferencesDefaultValues.VISIBLE_TAB_CLOCK);
                 boolean isClockVisible = newSelectedTabs.contains(PreferencesDefaultValues.VISIBLE_TAB_CLOCK);
 
@@ -270,6 +278,31 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
             }
         }
 
+        boolean willTriggerActivityRecreation = switch (pref.getKey()) {
+            case KEY_THEME, KEY_DARK_MODE, KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_NIGHT_ACCENT_COLOR,
+                 KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_LANGUAGE_CODE, KEY_VIBRATIONS, KEY_FADE_TRANSITIONS -> true;
+            default -> false;
+        };
+
+        if (willTriggerActivityRecreation) {
+            mKeepSearchOpenOnPause = true;
+
+            if (mSearchView != null) {
+                mSearchView.setOnQueryTextListener(null);
+                mSearchView.setOnQueryTextFocusChangeListener(null);
+            }
+        } else {
+            blockSearchResetForAWhile();
+
+            if (getView() != null) {
+                getView().post(() -> {
+                    if (isAdded()) {
+                        invalidatePreferencesVisibility();
+                    }
+                });
+            }
+        }
+
         return true;
     }
 
@@ -277,10 +310,41 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     public boolean onPreferenceClick(@NonNull Preference pref) {
         if (pref.getKey().equals(KEY_GENERAL_FONT)) {
             selectCustomFile(mGeneralFontPref, fontPickerLauncher,
-                SettingsDAO.getGeneralFont(getPrefs()), KEY_GENERAL_FONT, true, null);
+                SettingsDAO.getGeneralFont(getPrefs()), KEY_GENERAL_FONT, true, false, null);
         }
 
         return true;
+    }
+
+    @Override
+    protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
+        Set<String> visibleTabs = SettingsDAO.getVisibleTabs(getPrefs());
+
+        return switch (key) {
+            case KEY_NIGHT_ACCENT_COLOR -> !SettingsDAO.isAutoNightAccentColorEnabled(getPrefs());
+
+            case KEY_TAB_ANIMATION, KEY_TAB_TO_DISPLAY -> visibleTabs.size() > 1;
+
+            case KEY_VIBRATIONS -> DeviceUtils.hasVibrator(requireContext());
+
+            default -> super.isPreferenceVisible(pref, key);
+        };
+    }
+
+    private void updateVibrationState() {
+        if (mVibrationPref != null && DeviceUtils.hasVibrator(requireContext())) {
+            //noinspection deprecation
+            boolean isSystemHapticFeedbackEnabled = Settings.System.getInt(
+                requireContext().getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1) == 1;
+
+            if (isSystemHapticFeedbackEnabled) {
+                mVibrationPref.setEnabled(true);
+                mVibrationPref.setSummary(getString(R.string.settings_vibration_summary));
+            } else {
+                mVibrationPref.setEnabled(false);
+                mVibrationPref.setSummary(getString(R.string.settings_vibration_disabled_summary));
+            }
+        }
     }
 
     private void setupPreferences() {
@@ -309,7 +373,6 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
         mAutoNightAccentColorPref.setOnPreferenceChangeListener(this);
 
-        mNightAccentColorPref.setVisible(!SettingsDAO.isAutoNightAccentColorEnabled(getPrefs()));
         mNightAccentColorPref.setSummary(mNightAccentColorPref.getEntry());
         mNightAccentColorPref.setOnPreferenceChangeListener(this);
 
@@ -332,27 +395,9 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         updateTabToDisplayPreference(visibleTabs);
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
-        mTabAnimationPref.setVisible(visibleTabs.size() > 1);
         mTabAnimationPref.setSummary(mTabAnimationPref.getEntry());
         mTabAnimationPref.setOnPreferenceChangeListener(this);
 
-        if (!DeviceUtils.hasVibrator(requireContext())) {
-            mVibrationPref.setVisible(false);
-        } else {
-            mVibrationPref.setVisible(true);
-
-            //noinspection deprecation
-            boolean isSystemHapticFeedbackEnabled = Settings.System.getInt(
-                requireContext().getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1) == 1;
-
-            if (isSystemHapticFeedbackEnabled) {
-                mVibrationPref.setEnabled(true);
-                mVibrationPref.setSummary(getString(R.string.settings_vibration_summary));
-            } else {
-                mVibrationPref.setEnabled(false);
-                mVibrationPref.setSummary(getString(R.string.settings_vibration_disabled_summary));
-            }
-        }
         mVibrationPref.setOnPreferenceChangeListener(this);
 
         mFadeTransitionsPref.setOnPreferenceChangeListener(this);

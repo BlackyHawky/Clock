@@ -8,6 +8,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -42,7 +43,10 @@
                 android:id="@+id/action_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:collapseIcon="@drawable/ic_arrow_back"
+                app:collapseContentDescription="@string/label_back"
+                tools:title="@string/settings" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

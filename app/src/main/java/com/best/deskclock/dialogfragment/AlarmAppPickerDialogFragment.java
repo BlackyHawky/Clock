@@ -290,7 +290,7 @@ public class AlarmAppPickerDialogFragment extends DialogFragment {
                     if (getDialog() != null) {
                         Utils.showKeyboard(getDialog().getWindow(), mBinding.searchView);
                     }
-                }, Utils.UI_SETTLE_DELAY_MS);
+                }, Utils.UI_SETTLE_SHORT_DELAY_MS);
             } else {
                 mBinding.searchView.clearFocus();
             }

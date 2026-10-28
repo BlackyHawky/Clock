@@ -286,7 +286,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 if (getDialog() != null) {
                     Utils.showKeyboard(getDialog().getWindow(), mBinding.editDays);
                 }
-            }, Utils.UI_SETTLE_DELAY_MS);
+            }, Utils.UI_SETTLE_SHORT_DELAY_MS);
         }
     }
 
