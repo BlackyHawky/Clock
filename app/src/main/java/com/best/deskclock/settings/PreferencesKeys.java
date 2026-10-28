@@ -209,6 +209,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_REMOVE_TIME_BUTTON_VALUE = "key_timer_remove_time_button_value";
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = "key_turn_on_back_flash_for_expired_timer";
     public static final String KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS = "key_timer_live_update_notifications";
+    public static final String KEY_TIMER_LONG_CLICK_TO_EDIT = "key_timer_long_click_to_edit";
 
     // Timer Display Customization
     public static final String KEY_TIMER_DURATION_FONT = "key_timer_duration_font";

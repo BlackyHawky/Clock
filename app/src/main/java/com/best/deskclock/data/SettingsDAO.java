@@ -874,6 +874,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the "Long-click to edit timer" is enabled. {@code false} otherwise.
+     */
+    public static boolean isTimerLongClickToEdit(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_TIMER_LONG_CLICK_TO_EDIT, DEFAULT_TIMER_LONG_CLICK_TO_EDIT);
+    }
+
+    /**
      * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
      */
     public static String getTimerSortingPreference(@NonNull SharedPreferences prefs) {

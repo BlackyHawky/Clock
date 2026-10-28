@@ -79,14 +79,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             default -> throw new IllegalArgumentException("Unknown ViewType: " + viewType);
         }
 
-        itemView.setOnClickListener(v -> {
-            long currentTime = SystemClock.elapsedRealtime();
-            if (currentTime - mLastClickTime >= Utils.MIN_CLICK_INTERVAL) {
-                mLastClickTime = currentTime;
-                timerClickHandler.displayBottomSheetDialog(getTimer());
-            }
-        });
-
         View.OnClickListener playPauseListener = v -> {
             Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             timerClickHandler.onPlayPauseClicked(getTimer());
@@ -147,6 +139,28 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         mTimerView.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
         mTimerView.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
         mTimerView.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
+
+        TimerClickHandler timerClickHandler = mAdapter.getTimerClickHandler();
+        Runnable clickHandler = () -> {
+            long currentTime = SystemClock.elapsedRealtime();
+            if (currentTime - mLastClickTime >= Utils.MIN_CLICK_INTERVAL) {
+                mLastClickTime = currentTime;
+                timerClickHandler.displayBottomSheetDialog(getTimer());
+            }
+        };
+
+        if (settings.isTimerLongClickToEdit) {
+            mTimerView.setOnLongClickListener(v -> {
+                clickHandler.run();
+                return true;
+            });
+            mTimerView.setOnClickListener(null);
+        } else {
+            mTimerView.setOnClickListener(v -> {
+                clickHandler.run();
+            });
+            mTimerView.setOnLongClickListener(null);
+        }
 
         if (mTimerView instanceof TimerItem item) {
             item.setButtonPosition(

@@ -1236,6 +1236,10 @@
     <string name="default_time_to_remove_to_timer_title">Default time to subtract from the timers</string>
     <!-- Setting title to turn on flash when timer is expired -->
     <string name="turn_on_back_flash_for_expired_timer_title">Turn on back flash when timer is expired</string>
+    <!-- Setting title to enable long-press to edit a timer. -->
+    <string name="long_press_to_edit_timer_title">Long press to edit</string>
+    <!-- Setting summary about the single timer mode. -->
+    <string name="long_press_to_edit_timer_summary">Long press a timer to edit it</string>
 
     <!-- *********************************** -->
     <!-- **     TIMER DISPLAY SETTINGS    ** -->

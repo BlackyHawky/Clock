@@ -90,7 +90,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS,
                      KEY_DISPLAY_TIMER_DELETE_BUTTON, KEY_DISPLAY_TIMER_END_TIME, KEY_INVERT_TIMER_BUTTON_POSITIONS, KEY_SINGLE_TIMER_MODE,
                      KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR,
-                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_MISSED_TIMER_INDICATOR_COLOR -> {
+                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_MISSED_TIMER_INDICATOR_COLOR, KEY_TIMER_LONG_CLICK_TO_EDIT -> {
 
                     mAreSettingsChanged = true;
 
@@ -762,6 +762,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             : ClockUtils.get12ModeFormat(false, 0.8f, amPmTypeface, "sans-serif", Typeface.ITALIC, false);
 
         mSettings.isSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(getPrefs());
+        mSettings.isTimerLongClickToEdit = SettingsDAO.isTimerLongClickToEdit(getPrefs());
         mSettings.isCompactTimersDisplayed = SettingsDAO.isCompactTimersDisplayed(getPrefs());
         mSettings.savedTimerOrder = getPrefs().getString(KEY_TIMER_ORDER, null);
         mSettings.isDeleteButtonDisplayed = SettingsDAO.isTimerDeleteButtonDisplayed(getPrefs());

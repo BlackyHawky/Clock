@@ -104,6 +104,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mTurnOnBackFlashForExpiredTimerPref;
     SwitchPreferenceCompat mLiveUpdateNotificationsPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
+    SwitchPreferenceCompat mTimerLongClickToEditPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -196,6 +197,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mTimerShakeActionPref = findPreference(KEY_TIMER_SHAKE_ACTION);
         mTimerShakeIntensityPref = findPreference(KEY_TIMER_SHAKE_INTENSITY);
         mSingleTimerModePref = findPreference(KEY_SINGLE_TIMER_MODE);
+        mTimerLongClickToEditPref = findPreference(KEY_TIMER_LONG_CLICK_TO_EDIT);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mTurnOnBackFlashForExpiredTimerPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
         mLiveUpdateNotificationsPref = findPreference(KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS);
@@ -636,6 +638,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         }
 
         mSingleTimerModePref.setOnPreferenceChangeListener(this);
+        mTimerLongClickToEditPref.setOnPreferenceChangeListener(this);
 
         mSortTimerPref.setVisible(!SettingsDAO.isSingleTimerModeEnabled(getPrefs()));
         mSortTimerPref.setOnPreferenceChangeListener(this);

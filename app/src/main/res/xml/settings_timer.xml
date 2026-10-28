@@ -241,6 +241,15 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_timer_long_click_to_edit"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/long_press_to_edit_timer_title"
+            android:summary="@string/long_press_to_edit_timer_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <ListPreference
             android:key="key_sort_timer"
             android:layout="@layout/settings_preference_layout"
