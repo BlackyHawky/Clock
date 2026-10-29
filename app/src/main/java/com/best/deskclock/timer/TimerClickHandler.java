@@ -34,7 +34,13 @@ public record TimerClickHandler(@NonNull TimerFragment mTimerFragment, @NonNull 
         } else if (timer.isRunning()) {
             Events.sendTimerEvent(R.string.action_pause, R.string.label_deskclock);
             mDataModel.pauseTimer(timer);
-        } else if (timer.isExpired()) {
+        } else {
+            onStopClicked(timer);
+        }
+    }
+
+    public void onStopClicked(@NonNull Timer timer) {
+        if (timer.isExpired()) {
             final boolean isDeleteAfterUse = timer.getDeleteAfterUse();
 
             Events.sendTimerEvent(isDeleteAfterUse ? R.string.action_delete : R.string.action_reset, R.string.label_deskclock);

@@ -51,6 +51,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         final MaterialButton playPauseButton;
         final MaterialButton resetButton;
+        final MaterialButton stopButton;
         final View deleteButton;
 
         mTimerView.setGeneralFonts(fonts.general(), fonts.bold());
@@ -65,6 +66,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 circleContainer = binding.circleContainer;
                 timerTimeText = binding.timerTimeText;
                 playPauseButton = binding.playPauseButton;
+                stopButton = null;
             }
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
@@ -74,6 +76,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 removeTimeButton = compactBinding.timerRemoveTimeButton;
                 timerTimeText = compactBinding.timerTimeText;
                 playPauseButton = compactBinding.playPauseButton;
+                stopButton = compactBinding.stopButton;
                 circleContainer = null;
             }
             default -> throw new IllegalArgumentException("Unknown ViewType: " + viewType);
@@ -128,6 +131,13 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         }
 
         playPauseButton.setOnClickListener(playPauseListener);
+
+        if (stopButton != null) {
+            stopButton.setOnClickListener(v -> {
+                Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+                timerClickHandler.onStopClicked(getTimer());
+            });
+        }
     }
 
     public void applySettings() {

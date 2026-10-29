@@ -88,7 +88,7 @@ public abstract class BaseTimerItem extends ConstraintLayout {
     protected abstract MaterialButton getPlayPauseButton();
 
     protected abstract int getRemoveTimeHiddenVisibility();
-    protected void onTimerPlayPauseButtonUpdated(Timer.State state) {}
+    protected void onTimerButtonsUpdated(Timer.State state) {}
     protected void onTimerTopUpdated() {}
 
     protected void onFinishInflateShared() {
@@ -320,7 +320,7 @@ public abstract class BaseTimerItem extends ConstraintLayout {
             }
         }
 
-        onTimerPlayPauseButtonUpdated(timer.getState());
+        onTimerButtonsUpdated(timer.getState());
 
         updateAddTimeButtonDisplay(timer.getState());
 
