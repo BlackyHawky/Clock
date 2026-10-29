@@ -53,15 +53,20 @@ public class TimerItemCompact extends BaseTimerItem {
     }
 
     @Override
-    protected void onTimerPlayPauseButtonUpdated(Timer.State state) {
+    protected void onTimerButtonsUpdated(Timer.State state) {
         if (mIsAddTimeZero || mIsRemoveTimeZero) {
             mBinding.playPauseButton.setVisibility(VISIBLE);
+            mBinding.stopButton.setVisibility(GONE);
             return;
         }
 
-        mBinding.playPauseButton.setVisibility(state == Timer.State.RUNNING || state == Timer.State.PAUSED
-            ? GONE : VISIBLE
+        mBinding.playPauseButton.setVisibility(state == Timer.State.RUNNING
+            || state == Timer.State.PAUSED
+            || state == Timer.State.EXPIRED
+            || state == Timer.State.MISSED ? GONE : VISIBLE
         );
+
+        mBinding.stopButton.setVisibility(state == Timer.State.EXPIRED || state == Timer.State.MISSED ? VISIBLE : GONE);
     }
 
     @Override
