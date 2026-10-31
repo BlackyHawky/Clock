@@ -24,6 +24,7 @@
         android:clipToPadding="false"
         android:divider="@null"
         android:nestedScrollingEnabled="true"
+        android:overScrollMode="never"
         tools:listitem="@layout/city_list_item" />
 
 </LinearLayout>
