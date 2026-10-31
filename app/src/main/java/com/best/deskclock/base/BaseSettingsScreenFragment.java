@@ -269,6 +269,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             applyWindowInsets();
             mRecyclerView.setClipToPadding(false);
             mRecyclerView.setVerticalScrollBarEnabled(false);
+            mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mLinearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         }
 
