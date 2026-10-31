@@ -23,6 +23,15 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_display_timer_edit_button"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_timer_edit_button_title"
+            android:summary="@string/display_timer_edit_button_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_display_timer_delete_button"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_timer_delete_button_title"

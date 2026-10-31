@@ -294,7 +294,6 @@ public abstract class BaseTimerItem extends ConstraintLayout {
         // Initialize some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState || deleteAfterUse != mLastDeleteAfterUse) {
             getResetButton().setVisibility(VISIBLE);
-            getEditButton().setVisibility(INVISIBLE);
 
             mLastState = timer.getState();
             mLastDeleteAfterUse = deleteAfterUse;

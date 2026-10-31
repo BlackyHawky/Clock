@@ -359,9 +359,9 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         // Hide the label hint for expired timers.
         labelView.setVisibility(VISIBLE);
 
-        // Add logic to hide the "Reset" buttons
+        // Add logic to hide the "Reset/Edit" buttons
         resetButton.setVisibility(INVISIBLE);
-        editButton.setVisibility(VISIBLE);
+        editButton.setVisibility(INVISIBLE);
 
         // Add logic to the "Stop" button
         stopButton.setOnClickListener(v -> finishActivity());

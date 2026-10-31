@@ -874,6 +874,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a Button is used to edit Timers. {@code false} otherwise.
+     */
+    public static boolean isUsingButtonToEditTimers(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_TIMER_EDIT_BUTTON, DEFAULT_DISPLAY_TIMER_EDIT_BUTTON);
+    }
+
+    /**
      * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
      */
     public static String getTimerSortingPreference(@NonNull SharedPreferences prefs) {

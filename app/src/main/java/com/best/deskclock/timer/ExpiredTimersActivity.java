@@ -554,7 +554,7 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
 
         // Add logic to hide the "Reset" buttons
         resetButton.setVisibility(INVISIBLE);
-        editButton.setVisibility(VISIBLE);
+        editButton.setVisibility(INVISIBLE);
 
         // Add logic to the "Stop" button
         stopButton.setOnClickListener(v -> {

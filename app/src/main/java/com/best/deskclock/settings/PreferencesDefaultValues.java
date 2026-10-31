@@ -210,6 +210,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_TIMER_TIME_BUTTON_VALUE = 60;
     public static final String TIMER_TIME_BUTTON_VALUE_ZERO = "0";
     public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = false;
+    public static final boolean DEFAULT_DISPLAY_TIMER_EDIT_BUTTON = false;
 
     // Stopwatch
     public static final boolean DEFAULT_SW_DISPLAY_MILLISECONDS = true;

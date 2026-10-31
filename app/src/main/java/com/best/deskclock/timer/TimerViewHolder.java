@@ -6,6 +6,9 @@
 
 package com.best.deskclock.timer;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
@@ -38,6 +41,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     public final View circleContainer;
     public final TextView timerTimeText;
     private final int mViewType;
+    private final MaterialButton mEditButton;
+    private final Runnable mEditTimerHandler;
 
     public TimerViewHolder(@NonNull View view, @NonNull TimerAdapter timerAdapter, int viewType) {
         super(view);
@@ -60,7 +65,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
                 TimerItemBinding binding = TimerItemBinding.bind(view);
                 resetButton = binding.resetButton;
-                editButton = binding.editButton;
+                mEditButton = binding.editButton;
                 deleteButton = binding.deleteTimerButton;
                 addTimeButton = binding.timerAddTimeButton;
                 removeTimeButton = binding.timerRemoveTimeButton;
@@ -71,7 +76,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
                 resetButton = compactBinding.resetButton;
-                editButton = compactBinding.editButton;
+                mEditButton = compactBinding.editButton;
                 deleteButton = compactBinding.deleteTimerButton;
                 addTimeButton = compactBinding.timerAddTimeButton;
                 removeTimeButton = compactBinding.timerRemoveTimeButton;
@@ -92,13 +97,23 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             timerClickHandler.onResetClicked(getTimer());
         });
 
-        editButton.setOnClickListener(v -> {
+        mEditTimerHandler = () -> {
             long currentTime = SystemClock.elapsedRealtime();
             if (currentTime - mLastClickTime >= Utils.MIN_CLICK_INTERVAL) {
                 mLastClickTime = currentTime;
                 timerClickHandler.displayBottomSheetDialog(getTimer());
             }
-        });
+        };
+
+        if (mAdapter.getSettings().isUsingButtonToEditTimers) {
+            mEditButton.setOnClickListener(v -> {
+                mEditTimerHandler.run();
+            });
+        } else {
+            itemView.setOnClickListener(v -> {
+                mEditTimerHandler.run();
+            });
+        }
 
         deleteButton.setOnClickListener(v -> {
             Utils.performHapticFeedback(v, haptics.isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -165,6 +180,22 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         final Timer timer = getTimer();
         if (timer != null) {
+            TimerSettings settings = mAdapter.getSettings();
+
+            if (settings.isUsingButtonToEditTimers) {
+                itemView.setOnClickListener(null);
+                mEditButton.setVisibility(VISIBLE);
+                mEditButton.setOnClickListener(v -> {
+                    mEditTimerHandler.run();
+                });
+            } else {
+                itemView.setOnClickListener(v -> {
+                    mEditTimerHandler.run();
+                });
+                mEditButton.setVisibility(INVISIBLE);
+                mEditButton.setOnClickListener(null);
+            }
+
             mTimerView.bindTimer(timer, animate);
         }
 

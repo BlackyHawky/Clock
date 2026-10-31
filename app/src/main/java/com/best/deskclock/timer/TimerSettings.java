@@ -33,6 +33,9 @@ public class TimerSettings {
     /** True if the visual state indicator (showing whether the timer is running/paused) is visible. */
     public boolean isIndicatorStateDisplay;
 
+    /** True if using a button to edit Timers. */
+    public boolean isUsingButtonToEditTimers;
+
     // --- Indicator colors ---
 
     /** The color representing a paused timer. */
