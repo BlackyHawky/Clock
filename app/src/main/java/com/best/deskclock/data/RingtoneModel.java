@@ -31,6 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -86,6 +87,8 @@ public final class RingtoneModel {
      * A mutable copy of the custom ringtones.
      */
     private List<CustomRingtone> mCustomRingtones;
+
+    private boolean mIsCachePrimed = false;
 
     public RingtoneModel(@NonNull Context context, @NonNull SharedPreferences prefs) {
         mContext = Utils.getSafeStorageContext(context.getApplicationContext());
@@ -209,7 +212,7 @@ public final class RingtoneModel {
 
     void loadRingtoneTitles() {
         // Early return if the cache is already primed.
-        if (!mRingtoneTitles.isEmpty()) {
+        if (mIsCachePrimed) {
             return;
         }
 
@@ -223,6 +226,8 @@ public final class RingtoneModel {
                 final Uri ringtoneUri = ringtoneManager.getRingtoneUri(cursor.getPosition());
                 mRingtoneTitles.put(ringtoneUri, ringtoneTitle);
             }
+
+            mIsCachePrimed = true;
         } catch (Throwable throwable) {
             // best attempt only
             LogUtils.e("Error loading ringtone title cache", throwable);
@@ -252,18 +257,26 @@ public final class RingtoneModel {
         String title = mRingtoneTitles.get(uri);
 
         if (title == null) {
-            // This is slow because a media player is created during Ringtone object creation.
-            final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
-            if (ringtone == null) {
-                LogUtils.e("No ringtone for uri: %s", uri);
-                return localizedContext.getString(R.string.unknown_ringtone_title);
+            title = uri.getQueryParameter("title");
+
+            if (title == null || title.trim().isEmpty()) {
+                // This is slow because a media player is created during Ringtone object creation.
+                final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
+                if (ringtone == null) {
+                    LogUtils.e("No ringtone for uri: %s", uri);
+                    return localizedContext.getString(R.string.unknown_ringtone_title);
+                }
+
+                // Cache the title for later use.
+                title = ringtone.getTitle(mContext);
             }
 
-            // Cache the title for later use.
-            title = ringtone.getTitle(mContext);
-            mRingtoneTitles.put(uri, title);
+            if (DeviceUtils.isUserUnlocked(mContext)) {
+                mRingtoneTitles.put(uri, title);
+            }
         }
-        return title;
+
+        return title != null ? title : localizedContext.getString(R.string.unknown_ringtone_title);
     }
 
     private List<CustomRingtone> getMutableCustomRingtones() {

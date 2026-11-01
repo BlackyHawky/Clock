@@ -467,6 +467,9 @@ public class BackupAndRestoreManager {
             }
         }
 
+        // Migrate all system ringtones currently used by alarms to the device's protected storage
+        RingtoneUtils.migrateSystemRingtonesToLocal(context);
+
         AlarmStateManager.updateNextAlarm(context);
     }
 

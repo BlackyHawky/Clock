@@ -394,4 +394,5 @@ public class PreferencesKeys {
     public static final String FILE_SCREENSAVER_DIGITAL_CLOCK_FONT = "screensaver_digital_clock_font";
     public static final String FILE_SCREENSAVER_BACKGROUND = "screensaver_background";
     public static final String FILE_DIGITAL_CLOCK_FONT = "digital_clock_font";
+    public static final String FILE_SYSTEM_RINGTONE = "system_ringtone_";
 }

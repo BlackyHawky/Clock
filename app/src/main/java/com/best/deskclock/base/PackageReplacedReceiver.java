@@ -22,6 +22,7 @@ import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimerDAO;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 
 import java.util.Map;
 
@@ -67,6 +68,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                 // Update the default alarm background color stored in SharedPreferences
                 migrateAlarmBackgroundColor(prefs);
+
+                // Migrate all system ringtones currently used by alarms to the device's protected storage
+                RingtoneUtils.migrateSystemRingtonesToLocal(appContext);
             } finally {
                 result.finish();
                 wl.release();

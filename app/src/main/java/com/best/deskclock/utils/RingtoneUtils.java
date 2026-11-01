@@ -3,6 +3,7 @@
 package com.best.deskclock.utils;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.FILE_SYSTEM_RINGTONE;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -30,11 +31,18 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.RingtoneModel;
+import com.best.deskclock.provider.Alarm;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 
 public class RingtoneUtils {
 
@@ -82,6 +90,7 @@ public class RingtoneUtils {
         return (uriString.startsWith("content://media/external/audio/") ||
             uriString.startsWith("content://media/internal/audio/") ||
             uriString.startsWith("content://media/") ||
+            uriString.startsWith("content://settings/") ||
             uriString.startsWith("file:///system/media/audio/") ||
             uriString.startsWith("file:///system/media/"));
     }
@@ -185,7 +194,7 @@ public class RingtoneUtils {
     @Nullable
     public static MediaPlayer createPreparedMediaPlayer(@NonNull Context context, @NonNull Uri... ringtoneUris) {
         // Use a DirectBoot aware context if supported
-        Context storageContext = Utils.getSafeStorageContext(context);
+        Context storageContext = Utils.getSafeStorageContext(context.getApplicationContext());
 
         MediaPlayer player = new MediaPlayer();
 
@@ -202,7 +211,26 @@ public class RingtoneUtils {
             try {
                 LogUtils.d("Trying to prepare MediaPlayer for URI: " + uri);
                 player.reset();
-                player.setDataSource(storageContext, uri);
+
+                // If it is the default URI, resolve its real URI
+                if (Objects.equals(uri, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))) {
+                    Uri actualUri = RingtoneManager.getActualDefaultRingtoneUri(storageContext, RingtoneManager.TYPE_ALARM);
+                    if (actualUri != null) {
+                        uri = actualUri;
+                    }
+                }
+
+                Uri stableUri = uri.buildUpon().clearQuery().build();
+                String safeUriId = stableUri.toString().replaceAll("[^a-zA-Z0-9.\\-]", "_");
+                File expectedLocalCopy = new File(storageContext.getFilesDir(), FILE_SYSTEM_RINGTONE + safeUriId);
+
+                if (expectedLocalCopy.exists() && expectedLocalCopy.length() > 0) {
+                    LogUtils.d("Direct Boot: Using local copied ringtone: " + expectedLocalCopy.getName());
+                    player.setDataSource(storageContext, Uri.fromFile(expectedLocalCopy));
+                } else {
+                    player.setDataSource(storageContext, uri);
+                }
+
                 player.prepare();
                 return player;
             } catch (Exception e) {
@@ -236,33 +264,56 @@ public class RingtoneUtils {
 
     /**
      * Returns a randomly selected system alarm ringtone URI.
-     * <p>
-     * If no valid ringtones are found, the system's default alarm ringtone is returned.
+     *
+     * <p>If no valid ringtones are found, the system's default alarm ringtone is returned.</p>
      */
     public static Uri getRandomRingtoneUri() {
         Context context = DeskClockApplication.getAppContext();
+        Context safeContext = Utils.getSafeStorageContext(context);
 
-        RingtoneManager manager = new RingtoneManager(context);
+        File filesDir = safeContext.getFilesDir();
+        if (filesDir != null) {
+            File[] copiedFiles = filesDir.listFiles((dir, name) -> name.startsWith(FILE_SYSTEM_RINGTONE));
+            if (copiedFiles != null && copiedFiles.length > 0) {
+                File randomFile = copiedFiles[new Random().nextInt(copiedFiles.length)];
+
+                LogUtils.d("Random: Prioritizing local copy:" + randomFile.getName());
+                return Uri.fromFile(randomFile);
+            }
+        }
+
+        LogUtils.w("Random: No local copies found, querying MediaStore directly.");
+
+        List<Uri> uris = getSystemRingtoneUris(safeContext);
+        if (!uris.isEmpty()) {
+            return uris.get(new Random().nextInt(uris.size()));
+        }
+
+        LogUtils.w("Random: No system ringtones and no local copies found. Falling back to default URI");
+        return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+    }
+
+    @NonNull
+    private static List<Uri> getSystemRingtoneUris(@NonNull Context context) {
+        RingtoneManager manager = new RingtoneManager(context.getApplicationContext());
         manager.setType(RingtoneManager.TYPE_ALARM);
 
-        Cursor cursor = manager.getCursor();
         List<Uri> uris = new ArrayList<>();
 
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                Uri uri = manager.getRingtoneUri(cursor.getPosition());
-                if (uri != null) {
-                    uris.add(uri);
-                }
-            } while (cursor.moveToNext());
-            cursor.close();
+        try (Cursor cursor = manager.getCursor()) {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    Uri uri = manager.getRingtoneUri(cursor.getPosition());
+                    if (uri != null) {
+                        uris.add(uri);
+                    }
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            LogUtils.e("Failed to retrieve system ringtone URIs", e);
         }
 
-        if (uris.isEmpty()) {
-            return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        }
-
-        return uris.get(new Random().nextInt(uris.size()));
+        return uris;
     }
 
     /**
@@ -272,21 +323,22 @@ public class RingtoneUtils {
      */
     public static Uri getRandomCustomRingtoneUri() {
         Context context = DeskClockApplication.getAppContext();
+        Context safeContext = Utils.getSafeStorageContext(context);
 
         List<Uri> uris = new ArrayList<>();
 
         if (Looper.myLooper() == Looper.getMainLooper()) {
             for (CustomRingtone custom : DataModel.getDataModel().getCustomRingtones()) {
-                if (isRingtoneUriReadable(context, custom.getUri())) {
+                if (isRingtoneUriReadable(safeContext, custom.getUri())) {
                     uris.add(custom.getUri());
                 }
             }
         } else {
-            SharedPreferences prefs = getDefaultSharedPreferences(context);
-            RingtoneModel ringtoneModel = new RingtoneModel(context, prefs);
+            SharedPreferences prefs = getDefaultSharedPreferences(safeContext);
+            RingtoneModel ringtoneModel = new RingtoneModel(safeContext, prefs);
 
             for (CustomRingtone custom : ringtoneModel.getCustomRingtones()) {
-                if (isRingtoneUriReadable(context, custom.getUri())) {
+                if (isRingtoneUriReadable(safeContext, custom.getUri())) {
                     uris.add(custom.getUri());
                 }
             }
@@ -299,6 +351,133 @@ public class RingtoneUtils {
         }
 
         return uris.get(new Random().nextInt(uris.size()));
+    }
+
+    /**
+     * Checks if the URI is already pointing to a protected local copy of the ringtone.
+     */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean isCopiedSystemRingtone(@NonNull Context context, @NonNull Uri uri) {
+        Context safeContext = Utils.getSafeStorageContext(context);
+        File filesDir = safeContext.getFilesDir();
+        return uri.toString().startsWith(Uri.fromFile(filesDir).toString());
+    }
+
+    /**
+     * Physically copies the ringtone to the Device Protected Storage.
+     */
+    public static void copySystemRingtoneToSafeStorage(@NonNull Context context, @NonNull Uri uri) {
+        Context safeContext = Utils.getSafeStorageContext(context);
+
+        // If it is the default URI, resolve its real URI before copying
+        if (Objects.equals(uri, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))) {
+            Uri actualUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
+            if (actualUri != null) {
+                uri = actualUri;
+            }
+        }
+
+        // File name
+        Uri stableUri = uri.buildUpon().clearQuery().build();
+        String safeTitle = stableUri.toString().replaceAll("[^a-zA-Z0-9.\\-]", "_");
+        String filename = FILE_SYSTEM_RINGTONE + safeTitle;
+        File destFile = new File(safeContext.getFilesDir(), filename);
+
+        // Stop if the copy already exists
+        if (destFile.exists() && destFile.length() > 0) {
+            LogUtils.d("System ringtone already copied: " + destFile.getAbsolutePath());
+            return;
+        }
+
+        try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
+             OutputStream outputStream = new FileOutputStream(destFile)) {
+            if (inputStream != null) {
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                LogUtils.i("Successfully copied system ringtone to: " + destFile.getAbsolutePath());
+            } else {
+                LogUtils.e("Failed to open input stream for system URI: " + uri);
+            }
+        } catch (Exception e) {
+            LogUtils.e("Failed to copy system ringtone to device protected storage", e);
+        }
+
+        // If the copy failed and left a 0-byte shell, check if the file is deleted.
+        if (destFile.exists() && destFile.length() == 0) {
+            boolean deleted = destFile.delete();
+            if (deleted) {
+                LogUtils.w("WARNING: Copied file is 0 bytes! Successfully deleted corrupted file: " + destFile.getName());
+            } else {
+                LogUtils.e("WARNING: Copied file is 0 bytes, but failed to delete corrupted file: " + destFile.getName());
+            }
+        }
+    }
+
+    /**
+     * Copies all system alarm ringtones to Device Protected Storage.
+     * Used for random system ringtone during Direct Boot.
+     */
+    public static void copyAllSystemRingtonesToSafeStorage(@NonNull Context context) {
+        RingtoneManager manager = new RingtoneManager(context);
+        manager.setType(RingtoneManager.TYPE_ALARM);
+
+        try (Cursor cursor = manager.getCursor()) {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    Uri uri = manager.getRingtoneUri(cursor.getPosition());
+                    if (uri != null) {
+                        copySystemRingtoneToSafeStorage(context, uri);
+                    }
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            LogUtils.e("Failed to copy all system ringtones", e);
+        }
+    }
+
+    /**
+     * Migrates all system ringtones currently used by alarms to the device's protected storage.
+     *
+     * <p>This ensures that system ringtones remain accessible and can be played during Direct Boot
+     * (before the user unlocks the device). It processes the default alarm ringtone as well as
+     * any specific ringtones assigned to existing alarms, skipping those that are silent,
+     * random, or already copied.</p>
+     *
+     * @param context The context used to access the application's alarms and storage directories.
+     */
+    public static void migrateSystemRingtonesToLocal(@NonNull Context context) {
+        Set<Uri> urisToProcess = new HashSet<>();
+        boolean needsAllSystemRingtones = false;
+
+        urisToProcess.add(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+
+        List<Alarm> alarms = Alarm.getAlarms(context.getContentResolver(), null);
+        for (Alarm alarm : alarms) {
+            if (alarm.alert != null) {
+                if (isRandomRingtone(alarm.alert)) {
+                    needsAllSystemRingtones = true;
+                } else {
+                    urisToProcess.add(alarm.alert);
+                }
+            }
+        }
+
+        if (needsAllSystemRingtones) {
+            copyAllSystemRingtonesToSafeStorage(context);
+        }
+
+        for (Uri uri : urisToProcess) {
+            if (!RINGTONE_SILENT.equals(uri)
+                && !isRandomRingtone(uri)
+                && !isRandomCustomRingtone(uri)
+                && !isCopiedSystemRingtone(context, uri)) {
+
+                copySystemRingtoneToSafeStorage(context, uri);
+            }
+        }
     }
 
     /**
