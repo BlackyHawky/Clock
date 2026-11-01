@@ -228,7 +228,9 @@ public class FileUtils {
                 if (files != null) {
                     for (File file : files) {
                         String fileName = file.getName();
-                        if (getCustomFilePrefKey(fileName) != null || fileName.startsWith(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+                        if (getCustomFilePrefKey(fileName) != null
+                            || fileName.startsWith(FILE_SPECIFIC_ALARM_BACKGROUND)
+                            || fileName.startsWith(FILE_SYSTEM_RINGTONE)) {
                             clearFile(file.getAbsolutePath());
                         }
                     }

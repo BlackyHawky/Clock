@@ -12,11 +12,9 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -168,21 +166,11 @@ public final class AsyncRingtonePlayer {
                 ringtoneUri = RingtoneUtils.getInCallRingtoneUri(context);
             }
 
-            // Special handling for OnePlus devices that do not appear to be able to read
-            // the default URI "content://settings/system/alarm_alert"
-            // and system URIs in Direct Boot mode.
-            // See https://github.com/BlackyHawky/Clock/issues/395
-            if (Build.MANUFACTURER.equalsIgnoreCase("oneplus")) {
-                if (DeviceUtils.isUserUnlocked(context)) {
-                    Uri defaultAlarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-
-                    if (Objects.equals(defaultAlarmUri, ringtoneUri)) {
-                        ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
-                    }
-                } else {
-                    if (RingtoneUtils.isSystemRingtone(ringtoneUri)) {
-                        ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(context);
-                    }
+            Uri defaultAlarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (Objects.equals(defaultAlarmUri, ringtoneUri)) {
+                Uri actualDefault = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
+                if (actualDefault != null) {
+                    ringtoneUri = actualDefault;
                 }
             }
 

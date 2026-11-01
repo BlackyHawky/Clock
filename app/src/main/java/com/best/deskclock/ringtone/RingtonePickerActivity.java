@@ -369,11 +369,22 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     @Override
     protected void onPause() {
-        if (mSelectedRingtoneUri != null && !mReturnResultOnly) {
-            if (mTitleResourceId == R.string.default_alarm_ringtone_title) {
-                mDataModel.setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
-            } else {
-                mDataModel.setTimerRingtoneUri(mSelectedRingtoneUri);
+        if (mSelectedRingtoneUri != null) {
+            if (RingtoneUtils.isRandomRingtone(mSelectedRingtoneUri)) {
+                RingtoneUtils.copyAllSystemRingtonesToSafeStorage(getApplicationContext());
+            } else if (!RingtoneUtils.RINGTONE_SILENT.equals(mSelectedRingtoneUri) &&
+                !RingtoneUtils.isRandomCustomRingtone(mSelectedRingtoneUri) &&
+                !RingtoneUtils.isCopiedSystemRingtone(getApplicationContext(), mSelectedRingtoneUri)) {
+
+                RingtoneUtils.copySystemRingtoneToSafeStorage(getApplicationContext(), mSelectedRingtoneUri);
+            }
+
+            if (!mReturnResultOnly) {
+                if (mTitleResourceId == R.string.default_alarm_ringtone_title) {
+                    mDataModel.setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
+                } else {
+                    mDataModel.setTimerRingtoneUri(mSelectedRingtoneUri);
+                }
             }
         }
 
