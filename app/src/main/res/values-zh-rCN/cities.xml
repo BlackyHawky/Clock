@@ -212,7 +212,7 @@
     <string name="C214" msgid="5230836436291372485">A<xliff:g id="separator">=</xliff:g>安提瓜<xliff:g id="timezone">|America/Antigua</xliff:g></string>
     <string name="C215" msgid="9104600827236874744">A<xliff:g id="separator">=</xliff:g>奥斯汀<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C216" msgid="1919768646168928906">B<xliff:g id="separator">=</xliff:g>波士顿<xliff:g id="timezone">|America/New_York</xliff:g></string>
-    <string name="C217" msgid="4879725034214879629">K<xliff:g id="separator">=</xliff:g>卡尔加里<xliff:g id="timezone">|Canada/Mountain</xliff:g></string>
+    <string name="C217" msgid="4879725034214879629">K<xliff:g id="separator">=</xliff:g>卡尔加里<xliff:g id="timezone">|Canada/Saskatchewan</xliff:g></string>
     <string name="C218" msgid="5884212032925236157">G<xliff:g id="separator">=</xliff:g>哥伦布<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C219" msgid="2081823206177849440">D<xliff:g id="separator">=</xliff:g>达拉斯<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C220" msgid="6453910991331509621">N<xliff:g id="separator">=</xliff:g>诺克斯维尔<xliff:g id="timezone">|America/New_York</xliff:g></string>

@@ -212,7 +212,7 @@
     <string name="C214">A<xliff:g id="separator">=</xliff:g>Antigua<xliff:g id="timezone">|America/Antigua</xliff:g></string>
     <string name="C215">A<xliff:g id="separator">=</xliff:g>Austin<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C216">B<xliff:g id="separator">=</xliff:g>Boston<xliff:g id="timezone">|America/New_York</xliff:g></string>
-    <string name="C217">C<xliff:g id="separator">=</xliff:g>Calgary<xliff:g id="timezone">|Canada/Mountain</xliff:g></string>
+    <string name="C217">C<xliff:g id="separator">=</xliff:g>Calgary<xliff:g id="timezone">|Canada/Saskatchewan</xliff:g></string>
     <string name="C218">C<xliff:g id="separator">=</xliff:g>Columbus<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C219">D<xliff:g id="separator">=</xliff:g>Dallas<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C220">K<xliff:g id="separator">=</xliff:g>Knoxville<xliff:g id="timezone">|America/New_York</xliff:g></string>
