@@ -791,6 +791,10 @@
     <string name="vibration_pattern_tick_tock">Tick-Tock</string>
     <!-- Setting title to enable live update notifications -->
     <string name="live_update_notifications_title">Enable live update notifications</string>
+    <!-- Setting title to lock the buttons if the proximity sensor is covered in the triggered alarm view or in the expired timer view -->
+    <string name="proximity_sensor_title">Lock buttons when the screen is covered</string>
+    <!-- Setting summary about locking buttons when the screen is covered. -->
+    <string name="proximity_sensor_summary">Prevents accidentally stopping the alarm by using the proximity sensor</string>
 
     <!-- ******************************* -->
     <!-- **     INTERFACE SETTINGS    ** -->

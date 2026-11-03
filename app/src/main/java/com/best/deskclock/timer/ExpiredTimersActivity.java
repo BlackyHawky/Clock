@@ -96,6 +96,7 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
     private MediaSession mMediaSession;
     private SensorManager mSensorManager;
     private Sensor mProximitySensor;
+    private boolean mShouldLockTimerButtons;
     private boolean mPowerBtnReceiverRegistered = false;
 
     /**
@@ -141,6 +142,7 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
 
         mCardStyleConfig = getCardStyleConfig();
 
+        mShouldLockTimerButtons = SettingsDAO.shouldLockTimerButtonsWithProximitySensor(getPrefs());
         mTimerFontPath = SettingsDAO.getTimerDurationFont(getPrefs());
         mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(getPrefs());
         mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(getPrefs());
@@ -229,8 +231,10 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
     protected void onResume() {
         super.onResume();
 
-        if (mSensorManager != null && mProximitySensor != null) {
-            mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (mShouldLockTimerButtons) {
+            if (mSensorManager != null && mProximitySensor != null) {
+                mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+            }
         }
 
         startUpdatingTime();
@@ -302,6 +306,10 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
 
     @Override
     public void onSensorChanged(@NonNull SensorEvent event) {
+        if (!mShouldLockTimerButtons) {
+            return;
+        }
+
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
             float distance = event.values[0];
             boolean isCovered = distance < mProximitySensor.getMaximumRange();

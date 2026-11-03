@@ -157,6 +157,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private boolean mReceiverRegistered = false;
     private boolean mPowerBtnReceiverRegistered = false;
     private boolean mServiceBound;
+    private boolean mShouldLockAlarmButtons;
     private boolean mIsSnoozeSelectorDisplayed;
     private String[] mSnoozeSelectorEntries;
     private int[] mSnoozeSelectorValues;
@@ -257,6 +258,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(getPrefs());
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(getPrefs());
         mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(getPrefs());
+        mShouldLockAlarmButtons = SettingsDAO.shouldLockAlarmButtonsWithProximitySensor(getPrefs());
 
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
 
@@ -346,8 +348,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
-        if (mSensorManager != null && mProximitySensor != null) {
-            mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (mShouldLockAlarmButtons) {
+            if (mSensorManager != null && mProximitySensor != null) {
+                mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+            }
         }
 
         if (!mReceiverRegistered) {
@@ -625,6 +629,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onSensorChanged(@NonNull SensorEvent event) {
+        if (!mShouldLockAlarmButtons) {
+            return;
+        }
+
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
             float distance = event.values[0];
             boolean isCovered = distance < mProximitySensor.getMaximumRange();

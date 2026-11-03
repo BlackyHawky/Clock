@@ -904,6 +904,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the buttons should be locked when the proximity sensor is covered in the expired timer view.
+     * {@code false} otherwise.
+     */
+    public static boolean shouldLockTimerButtonsWithProximitySensor(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return pref.getBoolean(KEY_ENABLE_TIMER_PROXIMITY_SENSOR, DEFAULT_PROXIMITY_SENSOR);
+    }
+
+    /**
      * @return {@code true} if live update notifications are enabled for timers. {@code false} otherwise.
      */
     public static boolean areTimerLiveUpdateNotificationsEnabled(@NonNull SharedPreferences pref) {
@@ -1406,6 +1415,15 @@ public final class SettingsDAO {
     public static boolean areSnoozedOrDismissedAlarmVibrationsEnabled(@NonNull SharedPreferences pref) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return pref.getBoolean(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, DEFAULT_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS);
+    }
+
+    /**
+     * @return {@code true} if the buttons should be locked when the proximity sensor is covered in the triggered alarm view.
+     * {@code false} otherwise.
+     */
+    public static boolean shouldLockAlarmButtonsWithProximitySensor(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_ENABLE_ALARM_PROXIMITY_SENSOR, DEFAULT_PROXIMITY_SENSOR);
     }
 
     /**
