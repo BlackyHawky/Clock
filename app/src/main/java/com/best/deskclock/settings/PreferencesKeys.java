@@ -129,6 +129,7 @@ public class PreferencesKeys {
     public static final String KEY_VIBRATION_START_DELAY = "key_vibration_start_delay";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
     public static final String KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = "key_enable_snoozed_or_dismissed_alarm_vibrations";
+    public static final String KEY_ENABLE_ALARM_PROXIMITY_SENSOR = "key_enable_alarm_proximity_sensor";
     public static final String KEY_DISABLE_DND_FOR_TRIGGERED_ALARM = "key_disable_DND_for_triggered_alarm";
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = "key_turn_on_back_flash_for_triggered_alarm";
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
@@ -209,6 +210,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_ADD_TIME_BUTTON_VALUE = "key_timer_add_time_button_value";
     public static final String KEY_TIMER_REMOVE_TIME_BUTTON_VALUE = "key_timer_remove_time_button_value";
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = "key_turn_on_back_flash_for_expired_timer";
+    public static final String KEY_ENABLE_TIMER_PROXIMITY_SENSOR = "key_enable_timer_proximity_sensor";
     public static final String KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS = "key_timer_live_update_notifications";
 
     // Timer Display Customization

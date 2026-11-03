@@ -98,6 +98,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mSingleTimerModePref;
     ListPreference mSortTimerPref;
     SwitchPreferenceCompat mTurnOnBackFlashForExpiredTimerPref;
+    SwitchPreferenceCompat mTimerProximitySensorPref;
     SwitchPreferenceCompat mLiveUpdateNotificationsPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
 
@@ -195,6 +196,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mSingleTimerModePref = findPreference(KEY_SINGLE_TIMER_MODE);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mTurnOnBackFlashForExpiredTimerPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
+        mTimerProximitySensorPref = findPreference(KEY_ENABLE_TIMER_PROXIMITY_SENSOR);
         mLiveUpdateNotificationsPref = findPreference(KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
@@ -473,8 +475,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 }
             }
 
-            case KEY_TIMER_SHAKE_ACTION, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
-                 KEY_TIMER_HEADPHONES_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION, KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS,
+            case KEY_TIMER_SHAKE_ACTION, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_HEADPHONES_BUTTON_ACTION,
+                 KEY_TIMER_FLIP_ACTION, KEY_ENABLE_TIMER_PROXIMITY_SENSOR, KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS,
                  KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
@@ -567,6 +569,11 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
             case KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER -> DeviceUtils.hasBackFlash(requireContext());
 
+            case KEY_ENABLE_TIMER_PROXIMITY_SENSOR -> {
+                SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
+                yield sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null;
+            }
+
             case KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS -> SdkUtils.isAtLeastAndroid16();
 
             default -> super.isPreferenceVisible(pref, key);
@@ -643,6 +650,8 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
         mSortTimerPref.setSummary(mSortTimerPref.getEntry());
 
         mTurnOnBackFlashForExpiredTimerPref.setOnPreferenceChangeListener(this);
+
+        mTimerProximitySensorPref.setOnPreferenceChangeListener(this);
 
         mLiveUpdateNotificationsPref.setOnPreferenceChangeListener(this);
 

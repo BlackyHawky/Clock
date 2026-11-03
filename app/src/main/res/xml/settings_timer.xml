@@ -275,6 +275,15 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_enable_timer_proximity_sensor"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/proximity_sensor_title"
+            android:summary="@string/proximity_sensor_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_timer_live_update_notifications"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/live_update_notifications_title"
