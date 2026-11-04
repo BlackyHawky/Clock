@@ -242,11 +242,11 @@ public final class AlarmNotifications {
 
         final int id = instance.hashCode();
 
-        final String contentTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        final String contentTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.occasional_alarm_alert_predismiss_title
             : R.string.alarm_alert_predismiss_title);
 
-        final String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        final String dismissActionTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
@@ -307,7 +307,7 @@ public final class AlarmNotifications {
             return;
         }
 
-        String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        String dismissActionTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
@@ -428,7 +428,7 @@ public final class AlarmNotifications {
             return;
         }
 
-        String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
+        String dismissActionTitle = localizedContext.getString(alarm.isDeletedAfterDismissal()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
