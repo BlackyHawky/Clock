@@ -31,6 +31,7 @@ import com.google.android.material.color.MaterialColors;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Displays a list of lap times in reverse order. That is, the newest lap is at the top, the oldest
@@ -42,6 +43,8 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     private static final long HOUR = DateUtils.HOUR_IN_MILLIS;
     private static final long TEN_HOURS = 10 * HOUR;
     private static final long HUNDRED_HOURS = 100 * HOUR;
+
+    private static final String PAYLOAD_UPDATE_SETTINGS = "PAYLOAD_UPDATE_SETTINGS";
 
     /**
      * A single space preceded by a zero-width LRM; This groups adjacent chars left-to-right.
@@ -102,7 +105,20 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     }
 
     @Override
+    public void onBindViewHolder(@NonNull LapItemHolder viewHolder, int position, @NonNull List<Object> payloads) {
+        if (!payloads.isEmpty()) {
+            if (payloads.contains(PAYLOAD_UPDATE_SETTINGS)) {
+                viewHolder.applyFonts();
+            }
+        } else {
+            super.onBindViewHolder(viewHolder, position, payloads);
+        }
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull LapItemHolder viewHolder, int position) {
+        viewHolder.applyFonts();
+
         final long lapTime;
         final int lapNumber;
         final long totalTime;
@@ -161,9 +177,18 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateFonts(@NonNull UiConfig.Fonts fonts) {
+    public void updateConfiguration(@NonNull UiConfig.Fonts fonts) {
+        if (Objects.equals(mFonts, fonts)) {
+            return;
+        }
+
         mFonts = fonts;
-        notifyDataSetChanged();
+
+        if (getItemCount() == 0) {
+            return;
+        }
+
+        notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_SETTINGS);
     }
 
     /**
@@ -468,18 +493,20 @@ public class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder>
     public static final class LapItemHolder extends RecyclerView.ViewHolder {
 
         final LapViewBinding binding;
+        private final LapsAdapter adapter;
 
         LapItemHolder(@NonNull LapViewBinding binding, @NonNull LapsAdapter adapter) {
             super(binding.getRoot());
 
             this.binding = binding;
+            this.adapter = adapter;
+        }
 
+        public void applyFonts() {
             UiConfig.Fonts fonts = adapter.getFonts();
 
             binding.lapNumber.setTypeface(fonts.bold());
-
             binding.lapTime.setTypeface(fonts.general());
-
             binding.lapTotal.setTypeface(fonts.general());
         }
     }

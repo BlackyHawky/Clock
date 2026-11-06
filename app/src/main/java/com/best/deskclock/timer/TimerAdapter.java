@@ -48,6 +48,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
     private static final String PAYLOAD_UPDATE_STATE = "PAYLOAD_UPDATE_STATE";
+    private static final String PAYLOAD_UPDATE_SETTINGS = "PAYLOAD_UPDATE_SETTINGS";
 
     private UiConfig.Fonts mFonts;
     private final UiConfig.Screen mScreen;
@@ -60,6 +61,8 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Consumer<String> mTimerOrderSaver;
     private final TimerClickHandler mTimerClickHandler;
     private RecyclerView mRecyclerView;
+    private boolean mWasCompactMode;
+    private boolean mWasSingleMode;
 
     private final Drawable.ConstantState mBgStandard;
     private final Drawable.ConstantState mBgStart;  // Top (Portrait) or Left (Landscape)
@@ -79,6 +82,8 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mLocale = locale;
         mSettings = settings;
         mTimerOrderSaver = timerOrderSaver;
+        mWasCompactMode = settings.isCompactTimersDisplayed;
+        mWasSingleMode = settings.isSingleTimerMode;
 
         mBgStandard = ThemeUtils.rippleDrawable(context, ThemeUtils.cardBackground(context, screen.metrics(),
             cardStyle.isBackgroundDisplayed(), cardStyle.isBorderDisplayed(), cardStyle.isAmoledDarkMode())).getConstantState();
@@ -213,13 +218,19 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (!payloads.isEmpty()) {
             TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
 
-            if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {
-                holder.updateBackground();
-            }
-
-            if (payloads.contains(PAYLOAD_UPDATE_STATE)) {
+            if (payloads.contains(PAYLOAD_UPDATE_SETTINGS)) {
+                holder.applySettings();
                 Timer timer = getTimer(position);
-                holder.onBind(timer.getId(), true);
+                holder.onBind(timer.getId(), false);
+            } else {
+                if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {
+                    holder.updateBackground();
+                }
+
+                if (payloads.contains(PAYLOAD_UPDATE_STATE)) {
+                    Timer timer = getTimer(position);
+                    holder.onBind(timer.getId(), true);
+                }
             }
         } else {
             super.onBindViewHolder(itemViewHolder, position, payloads);
@@ -342,19 +353,26 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateSettings(@NonNull TimerSettings settings) {
-        mSettings = settings;
+    public void updateConfiguration(@NonNull TimerSettings settings, @NonNull UiConfig.Fonts fonts) {
+        boolean viewTypeChanged = (mWasCompactMode != settings.isCompactTimersDisplayed)
+            || (mWasSingleMode != settings.isSingleTimerMode);
 
+        mWasCompactMode = settings.isCompactTimersDisplayed;
+        mWasSingleMode = settings.isSingleTimerMode;
+
+        mSettings = settings;
+        mFonts = fonts;
         refreshTimersCache();
 
-        notifyDataSetChanged();
-    }
+        if (getItemCount() == 0) {
+            return;
+        }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateFonts(@NonNull UiConfig.Fonts fonts) {
-        mFonts = fonts;
-
-        notifyDataSetChanged();
+        if (viewTypeChanged) {
+            notifyDataSetChanged();
+        } else {
+            notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_SETTINGS);
+        }
     }
 
     /**

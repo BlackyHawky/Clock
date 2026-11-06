@@ -65,7 +65,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding = binding;
         mAdapter = alarmAdapter;
 
-        UiConfig.Fonts currentFonts = mAdapter.getFonts();
         UiConfig.Screen screen = mAdapter.getScreen();
         UiConfig.Haptics haptics = mAdapter.getHaptics();
 
@@ -97,12 +96,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.globeIcon.setOnClickListener(v ->
             mItemHolder.getAlarmTimeClickHandler().onGlobeClicked(mItemHolder.item, mBinding.globeIcon, screen.metrics()));
 
-        // Upcoming date font
-        mBinding.upcomingDate.setTypeface(currentFonts.general());
-
         // Preemptive dismiss button handler
         mBinding.preemptiveDismissButton.setBackground(ThemeUtils.pillRippleDrawable(mContext, screen.metrics(), Color.TRANSPARENT));
-        mBinding.preemptiveDismissButton.setTypeface(currentFonts.bold());
         mBinding.preemptiveDismissButton.setOnClickListener(v -> {
             final AlarmInstance alarmInstance = mItemHolder.getAlarmInstance();
             if (alarmInstance != null) {
@@ -110,6 +105,13 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
                 mItemHolder.getAlarmTimeClickHandler().dismissAlarmInstance(mItemHolder, alarmInstance);
             }
         });
+    }
+
+    public void applySettings() {
+        UiConfig.Fonts currentFonts = mAdapter.getFonts();
+
+        mBinding.upcomingDate.setTypeface(currentFonts.general());
+        mBinding.preemptiveDismissButton.setTypeface(currentFonts.bold());
     }
 
     public AlarmItemHolder getItemHolder() {

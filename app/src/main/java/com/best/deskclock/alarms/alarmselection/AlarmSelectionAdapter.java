@@ -78,8 +78,6 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
         Alarm alarm = selection.getAlarm();
 
         holder.bind(alarm);
-
-        holder.itemView.setOnClickListener(v -> mListener.onAlarmClick(alarm));
     }
 
     @Override
@@ -102,6 +100,15 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
             UiConfig.Fonts fonts = mAdapter.getFonts();
             mBinding.alarmLabel.setTypeface(fonts.general());
             mBinding.daysOfWeek.setTypeface(fonts.general());
+
+            itemView.setOnClickListener(v -> {
+                int position = getBindingAdapterPosition();
+
+                if (position != RecyclerView.NO_POSITION) {
+                    Alarm alarm = mAdapter.mAlarms.get(position).getAlarm();
+                    mAdapter.mListener.onAlarmClick(alarm);
+                }
+            });
         }
 
         public void bind(@NonNull Alarm alarm) {
