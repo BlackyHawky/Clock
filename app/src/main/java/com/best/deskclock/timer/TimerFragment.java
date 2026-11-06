@@ -782,8 +782,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         refreshSettings();
 
         if (mAdapter != null) {
-            mAdapter.updateSettings(mSettings);
-            mAdapter.updateFonts(getFontsConfig());
+            mAdapter.updateConfiguration(mSettings, getFontsConfig());
         }
 
         if (mBinding != null) {

@@ -499,7 +499,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         updateTime();
 
         if (mLapsAdapter != null) {
-            mLapsAdapter.updateFonts(getFontsConfig());
+            mLapsAdapter.updateConfiguration(getFontsConfig());
         }
 
         mAreSettingsChanged = false;

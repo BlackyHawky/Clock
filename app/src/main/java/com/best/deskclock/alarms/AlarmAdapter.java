@@ -26,11 +26,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
+    private static final String PAYLOAD_UPDATE_SETTINGS = "PAYLOAD_UPDATE_SETTINGS";
 
     private UiConfig.Fonts mFonts;
     private final UiConfig.DateFormat mDateFormat;
@@ -128,8 +130,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AlarmItemViewHolder holder, int position, @NonNull List<Object> payloads) {
-        if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {
-            holder.updateBackground();
+        if (!payloads.isEmpty()) {
+            if (payloads.contains(PAYLOAD_UPDATE_SETTINGS)) {
+                holder.applySettings();
+
+                AlarmItemHolder itemHolder = mItems.get(position);
+                holder.bind(itemHolder);
+            } else if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {
+                holder.updateBackground();
+            }
         } else {
             super.onBindViewHolder(holder, position, payloads);
         }
@@ -137,6 +146,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AlarmItemViewHolder holder, int position) {
+        holder.applySettings();
+
         AlarmItemHolder itemHolder = mItems.get(position);
         holder.bind(itemHolder);
     }
@@ -151,26 +162,21 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         return mItems.get(position).itemId;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateFonts(@NonNull UiConfig.Fonts fonts) {
+    public void updateConfiguration(@NonNull UiConfig.Fonts fonts, boolean is24HourMode, @NonNull Weekdays.Order weekdayOrder) {
+        boolean hasChanged = (mIs24HourMode != is24HourMode)
+            || (mWeekdayOrder != weekdayOrder)
+            || !Objects.equals(mFonts, fonts);
+
         mFonts = fonts;
-        generateTimeFormats();
-        notifyDataSetChanged();
-    }
+        mIs24HourMode = is24HourMode;
+        mWeekdayOrder = weekdayOrder;
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateTimeFormat(boolean is24HourMode) {
-        if (mIs24HourMode != is24HourMode) {
-            mIs24HourMode = is24HourMode;
-            notifyDataSetChanged();
-        }
-    }
+        if (hasChanged) {
+            generateTimeFormats();
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateWeekdayOrder(@NonNull Weekdays.Order weekdayOrder) {
-        if (mWeekdayOrder != weekdayOrder) {
-            mWeekdayOrder = weekdayOrder;
-            notifyDataSetChanged();
+            if (getItemCount() > 0) {
+                notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_SETTINGS);
+            }
         }
     }
 

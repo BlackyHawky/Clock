@@ -1968,9 +1968,7 @@ public final class AlarmFragment extends DeskClockFragment
         refreshSettings();
 
         if (mItemAdapter != null) {
-            mItemAdapter.updateFonts(getFontsConfig());
-            mItemAdapter.updateWeekdayOrder(mWeekdayOrder);
-            mItemAdapter.updateTimeFormat(mIs24HourFormat);
+            mItemAdapter.updateConfiguration(getFontsConfig(), mIs24HourFormat, mWeekdayOrder);
         }
 
         updateWarningBannerVisibility();

@@ -7,7 +7,6 @@
 package com.best.deskclock.clock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
 
 import android.annotation.SuppressLint;
@@ -43,7 +42,8 @@ import java.util.List;
  */
 public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements CityListener, ItemTouchHelperContract {
 
-    public final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
+    private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
+    private static final String PAYLOAD_UPDATE_SETTINGS = "PAYLOAD_UPDATE_SETTINGS";
 
     private final DataModel mDataModel;
     private final CityNoteProvider mNoteProvider;
@@ -52,6 +52,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private ClockSettings mSettings;
     private final List<City> mCities;
     private final boolean mHasBlackAccentColor;
+    private boolean mWasShowingHomeClock;
 
     private Drawable.ConstantState mBgSingle;
     private Drawable.ConstantState mBgTop;
@@ -70,8 +71,9 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         mScreen = screen;
         mHasBlackAccentColor = hasBlackAccentColor;
         mSettings = clockSettings;
+        mWasShowingHomeClock = clockSettings.showHomeClock;
 
-        updateBackgrounds(context, screen, cardStyle);
+        calculateBackgrounds(context, screen, cardStyle);
     }
 
     public UiConfig.Fonts getFonts() { return mFonts; }
@@ -94,8 +96,16 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
-        if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND) && holder instanceof CityViewHolder) {
-            ((CityViewHolder) holder).updateBackground();
+        if (!payloads.isEmpty() && holder instanceof CityViewHolder cityViewHolder) {
+
+            if (payloads.contains(PAYLOAD_UPDATE_SETTINGS)) {
+                cityViewHolder.applySettings();
+                cityViewHolder.updateBackground();
+
+                cityViewHolder.bind(getCity(position));
+            } else if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {
+                cityViewHolder.updateBackground();
+            }
         } else {
             super.onBindViewHolder(holder, position, payloads);
         }
@@ -103,17 +113,11 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((CityViewHolder) holder).applySettings();
+        CityViewHolder cityHolder = (CityViewHolder) holder;
 
-        final City city;
+        cityHolder.applySettings();
 
-        if (mSettings.showHomeClock && position == 0) {
-            city = getHomeCity();
-        } else {
-            final int positionAdjuster = mSettings.showHomeClock ? 1 : 0;
-            city = getCities().get(position - positionAdjuster);
-        }
-        ((CityViewHolder) holder).bind(city);
+        cityHolder.bind(getCity(position));
     }
 
     @Override
@@ -173,6 +177,16 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         mDataModel.updateSelectedCitiesOrder(mCities);
     }
 
+    @NonNull
+    public City getCity(int position) {
+        if (mSettings.showHomeClock && position == 0) {
+            return getHomeCity();
+        } else {
+            final int positionAdjuster = mSettings.showHomeClock ? 1 : 0;
+            return getCities().get(position - positionAdjuster);
+        }
+    }
+
     private City getHomeCity() {
         return mDataModel.getHomeCity();
     }
@@ -201,18 +215,29 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateSettings(@NonNull ClockSettings settings) {
+    public void updateConfiguration(@NonNull Context context, @NonNull ClockSettings settings, @NonNull UiConfig.Fonts fonts,
+                                    @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle) {
+
+        boolean layoutChanged = mWasShowingHomeClock != settings.showHomeClock;
+
+        mWasShowingHomeClock = settings.showHomeClock;
+
         mSettings = settings;
-        notifyDataSetChanged();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateFonts(@NonNull UiConfig.Fonts fonts) {
         mFonts = fonts;
-        notifyDataSetChanged();
+        calculateBackgrounds(context, screen, cardStyle);
+
+        if (getItemCount() == 0) {
+            return;
+        }
+
+        if (layoutChanged) {
+            notifyDataSetChanged();
+        } else {
+            notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_SETTINGS);
+        }
     }
 
-    public void updateBackgrounds(@NonNull Context context, @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle) {
+    private void calculateBackgrounds(@NonNull Context context, @NonNull UiConfig.Screen screen, @NonNull UiConfig.CardStyle cardStyle) {
         boolean enableRipple = mSettings.isCityNoteEnabled || SORT_CITIES_MANUALLY.equals(mSettings.citySorting);
 
         mBgSingle = createCardState(context, screen, cardStyle, 0, 1, enableRipple);
@@ -222,10 +247,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         mBgMiddle = createCardState(context, screen, cardStyle, 1, 3, enableRipple);
         // position=2, totalCount=3 -> Bottom
         mBgBottom = createCardState(context, screen, cardStyle, 2, 3, enableRipple);
-
-        if (getItemCount() > 0) {
-            notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_BACKGROUND);
-        }
     }
 
     private Drawable.ConstantState createCardState(@NonNull Context context, @NonNull UiConfig.Screen screen,
