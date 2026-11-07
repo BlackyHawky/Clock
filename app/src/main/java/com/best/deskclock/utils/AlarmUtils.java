@@ -82,6 +82,11 @@ public class AlarmUtils {
     public static final String EXTRA_PREVIEW_BLUR_INTENSITY = "extra_preview_blur_intensity";
 
     /**
+     * Key to pass the temporary math hardness level to the preview screen.
+     */
+    public static final String EXTRA_PREVIEW_MATH_HARDNESS_LEVEL = "extra_preview_math_hardness_level";
+
+    /**
      * Intent action sent when the alarm has been either created or updated in the Clock app.
      * <p>
      * This action will display the next alarm of this app only in the clock tab and screensaver.

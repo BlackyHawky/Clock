@@ -12,6 +12,7 @@ import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -55,8 +56,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmActivity;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseActivity;
+import com.best.deskclock.controller.AlarmMathMissionController;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.AlarmActivityBinding;
@@ -74,6 +77,7 @@ import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
+import java.util.Random;
 
 public class AlarmDisplayPreviewActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -119,6 +123,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     private int mShadowColor;
     private int mShadowOffset;
     private float mShadowRadius;
+    private final Random mMissionRandom = new Random();
+    private AlarmMathMissionController mMathMissionController;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -153,6 +159,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         mShadowRadius = mShadowOffset * 0.5f;
 
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+
+        mMathMissionController = new AlarmMathMissionController(this, action -> {
+            if (action == AlarmActivity.MISSION_ACTION_SNOOZE) {
+                performSnooze();
+            } else {
+                performDismiss();
+            }
+        }, getGeneralBoldTypeface());
 
         initDefaultSnoozeValue();
 
@@ -877,9 +891,45 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     }
 
     /**
-     * Perform snooze animation.
+     * Snooze as a real alarm starting with the math challenge, if applicable.
      */
     private void snooze() {
+        requestAlarmAction(AlarmActivity.MISSION_ACTION_SNOOZE);
+    }
+
+    /**
+     * Dismiss as a real alarm starting with the math challenge, if applicable.
+     */
+    private void dismiss() {
+        requestAlarmAction(AlarmActivity.MISSION_ACTION_DISMISS);
+    }
+
+    private void requestAlarmAction(int action) {
+        String mathHardnessLevel = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_MATH_HARDNESS_LEVEL);
+
+        if (mathHardnessLevel == null || SettingsDAO.isPerAlarmMathHardnessLevelDisabled(getPrefs())) {
+            mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
+        }
+
+        if (mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL)) {
+            if (action == AlarmActivity.MISSION_ACTION_SNOOZE) {
+                performSnooze();
+            } else {
+                performDismiss();
+            }
+
+            return;
+        }
+
+        resetAnimations();
+
+        mMathMissionController.requestMissionAction(action, mathHardnessLevel, mMissionRandom);
+    }
+
+    /**
+     * Perform snooze animation.
+     */
+    private void performSnooze() {
         if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
             // Double vibration
             Utils.executeVibrations(mVibrator, new long[]{700, 200, 100, 500}, -1);
@@ -892,7 +942,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     /**
      * Perform dismiss animation.
      */
-    private void dismiss() {
+    private void performDismiss() {
         if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
             // Single vibration
             Utils.executeVibrations(mVibrator, new long[]{700, 500}, -1);
