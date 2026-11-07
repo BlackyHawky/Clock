@@ -173,7 +173,7 @@
     <string name="C173" msgid="6620286361619640304">H<xliff:g id="SEPARATOR">=</xliff:g>Helsinki<xliff:g id="TIMEZONE">|Europe/Helsinki</xliff:g></string>
     <string name="C174" msgid="2279016324825973473">I<xliff:g id="SEPARATOR">=</xliff:g>Isle of Man<xliff:g id="TIMEZONE">|Europe/Isle_of_Man</xliff:g></string>
     <string name="C175" msgid="3290185117135612679">I<xliff:g id="SEPARATOR">=</xliff:g>Istanbul<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g></string>
-    <string name="C176" msgid="8375703098860926099">K<xliff:g id="SEPARATOR">=</xliff:g>Kiew<xliff:g id="TIMEZONE">|Europe/Kiev</xliff:g></string>
+    <string name="C176" msgid="8375703098860926099">K<xliff:g id="SEPARATOR">=</xliff:g>Kyjiw<xliff:g id="TIMEZONE">|Europe/Kiev</xliff:g></string>
     <string name="C177" msgid="6500868250597874838">L<xliff:g id="SEPARATOR">=</xliff:g>Lissabon<xliff:g id="TIMEZONE">|Europe/Lisbon</xliff:g></string>
     <string name="C178" msgid="8805696770032311110">L<xliff:g id="SEPARATOR">=</xliff:g>London<xliff:g id="TIMEZONE">|Europe/London</xliff:g></string>
     <string name="C179" msgid="3767343883668628062">L<xliff:g id="SEPARATOR">=</xliff:g>Luxemburg<xliff:g id="TIMEZONE">|Europe/Luxembourg</xliff:g></string>
@@ -356,5 +356,5 @@
     <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord-Howe-Insel<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
     <string name="C361">C<xliff:g id="separator">=</xliff:g>Chatham Islands<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
     <string name="C362">A<xliff:g id="separator">=</xliff:g>Adak<xliff:g id="timezone">|America/Adak</xliff:g></string>
-    <string name="C363">G<xliff:g id="separator">=</xliff:g>Gambier Islands<xliff:g id="timezone">|Pacific/Gambier</xliff:g></string>
+    <string name="C363">G<xliff:g id="separator">=</xliff:g>Gambierinseln<xliff:g id="timezone">|Pacific/Gambier</xliff:g></string>
 </resources>

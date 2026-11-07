@@ -4,12 +4,18 @@ Võrguühenduse luba pole vaja ja rakendus toimib 100% vallasrežiimis.
 Funktsionaalsused:
 <ul>
   <li>Äratuse seadistame kindlaks kuupäevaks;</li>
-  <li>Pööramise ja raputamisega saad äratuse katkestada või edasi lükata;</li>
-  <li>Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata;</li>
+  <li>Äratuse seadistame kindlaks ajaks arvestades ajavööndit;</li>
+  <li>äratuse katkestada või edasi lükata:</li>
+  <ul>
+  <li>Pööramise ja raputamisega;</li>
+  <li>Toitenupu ja helivaljuse nuppudega;</li>
+  <li>Lahendades matemaatikaülesannet;</li>
+  </ul>
   <li>Mõnedes Snapdragoni-põhistes telefonides äratus käivitub ka siis, kui telefon on väljalülitatud;</li>
     <ul>
       <li>Kahjuks see funktsionaalsus ei pruugi mõnedes nutiseadmetes toimida ka siis, kui olemas on süsteemirakendus <i>"com.qualcomm.qti.poweroffalarm"</i> .</li>
     </ul>
+  <li>Lisavõimalused äratuste järjestamiseks;</li>
   <li>Viipamisega saad äratuse kustutada;</li>
   <li>Äratusest saad teha koopiaid;</li>
   <li>Äratuse nime saad kohendada;</li>
@@ -22,6 +28,7 @@ Funktsionaalsused:
   <li>Reisimisel muudes ajavööndites kuvatakse kellaaega kodus;</li>
   <li>Näita kellaaegu linnades üle maailma;</li>
   <li>Olemas on ka taimer ja stopper;</li>
+  <li>Taimeri ja stopperi puhul saad kasutada reaalajas teavitusi;</li>
   <li>Stopperi aja jagamise võimalus oma kontaktidega;</li>
   <li>Kohandatav ekraanisäästja;</li>
   <li>Moodsad vidinad;</li>

@@ -719,4 +719,43 @@
     <string name="central_fab_size_title">Velikost prostředního plovoucího akčního tlačítka</string>
     <string name="side_fab_size_title">Velikost postranních plovoucích akčních tlačítek</string>
     <string name="enable_city_flag_title">Zobrazit vlajky zemí</string>
+    <string name="label_category">Kategorie</string>
+    <string name="do_not_show_again">Znovu nezobrazovat</string>
+    <string name="label_days">Dny</string>
+    <string name="create_category">Vytvořit kategorii</string>
+    <string name="rename_category">Přejmenovat kategorii</string>
+    <string name="label_all_categories">Vše</string>
+    <string name="category_error">Kategorie již byla vytvořena</string>
+    <string name="add_category_description">Přidat kategorii</string>
+    <string name="timezone_title">Časové pásmo</string>
+    <string name="alarm_alert_snooze_duration_message">Odkládání na <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
+    <string name="label_lock">Zamknout</string>
+    <string name="label_unlock">Odemknout</string>
+    <string name="snooze_warning_message">Když odložíte budík na několik dní, budou všechna naplánovaná spuštění během této doby přeskočena.\n\nNapříklad: pokud odložíte denní budík na 3 dny, nezazvoní zítra ani pozítří. Zazvoní pouze na konci těchto 3 dnů.</string>
+    <plurals name="days_short">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> d.</item>
+        <item quantity="few"><xliff:g example="3" id="number">%s</xliff:g> d.</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> d.</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> d.</item>
+    </plurals>
+    <string name="alarm_days_warning_box_text">Zadejte hodnotu od 0 do 31 dní</string>
+    <string name="alarm_hours_snooze_warning_box_text">Zadejte hodnotu od 0 do 23 hodin</string>
+    <string name="timer_accessibility_custom_time_removed">%1$s minuta odstraněna z časovače, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
+    <string name="remove_time_button_title">Tlačítko „odstranit čas“</string>
+    <string name="timer_button_remove_time_box_title">Minuty k odečtení z časovače</string>
+    <string name="timer_remove_custom_time_description">Odstranit %s minutu</string>
+    <string name="timer_remove_custom_time_with_seconds_description">Odstranit %1$s minutu %2$s sekund</string>
+    <string name="timer_button_time_note">Poznámka: nastavte hodnotu na 0 pro skrytí tohoto tlačítka.</string>
+    <string name="sorting_title">Řazení</string>
+    <string name="enable_alarm_sorting_by_category_title">Seřadit budíky podle kategorie</string>
+    <string name="default_alarm_category_title">Kategorie k výběru při otevření aplikace</string>
+    <string name="display_enabled_alarm_badge_title">Zobrazit odznak u povolených budíků</string>
+    <string name="delete_alarms_with_category_title">Odstranit budíky při odstranění kategorie</string>
+    <string name="delete_alarms_with_category_summary">Pokud je zakázáno, budou budíky přesunuty do výchozí kategorie</string>
+    <string name="switch_to_new_category_title">Po vytvoření přepnout na novou kategorii</string>
+    <string name="live_update_notifications_title">Zapnout živá oznámení</string>
+    <string name="display_locked_alarms_first_title">Jako první zobrazit uzamčené budíky</string>
+    <string name="default_time_to_remove_to_timer_title">Výchozí čas k odečení od časovačů</string>
+    <string name="display_compact_timers_summary">Šetří místo na obrazovce, ale zobrazuje maximálně 3 tlačítka.\n\nPokud je tlačítko „Spustit/Pozastavit“ skryté pro zobrazení vlastních časových tlačítek, klepněte pro pozastavení na odpočet</string>
+    <string name="display_timer_delete_button_title">Zobrazit tlačítko „Odstranit“ na kartě časovače</string>
 </resources>

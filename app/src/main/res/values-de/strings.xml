@@ -224,7 +224,7 @@
     <string name="timer_channel">Timer</string>
     <string name="selected">Ausgewählt</string>
     <string name="alarm_label_box_title">Weckername</string>
-    <string name="alarm_settings_summary">Einstellen von Stil, Schriftart, Standard-Weckton, Lautstärke, Aktionen zum Verwerfen oder Schlummern von Weckern, ersten Wochentag und Benachrichtigung über anstehende Wecker</string>
+    <string name="alarm_settings_summary">Anpassungen von Stil, Schriftart, Standard-Weckton, Lautstärke, Aktionen zum Verwerfen oder Schlummern von Weckern, ersten Wochentag und Benachrichtigung über anstehende Wecker</string>
     <string name="first_launch_button_later">Später</string>
     <string name="first_launch_button_now">Jetzt</string>
     <string name="first_launch_important_info_title">WICHTIGE INFORMATION</string>
@@ -240,7 +240,7 @@
     <string name="font_category_title">Schriftart</string>
     <string name="ringtone_category_title">Weckton</string>
     <string name="interface_customization_settings">Aussehen</string>
-    <string name="interface_customization_summary">Anpassen von Stil, Schriftart, Sprache und Farbe der App</string>
+    <string name="interface_customization_summary">Anpassungen von Stil, Schriftart, Sprache und Farbe der App</string>
     <string name="title_accent_color">Akzentfarbe</string>
     <string name="display_card_background_title">Kartenhintergründe anzeigen</string>
     <string name="display_background_border_title">Hintergrundrahmen anzeigen</string>
@@ -255,7 +255,7 @@
     <string name="license">Open-Source-Lizenz</string>
     <string name="dialog_close">Schließen</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Zum Verwerfen nach links oder rechts wischen</string>
-    <string name="timer_settings_summary">Stil, Schriftart, Standardton, Timer-Stop und -Sortierung festlegen</string>
+    <string name="timer_settings_summary">Anpassungen von Stil, Schriftart, Standardton, Timer-Stop und -Sortierung</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
     <string name="screensaver_daydream_settings_summary">Öffnet die Android-Einstellungen für den Bildschirmschoner</string>
@@ -291,7 +291,7 @@
     <string name="date_color_title">Datumfarbe</string>
     <string name="screensaver_italic_next_alarm_title">Nächster Wecker <i>kursiv</i></string>
     <string name="FSN_permission_title">VOLLBILD-​BENACHRICHTIGUNGEN AKTIVIEREN</string>
-    <string name="screensaver_settings_summary">Einstellen von Stil, Schriftart und Farbe des Bildschirmschoners</string>
+    <string name="screensaver_settings_summary">Anpassungen von Stil, Schriftart und Farbe des Bildschirmschoners</string>
     <string name="city_clock_default_color_title">Standardfarbe für Uhr einer Stadt verwenden</string>
     <string name="city_name_default_color_title">Standardfarbe für Stadtnamen verwenden</string>
     <string name="city_name_color_title">Stadtnamenfarbe</string>
@@ -309,7 +309,7 @@
     <string name="title_theme">Thema</string>
     <string name="settings_vibration_title">Vibrationen aktivieren</string>
     <string name="settings_vibration_summary">Nur einige Buttons der Benutzeroberfläche sind betroffen (z. B. der Button für Start/Pause des Timers oder die Umschalt-Buttons)</string>
-    <string name="clock_settings_summary">Einstellen von Stil, Schriftart, Zeitzone sowie Datum und Uhrzeit des Geräts</string>
+    <string name="clock_settings_summary">Anpassungen von Stil, Schriftart, Zeitzone sowie Datum und Uhrzeit des Geräts</string>
     <string name="about_title">Über</string>
     <string name="permission_requirement_title">Erfordernis: </string>
     <string name="next_alarm_color_title">Farbe des nächsten Weckers</string>
@@ -323,7 +323,7 @@
     <string name="FSN_dialog_title">Vollbild-​Benachrichtigungen</string>
     <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Unterstützung für Kacheln in den Schnelleinstellungen (für Android 7+); &lt;br&gt; &lt;br&gt; ► Sichern und Wiederherstellen von Einstellungen (außer benutzerdefinierte Wecktöne); &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Stellen der Wecker auf ein bestimmtes Datum; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Wecker zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Weckers; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Verwerfen/Aufschieben eines Weckers; &lt;br&gt; &lt;br&gt; ► Verwerfen/Aufschieben des Weckers mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_important_info_message">Um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert, &lt;b&gt;müssen einige Ihrer Geräteeinstellungen geändert werden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKU-OPTIMIERUNG;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Abhängig von der Android-Version Ihres Geräts sind einige dieser Einstellungen bereits optimiert (z. B. Benachrichtigungen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sie können sie jetzt oder später in den Einstellungen zur Berechtigungsverwaltung ändern:</string>
-    <string name="material_time_picker_style_title">Zeitauswahl-Stil</string>
+    <string name="material_time_picker_style_title">Stil für Zeitauswahl</string>
     <string name="snooze_button_color">Farbe des „Schlummern“-Buttons</string>
     <string name="dismiss_button_color">Farbe des „Verwerfen“-Buttons</string>
     <string name="alarm_button_color">Farbe des Schiebereglers</string>
@@ -458,7 +458,7 @@
     <string name="description_dismiss_button">Zum Verwerfen des Weckers tippen</string>
     <string name="description_snooze_button">Zum Schlummern des Weckers tippen</string>
     <string name="description_dismiss_button_for_occasional_alarm">Zum Verwerfen und Löschen des Weckers tippen</string>
-    <string name="date_picker_style_title">Datumsauswahl-Stil</string>
+    <string name="date_picker_style_title">Stil für Datumsauswahl</string>
     <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_text">Tastatur</string>
     <string name="schedule_alarm_title">Datum</string>
@@ -664,7 +664,7 @@
     <string name="background_image_category_title">Hintergrundbild</string>
     <string name="advanced_audio_playback_category_title">Erweiterte Audio-Wiedergabe</string>
     <string name="background_image_dialog_message">Hintergrundbild ändern oder löschen.</string>
-    <string name="headphones_button_title">Abspielen/Pause-Taste für Kopfhörer</string>
+    <string name="headphones_button_title">Start/Pause-Taste für Kopfhörer</string>
     <string name="display_alarm_title_on_single_line_title">Weckernamen in einer Zeile anzeigen</string>
     <string name="enable_per_alarm_background_image_title">Eigenes Hintergrundbild für jeden Wecker verwenden</string>
     <string name="enable_per_alarm_background_image_dialog_message">Eigene Hintergrundbilder werden gelöscht.%1$s%2$s</string>
@@ -673,7 +673,7 @@
     <string name="enable_per_timer_crescendo_duration_title">Eigene Dauer für Lautstärkenanstieg für jeden Timer verwenden</string>
     <string name="timer_vibrate_dialog_message">Vibrationen werden für alle Timer deaktiviert.%s</string>
     <string name="enable_per_timer_vibration_pattern_title">Eigenes Vibrationsmuster für jeden Timer verwenden</string>
-    <string name="timer_headphones_button_action_title">Abgelaufene Timer mit der Abspielen/Pause-Taste des Kopfhörers zurücksetzen</string>
+    <string name="timer_headphones_button_action_title">Abgelaufene Timer mit der Start/Pause-Taste des Kopfhörers zurücksetzen</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Beim Ablauf des Timers den Blitz einschalten</string>
     <string name="custom_font_dialog_message">Eigene Schriftart ändern oder löschen.</string>
     <string name="blur_intensity_dialog_message_1">\n\nEigene Unschärfeeinstellungen werden auch zurückgesetzt.</string>
@@ -703,4 +703,41 @@
     <string name="side_fab_size_title">Größe der seitlichen, schwebenden Action-Buttons</string>
     <string name="button_action_mute">stumm schalten</string>
     <string name="enable_city_flag_title">Länderfahnen anzeigen</string>
+    <string name="label_category">Kategorie</string>
+    <string name="do_not_show_again">Nicht nochmals anzeigen</string>
+    <string name="label_days">Tage</string>
+    <string name="create_category">Kategorie erstellen</string>
+    <string name="rename_category">Kategorie umbenennen</string>
+    <string name="label_all_categories">Alle</string>
+    <string name="category_error">Kategorie wurde schon erstellt</string>
+    <string name="add_category_description">Kategorie hinzufügen</string>
+    <string name="timezone_title">Zeitzone</string>
+    <string name="label_lock">Sperren</string>
+    <string name="label_unlock">Entsperren</string>
+    <plurals name="days_short">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> T</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> T</item>
+    </plurals>
+    <string name="alarm_days_warning_box_text">Gib einen Wert von 0 bis 31 Tage ein</string>
+    <string name="alarm_hours_snooze_warning_box_text">Gib einen Wert von 0 bis 23 Stunden ein</string>
+    <string name="timer_accessibility_custom_time_removed">%1$s Minute vom Timer entfernt, <xliff:g example="5 Stunden verbleiben" id="TIME">%2$s</xliff:g></string>
+    <string name="remove_time_button_title">\"Zeit entfernen\" Taste</string>
+    <string name="timer_button_remove_time_box_title">Minuten, die vom Timer abgezogen werden</string>
+    <string name="timer_remove_custom_time_description">%s Minute entfernen</string>
+    <string name="timer_remove_custom_time_with_seconds_description">Entferne %1$s Minuten %2$s Sekunden</string>
+    <string name="timer_button_time_note">Hinweis: Der Wert 0 blendet diese Taste aus.</string>
+    <string name="sorting_title">Sortieren</string>
+    <string name="enable_alarm_sorting_by_category_title">Wecker nach Kategorie sortieren</string>
+    <string name="default_alarm_category_title">Kategorie, die beim Start der App gewählt wird</string>
+    <string name="display_enabled_alarm_badge_title">Emblem anzeigen, wenn Wecker aktiviert sind</string>
+    <string name="delete_alarms_with_category_title">Wecker entfernen, wenn eine Kategorie entfernt wird</string>
+    <string name="delete_alarms_with_category_summary">Wenn deaktiviert werden Wecker in die Standardkategorie verschoben</string>
+    <string name="switch_to_new_category_title">Zur neuen Kategorie wechseln, wenn eine erstellt wird</string>
+    <string name="live_update_notifications_title">Live-Updatebenachrichtigungen aktivieren</string>
+    <string name="display_locked_alarms_first_title">Gesperrte Wecker zuerst anzeigen</string>
+    <string name="default_time_to_remove_to_timer_title">Vorgabezeit, die von Timern abgezogen wird</string>
+    <string name="display_compact_timers_summary">Spart Platz am Bildschirm, aber zeigt maximal 3 Tasten an.\n\nWenn die \"Start/Pause\" Taste wegen der Anzeige von eigenen Tasten verborgen ist tippen sie auf den Countdown zum Pausieren</string>
+    <string name="display_timer_delete_button_title">\"Entfernen\"-Taste auf der Timer-Karte anzeigen</string>
+    <string name="alarm_alert_snooze_duration_message">Schlummern für <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
+    <string name="snooze_warning_message">Wenn ein Wecker für mehrere Tage schlummert werden alle geplanten Wiederholungen in dieser Zeit übersprungen.\n\nBeispiel: Wenn ein täglicher Wecker für 3 Tage schlummert wird er morgen und übermorgen nicht läuten. Er wird erst am Ende dieser 3 Tage läuten.</string>
 </resources>

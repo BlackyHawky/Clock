@@ -383,7 +383,7 @@
     <string name="timer_flip_action_title">Apparaat omdraaien om kookwekker uit te zetten</string>
     <string name="timer_shake_action_title">Apparaat schudden om kookwekker uit te zetten</string>
     <string name="alarm_title_color">Kleur wekkernaam</string>
-    <string name="auto_night_accent_color_title">Accentkleur op donkere modus toepassen</string>
+    <string name="auto_night_accent_color_title">Accentkleur toepassen op donkere modus</string>
     <string name="night_accent_color_title">Accentkleur donkere modus</string>
     <string name="blue_gray_accent_color">Grijs</string>
     <string name="brown_accent_color">Bruin</string>
@@ -631,7 +631,7 @@
     <string name="city_note_color_title">Kleur stadsnotitie</string>
     <string name="city_note_default_color_title">Standaardkleur stadsnotitie</string>
     <string name="display_next_alarm_title_setting_title">Titel volgende wekker weergeven</string>
-    <string name="display_alarm_action_message_title">Bericht weergeven na het sluimeren of uitzetten van de wekker</string>
+    <string name="display_alarm_action_message_title">Bericht weergeven na sluimeren of uitzetten</string>
     <string name="display_top_date_title">Datum boven de tijd weergeven</string>
     <string name="toast_message_backup_error">Back-up mislukt</string>
     <string name="toast_message_restore_error">Herstel mislukt</string>
@@ -654,11 +654,11 @@
     <string name="tab_animation_zoom_out">Verkleinen</string>
     <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Kookwekker</string>
     <string name="timer_end_time_label">Eindtijd: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
-    <string name="invert_timer_button_positions_title">Positie van kookwekkerknoppen omkeren</string>
-    <string name="display_timer_end_time_title">Eindtijd van kookwekker weergeven</string>
+    <string name="invert_timer_button_positions_title">Positie van knoppen omkeren</string>
+    <string name="display_timer_end_time_title">Eindtijd weergeven</string>
     <string name="timer_missed_channel">Gemiste kookwekkers</string>
     <string name="settings_language_hebrew">Hebreeuws</string>
-    <string name="add_time_button_title">Knop \"Tijd toevoegen\"</string>
+    <string name="add_time_button_title">Tijd toevoegen</string>
     <string name="delete_timer_after_use_title">Verlopen kookwekker verwijderen</string>
     <string name="turn_off_media_title">Verlopen media stoppen</string>
     <plurals name="expired_timers_deleted">
@@ -721,7 +721,7 @@
     <string name="label_unlock">Ontgrendelen</string>
     <string name="alarm_days_warning_box_text">Voer een waarde in tussen 0 en 31 dagen</string>
     <string name="alarm_hours_snooze_warning_box_text">Voer een waarde in tussen 0 en 23 uur</string>
-    <string name="remove_time_button_title">Knop \"Tijd aftrekken\"</string>
+    <string name="remove_time_button_title">Tijd aftrekken</string>
     <string name="timer_accessibility_custom_time_removed">%1$s minuut afgetrokken van kookwekker, <xliff:g example="5 uur resterend" id="TIME">%2$s</xliff:g></string>
     <string name="timer_button_remove_time_box_title">Minuten aftrekken van kookwekker</string>
     <string name="timer_remove_custom_time_description">%s minuut verwijderen</string>
@@ -737,7 +737,7 @@
     <string name="display_locked_alarms_first_title">Vergrendelde wekkers eerst weergeven</string>
     <string name="default_time_to_remove_to_timer_title">Standaardtijd om van kookwekker af te trekken</string>
     <string name="display_compact_timers_summary">Bespaart schermruimte, maar toont maximaal 3 knoppen.\n\nAls de start-/pauzeknop verborgen is om aangepaste tijdknoppen weer te geven, tik op de aftelling op te pauzeren</string>
-    <string name="display_timer_delete_button_title">Verwijderknop weergeven op kookwekker</string>
+    <string name="display_timer_delete_button_title">Verwijderknop weergeven</string>
     <string name="snooze_warning_message">Als je een wekker voor meerdere dagen sluimert, worden alle ingeroosterde activiteiten gedurende deze periode overgeslagen.\n\nBijvoorbeeld: Als je een dagelijkse wekker voor 3 dagen sluimert, zal hij morgen of overmorgen niet afgaan. De wekker gaat alleen af aan het eind van die 3 dagen.</string>
     <plurals name="days_short">
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> d</item>

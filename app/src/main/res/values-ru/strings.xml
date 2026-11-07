@@ -719,4 +719,43 @@
     <string name="central_fab_size_title">Размер центральной плавающей кнопки</string>
     <string name="side_fab_size_title">Размер боковых плавающих кнопок</string>
     <string name="enable_city_flag_title">Показывать флаги стран</string>
+    <string name="label_category">Категория</string>
+    <string name="do_not_show_again">Не показывать снова</string>
+    <string name="label_days">Дни</string>
+    <string name="create_category">Создать категорию</string>
+    <string name="rename_category">Переименовать категорию</string>
+    <string name="label_all_categories">Все</string>
+    <string name="category_error">Категория уже создана</string>
+    <string name="add_category_description">Добавить категорию</string>
+    <string name="timezone_title">Часовой пояс</string>
+    <string name="alarm_alert_snooze_duration_message">Отложено на <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
+    <string name="label_lock">Заблокировать</string>
+    <string name="label_unlock">Разблокировать</string>
+    <string name="snooze_warning_message">Если вы отложите будильник на несколько дней, все запланированные на этот период срабатывания будут пропущены.\n\nК примеру: если отложить ежедневный будильник на 3 дня, он не сработает ни завтра, ни послезавтра. Он прозвучит только по завершении этих трех дней.</string>
+    <plurals name="days_short">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> д</item>
+        <item quantity="few"><xliff:g example="1" id="number">%s</xliff:g> д</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> д</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> д</item>
+    </plurals>
+    <string name="alarm_days_warning_box_text">Введите значение от 0 до 31 дней</string>
+    <string name="alarm_hours_snooze_warning_box_text">Введите значение от 0 до 23 часов</string>
+    <string name="timer_accessibility_custom_time_removed">Таймер сокращен на %1$s минут, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
+    <string name="remove_time_button_title">Кнопка «Удалить время»</string>
+    <string name="timer_button_remove_time_box_title">Минуты для вычитания из таймера</string>
+    <string name="timer_remove_custom_time_description">Вычесть %s минуту</string>
+    <string name="timer_remove_custom_time_with_seconds_description">Вычесть %1$s минуту %2$s секунд</string>
+    <string name="timer_button_time_note">Примечание: чтобы скрыть кнопку, установите значение 0.</string>
+    <string name="sorting_title">Сортировка</string>
+    <string name="enable_alarm_sorting_by_category_title">Сортировать будильники по категориям</string>
+    <string name="default_alarm_category_title">Категория, которую выбирать при открытии приложения</string>
+    <string name="display_enabled_alarm_badge_title">Показывать метку при включенном будильнике</string>
+    <string name="delete_alarms_with_category_title">Удалять будильник при удалении категории</string>
+    <string name="delete_alarms_with_category_summary">При отключении будильники будут перемещены в категорию по умолчанию</string>
+    <string name="switch_to_new_category_title">Переходить к новой категории после ее создания</string>
+    <string name="live_update_notifications_title">Включить уведомления об обновлении в реальном времени</string>
+    <string name="display_locked_alarms_first_title">Сначала показывать заблокированные будильники</string>
+    <string name="default_time_to_remove_to_timer_title">Время по умолчанию, которое вычитается из таймеров</string>
+    <string name="display_compact_timers_summary">Экономит место на экране, но отображает не более 3 кнопок.\n\nЕсли кнопку «Начать/Приостановить» скрыто для отображения пользовательских кнопок времени, нажмите на индикатор отсчета, чтобы приостановить</string>
+    <string name="display_timer_delete_button_title">Показывать кнопку «Удалить» на карте таймера</string>
 </resources>

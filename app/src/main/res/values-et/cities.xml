@@ -356,5 +356,5 @@
     <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord Howe Island<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
     <string name="C361">C<xliff:g id="separator">=</xliff:g>Chatham Islands<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
     <string name="C362">A<xliff:g id="separator">=</xliff:g>Adak<xliff:g id="timezone">|America/Adak</xliff:g></string>
-    <string name="C363">G<xliff:g id="separator">=</xliff:g>Gambier Islands<xliff:g id="timezone">|Pacific/Gambier</xliff:g></string>
+    <string name="C363">T<xliff:g id="separator">=</xliff:g>Tuamotu ja Gambier\' saared<xliff:g id="timezone">|Pacific/Gambier</xliff:g></string>
 </resources>
