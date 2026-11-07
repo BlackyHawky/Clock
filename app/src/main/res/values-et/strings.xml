@@ -713,4 +713,41 @@
     <string name="math_challenge_title_dismiss">Loobumiseks lahenda</string>
     <string name="math_challenge_title_snooze">Uinumiseks lahenda</string>
     <string name="auto_silence_info_message">„Vaikus peale“ väärtuseks on hetkel „%s“.\n\nLigipääsuks sellele funktsionaalsusele lülita matemaatika keerukuse tase välja.</string>
+    <string name="label_category">Kategooria</string>
+    <string name="do_not_show_again">Ära näita enam uuesti</string>
+    <string name="label_days">Päevi</string>
+    <string name="create_category">Lisa kategooria</string>
+    <string name="rename_category">Muuda kategooria nime</string>
+    <string name="label_all_categories">Kõik</string>
+    <string name="category_error">Selline kategooria on juba olemas</string>
+    <string name="add_category_description">Lisa kategooria</string>
+    <string name="timezone_title">Ajavöönd</string>
+    <string name="label_lock">Lukusta</string>
+    <string name="label_unlock">Ava lukustus</string>
+    <plurals name="days_short">
+        <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> pv</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> pv</item>
+    </plurals>
+    <string name="alarm_days_warning_box_text">Sisesta väärtus vahemikust 0 kuni 31 päeva</string>
+    <string name="alarm_hours_snooze_warning_box_text">Sisesta väärtus vahemikust 0 kuni 23 tundi</string>
+    <string name="remove_time_button_title">„Eemalda aeg“ nupp</string>
+    <string name="timer_button_remove_time_box_title">Taimerist lahutatav aeg</string>
+    <string name="timer_remove_custom_time_description">Eemalda %s minut(it)</string>
+    <string name="timer_remove_custom_time_with_seconds_description">Eemalda %1$s minut(it) %2$s sekund(it)</string>
+    <string name="timer_button_time_note">Selle nupu peitmiseks sisesta väärtuseks 0.</string>
+    <string name="sorting_title">Järjestus</string>
+    <string name="enable_alarm_sorting_by_category_title">Järjesta äratusi kategooria alusel</string>
+    <string name="default_alarm_category_title">Rakenduse avamisel valitav kategooria</string>
+    <string name="display_enabled_alarm_badge_title">Kui äratused on kasutusel, siis kuva vastavat silti</string>
+    <string name="delete_alarms_with_category_title">Kategooria kustutamisel kustuta ka äratused</string>
+    <string name="delete_alarms_with_category_summary">Kui see eelistus on lülitatud välja, siis tõstetakse äratused vaikimisi kategooria alla</string>
+    <string name="switch_to_new_category_title">Peale uue kategooria loomist asu seda kasutama</string>
+    <string name="display_locked_alarms_first_title">Kuva lukustatud äratused esimesena</string>
+    <string name="default_time_to_remove_to_timer_title">Taimeraitest lahutatav vaikimisi aeg</string>
+    <string name="display_timer_delete_button_title">Näita taimeri kaardil „Kustuta“ nuppu</string>
+    <string name="display_compact_timers_summary">Säästab ekraanil ruumi, kuid kuvab vaid kuni 3 nuppu.\n\nKui „Esita/peata“ nupp on sinu lisatud ajanuppude kuvamiseks peidetud, siis peatamiseks klõpsa pöördloendurit</string>
+    <string name="live_update_notifications_title">Lülita reaalajas uuenduste teavitused sisse</string>
+    <string name="alarm_alert_snooze_duration_message">Edasilükatud <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
+    <string name="snooze_warning_message">Kui lükkad äratuse mitu päeva edasi, siis sellesse vahemikku jäävad ajastatud korduvused jäävad vahele.\n\nNäiteks: kui lükkad äratuse 3 päeva edasi, siis ta ei helise ei homme ega ülehomme, vaid alles nende kolme päeva möödumisel.</string>
+    <string name="timer_accessibility_custom_time_removed">Taimerist on eemaldatud %1$s minut(it), <xliff:g example="jäänud on 5 tundi" id="TIME">%2$s</xliff:g></string>
 </resources>

@@ -71,7 +71,7 @@
     <string name="C67" msgid="4874799181719358019">ל<xliff:g id="SEPARATOR">=</xliff:g>לוס אנג׳לס<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C68" msgid="5526012011469271690">ל<xliff:g id="SEPARATOR">=</xliff:g>לואיוויל<xliff:g id="TIMEZONE">|America/Louisville</xliff:g></string>
     <string name="C69" msgid="6147580167560875608">מ<xliff:g id="SEPARATOR">=</xliff:g>מנאגואה<xliff:g id="TIMEZONE">|America/Managua</xliff:g></string>
-    <string name="C70" msgid="3277881296053225577">מ<xliff:g id="SEPARATOR">=</xliff:g>מרטיניק<xliff:g id="TIMEZONE">|America/Martinique</xliff:g></string>
+    <string name="C70" msgid="3277881296053225577">F<xliff:g id="separator">=</xliff:g>Fort-de-France<xliff:g id="timezone">|America/Martinique</xliff:g></string>
     <string name="C71" msgid="4017941126335556194">מ<xliff:g id="SEPARATOR">=</xliff:g>מנדוזה<xliff:g id="TIMEZONE">|America/Mendoza</xliff:g></string>
     <string name="C72" msgid="3992109594245379480">מ<xliff:g id="SEPARATOR">=</xliff:g>מטלאקאטלה<xliff:g id="TIMEZONE">|America/Metlakatla</xliff:g></string>
     <string name="C73" msgid="2715229408279026929">מ<xliff:g id="SEPARATOR">=</xliff:g>מקסיקו סיטי<xliff:g id="TIMEZONE">|America/Mexico_City</xliff:g></string>

@@ -1,33 +1,40 @@
-Clock ist eine datenschutzfreundliche Open-Source-Uhr, die auf AOSP basiert.
-Nutzt keine Internetberechtigung und ist somit zu 100 % offline.
+Clock ist eine datenschutzorientierte Open-Source-Uhr, die auf AOSP basiert.
+Sie benötigt keine Internetberechtigung und ist daher zu 100 % offline.
 
 Funktionen:
 <ul>
-  <li>Wecker für ein bestimmtes Datum einstellen;</li>
-  <li>Umdrehen- und Schütteln-Aktion zum Beenden/Schlummern des Weckers;</li>
-  <li>Wecker mit der Ein-/Austaste oder den Lautstärketasten ausschalten/schlummern;</li>
-  <li>Nur bei einigen Snapdragon-Geräten wird der Wecker ausgelöst, wenn sie ausgeschaltet sind</li>
+  <li>Wecker auf ein bestimmtes Datum einstellen;</li>
+  <li>Wecker auf eine bestimmte Zeitzone einstellen;</li>
+  <li>Wecker ausschalten oder schlummern lassen:</li>
     <ul>
-      <li>Leider funktioniert diese Funktion auf einigen Geräten trotz des Vorhandenseins der System-App <i>"com.qualcomm.qti.poweroffalarm"</i> möglicherweise nicht.</li>
+      <li>Unterstützung für Wenden- und Schüttelgesten;</li>
+      <li>Verwendung des Ein-/Aus-Schalters oder der Lautstärketasten;</li>
+      <li>Löse mathematische Aufgaben.</li>
     </ul>
-  <li>Wischen zum Löschen eines Weckers;</li>
+  <li>Nur bei einigen Snapdragon-Geräten wird der Wecker ausgelöst, wenn diese ausgeschaltet sind</li>
+    <ul>
+      <li>Leider funktioniert diese Funktion auf einigen Geräten möglicherweise nicht, obwohl die System-App <i>„com.qualcomm.qti.poweroffalarm“</i> vorhanden ist.</li>
+    </ul>
+  <li>Erweiterte Wecker-Sortierung;</li>
+  <li>Wischen, um einen Wecker zu löschen;</li>
   <li>Wecker duplizieren;</li>
   <li>Anpassbarer Weckertitel;</li>
   <li>Anpassbarer Klingelton;</li>
   <li>Möglichkeit, Klingeltöne zufällig abzuspielen;</li>
   <li>Helles, dunkles oder System-Design;</li>
-  <li>AMOLED-Modus für das dunkle Design;</li>
+  <li>AMOLED-Modus für dunkles Design;</li>
   <li>Anpassbare Benutzeroberfläche;</li>
   <li>Digitaler oder analoger Uhrstil;</li>
-  <li>Heimatzeit auf Reisen anzeigen;</li>
-  <li>Uhrzeit für viele Städte auf der ganzen Welt anzeigen;</li>
+  <li>Anzeige der Heimatzeit auf Reisen;</li>
+  <li>Anzeige der Uhrzeit in vielen Städten weltweit;</li>
   <li>Timer und Stoppuhr enthalten;</li>
-  <li>Möglichkeit, die Stoppuhr mit Kontakten zu teilen;</li>
+  <li>Unterstützung für Live-Update-Benachrichtigungen für Timer und Stoppuhr;</li>
+  <li>Möglichkeit, deine Stoppuhr mit deinen Kontakten zu teilen;</li>
   <li>Anpassbarer Bildschirmschoner;</li>
   <li>Moderne Widgets;</li>
   <li>Anpassbare Widgets;</li>
-  <li>Unterstützung für Kacheln in den Schnelleinstellungen (für Android 7+);</li>
-  <li>Sichern und Wiederherstellen von App-Daten (ausgenommen benutzerdefinierte Klingeltöne);</li>
-  <li>Material Design;</li>
+ <li>Unterstützung für Kacheln in den Schnelleinstellungen (für Android 7+);</li>
+  <li>Sichern und Wiederherstellen von App-Daten (außer benutzerdefinierten Klingeltönen);</li>
+  <li>Material-Design;</li>
   <li>Dynamische Farben für Android 12+;</li>
 </ul>

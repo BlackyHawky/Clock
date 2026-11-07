@@ -1,0 +1,4 @@
+Parandasime äratuse töökindlust ja lisasime mõned suuremad uued funktsionaalsused.
+
+Kõik muud veaparandused ja täiendused on kirjeldatud siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.34

@@ -19,11 +19,13 @@ There are many ways to help improve Clock: reporting issues, translating, or con
 - **Release builds**  
   To attach logs, please follow these steps:
 
-1. Notice the bug.
-2. Go to **About**, click 5 times on the version number.
-3. Tap the insect 🐞 icon that appears.
-4. Save the generated `.zip` file to your device.
-5. Attach the `.zip` file in your issue comment.
+1. Go to **_About_**, click 5 times on the version number.
+2. **Reproduce the bug.**
+3. Go to **_About_** again.
+4. Tap the insect 🐞 icon.
+5. Save the generated `.zip` file to your device.
+6. Attach the `.zip` file in your issue comment.
+7. If the bug is related to the alarms, specify the time of the alarm affected by the problem (it will be easier to identify).
 
 - **Nightly & Debug builds**  
   Logs can be accessed directly via the insect 🐞 icon in **About** — no need to click 5 times on the version number.

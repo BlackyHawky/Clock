@@ -1,0 +1,4 @@
+Zuverlässigkeit der Wecker verbessert und Hauptfunktionen hinzugefügt.
+
+Alle anderen Fehlerhebungen und Verbesserungen sind hier detailliert angeführt:
+https://github.com/BlackyHawky/Clock/releases/tag/2.34
