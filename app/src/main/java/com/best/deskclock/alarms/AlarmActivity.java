@@ -1572,8 +1572,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Display ringtone title if enabled in <i>"Customize alarm display"</i> settings.
      */
     private void displayRingtoneTitle() {
-        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(mAlarmInstance.mRingtone);
-        final String title = getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
+        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(mAlarm.alert);
+        final String title = getDataModel().getRingtoneTitle(mAlarm.alert);
         final Drawable musicIcon = silent
             ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
             : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
