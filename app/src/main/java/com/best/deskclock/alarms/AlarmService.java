@@ -108,6 +108,11 @@ public class AlarmService extends Service {
     private static final String STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION = "com.best.deskclock.STOP_ALARM_WITH_SINGLE_VIBRATION";
 
     /**
+     * Public action used to reset sensors when the math challenge is canceled.
+     */
+    public static final String ALARM_RESET_SENSORS_ACTION = "com.best.deskclock.ALARM_RESET_SENSORS_ACTION";
+
+    /**
      * Constant for No action
      */
     private static final int ALARM_NO_ACTION = 0;
@@ -143,6 +148,8 @@ public class AlarmService extends Service {
     private boolean mIsRegistered = false;
 
     private SharedPreferences mPrefs;
+    private String mMathHardnessLevel;
+    private boolean mIsPerAlarmMathHardnessLevelDisabled;
     private Vibrator mVibrator;
     private CameraManager mCameraManager;
     private String mCameraId;
@@ -174,13 +181,30 @@ public class AlarmService extends Service {
                 return;
             }
 
-            if (mIsBound) {
+            if (mIsBound && !ALARM_RESET_SENSORS_ACTION.equals(action)) {
                 LogUtils.i("AlarmActivity bound; AlarmService no-op");
+                return;
+            }
+
+            if ((ALARM_SNOOZE_ACTION.equals(action) || ALARM_DISMISS_ACTION.equals(action))
+                && AlarmUtils.hasMathMission(context, mCurrentAlarm, mMathHardnessLevel, mIsPerAlarmMathHardnessLevelDisabled)) {
+                LogUtils.i("Math challenge required; ignoring %s", action);
                 return;
             }
 
             if (action != null) {
                 switch (action) {
+                    case ALARM_RESET_SENSORS_ACTION -> {
+                        LogUtils.i("Resetting sensors because math challenge was cancelled");
+                        if (mFlipListener != null) {
+                            mFlipListener.reset();
+                        }
+
+                        if (mShakeListener != null) {
+                            mShakeListener.reset();
+                        }
+                    }
+
                     case ALARM_SNOOZE_ACTION -> {
                         // Set the alarm state to snooze.
                         // If this broadcast receiver is handling the snooze intent then AlarmActivity
@@ -362,18 +386,8 @@ public class AlarmService extends Service {
 
         mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
 
-        // Register the broadcast receiver
-        final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
-        filter.addAction(ALARM_DISMISS_ACTION);
-        filter.addAction(ALARM_MUTE_ACTION);
-
-        if (SdkUtils.isAtLeastAndroid13()) {
-            registerReceiver(mActionsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-        } else {
-            registerReceiver(mActionsReceiver, filter);
-        }
-
-        mIsRegistered = true;
+        mMathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs);
+        mIsPerAlarmMathHardnessLevelDisabled = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(mPrefs);
 
         // Setup for flip and shake actions
         mFlipAction = SettingsDAO.getFlipAction(mPrefs);
@@ -382,6 +396,20 @@ public class AlarmService extends Service {
         if (mFlipAction != ALARM_NO_ACTION || mShakeAction != ALARM_NO_ACTION) {
             mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
         }
+
+        // Register the broadcast receiver
+        final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
+        filter.addAction(ALARM_DISMISS_ACTION);
+        filter.addAction(ALARM_MUTE_ACTION);
+        filter.addAction(ALARM_RESET_SENSORS_ACTION);
+
+        if (SdkUtils.isAtLeastAndroid13()) {
+            registerReceiver(mActionsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mActionsReceiver, filter);
+        }
+
+        mIsRegistered = true;
 
         mVibrator = getApplicationContext().getSystemService(Vibrator.class);
         mCameraManager = getApplicationContext().getSystemService(CameraManager.class);
@@ -816,6 +844,24 @@ public class AlarmService extends Service {
     }
 
     private void handleAction(int action) {
+        if ((action == ALARM_SNOOZE || action == ALARM_DISMISS)
+            && AlarmUtils.hasMathMission(this, mCurrentAlarm, mMathHardnessLevel, mIsPerAlarmMathHardnessLevelDisabled)) {
+
+            // If a math challenge is required, flipping or shaking the device should open the Dialog of that challenge
+            // before dismissing/snoozing the alarm.
+            if (mIsBound) {
+                final Intent requestIntent = new Intent(action == ALARM_SNOOZE ? ALARM_SNOOZE_ACTION : ALARM_DISMISS_ACTION);
+                requestIntent.setPackage(getPackageName());
+                sendBroadcast(requestIntent);
+            } else {
+                LogUtils.i("Screen not ready yet. Resetting sensors.");
+                mFlipListener.reset();
+                mShakeListener.reset();
+            }
+
+            return;
+        }
+
         switch (action) {
             case ALARM_SNOOZE ->
                 startService(AlarmStateManager.createStateChangeIntent(

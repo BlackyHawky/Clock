@@ -8,7 +8,6 @@ package com.best.deskclock.alarms;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
@@ -426,10 +425,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         Events.sendAlarmEvent(R.string.action_fire, 0);
 
-        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs) || alarm == null
-            ? SettingsDAO.getAlarmMathHardnessLevel(prefs)
-            : alarm.mathHardnessLevel;
-        boolean hasMathMission = !mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL);
+        boolean hasMathMission = AlarmUtils.hasMathMission(
+            alarm, SettingsDAO.getAlarmMathHardnessLevel(prefs), SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs)
+        );
 
         Calendar timeout = instance.getTimeout(context, hasMathMission);
         if (timeout != null) {
@@ -785,10 +783,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Calendar currentTime = getCurrentTime();
         final Calendar alarmTime = instance.getAlarmTime();
 
-        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs) || alarm == null
-            ? SettingsDAO.getAlarmMathHardnessLevel(prefs)
-            : alarm.mathHardnessLevel;
-        boolean hasMathMission = !mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL);
+        boolean hasMathMission = AlarmUtils.hasMathMission(
+            alarm, SettingsDAO.getAlarmMathHardnessLevel(prefs), SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs)
+        );
 
         final Calendar timeoutTime = instance.getTimeout(context, hasMathMission);
         final int notificationReminderTime = SettingsDAO.getAlarmNotificationReminderTime(prefs);
