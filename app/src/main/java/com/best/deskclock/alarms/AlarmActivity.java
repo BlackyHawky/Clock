@@ -174,6 +174,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     private final Random mMissionRandom = new Random();
     private AlarmMathMissionController mMathMissionController;
+    private String mMathHardnessLevel;
+    private boolean mIsPerAlarmMathHardnessLevelDisabled;
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -184,8 +186,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             if (!mAlarmHandled) {
                 if (action != null) {
                     switch (action) {
-                        case AlarmService.ALARM_SNOOZE_ACTION -> snooze();
-                        case AlarmService.ALARM_DISMISS_ACTION -> dismiss();
+                        case AlarmService.ALARM_SNOOZE_ACTION -> requestAlarmAction(MISSION_ACTION_SNOOZE);
+                        case AlarmService.ALARM_DISMISS_ACTION -> requestAlarmAction(MISSION_ACTION_DISMISS);
                         case AlarmService.ALARM_MUTE_ACTION -> mute();
                         case AlarmService.ALARM_DONE_ACTION -> finish();
                         default -> LOGGER.i("Unknown broadcast: %s", action);
@@ -258,15 +260,29 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(getPrefs());
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(getPrefs());
         mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(getPrefs());
+        mMathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
+        mIsPerAlarmMathHardnessLevelDisabled = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(getPrefs());
         mShouldLockAlarmButtons = SettingsDAO.shouldLockAlarmButtonsWithProximitySensor(getPrefs());
 
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
 
-        mMathMissionController = new AlarmMathMissionController(this, action -> {
-            if (action == MISSION_ACTION_SNOOZE) {
-                snooze();
-            } else {
-                dismiss();
+        mMathMissionController = new AlarmMathMissionController(this, new AlarmMathMissionController.Callback() {
+            @Override
+            public void onMissionResolved(int action) {
+                if (action == MISSION_ACTION_SNOOZE) {
+                    snooze();
+                } else {
+                    dismiss();
+                }
+            }
+
+            @Override
+            public void onMissionCancelled() {
+                LOGGER.v("Math challenge cancelled, resetting sensors.");
+
+                Intent resetIntent = new Intent(AlarmService.ALARM_RESET_SENSORS_ACTION);
+                resetIntent.setPackage(getPackageName());
+                sendBroadcast(resetIntent);
             }
         }, getGeneralBoldTypeface());
 
@@ -314,6 +330,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
 
         initAlarmAndInstance();
+
+        if (isFinishing()) {
+            return;
+        }
+
+        bindAlarmService();
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -370,16 +392,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mReceiverRegistered = true;
         }
 
-        bindAlarmService();
-
         resetAnimations();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        unbindAlarmService();
 
         if (mSensorManager != null && mProximitySensor != null) {
             mSensorManager.unregisterListener(this, mProximitySensor);
@@ -394,6 +412,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void onDestroy() {
+        unbindAlarmService();
+
         if (mPowerBtnReceiverRegistered) {
             unregisterReceiver(mPowerBtnReceiver);
             mPowerBtnReceiverRegistered = false;
@@ -1366,9 +1386,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
-        String mathHardnessLevel = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(getPrefs())
-            ? SettingsDAO.getAlarmMathHardnessLevel(getPrefs())
-            : mAlarm.mathHardnessLevel;
+        String mathHardnessLevel =
+            AlarmUtils.getEffectiveMathHardnessLevel(mAlarm, mMathHardnessLevel, mIsPerAlarmMathHardnessLevelDisabled);
 
         if (mathHardnessLevel.equals(DEFAULT_MATH_HARDNESS_LEVEL)) {
             if (action == MISSION_ACTION_SNOOZE) {

@@ -160,11 +160,18 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
 
-        mMathMissionController = new AlarmMathMissionController(this, action -> {
-            if (action == AlarmActivity.MISSION_ACTION_SNOOZE) {
-                performSnooze();
-            } else {
-                performDismiss();
+        mMathMissionController = new AlarmMathMissionController(this, new AlarmMathMissionController.Callback() {
+            @Override
+            public void onMissionResolved(int action) {
+                if (action == AlarmActivity.MISSION_ACTION_SNOOZE) {
+                    performSnooze();
+                } else {
+                    performDismiss();
+                }
+            }
+
+            @Override
+            public void onMissionCancelled() {
             }
         }, getGeneralBoldTypeface());
 

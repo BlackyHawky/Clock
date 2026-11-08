@@ -88,7 +88,10 @@ public class AlarmMathMissionController {
             mContext.getString(android.R.string.ok),
             null,
             mContext.getString(android.R.string.cancel),
-            null,
+            (d, w) -> {
+                mCurrentDialog = null;
+                mCallback.onMissionCancelled();
+            },
             mContext.getString(R.string.math_challenge_new_problem),
             null,
             alertDialog -> {
@@ -142,6 +145,7 @@ public class AlarmMathMissionController {
 
     public interface Callback {
         void onMissionResolved(int action);
+        void onMissionCancelled();
     }
 
 }
