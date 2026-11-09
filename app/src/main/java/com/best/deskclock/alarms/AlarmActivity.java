@@ -266,7 +266,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
 
-        mMathMissionController = new AlarmMathMissionController(this, new AlarmMathMissionController.Callback() {
+        mMathMissionController = new AlarmMathMissionController(this, getGeneralBoldTypeface(), getDisplayMetrics(),
+            SettingsDAO.isVibrationsEnabled(getPrefs()), new AlarmMathMissionController.Callback() {
             @Override
             public void onMissionResolved(int action) {
                 if (action == MISSION_ACTION_SNOOZE) {
@@ -284,7 +285,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 resetIntent.setPackage(getPackageName());
                 sendBroadcast(resetIntent);
             }
-        }, getGeneralBoldTypeface());
+        });
 
         // Register Power button (screen off) intent receiver
         if (mPowerBehavior != PowerButtonBehavior.NOTHING) {

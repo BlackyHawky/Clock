@@ -43,7 +43,8 @@
             android:id="@+id/math_challenge_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="40dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="20dp"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -75,6 +76,14 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <GridLayout
+            android:id="@+id/math_challenge_keypad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:columnCount="3"
+            android:useDefaultMargins="false" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/math_challenge_error"
