@@ -155,6 +155,8 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
             }
         });
 
+        ThemeUtils.disableAutofill(mBinding.editHours, mBinding.editMinutes, mBinding.editSeconds);
+
         return CustomDialog.create(
             context,
             null,

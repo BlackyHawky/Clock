@@ -204,6 +204,8 @@ public class TimerButtonDialogFragment extends DialogFragment {
             }
         });
 
+        ThemeUtils.disableAutofill(mBinding.editMinutes, mBinding.editSeconds);
+
         mBinding.buttonTimeNote.setTypeface(typeFace, Typeface.ITALIC);
 
         String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();

@@ -264,6 +264,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             }
         });
 
+        ThemeUtils.disableAutofill(mBinding.editMinutes, mBinding.editSeconds);
+
         mBinding.endOfRingtoneCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isUpdatingCheckboxes) {
                 return;

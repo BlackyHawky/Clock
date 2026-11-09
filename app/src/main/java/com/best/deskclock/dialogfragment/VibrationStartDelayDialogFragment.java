@@ -140,6 +140,8 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         mBinding.editMinutes.setOnEditorActionListener(new ImeDoneListener());
         mBinding.editMinutes.addTextChangedListener(mTextWatcher);
 
+        ThemeUtils.disableAutofill(mBinding.editMinutes);
+
         mBinding.vibrationStartDelayNoneCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isUpdatingCheckboxes) {
                 return;

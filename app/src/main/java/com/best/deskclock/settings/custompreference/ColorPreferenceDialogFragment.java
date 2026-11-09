@@ -77,6 +77,7 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
 
         if (hexEdit != null && typeface != null) {
             hexEdit.setTypeface(typeface);
+            ThemeUtils.disableAutofill(hexEdit);
         }
 
         return CustomDialog.create(

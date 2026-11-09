@@ -609,10 +609,12 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             requireContext(), getResources().getDisplayMetrics(), com.google.android.material.R.attr.colorSecondaryContainer)
         );
 
-        // Apply custom font to the search text
+        // Apply custom font to the search text and remove the "Autofill" menu
         TextView searchText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         if (searchText != null) {
             searchText.setTypeface(mGeneralTypeface);
+
+            ThemeUtils.disableAutofill(searchText);
         }
 
         // Use a rounded icon for the search icon

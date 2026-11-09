@@ -155,6 +155,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             }
         });
 
+        ThemeUtils.disableAutofill(mBinding.editHours, mBinding.editMinutes);
+
         return CustomDialog.create(
             requireContext(),
             null,

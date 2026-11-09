@@ -21,6 +21,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.databinding.AlarmSpinnerTimePickerBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.text.DateFormatSymbols;
@@ -336,6 +337,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         for (int i = 0; i < count; i++) {
             View child = numberPicker.getChildAt(i);
             if (child instanceof EditText editText) {
+                ThemeUtils.disableAutofill(editText);
                 editText.setFocusable(true);
                 editText.setFocusableInTouchMode(true);
                 editText.setClickable(true);

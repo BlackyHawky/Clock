@@ -6,12 +6,15 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -20,9 +23,11 @@ import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.RepeatingDayDecorator;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -280,6 +285,43 @@ public class DatePickerDialogFragment {
                 if (root == null) {
                     return;
                 }
+
+                picker.getChildFragmentManager().registerFragmentLifecycleCallbacks(
+                    new FragmentManager.FragmentLifecycleCallbacks() {
+                        @Override
+                        public void onFragmentViewCreated(@NonNull FragmentManager fm, @NonNull Fragment f, @NonNull View v,
+                                                          @Nullable Bundle savedInstanceState) {
+
+                            super.onFragmentViewCreated(fm, f, v, savedInstanceState);
+
+                            if (generalFont != null) {
+                                ThemeUtils.applyFontToTextViews(v, generalFont);
+                            }
+
+                            int[] textInputLayoutIds = {
+                                com.google.android.material.R.id.mtrl_picker_text_input_date,
+                                com.google.android.material.R.id.mtrl_picker_text_input_range_start,
+                                com.google.android.material.R.id.mtrl_picker_text_input_range_end
+                            };
+
+                            for (int id : textInputLayoutIds) {
+                                TextInputLayout textInputLayout = v.findViewById(id);
+
+                                if (textInputLayout != null) {
+                                    if (generalFont != null) {
+                                        textInputLayout.setTypeface(generalFont);
+                                    }
+
+                                    EditText editText = textInputLayout.getEditText();
+                                    if (editText != null) {
+                                        ThemeUtils.disableAutofill(editText);
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    true
+                );
 
                 if (generalFont == null) {
                     picker.getViewLifecycleOwnerLiveData().removeObserver(this);

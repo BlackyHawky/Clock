@@ -229,6 +229,8 @@ public class LabelDialogFragment extends DialogFragment {
             return false;
         });
 
+        ThemeUtils.disableAutofill(mBinding.edit);
+
         if (mIsAlarm) {
             mBinding.divider.setVisibility(VISIBLE);
 

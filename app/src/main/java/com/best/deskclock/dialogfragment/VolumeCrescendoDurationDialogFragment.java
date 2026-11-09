@@ -243,6 +243,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             }
         });
 
+        ThemeUtils.disableAutofill(mBinding.editMinutes, mBinding.editSeconds);
+
         mBinding.crescendoOffButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isUpdatingCheckboxes) {
                 return;

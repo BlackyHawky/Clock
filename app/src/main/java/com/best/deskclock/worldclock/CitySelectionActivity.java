@@ -94,9 +94,13 @@ public final class CitySelectionActivity extends BaseActivity {
         mSearchView.setBackground(
             ThemeUtils.pillBackgroundFromAttr(this, getDisplayMetrics(), com.google.android.material.R.attr.colorSecondaryContainer));
 
-        // Apply custom font to the search text
+        // Apply custom font to the search text and remove the "Autofill" menu
         TextView searchText = mSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchText.setTypeface(getGeneralTypeface());
+        if (searchText != null) {
+            searchText.setTypeface(getGeneralTypeface());
+
+            ThemeUtils.disableAutofill(searchText);
+        }
 
         // Use a rounded icon for the search icon
         ImageView searchIcon = mSearchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
