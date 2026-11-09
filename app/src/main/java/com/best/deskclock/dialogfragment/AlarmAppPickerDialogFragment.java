@@ -222,6 +222,8 @@ public class AlarmAppPickerDialogFragment extends DialogFragment {
         final TextView searchText = mBinding.searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         if (searchText != null) {
             searchText.setTypeface(generalTypeface);
+
+            ThemeUtils.disableAutofill(searchText);
         }
 
         // Hide the bottom bar of the search field

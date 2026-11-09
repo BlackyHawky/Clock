@@ -237,6 +237,8 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             }
         });
 
+        ThemeUtils.disableAutofill(mBinding.editDays, mBinding.editHours, mBinding.editMinutes);
+
         mBinding.snoozeDurationNoneCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isUpdatingCheckboxes) {
                 return;

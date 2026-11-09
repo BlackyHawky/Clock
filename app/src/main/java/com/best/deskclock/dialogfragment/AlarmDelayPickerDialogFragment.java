@@ -254,6 +254,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
         for (int i = 0; i < count; i++) {
             View child = numberPicker.getChildAt(i);
             if (child instanceof EditText editText) {
+                ThemeUtils.disableAutofill(editText);
                 editText.setFocusable(true);
                 editText.setFocusableInTouchMode(true);
                 editText.setClickable(true);

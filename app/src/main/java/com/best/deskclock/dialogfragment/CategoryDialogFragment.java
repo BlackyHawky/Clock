@@ -146,6 +146,8 @@ public class CategoryDialogFragment extends DialogFragment {
             return false;
         });
 
+        ThemeUtils.disableAutofill(mBinding.edit);
+
         return CustomDialog.create(
             requireContext(),
             null,

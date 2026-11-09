@@ -152,6 +152,8 @@ public class AlarmTaskDialogFragment extends DialogFragment {
                 }
             });
 
+        ThemeUtils.disableAutofill(mBinding.editName, mBinding.editUrl);
+
         mBinding.selectApp.setOnClickListener(v ->
             AlarmAppPickerDialogFragment.show(getChildFragmentManager(), AlarmAppPickerDialogFragment.newInstance()));
 

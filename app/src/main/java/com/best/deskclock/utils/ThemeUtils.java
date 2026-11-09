@@ -28,12 +28,15 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.ActionMode;
 import android.view.ContextThemeWrapper;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -283,13 +286,78 @@ public class ThemeUtils {
      * @param typeface The typeface to apply.
      */
     public static void applyFontToTextViews(@Nullable View view, @Nullable Typeface typeface) {
-        if (view == null || typeface == null) return;
+        if (view == null || typeface == null) {
+            return;
+        }
 
         if (view instanceof TextView textView) {
             textView.setTypeface(typeface);
+        } else if (view instanceof RecyclerView recyclerView) {
+            recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+                @Override
+                public void onChildViewAttachedToWindow(@NonNull View child) {
+                    applyFontToTextViews(child, typeface);
+                }
+
+                @Override
+                public void onChildViewDetachedFromWindow(@NonNull View child) {}
+            });
+
+            for (int i = 0; i < recyclerView.getChildCount(); i++) {
+                applyFontToTextViews(recyclerView.getChildAt(i), typeface);
+            }
+        } else if (view instanceof GridView gridView) {
+            gridView.setOnHierarchyChangeListener(new ViewGroup.OnHierarchyChangeListener() {
+                @Override
+                public void onChildViewAdded(View parent, View child) {
+                    applyFontToTextViews(child, typeface);
+                }
+
+                @Override
+                public void onChildViewRemoved(View parent, View child) {}
+            });
+
+            for (int i = 0; i < gridView.getChildCount(); i++) {
+                applyFontToTextViews(gridView.getChildAt(i), typeface);
+            }
         } else if (view instanceof ViewGroup viewGroup) {
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 applyFontToTextViews(viewGroup.getChildAt(i), typeface);
+            }
+        }
+    }
+
+    /**
+     * Disables system autofill for a given TextView and removes the corresponding option from the context menu (Copy/Paste).
+     */
+    public static void disableAutofill(@NonNull TextView... textViews) {
+        if (SdkUtils.isAtLeastAndroid8()) {
+            ActionMode.Callback filterAutofillCallback = new ActionMode.Callback() {
+                @Override
+                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                    return true;
+                }
+
+                @Override
+                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                    menu.removeItem(android.R.id.autofill);
+                    return true;
+                }
+
+                @Override
+                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                    return false;
+                }
+
+                @Override
+                public void onDestroyActionMode(ActionMode mode) {
+                }
+            };
+
+            for (TextView textView : textViews) {
+                textView.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
+                textView.setCustomSelectionActionModeCallback(filterAutofillCallback);
+                textView.setCustomInsertionActionModeCallback(filterAutofillCallback);
             }
         }
     }
