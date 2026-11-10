@@ -95,6 +95,8 @@
     <string name="category_error">Category already created</string>
     <!-- Description of the "Add category" button -->
     <string name="add_category_description">Add category</string>
+    <!-- Hint displayed in the time zone search bar -->
+    <string name="time_zone_search_hint">Search for a time zone</string>
 
     <!-- ******************* -->
     <!-- **     ALARM     ** -->

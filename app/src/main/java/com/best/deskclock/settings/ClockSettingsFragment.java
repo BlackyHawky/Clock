@@ -12,12 +12,15 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -26,7 +29,8 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.data.TimeZones;
+import com.best.deskclock.dialogfragment.TimeZoneDialogFragment;
+import com.best.deskclock.settings.custompreference.TimeZonePreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.Utils;
@@ -53,7 +57,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mEnableCityFlagPref;
     SwitchPreferenceCompat mEnableCityNotePref;
     SwitchPreferenceCompat mAutoHomeClockPref;
-    ListPreference mHomeTimeZonePref;
+    TimeZonePreference mHomeTimeZonePref;
     Preference mDateTimePref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
@@ -152,6 +156,13 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setupFragmentResultListeners();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -186,18 +197,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
             case KEY_ENABLE_CITY_FLAG -> {
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                boolean isFlagEnabled = (Boolean) newValue;
-                final TimeZones timezones = SettingsDAO.getTimeZones(requireContext(), System.currentTimeMillis(), isFlagEnabled);
-                mHomeTimeZonePref.setEntryValues(timezones.timeZoneIds());
-                mHomeTimeZonePref.setEntries(timezones.timeZoneNames());
-
-                CharSequence currentValue = mHomeTimeZonePref.getValue();
-                if (currentValue != null) {
-                    int index = mHomeTimeZonePref.findIndexOfValue(currentValue.toString());
-                    if (index >= 0) {
-                        mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntries()[index]);
-                    }
-                }
+                mHomeTimeZonePref.refreshSummary();
             }
 
             case KEY_ENABLE_CITY_NOTE -> {
@@ -235,6 +235,17 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         }
 
         return true;
+    }
+
+    @Override
+    public void onDisplayPreferenceDialog(@NonNull Preference pref) {
+        if (pref instanceof TimeZonePreference timeZonePreference) {
+            String currentValue = timeZonePreference.getTimeZone();
+            TimeZoneDialogFragment dialogFragment = TimeZoneDialogFragment.newInstance(pref.getKey(), currentValue);
+            TimeZoneDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else {
+            super.onDisplayPreferenceDialog(pref);
+        }
     }
 
     @Override
@@ -286,15 +297,27 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 
         mHomeTimeZonePref.setEnabled(SettingsDAO.getAutoShowHomeClock(getPrefs()));
-        // Reconstruct the timezone list.
-        final TimeZones timezones = SettingsDAO.getTimeZones(
-            requireContext(), System.currentTimeMillis(), SettingsDAO.isCityFlagEnabled(getPrefs()));
-        mHomeTimeZonePref.setEntryValues(timezones.timeZoneIds());
-        mHomeTimeZonePref.setEntries(timezones.timeZoneNames());
-        mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
-        mHomeTimeZonePref.setOnPreferenceChangeListener(this);
 
         mDateTimePref.setOnPreferenceClickListener(this);
+    }
+
+    private void setupFragmentResultListeners() {
+        final FragmentManager parentFragmentManager = getParentFragmentManager();
+        final LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
+
+        // Home time zone preference
+        parentFragmentManager.setFragmentResultListener(TimeZoneDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, bundle) -> {
+                String key = bundle.getString(TimeZoneDialogFragment.RESULT_PREF_KEY);
+                String newValue = bundle.getString(TimeZoneDialogFragment.RESULT_TIMEZONE);
+
+                if (key != null && newValue != null) {
+                    TimeZonePreference pref = findPreference(key);
+                    if (pref != null) {
+                        pref.setTimeZone(newValue);
+                    }
+                }
+            });
     }
 
 }

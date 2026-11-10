@@ -182,7 +182,6 @@ public final class SettingsDAO {
      */
     @NonNull
     public static TimeZones getTimeZones(@NonNull Context context, long currentTime, boolean isFlagEnabled) {
-
         final String[] timeZoneIds = context.getResources().getStringArray(R.array.timezone_values);
 
         // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
@@ -1872,7 +1871,7 @@ public final class SettingsDAO {
     /**
      * These descriptors have a natural order from the furthest behind of GMT to the furthest ahead GMT.
      */
-    private record TimeZoneDescriptor(int offset, @NonNull String timeZoneId, @NonNull String timeZoneName)
+    public record TimeZoneDescriptor(int offset, @NonNull String timeZoneId, @NonNull String timeZoneName)
         implements Comparable<TimeZoneDescriptor> {
 
         @NonNull
