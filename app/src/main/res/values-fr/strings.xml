@@ -757,4 +757,26 @@
     <string name="default_time_to_remove_to_timer_title">Durée par défaut à soustraire aux minuteurs</string>
     <string name="display_compact_timers_summary">Économise de l\'espace à l\'écran, mais affiche 3 boutons maximum.\n\nSi le bouton \"Lecture/Pause\" est masqué pour afficher les deux boutons de temps personnalisés, touchez le décompte pour mettre en pause</string>
     <string name="display_timer_delete_button_title">Afficher le bouton \"Supprimer\" sur la carte du minuteur</string>
+    <string name="label_back">Retour</string>
+    <string name="disable_dnd">Désactiver \"Ne Pas Déranger\"</string>
+    <string name="task_title">Tâche</string>
+    <string name="task_name">Nom</string>
+    <string name="task_url">URL</string>
+    <string name="task_url_helper_text">Doit commencer par \"http://\" ou \"https://\" ou \"app://\"</string>
+    <string name="select_app_title">Sélectionner une appli</string>
+    <string name="loading_apps_title">Chargement des applis</string>
+    <string name="search_app_title">Rechercher une appli</string>
+    <string name="search_alarm_title">Rechercher une alarme</string>
+    <string name="city_note_hint">Note</string>
+    <string name="confirm_remove_all_custom_ringtones">Êtes-vous sûr de vouloir supprimer toutes les sonneries personnalisées ?\n\nLes alarmes et les minuteurs qui les utilisent actuellement seront réinitialisés sur la sonnerie par défaut.</string>
+    <string name="general_category_title">Général</string>
+    <string name="advanced_category_title">Avancé</string>
+    <string name="proximity_sensor_title">Verrouiller les boutons lorsque l\'écran est couvert</string>
+    <string name="proximity_sensor_summary">Empêche l\'arrêt accidentel de l\'alarme en utilisant le capteur de proximité</string>
+    <string name="disable_DND_for_triggered_alarm_title">Désactiver le mode \"Ne Pas Déranger\" lorsque l\'alarme est déclenchée</string>
+    <string name="permission_optional">Facultatif</string>
+    <string name="dnd_permission_title">NE PAS DÉRANGER</string>
+    <string name="dnd_dialog_title">Ne Pas Déranger</string>
+    <string name="dnd_dialog_text">Cette autorisation permet à l\'application de désactiver automatiquement le mode \"Ne Pas Déranger\" lorsque votre alarme retentit.\n\nNous vous recommandons de l\'activer afin de ne manquer aucun appel ni message important après votre réveil.</string>
+    <string name="time_zone_search_hint">Rechercher un fuseau horaire</string>
 </resources>

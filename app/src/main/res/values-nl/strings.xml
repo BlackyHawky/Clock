@@ -292,7 +292,7 @@
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
     <string name="FSN_permission_title">MELDINGEN OP VOLLEDIG SCHERM INSCHAKELEN</string>
     <string name="FSN_dialog_title">Meldingen op volledig scherm</string>
-    <string name="FSN_dialog_text">Zodat de wekker kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om het recht \"Meldingen op volledig scherm\" toe te staan.</string>
+    <string name="FSN_dialog_text">Zodat de wekker af kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om het recht \"Meldingen op volledig scherm\" toe te staan.</string>
     <string name="power_button_title">Aan/uit-knop</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
@@ -744,4 +744,25 @@
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> d</item>
     </plurals>
     <string name="display_enabled_alarm_badge_title">Kenmerk weergeven als wekkers zijn ingeschakeld</string>
+    <string name="label_back">Terug</string>
+    <string name="disable_dnd">\"Niet storen\" uitschakelen</string>
+    <string name="task_title">Taak</string>
+    <string name="task_name">Naam</string>
+    <string name="task_url">Link</string>
+    <string name="task_url_helper_text">Moet beginnen met \"http://\" of \"https://\" of \"app://\"</string>
+    <string name="select_app_title">App selecteren</string>
+    <string name="loading_apps_title">Apps laden</string>
+    <string name="search_app_title">App zoeken</string>
+    <string name="search_alarm_title">Wekker zoeken</string>
+    <string name="city_note_hint">Notitie</string>
+    <string name="confirm_remove_all_custom_ringtones">Weet je zeker dat je alle aangepaste geluiden wil verwijderen?\n\n(Kook)wekkers met aangepaste geluiden zullen worden teruggezet naar het standaard geluid.</string>
+    <string name="general_category_title">Algemeen</string>
+    <string name="advanced_category_title">Geavanceerd</string>
+    <string name="proximity_sensor_title">Knoppen vergrendelen als scherm wordt bedekt</string>
+    <string name="proximity_sensor_summary">Voorkomt het per ongeluk uitzetten van wekkers door middel van de nabijheidssensor</string>
+    <string name="disable_DND_for_triggered_alarm_title">\"Niet storen\" uitschakelen wanneer wekker gaat</string>
+    <string name="permission_optional">Optioneel</string>
+    <string name="dnd_permission_title">NIET STOREN</string>
+    <string name="dnd_dialog_title">Niet storen</string>
+    <string name="dnd_dialog_text">Met dit recht kan de app de \'Niet storen\'-modus automatisch uitschakelen wanneer je wekker gaat.\n\nWe raden aan deze functie in te schakelen, zodat je na het wakker worden geen belangrijke oproepen of berichten mist.</string>
 </resources>

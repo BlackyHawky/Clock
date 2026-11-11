@@ -740,4 +740,25 @@
     <string name="display_timer_delete_button_title">\"Entfernen\"-Taste auf der Timer-Karte anzeigen</string>
     <string name="alarm_alert_snooze_duration_message">Schlummern für <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
     <string name="snooze_warning_message">Wenn ein Wecker für mehrere Tage schlummert werden alle geplanten Wiederholungen in dieser Zeit übersprungen.\n\nBeispiel: Wenn ein täglicher Wecker für 3 Tage schlummert wird er morgen und übermorgen nicht läuten. Er wird erst am Ende dieser 3 Tage läuten.</string>
+    <string name="dnd_dialog_title">Nicht stören</string>
+    <string name="label_back">Zurück</string>
+    <string name="disable_dnd">„Nicht stören“ deaktivieren</string>
+    <string name="task_title">Aufgabe</string>
+    <string name="task_name">Name</string>
+    <string name="task_url">URL</string>
+    <string name="task_url_helper_text">Muss mit „http://“, „https://“ oder „app://“ beginnen</string>
+    <string name="select_app_title">App auswählen</string>
+    <string name="loading_apps_title">Apps werden geladen</string>
+    <string name="search_app_title">Nach einer App suchen</string>
+    <string name="search_alarm_title">Nach einem Alarm suchen</string>
+    <string name="city_note_hint">Hinweis</string>
+    <string name="confirm_remove_all_custom_ringtones">Möchtest du wirklich alle benutzerdefinierten Klingeltöne löschen?\n\nAlarme und Timer, die diese derzeit verwenden, werden auf den Standardton zurückgesetzt.</string>
+    <string name="general_category_title">Allgemein</string>
+    <string name="advanced_category_title">Erweitert</string>
+    <string name="proximity_sensor_title">Schaltflächen sperren, wenn der Bildschirm verdeckt ist</string>
+    <string name="proximity_sensor_summary">Verhindert das versehentliche Ausschalten des Alarms mithilfe des Näherungssensors</string>
+    <string name="disable_DND_for_triggered_alarm_title">Modus „Nicht stören“ deaktivieren, wenn der Alarm ausgelöst wird</string>
+    <string name="permission_optional">Optional</string>
+    <string name="dnd_permission_title">NICHT STÖREN</string>
+    <string name="dnd_dialog_text">Mit dieser Berechtigung kann die App den Modus „Nicht stören“ automatisch ausschalten, wenn dein Wecker klingelt.\n\nWir empfehlen, diese Berechtigung zu aktivieren, damit du nach dem Aufwachen keine wichtigen Anrufe oder Nachrichten verpasst.</string>
 </resources>

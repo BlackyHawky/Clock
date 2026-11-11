@@ -750,4 +750,18 @@
     <string name="alarm_alert_snooze_duration_message">Edasilükatud <xliff:g example="1 h 30 m" id="duration">%s</xliff:g></string>
     <string name="snooze_warning_message">Kui lükkad äratuse mitu päeva edasi, siis sellesse vahemikku jäävad ajastatud korduvused jäävad vahele.\n\nNäiteks: kui lükkad äratuse 3 päeva edasi, siis ta ei helise ei homme ega ülehomme, vaid alles nende kolme päeva möödumisel.</string>
     <string name="timer_accessibility_custom_time_removed">Taimerist on eemaldatud %1$s minut(it), <xliff:g example="jäänud on 5 tundi" id="TIME">%2$s</xliff:g></string>
+    <string name="label_back">Tagasi</string>
+    <string name="disable_dnd">Lülita „Ära sega“ välja</string>
+    <string name="task_title">Ülesanne</string>
+    <string name="task_name">Nimi</string>
+    <string name="task_url">Võrguaadress</string>
+    <string name="task_url_helper_text">Alguses peab olema „http://“ või „https://“ või „app://“</string>
+    <string name="select_app_title">Vali rakendus</string>
+    <string name="loading_apps_title">Laadin rakendusi</string>
+    <string name="search_app_title">Otsi rakendust</string>
+    <string name="search_alarm_title">Otsi äratust</string>
+    <string name="city_note_hint">Märge</string>
+    <string name="dnd_dialog_title">Ära sega</string>
+    <string name="dnd_permission_title">ÄRA SEGA</string>
+    <string name="permission_optional">Valikuline</string>
 </resources>
