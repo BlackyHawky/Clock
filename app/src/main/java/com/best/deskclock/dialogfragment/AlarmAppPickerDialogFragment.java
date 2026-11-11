@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EdgeEffect;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -115,6 +117,20 @@ public class AlarmAppPickerDialogFragment extends DialogFragment {
         });
 
         mBinding.appPickerRecyclerView.setAdapter(mAdapter);
+
+        // Disable the glow effect when scrolling through the app's lists
+        mBinding.appPickerRecyclerView.setEdgeEffectFactory(new RecyclerView.EdgeEffectFactory() {
+            @NonNull
+            @Override
+            protected EdgeEffect createEdgeEffect(@NonNull RecyclerView view, int direction) {
+                return new EdgeEffect(view.getContext()) {
+                    @Override
+                    public boolean draw(Canvas canvas) {
+                        return false;
+                    }
+                };
+            }
+        });
 
         loadInstalledApps(generalTypeface, savedInstanceState, locale);
 

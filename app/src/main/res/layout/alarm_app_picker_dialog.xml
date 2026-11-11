@@ -23,15 +23,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="?attr/dialogPreferredPadding">
+        android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/app_picker_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingHorizontal="?attr/dialogPreferredPadding"
             android:clipToPadding="false"
-            android:overScrollMode="never"
             tools:listitem="@layout/alarm_app_list_item" />
 
         <LinearLayout

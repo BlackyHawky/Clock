@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -117,10 +118,18 @@ public class CustomDialog {
 
         AlertDialog dialog = builder.create();
 
-        // Apply typeface to buttons
+        // Configure the scroll indicators and apply the typeface to the buttons
         dialog.setOnShowListener(d -> {
-            if (finalDialogContent != null && finalDialogContent.findViewById(R.id.scroll_view) != null) {
-                configureScrollView(finalDialogContent);
+            if (finalDialogContent != null) {
+                View scrollableView = finalDialogContent.findViewById(R.id.scroll_view);
+
+                if (scrollableView == null) {
+                    scrollableView = finalDialogContent.findViewById(R.id.app_picker_recycler_view);
+                }
+
+                if (scrollableView != null) {
+                    configureScrollIndicators(scrollableView);
+                }
             }
 
             Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -164,29 +173,38 @@ public class CustomDialog {
         return dialog;
     }
 
-    private static void configureScrollView(@NonNull View dialogView) {
-        NestedScrollView scrollView = dialogView.findViewById(R.id.scroll_view);
-
-        boolean scrollable = scrollView.canScrollVertically(1) || scrollView.canScrollVertically(-1);
+    private static void configureScrollIndicators(@NonNull View scrollableView) {
+        boolean scrollable = scrollableView.canScrollVertically(1) || scrollableView.canScrollVertically(-1);
 
         if (scrollable) {
-            scrollView.setScrollIndicators(View.SCROLL_INDICATOR_BOTTOM);
+            scrollableView.setScrollIndicators(View.SCROLL_INDICATOR_BOTTOM);
         }
 
-        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
-            (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            scrollView.setScrollIndicators(View.SCROLL_INDICATOR_TOP | View.SCROLL_INDICATOR_BOTTOM);
+        if (scrollableView instanceof NestedScrollView scrollView) {
+            scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+                (v, scrollX, scrollY, oldScrollX, oldScrollY) -> updateIndicators(scrollView));
+        } else if (scrollableView instanceof RecyclerView recyclerView) {
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    updateIndicators(recyclerView);
+                }
+            });
+        }
+    }
 
-            boolean atTop = !scrollView.canScrollVertically(-1);
-            boolean atBottom = !scrollView.canScrollVertically(1);
+    private static void updateIndicators(@NonNull View view) {
+        view.setScrollIndicators(View.SCROLL_INDICATOR_TOP | View.SCROLL_INDICATOR_BOTTOM);
 
-            if (atTop) {
-                scrollView.setScrollIndicators(View.SCROLL_INDICATOR_BOTTOM);
-            }
-            if (atBottom) {
-                scrollView.setScrollIndicators(View.SCROLL_INDICATOR_TOP);
-            }
-        });
+        boolean atTop = !view.canScrollVertically(-1);
+        boolean atBottom = !view.canScrollVertically(1);
+
+        if (atTop) {
+            view.setScrollIndicators(View.SCROLL_INDICATOR_BOTTOM);
+        }
+        if (atBottom) {
+            view.setScrollIndicators(View.SCROLL_INDICATOR_TOP);
+        }
     }
 
     public interface OnDialogReady {
