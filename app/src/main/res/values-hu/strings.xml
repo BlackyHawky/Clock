@@ -345,14 +345,8 @@
     <string name="settings_fade_transitions_title">Átmenet a képernyők közötti váltáskor</string>
     <string name="settings_keep_screen_on_title">Képernyő bekapcsolva marad</string>
     <string name="settings_keep_screen_on_summary">Figyelem: Ettől a beállítástól függetlenül a képernyő mindig bekapcsolva marad ha egy időzítő vagy stopper éppen fut és a hozzátartozó fül van megnyitva</string>
-    <string name="enable_per_alarm_snooze_duration_title">Egyedi szundi időtartam minden ébresztőhöz</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Egyedi ébresztő szundi időtartam visszaáll az eredeti értékre.%s</string>
-    <string name="enable_per_alarm_volume_title">Egyedi hangerő minden ébresztőhöz</string>
-    <string name="enable_per_alarm_volume_dialog_message">Egyedi ébresztő hangerő visszaáll az eredeti értékre.%s</string>
     <string name="display_dismiss_button_title">Az elvetés gomb megjelenik ahogy az ébresztő bekapcsolásra kerül</string>
     <string name="display_dismiss_button_summary">Kikapcsoláskor a gomb az értesítővel együtt jelenik meg</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Egyedi elmulasztott ébresztő újraindítás minden ébresztőhöz</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Egyedi elmulasztott ébresztő újraindítás visszaáll az eredeti értékre.%s</string>
     <string name="missed_alarm_repeat_limit_title">Elmulasztott ébresztők újraindítása</string>
     <string name="missed_alarm_repeat_limit_1_time">1 alkalommal</string>
     <string name="missed_alarm_repeat_limit_3_times">3 alkalommal</string>
@@ -364,8 +358,7 @@
     <string name="system_media_volume_title">Használja a rendszer média hangerőt</string>
     <string name="system_media_volume_summary">Csak akkor működik, ha egy Bluetooth eszköz csatlakoztatva van</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Ébresztők létrehozásánál rezgés engedélyezése</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Egyedi rezgés minta használata minden ébresztéshez</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Egyedi ébresztő rezgés minta visszaáll az eredeti értékre.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Egyedi ébresztő rezgés minta visszaáll az eredeti értékre.%s</string>
     <string name="vibration_pattern_title">Rezgés minta</string>
     <string name="vibration_pattern_soft">Enyhe</string>
     <string name="vibration_pattern_strong">Erős</string>
@@ -412,10 +405,8 @@
     <string name="background_image_dialog_title">Háttérkép</string>
     <string name="background_image_toast_message_selected">Kép sikeresen kiválasztva</string>
     <string name="background_image_toast_message_deleted">Kép sikeresen törölve</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Egyedi hangerő növekedési időtartam használata ébresztőnként</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Egyedi ébresztő hangerő növekedési időtartam visszaáll az eredeti értékre.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Egyedi ébresztő megállási időtartam használata ébresztőnként</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Egyedi ébresztő megállási időtartam visszaáll az eredeti értékre.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Egyedi ébresztő hangerő növekedési időtartam visszaáll az eredeti értékre.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Egyedi ébresztő megállási időtartam visszaáll az eredeti értékre.%s</string>
     <string name="auto_silence_end_of_ringtone">A csengőhang vége</string>
     <string name="snooze_duration_none">Nincs</string>
     <string name="random_ringtone_title">Véletlenszerű csengőhang</string>

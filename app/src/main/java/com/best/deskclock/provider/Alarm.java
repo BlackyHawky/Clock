@@ -273,7 +273,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.manualSortOrder = 0;
         this.pauseStartDate = 0;
         this.pauseEndDate = 0;
-        this.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+        this.backgroundImage = DEFAULT_ALARM_BACKGROUND_IMAGE;
         this.blurIntensity = DEFAULT_BLUR_INTENSITY;
         this.mathHardnessLevel = DEFAULT_MATH_HARDNESS_LEVEL;
         this.lock = false;

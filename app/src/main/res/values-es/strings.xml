@@ -483,14 +483,8 @@
     <string name="tab_title_visibility_when_selected">Cuando se selecciona</string>
     <string name="settings_keep_screen_on_title">Mantener la pantalla encendida</string>
     <string name="settings_keep_screen_on_summary">Nota: La pantalla permanecerá siempre encendida si hay un temporizador o un cronómetro en marcha y se muestra la pestaña correspondiente, independientemente del estado de esta configuración</string>
-    <string name="enable_per_alarm_snooze_duration_title">Establece una duración de repetición personalizada para cada alarma</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Se restablecerán los tiempos de repetición personalizados de las alarmas.%s</string>
-    <string name="enable_per_alarm_volume_title">Usar un volumen personalizado en cada alarma</string>
-    <string name="enable_per_alarm_volume_dialog_message">El volumen personalizado de las alarmas de reiniciará.%s</string>
     <string name="display_dismiss_button_title">Mostrar el botón «Desactivar» en cuanto se active la alarma</string>
     <string name="display_dismiss_button_summary">Si se desactiva, el botón aparecerá al mismo tiempo que la notificación de recordatorio</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Utiliza un número personalizado de repeticiones de alarma perdida para cada alarma</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Se restablecerá el recuento personalizado de repeticiones de alarmas perdidas.%s</string>
     <string name="missed_alarm_repeat_limit_title">Repetir alarmas perdidas</string>
     <string name="missed_alarm_repeat_limit_1_time">1 vez</string>
     <string name="missed_alarm_repeat_limit_3_times">3 veces</string>
@@ -505,8 +499,7 @@
     <string name="connect_external_audio_device_title">Conecta un dispositivo de audio externo para acceder a esta configuración</string>
     <string name="disconnect_external_audio_device_title">Desconecta el dispositivo de audio externo para acceder a esta configuración</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">Se desactivarán las vibraciones para todas las alarmas.%s</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Utiliza un patrón de vibración personalizado para cada alarma</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Los patrones de vibración personalizados se restablecerán.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Los patrones de vibración personalizados se restablecerán.%s</string>
     <string name="vibration_pattern_title">Patrón de vibración</string>
     <string name="vibration_pattern_soft">Suave</string>
     <string name="vibration_pattern_strong">Fuerte</string>
@@ -548,10 +541,8 @@
     <string name="background_image_dialog_title">Imagen de fondo</string>
     <string name="background_image_toast_message_selected">Imagen seleccionada correctamente</string>
     <string name="background_image_toast_message_deleted">Imagen eliminada correctamente</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Utiliza una duración personalizada para el aumento de volumen de cada alarma</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Las duraciones de las subidas de volumen personalizadas se restablecerán.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Utilice una duración de parada personalizada para cada</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Las duraciones de parada personalizadas se restablecerán. %s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Las duraciones de las subidas de volumen personalizadas se restablecerán.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Las duraciones de parada personalizadas se restablecerán. %s</string>
     <string name="random_ringtone_title">Tono aleatorio</string>
     <string name="alarm_volume_low">El volumen de la alarma es bajo</string>
     <string name="fix_alarm_volume">Arreglar</string>
@@ -667,10 +658,6 @@
     <string name="background_image_dialog_message">Cambiar o eliminar la imagen de fondo.</string>
     <string name="headphones_button_title">Botón de reproducción/pausa para auriculares</string>
     <string name="display_alarm_title_on_single_line_title">Mostrar el título de la alarma en una sola línea</string>
-    <string name="enable_per_alarm_background_image_title">Utilice una imagen de fondo personalizada para cada alarma</string>
-    <string name="enable_per_alarm_background_image_dialog_message">Las imágenes de fondo personalizadas se eliminarán. %1$s%2$s</string>
-    <string name="blur_intensity_dialog_message_1">\n\nEl valor de intensidad de desenfoque personalizado también se restablecerá.</string>
-    <string name="blur_intensity_dialog_message_2">El valor de intensidad de desenfoque personalizado se restablecerá. %s</string>
     <string name="timer_settings_general_summary">Esta configuración se puede modificar para cada temporizador individualmente en el panel de edición del temporizador</string>
     <string name="enable_per_timer_auto_silence_title">Utilice una duración de parada personalizada para cada temporizador</string>
     <string name="enable_per_timer_crescendo_duration_title">Utilice una duración de subida de volumen personalizada para cada temporizador</string>
@@ -700,8 +687,6 @@
     <string name="math_hardness_level_easy">Fácil</string>
     <string name="math_hardness_level_normal">Normal</string>
     <string name="math_hardness_level_hard">Difícil</string>
-    <string name="enable_per_alarm_math_hardness_level_title">Utiliza un nivel de dificultad matemática personalizado para cada alarma</string>
-    <string name="enable_per_alarm_math_hardness_level_dialog_message">Se restablecerán los niveles de dificultad personalizados de matemáticas.%s</string>
     <string name="sw_display_milliseconds_title">Mostrar milisegundos</string>
     <string name="auto_silence_info_message">\"Silenciar después de\" establecido en \"%s\". \n\nDesactiva el nivel de dificultad matemática para acceder a esta función.</string>
     <string name="button_action_mute">Silenciar</string>
