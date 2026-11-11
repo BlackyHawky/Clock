@@ -731,4 +731,25 @@
     <string name="default_alarm_category_title">앱을 열었을 때 선택할 분류</string>
     <string name="display_dismiss_button_title">알람을 활성화한 즉시 \"알람 해제\" 버튼 표시</string>
     <string name="display_dismiss_button_summary">끄면, 미리 알림과 같은 때에 버튼이 나타납니다</string>
+    <string name="disable_dnd">\"방해 금지\" 비활성화</string>
+    <string name="label_back">뒤로</string>
+    <string name="task_name">이름</string>
+    <string name="task_url">URL</string>
+    <string name="task_url_helper_text">\"http://\" 또는 \"https://\" 또는 \"app://\"으로 시작해야 합니다</string>
+    <string name="select_app_title">앱 선택</string>
+    <string name="loading_apps_title">앱 불러오는 중</string>
+    <string name="search_app_title">앱 검색</string>
+    <string name="search_alarm_title">알람 검색</string>
+    <string name="city_note_hint">메모</string>
+    <string name="general_category_title">일반</string>
+    <string name="advanced_category_title">고급</string>
+    <string name="confirm_remove_all_custom_ringtones">정말로 사용자 지정 벨소리를 모두 삭제하시겠습니까?\n\n현재 벨소리를 쓰는 알람 및 타이머가 기본 소리로 초기화됩니다.</string>
+    <string name="dnd_permission_title">방해 금지</string>
+    <string name="dnd_dialog_title">방해 금지</string>
+    <string name="dnd_dialog_text">이 권한은 알람을 끌 때 앱이 \"방해 금지\" 모드를 자동으로 끌 수 있도록 허용합니다.\n\n일어난 뒤 중요한 전화나 메시지를 놓치지 않도록 켜는 것을 권장합니다.</string>
+    <string name="permission_optional">선택</string>
+    <string name="disable_DND_for_triggered_alarm_title">알람이 울릴 때 \"방해 금지\" 모드 비활성화</string>
+    <string name="task_title">작업</string>
+    <string name="proximity_sensor_title">화면을 가렸을 때 버튼 잠금</string>
+    <string name="proximity_sensor_summary">알람이 의도치 않게 꺼지지 않도록 근접 센서를 사용합니다</string>
 </resources>

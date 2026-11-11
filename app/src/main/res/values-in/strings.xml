@@ -402,4 +402,13 @@
     <string name="settings_tab_to_display">Tab yang ditampilkan ketika membuka aplikasi</string>
     <string name="last_tab_used_title">Tab yang terakhir dipakai</string>
     <string name="settings_vibration_title">Aktifkan getaran</string>
+    <string name="label_back">Kembali</string>
+    <string name="label_category">Kategori</string>
+    <string name="do_not_show_again">Jangan tampilkan lagi</string>
+    <string name="label_days">Hari</string>
+    <string name="create_category">Buat kategori</string>
+    <string name="rename_category">Ubah nama kategori</string>
+    <string name="label_all_categories">Semua</string>
+    <string name="category_error">Kategori sudah dibuat</string>
+    <string name="add_category_description">Tambah kategori</string>
 </resources>

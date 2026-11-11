@@ -768,4 +768,25 @@
     <string name="delete_alarms_with_category_summary">Якщо вимкнено, будильники буде переміщено до категорії за замовчуванням</string>
     <string name="live_update_notifications_title">Увімкнути сповіщення про оновлення в реальному часі</string>
     <string name="display_compact_timers_summary">Економить місце на екрані, але відображає не більше 3 кнопок.\n\nЯкщо кнопку «Почати/Призупинити» приховано для відображення користувацьких кнопок часу, натисніть на індикатор відліку, щоб призупинити</string>
+    <string name="label_back">Назад</string>
+    <string name="task_title">Завдання</string>
+    <string name="task_name">Назва</string>
+    <string name="task_url">URL-адреса</string>
+    <string name="select_app_title">Виберіть додаток</string>
+    <string name="loading_apps_title">Завантаження додатків</string>
+    <string name="city_note_hint">Примітка</string>
+    <string name="general_category_title">Загальне</string>
+    <string name="advanced_category_title">Додатково</string>
+    <string name="permission_optional">Необов’язково</string>
+    <string name="disable_dnd">Вимкнути «Не турбувати»</string>
+    <string name="dnd_dialog_title">Не турбувати</string>
+    <string name="dnd_permission_title">НЕ ТУРБУВАТИ</string>
+    <string name="task_url_helper_text">Повинна починатися з «http://», «https://» або «app://»</string>
+    <string name="search_alarm_title">Пошук будильника</string>
+    <string name="search_app_title">Пошук додатка</string>
+    <string name="confirm_remove_all_custom_ringtones">Ви дійсно хочете видалити всі власні мелодії?\n\nДля будильників і таймерів, у яких вони зараз використовуються, буде встановлено звук за замовчуванням.</string>
+    <string name="proximity_sensor_title">Блокувати кнопки, якщо екран накритий</string>
+    <string name="proximity_sensor_summary">Запобігає випадковому вимкненню будильника через датчик наближення</string>
+    <string name="disable_DND_for_triggered_alarm_title">Вимкнути режим «Не турбувати» після спрацьовування будильника</string>
+    <string name="dnd_dialog_text">Дозволяє додатку автоматично вимикати режим «Не турбувати», коли спрацьовує будильник.\n\nРекомендуємо ввімкнути, щоб не пропустити важливі дзвінки чи повідомлення після пробудження.</string>
 </resources>
