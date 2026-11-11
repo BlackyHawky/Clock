@@ -4,6 +4,8 @@ package com.best.deskclock.settings.custompreference;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FEATURES_TO_DISPLAY;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,10 +13,14 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,6 +28,7 @@ import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DialogMultiListPreferenceCustomBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
@@ -105,6 +112,8 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
         resolvePreferenceIfNeeded();
 
         Bundle args = requireArguments();
+        String key = args.getString(ARG_PREF_KEY);
+        boolean isAlarmFeaturesPref = KEY_ALARM_FEATURES_TO_DISPLAY.equals(key);
         CharSequence title = args.getCharSequence(ARG_TITLE);
         CharSequence[] entries = args.getCharSequenceArray(ARG_ENTRIES);
         CharSequence[] entryValues = args.getCharSequenceArray(ARG_ENTRY_VALUES);
@@ -147,6 +156,16 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             checkBox.setPadding((int) dpToPx(20, getResources().getDisplayMetrics()), 0, 0, 0);
             checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             checkBox.setTypeface(typeface);
+
+            if (isAlarmFeaturesPref) {
+                int iconResId = getIconForFeatureValue(value);
+                if (iconResId != 0) {
+                    checkBox.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
+                    checkBox.setCompoundDrawablePadding((int) dpToPx(10, getResources().getDisplayMetrics()));
+                    TextViewCompat.setCompoundDrawableTintList(checkBox, checkBox.getTextColors());
+                }
+            }
+
             checkBox.setChecked(mNewValues.contains(value));
             // Prevent the CheckBox animation on the currently selected item when the Dialog opens.
             checkBox.jumpDrawablesToCurrentState();
@@ -160,14 +179,18 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
                     mNewValues.remove(value);
                 }
 
-                updateCheckBoxesState(checkBoxes);
+                updateCheckBoxesState(checkBoxes, isAlarmFeaturesPref);
             });
 
             checkBoxes.add(checkBox);
             binding.multiSelectionListOptions.addView(checkBox);
         }
 
-        updateCheckBoxesState(checkBoxes);
+        updateCheckBoxesState(checkBoxes, isAlarmFeaturesPref);
+
+        int totalItems = Objects.requireNonNull(entries).length;
+        String neutralText = isAlarmFeaturesPref ?
+            getString(mNewValues.size() == totalItems ? R.string.uncheck_all : R.string.check_all) : null;
 
         return CustomDialog.create(
             context,
@@ -184,9 +207,22 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             },
             getString(android.R.string.cancel),
             null,
+            isAlarmFeaturesPref ? neutralText : null,
             null,
-            null,
-            null,
+            dialog -> {
+                if (isAlarmFeaturesPref) {
+                    Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                    if (neutralButton != null) {
+                        neutralButton.setOnClickListener(v -> {
+                            boolean allChecked = mNewValues.size() == totalItems;
+
+                            for (MaterialCheckBox checkBox : checkBoxes) {
+                                checkBox.setChecked(!allChecked);
+                            }
+                        });
+                    }
+                }
+            },
             CustomDialog.SoftInputMode.NONE
         );
     }
@@ -218,14 +254,54 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
     /**
      * Locks the last checkbox selected to prevent the user from unchecking it, and unlocks all checkboxes if there is more than one.
      */
-    private void updateCheckBoxesState(@NonNull List<MaterialCheckBox> checkBoxes) {
+    private void updateCheckBoxesState(@NonNull List<MaterialCheckBox> checkBoxes, boolean isAlarmFeaturesPref) {
         boolean isOnlyOneChecked = (mNewValues.size() == 1);
 
         for (MaterialCheckBox checkBox : checkBoxes) {
             String value = (String) checkBox.getTag();
 
-            checkBox.setEnabled(!isOnlyOneChecked || !mNewValues.contains(value));
+            if (isAlarmFeaturesPref) {
+                checkBox.setEnabled(true);
+            } else {
+                checkBox.setEnabled(!isOnlyOneChecked || !mNewValues.contains(value));
+            }
         }
+
+        if (isAlarmFeaturesPref && getDialog() instanceof AlertDialog alertDialog) {
+            Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+
+            if (neutralButton != null) {
+                if (mNewValues.size() == checkBoxes.size()) {
+                    neutralButton.setText(R.string.uncheck_all);
+                } else {
+                    neutralButton.setText(R.string.check_all);
+                }
+            }
+        }
+    }
+
+    @DrawableRes
+    private int getIconForFeatureValue(@NonNull String value) {
+        return switch (value) {
+            case VISIBLE_SCHEDULE_ALARM -> R.drawable.ic_calendar_clock;
+            case VISIBLE_PAUSE_ALARM -> R.drawable.ic_alarm_pause;
+            case VISIBLE_TIME_ZONE -> R.drawable.ic_globe_clock;
+            case VISIBLE_ALARM_VIBRATE -> R.drawable.ic_vibrate;
+            case VISIBLE_VIBRATION_PATTERN -> R.drawable.ic_earthquake;
+            case VISIBLE_ALARM_FLASH -> R.drawable.ic_flash;
+            case VISIBLE_DELETE_OCCASIONAL_ALARM -> R.drawable.ic_clear;
+            case VISIBLE_DISABLE_DND -> R.drawable.ic_bedtime_off;
+            case VISIBLE_AUTO_SILENCE -> R.drawable.ic_ringtone_off;
+            case VISIBLE_SNOOZE_DURATION -> R.drawable.ic_snooze;
+            case VISIBLE_MISSED_ALARM_REPEAT_LIMIT -> R.drawable.ic_repeat;
+            case VISIBLE_MATH_HARDNESS_LEVEL -> R.drawable.ic_calculate;
+            case VISIBLE_CRESCENDO_DURATION -> R.drawable.ic_crescendo;
+            case VISIBLE_VOLUME -> R.drawable.ic_volume_up;
+            case VISIBLE_TASK -> R.drawable.ic_task;
+            case VISIBLE_BACKGROUND_IMAGE -> R.drawable.ic_image;
+            case VISIBLE_LOCK -> R.drawable.ic_lock;
+            default -> 0;
+        };
     }
 
 }

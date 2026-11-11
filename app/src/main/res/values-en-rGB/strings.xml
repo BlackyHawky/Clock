@@ -340,14 +340,8 @@
     <string name="settings_fade_transitions_title">Enable fade transitions when switching screens</string>
     <string name="settings_keep_screen_on_title">Keep the screen on</string>
     <string name="settings_keep_screen_on_summary">Note: The screen will always be on if a timer or stopwatch is running and the corresponding tab is displayed, regardless of the status of this setting</string>
-    <string name="enable_per_alarm_snooze_duration_title">Use a custom snooze duration for each alarm</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Custom alarm snooze durations will be reset.%s</string>
-    <string name="enable_per_alarm_volume_title">Use a custom volume for each alarm</string>
-    <string name="enable_per_alarm_volume_dialog_message">Custom alarm volumes will be reset.%s</string>
     <string name="display_dismiss_button_title">Display the \"Dismiss\" button as soon as the alarm is enabled</string>
     <string name="display_dismiss_button_summary">”If disabled, the button will appear at the same time as the notification reminder</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Use a custom missed alarm repeat count for each alarm</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Custom missed alarm repeat count will be reset.%s</string>
     <string name="missed_alarm_repeat_limit_title">Repeat missed alarms</string>
     <string name="missed_alarm_repeat_limit_1_time">1 time</string>
     <string name="missed_alarm_repeat_limit_3_times">3 times</string>

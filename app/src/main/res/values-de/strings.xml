@@ -484,7 +484,6 @@
     <string name="system_media_volume_title">Medienlautstärke des Systems verwenden</string>
     <string name="system_media_volume_summary">Funktioniert nur, wenn ein externes Audiogerät angeschlossen ist</string>
     <string name="widget_apply_horizontal_padding_title">Abstand zu den Widget-Seiten hinzufügen</string>
-    <string name="enable_per_alarm_volume_title">Für jeden Wecker eine eigene Lautstärke verwenden</string>
     <string name="delay_picker_dialog_title">Wecker in…</string>
     <string name="colors_category_title">Farben</string>
     <string name="clock_dial_flower">Blume</string>
@@ -525,13 +524,8 @@
     <string name="vibration_pattern_strong">Stark</string>
     <string name="background_image_toast_message_selected">Bild erfolgreich ausgewählt</string>
     <string name="confirm_action_prompt">\n\nWillst du fortsetzen?</string>
-    <string name="enable_per_alarm_snooze_duration_title">Für jeden Wecker eine eigene Schlummer-Dauer verwenden</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Individuelle Wecker-Schlummerzeiten werden zurückgesetzt.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">Individuelle Wecker-Lautstärken werden zurückgesetzt.%s</string>
     <string name="display_dismiss_button_title">Verwerfen-Button anzeigen, sobald der Wecker aktiviert ist</string>
     <string name="display_dismiss_button_summary">Wenn deaktiviert, wird der Button zur selben Zeit angezeigt wie die Benachrichtigungserinnerung</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Für jeden verpassten Wecker eine benutzerdefinierte Anzahl von Wiederholungen verwenden</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Individuelle Anzahl an Wiederholungen für verpasste Wecker wird zurückgesetzt.%s</string>
     <string name="missed_alarm_repeat_limit_title">Verpasste Wecker wiederholen</string>
     <string name="missed_alarm_repeat_limit_1_time">einmal</string>
     <string name="missed_alarm_repeat_limit_3_times">dreimal</string>
@@ -545,10 +539,8 @@
     <string name="shadow_offset_title">Schattenabstand</string>
     <string name="blur_intensity_title">Stärke der Unschärfe</string>
     <string name="background_image_title">Hintergrundbild auswählen</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Für jeden Wecker eine individuelle Dauer der Lautstärkeerhöhung verwenden</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Die Dauer der benutzerdefinierten Lautstärkeerhöhung wird zurückgesetzt.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Für jeden Wecker eine eigene Stummschaltdauer verwenden</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Eigene Stummschaltdauern werden zurückgesetzt.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Die Dauer der benutzerdefinierten Lautstärkeerhöhung wird zurückgesetzt.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Eigene Stummschaltdauern werden zurückgesetzt.%s</string>
     <string name="features_dialog_message">Seite mit den wichtigsten Funktionen besuchen:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Wecker verworfen. <xliff:g example="Nächster Wecker am Montag" id="alarm_day">Neu geplant für %s.</xliff:g></string>
     <string name="progress_ringtones">Klingeltöne hinzufügen… (%1$d/%2$d)</string>
@@ -571,7 +563,6 @@
     <string name="display_settings_title">Anzeigeeinstellungen</string>
     <string name="settings_language_bulgarian">Bulgarisch</string>
     <string name="settings_language_tamil">Tamil</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Verwende ein eigenes Vibrationsmuster für jeden Wecker</string>
     <string name="background_image_title_variant">Ändere oder entferne das Hintergrundbild</string>
     <string name="background_image_dialog_title">Hintergrundbild</string>
     <string name="background_image_toast_message_deleted">Bild erfolgreich entfernt</string>
@@ -584,7 +575,7 @@
     <string name="battery_color_title">Akkustandsfarbe</string>
     <string name="screensaver_bold_battery_title">Batteriestand in fett</string>
     <string name="screensaver_italic_battery_title">Batteriestand in kursiv</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Eigene Vibrationsmuster werden zurückgesetzt.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Eigene Vibrationsmuster werden zurückgesetzt.%s</string>
     <string name="sync_alarm_by_label_title">Ein- und Ausschalten mit anderen Weckern synchronisieren, die den gleichen Namen haben</string>
     <string name="label_indefinitely">unbegrenzt</string>
     <string name="alarm_alert_dismiss_and_delete_text_button">Verwerfen &amp;\nlöschen</string>
@@ -666,8 +657,6 @@
     <string name="background_image_dialog_message">Hintergrundbild ändern oder löschen.</string>
     <string name="headphones_button_title">Start/Pause-Taste für Kopfhörer</string>
     <string name="display_alarm_title_on_single_line_title">Weckernamen in einer Zeile anzeigen</string>
-    <string name="enable_per_alarm_background_image_title">Eigenes Hintergrundbild für jeden Wecker verwenden</string>
-    <string name="enable_per_alarm_background_image_dialog_message">Eigene Hintergrundbilder werden gelöscht.%1$s%2$s</string>
     <string name="timer_settings_general_summary">Diese Einstellung kann für jeden Timer im Bearbeitungsfenster geändert werden</string>
     <string name="enable_per_timer_auto_silence_title">Eigene Stoppdauer für jeden Timer verwenden</string>
     <string name="enable_per_timer_crescendo_duration_title">Eigene Dauer für Lautstärkenanstieg für jeden Timer verwenden</string>
@@ -676,8 +665,6 @@
     <string name="timer_headphones_button_action_title">Abgelaufene Timer mit der Start/Pause-Taste des Kopfhörers zurücksetzen</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Beim Ablauf des Timers den Blitz einschalten</string>
     <string name="custom_font_dialog_message">Eigene Schriftart ändern oder löschen.</string>
-    <string name="blur_intensity_dialog_message_1">\n\nEigene Unschärfeeinstellungen werden auch zurückgesetzt.</string>
-    <string name="blur_intensity_dialog_message_2">Eigene Unschärfeeinstellungen werden auch zurückgesetzt.%s</string>
     <string name="info">Info</string>
     <string name="pause_alarm_info_message">Tage der Woche wählen, um diese Funktion zu nutzen.</string>
     <string name="delete_occasional_alarm_after_use_info_message">Tage der Woche abwählen, um diese Funktion zu nutzen.</string>
@@ -692,8 +679,6 @@
     <string name="math_hardness_level_easy">Leicht</string>
     <string name="math_hardness_level_normal">Normal</string>
     <string name="math_hardness_level_hard">Schwierig</string>
-    <string name="enable_per_alarm_math_hardness_level_title">Eigene Mathe-Schwierigkeitsstufe für jeden Alarm verwenden</string>
-    <string name="enable_per_alarm_math_hardness_level_dialog_message">Eigene Mathe-Schwierigkeitsstufe werden zurückgesetzt.%s</string>
     <string name="sw_display_milliseconds_title">Millisekunden anzeigen</string>
     <string name="auto_silence_info_message">\"Stummschalten nach\" ist gesetzt auf \"%s\". \n\nMathe-Schwierigkeitsstufe deaktivieren, um diese Funktion zu nutzen.</string>
     <string name="settings_language_swedish">Schwedisch</string>

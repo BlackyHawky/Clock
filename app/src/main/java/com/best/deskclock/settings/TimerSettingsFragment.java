@@ -812,7 +812,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 );
 
                 case KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN -> showDisablePerTimerSettingDialog(
-                    R.string.enable_per_alarm_vibration_pattern_dialog_message, KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN,
+                    R.string.enable_per_timer_vibration_pattern_dialog_message, KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN,
                     mEnablePerTimerVibrationPatternPref, timer ->
                         getDataModel().updateAllTimerSettings(
                             timer,
@@ -831,7 +831,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 );
 
                 case KEY_ENABLE_PER_TIMER_AUTO_SILENCE -> showDisablePerTimerSettingDialog(
-                    R.string.enable_per_alarm_auto_silence_dialog_message, KEY_ENABLE_PER_TIMER_AUTO_SILENCE,
+                    R.string.enable_per_timer_auto_silence_dialog_message, KEY_ENABLE_PER_TIMER_AUTO_SILENCE,
                     mEnablePerTimerAutoSilencePref, timer ->
                         getDataModel().updateAllTimerSettings(
                             timer,
@@ -850,7 +850,7 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
                 );
 
                 case KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION -> showDisablePerTimerSettingDialog(
-                    R.string.enable_per_alarm_crescendo_duration_dialog_message, KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION,
+                    R.string.enable_per_timer_crescendo_duration_dialog_message, KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION,
                     mEnablePerTimerVolumeCrescendoDurationPref, timer ->
                         getDataModel().updateAllTimerSettings(
                             timer,

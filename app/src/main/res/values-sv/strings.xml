@@ -466,7 +466,6 @@
     <string name="system_media_volume_summary">Fungerar endast om en extern ljudenhet är ansluten</string>
     <string name="widget_apply_horizontal_padding_title">Lägg till utfyllnad vid widgetens sidor</string>
     <string name="auto_silence_end_of_ringtone">Slutet på ringsignalen</string>
-    <string name="enable_per_alarm_volume_title">Använd en egen volym för varje alarm</string>
     <string name="delay_picker_dialog_title">Alarm om …</string>
     <string name="clock_second_hand_title">Sekundvisare</string>
     <string name="clock_second_hand_vintage">Vintage</string>
@@ -521,22 +520,15 @@
     <string name="vibration_start_delay_title">Fördröjning innan vibration startar</string>
     <string name="vibration_start_delay_warning_box_text">Ange ett värde mellan 0 och 10 minuter</string>
     <string name="confirm_action_prompt">\n\nVill du fortsätta?</string>
-    <string name="enable_per_alarm_snooze_duration_title">Använd en egen snoozelängd för varje alarm</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Egna snoozelängder för alarm återställs.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">Egna alarmvolymer återställs.%s</string>
     <string name="display_dismiss_button_title">Visa knappen ”Avvisa” så snart alarmet aktiveras</string>
     <string name="display_dismiss_button_summary">Om den är inaktiverad visas knappen samtidigt som påminnelseaviseringen</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Använd ett eget antal upprepningar för missade alarm för varje alarm</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Eget antal upprepningar för missade alarm återställs.%s</string>
     <string name="missed_alarm_repeat_limit_title">Upprepa missade alarm</string>
     <string name="missed_alarm_repeat_limit_1_time">1 gång</string>
     <string name="missed_alarm_repeat_limit_3_times">3 gånger</string>
     <string name="missed_alarm_repeat_limit_5_times">5 gånger</string>
     <string name="missed_alarm_repeat_limit_10_times">10 gånger</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Använd en egen tid för volymökning för varje alarm</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Egna tider för volymökning återställs.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Använd en egen stopptid för varje alarm</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Egna stopptider återställs.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Egna tider för volymökning återställs.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Egna stopptider återställs.%s</string>
     <string name="features_dialog_message">Besök sidan med huvudfunktioner:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Alarm avvisat. <xliff:g id="alarm_day">Schemalagt igen till %s.</xliff:g></string>
     <string name="blur_intensity_title">Oskärpeintensitet</string>
@@ -563,8 +555,7 @@
     <string name="custom_font_toast_message_deleted">Teckensnittet har tagits bort</string>
     <string name="vibration_category_title">Vibration</string>
     <string name="display_settings_title">Visningsinställningar</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Använd ett eget vibrationsmönster för varje alarm</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Egna vibrationsmönster återställs.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Egna vibrationsmönster återställs.%s</string>
     <string name="clock_font_size">Klockans teckenstorlek</string>
     <string name="sw_laps_title">Varv</string>
     <string name="sw_split_title">Mellantid</string>
@@ -667,10 +658,6 @@
     <string name="background_image_dialog_message">Ändra eller ta bort bakgrundsbilden.</string>
     <string name="headphones_button_title">Spela upp-/pausknapp på hörlurar</string>
     <string name="display_alarm_title_on_single_line_title">Visa alarmrubriken på en rad</string>
-    <string name="enable_per_alarm_background_image_title">Använd en egen bakgrundsbild för varje alarm</string>
-    <string name="enable_per_alarm_background_image_dialog_message">Egna bakgrundsbilder tas bort.%1$s%2$s</string>
-    <string name="blur_intensity_dialog_message_1">\n\nEgna värden för oskärpeintensitet återställs också.</string>
-    <string name="blur_intensity_dialog_message_2">Egna värden för oskärpeintensitet återställs.%s</string>
     <string name="timer_settings_general_summary">Den här inställningen kan ändras för varje timer på panelen för timerredigering</string>
     <string name="enable_per_timer_auto_silence_title">Använd en egen stopptid för varje timer</string>
     <string name="enable_per_timer_crescendo_duration_title">Använd en egen tid för volymökning för varje timer</string>
@@ -693,8 +680,6 @@
     <string name="math_hardness_level_easy">Lätt</string>
     <string name="math_hardness_level_normal">Normal</string>
     <string name="math_hardness_level_hard">Svår</string>
-    <string name="enable_per_alarm_math_hardness_level_title">Använd en egen svårighetsnivå för matematik för varje alarm</string>
-    <string name="enable_per_alarm_math_hardness_level_dialog_message">Egna svårighetsnivåer för matematik återställs.%s</string>
     <string name="sw_display_milliseconds_title">Visa millisekunder</string>
     <string name="button_action_mute">Tysta</string>
     <string name="settings_language_swedish">Svenska</string>

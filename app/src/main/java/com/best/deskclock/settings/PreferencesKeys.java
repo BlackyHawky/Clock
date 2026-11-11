@@ -89,16 +89,11 @@ public class PreferencesKeys {
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
     public static final String KEY_MATERIAL_DATE_PICKER_STYLE = "key_material_date_picker_style";
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "key_default_alarm_ringtone";
-    public static final String KEY_ENABLE_PER_ALARM_AUTO_SILENCE = "key_enable_per_alarm_auto_silence";
     public static final String KEY_AUTO_SILENCE_DURATION = "key_auto_silence_duration";
-    public static final String KEY_ENABLE_PER_ALARM_SNOOZE_DURATION = "key_enable_per_alarm_snooze_duration";
     public static final String KEY_ALARM_SNOOZE_DURATION = "key_alarm_snooze_duration";
-    public static final String KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT = "key_enable_per_alarm_missed_repeat_limit";
     public static final String KEY_REPEAT_MISSED_ALARM = "key_repeat_missed_alarm";
     public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
-    public static final String KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION = "key_enable_per_alarm_volume_crescendo_duration";
     public static final String KEY_ALARM_VOLUME_CRESCENDO_DURATION = "key_alarm_volume_crescendo_duration";
-    public static final String KEY_ENABLE_PER_ALARM_VOLUME = "key_enable_per_alarm_volume";
     public static final String KEY_ADVANCED_AUDIO_PLAYBACK = "key_advanced_audio_playback";
     public static final String KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE = "key_auto_routing_to_external_audio_device";
     public static final String KEY_SYSTEM_MEDIA_VOLUME = "key_system_media_volume";
@@ -111,7 +106,6 @@ public class PreferencesKeys {
     public static final String KEY_SHAKE_ACTION = "key_shake_action";
     public static final String KEY_SHAKE_INTENSITY = "key_shake_intensity";
     public static final String KEY_ALARM_MATH_HARDNESS_LEVEL = "key_alarm_math_hardness_level";
-    public static final String KEY_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL = "key_enable_per_alarm_math_hardness_level";
     public static final String KEY_SORT_ALARM = "key_sort_alarm";
     public static final String KEY_DISPLAY_ENABLED_ALARMS_FIRST = "key_display_enabled_alarms_first";
     public static final String KEY_DISPLAY_LOCKED_ALARMS_FIRST = "key_display_locked_alarms_first";
@@ -120,11 +114,11 @@ public class PreferencesKeys {
     public static final String KEY_SWITCH_TO_NEW_CATEGORY = "key_switch_to_new_category";
     public static final String KEY_DISPLAY_ENABLED_ALARM_BADGE = "key_display_enabled_alarm_badge";
     public static final String KEY_DELETE_ALARMS_WITH_CATEGORY = "key_delete_alarms_with_category";
+    public static final String KEY_ALARM_FEATURES_TO_DISPLAY = "key_alarm_features_to_display";
     public static final String KEY_ENABLE_ALARM_FAB_LONG_PRESS = "key_enable_alarm_fab_long_press";
     public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_DISPLAY_DISMISS_BUTTON = "key_display_dismiss_button";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER = "key_alarm_notification_reminder";
-    public static final String KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN = "key_enable_per_alarm_vibration_pattern";
     public static final String KEY_VIBRATION_PATTERN = "key_vibration_pattern";
     public static final String KEY_VIBRATION_START_DELAY = "key_vibration_start_delay";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
@@ -182,7 +176,6 @@ public class PreferencesKeys {
     public static final String KEY_RINGTONE_TITLE_COLOR = "key_ringtone_title_color";
     public static final String KEY_ALARM_BACKGROUND_IMAGE = "key_alarm_background_image";
     public static final String KEY_ALARM_BLUR_INTENSITY = "key_alarm_blur_intensity";
-    public static final String KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE = "key_enable_per_alarm_background_image";
     public static final String KEY_ALARM_PREVIEW = "key_alarm_preview";
 
     // Timer

@@ -10,6 +10,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MATH_HARDNESS_LEVEL;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -426,7 +427,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Events.sendAlarmEvent(R.string.action_fire, 0);
 
         boolean hasMathMission = AlarmUtils.hasMathMission(
-            alarm, SettingsDAO.getAlarmMathHardnessLevel(prefs), SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs)
+            alarm,
+            SettingsDAO.getAlarmMathHardnessLevel(prefs),
+            !SettingsDAO.getAlarmFeaturesToDisplay(prefs).contains(VISIBLE_MATH_HARDNESS_LEVEL)
         );
 
         Calendar timeout = instance.getTimeout(context, hasMathMission);
@@ -784,7 +787,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Calendar alarmTime = instance.getAlarmTime();
 
         boolean hasMathMission = AlarmUtils.hasMathMission(
-            alarm, SettingsDAO.getAlarmMathHardnessLevel(prefs), SettingsDAO.isPerAlarmMathHardnessLevelDisabled(prefs)
+            alarm,
+            SettingsDAO.getAlarmMathHardnessLevel(prefs),
+            !SettingsDAO.getAlarmFeaturesToDisplay(prefs).contains(VISIBLE_MATH_HARDNESS_LEVEL)
         );
 
         final Calendar timeoutTime = instance.getTimeout(context, hasMathMission);
