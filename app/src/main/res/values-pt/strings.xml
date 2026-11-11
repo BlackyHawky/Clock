@@ -447,7 +447,6 @@
     <string name="blue_accent_color">Azul</string>
     <string name="settings_language_dutch">Holandês</string>
     <string name="settings_tab_to_display">Aba exibida ao abir o app</string>
-    <string name="enable_per_alarm_volume_title">Usar um volume personalizado para cada alarme</string>
     <string name="settings_tab_title_visibility_title">Exibir título das abas</string>
     <string name="schedule_alarm_title">Agendar alarme</string>
     <string name="repetitive_alarm_is_dismissed">Alarme dispensado. <xliff:g id="alarm_day">Remarcado para %s.</xliff:g></string>
@@ -475,11 +474,6 @@
     <string name="settings_language_bulgarian">Búlgaro</string>
     <string name="settings_language_tamil">Tâmil</string>
     <string name="settings_toolbar_title">Mostrar o título na barra de ferramentas</string>
-    <string name="enable_per_alarm_snooze_duration_title">Usar uma duração de soneca personalizada para cada alarme</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Durações personalizadas de soneca voltarão ao padrão.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">Volumes personalizados de alarme voltarão ao padrão.%s</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Usar número de repetição de alarme perdido personalizado para cada alarme</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Números de repetições de alarmes perdidos voltarão ao padrão.%s</string>
     <string name="missed_alarm_repeat_limit_title">Repetir alarmes perdidos</string>
     <string name="missed_alarm_repeat_limit_1_time">1 vez</string>
     <string name="missed_alarm_repeat_limit_3_times">3 vezes</string>
@@ -489,8 +483,7 @@
     <string name="advanced_audio_playback_summary">Melhora a compatibilidade Bluetooth e previne interrupções de som durante repetição \n\nNota: Alguns toques podem ter pequenas falhas de áudio</string>
     <string name="system_media_volume_title">Usar volume de mídia do sistema</string>
     <string name="system_media_volume_summary">Só funciona se um dispositivo Bluetooth estiver conectado</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Usar vibrações personalizadas para cada alarme</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Vibrações personalizadas voltarão ao padrão.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Vibrações personalizadas voltarão ao padrão.%s</string>
     <string name="vibration_pattern_title">Estilo de vibração</string>
     <string name="vibration_pattern_soft">Leve</string>
     <string name="vibration_pattern_strong">Forte</string>

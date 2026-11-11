@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/drag_handle"
-        app:layout_constraintBottom_toTopOf="@id/alarm_button_layout">
+        app:layout_constraintBottom_toTopOf="@+id/alarm_button_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,8 +97,8 @@
         android:id="@+id/alarm_edit_content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/drag_handle"
-        app:layout_constraintBottom_toTopOf="@id/alarm_button_layout"
+        app:layout_constraintTop_toBottomOf="@+id/drag_handle"
+        app:layout_constraintBottom_toTopOf="@+id/alarm_button_layout"
         app:layout_constrainedHeight="true"
         app:layout_constraintVertical_bias="0">
 
@@ -146,16 +146,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <Space
+                    android:id="@+id/first_group_space"
+                    android:layout_width="0dp"
+                    android:layout_height="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/schedule_alarm_layout" />
+
                 <LinearLayout
                     android:id="@+id/schedule_alarm_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="2dp"
                     android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/first_group_space">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/schedule_alarm"
@@ -201,7 +210,7 @@
                     android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/schedule_alarm_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/schedule_alarm_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/pause_alarm"
@@ -262,7 +271,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pause_alarm_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/pause_alarm_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/timezone_title"
@@ -307,7 +316,7 @@
                     android:text="@string/add_label"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/timezone_layout" />
+                    app:layout_constraintTop_toBottomOf="@+id/timezone_layout" />
 
                 <LinearLayout
                     android:id="@+id/alarm_category_layout"
@@ -319,7 +328,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/edit_label">
+                    app:layout_constraintTop_toBottomOf="@+id/edit_label">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/category_title"
@@ -366,7 +375,7 @@
                     android:singleLine="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/alarm_category_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/alarm_category_layout"
                     tools:text="Standard (Hassium)" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
@@ -385,7 +394,7 @@
                     android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
+                    app:layout_constraintTop_toBottomOf="@+id/choose_ringtone"
                     tools:ignore="RtlSymmetry"
                     tools:checked="true" />
 
@@ -399,7 +408,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/vibrate_on_off">
+                    app:layout_constraintTop_toBottomOf="@+id/vibrate_on_off">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/vibration_pattern_title"
@@ -443,7 +452,7 @@
                     android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/vibration_pattern_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/vibration_pattern_layout"
                     tools:ignore="RtlSymmetry"
                     tools:checked="false" />
 
@@ -457,7 +466,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/flash_on_off"
+                    app:layout_constraintTop_toBottomOf="@+id/flash_on_off"
                     app:layout_goneMarginTop="10dp">
 
                     <com.google.android.material.checkbox.MaterialCheckBox
@@ -508,12 +517,12 @@
                     android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/delete_alarm_after_use_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/delete_alarm_after_use_layout"
                     tools:ignore="RtlSymmetry"
                     tools:checked="true" />
 
                 <Space
-                    android:id="@+id/space"
+                    android:id="@+id/third_group_space"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -531,7 +540,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/space">
+                    app:layout_constraintTop_toBottomOf="@+id/third_group_space">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/auto_silence_duration_title"
@@ -582,7 +591,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/auto_silence_duration_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/auto_silence_duration_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/snooze_duration_title"
@@ -633,7 +642,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/snooze_duration_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/snooze_duration_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/missed_alarm_repeat_limit_title"
@@ -671,7 +680,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/missed_alarm_repeat_limit_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/missed_alarm_repeat_limit_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/math_hardness_level_title"
@@ -709,7 +718,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/math_hardness_level_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/math_hardness_level_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/crescendo_duration_title"
@@ -747,7 +756,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/crescendo_duration_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/crescendo_duration_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alarm_volume_title"
@@ -786,7 +795,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/alarm_volume_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/alarm_volume_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/task_title"
@@ -824,7 +833,7 @@
                     android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/task_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/task_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alarm_background_image_title"
@@ -871,7 +880,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/alarm_background_image_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/alarm_background_image_layout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alarm_blur_intensity_title"
@@ -915,7 +924,7 @@
                     android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/alarm_blur_intensity_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/alarm_blur_intensity_layout"
                     tools:ignore="RtlSymmetry"
                     tools:checked="false" />
 

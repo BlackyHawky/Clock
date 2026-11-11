@@ -498,7 +498,6 @@
     <string name="external_audio_device_volume_title">Hlasitost budíku pro externí zvuková zařízení</string>
     <string name="connect_external_audio_device_title">Připojte externí zvukové zařízení, abyste získali přístup k tomuto nastavení</string>
     <string name="disconnect_external_audio_device_title">Odpojte externí zvukové zařízení, abyste získali přístup k tomuto nastavení</string>
-    <string name="enable_per_alarm_volume_title">Použít vlastní hlasitost pro každý budík</string>
     <string name="delay_picker_dialog_title">Budík za…</string>
     <string name="clock_dial_sun">Slunce</string>
     <string name="clock_dial_flower">Květina</string>
@@ -541,22 +540,15 @@
     <string name="label_none">Žádné</string>
     <string name="vibration_start_delay_warning_box_text">Zadejte hodnotu od 0 do 10 minut</string>
     <string name="confirm_action_prompt">\n\nChcete pokračovat?</string>
-    <string name="enable_per_alarm_snooze_duration_title">Použít vlastní dobu odložení pro každý budík</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Vlastní délky odložení budíků budou resetovány.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">Vlastní hlasitosti budíků budou resetovány.%s</string>
     <string name="display_dismiss_button_title">Zobrazit tlačítko „Konec“, jakmile je budík povolen</string>
     <string name="display_dismiss_button_summary">Pokud je zakázáno, objeví se tlačítko ve stejný čas jako oznámení připomínky</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Použít vlastní počet opakování zmeškaných budíků u každého budíku</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Vlastní počet opakování zmeškaných budíků bude resetován.%s</string>
     <string name="missed_alarm_repeat_limit_title">Opakovat zmeškané budíky</string>
     <string name="missed_alarm_repeat_limit_1_time">1krát</string>
     <string name="missed_alarm_repeat_limit_3_times">3krát</string>
     <string name="missed_alarm_repeat_limit_5_times">5krát</string>
     <string name="missed_alarm_repeat_limit_10_times">10krát</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Použít vlastní dobu zvyšování hlasitosti pro každý budík</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Vlastní doby zvyšování hlasitosti budou resetovány.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Použít vlastní dobu do ukončení pro každý budík</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Vlastní doby do ukončení budou resetovány.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Vlastní doby zvyšování hlasitosti budou resetovány.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Vlastní doby do ukončení budou resetovány.%s</string>
     <string name="features_dialog_message">Navštivte stránku s hlavními funkcemi:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Budík zrušen. <xliff:g example="Next alarm Monday." id="alarm_day">Přesunuto na %s.</xliff:g></string>
     <string name="blur_intensity_title">Intenzita rozostření</string>
@@ -586,8 +578,7 @@
     <string name="custom_font_toast_message_deleted">Písmo úspěšně odstraněno</string>
     <string name="vibration_category_title">Vibrace</string>
     <string name="display_settings_title">Nastavení zobrazení</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Použít vlastní vzor vibrací pro každý budík</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Vlastní vzor vibrací bude resetován.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Vlastní vzor vibrací bude resetován.%s</string>
     <string name="sw_laps_title">Kola</string>
     <string name="sw_split_title">Rozdělit</string>
     <string name="sw_total_title">Celkem</string>
@@ -683,10 +674,6 @@
     <string name="background_image_dialog_message">Změnit nebo odstranit obrázek na pozadí.</string>
     <string name="headphones_button_title">Tlačítko pozastavení/přehrání na sluchátkách</string>
     <string name="display_alarm_title_on_single_line_title">Zobrazit název budíku na jednom řádku</string>
-    <string name="enable_per_alarm_background_image_title">Použít vlastní obrázek na pozadí pro každý budík</string>
-    <string name="enable_per_alarm_background_image_dialog_message">Vlastní obrázky pozadí budou odstraněny.%1$s%2$s</string>
-    <string name="blur_intensity_dialog_message_1">\n\nTaké budou resetovány vlastní hodnoty intenzity rozostření.</string>
-    <string name="blur_intensity_dialog_message_2">Vlastní hodnoty intenzity rozostření budou resetovány.%s</string>
     <string name="timer_settings_general_summary">Toto nastavení lze změnit pro každý časovač v panelu úpravy časovačů</string>
     <string name="enable_per_timer_auto_silence_title">Použít vlastní dobu do ukončení pro každý časovač</string>
     <string name="enable_per_timer_crescendo_duration_title">Použít vlastní dobu zvyšování hlasitosti pro každý časovač</string>
@@ -709,8 +696,6 @@
     <string name="math_hardness_level_easy">Jednoduchá</string>
     <string name="math_hardness_level_normal">Normální</string>
     <string name="math_hardness_level_hard">Těžká</string>
-    <string name="enable_per_alarm_math_hardness_level_title">Použít vlastní úroveň obtížnost matematiky pro každý budík</string>
-    <string name="enable_per_alarm_math_hardness_level_dialog_message">Vlastní úroveň obtížnosti matematiky bude resetována.%s</string>
     <string name="sw_display_milliseconds_title">Zobrazit milisekundy</string>
     <string name="button_action_mute">Ztlumit</string>
     <string name="settings_language_swedish">Švédský</string>

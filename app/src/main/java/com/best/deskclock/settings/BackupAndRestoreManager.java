@@ -13,9 +13,9 @@ import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_UR
 import static com.best.deskclock.data.TimerDAO.STATE;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
 import static com.best.deskclock.data.TimerDAO.TIMER_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.annotation.SuppressLint;
@@ -503,8 +503,8 @@ public class BackupAndRestoreManager {
         int manualSortOrder = alarmObject.optInt("manualSortOrder", 0);
         long pauseStartDate = alarmObject.optLong("pauseStartDate", 0);
         long pauseEndDate = alarmObject.optLong("pauseEndDate", 0);
-        String oldBackgroundImage = alarmObject.optString("backgroundImage", DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE);
-        String newBackgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+        String oldBackgroundImage = alarmObject.optString("backgroundImage", DEFAULT_ALARM_BACKGROUND_IMAGE);
+        String newBackgroundImage = DEFAULT_ALARM_BACKGROUND_IMAGE;
         int blurIntensity = alarmObject.optInt("blurIntensity", DEFAULT_BLUR_INTENSITY);
         String mathHardnessLevel = alarmObject.optString("mathHardnessLevel", DEFAULT_MATH_HARDNESS_LEVEL);
         boolean lock = alarmObject.optBoolean("lock", false);

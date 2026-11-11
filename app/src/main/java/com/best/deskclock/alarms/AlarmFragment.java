@@ -12,11 +12,12 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_MANUALLY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
@@ -1687,7 +1688,7 @@ public final class AlarmFragment extends DeskClockFragment
         alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(getPrefs());
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(getPrefs());
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
-        alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+        alarm.backgroundImage = DEFAULT_ALARM_BACKGROUND_IMAGE;
         alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(getPrefs());
         alarm.mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
         alarm.lock = false;
@@ -1902,7 +1903,7 @@ public final class AlarmFragment extends DeskClockFragment
         Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
 
         boolean isCustomAlarmVolumePlaying = false;
-        if (SettingsDAO.isPerAlarmVolumeEnabled(getPrefs()) && bottomSheet != null && bottomSheet.isAdded()) {
+        if (SettingsDAO.getAlarmFeaturesToDisplay(getPrefs()).contains(VISIBLE_VOLUME) && bottomSheet != null && bottomSheet.isAdded()) {
             Fragment volumeDialog = bottomSheet.getChildFragmentManager().findFragmentByTag(AlarmVolumeDialogFragment.TAG);
             isCustomAlarmVolumePlaying = volumeDialog != null && volumeDialog.isAdded();
         }

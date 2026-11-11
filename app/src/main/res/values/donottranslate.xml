@@ -564,6 +564,67 @@
         <item>stopwatch</item>
     </string-array>
 
+    <!-- Entries listed in the MultiSelectListPreference when invoking the alarm features visibility preference. -->
+    <string-array name="alarm_features_to_display_entries">
+        <item>@string/schedule_alarm_title</item>
+        <item>@string/pause_alarm_title</item>
+        <item>@string/timezone_title</item>
+        <item>@string/alarm_vibrate</item>
+        <item>@string/vibration_pattern_title</item>
+        <item>@string/alarm_flash</item>
+        <item>@string/delete_occasional_alarm_after_use_title</item>
+        <item>@string/disable_dnd</item>
+        <item>@string/auto_silence_title</item>
+        <item>@string/snooze_duration_title</item>
+        <item>@string/missed_alarm_repeat_limit_title</item>
+        <item>@string/alarm_volume_title</item>
+        <item>@string/crescendo_duration_title</item>
+        <item>@string/math_hardness_level_title</item>
+        <item>@string/background_image_title</item>
+        <item>@string/task_title</item>
+        <item>@string/label_lock</item>
+    </string-array>
+    <!-- Values that are retrieved from the MultiSelectListPreference. These must match the alarm_features_to_display_entries above. -->
+    <string-array name="alarm_features_to_display_values" translatable="false">
+        <item>schedule_alarm</item>
+        <item>pause_alarm</item>
+        <item>time_zone</item>
+        <item>alarm_vibrate</item>
+        <item>vibration_pattern</item>
+        <item>alarm_flash</item>
+        <item>delete_occasional_alarm</item>
+        <item>disable_dnd</item>
+        <item>auto_silence</item>
+        <item>snooze_duration</item>
+        <item>missed_alarm_repeat_limit</item>
+        <item>volume</item>
+        <item>crescendo_duration</item>
+        <item>math_hardness_level</item>
+        <item>background_image</item>
+        <item>task</item>
+        <item>lock</item>
+    </string-array>
+    <!-- Default value for the MultiSelectListPreference related to the alarm features visibility preference. -->
+    <string-array name="alarm_features_to_display_default_values" translatable="false">
+        <item>schedule_alarm</item>
+        <item>pause_alarm</item>
+        <item>time_zone</item>
+        <item>alarm_vibrate</item>
+        <item>vibration_pattern</item>
+        <item>alarm_flash</item>
+        <item>delete_occasional_alarm</item>
+        <item>disable_dnd</item>
+        <item>auto_silence</item>
+        <item>snooze_duration</item>
+        <item>missed_alarm_repeat_limit</item>
+        <item>volume</item>
+        <item>crescendo_duration</item>
+        <item>math_hardness_level</item>
+        <item>background_image</item>
+        <item>task</item>
+        <item>lock</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when selecting the default tab to display. -->
     <string-array name="tab_entries">
         <item>@string/last_tab_used_title</item>

@@ -247,7 +247,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
                 Set<String> oldSelectedTabs = SettingsDAO.getVisibleTabs(getPrefs());
 
                 if (newSelectedTabs.isEmpty()) {
-                    // This shouldn't happen because it's impossible to uncheck all the entries.
+                    // This shouldn't happen because it's impossible to uncheck all the entries for this preference.
                     return false;
                 }
 

@@ -92,15 +92,10 @@ public class PreferencesDefaultValues {
     public static final String SPINNER_TIME_PICKER_STYLE = "spinner";
     public static final String DEFAULT_DATE_PICKER_STYLE = "calendar";
     public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE = true;
     public static final int DEFAULT_AUTO_SILENCE_DURATION = 600;
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION = true;
     public static final int DEFAULT_ALARM_SNOOZE_DURATION = 10;
     public static final int ALARM_SNOOZE_DURATION_DISABLED = -1;
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT = true;
     public static final String DEFAULT_MISSED_ALARM_REPEAT_LIMIT = "-1";
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION = true;
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME = false;
     public static final int DEFAULT_ALARM_VOLUME = 5;
     public static final boolean DEFAULT_ADVANCED_AUDIO_PLAYBACK = false;
     public static final boolean DEFAULT_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE = false;
@@ -122,7 +117,6 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_FLIP_ACTION = "0";
     public static final String DEFAULT_SHAKE_ACTION = "0";
     public static final int DEFAULT_SHAKE_INTENSITY = 16;
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_MATH_HARDNESS_LEVEL = false;
     public static final String DEFAULT_MATH_HARDNESS_LEVEL = "off";
     public static final String MATH_HARDNESS_LEVEL_EASY = "easy";
     public static final String MATH_HARDNESS_LEVEL_NORMAL = "normal";
@@ -139,11 +133,46 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_SWITCH_TO_NEW_CATEGORY = true;
     public static final boolean DEFAULT_DISPLAY_ENABLED_ALARM_BADGE = false;
     public static final boolean DEFAULT_DELETE_ALARMS_WITH_CATEGORY = false;
+    public static final String VISIBLE_SCHEDULE_ALARM = "schedule_alarm";
+    public static final String VISIBLE_PAUSE_ALARM = "pause_alarm";
+    public static final String VISIBLE_TIME_ZONE = "time_zone";
+    public static final String VISIBLE_ALARM_VIBRATE = "alarm_vibrate";
+    public static final String VISIBLE_VIBRATION_PATTERN = "vibration_pattern";
+    public static final String VISIBLE_ALARM_FLASH = "alarm_flash";
+    public static final String VISIBLE_DELETE_OCCASIONAL_ALARM = "delete_occasional_alarm";
+    public static final String VISIBLE_DISABLE_DND = "disable_dnd";
+    public static final String VISIBLE_AUTO_SILENCE = "auto_silence";
+    public static final String VISIBLE_SNOOZE_DURATION = "snooze_duration";
+    public static final String VISIBLE_MISSED_ALARM_REPEAT_LIMIT = "missed_alarm_repeat_limit";
+    public static final String VISIBLE_VOLUME = "volume";
+    public static final String VISIBLE_CRESCENDO_DURATION = "crescendo_duration";
+    public static final String VISIBLE_MATH_HARDNESS_LEVEL = "math_hardness_level";
+    public static final String VISIBLE_BACKGROUND_IMAGE = "background_image";
+    public static final String VISIBLE_TASK = "task";
+    public static final String VISIBLE_LOCK = "lock";
+    public static final Set<String> DEFAULT_ALARM_FEATURES_TO_DISPLAY = Set.of(
+        VISIBLE_SCHEDULE_ALARM,
+        VISIBLE_PAUSE_ALARM,
+        VISIBLE_TIME_ZONE,
+        VISIBLE_ALARM_VIBRATE,
+        VISIBLE_VIBRATION_PATTERN,
+        VISIBLE_ALARM_FLASH,
+        VISIBLE_DELETE_OCCASIONAL_ALARM,
+        VISIBLE_DISABLE_DND,
+        VISIBLE_AUTO_SILENCE,
+        VISIBLE_SNOOZE_DURATION,
+        VISIBLE_MISSED_ALARM_REPEAT_LIMIT,
+        VISIBLE_VOLUME,
+        VISIBLE_CRESCENDO_DURATION,
+        VISIBLE_MATH_HARDNESS_LEVEL,
+        VISIBLE_BACKGROUND_IMAGE,
+        VISIBLE_TASK,
+        VISIBLE_LOCK
+    );
     public static final boolean DEFAULT_ENABLE_ALARM_FAB_LONG_PRESS = false;
     public static final String DEFAULT_WEEK_START = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
     public static final boolean DEFAULT_DISPLAY_DISMISS_BUTTON = false;
     public static final int DEFAULT_ALARM_NOTIFICATION_REMINDER = 30;
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_VIBRATION_PATTERN = false;
     public static final int DEFAULT_VIBRATION_START_DELAY = 0;
     public static final boolean DEFAULT_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = false;
     public static final boolean DEFAULT_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = false;
@@ -168,10 +197,8 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_ALARM_TITLE_FONT_SIZE_PREF = 30;
     public static final int DEFAULT_ALARM_SHADOW_COLOR = Color.parseColor("#80FFFFFF");
     public static final int DEFAULT_RINGTONE_TITLE_COLOR = Color.WHITE;
-    public static final String DEFAULT_ALARM_BACKGROUND_IMAGE = null;
-    public static final String DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE = "";
+    public static final String DEFAULT_ALARM_BACKGROUND_IMAGE = "";
     public static final int DEFAULT_BLUR_INTENSITY = 0;
-    public static final boolean DEFAULT_ENABLE_PER_ALARM_BACKGROUND_IMAGE = false;
 
     public static int getDefaultAlarmInversePrimaryColor(Context context) {
         return MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);

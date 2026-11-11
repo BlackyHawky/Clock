@@ -3,6 +3,15 @@
 package com.best.deskclock.base;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_FEATURES_TO_DISPLAY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_AUTO_SILENCE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MATH_HARDNESS_LEVEL;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MISSED_ALARM_REPEAT_LIMIT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_SNOOZE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VIBRATION_PATTERN;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BLUR_INTENSITY;
@@ -24,7 +33,9 @@ import com.best.deskclock.data.TimerDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * BroadcastReceiver triggered when the application package is replaced
@@ -71,6 +82,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                 // Migrate all system ringtones currently used by alarms to the device's protected storage
                 RingtoneUtils.migrateSystemRingtonesToLocal(appContext);
+
+                // Update all the "per alarm" keys stored in SharedPreferences
+                updatePerAlarmKeys(prefs);
             } finally {
                 result.finish();
                 wl.release();
@@ -176,5 +190,45 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 LogUtils.i("PackageReplacedReceiver - Alarm background color setting migrated successfully");
             }
         }
+    }
+
+    @SuppressLint("ApplySharedPref")
+    private void updatePerAlarmKeys(@NonNull SharedPreferences prefs) {
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean hasChanges = false;
+
+        Set<String> currentFeatures = new HashSet<>(
+            prefs.getStringSet("key_alarm_features_to_display", DEFAULT_ALARM_FEATURES_TO_DISPLAY)
+        );
+
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_auto_silence", VISIBLE_AUTO_SILENCE);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_snooze_duration", VISIBLE_SNOOZE_DURATION);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_missed_repeat_limit", VISIBLE_MISSED_ALARM_REPEAT_LIMIT);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_volume_crescendo_duration", VISIBLE_CRESCENDO_DURATION);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_volume", VISIBLE_VOLUME);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_math_hardness_level", VISIBLE_MATH_HARDNESS_LEVEL);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_vibration_pattern", VISIBLE_VIBRATION_PATTERN);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_background_image", VISIBLE_BACKGROUND_IMAGE);
+
+        if (hasChanges) {
+            editor.putStringSet("key_alarm_features_to_display", currentFeatures);
+            editor.commit();
+            LogUtils.i("PackageReplacedReceiver - Per alarm keys migrated and cleaned up successfully");
+        }
+    }
+
+    private boolean migrateAndRemoveOldKey(SharedPreferences prefs, SharedPreferences.Editor editor,
+                                           Set<String> newFeaturesSet, String oldKey, String newValueConstant) {
+        if (prefs.contains(oldKey)) {
+            boolean wasEnabled = prefs.getBoolean(oldKey, true);
+            if (!wasEnabled) {
+                newFeaturesSet.remove(newValueConstant);
+            }
+
+            editor.remove(oldKey);
+            return true;
+        }
+
+        return false;
     }
 }

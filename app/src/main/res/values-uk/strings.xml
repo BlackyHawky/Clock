@@ -508,7 +508,6 @@
     <string name="connect_external_audio_device_title">Під’єднайте зовнішній аудіопристрій, щоб отримати доступ до цього параметра</string>
     <string name="disconnect_external_audio_device_title">Від’єднайте зовнішній аудіопристрій, щоб отримати доступ до цього параметра</string>
     <string name="widget_apply_horizontal_padding_title">Застосувати відступи до сторін віджетів</string>
-    <string name="enable_per_alarm_volume_title">Окреме значення гучності для кожного будильника</string>
     <string name="delay_picker_dialog_title">Будильник о…</string>
     <string name="clock_dial_with_numbers">Із цифрами</string>
     <string name="colors_category_title">Кольори</string>
@@ -557,15 +556,8 @@
     <string name="confirm_action_prompt">\n\nПродовжити?</string>
     <string name="missed_alarm_repeat_limit_title">Повторювати пропущені сигнали</string>
     <string name="repetitive_alarm_is_dismissed">Будильник вимкнено. <xliff:g example="Next alarm Monday." id="alarm_day">Перенесено на %s.</xliff:g></string>
-    <string name="enable_per_alarm_snooze_duration_title">Окреме значення тривалості відкладення для кожного будильника</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Окрема кількість повторень пропущених для кожного будильника</string>
-    <string name="enable_per_alarm_auto_silence_title">Окреме значення «Вимкнути після» для кожного будильника</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Окреме значення збільшення гучності для кожного будильника</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Користувацькі значення тривалості відкладення для будильників буде скинуто.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">Користувацькі значення гучності для будильників буде скинуто.%s</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Користувацькі значення кількості повторень для пропущених будильників буде скинуто.%s</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Користувацькі значення збільшення гучності буде скинуто.%s</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Користувацькі значення «Вимкнути після» буде скинуто.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Користувацькі значення збільшення гучності буде скинуто.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Користувацькі значення «Вимкнути після» буде скинуто.%s</string>
     <string name="features_dialog_message">Відвідайте сторінку основних функцій:\n\n%s</string>
     <string name="display_dismiss_button_summary">Якщо вимкнено, кнопка з’являтиметься разом із нагадуванням про сповіщення</string>
     <string name="display_dismiss_button_title">Показувати кнопку «Вимкнути» одразу після ввімкнення будильника</string>
@@ -600,8 +592,7 @@
     <string name="custom_font_toast_message_deleted">Шрифт успішно видалено</string>
     <string name="custom_font_toast_message_selected">Шрифт успішно вибрано</string>
     <string name="display_settings_title">Налаштування показу</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Користувацькі ритми вібрації буде скинуто.%s</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Окремий ритм вібрації для кожного будильника</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Користувацькі ритми вібрації буде скинуто.%s</string>
     <string name="custom_font_title">Вибрати власний шрифт</string>
     <string name="custom_font_title_variant">Змінити або видалити власний шрифт</string>
     <string name="sw_laps_title">Кола</string>
@@ -690,8 +681,6 @@
     <string name="add_time_button_title">Кнопка «Додати час»</string>
     <string name="advanced_audio_playback_category_title">Розширені можливості відтворення</string>
     <string name="timer_vibrate_dialog_message">Вібрацію буде вимкнено для всіх таймерів.%s</string>
-    <string name="enable_per_alarm_background_image_dialog_message">Власні фонові зображення буде видалено.%1$s%2$s</string>
-    <string name="enable_per_alarm_background_image_title">Окреме фонове зображення для кожного будильника</string>
     <string name="enable_per_timer_auto_silence_title">Окреме значення «Вимкнути після» для кожного таймера</string>
     <string name="enable_per_timer_crescendo_duration_title">Окреме значення збільшення гучності для кожного таймера</string>
     <string name="enable_per_timer_vibration_pattern_title">Окремий ритм вібрації для кожного таймера</string>
@@ -700,8 +689,6 @@
     <string name="display_alarm_title_on_single_line_title">Показувати заголовок будильника в один рядок</string>
     <string name="headphones_button_title">Кнопка «Відтворення/Пауза» навушників</string>
     <string name="timer_headphones_button_action_title">Скидати використані таймери за допомогою кнопки «Відтворення/Пауза» навушників</string>
-    <string name="blur_intensity_dialog_message_2">Користувацькі значення інтенсивності розмиття буде скинуто.%s</string>
-    <string name="blur_intensity_dialog_message_1">\n\nКористувацькі значення інтенсивності розмиття також буде скинуто.</string>
     <string name="delete_timer_after_use_title">Видалити таймер після використання</string>
     <string name="turn_off_media_title">Зупинити відтворення після використання таймера</string>
     <string name="info">Інформація</string>
@@ -716,8 +703,6 @@
     <string name="delete_occasional_alarm_after_use_info_message">Скасуйте вибір днів тижня, щоб отримати доступ до цієї функції.</string>
     <string name="auto_silence_info_message">«Вимкнути після» встановлено на «%s». \n\nВимкніть рівень складності математичних прикладів, щоб отримати доступ до цієї функції.</string>
     <string name="math_hardness_level_title">Рівень складності математичних прикладів</string>
-    <string name="enable_per_alarm_math_hardness_level_dialog_message">Користувацькі рівні складності математичних прикладів буде скинуто.%s</string>
-    <string name="enable_per_alarm_math_hardness_level_title">Окремий рівень складності математичних прикладів для кожного будильника</string>
     <string name="math_challenge_category_title">Математичні завдання</string>
     <string name="math_hardness_level_easy">Простий</string>
     <string name="math_hardness_level_normal">Звичайний</string>

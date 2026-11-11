@@ -7,6 +7,9 @@
 package com.best.deskclock.alarms;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MATH_HARDNESS_LEVEL;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VIBRATION_PATTERN;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 
 import android.annotation.SuppressLint;
@@ -387,7 +390,7 @@ public class AlarmService extends Service {
         mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
 
         mMathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(mPrefs);
-        mIsPerAlarmMathHardnessLevelDisabled = SettingsDAO.isPerAlarmMathHardnessLevelDisabled(mPrefs);
+        mIsPerAlarmMathHardnessLevelDisabled = !SettingsDAO.getAlarmFeaturesToDisplay(mPrefs).contains(VISIBLE_MATH_HARDNESS_LEVEL);
 
         // Setup for flip and shake actions
         mFlipAction = SettingsDAO.getFlipAction(mPrefs);
@@ -617,9 +620,9 @@ public class AlarmService extends Service {
 
         AlarmKlaxon.Config klaxonConfig = new AlarmKlaxon.Config(
             SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs),
-            SettingsDAO.isPerAlarmVolumeEnabled(mPrefs),
+            SettingsDAO.getAlarmFeaturesToDisplay(mPrefs).contains(VISIBLE_VOLUME),
             SettingsDAO.getVibrationStartDelay(mPrefs),
-            SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs),
+            SettingsDAO.getAlarmFeaturesToDisplay(mPrefs).contains(VISIBLE_VIBRATION_PATTERN),
             SettingsDAO.getVibrationPattern(mPrefs),
             playerConfig
         );

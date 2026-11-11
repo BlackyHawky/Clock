@@ -43,6 +43,10 @@
     <string name="info">Info</string>
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
+    <!-- Button label in the Dialog to uncheck all items -->
+    <string name="uncheck_all">Uncheck all</string>
+    <!-- Button label in the Dialog to check all items -->
+    <string name="check_all">Check all</string>
     <!-- Button label in the Dialog to stop displaying the information/warning message -->
     <string name="do_not_show_again">Don\'t show again</string>
     <!-- Label "Days" -->
@@ -735,14 +739,10 @@
     <string name="background_image_toast_message_deleted">Image successfully deleted</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
-    <!-- Dialog message when the use of a custom volume increase duration is disabled. -->
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Custom volume increase durations will be reset.%s</string>
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
     <!-- Auto silence summary when set at "The end of the ringtone" or for changing the auto silence.-->
     <string name="auto_silence_end_of_ringtone">The end of the ringtone</string>
-    <!-- Dialog message when the use of a custom stop duration is disabled. -->
-    <string name="enable_per_alarm_auto_silence_dialog_message">Custom stop durations will be reset.%s</string>
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
     <!-- Header for a setting referring to showing seconds on the main clock -->
@@ -965,31 +965,15 @@
     <string name="alarm_settings">Alarms</string>
     <!-- Alarm preferences summary in the settings -->
     <string name="alarm_settings_summary">Customize the style, font, default ringtone, volume, actions to dismiss or snooze the alarms, first day of the week, and reminder notification time</string>
-    <!-- Setting title to enable the use of a custom snooze duration for each alarm. -->
-    <string name="enable_per_alarm_snooze_duration_title">Use a custom snooze duration for each alarm</string>
-    <!-- Dialog message when the "Use a custom snooze duration for each alarm" setting is disabled. -->
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Custom alarm snooze durations will be reset.%s</string>
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
     <!-- Setting title for changing the snooze duration to None. -->
     <string name="snooze_duration_none">None</string>
-    <!-- Setting title to enable the use of a custom volume for each alarm. -->
-    <string name="enable_per_alarm_volume_title">Use a custom volume for each alarm</string>
-    <!-- Dialog message when the user disables the "Use a custom volume for each alarm" setting -->
-    <string name="enable_per_alarm_volume_dialog_message">Custom alarm volumes will be reset.%s</string>
-    <!-- Setting title to enable the use of a custom volume increase duration for each alarm. -->
-    <string name="enable_per_alarm_crescendo_duration_title">Use a custom volume increase duration for each alarm</string>
-    <!-- Setting title to enable the use of a custom stop duration for each alarm. -->
-    <string name="enable_per_alarm_auto_silence_title">Use a custom stop duration for each alarm</string>
     <!-- Setting title to display the Dismiss button -->
     <string name="display_dismiss_button_title">Display the \"Dismiss\" button as soon as the alarm is enabled</string>
     <!-- Setting summary to specify when the Dismiss button will appear if the
          "Display Dismiss button as soon as alarm is enabled" setting is disabled. -->
     <string name="display_dismiss_button_summary">If disabled, the button will appear at the same time as the notification reminder</string>
-    <!-- Setting title to enable the use of a custom missed alarm repeat count for each alarm. -->
-    <string name="enable_per_alarm_missed_repeat_limit_title">Use a custom missed alarm repeat count for each alarm</string>
-    <!-- Dialog message when the "Use a custom missed alarm repeat count for each alarm" setting is disabled. -->
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Custom missed alarm repeat count will be reset.%s</string>
     <!-- Setting title for changing the "Repeat missed alarms" setting. -->
     <string name="missed_alarm_repeat_limit_title">Repeat missed alarms</string>
     <!-- Setting title for changing the "Repeat missed alarms" setting to 1 ring. -->
@@ -1023,10 +1007,6 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when alarm is triggered</string>
     <!-- Dialog message when the "Enable vibrations when alarm is triggered" setting is disabled. -->
     <string name="enable_alarm_vibrations_by_default_dialog_message">Vibrations will be disabled for all alarms.%s</string>
-    <!-- Setting title to enable the use of a custom vibration pattern for each alarm. -->
-    <string name="enable_per_alarm_vibration_pattern_title">Use a custom vibration pattern for each alarm</string>
-    <!-- Dialog message when the "Use a custom vibration pattern for each alarm" setting is disabled. -->
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Custom vibration patterns will be reset.%s</string>
     <!-- Setting title to change the vibration delay -->
     <string name="vibration_start_delay_title">Delay before vibration starts</string>
     <!-- Text of dialog box to edit minutes for the vibration start delay. -->
@@ -1037,8 +1017,12 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Double vibration when alarm is snoozed and single vibration when alarm is dismissed</string>
     <!-- Setting title to turn on flash when alarm is triggered -->
     <string name="turn_on_back_flash_for_triggered_alarm_title">Turn on back flash when alarm is triggered</string>
+    <!-- Dialog message when the "Turn on back flash when alarm is triggered" setting is disabled. -->
+    <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Flash will be disabled for all alarms.%s</string>
     <!-- Setting title to disable "Do Not Disturb" mode when alarm is triggered -->
     <string name="disable_DND_for_triggered_alarm_title">Disable \"Do Not Disturb\" mode when alarm is triggered</string>
+    <!-- Dialog message when the "Disable Do Not Disturb mode when alarm is triggered" setting is disabled. -->
+    <string name="disable_dnd_for_triggered_alarm_dialog_message">The \"Do Not Disturb\" feature will be disabled for all alarms.%s</string>
     <!-- Setting title to display the button for deleting single alarms in the alarm editing panel -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
     <!-- Dialog message when the "Enable automatic deletion of occasional alarms by default" setting is disabled. -->
@@ -1113,10 +1097,8 @@
     <string name="math_hardness_level_normal">Normal</string>
     <!-- Setting title to change the math hardness level to Hard -->
     <string name="math_hardness_level_hard">Hard</string>
-    <!-- Setting title to use a custom math hardness level for each alarm. -->
-    <string name="enable_per_alarm_math_hardness_level_title">Use a custom math hardness level for each alarm</string>
-    <!-- Dialog message when the "Set a math hardness level for each alarm" setting is disabled. -->
-    <string name="enable_per_alarm_math_hardness_level_dialog_message">Custom math hardness levels will be reset.%s</string>
+    <!-- Setting title to select the features to display in the alarm editing panel -->
+    <string name="alarm_features_to_display_title">Features to display in the editing panel</string>
 
     <!-- *********************************** -->
     <!-- **     ALARM DISPLAY SETTINGS    ** -->
@@ -1158,14 +1140,6 @@
     <string name="swipe_action_title">Swipe to dismiss or snooze the alarms</string>
     <!-- Title of the setting to display the snooze selector -->
     <string name="display_snooze_selector_title">Display the snooze selector</string>
-    <!-- Setting title to enable the use of a background image for each alarm. -->
-    <string name="enable_per_alarm_background_image_title">Use a custom background image for each alarm</string>
-    <!-- Dialog message when the use of a background image for each alarm is disabled. -->
-    <string name="enable_per_alarm_background_image_dialog_message">Custom background images will be deleted.%1$s%2$s</string>
-    <!-- Dialog message when the use of a background image for each alarm is disabled. (Case where a specific image has been set) -->
-    <string name="blur_intensity_dialog_message_1">\n\nCustom blur intensity values will also be reset.</string>
-    <!-- Dialog message when the use of a background image for each alarm is disabled. (Case where no specific image has been set) -->
-    <string name="blur_intensity_dialog_message_2">Custom blur intensity values will be reset.%s</string>
 
     <!-- *************************** -->
     <!-- **     CLOCK SETTINGS    ** -->
@@ -1234,14 +1208,20 @@
     <string name="timer_creation_view_style_keypad">Keypad</string>
     <!-- Setting title to enable the use of a custom stop duration for each timer. -->
     <string name="enable_per_timer_auto_silence_title">Use a custom stop duration for each timer</string>
+    <!-- Dialog message when the use of a custom stop duration is disabled. -->
+    <string name="enable_per_timer_auto_silence_dialog_message">Custom stop durations will be reset.%s</string>
     <!-- Setting title to enable the use of a custom volume increase duration for each timer. -->
     <string name="enable_per_timer_crescendo_duration_title">Use a custom volume increase duration for each timer</string>
+    <!-- Dialog message when the use of a custom volume increase duration is disabled. -->
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Custom volume increase durations will be reset.%s</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Dialog message when the "Timer vibrate" setting is disabled. -->
     <string name="timer_vibrate_dialog_message">Vibrations will be disabled for all timers.%s</string>
     <!-- Setting title to enable the use of a custom vibration pattern for each timer. -->
     <string name="enable_per_timer_vibration_pattern_title">Use a custom vibration pattern for each timer</string>
+    <!-- Dialog message when the "Use a custom vibration pattern for each timer" setting is disabled. -->
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Custom vibration patterns will be reset.%s</string>
     <!-- Setting title to reset expired timers with volume buttons. -->
     <string name="timer_volume_buttons_action_title">Reset the expired timers with the volume buttons</string>
     <!-- Setting title to reset expired timers with power button. -->
