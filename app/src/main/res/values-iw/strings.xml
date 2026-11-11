@@ -345,11 +345,9 @@
     <string name="settings_language_tamil">טמילית</string>
     <string name="settings_language_bulgarian">בולגרית</string>
     <string name="settings_keep_screen_on_title">השארת המסך דולק</string>
-    <string name="enable_per_alarm_volume_title">שימוש בעוצמת קול מותאמת אישית לכל התראה בנפרד</string>
     <string name="missed_alarm_repeat_limit_title">חזרה על התראות שהוחמצו</string>
     <string name="sort_name">לפי שם</string>
     <string name="date_picker_style_calendar">לוח שנה</string>
-    <string name="enable_per_alarm_snooze_duration_title">שימוש במשך זמן מותאם אישית של נודניק לכל התראה בנפרד</string>
     <string name="system_media_volume_summary">עובד רק אם מחובר מכשיר שמע חיצוני</string>
     <string name="vibration_pattern_title">דפוס רטט</string>
     <string name="vibration_pattern_soft">עדין</string>
@@ -374,7 +372,6 @@
     <string name="advanced_audio_playback_summary">משפר את התאימות למכשירי שמע חיצוניים ומונע הפרעות לצלילים במהלך החזרה עליהם\n\nהערה: לצלצולים מסוימים יהיו קרטועי שמע קלים</string>
     <string name="system_media_volume_title">שימוש בעוצמת הקול למדיה של המערכת</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">הפעלת רטט בעת פעולות התראה</string>
-    <string name="enable_per_alarm_vibration_pattern_title">שימוש בדפוס רטט מותאם אישית לכל התראה בנפרד</string>
     <string name="label_none">ללא</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">הפעלת הפנס האחורי בעת פעולות התראה</string>
     <string name="material_time_picker_style_title">סגנון חלונית לבחירת שעה</string>
@@ -473,11 +470,7 @@
     <string name="visible_tabs_title">לשוניות גלויות</string>
     <string name="settings_tab_indicator_title">הצגת מחוון הלשוניות בתחתית תפריט הניווט</string>
     <string name="settings_keep_screen_on_summary">הערה: המסך תמיד יישאר דולק אם יש שעון עצר או טיימר פעיל והלשונית שלו מוצגת, בלי קשר להגדרה זו</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">משכי זמן מותאמים אישית להתראות יאופסו.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">עוצמות קול מותאמות אישית של התראות יאופסו.%s</string>
     <string name="display_dismiss_button_summary">כאשר אפשרות זו מושבתת, הכפתור יופיע יחד עם התראת התזכורת</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">שימוש במספר חזרות מותאם אישית לכל התראה שהוחמצה בנפרד</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">כמות החזרות המותאמת אישית להתראות שהוחמצו תתאפס.%s</string>
     <string name="fix_alarm_volume">תיקון</string>
     <string name="alarm_minutes_warning_box_text">יש להקליד ערך בין 0 ל־59 דקות</string>
     <string name="clock_settings_summary">התאמה אישית של הסגנון, הגופן, אזור הזמן, והתאריך והשעה של המכשיר</string>
@@ -572,7 +565,7 @@
     <string name="display_card_background_title">הצגת הרקעים בסגנון כרטיסים</string>
     <string name="auto_routing_to_external_audio_device_title">הפעלת השמעה אוטומטית של הצלצולים ממכשירי שמע חיצוניים</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">הרטט יושבת בכל ההתראות.%s</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">דפוסי הרטט המותאמים אישית יתאפסו.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">דפוסי הרטט המותאמים אישית יתאפסו.%s</string>
     <string name="timezone_norfolk">אי נורפוק</string>
     <string name="transparent_background_for_expired_timer_title">רקע שקוף כאשר טיימר מסתיים</string>
     <string name="display_timer_state_indicator_title">הצגת מחווני המצב של הטיימרים</string>
@@ -602,7 +595,6 @@
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">התכונה „מחיקת ההתראה לאחר הכיבוי שלה” תושבת בכל ההתראות.%s</string>
     <string name="display_low_alarm_volume_warning_title">הצגת אזהרה כאשר עוצמת הקול של ההתראות הוגדרה מתחת לעוצמה המינימלית</string>
     <string name="display_alarm_action_message_title">הצגת הודעה לאחר כיבוי ההתראה או דחייתה עם „נודניק”</string>
-    <string name="enable_per_alarm_crescendo_duration_title">שימוש במשך זמן מותאם אישית להגברת עוצמת הקול בהדרגה לכל התראה בנפרד</string>
     <string name="alarm_volume_low">עוצמת הקול של ההתראות נמוכה</string>
     <string name="clock_second_hand_lollipop">סוכריה</string>
     <string name="timer_label_default">טיימר של <xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g></string>
@@ -618,8 +610,8 @@
     <string name="custom_font_dialog_message">החלפה או מחיקה של הגופן המותאם אישית.</string>
     <string name="advanced_audio_playback_category_title">ניגון שמע מתקדם</string>
     <string name="background_image_dialog_message">החלפה או מחיקה של תמונת הרקע.</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">משכי הזמן המותאמים אישית להגברה מדורגת של עוצמת הקול יתאפסו.%s</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">משכי הזמן המותאמים אישית לפני סגירת ההתראה יתאפסו.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">משכי הזמן המותאמים אישית להגברה מדורגת של עוצמת הקול יתאפסו.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">משכי הזמן המותאמים אישית לפני סגירת ההתראה יתאפסו.%s</string>
     <string name="clock_dial_title">מחוגה</string>
     <string name="clock_style_spinner">מחוג</string>
     <string name="vibration_pattern_escalating">מתעצם</string>
@@ -632,11 +624,9 @@
     <string name="tab_animation_flip">היפוך</string>
     <string name="tab_animation_gate">שער</string>
     <string name="tab_animation_zoom_out">התרחקות</string>
-    <string name="enable_per_alarm_auto_silence_title">שימוש במשך זמן מותאם אישית עד לסגירה של כל התראה בנפרד</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">הפעלת מחיקה אוטומטית של התראות שגרתיות כברירת מחדל</string>
     <string name="headphones_button_title">כפתור ניגון/השהיה באוזניות</string>
     <string name="display_alarm_title_on_single_line_title">הצגת כותרת ההתראה בשורה בודדת</string>
-    <string name="enable_per_alarm_background_image_title">שימוש בתמונת רקע מותאמת אישית לכל התראה בנפרד</string>
     <string name="city_name_default_color_title">שימוש בצבע ברירת המחדל לשם העיר</string>
     <string name="city_note_default_color_title">שימוש בצבע ברירת המחדל להערה על העיר</string>
     <string name="settings_language_swedish">שוודית</string>
@@ -692,7 +682,6 @@
     <string name="math_hardness_level_easy">קלה</string>
     <string name="math_hardness_level_normal">רגילה</string>
     <string name="math_hardness_level_hard">קשה</string>
-    <string name="enable_per_alarm_math_hardness_level_title">שימוש ברמת קושי מותאמת אישית של התרגיל המתמטי לכל התראה בנפרד</string>
     <string name="enable_city_flag_title">הצגת דגלי מדינות</string>
     <string name="enable_city_note_summary">אפשר ללחוץ על עיר כדי להוסיף או לערוך את ההערה האישית עליה</string>
     <string name="display_timer_delete_button_title">הצגת הכפתור „מחיקה” בכרטיס הטיימר</string>

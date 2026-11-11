@@ -13,6 +13,7 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATH_HARDNESS_LEVEL;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MATH_HARDNESS_LEVEL;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -915,7 +916,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
     private void requestAlarmAction(int action) {
         String mathHardnessLevel = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_MATH_HARDNESS_LEVEL);
 
-        if (mathHardnessLevel == null || SettingsDAO.isPerAlarmMathHardnessLevelDisabled(getPrefs())) {
+        if (mathHardnessLevel == null || !SettingsDAO.getAlarmFeaturesToDisplay(getPrefs()).contains(VISIBLE_MATH_HARDNESS_LEVEL)) {
             mathHardnessLevel = SettingsDAO.getAlarmMathHardnessLevel(getPrefs());
         }
 

@@ -309,14 +309,8 @@
     <string name="settings_fade_transitions_title">Полупрозрачни преходи при смяна на екран</string>
     <string name="settings_keep_screen_on_title">Поддържане на екрана включен</string>
     <string name="settings_keep_screen_on_summary">Забележка: Екранът ще бъде включен, независимо от тази настройка, ако има работещо отброяване или секундомер и съответният раздел е отворен</string>
-    <string name="enable_per_alarm_snooze_duration_title">Различна продължителност на отлагане за всеки будилник</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Продължителността на отлагане на будилниците ще бъде нулирана. %s</string>
-    <string name="enable_per_alarm_volume_title">Различна сила на звука за всеки будилник</string>
-    <string name="enable_per_alarm_volume_dialog_message">Силата на звука на будилниците ще бъде нулирана. %s</string>
     <string name="display_dismiss_button_title">Показване на бутон за изключване на будилник с включването му</string>
     <string name="display_dismiss_button_summary">Когато е отметнато бутонът ще се появи заедно с известието</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Различен брой на повтаряне на изпуснат будилник за всеки будилник</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Различният брой на повтаряне на изпуснат будилник ще бъде нулиран. %s</string>
     <string name="missed_alarm_repeat_limit_title">Повтаряне на изпуснат будилник</string>
     <string name="missed_alarm_repeat_limit_1_time">веднъж</string>
     <string name="missed_alarm_repeat_limit_3_times">3 пъти</string>
@@ -378,10 +372,8 @@
     <string name="background_image_dialog_title">Фоново изображение</string>
     <string name="background_image_toast_message_selected">Изображението е избрано</string>
     <string name="background_image_toast_message_deleted">Изображението е премахнато</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Отделни стойности на времето за увеличаване на звука за всеки будилник</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Потребителското време за увеличаване на звука ще бъде нулирано.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Отделни стойности на самоизключване за всеки будилник</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Потребителското време за самоизключване ще бъде нулирано.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Потребителското време за увеличаване на звука ще бъде нулирано.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Потребителското време за самоизключване ще бъде нулирано.%s</string>
     <string name="auto_silence_end_of_ringtone">На края на мелодията</string>
     <string name="snooze_duration_none">Без</string>
     <string name="random_ringtone_title">Случайна мелодия</string>
@@ -575,8 +567,7 @@
     <string name="settings_language_bulgarian">Български</string>
     <string name="display_battery_title">Ниво на батерията</string>
     <string name="settings_language_tamil">Тамилски</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Различна вибрация за всеки будилник</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Потребителските вибрации ще бъдат нулирани. %s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Потребителските вибрации ще бъдат нулирани. %s</string>
     <string name="sw_laps_title">Обиколки</string>
     <string name="sw_split_title">Отсечка</string>
     <string name="sw_total_title">Общо</string>

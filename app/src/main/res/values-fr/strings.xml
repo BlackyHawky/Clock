@@ -499,7 +499,6 @@
     <string name="system_media_volume_title">Utiliser le volume multimédia du système</string>
     <string name="connect_external_audio_device_title">Connectez un périphérique audio externe pour accéder à ce réglage</string>
     <string name="widget_apply_horizontal_padding_title">Appliquer un espacement sur les côtés du widget</string>
-    <string name="enable_per_alarm_volume_title">Utiliser un volume personnalisé pour chaque alarme</string>
     <string name="delay_picker_dialog_title">Alarme dans…</string>
     <string name="colors_category_title">Couleurs</string>
     <string name="hour_hand_default_color_title">Utiliser la couleur par défaut pour l\'aiguille des heures</string>
@@ -542,22 +541,15 @@
     <string name="label_none">Aucun</string>
     <string name="vibration_start_delay_warning_box_text">Saisir une valeur de 0 à 10 minutes</string>
     <string name="confirm_action_prompt">\n\nVoulez-vous continuer ?</string>
-    <string name="enable_per_alarm_snooze_duration_title">Utiliser une durée de répétition personnalisée pour chaque alarme</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">Les durées de répétition personnalisées des alarmes seront réinitialisées.%s</string>
-    <string name="enable_per_alarm_volume_dialog_message">Les volumes personnalisés des alarmes seront réinitialisés.%s</string>
     <string name="display_dismiss_button_title">Afficher le bouton \"Ignorer\" dès que l\'alarme est activée</string>
     <string name="display_dismiss_button_summary">Si désactivé, le bouton apparaîtra en même temps que le rappel de la notification</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Utiliser un nombre de répétitions d\'alarmes manquées personnalisé pour chaque alarme</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Le nombre de répétitions personnalisé des alarmes manquées sera réinitialisé.%s</string>
     <string name="missed_alarm_repeat_limit_title">Répéter les alarmes manquées</string>
     <string name="missed_alarm_repeat_limit_1_time">1 fois</string>
     <string name="missed_alarm_repeat_limit_3_times">3 fois</string>
     <string name="missed_alarm_repeat_limit_5_times">5 fois</string>
     <string name="missed_alarm_repeat_limit_10_times">10 fois</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Utiliser une durée d\'augmentation du volume personnalisée pour chaque alarme</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Les durées d\'augmentation du volume personnalisées seront réinitialisées.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Utiliser une durée d\'arrêt personnalisée pour chaque alarme</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Les durées d\'arrêt personnalisées seront réinitialisées.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">Les durées d\'augmentation du volume personnalisées seront réinitialisées.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">Les durées d\'arrêt personnalisées seront réinitialisées.%s</string>
     <string name="features_dialog_message">Visiter la page des fonctionnalités principales :\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Alarme ignorée. <xliff:g example="Next alarm Monday." id="alarm_day">Reprogramée pour %s.</xliff:g></string>
     <string name="blur_intensity_title">Intensité du flou</string>
@@ -587,8 +579,7 @@
     <string name="custom_font_toast_message_deleted">Police supprimée avec succès</string>
     <string name="vibration_category_title">Vibration</string>
     <string name="display_settings_title">Paramètres d\'affichage</string>
-    <string name="enable_per_alarm_vibration_pattern_title">Utiliser un modèle de vibration personnalisé pour chaque alarme</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">Les modèles de vibration personnalisés seront réinitialisés.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">Les modèles de vibration personnalisés seront réinitialisés.%s</string>
     <string name="sw_laps_title">Tours</string>
     <string name="sw_split_title">Intermédiaire</string>
     <string name="sw_total_title">Total</string>
@@ -683,10 +674,6 @@
     <string name="background_image_dialog_message">Modifier ou supprimer l\'image de fond.</string>
     <string name="headphones_button_title">Bouton Lecture/Pause du casque</string>
     <string name="display_alarm_title_on_single_line_title">Afficher le titre de l\'alarme sur une seule ligne</string>
-    <string name="enable_per_alarm_background_image_title">Utiliser une image de fond personnalisée pour chaque alarme</string>
-    <string name="enable_per_alarm_background_image_dialog_message">Les images de fond personnalisées seront supprimées.%1$s%2$s</string>
-    <string name="blur_intensity_dialog_message_1">\n\nLes valeurs d\'intensité du flou personnalisées seront aussi réinitialisées.</string>
-    <string name="blur_intensity_dialog_message_2">Les valeurs d\'intensité du flou personnalisées seront réinitialisées.%s</string>
     <string name="timer_settings_general_summary">Ce réglage peut être modifié pour chaque minuteur dans le panneau d\'édition des minuteurs</string>
     <string name="enable_per_timer_auto_silence_title">Utiliser une durée d\'arrêt personnalisée pour chaque minuteur</string>
     <string name="enable_per_timer_crescendo_duration_title">Utiliser une durée d\'augmentation du volume personnalisée pour chaque minuteur</string>
@@ -709,8 +696,6 @@
     <string name="math_hardness_level_easy">Facile</string>
     <string name="math_hardness_level_normal">Normal</string>
     <string name="math_hardness_level_hard">Difficile</string>
-    <string name="enable_per_alarm_math_hardness_level_title">Utiliser un niveau de difficulté mathématique personnalisé pour chaque alarme</string>
-    <string name="enable_per_alarm_math_hardness_level_dialog_message">Les niveaux de difficulté mathématique personnalisés seront réinitialisés.%s</string>
     <string name="sw_display_milliseconds_title">Afficher les millisecondes</string>
     <string name="button_action_mute">Couper le son</string>
     <string name="settings_language_swedish">Suédois</string>

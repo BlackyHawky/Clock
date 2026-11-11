@@ -303,14 +303,8 @@
     <string name="settings_fade_transitions_title">திரைகளை மாற்றும்போது மங்கல் மாற்றங்களை இயக்கவும்</string>
     <string name="settings_keep_screen_on_title">திரையை இயக்கவும்</string>
     <string name="settings_keep_screen_on_summary">குறிப்பு: இந்த அமைப்பின் நிலையைப் பொருட்படுத்தாமல், நேரங்குறிகருவி அல்லது ச்டாப்வாட்ச் இயங்கினால், அதனுடன் தொடர்புடைய டேப் காட்டப்பட்டால், திரை எப்போதும் இயக்கத்தில் இருக்கும்</string>
-    <string name="enable_per_alarm_snooze_duration_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் உறக்கநிலை காலத்தைப் பயன்படுத்தவும்</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">தனிப்பயன் அலாரம் உறக்கநிலை காலங்கள் மீட்டமைக்கப்படும்.%s</string>
-    <string name="enable_per_alarm_volume_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் ஒலியளவைப் பயன்படுத்தவும்</string>
-    <string name="enable_per_alarm_volume_dialog_message">தனிப்பயன் அலாரத்தின் ஒலியமைப்புகள் மீட்டமைக்கப்படும்.%s</string>
     <string name="display_dismiss_button_title">அலாரம் இயக்கப்பட்டவுடன் டிச்மிச் பட்டனைக் காண்பி</string>
     <string name="display_dismiss_button_summary">முடக்கப்பட்டிருந்தால், அறிவிப்பு நினைவூட்டலின் அதே நேரத்தில் பொத்தான் தோன்றும்</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் தவறவிட்ட அலாரம் மீண்டும் எண்ணிக்கையைப் பயன்படுத்தவும்</string>
-    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">தனிப்பயன் தவறவிட்ட அலாரத்தின் எண்ணிக்கை மீட்டமைக்கப்படும்.%s</string>
     <string name="missed_alarm_repeat_limit_title">தவறவிட்ட அலாரங்களை மீண்டும் செய்யவும்</string>
     <string name="missed_alarm_repeat_limit_1_time">1 முறை</string>
     <string name="missed_alarm_repeat_limit_3_times">3 முறை</string>
@@ -369,10 +363,8 @@
     <string name="background_image_dialog_title">பின்னணி படம்</string>
     <string name="background_image_toast_message_selected">படம் வெற்றிகரமாக தேர்ந்தெடுக்கப்பட்டது</string>
     <string name="background_image_toast_message_deleted">படம் வெற்றிகரமாக நீக்கப்பட்டது</string>
-    <string name="enable_per_alarm_crescendo_duration_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் ஒலியளவை அதிகரிக்கும் கால அளவைப் பயன்படுத்தவும்</string>
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">தனிப்பயன் அலாரத்தின் ஒலி அதிகரிப்பு கால அளவு மீட்டமைக்கப்படும்.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் அலாரம் நிறுத்த காலத்தைப் பயன்படுத்தவும்</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">தனிப்பயன் அலாரத்தை நிறுத்தும் கால அளவுகள் மீட்டமைக்கப்படும்.%s</string>
+    <string name="enable_per_timer_crescendo_duration_dialog_message">தனிப்பயன் அலாரத்தின் ஒலி அதிகரிப்பு கால அளவு மீட்டமைக்கப்படும்.%s</string>
+    <string name="enable_per_timer_auto_silence_dialog_message">தனிப்பயன் அலாரத்தை நிறுத்தும் கால அளவுகள் மீட்டமைக்கப்படும்.%s</string>
     <string name="auto_silence_end_of_ringtone">ரிங்டோனின் முடிவு</string>
     <string name="snooze_duration_none">எதுவுமில்லை</string>
     <string name="random_ringtone_title">சீரற்ற ரிங்டோன்</string>
@@ -574,8 +566,7 @@
     <string name="display_settings_title">காட்சி அமைப்புகள்</string>
     <string name="settings_language_bulgarian">பல்கேரியன்</string>
     <string name="settings_language_tamil">தமிழ்</string>
-    <string name="enable_per_alarm_vibration_pattern_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் அதிர்வு வடிவத்தைப் பயன்படுத்தவும்</string>
-    <string name="enable_per_alarm_vibration_pattern_dialog_message">தனிப்பயன் அதிர்வு வடிவங்கள் மீட்டமைக்கப்படும்.%s</string>
+    <string name="enable_per_timer_vibration_pattern_dialog_message">தனிப்பயன் அதிர்வு வடிவங்கள் மீட்டமைக்கப்படும்.%s</string>
     <string name="sw_laps_title">மடியில்</string>
     <string name="sw_split_title">பிளவு</string>
     <string name="sw_total_title">மொத்தம்</string>
