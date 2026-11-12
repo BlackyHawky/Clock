@@ -31,6 +31,8 @@
     <string name="label_cities">Cities</string>
     <!-- Label "Indefinitely" -->
     <string name="label_indefinitely">Indefinitely</string>
+    <!-- Label "Save" -->
+    <string name="save">Save</string>
     <!-- Label "Delete" -->
     <string name="delete">Delete</string>
     <!-- Label "Reset" -->
@@ -110,6 +112,8 @@
     <string name="no_alarms">No Alarms</string>
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
     <string name="button_alarms">Add alarm</string>
+    <!-- Describes the purpose of the button to add alarm with delay -->
+    <string name="button_alarms_with_delay">Add alarm with delay</string>
     <!-- Label title in the alarm editing panel to schedule alarm -->
     <string name="schedule_alarm_title">Schedule alarm</string>
     <!-- Label title in the alarm editing panel to pause alarm -->

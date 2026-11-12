@@ -958,11 +958,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorAlert"
+                android:contentDescription="@string/delete"
                 app:icon="@drawable/ic_delete"
                 app:iconTint="?attr/colorOnError"
                 app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:iconPadding="0dp" />
 
             <com.google.android.material.button.MaterialButton
                 style="?attr/materialButtonOutlinedStyle"
@@ -970,6 +970,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@android:string/copy"
                 app:icon="@drawable/ic_duplicate"
                 app:iconTint="?attr/colorOnSurfaceVariant"
                 app:iconGravity="textStart"
@@ -983,6 +984,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@string/preview_title"
                 app:icon="@drawable/ic_preview"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
@@ -995,6 +997,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorGranted"
+                android:contentDescription="@string/save"
                 app:icon="@drawable/ic_save"
                 app:iconTint="?attr/colorSurfaceContainerLowest"
                 app:iconGravity="textStart"
@@ -1019,6 +1022,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@android:string/copy"
                 app:icon="@drawable/ic_duplicate"
                 app:iconTint="?attr/colorOnSurfaceVariant"
                 app:iconGravity="textStart"
@@ -1032,6 +1036,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@string/preview_title"
                 app:icon="@drawable/ic_preview"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
