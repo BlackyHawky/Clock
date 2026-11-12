@@ -777,7 +777,7 @@ public final class AlarmFragment extends DeskClockFragment
 
                 left.setClickable(true);
                 left.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_av_timer));
-                left.setContentDescription(getString(R.string.button_alarms));
+                left.setContentDescription(getString(R.string.button_alarms_with_delay));
                 left.setOnClickListener(v -> {
                     startCreatingAlarmWithDelay();
                     hideSideButtonsWithFabAnimation();

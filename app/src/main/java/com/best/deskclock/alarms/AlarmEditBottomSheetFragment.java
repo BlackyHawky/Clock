@@ -772,6 +772,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.pauseAlarmNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
         mBinding.pauseAlarmNote.setOnClickListener(showNoteIcon ? v -> showPauseAlarmNoteDialog() : null);
+        mBinding.pauseAlarmNote.setOnLongClickListener(showNoteIcon ? this::showInfoTooltip : null);
     }
 
     private void bindTimeZone() {
@@ -986,6 +987,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.deleteAlarmAfterUseNote.setVisibility(showNoteIcon ? VISIBLE : GONE);
         mBinding.deleteAlarmAfterUseNote.setOnClickListener(showNoteIcon ? v -> showDeleteAlarmAfterUseNoteDialog() : null);
+        mBinding.deleteAlarmAfterUseNote.setOnLongClickListener(showNoteIcon ? this::showInfoTooltip : null);
 
         mBinding.deleteAlarmAfterUse.setCompoundDrawablesRelativeWithIntrinsicBounds(
             mDeleteAlarmAfterUseDrawableStart,
@@ -1056,6 +1058,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             }
 
             mBinding.autoSilenceNote.setOnClickListener(showNoteIcon ? v -> showAutoSilenceNoteDialog(noteText) : null);
+            mBinding.autoSilenceNote.setOnLongClickListener(showNoteIcon ? this::showInfoTooltip : null);
 
             if (!showNoteIcon) {
                 mBinding.autoSilenceDurationValue.setText(noteText);
@@ -1065,6 +1068,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         } else {
             mBinding.autoSilenceDurationValue.setText(Utils.formatAutoSilenceDurationText(requireContext(), autoSilenceDuration));
             mBinding.autoSilenceNote.setOnClickListener(null);
+            mBinding.autoSilenceNote.setOnLongClickListener(null);
 
             mBinding.autoSilenceDurationLayout.setOnClickListener(v -> {
                 Events.sendAlarmEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
@@ -1102,17 +1106,20 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void bindSnoozeDurationNote() {
         if (mPrefs.getBoolean(KEY_SNOOZE_WARNING_HIDDEN, false)) {
             mBinding.snoozeDurationNote.setOnClickListener(null);
+            mBinding.snoozeDurationNote.setOnLongClickListener(null);
             mBinding.snoozeDurationNote.setVisibility(GONE);
             return;
         }
 
         if (!mAlarm.daysOfWeek.isRepeating() || mAlarm.snoozeDuration < 1440) {
             mBinding.snoozeDurationNote.setOnClickListener(null);
+            mBinding.snoozeDurationNote.setOnLongClickListener(null);
             mBinding.snoozeDurationNote.setVisibility(GONE);
             return;
         }
 
         mBinding.snoozeDurationNote.setOnClickListener(v -> showSnoozeNoteDialog());
+        mBinding.snoozeDurationNote.setOnLongClickListener(this::showInfoTooltip);
         mBinding.snoozeDurationNote.setVisibility(VISIBLE);
     }
 
@@ -1368,6 +1375,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mAlarmUpdateHandler.asyncDeleteAlarm(mAlarm);
             dismiss();
         });
+
+        mBinding.deleteButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mGeneralTypeface, mDisplayMetrics, getString(R.string.delete), false);
+            return true;
+        });
     }
 
     private void bindDuplicateButton() {
@@ -1393,6 +1405,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_save, R.string.label_deskclock);
 
             dismiss();
+        });
+
+        mBinding.saveButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mGeneralTypeface, mDisplayMetrics, getString(R.string.save), false);
+            return true;
         });
     }
 
@@ -1806,6 +1823,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             dismiss();
         });
+
+        view.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mGeneralTypeface, mDisplayMetrics, getString(android.R.string.copy), false);
+            return true;
+        });
     }
 
     private void previewAlarm(@NonNull View view) {
@@ -1828,6 +1850,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             }
 
             ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, mIsFadeTransition);
+        });
+
+        view.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mGeneralTypeface, mDisplayMetrics, getString(R.string.preview_title), false);
+            return true;
         });
     }
 
@@ -2070,6 +2097,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         );
 
         mActiveDialog.show();
+    }
+
+    @SuppressWarnings("SameReturnValue")
+    private boolean showInfoTooltip(@NonNull View view) {
+        CustomTooltip.showAbove(view, mGeneralTypeface, mDisplayMetrics, getString(R.string.info), false);
+        return true;
     }
 
 }
