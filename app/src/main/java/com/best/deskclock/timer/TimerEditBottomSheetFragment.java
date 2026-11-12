@@ -57,6 +57,7 @@ import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -615,6 +616,11 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             mDataModel.removeTimer(timer, R.string.label_deskclock);
             dismiss();
         });
+
+        mBinding.deleteButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mGeneralTypeface, mDisplayMetrics, getString(R.string.delete), false);
+            return true;
+        });
     }
 
     private void bindDuplicateButton() {
@@ -655,6 +661,11 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             dismiss();
         });
+
+        mBinding.duplicateButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mGeneralTypeface, mDisplayMetrics, getString(android.R.string.copy), false);
+            return true;
+        });
     }
 
     private void bindSaveButton() {
@@ -664,6 +675,11 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendTimerEvent(R.string.action_save, R.string.label_deskclock);
 
             dismiss();
+        });
+
+        mBinding.saveButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mGeneralTypeface, mDisplayMetrics, getString(R.string.save), false);
+            return true;
         });
     }
 
