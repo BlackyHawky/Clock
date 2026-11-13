@@ -97,7 +97,7 @@
                 app:layout_constraintStart_toStartOf="@+id/fab"
                 app:layout_constraintEnd_toEndOf="@+id/fab"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/fab"
+                app:layout_constraintBottom_toTopOf="@+id/fab"
                 app:layout_constraintVertical_bias="0.5"
                 tools:fabCustomSize="50dp"
                 tools:visibility="visible"

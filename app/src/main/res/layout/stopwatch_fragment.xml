@@ -30,10 +30,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_max="@dimen/stopwatch_circle_max_size"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@+id/left_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/laps_background"
+        app:layout_constraintBottom_toTopOf="@+id/laps_background"
         app:layout_constraintVertical_chainStyle="packed">
 
         <Space
@@ -77,7 +77,7 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stopwatch_time_wrapper"
+        app:layout_constraintTop_toBottomOf="@+id/stopwatch_time_wrapper"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:background="@drawable/bg_card_for_preview">
 

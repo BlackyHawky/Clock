@@ -194,8 +194,8 @@
                 tools:fillColor="@color/md_theme_onSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/alarm_button"
-                app:layout_constraintBottom_toBottomOf="@id/alarm_button" />
+                app:layout_constraintTop_toTopOf="@+id/alarm_button"
+                app:layout_constraintBottom_toBottomOf="@+id/alarm_button" />
 
             <!-- Snooze text -->
             <com.google.android.material.textview.MaterialTextView

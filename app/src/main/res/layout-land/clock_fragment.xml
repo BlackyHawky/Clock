@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/fold_vertical_start_edge"
+        app:layout_constraintEnd_toStartOf="@+id/fold_vertical_start_edge"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="InconsistentLayout" />
@@ -44,7 +44,7 @@
         android:layout_height="0dp"
         android:visibility="gone"
         android:alpha="0.7"
-        app:layout_constraintStart_toEndOf="@id/fold_vertical_start_edge"
+        app:layout_constraintStart_toEndOf="@+id/fold_vertical_start_edge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
         android:clickable="false"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        app:layout_constraintStart_toEndOf="@id/fold_vertical_end_edge"
+        app:layout_constraintStart_toEndOf="@+id/fold_vertical_end_edge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

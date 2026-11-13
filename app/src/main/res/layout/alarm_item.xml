@@ -80,7 +80,7 @@
         android:focusable="true"
         android:fontFeatureSettings="tnum"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alarm_label"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_label"
         app:layout_constraintBottom_toTopOf="@+id/days_of_week"
         tools:text="08:30"
         tools:textSize="40sp" />

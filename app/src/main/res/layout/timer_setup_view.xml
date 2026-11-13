@@ -42,7 +42,7 @@
         app:layout_constraintStart_toStartOf="@+id/guide_start"
         app:layout_constraintEnd_toEndOf="@+id/guide_end"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_time_bottom" />
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_time_bottom" />
 
     <include
         layout="@layout/timer_setup_digits"
@@ -53,7 +53,7 @@
         app:layout_constraintDimensionRatio="3:4"
         app:layout_constraintStart_toStartOf="@+id/guide_start"
         app:layout_constraintEnd_toEndOf="@+id/guide_end"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_time_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_time_bottom"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

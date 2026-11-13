@@ -37,7 +37,7 @@
             app:expandedTitleTextAppearance="?attr/textAppearanceHeadlineMedium"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleMarginEnd="24dp"
-            app:toolbarId="@id/action_bar">
+            app:toolbarId="@+id/action_bar">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/action_bar"
