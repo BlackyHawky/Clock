@@ -203,8 +203,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         // Interface
-        KEY_TOOLBAR_TITLE, KEY_CENTRAL_FAB_SIZE, KEY_SIDE_FAB_SIZE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY,
-        KEY_TAB_ANIMATION, KEY_KEEP_SCREEN_ON,
+        KEY_TOOLBAR_TITLE, KEY_CENTRAL_FAB_SIZE, KEY_SIDE_FAB_SIZE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_ANIMATION,
+        KEY_KEEP_SCREEN_ON,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -260,6 +260,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
         setContentView(mBinding.getRoot());
 
         applyWindowInsets();
+
+        if (savedInstanceState == null) {
+            getUiDataModel().applyDefaultTabPreference();
+        }
 
         configureViewPager();
 
@@ -549,7 +553,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
             switch (key) {
                 case KEY_TOOLBAR_TITLE, KEY_CENTRAL_FAB_SIZE, KEY_SIDE_FAB_SIZE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR,
-                     KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_KEEP_SCREEN_ON, KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
+                     KEY_TAB_ANIMATION, KEY_KEEP_SCREEN_ON, KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
 
             }
         };
@@ -581,7 +585,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_SIDE_FAB_SIZE -> SettingsDAO.getSideFabSize(getPrefs());
             case KEY_TAB_TITLE_VISIBILITY -> SettingsDAO.getTabTitleVisibility(getPrefs());
             case KEY_TAB_INDICATOR -> SettingsDAO.isTabIndicatorDisplayed(getPrefs());
-            case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(getPrefs());
             case KEY_TAB_ANIMATION -> SettingsDAO.getTabAnimation(getPrefs());
             case KEY_KEEP_SCREEN_ON -> SettingsDAO.shouldScreenRemainOn(getPrefs());
             // Permission

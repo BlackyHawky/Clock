@@ -250,4 +250,19 @@ final class TabModel {
         }
     }
 
+    /**
+     * Forces the selected tab to be recalculated based on the startup preferences.
+     * This is crucial when the app is restarted while the process was kept alive
+     * by a foreground service, preventing the cached tab from overriding the startup setting.
+     */
+    void applyDefaultTabPreference() {
+        Tab targetTab = TabDAO.getSelectedTab(mPrefs);
+
+        if (mActiveTabs.contains(targetTab)) {
+            mSelectedTab = targetTab;
+        } else if (!mActiveTabs.isEmpty()) {
+            mSelectedTab = mActiveTabs.get(0);
+        }
+    }
+
 }

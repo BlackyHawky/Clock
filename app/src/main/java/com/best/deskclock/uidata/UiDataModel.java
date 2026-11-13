@@ -217,6 +217,14 @@ public final class UiDataModel {
         mTabModel.setSelectedTab(tab);
     }
 
+    /**
+     * Forces the recalculation of the default tab to display at startup.
+     */
+    public void applyDefaultTabPreference() {
+        enforceMainLooper();
+        mTabModel.applyDefaultTabPreference();
+    }
+
     // ******************
     // ** SHORTCUT IDS **
     // ******************
