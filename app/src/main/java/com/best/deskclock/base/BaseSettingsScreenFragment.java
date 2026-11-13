@@ -80,6 +80,7 @@ import com.best.deskclock.settings.custompreference.CustomMultiSelectListPrefere
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uidata.UiConfig;
+import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.NotificationUtils;
@@ -130,6 +131,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
     private SharedPreferences mPrefs;
     private DataModel mDataModel;
+    private UiDataModel mUiDataModel;
     private Locale mLocale;
     private UiConfig.CardStyle mCardStyleConfig;
     private DisplayMetrics mDisplayMetrics;
@@ -175,6 +177,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         }
 
         mDataModel = DataModel.getDataModel();
+        mUiDataModel = UiDataModel.getUiDataModel();
         mLocale = Utils.getLocaleFromContext(requireContext());
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
@@ -1147,6 +1150,10 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
     protected final DataModel getDataModel() {
         return mDataModel;
+    }
+
+    protected final UiDataModel getUiDataModel() {
+        return mUiDataModel;
     }
 
     protected final SharedPreferences getPrefs() {
