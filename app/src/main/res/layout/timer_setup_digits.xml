@@ -18,9 +18,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_2"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_digit_2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_4"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_4"
         tools:text="1" />
 
     <com.google.android.material.button.MaterialButton
@@ -28,10 +28,10 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_1"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_3"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_1"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_digit_3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_5"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_5"
         tools:text="2" />
 
     <com.google.android.material.button.MaterialButton
@@ -39,10 +39,10 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_2"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_6"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_6"
         tools:text="3" />
 
     <com.google.android.material.button.MaterialButton
@@ -51,9 +51,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_5"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_1"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_7"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_digit_5"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_1"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_7"
         tools:text="4" />
 
     <com.google.android.material.button.MaterialButton
@@ -61,10 +61,10 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_4"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_6"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_2"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_8"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_4"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_digit_6"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_2"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_8"
         tools:text="5" />
 
     <com.google.android.material.button.MaterialButton
@@ -72,10 +72,10 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_5"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_3"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_9"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_3"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_9"
         tools:text="6" />
 
     <com.google.android.material.button.MaterialButton
@@ -84,9 +84,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_8"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_4"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_00"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_digit_8"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_4"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_00"
         tools:text="7" />
 
     <com.google.android.material.button.MaterialButton
@@ -94,10 +94,10 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_7"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_9"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_5"
-        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_0"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_7"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_digit_9"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_5"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_digit_0"
         tools:text="8" />
 
     <com.google.android.material.button.MaterialButton
@@ -105,9 +105,9 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_8"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_6"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_6"
         app:layout_constraintBottom_toTopOf="@+id/timer_setup_delete"
         tools:text="9" />
 
@@ -118,8 +118,8 @@
         android:layout_height="0dp"
         app:backgroundTint="?attr/colorPrimaryContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_0"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_7"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_digit_0"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_7"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="00" />
 
@@ -128,8 +128,8 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_00"
-        app:layout_constraintEnd_toStartOf="@id/timer_setup_delete"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_00"
+        app:layout_constraintEnd_toStartOf="@+id/timer_setup_delete"
         app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_8"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="0" />
@@ -144,9 +144,9 @@
         app:iconSize="40dp"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
-        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_0"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_digit_0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_9"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_9"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
