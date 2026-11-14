@@ -729,14 +729,6 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a custom auto silence duration cannot be set for each timer. {@code false} otherwise.
-     */
-    public static boolean isPerTimerAutoSilenceDisabled(@NonNull SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        return !prefs.getBoolean(KEY_ENABLE_PER_TIMER_AUTO_SILENCE, DEFAULT_ENABLE_PER_TIMER_AUTO_SILENCE);
-    }
-
-    /**
      * @return {@code true} if the timer vibrations are enabled. {@code false} otherwise.
      */
     public static boolean isTimerVibrate(@NonNull SharedPreferences prefs) {
@@ -749,14 +741,6 @@ public final class SettingsDAO {
      */
     public static String getTimerVibrationPattern(@NonNull SharedPreferences prefs) {
         return prefs.getString(KEY_TIMER_VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
-    }
-
-    /**
-     * @return {@code true} if a custom vibration pattern can be set for each timer. {@code false} otherwise.
-     */
-    public static boolean isPerTimerVibrationPatternDisabled(@NonNull SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        return !prefs.getBoolean(KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN, DEFAULT_ENABLE_PER_TIMER_VIBRATION_PATTERN);
     }
 
     /**
@@ -862,6 +846,14 @@ public final class SettingsDAO {
     public static int getTimerShakeIntensity(@NonNull SharedPreferences pref) {
         // Default value must match the one in res/xml/settings_timer.xml
         return pref.getInt(KEY_TIMER_SHAKE_INTENSITY, DEFAULT_TIMER_SHAKE_INTENSITY);
+    }
+
+    /**
+     * @return the set of the timer features to be displayed in the timer editing panel.
+     */
+    public static Set<String> getTimerFeaturesToDisplay(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getStringSet(KEY_TIMER_FEATURES_TO_DISPLAY, DEFAULT_TIMER_FEATURES_TO_DISPLAY);
     }
 
     /**
@@ -1086,15 +1078,6 @@ public final class SettingsDAO {
      */
     public static int getTimerVolumeCrescendoDuration(@NonNull SharedPreferences prefs) {
         return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_VOLUME_CRESCENDO_DURATION);
-    }
-
-    /**
-     * @return {@code true} if a custom volume increase duration cannot be set for each alarm.
-     * {@code false} otherwise.
-     */
-    public static boolean isPerTimerCrescendoDurationDisabled(@NonNull SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        return !prefs.getBoolean(KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION);
     }
 
     /**

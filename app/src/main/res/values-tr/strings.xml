@@ -537,13 +537,10 @@
     <string name="background_image_toast_message_selected">Görüntü başarıyla seçildi</string>
     <string name="label_new_image">Yeni resim</string>
     <string name="label_new_font">Yeni yazı tipi</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Özel titreşim paternleri sıfırlanacaktır.%s</string>
     <string name="shadow_offset_title">Gölge uzaklığı</string>
     <string name="background_image_title_variant">Arka plan resmini değiştirin veya silin</string>
     <string name="background_image_dialog_title">Arkaplan resmi</string>
     <string name="background_image_toast_message_deleted">Resim başarıyla silindi</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Özel ses arttırılma süreleri sıfırlanacaktır.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Özel alarm durdurma süreleri sıfırlanacaktır.%s</string>
     <string name="sw_laps_title">Tur</string>
     <string name="sw_split_title">Aralık</string>
     <string name="sw_total_title">Toplam</string>

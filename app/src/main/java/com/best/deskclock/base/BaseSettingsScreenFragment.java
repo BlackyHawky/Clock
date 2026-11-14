@@ -9,6 +9,8 @@ package com.best.deskclock.base;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_ALARM_FLASH;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_ALARM_VIBRATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
@@ -81,6 +83,7 @@ import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.NotificationUtils;
@@ -90,6 +93,10 @@ import com.best.deskclock.utils.Utils;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.color.MaterialColors;
 
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompat {
@@ -1148,6 +1155,76 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         return dialog;
     }
 
+    protected void setupFeaturesPreference(@Nullable MultiSelectListPreference multiSelectListPreference) {
+        if (multiSelectListPreference == null) {
+            return;
+        }
+
+        boolean hasFlash = DeviceUtils.hasBackFlash(requireContext());
+        boolean hasVibrator = DeviceUtils.hasVibrator(requireContext());
+
+        if (!hasFlash || !hasVibrator) {
+            CharSequence[] currentEntries = multiSelectListPreference.getEntries();
+            CharSequence[] currentValues = multiSelectListPreference.getEntryValues();
+
+            if (currentEntries != null && currentValues != null) {
+                List<CharSequence> newEntries = new ArrayList<>();
+                List<CharSequence> newValues = new ArrayList<>();
+
+                for (int i = 0; i < currentValues.length; i++) {
+                    String value = currentValues[i].toString();
+
+                    boolean skipFlash = !hasFlash && VISIBLE_ALARM_FLASH.equals(value);
+                    boolean skipVibrate = !hasVibrator && VISIBLE_ALARM_VIBRATE.equals(value);
+
+                    if (!skipFlash && !skipVibrate) {
+                        newEntries.add(currentEntries[i]);
+                        newValues.add(currentValues[i]);
+                    }
+                }
+
+                multiSelectListPreference.setEntries(newEntries.toArray(new CharSequence[0]));
+                multiSelectListPreference.setEntryValues(newValues.toArray(new CharSequence[0]));
+            }
+        }
+
+        sortMultiSelectListPreference(multiSelectListPreference);
+    }
+
+    protected void sortMultiSelectListPreference(@Nullable MultiSelectListPreference multiSelectListPreference) {
+        if (multiSelectListPreference == null) {
+            return;
+        }
+
+        CharSequence[] entries = multiSelectListPreference.getEntries();
+        CharSequence[] values = multiSelectListPreference.getEntryValues();
+
+        if (entries != null && values != null && entries.length > 1) {
+            List<Pair> entryValuePairs = new ArrayList<>();
+
+            for (int i = 0; i < entries.length; i++) {
+                entryValuePairs.add(new Pair(entries[i], values[i]));
+            }
+
+            final Collator collator = Collator.getInstance();
+            collator.setStrength(Collator.PRIMARY);
+
+            Collections.sort(entryValuePairs, (pair1, pair2) ->
+                collator.compare(pair1.entry().toString(), pair2.entry().toString()));
+
+            CharSequence[] sortedEntries = new CharSequence[entries.length];
+            CharSequence[] sortedValues = new CharSequence[values.length];
+
+            for (int i = 0; i < entryValuePairs.size(); i++) {
+                sortedEntries[i] = entryValuePairs.get(i).entry();
+                sortedValues[i] = entryValuePairs.get(i).value();
+            }
+
+            multiSelectListPreference.setEntries(sortedEntries);
+            multiSelectListPreference.setEntryValues(sortedValues);
+        }
+    }
+
     protected final DataModel getDataModel() {
         return mDataModel;
     }
@@ -1180,4 +1257,9 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
         void onDeleted();
     }
 
+    /**
+     * Internal class to store entry/value pairs
+     */
+    protected record Pair(@NonNull CharSequence entry, @NonNull CharSequence value) {
+    }
 }

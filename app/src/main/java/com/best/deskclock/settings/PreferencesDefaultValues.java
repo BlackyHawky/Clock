@@ -218,10 +218,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFF4444");
     public static final int DEFAULT_MISSED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFAA66CC");
     public static final int DEFAULT_TIMER_AUTO_SILENCE_DURATION = 30; // 30 seconds
-    public static final boolean DEFAULT_ENABLE_PER_TIMER_AUTO_SILENCE = true;
-    public static final boolean DEFAULT_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION = true;
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
-    public static final boolean DEFAULT_ENABLE_PER_TIMER_VIBRATION_PATTERN = true;
     public static final int DEFAULT_TIMER_RINGTONE_TITLE_COLOR = Color.GRAY;
     public static final int DEFAULT_TIMER_SHADOW_COLOR = Color.parseColor("#BF888888");
     public static final boolean DEFAULT_TIMER_VOLUME_BUTTONS_ACTION = false;
@@ -230,6 +227,26 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_TIMER_FLIP_ACTION = false;
     public static final boolean DEFAULT_TIMER_SHAKE_ACTION = false;
     public static final int DEFAULT_TIMER_SHAKE_INTENSITY = 16;
+    public static final String VISIBLE_ADD_TIME = "add_time";
+    public static final String VISIBLE_REMOVE_TIME = "remove_time";
+    public static final String VISIBLE_TIMER_VIBRATE = "timer_vibrate";
+    public static final String VISIBLE_TIMER_VIBRATION_PATTERN = "timer_vibration_pattern";
+    public static final String VISIBLE_TIMER_FLASH = "timer_flash";
+    public static final String VISIBLE_TURN_OFF_MEDIA = "turn_off_media";
+    public static final String VISIBLE_DELETE_TIMER_AFTER_USE = "delete_timer_after_use";
+    public static final String VISIBLE_TIMER_AUTO_SILENCE = "timer_auto_silence";
+    public static final String VISIBLE_TIMER_CRESCENDO_DURATION = "timer_crescendo_duration";
+    public static final Set<String> DEFAULT_TIMER_FEATURES_TO_DISPLAY = Set.of(
+        VISIBLE_ADD_TIME,
+        VISIBLE_REMOVE_TIME,
+        VISIBLE_TIMER_VIBRATE,
+        VISIBLE_TIMER_VIBRATION_PATTERN,
+        VISIBLE_TIMER_FLASH,
+        VISIBLE_TURN_OFF_MEDIA,
+        VISIBLE_DELETE_TIMER_AFTER_USE,
+        VISIBLE_TIMER_AUTO_SILENCE,
+        VISIBLE_TIMER_CRESCENDO_DURATION
+    );
     public static final boolean DEFAULT_SINGLE_TIMER_MODE = false;
     public static final String DEFAULT_SORT_TIMER_MANUALLY = "0";
     public static final String SORT_TIMER_BY_ASCENDING_DURATION = "1";

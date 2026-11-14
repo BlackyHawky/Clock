@@ -3,19 +3,13 @@
 package com.best.deskclock.base;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_FEATURES_TO_DISPLAY;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_AUTO_SILENCE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_CRESCENDO_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MATH_HARDNESS_LEVEL;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MISSED_ALARM_REPEAT_LIMIT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_SNOOZE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VIBRATION_PATTERN;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VOLUME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FEATURES_TO_DISPLAY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FEATURES_TO_DISPLAY;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -85,6 +79,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                 // Update all the "per alarm" keys stored in SharedPreferences
                 updatePerAlarmKeys(prefs);
+
+                // Update all the "per timer" keys stored in SharedPreferences
+                updatePerTimerKeys(prefs);
             } finally {
                 result.finish();
                 wl.release();
@@ -198,7 +195,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         boolean hasChanges = false;
 
         Set<String> currentFeatures = new HashSet<>(
-            prefs.getStringSet("key_alarm_features_to_display", DEFAULT_ALARM_FEATURES_TO_DISPLAY)
+            prefs.getStringSet(KEY_ALARM_FEATURES_TO_DISPLAY, DEFAULT_ALARM_FEATURES_TO_DISPLAY)
         );
 
         hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_auto_silence", VISIBLE_AUTO_SILENCE);
@@ -211,9 +208,29 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_alarm_background_image", VISIBLE_BACKGROUND_IMAGE);
 
         if (hasChanges) {
-            editor.putStringSet("key_alarm_features_to_display", currentFeatures);
+            editor.putStringSet(KEY_ALARM_FEATURES_TO_DISPLAY, currentFeatures);
             editor.commit();
             LogUtils.i("PackageReplacedReceiver - Per alarm keys migrated and cleaned up successfully");
+        }
+    }
+
+    @SuppressLint("ApplySharedPref")
+    private void updatePerTimerKeys(@NonNull SharedPreferences prefs) {
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean hasChanges = false;
+
+        Set<String> currentFeatures = new HashSet<>(
+            prefs.getStringSet(KEY_TIMER_FEATURES_TO_DISPLAY, DEFAULT_TIMER_FEATURES_TO_DISPLAY)
+        );
+
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_timer_auto_silence", VISIBLE_TIMER_AUTO_SILENCE);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_timer_volume_crescendo_duration", VISIBLE_TIMER_CRESCENDO_DURATION);
+        hasChanges |= migrateAndRemoveOldKey(prefs, editor, currentFeatures, "key_enable_per_timer_vibration_pattern", VISIBLE_TIMER_VIBRATION_PATTERN);
+
+        if (hasChanges) {
+            editor.putStringSet(KEY_TIMER_FEATURES_TO_DISPLAY, currentFeatures);
+            editor.commit();
+            LogUtils.i("PackageReplacedReceiver - Per timer keys migrated and cleaned up successfully");
         }
     }
 

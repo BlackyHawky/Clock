@@ -543,8 +543,6 @@
     <string name="missed_alarm_repeat_limit_10_times">10 korda</string>
     <string name="display_dismiss_button_title">Kohe peale äratuse sisselülitamist kuva „Loobu“ nupp</string>
     <string name="display_dismiss_button_summary">Kui see eelistus pole kasutusel, siis „Loobu“ nupp tekib koos meeldetuletuse teavitusega</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Omaseadistatud helivaljuse suurendamise kestused lähtestuvad.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Omaseadistatud peatamise kestused lähtestuvad.%s</string>
     <string name="features_dialog_message">Vaata põhiliste funktsionaalsuste lehte:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Oled äratusest loobunud. <xliff:g example="Järgmine äratus on esmaspäeval." id="alarm_day">Uus aeg on - %s.</xliff:g></string>
     <string name="blur_intensity_title">Hägustamise tugevus</string>
@@ -576,7 +574,6 @@
     <string name="display_settings_title">Ekraani seadistused</string>
     <string name="settings_language_bulgarian">bulgaaria keel</string>
     <string name="settings_language_tamil">tamili keel</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Iga äratuse jaoks oma tüüpi värinad lähtestatakse.%s</string>
     <string name="sw_laps_title">Ringe</string>
     <string name="sw_split_title">Jagatud</string>
     <string name="sw_total_title">Kokku</string>
@@ -669,10 +666,7 @@
     <string name="headphones_button_title">Kõrvaklappide esita/peata nupp</string>
     <string name="display_alarm_title_on_single_line_title">Näita äratuse nime ühel real</string>
     <string name="timer_settings_general_summary">Seda seadistust saad iga taimeri puhul kohendada taimeri muutmisvaates</string>
-    <string name="enable_per_timer_auto_silence_title">Kasuta iga taimeri jaoks oma peatamise kestust</string>
-    <string name="enable_per_timer_crescendo_duration_title">Kasuta iga taimeri jaoks oma helivaljuse suurendamise kestust</string>
     <string name="timer_vibrate_dialog_message">Värin lülitatakse kõikide taimerite puhul välja.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Kasuta iga taimeri jaoks oma tüüpi värinat</string>
     <string name="timer_headphones_button_action_title">Aegunud taimereid saad lähtestada kõrvaklappide esita/peata nupuga</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Taimeri käivitumisel lülita tagumine välklamp sisse</string>
     <string name="info">Teave</string>

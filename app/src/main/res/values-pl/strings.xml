@@ -547,8 +547,6 @@
     <string name="missed_alarm_repeat_limit_3_times">3 razy</string>
     <string name="missed_alarm_repeat_limit_5_times">5 razy</string>
     <string name="missed_alarm_repeat_limit_10_times">10 razy</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Niestandardowe czasy zwiększania głośności zostaną zresetowane.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Niestandardowe czasy zatrzymania zostaną zresetowane.%s</string>
     <string name="features_dialog_message">Odwiedź stronę głównych funkcji:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Alarm odrzucony. <xliff:g example="Następny alarm w poniedziałek." id="alarm_day">Przełożony na %s.</xliff:g></string>
     <string name="display_text_shadow_title">Wyświetl cień tekstu</string>
@@ -578,7 +576,6 @@
     <string name="custom_font_toast_message_deleted">Czcionka została pomyślnie usunięta</string>
     <string name="vibration_category_title">Wibracja</string>
     <string name="display_settings_title">Ustawienia wyświetlania</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Niestandardowe wzorce wibracji zostaną zresetowane.%s</string>
     <string name="sw_laps_title">Okrążenia</string>
     <string name="sw_split_title">Międzyczas</string>
     <string name="sw_total_title">Całkowity</string>
@@ -675,10 +672,7 @@
     <string name="headphones_button_title">Przycisk słuchawek Odtwarzaj/Pauza</string>
     <string name="display_alarm_title_on_single_line_title">Wyświetl tytuł alarmu w jednym wierszu</string>
     <string name="timer_settings_general_summary">To ustawienie można zmienić dla każdego minutnika w panelu edycji</string>
-    <string name="enable_per_timer_auto_silence_title">Użyj niestandardowego czasu zatrzymania dla każdego minutnika</string>
-    <string name="enable_per_timer_crescendo_duration_title">Użyj niestandardowego czasu zwiększania głośności dla każdego minutnika</string>
     <string name="timer_vibrate_dialog_message">Wibracje zostaną wyłączone dla wszystkich minutników.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Użyj niestandardowego wzoru wibracji dla każdego minutnika</string>
     <string name="timer_headphones_button_action_title">Resetuj zakończone minutniki przyciskiem Odtwórz/Pauza w słuchawkach</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Włącz tylną lampę błyskową po upływie ustawionego czasu</string>
     <string name="info">Info</string>

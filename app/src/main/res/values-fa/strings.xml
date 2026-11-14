@@ -358,9 +358,7 @@
     <string name="background_image_dialog_title">تصویر پس‌زمینه</string>
     <string name="background_image_toast_message_selected">تصویر با موفقیت انتخاب شد</string>
     <string name="background_image_toast_message_deleted">تصویر با موفقیت حذف شد</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">مدت زمان‌های افزایش سفارشی صدای هشدار بازنشانی خواهند شد.%s</string>
     <string name="auto_silence_end_of_ringtone">پایان آهنگ زنگ</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">مدت زمان‌های توقف سفارشی هشدار بازنشانی خواهند شد.%s</string>
     <string name="clock_dial_with_numbers">با اعداد</string>
     <string name="clock_dial_without_numbers">بدون اعداد</string>
     <string name="clock_dial_with_roman_numbers">با اعداد رومی</string>
@@ -432,7 +430,6 @@
     <string name="external_audio_device_volume_title">حجم صدای هشدار برای دستگاه‌های صوتی خارجی</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">فعال‌سازی لرزش هنگام پخش هشدار</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">لرزش برای همه هشدارها غیرفعال خواهد شد.%s</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">الگوهای لرزش سفارشی بازنشانی خواهند شد.%s</string>
     <string name="vibration_start_delay_title">تأخیر پیش از شروع لرزش</string>
     <string name="vibration_start_delay_warning_box_text">مقداری بین ۰ تا ۱۰ دقیقه وارد کنید</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">فعال‌سازی لرزش هنگام تعویق یا لغو هشدار</string>

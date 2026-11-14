@@ -801,6 +801,8 @@
     <string name="proximity_sensor_title">Lock buttons when the screen is covered</string>
     <!-- Setting summary about locking buttons when the screen is covered. -->
     <string name="proximity_sensor_summary">Prevents accidentally stopping the alarm by using the proximity sensor</string>
+    <!-- Setting title to select the features to display in the alarm/timer editing panel -->
+    <string name="features_to_display_title">Features to display in the editing panel</string>
 
     <!-- ******************************* -->
     <!-- **     INTERFACE SETTINGS    ** -->
@@ -1101,8 +1103,6 @@
     <string name="math_hardness_level_normal">Normal</string>
     <!-- Setting title to change the math hardness level to Hard -->
     <string name="math_hardness_level_hard">Hard</string>
-    <!-- Setting title to select the features to display in the alarm editing panel -->
-    <string name="alarm_features_to_display_title">Features to display in the editing panel</string>
 
     <!-- *********************************** -->
     <!-- **     ALARM DISPLAY SETTINGS    ** -->
@@ -1210,22 +1210,10 @@
     <string name="timer_creation_view_style_title">Timer creation view style</string>
     <!-- Keypad style when creating timer -->
     <string name="timer_creation_view_style_keypad">Keypad</string>
-    <!-- Setting title to enable the use of a custom stop duration for each timer. -->
-    <string name="enable_per_timer_auto_silence_title">Use a custom stop duration for each timer</string>
-    <!-- Dialog message when the use of a custom stop duration is disabled. -->
-    <string name="enable_per_timer_auto_silence_dialog_message">Custom stop durations will be reset.%s</string>
-    <!-- Setting title to enable the use of a custom volume increase duration for each timer. -->
-    <string name="enable_per_timer_crescendo_duration_title">Use a custom volume increase duration for each timer</string>
-    <!-- Dialog message when the use of a custom volume increase duration is disabled. -->
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Custom volume increase durations will be reset.%s</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Dialog message when the "Timer vibrate" setting is disabled. -->
     <string name="timer_vibrate_dialog_message">Vibrations will be disabled for all timers.%s</string>
-    <!-- Setting title to enable the use of a custom vibration pattern for each timer. -->
-    <string name="enable_per_timer_vibration_pattern_title">Use a custom vibration pattern for each timer</string>
-    <!-- Dialog message when the "Use a custom vibration pattern for each timer" setting is disabled. -->
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Custom vibration patterns will be reset.%s</string>
     <!-- Setting title to reset expired timers with volume buttons. -->
     <string name="timer_volume_buttons_action_title">Reset the expired timers with the volume buttons</string>
     <!-- Setting title to reset expired timers with power button. -->
@@ -1256,6 +1244,8 @@
     <string name="default_time_to_remove_to_timer_title">Default time to subtract from the timers</string>
     <!-- Setting title to turn on flash when timer is expired -->
     <string name="turn_on_back_flash_for_expired_timer_title">Turn on back flash when timer is expired</string>
+    <!-- Dialog message when the "Turn on back flash when timer is expired" setting is disabled. -->
+    <string name="turn_on_back_flash_for_expired_timer_dialog_message">Flash will be disabled for all timers.%s</string>
 
     <!-- *********************************** -->
     <!-- **     TIMER DISPLAY SETTINGS    ** -->

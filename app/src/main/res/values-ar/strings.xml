@@ -354,7 +354,6 @@
     <string name="system_media_volume_title">استخدم مستوى صوت وسائط النظام</string>
     <string name="system_media_volume_summary">يعمل فقط إذا كان جهاز الصوت الخارجي متصلاً</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">فعِّل الاهتزاز عند انطلاق المنبه</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">سيتم إعادة ضبط أنماط الاهتزاز المخصصة.%s</string>
     <string name="vibration_pattern_title">نمط الاهتزاز</string>
     <string name="vibration_pattern_soft">ناعم</string>
     <string name="vibration_pattern_strong">قوي</string>
@@ -416,8 +415,6 @@
     <string name="background_image_dialog_title">صورة الخلفية</string>
     <string name="background_image_toast_message_selected">تم اختيار الصورة بنجاح</string>
     <string name="background_image_toast_message_deleted">تم حذف الصورة بنجاح</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">ستتم إعادة ضبط مدة زيادة مستوى صوت المخصّص.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">سيتم إعادة ضبط مدة إيقاف المخصّصة.%s</string>
     <string name="auto_silence_end_of_ringtone">نهاية نغمة الرنين</string>
     <string name="snooze_duration_none">أفتراضي</string>
     <string name="random_ringtone_title">نغمة رنين عشوائية</string>
@@ -676,10 +673,7 @@
     <string name="headphones_button_title">زر التشغيل/الإيقاف المؤقت في سماعات الرأس</string>
     <string name="display_alarm_title_on_single_line_title">اعرض عنوان التنبيه في سطر واحد</string>
     <string name="timer_settings_general_summary">يمكن تغيير هذا الإعداد لكل مؤقت على حدة في لوحة تحرير المؤقتات</string>
-    <string name="enable_per_timer_auto_silence_title">استخدم مدة توقف مخصّصة لكل مؤقت</string>
-    <string name="enable_per_timer_crescendo_duration_title">استخدم مدة مخصّصة لزيادة مستوى الصوت لكل مؤقت</string>
     <string name="timer_vibrate_dialog_message">سيتم تعطيل الاهتزازات لجميع المؤقتات.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">استخدم نمط اهتزاز مخصّص لكل مؤقت</string>
     <string name="timer_headphones_button_action_title">أعد ضبط المؤقتات التي انتهت صلاحيتها باستخدام زر التشغيل/الإيقاف المؤقت في سماعات الرأس</string>
     <string name="turn_on_back_flash_for_expired_timer_title">شغّل الكشاف الخلفي عند انتهاء مدة المؤقت</string>
     <string name="add_time_button_title">زر \"أضف وقت\"</string>

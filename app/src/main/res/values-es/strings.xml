@@ -499,7 +499,6 @@
     <string name="connect_external_audio_device_title">Conecta un dispositivo de audio externo para acceder a esta configuración</string>
     <string name="disconnect_external_audio_device_title">Desconecta el dispositivo de audio externo para acceder a esta configuración</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">Se desactivarán las vibraciones para todas las alarmas.%s</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Los patrones de vibración personalizados se restablecerán.%s</string>
     <string name="vibration_pattern_title">Patrón de vibración</string>
     <string name="vibration_pattern_soft">Suave</string>
     <string name="vibration_pattern_strong">Fuerte</string>
@@ -541,8 +540,6 @@
     <string name="background_image_dialog_title">Imagen de fondo</string>
     <string name="background_image_toast_message_selected">Imagen seleccionada correctamente</string>
     <string name="background_image_toast_message_deleted">Imagen eliminada correctamente</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Las duraciones de las subidas de volumen personalizadas se restablecerán.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Las duraciones de parada personalizadas se restablecerán. %s</string>
     <string name="random_ringtone_title">Tono aleatorio</string>
     <string name="alarm_volume_low">El volumen de la alarma es bajo</string>
     <string name="fix_alarm_volume">Arreglar</string>
@@ -659,10 +656,7 @@
     <string name="headphones_button_title">Botón de reproducción/pausa para auriculares</string>
     <string name="display_alarm_title_on_single_line_title">Mostrar el título de la alarma en una sola línea</string>
     <string name="timer_settings_general_summary">Esta configuración se puede modificar para cada temporizador individualmente en el panel de edición del temporizador</string>
-    <string name="enable_per_timer_auto_silence_title">Utilice una duración de parada personalizada para cada temporizador</string>
-    <string name="enable_per_timer_crescendo_duration_title">Utilice una duración de subida de volumen personalizada para cada temporizador</string>
     <string name="timer_vibrate_dialog_message">La vibración estará desactivada para todos los temporizadores. %s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Utilice un patrón de vibración personalizado para cada temporizador</string>
     <string name="timer_headphones_button_action_title">Utilice el botón de reproducción/pausa de los auriculares para reiniciar el temporizador una vez finalizado</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Enciende el flash trasero cuando finalice el temporizador</string>
     <string name="add_time_button_title">Botón \"Añadir duración\"</string>

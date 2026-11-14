@@ -532,8 +532,6 @@
     <string name="confirm_action_prompt">\n\nWil je doorgaan?</string>
     <string name="display_dismiss_button_title">Uitzetknop weergeven zodra wekker is ingeschakeld</string>
     <string name="display_dismiss_button_summary">Als deze optie is uitgeschakeld, wordt de knop tegelijk met de herinneringsmelding weergegeven</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Aangepaste volumeverhogingsduren worden teruggezet.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Aangepaste eindtijden worden teruggezet.%s</string>
     <string name="features_dialog_message">Bekijk de pagina met de belangrijkste kenmerken:\n\n%s</string>
     <string name="missed_alarm_repeat_limit_title">Gemiste wekkers herhalen</string>
     <string name="missed_alarm_repeat_limit_1_time">1 keer</string>
@@ -567,7 +565,6 @@
     <string name="custom_font_toast_message_selected">Lettertype succesvol geselecteerd</string>
     <string name="custom_font_toast_message_deleted">Lettertype succesvol verwijderd</string>
     <string name="vibration_category_title">Trilling</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Aangepaste trillingspatronen worden teruggezet.%s</string>
     <string name="sw_laps_title">Rondes</string>
     <string name="sw_split_title">Verdeling</string>
     <string name="sw_total_title">Totaal</string>
@@ -663,10 +660,7 @@
     <string name="headphones_button_title">Start-/pauzeknop hoofdtelefoon</string>
     <string name="display_alarm_title_on_single_line_title">Wekkernaam op één regel weergeven</string>
     <string name="timer_settings_general_summary">Deze instelling kan per kookwekker aangepast worden in het uitvouwmenu</string>
-    <string name="enable_per_timer_auto_silence_title">Aangepaste eindtijd voor iedere kookwekker</string>
-    <string name="enable_per_timer_crescendo_duration_title">Aangepaste volumeverhogingsduur voor iedere kookwekker</string>
     <string name="timer_vibrate_dialog_message">Trillen wordt uitgeschakeld voor alle kookwekkers.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Aangepast trillingspatroon voor iedere kookwekker</string>
     <string name="timer_headphones_button_action_title">Verlopen kookwekkers terugzetten met de start-/pauzeknop van de hoofdtelefoon</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Zaklamp aanzetten als kookwekker gaat</string>
     <string name="info">Informatie</string>

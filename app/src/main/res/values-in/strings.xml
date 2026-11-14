@@ -320,9 +320,7 @@
     <string name="background_image_dialog_message">Ubah atau hapus gambar latar belakang.</string>
     <string name="background_image_toast_message_selected">Gambar berhasil dipilih</string>
     <string name="background_image_toast_message_deleted">Gambar berhasil dihapus</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Durasi kenaikan volume akan diatur ulang.%s</string>
     <string name="auto_silence_end_of_ringtone">Akhir nada dering</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Durasi berhenti khusus akan diatur ulang.%s</string>
     <string name="clock_dial_with_numbers">Dengan angka</string>
     <string name="clock_dial_without_numbers">Tanpa angka</string>
     <string name="clock_dial_with_roman_numbers">Dengan angka Romawi</string>

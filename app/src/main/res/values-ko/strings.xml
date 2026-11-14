@@ -608,7 +608,6 @@
     <string name="advanced_audio_playback_category_title">고급 오디오 재생</string>
     <string name="visible_tabs_title">표시할 탭</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">모든 알람의 진동이 꺼집니다.%s</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">사용자 지정한 진동 패턴이 초기화됩니다.%s</string>
     <string name="display_enabled_alarms_first_title">켜진 알람 먼저 표시</string>
     <string name="enable_alarm_fab_long_press_title">추가 버튼을 길게 눌러 지연 시간으로 알람 추가</string>
     <string name="enable_alarm_fab_long_press_summary">꺼져 있으면, 알람을 만들 때 버튼 두 개 표시</string>
@@ -645,9 +644,6 @@
     <string name="single_timer_mode_warning_message">타이머들이 제거됩니다.%s</string>
     <string name="single_timer_mode_summary">초기화할 때 사라지는 타이머 하나만 유지</string>
     <string name="timer_vibrate_dialog_message">모든 타이머의 진동이 꺼집니다.%s</string>
-    <string name="enable_per_timer_auto_silence_title">각 타이머에 사용자 지정 알람 해제 시간 사용</string>
-    <string name="enable_per_timer_crescendo_duration_title">각 타이머에 사용자 지정 볼륨 점점 크게 시간 사용</string>
-    <string name="enable_per_timer_vibration_pattern_title">각 타이머에 사용자 지정 진동 패턴 사용</string>
     <string name="timer_headphones_button_action_title">헤드폰 재생/정지 버튼으로 만료된 타이머 초기화</string>
     <string name="turn_on_back_flash_for_expired_timer_title">타이머 만료 시 후면 손전등 켜기</string>
     <string name="display_timer_end_time_title">타이머 종료 시각 표시</string>
@@ -705,8 +701,6 @@
     <string name="display_enabled_alarm_badge_title">알람이 켜졌을 때 배지 표시</string>
     <string name="delete_alarms_with_category_title">분류를 삭제할 때 알람도 삭제</string>
     <string name="delete_alarms_with_category_summary">끄면, 알람을 기본 카테고리로 이동</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">사용자 지정한 볼륨 점점 크게 시간이 초기화됩니다.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">사용자 지정 알람 해제 시간이 초기화됩니다.%s</string>
     <string name="display_locked_alarms_first_title">잠긴 알람을 먼저 표시</string>
     <string name="display_low_alarm_volume_warning_title">알람 음량이 최소로 설정되었을 때 경고 표시</string>
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">모든 알람의 \"알람을 해제하면 알람 삭제\" 기능이 비활성화됩니다.%s</string>

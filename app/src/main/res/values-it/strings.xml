@@ -564,7 +564,6 @@
     <string name="missed_alarm_repeat_limit_5_times">5 volte</string>
     <string name="missed_alarm_repeat_limit_10_times">10 volte</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">Le vibrazioni saranno disattivate per tutte le sveglie.%s</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">I modelli di vibrazione personalizzati verranno ripristinati.%s</string>
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">La funzione “Elimina la sveglia una volta disattivata” verrà disabilitata per tutte le sveglie.%s</string>
     <string name="display_low_alarm_volume_warning_title">Visualizza un avviso quando il volume della sveglia è impostato al minimo</string>
     <string name="snooze_zone_color_title">Colore della zona di rinvio</string>
