@@ -556,8 +556,6 @@
     <string name="confirm_action_prompt">\n\nПродовжити?</string>
     <string name="missed_alarm_repeat_limit_title">Повторювати пропущені сигнали</string>
     <string name="repetitive_alarm_is_dismissed">Будильник вимкнено. <xliff:g example="Next alarm Monday." id="alarm_day">Перенесено на %s.</xliff:g></string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Користувацькі значення збільшення гучності буде скинуто.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Користувацькі значення «Вимкнути після» буде скинуто.%s</string>
     <string name="features_dialog_message">Відвідайте сторінку основних функцій:\n\n%s</string>
     <string name="display_dismiss_button_summary">Якщо вимкнено, кнопка з’являтиметься разом із нагадуванням про сповіщення</string>
     <string name="display_dismiss_button_title">Показувати кнопку «Вимкнути» одразу після ввімкнення будильника</string>
@@ -592,7 +590,6 @@
     <string name="custom_font_toast_message_deleted">Шрифт успішно видалено</string>
     <string name="custom_font_toast_message_selected">Шрифт успішно вибрано</string>
     <string name="display_settings_title">Налаштування показу</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Користувацькі ритми вібрації буде скинуто.%s</string>
     <string name="custom_font_title">Вибрати власний шрифт</string>
     <string name="custom_font_title_variant">Змінити або видалити власний шрифт</string>
     <string name="sw_laps_title">Кола</string>
@@ -681,9 +678,6 @@
     <string name="add_time_button_title">Кнопка «Додати час»</string>
     <string name="advanced_audio_playback_category_title">Розширені можливості відтворення</string>
     <string name="timer_vibrate_dialog_message">Вібрацію буде вимкнено для всіх таймерів.%s</string>
-    <string name="enable_per_timer_auto_silence_title">Окреме значення «Вимкнути після» для кожного таймера</string>
-    <string name="enable_per_timer_crescendo_duration_title">Окреме значення збільшення гучності для кожного таймера</string>
-    <string name="enable_per_timer_vibration_pattern_title">Окремий ритм вібрації для кожного таймера</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Увімкнути задній спалах, коли час таймера вичерпано</string>
     <string name="timer_settings_general_summary">Це налаштування можна змінити для кожного таймера на панелі редагування таймера</string>
     <string name="display_alarm_title_on_single_line_title">Показувати заголовок будильника в один рядок</string>

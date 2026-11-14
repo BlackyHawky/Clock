@@ -58,14 +58,6 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:key="key_enable_per_timer_auto_silence"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/enable_per_timer_auto_silence_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
         <com.best.deskclock.settings.custompreference.AlarmVolumePreference
             android:key="key_volume_setting"
             android:layout="@layout/settings_preference_slider_layout"
@@ -78,14 +70,6 @@
             android:key="key_timer_volume_crescendo_duration"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/crescendo_duration_title"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <SwitchPreferenceCompat
-            android:key="key_enable_per_timer_volume_crescendo_duration"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/enable_per_timer_crescendo_duration_title"
-            android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -157,14 +141,6 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:key="key_enable_per_timer_vibration_pattern"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/enable_per_timer_vibration_pattern_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -231,6 +207,16 @@
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
+
+        <MultiSelectListPreference
+            android:key="key_timer_features_to_display"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/features_to_display_title"
+            android:entries="@array/timer_features_to_display_entries"
+            android:entryValues="@array/timer_features_to_display_values"
+            android:defaultValue="@array/timer_features_to_display_default_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:key="key_single_timer_mode"

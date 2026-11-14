@@ -535,8 +535,6 @@
     <string name="background_image_dialog_title">Фоновое изображение</string>
     <string name="background_image_toast_message_selected">Изображение выбрано</string>
     <string name="background_image_toast_message_deleted">Изображение удалено</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Значение увеличения громкости будет сброшено.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Значение «Отключить после» будет сброшено.%s</string>
     <string name="city_search_hint">Поиск города</string>
     <string name="clock_dial_with_numbers">С цифрами</string>
     <string name="clock_dial_without_numbers">Без цифр</string>
@@ -580,7 +578,6 @@
     <string name="settings_language_tamil">Тамильский</string>
     <string name="custom_font_toast_message_selected">Шрифт выбран</string>
     <string name="custom_font_toast_message_deleted">Шрифт удален</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Индивидуальные шаблоны вибросигнала будильников будут сброшены.%s</string>
     <string name="sw_split_title">Время круга</string>
     <string name="sw_laps_title">Круги</string>
     <string name="sw_total_title">Всего</string>
@@ -675,10 +672,7 @@
     <string name="headphones_button_title">Кнопка «Воспроизведение/Пауза» наушников</string>
     <string name="display_alarm_title_on_single_line_title">Показывать заголовок будильника в одну строку</string>
     <string name="timer_settings_general_summary">Эта настройка может быть изменена для каждого таймера на панели редактирования таймера</string>
-    <string name="enable_per_timer_auto_silence_title">Отдельное значение «Отключить после» для каждого таймера</string>
-    <string name="enable_per_timer_crescendo_duration_title">Отдельное значение увеличения громкости для каждого таймера</string>
     <string name="timer_vibrate_dialog_message">Вибрация будет отключена для всех таймеров.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Отдельный ритм вибрации для каждого таймера</string>
     <string name="timer_headphones_button_action_title">Сбрасывать использованные таймеры с помощью кнопки «Воспроизведение/Пауза» наушников</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Включить заднюю вспышку, когда время таймера исчерпано</string>
     <string name="info">Информация</string>

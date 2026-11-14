@@ -8,12 +8,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_HEARTBEAT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_STRONG;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_TICK_TOCK;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -263,9 +258,10 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindFlash();
         bindTurnOffMedia();
         bindDeleteTimerAfterUse();
+        bindSecondGroupSpace();
         bindAutoSilenceValue();
         bindCrescendoDuration();
-        bindSpace();
+        bindThirdGroupSpace();
         bindDeleteButton();
         bindDuplicateButton();
         bindSaveButton();
@@ -349,6 +345,13 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
+        if (!SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_ADD_TIME)) {
+            mBinding.addTimeButtonLayout.setVisibility(GONE);
+            mBinding.addTimeButtonLayout.setOnClickListener(null);
+            mBinding.addTimeButton.setOnClickListener(null);
+            return;
+        }
+
         UiConfig.ButtonTimeConfig config = UiConfig.formatButtonTime(
             requireContext(),
             Utils.getLocaleFromContext(requireContext()),
@@ -367,12 +370,20 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             TimerButtonDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
+        mBinding.addTimeButtonLayout.setVisibility(VISIBLE);
         mBinding.addTimeButtonLayout.setOnClickListener(addTimeButtonListener);
         mBinding.addTimeButton.setOnClickListener(addTimeButtonListener);
     }
 
     private void bindRemoveTimeButtonValue() {
         if (getTimer() == null) {
+            return;
+        }
+
+        if (!SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_REMOVE_TIME)) {
+            mBinding.removeTimeButtonLayout.setVisibility(GONE);
+            mBinding.removeTimeButtonLayout.setOnClickListener(null);
+            mBinding.removeTimeButton.setOnClickListener(null);
             return;
         }
 
@@ -394,6 +405,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             TimerButtonDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
+        mBinding.removeTimeButtonLayout.setVisibility(VISIBLE);
         mBinding.removeTimeButtonLayout.setOnClickListener(removeTimeButtonListener);
         mBinding.removeTimeButton.setOnClickListener(removeTimeButtonListener);
     }
@@ -442,8 +454,9 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
-        if (!DeviceUtils.hasVibrator(requireContext())) {
+        if (!DeviceUtils.hasVibrator(requireContext()) || !SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_TIMER_VIBRATE)) {
             mBinding.vibrateOnOff.setVisibility(GONE);
+            mBinding.vibrateOnOff.setOnCheckedChangeListener(null);
             return;
         }
 
@@ -467,12 +480,11 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
-        if (!mVibrate || SettingsDAO.isPerTimerVibrationPatternDisabled(mPrefs)) {
+        if (!mVibrate || !SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_TIMER_VIBRATION_PATTERN)) {
             mBinding.vibrationPatternLayout.setVisibility(GONE);
+            mBinding.vibrationPatternLayout.setOnClickListener(null);
             return;
         }
-
-        mBinding.vibrationPatternLayout.setVisibility(VISIBLE);
 
         switch (mVibrationPattern) {
             case VIBRATION_PATTERN_SOFT -> mBinding.vibrationPatternValue.setText(getString(R.string.vibration_pattern_soft));
@@ -482,6 +494,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             case VIBRATION_PATTERN_TICK_TOCK -> mBinding.vibrationPatternValue.setText(getString(R.string.vibration_pattern_tick_tock));
             default -> mBinding.vibrationPatternValue.setText(getString(R.string.label_default));
         }
+
+        mBinding.vibrationPatternLayout.setVisibility(VISIBLE);
 
         View.OnClickListener openVibrationPatternFragment = v -> {
             Events.sendTimerEvent(R.string.action_set_vibration_pattern, R.string.label_deskclock);
@@ -498,8 +512,9 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
-        if (!DeviceUtils.hasBackFlash(requireContext())) {
+        if (!DeviceUtils.hasBackFlash(requireContext()) || !SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_TIMER_FLASH)) {
             mBinding.flashOnOff.setVisibility(GONE);
+            mBinding.flashOnOff.setOnCheckedChangeListener(null);
             return;
         }
 
@@ -518,8 +533,15 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
+        if (!SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_TURN_OFF_MEDIA)) {
+            mBinding.turnOffMedia.setVisibility(GONE);
+            mBinding.turnOffMedia.setOnCheckedChangeListener(null);
+            return;
+        }
+
         mBinding.turnOffMedia.setOnCheckedChangeListener(null);
         mBinding.turnOffMedia.setChecked(mTurnOffMedia);
+        mBinding.turnOffMedia.setVisibility(VISIBLE);
 
         mBinding.turnOffMedia.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Utils.performHapticFeedback(buttonView, mIsVibrationEnabled, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
@@ -532,8 +554,10 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
-        if (SettingsDAO.isSingleTimerModeEnabled(mPrefs)) {
+        if (SettingsDAO.isSingleTimerModeEnabled(mPrefs)
+            || !SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_DELETE_TIMER_AFTER_USE)) {
             mBinding.deleteTimerAfterUse.setVisibility(GONE);
+            mBinding.deleteTimerAfterUse.setOnCheckedChangeListener(null);
             return;
         }
 
@@ -547,20 +571,33 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
         });
     }
 
+    private void bindSecondGroupSpace() {
+        if (mBinding.vibrateOnOff.getVisibility() == VISIBLE
+            || mBinding.vibrationPatternLayout.getVisibility() == VISIBLE
+            || mBinding.flashOnOff.getVisibility() == VISIBLE
+            || mBinding.turnOffMedia.getVisibility() == VISIBLE
+            || mBinding.deleteTimerAfterUse.getVisibility() == VISIBLE) {
+            mBinding.secondGroupSpace.setVisibility(VISIBLE);
+            return;
+        }
+
+        mBinding.secondGroupSpace.setVisibility(GONE);
+    }
+
     private void bindAutoSilenceValue() {
         if (getTimer() == null) {
             return;
         }
 
-        if (SettingsDAO.isPerTimerAutoSilenceDisabled(mPrefs)) {
+        if (!SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_TIMER_AUTO_SILENCE)) {
             mBinding.autoSilenceDurationLayout.setVisibility(GONE);
+            mBinding.autoSilenceDurationLayout.setOnClickListener(null);
             return;
         }
 
-        mBinding.autoSilenceDurationLayout.setVisibility(VISIBLE);
-
         mBinding.autoSilenceDurationValue.setText(Utils.formatAutoSilenceDurationText(requireContext(), mTimerAutoSilence));
 
+        mBinding.autoSilenceDurationLayout.setVisibility(VISIBLE);
         mBinding.autoSilenceDurationLayout.setOnClickListener(v -> {
             Events.sendTimerEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
 
@@ -574,15 +611,15 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
             return;
         }
 
-        if (SettingsDAO.isPerTimerCrescendoDurationDisabled(mPrefs)) {
+        if (!SettingsDAO.getTimerFeaturesToDisplay(mPrefs).contains(VISIBLE_TIMER_CRESCENDO_DURATION)) {
             mBinding.crescendoDurationLayout.setVisibility(GONE);
+            mBinding.crescendoDurationLayout.setOnClickListener(null);
             return;
         }
 
-        mBinding.crescendoDurationLayout.setVisibility(VISIBLE);
-
         mBinding.crescendoDurationValue.setText(Utils.formatCrescendoDurationText(requireContext(), mVolumeCrescendoDuration));
 
+        mBinding.crescendoDurationLayout.setVisibility(VISIBLE);
         mBinding.crescendoDurationLayout.setOnClickListener(v -> {
             Events.sendTimerEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
 
@@ -593,13 +630,13 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void bindSpace() {
-        if (mBinding.autoSilenceDurationLayout.getVisibility() == GONE && mBinding.crescendoDurationLayout.getVisibility() == GONE) {
-            mBinding.space.setVisibility(GONE);
+    private void bindThirdGroupSpace() {
+        if (mBinding.autoSilenceDurationLayout.getVisibility() == VISIBLE || mBinding.crescendoDurationLayout.getVisibility() == VISIBLE) {
+            mBinding.thirdGroupSpace.setVisibility(VISIBLE);
             return;
         }
 
-        mBinding.space.setVisibility(VISIBLE);
+        mBinding.thirdGroupSpace.setVisibility(GONE);
     }
 
     private void bindDeleteButton() {

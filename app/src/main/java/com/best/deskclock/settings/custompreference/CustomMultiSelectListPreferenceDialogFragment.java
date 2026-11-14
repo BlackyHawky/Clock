@@ -6,6 +6,7 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FEATURES_TO_DISPLAY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FEATURES_TO_DISPLAY;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -114,6 +115,8 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
         Bundle args = requireArguments();
         String key = args.getString(ARG_PREF_KEY);
         boolean isAlarmFeaturesPref = KEY_ALARM_FEATURES_TO_DISPLAY.equals(key);
+        boolean isTimerFeaturesPref = KEY_TIMER_FEATURES_TO_DISPLAY.equals(key);
+        boolean isAlarmOrTimerFeaturePref = isAlarmFeaturesPref || isTimerFeaturesPref;
         CharSequence title = args.getCharSequence(ARG_TITLE);
         CharSequence[] entries = args.getCharSequenceArray(ARG_ENTRIES);
         CharSequence[] entryValues = args.getCharSequenceArray(ARG_ENTRY_VALUES);
@@ -158,7 +161,14 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             checkBox.setTypeface(typeface);
 
             if (isAlarmFeaturesPref) {
-                int iconResId = getIconForFeatureValue(value);
+                int iconResId = getAlarmIconForFeatureValue(value);
+                if (iconResId != 0) {
+                    checkBox.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
+                    checkBox.setCompoundDrawablePadding((int) dpToPx(10, getResources().getDisplayMetrics()));
+                    TextViewCompat.setCompoundDrawableTintList(checkBox, checkBox.getTextColors());
+                }
+            } else if (isTimerFeaturesPref) {
+                int iconResId = getTimerIconForFeatureValue(value);
                 if (iconResId != 0) {
                     checkBox.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
                     checkBox.setCompoundDrawablePadding((int) dpToPx(10, getResources().getDisplayMetrics()));
@@ -179,17 +189,17 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
                     mNewValues.remove(value);
                 }
 
-                updateCheckBoxesState(checkBoxes, isAlarmFeaturesPref);
+                updateCheckBoxesState(checkBoxes, isAlarmOrTimerFeaturePref);
             });
 
             checkBoxes.add(checkBox);
             binding.multiSelectionListOptions.addView(checkBox);
         }
 
-        updateCheckBoxesState(checkBoxes, isAlarmFeaturesPref);
+        updateCheckBoxesState(checkBoxes, isAlarmOrTimerFeaturePref);
 
         int totalItems = Objects.requireNonNull(entries).length;
-        String neutralText = isAlarmFeaturesPref ?
+        String neutralText = isAlarmOrTimerFeaturePref ?
             getString(mNewValues.size() == totalItems ? R.string.uncheck_all : R.string.check_all) : null;
 
         return CustomDialog.create(
@@ -207,10 +217,10 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             },
             getString(android.R.string.cancel),
             null,
-            isAlarmFeaturesPref ? neutralText : null,
+            isAlarmOrTimerFeaturePref ? neutralText : null,
             null,
             dialog -> {
-                if (isAlarmFeaturesPref) {
+                if (isAlarmOrTimerFeaturePref) {
                     Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
                     if (neutralButton != null) {
                         neutralButton.setOnClickListener(v -> {
@@ -254,20 +264,21 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
     /**
      * Locks the last checkbox selected to prevent the user from unchecking it, and unlocks all checkboxes if there is more than one.
      */
-    private void updateCheckBoxesState(@NonNull List<MaterialCheckBox> checkBoxes, boolean isAlarmFeaturesPref) {
+    private void updateCheckBoxesState(@NonNull List<MaterialCheckBox> checkBoxes, boolean isAlarmOrTimerFeaturePref) {
+
         boolean isOnlyOneChecked = (mNewValues.size() == 1);
 
         for (MaterialCheckBox checkBox : checkBoxes) {
             String value = (String) checkBox.getTag();
 
-            if (isAlarmFeaturesPref) {
+            if (isAlarmOrTimerFeaturePref) {
                 checkBox.setEnabled(true);
             } else {
                 checkBox.setEnabled(!isOnlyOneChecked || !mNewValues.contains(value));
             }
         }
 
-        if (isAlarmFeaturesPref && getDialog() instanceof AlertDialog alertDialog) {
+        if (isAlarmOrTimerFeaturePref && getDialog() instanceof AlertDialog alertDialog) {
             Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
             if (neutralButton != null) {
@@ -281,7 +292,7 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
     }
 
     @DrawableRes
-    private int getIconForFeatureValue(@NonNull String value) {
+    private int getAlarmIconForFeatureValue(@NonNull String value) {
         return switch (value) {
             case VISIBLE_SCHEDULE_ALARM -> R.drawable.ic_calendar_clock;
             case VISIBLE_PAUSE_ALARM -> R.drawable.ic_alarm_pause;
@@ -300,6 +311,22 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
             case VISIBLE_TASK -> R.drawable.ic_task;
             case VISIBLE_BACKGROUND_IMAGE -> R.drawable.ic_image;
             case VISIBLE_LOCK -> R.drawable.ic_lock;
+            default -> 0;
+        };
+    }
+
+    @DrawableRes
+    private int getTimerIconForFeatureValue(@NonNull String value) {
+        return switch (value) {
+            case VISIBLE_ADD_TIME -> R.drawable.ic_more_time;
+            case VISIBLE_REMOVE_TIME -> R.drawable.ic_less_time;
+            case VISIBLE_TIMER_VIBRATE -> R.drawable.ic_vibrate;
+            case VISIBLE_TIMER_VIBRATION_PATTERN -> R.drawable.ic_earthquake;
+            case VISIBLE_TIMER_FLASH -> R.drawable.ic_flash;
+            case VISIBLE_TURN_OFF_MEDIA -> R.drawable.ic_media_off;
+            case VISIBLE_DELETE_TIMER_AFTER_USE -> R.drawable.ic_clear;
+            case VISIBLE_TIMER_AUTO_SILENCE -> R.drawable.ic_ringtone_off;
+            case VISIBLE_TIMER_CRESCENDO_DURATION -> R.drawable.ic_crescendo;
             default -> 0;
         };
     }

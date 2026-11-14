@@ -625,6 +625,43 @@
         <item>lock</item>
     </string-array>
 
+    <!-- Entries listed in the MultiSelectListPreference when invoking the timer features visibility preference. -->
+    <string-array name="timer_features_to_display_entries">
+        <item>@string/add_time_button_title</item>
+        <item>@string/remove_time_button_title</item>
+        <item>@string/alarm_vibrate</item>
+        <item>@string/vibration_pattern_title</item>
+        <item>@string/alarm_flash</item>
+        <item>@string/turn_off_media_title</item>
+        <item>@string/delete_timer_after_use_title</item>
+        <item>@string/auto_silence_title</item>
+        <item>@string/crescendo_duration_title</item>
+    </string-array>
+    <!-- Values that are retrieved from the MultiSelectListPreference. These must match the timer_features_to_display_entries above. -->
+    <string-array name="timer_features_to_display_values" translatable="false">
+        <item>add_time</item>
+        <item>remove_time</item>
+        <item>timer_vibrate</item>
+        <item>timer_vibration_pattern</item>
+        <item>timer_flash</item>
+        <item>turn_off_media</item>
+        <item>delete_timer_after_use</item>
+        <item>timer_auto_silence</item>
+        <item>timer_crescendo_duration</item>
+    </string-array>
+    <!-- Default value for the MultiSelectListPreference related to the timer features visibility preference. -->
+    <string-array name="timer_features_to_display_default_values" translatable="false">
+        <item>add_time</item>
+        <item>remove_time</item>
+        <item>timer_vibrate</item>
+        <item>timer_vibration_pattern</item>
+        <item>timer_flash</item>
+        <item>turn_off_media</item>
+        <item>delete_timer_after_use</item>
+        <item>timer_auto_silence</item>
+        <item>timer_crescendo_duration</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when selecting the default tab to display. -->
     <string-array name="tab_entries">
         <item>@string/last_tab_used_title</item>

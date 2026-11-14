@@ -526,8 +526,6 @@
     <string name="missed_alarm_repeat_limit_3_times">3 次</string>
     <string name="missed_alarm_repeat_limit_5_times">5 次</string>
     <string name="missed_alarm_repeat_limit_10_times">10 次</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">將會重設自訂鬧鐘提高音量間隔。\n%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">將會重設自訂鬧鐘停止時間。\n%s</string>
     <string name="features_dialog_message">造訪主要功能介紹：\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">已關閉鬧鐘，<xliff:g example="Next alarm Monday." id="alarm_day">重新排定至 %s</xliff:g>。</string>
     <string name="display_text_shadow_title">顯示文字陰影</string>
@@ -559,7 +557,6 @@
     <string name="display_settings_title">顯示設定</string>
     <string name="settings_language_bulgarian">保加利亞</string>
     <string name="settings_language_tamil">泰米爾</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">將會重設自訂震動模式。\n%s</string>
     <string name="sw_laps_title">圈數</string>
     <string name="sw_total_title">總計</string>
     <string name="analog_clock_size_title">類比時鐘大小</string>
@@ -640,10 +637,7 @@
     <string name="display_alarm_action_message_title">貪睡或關閉鬧鐘後顯示訊息</string>
     <string name="display_alarm_title_on_single_line_title">單行顯示鬧鐘標題</string>
     <string name="timer_settings_general_summary">此設定可在計時器編輯面板中針對個別計時器進行修改</string>
-    <string name="enable_per_timer_auto_silence_title">爲每個計時器自訂停止時間</string>
-    <string name="enable_per_timer_crescendo_duration_title">為每個計時器使用自訂音量漸增時間</string>
     <string name="timer_vibrate_dialog_message">將停用所有計時器的震動。%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">為每個計時器使用自訂震動模式</string>
     <string name="timer_headphones_button_action_title">使用耳機播放/暫停按鈕重置已結束的計時器</string>
     <string name="single_timer_mode_title">單一計時器模式</string>
     <string name="single_timer_mode_summary">僅保留一個計時器模式，且於重置時自動刪除</string>

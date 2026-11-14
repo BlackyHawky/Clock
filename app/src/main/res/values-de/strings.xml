@@ -539,8 +539,6 @@
     <string name="shadow_offset_title">Schattenabstand</string>
     <string name="blur_intensity_title">Stärke der Unschärfe</string>
     <string name="background_image_title">Hintergrundbild auswählen</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Die Dauer der benutzerdefinierten Lautstärkeerhöhung wird zurückgesetzt.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Eigene Stummschaltdauern werden zurückgesetzt.%s</string>
     <string name="features_dialog_message">Seite mit den wichtigsten Funktionen besuchen:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Wecker verworfen. <xliff:g example="Nächster Wecker am Montag" id="alarm_day">Neu geplant für %s.</xliff:g></string>
     <string name="progress_ringtones">Klingeltöne hinzufügen… (%1$d/%2$d)</string>
@@ -575,7 +573,6 @@
     <string name="battery_color_title">Akkustandsfarbe</string>
     <string name="screensaver_bold_battery_title">Batteriestand in fett</string>
     <string name="screensaver_italic_battery_title">Batteriestand in kursiv</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Eigene Vibrationsmuster werden zurückgesetzt.%s</string>
     <string name="sync_alarm_by_label_title">Ein- und Ausschalten mit anderen Weckern synchronisieren, die den gleichen Namen haben</string>
     <string name="label_indefinitely">unbegrenzt</string>
     <string name="alarm_alert_dismiss_and_delete_text_button">Verwerfen &amp;\nlöschen</string>
@@ -658,10 +655,7 @@
     <string name="headphones_button_title">Start/Pause-Taste für Kopfhörer</string>
     <string name="display_alarm_title_on_single_line_title">Weckernamen in einer Zeile anzeigen</string>
     <string name="timer_settings_general_summary">Diese Einstellung kann für jeden Timer im Bearbeitungsfenster geändert werden</string>
-    <string name="enable_per_timer_auto_silence_title">Eigene Stoppdauer für jeden Timer verwenden</string>
-    <string name="enable_per_timer_crescendo_duration_title">Eigene Dauer für Lautstärkenanstieg für jeden Timer verwenden</string>
     <string name="timer_vibrate_dialog_message">Vibrationen werden für alle Timer deaktiviert.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Eigenes Vibrationsmuster für jeden Timer verwenden</string>
     <string name="timer_headphones_button_action_title">Abgelaufene Timer mit der Start/Pause-Taste des Kopfhörers zurücksetzen</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Beim Ablauf des Timers den Blitz einschalten</string>
     <string name="custom_font_dialog_message">Eigene Schriftart ändern oder löschen.</string>

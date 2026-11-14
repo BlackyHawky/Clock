@@ -181,12 +181,21 @@
                     app:layout_constraintTop_toBottomOf="@+id/remove_time_button_layout"
                     tools:text="Standard (Hassium)" />
 
+                <Space
+                    android:id="@+id/second_group_space"
+                    android:layout_width="0dp"
+                    android:layout_height="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/choose_ringtone"
+                    app:layout_constraintBottom_toTopOf="@+id/vibrate_on_off" />
+
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/vibrate_on_off"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="2dp"
                     android:minHeight="48dp"
                     android:paddingHorizontal="10dp"
                     android:button="@null"
@@ -197,7 +206,7 @@
                     android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/choose_ringtone"
+                    app:layout_constraintTop_toBottomOf="@+id/second_group_space"
                     tools:ignore="RtlSymmetry"
                     tools:checked="true" />
 
@@ -276,7 +285,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/flash_on_off"
-                    app:layout_goneMarginTop="10dp"
                     tools:ignore="RtlSymmetry"
                     tools:checked="true" />
 
@@ -301,7 +309,7 @@
                     tools:checked="true" />
 
                 <Space
-                    android:id="@+id/space"
+                    android:id="@+id/third_group_space"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -319,7 +327,7 @@
                     android:paddingHorizontal="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space">
+                    app:layout_constraintTop_toBottomOf="@+id/third_group_space">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/auto_silence_duration_title"

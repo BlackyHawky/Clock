@@ -301,9 +301,7 @@
     <string name="background_image_dialog_message">ປ່ຽນ ຫຼື ລຶບຮູບພື້ນຫຼັງ.</string>
     <string name="background_image_toast_message_selected">ເລືອກຮູບສຳເລັດແລ້ວ</string>
     <string name="background_image_toast_message_deleted">ລຶບຮູບສຳເລັດແລ້ວ</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">ໄລຍະເວລາການເພີ່ມລະດັບສຽງແບບກຳນົດເອງຈະຖືກຕັ້ງຄ່າໃໝ່.%s</string>
     <string name="auto_silence_end_of_ringtone">ເມື່ອສິ້ນສຸດສຽງຮຽກເຂົ້າ</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">ໄລຍະເວລາການຢຸດສຽງແບບກຳນົດເອງຈະຖືກຕັ້ງຄ່າໃໝ່.%s</string>
     <string name="clock_dial_with_numbers">ແບບມີຕົວເລກ</string>
     <string name="clock_dial_without_numbers">ແບບບໍ່ມີຕົວເລກ</string>
     <string name="clock_dial_with_roman_numbers">ແບບຕົວເລກໂຣມັນ</string>
@@ -416,7 +414,6 @@
     <string name="disconnect_external_audio_device_title">ຕັດການເຊື່ອມຕໍ່ອຸປະກອນສຽງພາຍນອກເພື່ອເຂົ້າເຖິງການຕັ້ງຄ່ານີ້</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">ເປີດໃຊ້ການສັ່ນເມື່ອໂມງປຸກດັງ</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">ການສັ່ນຈະຖືກປິດສຳລັບທຸກໂມງປຸກ.%s</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">ຮູບແບບການສັ່ນທີ່ກຳນົດເອງຈະຖືກຕັ້ງຄ່າໃໝ່.%s</string>
     <string name="vibration_start_delay_title">ໄລຍະເວລາລໍຖ້າກ່ອນເລີ່ມການສັ່ນ</string>
     <string name="vibration_start_delay_warning_box_text">ປ້ອນຄ່າແຕ່ 0 ຫາ 10 ນາທີ</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">ເປີດໃຊ້ການສັ່ນເມື່ອເລື່ອນ ຫຼື ປິດໂມງປຸກ</string>
@@ -482,10 +479,7 @@
     <string name="timer_settings_general_summary">ການຕັ້ງຄ່ານີ້ສາມາດປ່ຽນໄດ້ສຳລັບແຕ່ລະໂມງນັບຖອຍຫຼັງໃນແຜງການແກ້ໄຂ</string>
     <string name="timer_creation_view_style_title">ຮູບແບບການສະແດງການສ້າງໂມງນັບຖອຍຫຼັງ</string>
     <string name="timer_creation_view_style_keypad">ແປ້ນຕົວເລກ</string>
-    <string name="enable_per_timer_auto_silence_title">ໃຊ້ໄລຍະເວລາການຢຸດສຽງອັດຕະໂນມັດແບບກຳນົດເອງ ສຳລັບແຕ່ລະໂມງນັບຖອຍຫຼັງ</string>
-    <string name="enable_per_timer_crescendo_duration_title">ໃຊ້ໄລຍະເວລາການເພີ່ມສຽງແບບກຳນົດເອງ ສຳລັບແຕ່ລະໂມງນັບຖອຍຫຼັງ</string>
     <string name="timer_vibrate_dialog_message">ການສັ່ນຈະຖືກປິດສຳລັບທຸກໂມງນັບຖອຍຫຼັງ.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">ໃຊ້ຮູບແບບການສັ່ນແບບກຳນົດເອງ ສຳລັບແຕ່ລະໂມງນັບຖອຍຫຼັງ</string>
     <string name="timer_volume_buttons_action_title">ຕັ້ງຄ່າໂມງນັບຖອຍຫຼັງທີ່ໝົດເວລາໃໝ່ດ້ວຍປຸ່ມລະດັບສຽງ</string>
     <string name="timer_power_button_action_title">ຕັ້ງຄ່າໂມງນັບຖອຍຫຼັງທີ່ໝົດເວລາໃໝ່ດ້ວຍປຸ່ມເປີດ/ປິດເຄື່ອງ</string>
     <string name="timer_headphones_button_action_title">ຕັ້ງຄ່າໂມງນັບຖອຍຫຼັງທີ່ໝົດເວລາໃໝ່ດ້ວຍປຸ່ມ ຫຼິ້ນ/ຢຸດ ຂອງຫູຟັງ</string>
