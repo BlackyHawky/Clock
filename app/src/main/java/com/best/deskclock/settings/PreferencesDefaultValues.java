@@ -173,6 +173,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_WEEK_START = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
     public static final boolean DEFAULT_DISPLAY_DISMISS_BUTTON = false;
     public static final int DEFAULT_ALARM_NOTIFICATION_REMINDER = 30;
+    public static final boolean DEFAULT_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM = false;
     public static final int DEFAULT_VIBRATION_START_DELAY = 0;
     public static final boolean DEFAULT_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = false;
     public static final boolean DEFAULT_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = false;

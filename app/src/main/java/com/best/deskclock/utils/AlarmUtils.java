@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -489,20 +490,22 @@ public class AlarmUtils {
         return getFormattedTime(context, c);
     }
 
-    /**
-     * format "Alarm set for 2 days, 7 hours, and 53 minutes from now."
-     */
+    public static String formatElapsedTimeUntilAlarm(@NonNull Context context, long delta) {
+        return formatTimeRemaining(context, delta, R.array.alarm_set);
+    }
+
+    public static String formatTimeRemainingUntilNextAlarm(@NonNull Context context, long delta) {
+        return formatTimeRemaining(context, delta, R.array.time_remaining_until_next_alarm_set);
+    }
+
     @VisibleForTesting
-    static String formatElapsedTimeUntilAlarm(@NonNull Context context, long delta) {
-        // If the alarm will ring within 60 seconds, just report "less than a minute."
-        final String[] formats = context.getResources().getStringArray(R.array.alarm_set);
+    private static String formatTimeRemaining(@NonNull Context context, long delta, @ArrayRes int arrayResId) {
+        final String[] formats = context.getResources().getStringArray(arrayResId);
+
         if (delta < DateUtils.MINUTE_IN_MILLIS) {
             return formats[0];
         }
 
-        // Otherwise, format the remaining time until the alarm rings.
-
-        // Round delta upwards to the nearest whole minute. (e.g. 7m 58s -> 8m)
         final long remainder = delta % DateUtils.MINUTE_IN_MILLIS;
         delta += remainder == 0 ? 0 : (DateUtils.MINUTE_IN_MILLIS - remainder);
 
@@ -522,7 +525,6 @@ public class AlarmUtils {
         final boolean showHours = hours > 0;
         final boolean showMinutes = minutes > 0;
 
-        // Compute the index of the most appropriate time format based on the time delta.
         final int index = (showDays ? 1 : 0) | (showHours ? 2 : 0) | (showMinutes ? 4 : 0);
 
         return String.format(formats[index], daySeq, hourSeq, minSeq);

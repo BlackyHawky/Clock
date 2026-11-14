@@ -7,12 +7,10 @@
 package com.best.deskclock.uicomponents;
 
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.transition.Fade;
 import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
 /**
@@ -21,7 +19,6 @@ import androidx.transition.TransitionSet;
 public final class EmptyViewController {
 
     private final Transition mEmptyViewTransition;
-    private final ViewGroup mMainLayout;
     private final View mContentView;
     private final View mEmptyView;
     private boolean mIsEmpty;
@@ -32,8 +29,7 @@ public final class EmptyViewController {
      * @param contentView The view that should be displayed when empty view is hidden.
      * @param emptyView   The view that should be displayed when main view is empty.
      */
-    public EmptyViewController(@NonNull ViewGroup mainLayout, @NonNull View contentView, @NonNull View emptyView) {
-        mMainLayout = mainLayout;
+    public EmptyViewController(@NonNull View contentView, @NonNull View emptyView) {
         mContentView = contentView;
         mEmptyView = emptyView;
         mEmptyViewTransition = new TransitionSet()
@@ -45,22 +41,18 @@ public final class EmptyViewController {
     }
 
     /**
-     * Sets the state for the controller. If it's empty, it will display the empty view.
+     * Sets the visibility state for the content and empty views.
      *
-     * @param isEmpty        Whether the controller should transition into the empty state.
-     * @param withTransition {@code true} to animate the state change using the predefined transition,
-     *                       {@code false} to apply the visibility changes instantly without animation.
+     * <p>Note: This method only updates visibility immediately. If an animation is desired,
+     * a TransitionManager must be triggered by the caller before invoking this method.</p>
+     *
+     * @param isEmpty Whether the controller should transition into the empty state.
      */
-    public void setEmpty(boolean isEmpty, boolean withTransition) {
+    public void setEmpty(boolean isEmpty) {
         if (mIsEmpty == isEmpty) {
             return;
         }
         mIsEmpty = isEmpty;
-
-        if (withTransition) {
-            // State changed, perform transition.
-            TransitionManager.beginDelayedTransition(mMainLayout, mEmptyViewTransition);
-        }
 
         mEmptyView.setVisibility(mIsEmpty ? View.VISIBLE : View.GONE);
         mContentView.setVisibility(mIsEmpty ? View.GONE : View.VISIBLE);

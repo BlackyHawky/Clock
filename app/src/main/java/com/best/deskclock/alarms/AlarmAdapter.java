@@ -268,6 +268,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         return mItems;
     }
 
+    public List<AlarmItemHolder> getAllItems() {
+        return mAllItems;
+    }
+
     public interface AlarmStateProvider {
         boolean isRepeatDayStyleEnabled(long alarmId);
         boolean canPreemptivelyDismiss(@NonNull Alarm alarm);

@@ -38,11 +38,14 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -66,6 +69,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.os.BundleCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.MenuProvider;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
@@ -104,6 +108,7 @@ import com.best.deskclock.uicomponents.EmptyViewController;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uicomponents.toast.ToastManager;
 import com.best.deskclock.uidata.UiConfig;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -120,6 +125,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -171,6 +177,7 @@ public final class AlarmFragment extends DeskClockFragment
     private String mCurrentSearchQuery = "";
     private boolean mSideButtonsVisible = false;
     private boolean mIsUiTransitioning = false;
+    private boolean mGlobalHasActiveAlarms = false;
     private boolean mIsReordering = false;
     private boolean mAreSettingsChanged = false;
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
@@ -178,13 +185,40 @@ public final class AlarmFragment extends DeskClockFragment
             switch (key) {
                 case KEY_ALARM_FONT, KEY_SORT_ALARM, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
                      KEY_ENABLE_ALARM_SORTING_BY_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
-                     KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
+                     KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
 
                     mAreSettingsChanged = true;
 
                     if (isResumed()) {
                         applySettingsChanges();
                     }
+                }
+            }
+        }
+    };
+
+    private boolean mIsTimeRemainingUntilNextAlarmDisplayed;
+    private long mNextAlarmTimeInMillis = -1;
+    private final Runnable mNextAlarmUpdater = new Runnable() {
+        @Override
+        public void run() {
+            if (mBinding == null || !isAdded()) {
+                return;
+            }
+
+            if (mNextAlarmTimeInMillis > 0) {
+                long currentTime = System.currentTimeMillis();
+                long delta = mNextAlarmTimeInMillis - currentTime;
+
+                if (delta > 0) {
+                    String remainingTime = AlarmUtils.formatTimeRemainingUntilNextAlarm(requireContext(), delta);
+
+                    mBinding.timeRemainingUntilNextAlarmText.setText(remainingTime);
+
+                    long delay = 60000 - (currentTime % 60000);
+                    mBinding.timeRemainingUntilNextAlarmText.postDelayed(this, delay);
+                } else {
+                    mBinding.timeRemainingUntilNextAlarmText.removeCallbacks(this);
                 }
             }
         }
@@ -204,11 +238,14 @@ public final class AlarmFragment extends DeskClockFragment
     private EmptyViewController mEmptyViewController;
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
 
+    private final Handler mVolumeHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mVolumeRunnable = this::refreshUIState;
     private final BroadcastReceiver mVolumeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (RingtoneUtils.VOLUME_CHANGED_ACTION.equals(intent.getAction())) {
-                updateWarningBannerVisibility();
+                mVolumeHandler.removeCallbacks(mVolumeRunnable);
+                mVolumeHandler.postDelayed(mVolumeRunnable, 200);
             }
         }
     };
@@ -286,7 +323,7 @@ public final class AlarmFragment extends DeskClockFragment
             }
         );
 
-        mEmptyViewController = new EmptyViewController(mBinding.alarmRootView, mBinding.alarmRecyclerView, mBinding.alarmEmptyView);
+        mEmptyViewController = new EmptyViewController(mBinding.alarmRecyclerView, mBinding.alarmEmptyView);
 
         mAlarmUpdateHandler = new AlarmUpdateHandler(
             requireContext(), getPrefs(), getGeneralTypeface(), this, mBinding.alarmRootView, isVibrationsEnabled());
@@ -356,6 +393,25 @@ public final class AlarmFragment extends DeskClockFragment
         mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(getGeneralBoldTypeface());
         mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(getGeneralBoldTypeface());
 
+        mBinding.nextAlarmTimeText.setTypeface(getGeneralBoldTypeface());
+        mBinding.timeRemainingUntilNextAlarmText.setTypeface(getGeneralBoldTypeface());
+
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+            mBinding.nextAlarmTimeText,
+            12,
+            20,
+            1,
+            TypedValue.COMPLEX_UNIT_SP
+        );
+
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+            mBinding.timeRemainingUntilNextAlarmText,
+            12,
+            16,
+            1,
+            TypedValue.COMPLEX_UNIT_SP
+        );
+
         mItemAdapter = new AlarmAdapter(requireContext(), getFontsConfig(), dateConfig, getScreenConfig(), getCardStyleConfig(),
             getHapticsConfig(), mWeekdayOrder, mIs24HourFormat, new AlarmAdapter.AlarmStateProvider() {
                 @Override
@@ -382,7 +438,7 @@ public final class AlarmFragment extends DeskClockFragment
             public void onChanged() {
                 super.onChanged();
 
-                checkEmptyState();
+                refreshUIState();
             }
         });
 
@@ -418,8 +474,6 @@ public final class AlarmFragment extends DeskClockFragment
         }
 
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
-
-        updateWarningBannerVisibility();
 
         setupAlarmCategoryTabs();
 
@@ -542,8 +596,6 @@ public final class AlarmFragment extends DeskClockFragment
                     mLastSortOrder = currentSortOrder;
                     LoaderManager.getInstance(this).restartLoader(0, null, this);
                 }
-
-                updateWarningBannerVisibility();
             });
         }
 
@@ -613,6 +665,10 @@ public final class AlarmFragment extends DeskClockFragment
         mAreSettingsChanged = false;
         mIsSearchMode = false;
         mIsSearchFocused = false;
+
+        mVolumeHandler.removeCallbacks(mVolumeRunnable);
+
+        mBinding.timeRemainingUntilNextAlarmText.removeCallbacks(mNextAlarmUpdater);
 
         mBinding.alarmRecyclerView.setAdapter(null);
         mBinding.alarmCategoryTabs.clearOnTabSelectedListeners();
@@ -880,23 +936,142 @@ public final class AlarmFragment extends DeskClockFragment
         return new LinearLayoutManager(requireContext());
     }
 
-    private void checkEmptyState() {
-        if (mBinding == null || mItemAdapter == null) {
+    /**
+     * Checks if the alarm list is empty and triggers the UI update using the globally cached state.
+     */
+    private void refreshUIState() {
+        if (mBinding == null || mItemAdapter == null || !isAdded()) {
             return;
         }
 
         boolean noAlarms = mItemAdapter.getItemCount() == 0;
 
-        boolean hasActiveAlarms = false;
+        updateUIStatesAndAnimate(noAlarms, mGlobalHasActiveAlarms);
+    }
 
-        for (AlarmItemHolder holder : mItemAdapter.getItems()) {
-            if (holder.item.enabled) {
-                hasActiveAlarms = true;
-                break;
+    /**
+     * Orchestrates the visibility and smooth transition animations (Fade and ChangeBounds) for the
+     * volume warning banner, the next alarm time text, the category tabs, and the empty view.
+     * Ensures all state changes are animated cleanly without visual conflicts.
+     *
+     * @param noAlarms        True if the current category (or search result) has no alarms to display.
+     * @param hasActiveAlarms True if there is at least one globally active alarm across all categories.
+     */
+    private void updateUIStatesAndAnimate(boolean noAlarms, boolean hasActiveAlarms) {
+        // Determine the target visibility for the volume banner
+        boolean isStreamLow = mIsLowAlarmVolumeWarningEnabled && RingtoneUtils.isAlarmStreamLow(requireContext());
+        boolean shouldShowBanner = hasActiveAlarms && isStreamLow && !mIsSearchMode;
+        int targetBannerVisibility = shouldShowBanner ? VISIBLE : GONE;
+        boolean bannerWillChange = !isCustomAlarmVolumePlaying()
+            && mBinding.alarmVolumeWarningBanner.volumeWarningBanner.getVisibility() != targetBannerVisibility;
+
+        // Determine the target visibility for the next alarm time text
+        boolean shouldShowNextAlarm = mIsTimeRemainingUntilNextAlarmDisplayed && hasActiveAlarms && !mIsSearchMode;
+        int targetNextAlarmVisibility = shouldShowNextAlarm ? VISIBLE : GONE;
+        boolean nextAlarmWillChange = mBinding.nextAlarmTimeLayout.getVisibility() != targetNextAlarmVisibility;
+
+        // Determine the target visibility for the tabs
+        boolean shouldShowTabs = !mIsSearchMode && mAreSortedByCategory;
+        int targetTabsVisibility = shouldShowTabs ? VISIBLE : GONE;
+        boolean tabsWillChange = mBinding.alarmCategoryTabsContainer.getVisibility() != targetTabsVisibility
+            || mBinding.addCategoryButton.getVisibility() != targetTabsVisibility;
+
+        // Determine if the empty view needs to be toggled
+        boolean emptyStateWillChange = mEmptyViewController.isEmpty() != noAlarms;
+
+        // Only animate if the view has finished drawing (isLaidOut) and the window is stable (hasWindowFocus).
+        // This bypasses the TransitionManager during device rotations and prevents the empty state image
+        // from getting stuck in an invisible state.
+        boolean canAnimate = mBinding.alarmRootView.isLaidOut() && mBinding.alarmRootView.hasWindowFocus();
+
+        Transition transitionToTrack = null;
+
+        if (bannerWillChange || nextAlarmWillChange || tabsWillChange || emptyStateWillChange) {
+            if (canAnimate) {
+                // Exclude children to prevent TransitionManager from interfering with
+                // internal updates like RecyclerView item resizing (Switch toggles)
+                // or TabLayout badge updates. It treats them as solid blocks instead.
+                TransitionSet combinedTransition = (TransitionSet) new TransitionSet()
+                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                    .excludeChildren(mBinding.alarmCategoryTabsContainer, true)
+                    .excludeChildren(mBinding.alarmRecyclerView, true);
+
+                if (emptyStateWillChange) {
+                    combinedTransition.addTransition(mEmptyViewController.getTransition());
+                }
+
+                Fade fade = new Fade();
+                if (bannerWillChange) {
+                    fade.addTarget(mBinding.alarmVolumeWarningBanner.volumeWarningBanner);
+                }
+                if (nextAlarmWillChange) {
+                    fade.addTarget(mBinding.nextAlarmTimeLayout);
+                }
+                if (tabsWillChange) {
+                    fade.addTarget(mBinding.alarmCategoryTabsContainer);
+                    fade.addTarget(mBinding.addCategoryButton);
+                }
+
+                if (bannerWillChange || nextAlarmWillChange || tabsWillChange) {
+                    combinedTransition.addTransition(fade);
+                    combinedTransition.addTransition(new ChangeBounds());
+                }
+
+                TransitionManager.beginDelayedTransition(mBinding.alarmRootView, combinedTransition);
+                transitionToTrack = combinedTransition;
             }
+
+            // Apply visibility changes immediately (TransitionManager will animate them)
+            if (bannerWillChange) {
+                mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(targetBannerVisibility);
+            }
+            if (nextAlarmWillChange) {
+                mBinding.nextAlarmTimeLayout.setVisibility(targetNextAlarmVisibility);
+            }
+            if (tabsWillChange) {
+                mBinding.alarmCategoryTabsContainer.setVisibility(targetTabsVisibility);
+                mBinding.addCategoryButton.setVisibility(targetTabsVisibility);
+            }
+
+            // Apply the empty state visibility. The combined transition triggered above will automatically
+            // intercept and animate these changes.
+            mEmptyViewController.setEmpty(noAlarms);
+        } else {
+            // No animation needed, just apply the state directly.
+            mEmptyViewController.setEmpty(noAlarms);
         }
 
-        updateUIStatesAndAnimate(noAlarms, hasActiveAlarms);
+        // If a transition was triggered, attach a listener to block the BottomSheet until it finishes.
+        if (transitionToTrack != null) {
+            mIsUiTransitioning = true;
+            transitionToTrack.addListener(new Transition.TransitionListener() {
+                @Override public void onTransitionStart(@NonNull Transition transition) {}
+                @Override public void onTransitionCancel(@NonNull Transition transition) {}
+                @Override public void onTransitionPause(@NonNull Transition transition) {}
+                @Override public void onTransitionResume(@NonNull Transition transition) {}
+
+                @Override
+                public void onTransitionEnd(@NonNull Transition transition) {
+                    transition.removeListener(this);
+                    mIsUiTransitioning = false;
+                }
+            });
+        }
+    }
+
+    /**
+     * Checks if the custom alarm volume dialog is currently open inside the bottom sheet.
+     *
+     * @return True if the volume dialog is visible, false otherwise.
+     */
+    private boolean isCustomAlarmVolumePlaying() {
+        Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
+        if (SettingsDAO.getAlarmFeaturesToDisplay(getPrefs()).contains(VISIBLE_VOLUME) && bottomSheet != null && bottomSheet.isAdded()) {
+            Fragment volumeDialog = bottomSheet.getChildFragmentManager().findFragmentByTag(AlarmVolumeDialogFragment.TAG);
+            return volumeDialog != null && volumeDialog.isAdded();
+        }
+
+        return false;
     }
 
     @SuppressLint("AlwaysShowAction")
@@ -943,8 +1118,6 @@ public final class AlarmFragment extends DeskClockFragment
 
                 updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
 
-                mBinding.alarmCategoryTabsContainer.setVisibility(GONE);
-
                 LoaderManager.getInstance(AlarmFragment.this).restartLoader(0, null, AlarmFragment.this);
 
                 if (getActivity() instanceof DeskClock deskClock) {
@@ -961,10 +1134,6 @@ public final class AlarmFragment extends DeskClockFragment
                 mCurrentSearchQuery = "";
 
                 updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
-
-                if (mAreSortedByCategory) {
-                    mBinding.alarmCategoryTabsContainer.setVisibility(VISIBLE);
-                }
 
                 if (mItemAdapter != null) {
                     mItemAdapter.filter("");
@@ -998,8 +1167,6 @@ public final class AlarmFragment extends DeskClockFragment
 
         // Restoring state after a device rotation
         if (mIsSearchMode) {
-            mBinding.alarmCategoryTabsContainer.setVisibility(GONE);
-
             if (mBinding != null) {
                 mBinding.getRoot().post(() -> {
                     if (!isAdded()) {
@@ -1118,8 +1285,7 @@ public final class AlarmFragment extends DeskClockFragment
 
                     } else if (action == CategoryDialogFragment.ACTION_DELETE) {
                         // Delete the category from the database
-                        Uri deleteUri = ContentUris.withAppendedId(ClockContract.CategoryColumns.CONTENT_URI, categoryId);
-                        appContext.getContentResolver().delete(deleteUri, null, null);
+                        Alarm.deleteCategory(appContext.getContentResolver(), categoryId);
 
                         // If the deleted category was the default one, reset to "Default".
                         long defaultStartupCategoryId = SettingsDAO.getDefaultAlarmCategory(getPrefs());
@@ -1127,45 +1293,27 @@ public final class AlarmFragment extends DeskClockFragment
                             getPrefs().edit().putString(KEY_DEFAULT_ALARM_CATEGORY, String.valueOf(Alarm.DEFAULT_CATEGORY_ID)).apply();
                         }
 
-                        // Search for all alarms that had this category.
-                        String selection = ClockContract.AlarmsColumns.CATEGORY_IDS + " LIKE ?";
-                        String[] selectionArgs = new String[]{"%," + categoryId + ",%"};
+                        List<Alarm> alarmsToUpdate = Alarm.getAlarmsByCategory(appContext.getContentResolver(), categoryId);
 
-                        try (Cursor cursor = appContext.getContentResolver().query(
-                            ClockContract.AlarmsColumns.CONTENT_URI,
-                            new String[]{ClockContract.AlarmsColumns._ID, ClockContract.AlarmsColumns.CATEGORY_IDS},
-                            selection, selectionArgs, null
-                        )) {
-                            if (cursor != null && cursor.moveToFirst()) {
-                                int idIndex = cursor.getColumnIndexOrThrow(ClockContract.AlarmsColumns._ID);
-                                int catIdsIndex = cursor.getColumnIndexOrThrow(ClockContract.AlarmsColumns.CATEGORY_IDS);
-
-                                do {
-                                    long alarmId = cursor.getLong(idIndex);
-
-                                    if (mDeleteAlarmsWithCategory) {
-                                        // Delete alarms with the category
-                                        AlarmStateManager.deleteAllInstances(appContext, getPrefs(), alarmId);
-                                        Alarm.deleteAlarm(appContext.getContentResolver(), alarmId);
-                                    } else {
-                                        long[] oldIds = Alarm.parseCategoryIds(cursor.getString(catIdsIndex));
-
-                                        // Filter to remove the deleted ID
-                                        List<Long> newIdsList = new ArrayList<>();
-                                        for (long id : oldIds) {
-                                            if (id != categoryId) newIdsList.add(id);
-                                        }
-
-                                        long[] newIds = new long[newIdsList.size()];
-                                        for (int i = 0; i < newIdsList.size(); i++) newIds[i] = newIdsList.get(i);
-
-                                        // Move all alarms from this category to the "Default" category
-                                        ContentValues values = new ContentValues();
-                                        values.put(ClockContract.AlarmsColumns.CATEGORY_IDS, Alarm.formatCategoryIds(newIds));
-                                        Uri updateUri = ContentUris.withAppendedId(ClockContract.AlarmsColumns.CONTENT_URI, alarmId);
-                                        appContext.getContentResolver().update(updateUri, values, null, null);
+                        for (Alarm alarm : alarmsToUpdate) {
+                            if (mDeleteAlarmsWithCategory) {
+                                // Delete alarms with the category
+                                AlarmStateManager.deleteAllInstances(appContext, getPrefs(), alarm.id);
+                                Alarm.deleteAlarm(appContext.getContentResolver(), alarm.id);
+                            } else {
+                                // Filter to remove the deleted ID
+                                List<Long> newIdsList = new ArrayList<>();
+                                for (long id : alarm.categoryIds) {
+                                    if (id != categoryId) {
+                                        newIdsList.add(id);
                                     }
-                                } while (cursor.moveToNext());
+                                }
+
+                                long[] newIds = new long[newIdsList.size()];
+                                for (int i = 0; i < newIdsList.size(); i++) newIds[i] = newIdsList.get(i);
+
+                                // Move all alarms from this category to the "Default" category
+                                Alarm.updateCategoryIds(appContext.getContentResolver(), alarm.id, newIds);
                             }
                         }
 
@@ -1176,9 +1324,9 @@ public final class AlarmFragment extends DeskClockFragment
                     // Refresh the interface
                     AppExecutors.getMainThread().post(() -> {
                         if (isAdded()) {
-                            LoaderManager.getInstance(this).restartLoader(0, null, this);
-
                             reloadAlarmCategoryTabs();
+
+                            LoaderManager.getInstance(this).restartLoader(0, null, this);
                         }
                     });
                 });
@@ -1230,27 +1378,7 @@ public final class AlarmFragment extends DeskClockFragment
         ContentResolver cr = appContext.getContentResolver();
 
         AppExecutors.getDiskIO().execute(() -> {
-            List<Long> categoryIds = new ArrayList<>();
-            List<String> categoryNames = new ArrayList<>();
-
-            // Search for existing categories in the database and store them in the lists `categoryIds` and `categoryNames`.
-            try (Cursor cursor = cr.query(
-                ClockContract.CategoryColumns.CONTENT_URI,
-                new String[]{ClockContract.CategoryColumns._ID, ClockContract.CategoryColumns.NAME},
-                null,
-                null,
-                ClockContract.CategoryColumns.SORT_ORDER + " ASC"
-            )) {
-                if (cursor != null && cursor.moveToFirst()) {
-                    int idIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns._ID);
-                    int nameIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns.NAME);
-
-                    do {
-                        categoryIds.add(cursor.getLong(idIndex));
-                        categoryNames.add(cursor.getString(nameIndex));
-                    } while (cursor.moveToNext());
-                }
-            }
+            LinkedHashMap<Long, String> categories = Alarm.getCategories(cr);
 
             AppExecutors.getMainThread().post(() -> {
                 if (mBinding == null || !isAdded()) {
@@ -1287,9 +1415,11 @@ public final class AlarmFragment extends DeskClockFragment
                 setCustomTabTooltip(defaultTab);
 
                 // Add tabs created by the user
-                for (int i = 0; i < categoryIds.size(); i++) {
-                    long id = categoryIds.get(i);
-                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.newTab().setText(categoryNames.get(i)).setTag(id);
+                for (Map.Entry<Long, String> entry : categories.entrySet()) {
+                    long id = entry.getKey();
+                    String name = entry.getValue();
+
+                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.newTab().setText(name).setTag(id);
                     boolean isSelected = (mCurrentCategoryId == id);
 
                     configureTabBackground(tab);
@@ -1299,8 +1429,6 @@ public final class AlarmFragment extends DeskClockFragment
                 }
 
                 mBinding.alarmCategoryTabs.addOnTabSelectedListener(mAlarmTabListener);
-
-                updateCategoryBadges();
 
                 mBinding.alarmCategoryTabs.post(() -> {
                     int selectedPos = mBinding.alarmCategoryTabs.getSelectedTabPosition();
@@ -1381,85 +1509,6 @@ public final class AlarmFragment extends DeskClockFragment
             }
 
             return true;
-        });
-    }
-
-    private void updateCategoryBadges() {
-        int tabPadding = (int) dpToPx(16, getDisplayMetrics());
-
-        if (!mIsEnabledAlarmBadgeDisplayed) {
-            if (mBinding != null) {
-                for (int i = 0; i < mBinding.alarmCategoryTabs.getTabCount(); i++) {
-                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.getTabAt(i);
-                    if (tab != null) {
-                        tab.removeBadge();
-                        tab.view.setPaddingRelative(tabPadding, 0, tabPadding, 0);
-                    }
-                }
-            }
-
-            return;
-        }
-
-        Context appContext = requireContext().getApplicationContext();
-        ContentResolver cr = appContext.getContentResolver();
-
-        AppExecutors.getDiskIO().execute(() -> {
-            Map<Long, Integer> activeAlarmsCount = new HashMap<>();
-
-            try (Cursor cursor = cr.query(
-                ClockContract.AlarmsColumns.CONTENT_URI,
-                new String[]{ClockContract.AlarmsColumns.CATEGORY_IDS},
-                ClockContract.AlarmsColumns.ENABLED + " = 1",
-                null,
-                null
-            )) {
-                if (cursor != null && cursor.moveToFirst()) {
-                    int categoryIdsIndex = cursor.getColumnIndexOrThrow(ClockContract.AlarmsColumns.CATEGORY_IDS);
-                    do {
-                        String idsString = cursor.getString(categoryIdsIndex);
-                        long[] categoryIds = Alarm.parseCategoryIds(idsString);
-
-                        for (long categoryId : categoryIds) {
-                            Integer count = activeAlarmsCount.get(categoryId);
-                            activeAlarmsCount.put(categoryId, count == null ? 1 : count + 1);
-                        }
-                    } while (cursor.moveToNext());
-                }
-            }
-
-            AppExecutors.getMainThread().post(() -> {
-                if (mBinding == null || !isAdded()) {
-                    return;
-                }
-
-                if (!mIsEnabledAlarmBadgeDisplayed) {
-                    return;
-                }
-
-                for (int i = 0; i < mBinding.alarmCategoryTabs.getTabCount(); i++) {
-                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.getTabAt(i);
-                    int paddingEnd = (int) dpToPx(30, getDisplayMetrics());
-
-                    if (tab != null && tab.getTag() instanceof Long) {
-                        long categoryId = (Long) tab.getTag();
-                        Integer count = activeAlarmsCount.get(categoryId);
-
-                        if (count != null && count > 0) {
-                            tab.view.setPaddingRelative(tabPadding, 0, paddingEnd, 0);
-
-                            BadgeDrawable badge = tab.getOrCreateBadge();
-                            badge.setNumber(count);
-
-                            int horizontalOffset = (int) dpToPx(4, getDisplayMetrics());
-                            badge.setHorizontalOffset(-horizontalOffset);
-                        } else {
-                            tab.removeBadge();
-                            tab.view.setPaddingRelative(tabPadding, 0, tabPadding, 0);
-                        }
-                    }
-                }
-            });
         });
     }
 
@@ -1554,33 +1603,142 @@ public final class AlarmFragment extends DeskClockFragment
         } else {
             mCurrentUpdateToken = updateToken;
 
-            mItemAdapter.setItems(items);
+            fetchGlobalStateAndUpdateUI(items);
+        }
+    }
 
-            if (mIsSearchMode && !TextUtils.isEmpty(mCurrentSearchQuery)) {
-                mItemAdapter.filter(mCurrentSearchQuery);
-            }
+    /**
+     * The central synchronization hub for the Alarm UI.
+     * Asynchronously fetches the global state from the database (active alarms, category badge counts,
+     * and the next firing time) with built-in protections against database race conditions.
+     * It then strictly sequences the updates on the main thread: refreshing the adapter, updating
+     * the remaining time text, applying badges, and finally triggering global UI animations.
+     *
+     * @param items The completely loaded and sorted list of alarms provided by the CursorLoader.
+     */
+    private void fetchGlobalStateAndUpdateUI(@NonNull List<AlarmItemHolder> items) {
+        Context appContext = requireContext().getApplicationContext();
+        Context localizedContext = Utils.getLocalizedContext(appContext, SettingsDAO.getLanguageCode(getPrefs()));
 
-            // Show or hide the empty view as appropriate.
-            checkEmptyState();
+        AppExecutors.getDiskIO().execute(() -> {
+            List<Alarm> enabledAlarms = Alarm.getEnabledAlarms(appContext);
+            final boolean hasActive = !enabledAlarms.isEmpty();
+            final Map<Long, Integer> activeAlarmsCount = getActiveAlarmsCount(enabledAlarms);
 
-            updateCategoryBadges();
+            AlarmInstance nextInstance = AlarmInstance.getNextFiringAlarm(appContext);
+            long nextTimeInMillis = -1;
+            String nextAlarmFormattedTime = null;
 
-            // Scroll to the selected alarm.
-            if (mScrollToAlarmId != Alarm.INVALID_ID) {
-                scrollToAlarm(mScrollToAlarmId);
-                setSmoothScrollStableId(Alarm.INVALID_ID);
-            }
+            if (nextInstance != null) {
+                // Normal behavior: the instance exists
+                nextTimeInMillis = nextInstance.getAlarmTime().getTimeInMillis();
+                Calendar alarmCalendar = Calendar.getInstance(nextInstance.getTimeZone());
+                alarmCalendar.setTimeInMillis(nextTimeInMillis);
+                nextAlarmFormattedTime = AlarmUtils.getFormattedTime(localizedContext, alarmCalendar);
+            } else if (hasActive) {
+                // Case where the instance is null, for example, after closing the BottomSheet because this recreates the instance
+                // and consequently updates the database: we calculate the time of the next alarm on the fly from our list in memory.
+                Calendar now = Calendar.getInstance();
+                for (AlarmItemHolder holder : items) {
+                    if (holder.item.enabled) {
+                        Calendar calendar = holder.item.getSortableNextAlarmTime(appContext, holder.getAlarmInstance(), now);
 
-            // Check if a newly created alarm is waiting to be edited.
-            if (mPendingAlarmToEdit != null) {
-                final Alarm alarmToOpen = mPendingAlarmToEdit;
-                mPendingAlarmToEdit = null;
+                        if (calendar != null) {
+                            if (nextTimeInMillis == -1 || calendar.getTimeInMillis() < nextTimeInMillis) {
+                                nextTimeInMillis = calendar.getTimeInMillis();
+                                Calendar alarmCalendar = Calendar.getInstance(holder.item.getTimeZone());
 
-                mBinding.alarmRecyclerView.post(() -> {
-                    if (mBinding != null) {
-                        openBottomSheetWhenIdle(alarmToOpen);
+                                alarmCalendar.setTimeInMillis(nextTimeInMillis);
+
+                                nextAlarmFormattedTime = AlarmUtils.getFormattedTime(localizedContext, alarmCalendar);
+                            }
+                        }
                     }
-                });
+                }
+            }
+
+            final long finalNextTime = nextTimeInMillis;
+            final String finalNextAlarmFormattedTime = nextAlarmFormattedTime;
+
+            AppExecutors.getMainThread().post(() -> {
+                if (mBinding == null || !isAdded()) {
+                    return;
+                }
+
+                mGlobalHasActiveAlarms = hasActive;
+                mNextAlarmTimeInMillis = finalNextTime;
+
+                mItemAdapter.setItems(items);
+
+                if (mIsSearchMode && !TextUtils.isEmpty(mCurrentSearchQuery)) {
+                    mItemAdapter.filter(mCurrentSearchQuery);
+                }
+
+                mBinding.timeRemainingUntilNextAlarmText.removeCallbacks(mNextAlarmUpdater);
+
+                if (mNextAlarmTimeInMillis > 0 && mIsTimeRemainingUntilNextAlarmDisplayed) {
+                    mBinding.nextAlarmTimeText.setText(finalNextAlarmFormattedTime);
+                    mNextAlarmUpdater.run();
+                }
+
+                updateCategoryBadges(activeAlarmsCount);
+
+                // Scroll to the selected alarm.
+                if (mScrollToAlarmId != Alarm.INVALID_ID) {
+                    scrollToAlarm(mScrollToAlarmId);
+                    setSmoothScrollStableId(Alarm.INVALID_ID);
+                }
+
+                // Check if a newly created alarm is waiting to be edited.
+                if (mPendingAlarmToEdit != null) {
+                    final Alarm alarmToOpen = mPendingAlarmToEdit;
+                    mPendingAlarmToEdit = null;
+                    openBottomSheetWhenIdle(alarmToOpen);
+                }
+            });
+        });
+    }
+
+    private void updateCategoryBadges(@Nullable Map<Long, Integer> activeAlarmsCount) {
+        int tabPadding = (int) dpToPx(16, getDisplayMetrics());
+
+        if (!mIsEnabledAlarmBadgeDisplayed) {
+            if (mBinding != null) {
+                for (int i = 0; i < mBinding.alarmCategoryTabs.getTabCount(); i++) {
+                    TabLayout.Tab tab = mBinding.alarmCategoryTabs.getTabAt(i);
+                    if (tab != null) {
+                        tab.removeBadge();
+                        tab.view.setPaddingRelative(tabPadding, 0, tabPadding, 0);
+                    }
+                }
+            }
+
+            return;
+        }
+
+        for (int i = 0; i < mBinding.alarmCategoryTabs.getTabCount(); i++) {
+            TabLayout.Tab tab = mBinding.alarmCategoryTabs.getTabAt(i);
+            int paddingEnd = (int) dpToPx(30, getDisplayMetrics());
+
+            if (tab != null && tab.getTag() instanceof Long) {
+                long categoryId = (Long) tab.getTag();
+
+                if (activeAlarmsCount != null) {
+                    Integer count = activeAlarmsCount.get(categoryId);
+
+                    if (count != null && count > 0) {
+                        tab.view.setPaddingRelative(tabPadding, 0, paddingEnd, 0);
+
+                        BadgeDrawable badge = tab.getOrCreateBadge();
+                        badge.setNumber(count);
+
+                        int horizontalOffset = (int) dpToPx(4, getDisplayMetrics());
+                        badge.setHorizontalOffset(-horizontalOffset);
+                    } else {
+                        tab.removeBadge();
+                        tab.view.setPaddingRelative(tabPadding, 0, tabPadding, 0);
+                    }
+                }
             }
         }
     }
@@ -1825,120 +1983,6 @@ public final class AlarmFragment extends DeskClockFragment
         });
     }
 
-    /**
-     * Handles the display and animation of the volume banner and the empty view, ensuring there are no visual conflicts.
-     */
-    private void updateUIStatesAndAnimate(boolean noAlarms, boolean hasActiveAlarms) {
-        boolean shouldShowBanner = mIsLowAlarmVolumeWarningEnabled && hasActiveAlarms && RingtoneUtils.isAlarmStreamLow(requireContext());
-        int targetVisibility = shouldShowBanner ? VISIBLE : GONE;
-        boolean bannerWillChange = mBinding.alarmVolumeWarningBanner.volumeWarningBanner.getVisibility() != targetVisibility;
-
-        // Check if the empty view state is about to toggle.
-        boolean emptyStateWillChange = mEmptyViewController.isEmpty() != noAlarms;
-
-        // Only animate if the view has finished drawing (isLaidOut) and the window is stable (hasWindowFocus).
-        // This bypasses the TransitionManager during device rotations and prevents the empty state image
-        // from getting stuck in an invisible state.
-        boolean canAnimate = mBinding.alarmRootView.isLaidOut() && mBinding.alarmRootView.hasWindowFocus();
-
-        Transition transitionToTrack = null;
-
-        if (bannerWillChange) {
-            if (canAnimate) {
-                TransitionSet combinedTransition = new TransitionSet()
-                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                    .addTransition(mEmptyViewController.getTransition())
-                    .addTransition(new ChangeBounds())
-                    .addTransition(new Fade().addTarget(mBinding.alarmVolumeWarningBanner.volumeWarningBanner));
-
-                TransitionManager.beginDelayedTransition(mBinding.alarmRootView, combinedTransition);
-                transitionToTrack = combinedTransition;
-            }
-
-            mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(targetVisibility);
-            mEmptyViewController.setEmpty(noAlarms, canAnimate);
-        } else if (emptyStateWillChange) {
-            if (canAnimate) {
-                transitionToTrack = mEmptyViewController.getTransition();
-            }
-
-            // The state will change, the EmptyViewController will trigger its own delayed transition.
-            mEmptyViewController.setEmpty(noAlarms, canAnimate);
-        } else {
-            mEmptyViewController.setEmpty(noAlarms, false);
-        }
-
-        // If a transition was triggered, attach a listener to block the BottomSheet until it finishes.
-        if (transitionToTrack != null) {
-            mIsUiTransitioning = true;
-            transitionToTrack.addListener(new Transition.TransitionListener() {
-                @Override public void onTransitionStart(@NonNull Transition transition) {}
-                @Override public void onTransitionCancel(@NonNull Transition transition) {}
-                @Override public void onTransitionPause(@NonNull Transition transition) {}
-                @Override public void onTransitionResume(@NonNull Transition transition) {}
-
-                @Override
-                public void onTransitionEnd(@NonNull Transition transition) {
-                    // Remove listener to prevent memory leaks and clear the flag.
-                    transition.removeListener(this);
-                    mIsUiTransitioning = false;
-                }
-            });
-        }
-    }
-
-    /**
-     * Updates the visibility of the volume warning banner.
-     */
-    public void updateWarningBannerVisibility() {
-        if (!isAdded() || mBinding == null) {
-            return;
-        }
-
-        Context context = getContext();
-        if (context == null) {
-            return;
-        }
-
-        Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
-
-        boolean isCustomAlarmVolumePlaying = false;
-        if (SettingsDAO.getAlarmFeaturesToDisplay(getPrefs()).contains(VISIBLE_VOLUME) && bottomSheet != null && bottomSheet.isAdded()) {
-            Fragment volumeDialog = bottomSheet.getChildFragmentManager().findFragmentByTag(AlarmVolumeDialogFragment.TAG);
-            isCustomAlarmVolumePlaying = volumeDialog != null && volumeDialog.isAdded();
-        }
-
-        if (isCustomAlarmVolumePlaying) {
-            return;
-        }
-
-        if (!mIsLowAlarmVolumeWarningEnabled || !RingtoneUtils.isAlarmStreamLow(context)) {
-            if (mBinding.alarmVolumeWarningBanner.volumeWarningBanner.getVisibility() != GONE) {
-                TransitionSet strictTransition = new TransitionSet()
-                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                    .addTransition(new ChangeBounds())
-                    .addTransition(new Fade(Fade.OUT).addTarget(mBinding.alarmVolumeWarningBanner.volumeWarningBanner));
-
-                TransitionManager.beginDelayedTransition(mBinding.alarmRootView, strictTransition);
-
-                mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(GONE);
-            }
-
-            return;
-        }
-
-        AppExecutors.getDiskIO().execute(() -> {
-            List<Alarm> activeAlarms = Alarm.getEnabledAlarms(context);
-            boolean shouldShow = !activeAlarms.isEmpty();
-
-            AppExecutors.getMainThread().post(() -> {
-                if (mBinding != null) {
-                    mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(shouldShow ? VISIBLE : GONE);
-                }
-            });
-        });
-    }
-
     private void refreshSettings() {
         mCardStyle = new UiConfig.CardStyle(
             SettingsDAO.isCardBackgroundDisplayed(getPrefs()),
@@ -1961,6 +2005,7 @@ public final class AlarmFragment extends DeskClockFragment
         mShouldSwitchToNewCategory = SettingsDAO.shouldSwitchToNewCategory(getPrefs());
         mIsEnabledAlarmBadgeDisplayed = SettingsDAO.isEnabledAlarmBadgeDisplayed(getPrefs());
         mDeleteAlarmsWithCategory = SettingsDAO.areAlarmsDeletedWithCategory(getPrefs());
+        mIsTimeRemainingUntilNextAlarmDisplayed = SettingsDAO.isTimeRemainingUntilNextAlarmDisplayed(getPrefs());
         mIs24HourFormat = getDataModel().is24HourFormat();
 
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(getPrefs());
@@ -1968,7 +2013,6 @@ public final class AlarmFragment extends DeskClockFragment
 
     private void applySettingsChanges() {
         boolean wasSortedByCategory = mAreSortedByCategory;
-        boolean wasBadgeEnabled = mIsEnabledAlarmBadgeDisplayed;
 
         refreshSettings();
 
@@ -1976,17 +2020,38 @@ public final class AlarmFragment extends DeskClockFragment
             mItemAdapter.updateConfiguration(getFontsConfig(), mIs24HourFormat, mWeekdayOrder);
         }
 
-        updateWarningBannerVisibility();
-
         if (wasSortedByCategory != mAreSortedByCategory) {
             setupAlarmCategoryTabs();
 
             LoaderManager.getInstance(this).restartLoader(0, null, this);
-        } else if (wasBadgeEnabled != mIsEnabledAlarmBadgeDisplayed) {
-            updateCategoryBadges();
+        } else {
+            if (mItemAdapter != null) {
+                fetchGlobalStateAndUpdateUI(mItemAdapter.getAllItems());
+            }
         }
 
         mAreSettingsChanged = false;
+    }
+
+    @Nullable
+    private Map<Long, Integer> getActiveAlarmsCount(@NonNull List<Alarm> enabledAlarms) {
+        final Map<Long, Integer> activeAlarmsCount;
+        if (mIsEnabledAlarmBadgeDisplayed) {
+            activeAlarmsCount = new HashMap<>();
+
+            for (Alarm alarm : enabledAlarms) {
+                if (alarm.categoryIds != null) {
+                    for (long categoryId : alarm.categoryIds) {
+                        Integer count = activeAlarmsCount.get(categoryId);
+                        activeAlarmsCount.put(categoryId, count == null ? 1 : count + 1);
+                    }
+                }
+            }
+        } else {
+            activeAlarmsCount = null;
+        }
+
+        return activeAlarmsCount;
     }
 
     /**

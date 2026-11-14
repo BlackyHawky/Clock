@@ -1316,6 +1316,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the time remaining until the next alarm is displayed. {@code false} otherwise.
+     */
+    public static boolean isTimeRemainingUntilNextAlarmDisplayed(@NonNull SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM, DEFAULT_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM);
+    }
+
+    /**
      * @return the vibration pattern applied to alarms.
      */
     public static String getVibrationPattern(@NonNull SharedPreferences prefs) {

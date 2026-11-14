@@ -228,39 +228,58 @@
     <string name="alarm_confirmation_toast_7" tools:ignore="StringFormatCount">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 8 -->
     <string name="alarm_confirmation_toast_8">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
-    <!-- Alarm confirmation toast: days -->
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 1 -->
+    <string name="next_alarm_time_1">Less than 1 minute</string>
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 2 -->
+    <string name="next_alarm_time_2" translatable="false"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g></string>
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 3 -->
+    <string name="next_alarm_time_3" translatable="false" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 4 -->
+    <string name="next_alarm_time_4"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 5 -->
+    <string name="next_alarm_time_5" translatable="false" tools:ignore="StringFormatCount"><xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 6 -->
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 7 -->
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <!-- Next alarm: Describes how long from now until alarm fires - Message 8 -->
+    <string name="next_alarm_time_8"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <!-- Days in long form -->
     <plurals name="days">
         <!-- Duration for one day -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> day</item>
         <!-- Duration for more than one day -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> days</item>
     </plurals>
+    <!-- Days in short form -->
     <plurals name="days_short">
         <!-- Duration for one day -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> d</item>
         <!-- Duration for more than one day -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> d</item>
     </plurals>
-    <!-- Alarm confirmation toast, timer notification and world clock ahead/behind: hours -->
+    <!-- Hours in long form -->
     <plurals name="hours">
         <!-- Duration for one hour -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> hour</item>
         <!-- Duration for more than one hour -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hours</item>
     </plurals>
+    <!-- Hours in short form -->
     <plurals name="hours_short">
         <!-- Duration for one hour [CHAR LIMIT=8] -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> hr</item>
         <!-- Duration for more than one hour [CHAR LIMIT=8]-->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hr</item>
     </plurals>
-    <!-- Alarm confirmation toast and timer notification: minutes -->
+    <!-- Minutes in long form -->
     <plurals name="minutes">
         <!-- Duration for one minute -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> minute</item>
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minutes</item>
     </plurals>
+    <!-- Minutes in short form -->
     <plurals name="minutes_short">
         <!-- Duration for one minute [CHAR LIMIT=8] -->
         <item quantity="one"><xliff:g example="1" id="number">%s</xliff:g> min</item>
@@ -980,6 +999,8 @@
     <!-- Setting summary to specify when the Dismiss button will appear if the
          "Display Dismiss button as soon as alarm is enabled" setting is disabled. -->
     <string name="display_dismiss_button_summary">If disabled, the button will appear at the same time as the notification reminder</string>
+    <!-- Setting title to display the time remaining until the next alarm -->
+    <string name="display_time_remaining_until_next_alarm_title">Display the time remaining until the next alarm</string>
     <!-- Setting title for changing the "Repeat missed alarms" setting. -->
     <string name="missed_alarm_repeat_limit_title">Repeat missed alarms</string>
     <!-- Setting title for changing the "Repeat missed alarms" setting to 1 ring. -->

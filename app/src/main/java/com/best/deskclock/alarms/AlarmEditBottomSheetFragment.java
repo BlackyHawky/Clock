@@ -126,7 +126,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private static final String ARG_ALARM = "arg_alarm";
     private static final String ARG_ALARM_ID = "arg_alarm_id";
     private static final String ARG_IS_NEW_ALARM = "arg_is_new_alarm";
-    private static final String ARG_TAG = "arg_tag";
     public static final String SCROLL_TO_ALARM_ID = "scroll_to_alarm_id";
     public static final String REQUEST_KEY = "alarm_saved";
 
@@ -152,7 +151,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private Alarm mAlarm;
     private Alarm mOriginalAlarm;
     private AlarmUpdateHandler mAlarmUpdateHandler;
-    private String mTag;
 
     private Drawable mDeleteAlarmAfterUseDrawableStart;
     private Drawable mDeleteAlarmAfterUseDrawableEnd;
@@ -174,13 +172,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private String mAutoSilenceDuration = null;
 
     @NonNull
-    public static AlarmEditBottomSheetFragment newInstance(@NonNull Alarm alarm, long alarmId, @Nullable String tag, boolean isNewAlarm) {
+    public static AlarmEditBottomSheetFragment newInstance(@NonNull Alarm alarm, long alarmId, boolean isNewAlarm) {
 
         final Bundle args = new Bundle();
 
         args.putParcelable(ARG_ALARM, alarm);
         args.putLong(ARG_ALARM_ID, alarmId);
-        args.putString(ARG_TAG, tag);
         args.putBoolean(ARG_IS_NEW_ALARM, isNewAlarm);
 
         final AlarmEditBottomSheetFragment fragment = new AlarmEditBottomSheetFragment();
@@ -262,7 +259,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTag = requireArguments().getString(ARG_TAG);
         mIsNewAlarm = requireArguments().getBoolean(ARG_IS_NEW_ALARM, false);
 
         mPrefs = getDefaultSharedPreferences(requireContext());
@@ -464,22 +460,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         // triggered when the bottom sheet is dismissed.
         if (getActivity() instanceof DeskClock deskClock) {
             deskClock.setIgnoreNextMenuInvalidation(true);
-        }
-
-        // When the per-alarm volume feature is enabled, AlarmFragment temporarily "freezes"
-        // its volume warning banner.
-        // This prevents the banner from glitching or disappearing when the user tests
-        // the alarm volume in the sub-dialog (AlarmVolumeDialogFragment).
-        // Therefore, when this BottomSheet is fully dismissed, we must force the parent
-        // AlarmFragment to re-evaluate the actual system volume.
-        // This catches any system volume changes the user might have made
-        // (e.g., using hardware buttons) while the UI was frozen, ensuring the banner state
-        // remains perfectly synchronized.
-        if (SettingsDAO.getAlarmFeaturesToDisplay(mPrefs).contains(VISIBLE_VOLUME)) {
-            Fragment parentFragment = getParentFragmentManager().findFragmentByTag(mTag);
-            if (parentFragment instanceof AlarmFragment alarmFragment) {
-                alarmFragment.updateWarningBannerVisibility();
-            }
         }
 
         if (mActiveDialog != null && mActiveDialog.isShowing()) {

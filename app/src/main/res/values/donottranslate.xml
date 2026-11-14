@@ -253,6 +253,18 @@
         <item>@string/alarm_confirmation_toast_8</item>
     </string-array>
 
+    <!-- Array for the time remaining until the next alarm -->
+    <string-array name="time_remaining_until_next_alarm_set">
+        <item>@string/next_alarm_time_1</item>
+        <item>@string/next_alarm_time_2</item>
+        <item>@string/next_alarm_time_3</item>
+        <item>@string/next_alarm_time_4</item>
+        <item>@string/next_alarm_time_5</item>
+        <item>@string/next_alarm_time_6</item>
+        <item>@string/next_alarm_time_7</item>
+        <item>@string/next_alarm_time_8</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the "Repeat missed alarms" preference. -->
     <string-array name="missed_alarm_repeat_limit_entries">
         <item>@string/label_never</item>
