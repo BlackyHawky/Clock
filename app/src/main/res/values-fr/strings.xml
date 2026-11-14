@@ -548,8 +548,6 @@
     <string name="missed_alarm_repeat_limit_3_times">3 fois</string>
     <string name="missed_alarm_repeat_limit_5_times">5 fois</string>
     <string name="missed_alarm_repeat_limit_10_times">10 fois</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Les durées d\'augmentation du volume personnalisées seront réinitialisées.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Les durées d\'arrêt personnalisées seront réinitialisées.%s</string>
     <string name="features_dialog_message">Visiter la page des fonctionnalités principales :\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Alarme ignorée. <xliff:g example="Next alarm Monday." id="alarm_day">Reprogramée pour %s.</xliff:g></string>
     <string name="blur_intensity_title">Intensité du flou</string>
@@ -579,7 +577,6 @@
     <string name="custom_font_toast_message_deleted">Police supprimée avec succès</string>
     <string name="vibration_category_title">Vibration</string>
     <string name="display_settings_title">Paramètres d\'affichage</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Les modèles de vibration personnalisés seront réinitialisés.%s</string>
     <string name="sw_laps_title">Tours</string>
     <string name="sw_split_title">Intermédiaire</string>
     <string name="sw_total_title">Total</string>
@@ -675,10 +672,7 @@
     <string name="headphones_button_title">Bouton Lecture/Pause du casque</string>
     <string name="display_alarm_title_on_single_line_title">Afficher le titre de l\'alarme sur une seule ligne</string>
     <string name="timer_settings_general_summary">Ce réglage peut être modifié pour chaque minuteur dans le panneau d\'édition des minuteurs</string>
-    <string name="enable_per_timer_auto_silence_title">Utiliser une durée d\'arrêt personnalisée pour chaque minuteur</string>
-    <string name="enable_per_timer_crescendo_duration_title">Utiliser une durée d\'augmentation du volume personnalisée pour chaque minuteur</string>
     <string name="timer_vibrate_dialog_message">Les vibrations seront désactivées pour tous les minuteurs.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Utiliser un modèle de vibration personnalisé pour chaque minuteur</string>
     <string name="timer_headphones_button_action_title">Réinitialiser les minuteurs expirés avec le bouton Lecture/Pause du casque</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Allumer le flash arrière lorsque le minuteur est expiré</string>
     <string name="info">Info</string>

@@ -528,8 +528,6 @@
     <string name="missed_alarm_repeat_limit_3_times">3 次</string>
     <string name="missed_alarm_repeat_limit_5_times">5 次</string>
     <string name="missed_alarm_repeat_limit_10_times">10 次</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">自定义音量增大时长将被重置。%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">自定义停止时长将被重置。%s</string>
     <string name="features_dialog_message">访问主要功能页面：\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">闹钟已关闭。<xliff:g example="Next alarm Monday." id="alarm_day">已重新设置 %s。</xliff:g></string>
     <string name="blur_intensity_title">模糊强度</string>
@@ -559,7 +557,6 @@
     <string name="custom_font_toast_message_deleted">字体已成功删除</string>
     <string name="vibration_category_title">振动</string>
     <string name="display_settings_title">显示设置</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">自定义振动模式将被重置。%s</string>
     <string name="analog_clock_size_title">指针时钟大小</string>
     <string name="display_compact_timers_title">以紧凑模式显示定时器</string>
     <string name="display_battery_title">显示电池电量</string>
@@ -653,10 +650,7 @@
     <string name="headphones_button_title">耳机播放/暂停按钮</string>
     <string name="display_alarm_title_on_single_line_title">在单行上显示闹钟标题</string>
     <string name="timer_settings_general_summary">可以在定时器编辑面板中为每个定时器更改此设置</string>
-    <string name="enable_per_timer_auto_silence_title">为每个定时器使用自定义停止时长</string>
-    <string name="enable_per_timer_crescendo_duration_title">为每个定时器使用自定义音量增大时长</string>
     <string name="timer_vibrate_dialog_message">所有定时器的振动将被禁用。%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">为每个定时器使用自定义振动模式</string>
     <string name="timer_headphones_button_action_title">使用耳机播放/暂停按钮重置已结束的定时器</string>
     <string name="turn_on_back_flash_for_expired_timer_title">定时器结束时开启后置闪光灯</string>
     <string name="settings_language_swedish">瑞典语</string>

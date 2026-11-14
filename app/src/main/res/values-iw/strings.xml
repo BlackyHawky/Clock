@@ -565,7 +565,6 @@
     <string name="display_card_background_title">הצגת הרקעים בסגנון כרטיסים</string>
     <string name="auto_routing_to_external_audio_device_title">הפעלת השמעה אוטומטית של הצלצולים ממכשירי שמע חיצוניים</string>
     <string name="enable_alarm_vibrations_by_default_dialog_message">הרטט יושבת בכל ההתראות.%s</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">דפוסי הרטט המותאמים אישית יתאפסו.%s</string>
     <string name="timezone_norfolk">אי נורפוק</string>
     <string name="transparent_background_for_expired_timer_title">רקע שקוף כאשר טיימר מסתיים</string>
     <string name="display_timer_state_indicator_title">הצגת מחווני המצב של הטיימרים</string>
@@ -610,8 +609,6 @@
     <string name="custom_font_dialog_message">החלפה או מחיקה של הגופן המותאם אישית.</string>
     <string name="advanced_audio_playback_category_title">ניגון שמע מתקדם</string>
     <string name="background_image_dialog_message">החלפה או מחיקה של תמונת הרקע.</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">משכי הזמן המותאמים אישית להגברה מדורגת של עוצמת הקול יתאפסו.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">משכי הזמן המותאמים אישית לפני סגירת ההתראה יתאפסו.%s</string>
     <string name="clock_dial_title">מחוגה</string>
     <string name="clock_style_spinner">מחוג</string>
     <string name="vibration_pattern_escalating">מתעצם</string>
@@ -692,7 +689,6 @@
     <string name="central_fab_size_title">גודל כפתור הפעולה הצף המרכזי</string>
     <string name="side_fab_size_title">גודל כפתורי הפעולות הצפים הצדדיים</string>
     <string name="display_locked_alarms_first_title">הצגת ההתראות הנעולות תחילה</string>
-    <string name="enable_per_timer_auto_silence_title">שימוש במשך זמן מותאם אישית עד לעצירה לכל טיימר בנפרד</string>
     <string name="turn_on_back_flash_for_expired_timer_title">הפעלת הפנס האחורי כאשר טיימר מסתיים</string>
     <string name="widget_max_font_size_title">גודל הגופן המרבי ליישומון</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">צבע לכותרת „אין התראות קרובות”</string>
@@ -705,5 +701,4 @@
     <string name="invert_timer_button_positions_title">החלפה בין מיקומי הכפתורים של הטיימר</string>
     <string name="timer_headphones_button_action_title">איפוס הטיימרים שהסתיימו בעזרת הכפתור ניגון/השהיה שבאוזניות</string>
     <string name="timer_power_button_action_title">איפוס הטיימרים שהסתיימו בעזרת כפתור ההפעלה</string>
-    <string name="enable_per_timer_vibration_pattern_title">שימוש בתבנית רטט מותאמת אישית לכל טיימר בנפרד</string>
 </resources>

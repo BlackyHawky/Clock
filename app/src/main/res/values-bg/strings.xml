@@ -372,8 +372,6 @@
     <string name="background_image_dialog_title">Фоново изображение</string>
     <string name="background_image_toast_message_selected">Изображението е избрано</string>
     <string name="background_image_toast_message_deleted">Изображението е премахнато</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Потребителското време за увеличаване на звука ще бъде нулирано.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Потребителското време за самоизключване ще бъде нулирано.%s</string>
     <string name="auto_silence_end_of_ringtone">На края на мелодията</string>
     <string name="snooze_duration_none">Без</string>
     <string name="random_ringtone_title">Случайна мелодия</string>
@@ -567,7 +565,6 @@
     <string name="settings_language_bulgarian">Български</string>
     <string name="display_battery_title">Ниво на батерията</string>
     <string name="settings_language_tamil">Тамилски</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Потребителските вибрации ще бъдат нулирани. %s</string>
     <string name="sw_laps_title">Обиколки</string>
     <string name="sw_split_title">Отсечка</string>
     <string name="sw_total_title">Общо</string>

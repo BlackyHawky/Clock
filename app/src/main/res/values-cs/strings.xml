@@ -547,8 +547,6 @@
     <string name="missed_alarm_repeat_limit_3_times">3krát</string>
     <string name="missed_alarm_repeat_limit_5_times">5krát</string>
     <string name="missed_alarm_repeat_limit_10_times">10krát</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Vlastní doby zvyšování hlasitosti budou resetovány.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Vlastní doby do ukončení budou resetovány.%s</string>
     <string name="features_dialog_message">Navštivte stránku s hlavními funkcemi:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Budík zrušen. <xliff:g example="Next alarm Monday." id="alarm_day">Přesunuto na %s.</xliff:g></string>
     <string name="blur_intensity_title">Intenzita rozostření</string>
@@ -578,7 +576,6 @@
     <string name="custom_font_toast_message_deleted">Písmo úspěšně odstraněno</string>
     <string name="vibration_category_title">Vibrace</string>
     <string name="display_settings_title">Nastavení zobrazení</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Vlastní vzor vibrací bude resetován.%s</string>
     <string name="sw_laps_title">Kola</string>
     <string name="sw_split_title">Rozdělit</string>
     <string name="sw_total_title">Celkem</string>
@@ -675,10 +672,7 @@
     <string name="headphones_button_title">Tlačítko pozastavení/přehrání na sluchátkách</string>
     <string name="display_alarm_title_on_single_line_title">Zobrazit název budíku na jednom řádku</string>
     <string name="timer_settings_general_summary">Toto nastavení lze změnit pro každý časovač v panelu úpravy časovačů</string>
-    <string name="enable_per_timer_auto_silence_title">Použít vlastní dobu do ukončení pro každý časovač</string>
-    <string name="enable_per_timer_crescendo_duration_title">Použít vlastní dobu zvyšování hlasitosti pro každý časovač</string>
     <string name="timer_vibrate_dialog_message">Vibrace budou zakázány u všech časovačů.%s</string>
-    <string name="enable_per_timer_vibration_pattern_title">Použít vlastní vzor vibrací pro každý časovač</string>
     <string name="timer_headphones_button_action_title">Resetovat vypršené časovače pomocí tlačítka přehrát/pozastavit na sluchátkách</string>
     <string name="turn_on_back_flash_for_expired_timer_title">Znovu zapnout svítilnu po vypršení časovače</string>
     <string name="info">Informace</string>

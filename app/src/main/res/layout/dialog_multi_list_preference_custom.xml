@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="?attr/dialogPreferredPadding"
-        android:paddingEnd="@null"
+        android:paddingEnd="?attr/dialogPreferredPadding"
         android:orientation="vertical" />
 
 </androidx.core.widget.NestedScrollView>

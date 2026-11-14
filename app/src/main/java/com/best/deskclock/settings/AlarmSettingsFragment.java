@@ -73,7 +73,6 @@ import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -282,7 +281,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
 
         setupPreferences();
 
-        setupFeaturesPreference();
+        setupFeaturesPreference(mFeaturesToDisplayPref);
 
         invalidatePreferencesVisibility();
     }
@@ -972,68 +971,6 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         });
     }
 
-    private void setupFeaturesPreference() {
-        boolean hasFlash = DeviceUtils.hasBackFlash(requireContext());
-        boolean hasVibrator = DeviceUtils.hasVibrator(requireContext());
-
-        if (!hasFlash || !hasVibrator) {
-            CharSequence[] currentEntries = mFeaturesToDisplayPref.getEntries();
-            CharSequence[] currentValues = mFeaturesToDisplayPref.getEntryValues();
-
-            if (currentEntries != null && currentValues != null) {
-                List<CharSequence> newEntries = new ArrayList<>();
-                List<CharSequence> newValues = new ArrayList<>();
-
-                for (int i = 0; i < currentValues.length; i++) {
-                    String value = currentValues[i].toString();
-
-                    boolean skipFlash = !hasFlash && VISIBLE_ALARM_FLASH.equals(value);
-                    boolean skipVibrate = !hasVibrator && VISIBLE_ALARM_VIBRATE.equals(value);
-
-                    if (!skipFlash && !skipVibrate) {
-                        newEntries.add(currentEntries[i]);
-                        newValues.add(currentValues[i]);
-                    }
-                }
-
-                mFeaturesToDisplayPref.setEntries(newEntries.toArray(new CharSequence[0]));
-                mFeaturesToDisplayPref.setEntryValues(newValues.toArray(new CharSequence[0]));
-            }
-        }
-
-        sortMultiSelectListPreference(mFeaturesToDisplayPref);
-    }
-
-    private void sortMultiSelectListPreference(@Nullable MultiSelectListPreference multiSelectListPreference) {
-        if (multiSelectListPreference != null) {
-            CharSequence[] entries = multiSelectListPreference.getEntries();
-            CharSequence[] values = multiSelectListPreference.getEntryValues();
-
-            if (entries != null && values != null && entries.length > 1) {
-                List<Pair> entryValuePairs = new ArrayList<>();
-
-                for (int i = 0; i < entries.length; i++) {
-                    entryValuePairs.add(new Pair(entries[i], values[i]));
-                }
-
-                Collections.sort(entryValuePairs, (pair1, pair2) ->
-                    String.CASE_INSENSITIVE_ORDER.compare(pair1.entry().toString(), pair2.entry().toString())
-                );
-
-                CharSequence[] sortedEntries = new CharSequence[entries.length];
-                CharSequence[] sortedValues = new CharSequence[values.length];
-
-                for (int i = 0; i < entryValuePairs.size(); i++) {
-                    sortedEntries[i] = entryValuePairs.get(i).entry();
-                    sortedValues[i] = entryValuePairs.get(i).value();
-                }
-
-                multiSelectListPreference.setEntries(sortedEntries);
-                multiSelectListPreference.setEntryValues(sortedValues);
-            }
-        }
-    }
-
     private void updateFeaturesSummaries(@NonNull Set<String> selectedFeatures) {
         String generalSummary = getString(R.string.alarm_settings_general_summary);
 
@@ -1369,12 +1306,6 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
      */
     private interface AlarmUpdater {
         void update(@NonNull Alarm alarm);
-    }
-
-    /**
-     * Internal class to store entry/value pairs
-     */
-    private record Pair(@NonNull CharSequence entry, @NonNull CharSequence value) {
     }
 
 }

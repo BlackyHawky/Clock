@@ -358,7 +358,6 @@
     <string name="system_media_volume_title">Használja a rendszer média hangerőt</string>
     <string name="system_media_volume_summary">Csak akkor működik, ha egy Bluetooth eszköz csatlakoztatva van</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Ébresztők létrehozásánál rezgés engedélyezése</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Egyedi ébresztő rezgés minta visszaáll az eredeti értékre.%s</string>
     <string name="vibration_pattern_title">Rezgés minta</string>
     <string name="vibration_pattern_soft">Enyhe</string>
     <string name="vibration_pattern_strong">Erős</string>
@@ -405,8 +404,6 @@
     <string name="background_image_dialog_title">Háttérkép</string>
     <string name="background_image_toast_message_selected">Kép sikeresen kiválasztva</string>
     <string name="background_image_toast_message_deleted">Kép sikeresen törölve</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">Egyedi ébresztő hangerő növekedési időtartam visszaáll az eredeti értékre.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">Egyedi ébresztő megállási időtartam visszaáll az eredeti értékre.%s</string>
     <string name="auto_silence_end_of_ringtone">A csengőhang vége</string>
     <string name="snooze_duration_none">Nincs</string>
     <string name="random_ringtone_title">Véletlenszerű csengőhang</string>

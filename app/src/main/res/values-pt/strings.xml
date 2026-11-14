@@ -483,7 +483,6 @@
     <string name="advanced_audio_playback_summary">Melhora a compatibilidade Bluetooth e previne interrupções de som durante repetição \n\nNota: Alguns toques podem ter pequenas falhas de áudio</string>
     <string name="system_media_volume_title">Usar volume de mídia do sistema</string>
     <string name="system_media_volume_summary">Só funciona se um dispositivo Bluetooth estiver conectado</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">Vibrações personalizadas voltarão ao padrão.%s</string>
     <string name="vibration_pattern_title">Estilo de vibração</string>
     <string name="vibration_pattern_soft">Leve</string>
     <string name="vibration_pattern_strong">Forte</string>

@@ -363,8 +363,6 @@
     <string name="background_image_dialog_title">பின்னணி படம்</string>
     <string name="background_image_toast_message_selected">படம் வெற்றிகரமாக தேர்ந்தெடுக்கப்பட்டது</string>
     <string name="background_image_toast_message_deleted">படம் வெற்றிகரமாக நீக்கப்பட்டது</string>
-    <string name="enable_per_timer_crescendo_duration_dialog_message">தனிப்பயன் அலாரத்தின் ஒலி அதிகரிப்பு கால அளவு மீட்டமைக்கப்படும்.%s</string>
-    <string name="enable_per_timer_auto_silence_dialog_message">தனிப்பயன் அலாரத்தை நிறுத்தும் கால அளவுகள் மீட்டமைக்கப்படும்.%s</string>
     <string name="auto_silence_end_of_ringtone">ரிங்டோனின் முடிவு</string>
     <string name="snooze_duration_none">எதுவுமில்லை</string>
     <string name="random_ringtone_title">சீரற்ற ரிங்டோன்</string>
@@ -566,7 +564,6 @@
     <string name="display_settings_title">காட்சி அமைப்புகள்</string>
     <string name="settings_language_bulgarian">பல்கேரியன்</string>
     <string name="settings_language_tamil">தமிழ்</string>
-    <string name="enable_per_timer_vibration_pattern_dialog_message">தனிப்பயன் அதிர்வு வடிவங்கள் மீட்டமைக்கப்படும்.%s</string>
     <string name="sw_laps_title">மடியில்</string>
     <string name="sw_split_title">பிளவு</string>
     <string name="sw_total_title">மொத்தம்</string>
