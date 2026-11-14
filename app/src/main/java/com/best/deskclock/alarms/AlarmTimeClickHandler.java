@@ -73,7 +73,7 @@ public final class AlarmTimeClickHandler {
 
     public void displayBottomSheetDialog(@NonNull Alarm alarm, boolean isNewAlarm) {
         AlarmEditBottomSheetFragment fragment =
-            AlarmEditBottomSheetFragment.newInstance(alarm, alarm.id, mAlarmFragment.getTag(), isNewAlarm);
+            AlarmEditBottomSheetFragment.newInstance(alarm, alarm.id, isNewAlarm);
 
         AlarmEditBottomSheetFragment.show(mAlarmFragment.getParentFragmentManager(), fragment);
         LOGGER.v("Opening BottomSheet to edit alarm: " + alarm.id);

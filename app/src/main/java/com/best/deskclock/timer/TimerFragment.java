@@ -30,6 +30,8 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -138,11 +140,14 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         return new Intent(context, DeskClock.class).putExtra(EXTRA_TIMER_SETUP, true);
     }
 
+    private final Handler mVolumeHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mVolumeRunnable = this::updateWarningBannerVisibility;
     private final BroadcastReceiver mVolumeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(@NonNull Context context, @NonNull Intent intent) {
             if (RingtoneUtils.VOLUME_CHANGED_ACTION.equals(intent.getAction())) {
-                updateWarningBannerVisibility();
+                mVolumeHandler.removeCallbacks(mVolumeRunnable);
+                mVolumeHandler.postDelayed(mVolumeRunnable, 200);
             }
         }
     };
@@ -359,6 +364,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         getDataModel().removeTimerListener(mTimerWatcher);
 
         getPrefs().unregisterOnSharedPreferenceChangeListener(mPrefListener);
+
+        mVolumeHandler.removeCallbacks(mVolumeRunnable);
 
         mBinding.timerSpinnerSetupView.setOnChangeListener(null);
 

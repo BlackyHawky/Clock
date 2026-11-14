@@ -34,6 +34,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -673,6 +674,61 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
         id = getId(uri);
         return this;
+    }
+
+    /**
+     * Retrieves all categories as a Map (ID -> Name) while preserving the sort order (ASC).
+     */
+    @NonNull
+    public static LinkedHashMap<Long, String> getCategories(@NonNull ContentResolver cr) {
+        LinkedHashMap<Long, String> categories = new LinkedHashMap<>();
+
+        try (Cursor cursor = cr.query(
+            ClockContract.CategoryColumns.CONTENT_URI,
+            new String[]{ClockContract.CategoryColumns._ID, ClockContract.CategoryColumns.NAME},
+            null, null,
+            ClockContract.CategoryColumns.SORT_ORDER + " ASC"
+        )) {
+            if (cursor != null && cursor.moveToFirst()) {
+                int idIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns._ID);
+                int nameIndex = cursor.getColumnIndexOrThrow(ClockContract.CategoryColumns.NAME);
+                do {
+                    categories.put(cursor.getLong(idIndex), cursor.getString(nameIndex));
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return categories;
+    }
+
+    /**
+     * Deletes the category from the database.
+     */
+    public static void deleteCategory(@NonNull ContentResolver cr, long categoryId) {
+        Uri deleteUri = ContentUris.withAppendedId(ClockContract.CategoryColumns.CONTENT_URI, categoryId);
+        cr.delete(deleteUri, null, null);
+    }
+
+    /**
+     * Retrieves all alarms belonging to a specific category.
+     */
+    @NonNull
+    public static List<Alarm> getAlarmsByCategory(@NonNull ContentResolver cr, long categoryId) {
+        String selection = ClockContract.AlarmsColumns.CATEGORY_IDS + " LIKE ?";
+        String[] selectionArgs = new String[]{"%," + categoryId + ",%"};
+
+        return getAlarms(cr, selection, selectionArgs);
+    }
+
+    /**
+     * Updates category IDs for a specific alarm.
+     */
+    public static void updateCategoryIds(@NonNull ContentResolver cr, long alarmId, long[] newCategoryIds) {
+        ContentValues values = new ContentValues();
+        values.put(ClockContract.AlarmsColumns.CATEGORY_IDS, formatCategoryIds(newCategoryIds));
+
+        Uri updateUri = ContentUris.withAppendedId(ClockContract.AlarmsColumns.CONTENT_URI, alarmId);
+        cr.update(updateUri, values, null, null);
     }
 
     public void updateAlarm(@NonNull ContentResolver contentResolver) {

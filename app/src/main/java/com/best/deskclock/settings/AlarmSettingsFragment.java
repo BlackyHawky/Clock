@@ -152,6 +152,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
     SwitchPreferenceCompat mDisplayDismissButtonPref;
+    SwitchPreferenceCompat mDisplayTimeRemainingUntilNextAlarmPref;
     SwitchPreferenceCompat mAlarmProximitySensorPref;
     SwitchPreferenceCompat mDisableDNDForTriggeredAlarmPref;
     SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
@@ -269,6 +270,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
+        mDisplayTimeRemainingUntilNextAlarmPref = findPreference(KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM);
         mAlarmProximitySensorPref = findPreference(KEY_ENABLE_ALARM_PROXIMITY_SENSOR);
         mDisableDNDForTriggeredAlarmPref = findPreference(KEY_DISABLE_DND_FOR_TRIGGERED_ALARM);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
@@ -356,7 +358,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
                  KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
                  KEY_ENABLE_ALARM_FAB_LONG_PRESS, KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
-                 KEY_ENABLE_ALARM_SORTING_BY_CATEGORY, KEY_ENABLE_ALARM_PROXIMITY_SENSOR ->
+                 KEY_ENABLE_ALARM_SORTING_BY_CATEGORY, KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM, KEY_ENABLE_ALARM_PROXIMITY_SENSOR ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ADVANCED_AUDIO_PLAYBACK, KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE, KEY_SYSTEM_MEDIA_VOLUME -> {
@@ -892,6 +894,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mWeekStartPref.setOnPreferenceChangeListener(this);
 
         mDisplayDismissButtonPref.setOnPreferenceChangeListener(this);
+
+        mDisplayTimeRemainingUntilNextAlarmPref.setOnPreferenceChangeListener(this);
 
         mAlarmProximitySensorPref.setOnPreferenceChangeListener(this);
 
