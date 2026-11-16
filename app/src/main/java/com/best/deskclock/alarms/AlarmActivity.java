@@ -100,7 +100,9 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class AlarmActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener, SensorEventListener {
 
@@ -117,6 +119,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     public static final int MISSION_ACTION_SNOOZE = 1;
     public static final int MISSION_ACTION_DISMISS = 2;
+
+    /**
+     * Keys ("instanceId@displayId") of alarm instances that have a started AlarmActivity on a display.
+     * Only used on the main thread. The full-screen notification and the cover screen launch can both
+     * start this activity for the same alarm. We only drop a copy when the same display already shows
+     * one, so the guard never hides an alarm screen the user might be looking at.
+     */
+    private static final Set<String> sShownKeys = new HashSet<>();
 
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -139,6 +149,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private Alarm mAlarm;
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
+    // Key this activity added to sShownKeys, null if none.
+    private String mShownKey;
     private VolumeButtonBehavior mVolumeBehavior;
     private PowerButtonBehavior mPowerBehavior;
     private HeadphonesButtonBehavior mHeadphonesButtonBehavior;
@@ -233,6 +245,18 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final long instanceId = getIntentInstanceId();
+        final int displayId = getCurrentDisplayId();
+        if (instanceId != -1 && !claimShownInstance(instanceId, displayId)
+            && AlarmNotifications.ACTION_FULLSCREEN_ACTIVITY.equals(getIntent().getAction())) {
+            LOGGER.i("Instance %d is already shown on displayId=%d, closing duplicate on displayId=%d",
+                instanceId, displayId, displayId);
+            finish();
+            return;
+        }
+
+        LOGGER.i("Showing instance %d on displayId=%d", instanceId, displayId);
 
         mActivityStartTime = SystemClock.elapsedRealtime();
 
@@ -414,7 +438,40 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Claim again after onStop() released it. If another copy took it meanwhile, keep running:
+        // this activity may already be visible, so we never close it here.
+        final long instanceId = getIntentInstanceId();
+        if (instanceId != -1 && !isFinishing()) {
+            final int displayId = getCurrentDisplayId();
+            if (!claimShownInstance(instanceId, displayId)) {
+                LOGGER.i("Instance %d is already claimed on displayId=%d, keeping this copy anyway",
+                    instanceId, displayId);
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        // A stopped activity may never get finished (e.g. alarm snoozed from the notification),
+        // so it must not block a later full-screen launch of the same instance.
+        releaseShownInstance();
+
+        super.onStop();
+    }
+
+    @Override
+    public void finish() {
+        releaseShownInstance();
+        super.finish();
+    }
+
+    @Override
     protected void onDestroy() {
+        releaseShownInstance();
+
         unbindAlarmService();
 
         if (mPowerBtnReceiverRegistered) {
@@ -697,6 +754,54 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             v.setPadding(0, bars.top, 0, 0);
         });
+    }
+
+    /**
+     * @return the alarm instance id from the intent data, or -1 if there is none.
+     */
+    private long getIntentInstanceId() {
+        final Intent intent = getIntent();
+        final Uri dataUri = intent != null ? intent.getData() : null;
+        return dataUri != null ? AlarmInstance.getId(dataUri) : -1;
+    }
+
+    /**
+     * @return the id of the display this activity is on.
+     */
+    private int getCurrentDisplayId() {
+        return getWindowManager().getDefaultDisplay().getDisplayId();
+    }
+
+    /**
+     * Marks this activity as the one showing the given alarm instance on the given display.
+     *
+     * @return {@code true} if this activity holds the key; {@code false} if another copy on the same
+     * display does.
+     */
+    private boolean claimShownInstance(long instanceId, int displayId) {
+        final String key = instanceId + "@" + displayId;
+        if (key.equals(mShownKey)) {
+            return true;
+        }
+
+        if (!sShownKeys.add(key)) {
+            return false;
+        }
+
+        // The activity may have moved to another display since its last claim.
+        releaseShownInstance();
+        mShownKey = key;
+        return true;
+    }
+
+    /**
+     * Removes the key registered by this activity, if any.
+     */
+    private void releaseShownInstance() {
+        if (mShownKey != null) {
+            sShownKeys.remove(mShownKey);
+            mShownKey = null;
+        }
     }
 
     private void initAlarmAndInstance() {

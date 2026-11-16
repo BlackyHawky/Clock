@@ -588,6 +588,14 @@ public class AlarmService extends Service {
         }
     }
 
+    /**
+     * @return {@code true} if the given instance is the alarm ringing now; {@code false} otherwise.
+     * Used by the delayed cover screen launch. Main thread only.
+     */
+    boolean isFiring(long instanceId) {
+        return mCurrentAlarm != null && mCurrentAlarm.mId == instanceId;
+    }
+
     private void startAlarm(@NonNull AlarmInstance instance) {
         LogUtils.v("AlarmService.start with instance: " + instance.mId);
         if (mCurrentAlarm != null) {
@@ -611,6 +619,9 @@ public class AlarmService extends Service {
 
         AlarmNotifications.showAlarmNotification(
             this, mCurrentAlarm, SettingsDAO.getLanguageCode(mPrefs), SettingsDAO.getGlobalIntentId(mPrefs));
+
+        // Experimental: open AlarmActivity on the cover screen of a folded flip phone.
+        CoverScreenAlarmLauncher.launchIfFolded(this, mCurrentAlarm);
 
         RingtonePlayer.Config playerConfig = new RingtonePlayer.Config(
             SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs),

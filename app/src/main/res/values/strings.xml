@@ -1510,6 +1510,10 @@
     <string name="dnd_permission_title">DO NOT DISTURB</string>
     <string name="dnd_dialog_title">Do Not Disturb</string>
     <string name="dnd_dialog_text">This permission allows the app to automatically turn off \"Do Not Disturb\" mode when your alarm goes off.\n\nWe recommend enabling it so you don\'t miss important calls or messages after waking up.</string>
+    <!-- "Display over other apps" permission, used to show alarms on the cover screen of a foldable -->
+    <string name="cover_screen_permission_title">SHOW ALARMS ON THE COVER SCREEN</string>
+    <string name="cover_screen_dialog_title">Show alarms on the cover screen</string>
+    <string name="cover_screen_dialog_text">On some flip phones, the alarm screen does not appear on the cover screen when the phone is closed. You only get a notification.\n\nThe \"Display over other apps\" permission lets the app open the alarm screen on the cover screen when the phone is closed, so you can snooze or dismiss the alarm without opening the phone.\n\nTap this card to open the system settings, then find this app in the list to allow or revoke the permission.</string>
     <!-- Foreground service -->
     <string name="foreground_service_title">Display a foreground notification</string>
     <string name="foreground_service_dialog_message">To prevent your device from aggressively closing the app and missing alarms, this will display a persistent, silent notification.\n\nThis ensures the app stays in memory, though it may slightly increase battery usage.\n\nNote: Enabling this setting is not necessary for most devices. Only enable it if you experience missed alarms.</string>

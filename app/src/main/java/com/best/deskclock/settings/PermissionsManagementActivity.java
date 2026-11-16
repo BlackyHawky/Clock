@@ -8,8 +8,10 @@ import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS;
 import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS;
 import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT;
+import static android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION;
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_COVER_SCREEN_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DND_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_FOREGROUND_SERVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
@@ -22,6 +24,7 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -35,6 +38,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.CoverScreenAlarmLauncher;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.settings.custompreference.PermissionsManagementPreference;
@@ -84,7 +88,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             KEY_IGNORE_BATTERY_OPTIMIZATIONS,
             KEY_NOTIFICATION_PERMISSION,
             KEY_FULL_SCREEN_NOTIFICATION_PERMISSION,
-            KEY_DND_PERMISSION
+            KEY_DND_PERMISSION,
+            KEY_COVER_SCREEN_PERMISSION
         };
 
         PermissionsManagementPreference mIgnoreBatteryOptimizationsPref;
@@ -92,6 +97,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         PermissionsManagementPreference mFullScreenNotificationPref;
         PermissionsManagementPreference mShowLockScreenPref;
         PermissionsManagementPreference mDNDPermissionPref;
+        PermissionsManagementPreference mCoverScreenPermissionPref;
         SwitchPreferenceCompat mEnableForegroundServicePref;
 
         @Override
@@ -110,6 +116,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mFullScreenNotificationPref = findPreference(KEY_FULL_SCREEN_NOTIFICATION_PERMISSION);
             mShowLockScreenPref = findPreference(KEY_SHOW_LOCKSCREEN_PERMISSION);
             mDNDPermissionPref = findPreference(KEY_DND_PERMISSION);
+            mCoverScreenPermissionPref = findPreference(KEY_COVER_SCREEN_PERMISSION);
             mEnableForegroundServicePref = findPreference(KEY_ENABLE_FOREGROUND_SERVICE);
 
             if (savedInstanceState != null) {
@@ -151,6 +158,9 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
                     case KEY_FULL_SCREEN_NOTIFICATION_PERMISSION ->
                         displayRevocationDialog(KEY_FULL_SCREEN_NOTIFICATION_PERMISSION, getFullScreenNotificationsIntent());
+
+                    case KEY_COVER_SCREEN_PERMISSION ->
+                        displayRevocationDialog(KEY_COVER_SCREEN_PERMISSION, getOverlaySettingsIntent());
                 }
             }
 
@@ -194,6 +204,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 case KEY_FULL_SCREEN_NOTIFICATION_PERMISSION -> grantOrRevokeFullScreenNotificationsPermission();
                 case KEY_SHOW_LOCKSCREEN_PERMISSION -> grantShowOnLockScreenPermissionXiaomi();
                 case KEY_DND_PERMISSION -> grantOrRevokeDNDPermission();
+                case KEY_COVER_SCREEN_PERMISSION -> grantOrRevokeCoverScreenPermission();
             }
 
             return true;
@@ -216,6 +227,9 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mShowLockScreenPref.setOnPreferenceClickListener(this);
 
             mDNDPermissionPref.setOnPreferenceClickListener(this);
+
+            mCoverScreenPermissionPref.setVisible(isCoverScreenPermissionRelevant());
+            mCoverScreenPermissionPref.setOnPreferenceClickListener(this);
 
             mEnableForegroundServicePref.setOnPreferenceChangeListener(this);
 
@@ -372,6 +386,39 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
         private Intent getDNDSettingsIntent() {
             return new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
+        }
+
+        /**
+         * Grant or revoke "Display over other apps" permission, used to show alarms on the cover screen.
+         */
+        private void grantOrRevokeCoverScreenPermission() {
+            if (PermissionUtils.canDrawOverlays(requireContext())) {
+                displayRevocationDialog(KEY_COVER_SCREEN_PERMISSION, getOverlaySettingsIntent());
+            } else {
+                startActivity(getOverlaySettingsIntent());
+            }
+        }
+
+        private Intent getOverlaySettingsIntent() {
+            return new Intent(ACTION_MANAGE_OVERLAY_PERMISSION)
+                .setData(Uri.fromParts("package", requireContext().getPackageName(), null))
+                .addFlags(FLAG_ACTIVITY_NEW_TASK);
+        }
+
+        /**
+         * @return {@code true} on Android 12+ if the permission is already granted (so it can be revoked),
+         * the device has a hinge sensor, or a second built-in display is listed.
+         */
+        private boolean isCoverScreenPermissionRelevant() {
+            // The cover screen launch needs Android 12.
+            if (!SdkUtils.isAtLeastAndroid12()) {
+                return false;
+            }
+
+            final Context context = requireContext();
+            return PermissionUtils.canDrawOverlays(context)
+                || context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE)
+                || CoverScreenAlarmLauncher.hasBuiltInSecondDisplay(context);
         }
 
         /**

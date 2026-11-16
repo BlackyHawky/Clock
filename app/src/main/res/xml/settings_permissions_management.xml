@@ -46,6 +46,13 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+            android:key="key_cover_screen_permission"
+            android:layout="@layout/settings_preference_permission"
+            android:title="@string/cover_screen_permission_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

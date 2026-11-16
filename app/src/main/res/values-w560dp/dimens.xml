@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<resources>
+    <item name="alarm_landscape_middle_guide_percent" type="fraction">0.5</item>
+    <item name="alarm_landscape_end_guide_percent" type="fraction">0.75</item>
+</resources>
