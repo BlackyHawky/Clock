@@ -192,7 +192,7 @@
     <string name="world_hours_tomorrow" msgid="2504465609269004794">Morgen, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">Gestern, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
     <string name="next_alarm_description" msgid="2650244835760747046">Nächster Wecker: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
-    <string name="no_alarms" msgid="6429431324842022917">Kein Wecker eingerichtet</string>
+    <string name="no_alarms" msgid="6429431324842022917">Kein Wecker</string>
     <string name="invalid_time" msgid="2782334750243998633">Ungültige Zeit: <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
     <string name="no_alarm_at" msgid="8140632482969193119">Kein Wecker um <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g> vorhanden</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">Keine eingerichteten Wecker</string>
@@ -461,7 +461,7 @@
     <string name="date_picker_style_title">Stil für Datumsauswahl</string>
     <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_text">Tastatur</string>
-    <string name="schedule_alarm_title">Datum</string>
+    <string name="schedule_alarm_title">Wecker planen</string>
     <string name="alarm_scheduled_for">Geplant für %s</string>
     <string name="random_ringtone_title">Zufälliger Weckton</string>
     <string name="warning">Warnung</string>
@@ -620,7 +620,7 @@
     <string name="alarm_minutes_warning_box_text">Gib einen Wert von 0 bis 59 Minuten ein</string>
     <string name="display_top_date_title">Datum oberhalb der Zeit anzeigen</string>
     <string name="display_alarm_action_message_title">Nach dem Schlummern oder Verwerfen eines Weckers eine Nachricht anzeigen</string>
-    <string name="pause_alarm_title">Wecker aussetzen</string>
+    <string name="pause_alarm_title">Wecker pausieren</string>
     <string name="pause_alarm_range">Ausgesetzt: %1$s</string>
     <string name="tabs_category_title">Tabs</string>
     <string name="visible_tabs_title">Sichtbare Tabs</string>
@@ -740,4 +740,13 @@
     <string name="permission_optional">Optional</string>
     <string name="dnd_permission_title">NICHT STÖREN</string>
     <string name="dnd_dialog_text">Mit dieser Berechtigung kann die App den Modus „Nicht stören“ automatisch ausschalten, wenn dein Wecker klingelt.\n\nWir empfehlen, diese Berechtigung zu aktivieren, damit du nach dem Aufwachen keine wichtigen Anrufe oder Nachrichten verpasst.</string>
+    <string name="time_zone_search_hint">Nach einer Zeitzone suchen</string>
+    <string name="save">Speichern</string>
+    <string name="uncheck_all">Alles abwählen</string>
+    <string name="check_all">Alles wählen</string>
+    <string name="button_alarms_with_delay">Wecker mit Verzögerung hinzufügen</string>
+    <string name="features_to_display_title">Funktionen, die im Bearbeiten-Panel angezeigt werden</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Der Blitz wird für alle Wecker deaktiviert. %s</string>
+    <string name="disable_dnd_for_triggered_alarm_dialog_message">Die Funktion \"Nicht stören\" wird für alle Wecker deaktiviert.%s</string>
+    <string name="turn_on_back_flash_for_expired_timer_dialog_message">Der Blitz wird für alle Timer deaktiviert.%s</string>
 </resources>

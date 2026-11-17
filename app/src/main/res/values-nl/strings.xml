@@ -744,4 +744,13 @@
     <string name="dnd_permission_title">NIET STOREN</string>
     <string name="dnd_dialog_title">Niet storen</string>
     <string name="dnd_dialog_text">Met dit recht kan de app de \'Niet storen\'-modus automatisch uitschakelen wanneer je wekker gaat.\n\nWe raden aan deze functie in te schakelen, zodat je na het wakker worden geen belangrijke oproepen of berichten mist.</string>
+    <string name="time_zone_search_hint">Tijdzone zoeken</string>
+    <string name="save">Opslaan</string>
+    <string name="uncheck_all">Alles deselecteren</string>
+    <string name="check_all">Alles selecteren</string>
+    <string name="button_alarms_with_delay">Wekker met uitstel maken</string>
+    <string name="features_to_display_title">Opties weergeven in het uitvouwmenu</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Zaklamp wordt uitgeschakeld voor alle wekkers.%s</string>
+    <string name="disable_dnd_for_triggered_alarm_dialog_message">\"Niet storen\" wordt uitgeschakeld voor alle wekkers.%s</string>
+    <string name="turn_on_back_flash_for_expired_timer_dialog_message">Zaklamp wordt uitgeschakeld voor alle kookwekkers.%s</string>
 </resources>
