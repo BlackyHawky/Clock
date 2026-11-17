@@ -23,14 +23,14 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Завтра"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Сьогодні"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Вимкнути</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">"Пропущений сигнал"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">Пропущений будильник</string>
     <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> — <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Відкладено"</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Будильник вимкнено</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Відкласти"</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Відкладено до <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Наступний будильник"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Пропущений сигнал видалено"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Пропущений будильник видалено</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Залишилося менше хвилини"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138" tools:ignore="StringFormatCount">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893" tools:ignore="StringFormatCount">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
@@ -117,7 +117,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Годинник"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Секундомір"</string>
-    <string name="button_alarms" msgid="3907838219512538763">"Додати сигнал"</string>
+    <string name="button_alarms" msgid="3907838219512538763">Додати будильник</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Заставка"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Сортувати за часом"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Сортувати за назвою"</string>
@@ -202,8 +202,8 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">На <xliff:g id="hours">%1$s</xliff:g> <xliff:g id="minutes">%2$s</xliff:g> раніше</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">Завтра, <xliff:g id="time">%1$s</xliff:g></string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">Учора, <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="next_alarm_description" msgid="2650244835760747046">Наступний сигнал: <xliff:g id="alarm_time">%s</xliff:g></string>
-    <string name="no_alarms" msgid="6429431324842022917">"Немає сигналів"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">Наступний будильник: <xliff:g id="alarm_time">%s</xliff:g></string>
+    <string name="no_alarms" msgid="6429431324842022917">Немає будильників</string>
     <string name="invalid_time" msgid="2782334750243998633">Недійсний час — <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
     <string name="no_alarm_at" msgid="8140632482969193119">Немає будильника на <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">Немає запланованих будильників</string>
@@ -323,8 +323,8 @@
     <string name="license">Ліцензія з відкритим кодом</string>
     <string name="alarm_settings_summary">Налаштування стилю, шрифту, сигналу за замовчуванням, гучності, дій для вимкнення або відкладення будильника, а також початок тижня і час нагадування</string>
     <string name="flip_action_title">Дія перевертання пристрою</string>
-    <string name="firing_alarms_timers_channel">Сигнали і таймери</string>
-    <string name="alarm_missed_channel">Пропущені сигнали</string>
+    <string name="firing_alarms_timers_channel">Запуск будильників і таймерів</string>
+    <string name="alarm_missed_channel">Пропущені будильники</string>
     <string name="alarm_snooze_channel">Відкладені будильники</string>
     <string name="alarm_upcoming_channel">Наступні будильники</string>
     <string name="first_launch_main_feature_title">ОСНОВНІ ФУНКЦІЇ</string>
@@ -554,7 +554,7 @@
     <string name="missed_alarm_repeat_limit_5_times">5 разів</string>
     <string name="missed_alarm_repeat_limit_10_times">10 разів</string>
     <string name="confirm_action_prompt">\n\nПродовжити?</string>
-    <string name="missed_alarm_repeat_limit_title">Повторювати пропущені сигнали</string>
+    <string name="missed_alarm_repeat_limit_title">Повторювати пропущені будильники</string>
     <string name="repetitive_alarm_is_dismissed">Будильник вимкнено. <xliff:g example="Next alarm Monday." id="alarm_day">Перенесено на %s.</xliff:g></string>
     <string name="features_dialog_message">Відвідайте сторінку основних функцій:\n\n%s</string>
     <string name="display_dismiss_button_summary">Якщо вимкнено, кнопка з’являтиметься разом із нагадуванням про сповіщення</string>
@@ -768,4 +768,13 @@
     <string name="proximity_sensor_summary">Запобігає випадковому вимкненню будильника через датчик наближення</string>
     <string name="disable_DND_for_triggered_alarm_title">Вимкнути режим «Не турбувати» після спрацьовування будильника</string>
     <string name="dnd_dialog_text">Дозволяє додатку автоматично вимикати режим «Не турбувати», коли спрацьовує будильник.\n\nРекомендуємо ввімкнути, щоб не пропустити важливі дзвінки чи повідомлення після пробудження.</string>
+    <string name="time_zone_search_hint">Знайти часовий пояс</string>
+    <string name="save">Зберегти</string>
+    <string name="check_all">Позначити всі</string>
+    <string name="uncheck_all">Зняти позначку з усіх</string>
+    <string name="button_alarms_with_delay">Додати будильник із затримкою</string>
+    <string name="features_to_display_title">Елементи для відображення на панелі редагування</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Спалах буде вимкнено для всіх будильників.%s</string>
+    <string name="disable_dnd_for_triggered_alarm_dialog_message">Функцію вимкнення режиму «Не турбувати» буде вимкнено для всіх будильників.%s</string>
+    <string name="turn_on_back_flash_for_expired_timer_dialog_message">Спалах буде вимкнено для всіх таймерів.%s</string>
 </resources>

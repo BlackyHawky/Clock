@@ -758,4 +758,12 @@
     <string name="dnd_dialog_title">Ne Pas Déranger</string>
     <string name="dnd_dialog_text">Cette autorisation permet à l\'application de désactiver automatiquement le mode \"Ne Pas Déranger\" lorsque votre alarme retentit.\n\nNous vous recommandons de l\'activer afin de ne manquer aucun appel ni message important après votre réveil.</string>
     <string name="time_zone_search_hint">Rechercher un fuseau horaire</string>
+    <string name="save">Sauvegarder</string>
+    <string name="uncheck_all">Décocher tout</string>
+    <string name="check_all">Cocher tout</string>
+    <string name="button_alarms_with_delay">Ajouter une alarme avec délai</string>
+    <string name="features_to_display_title">Fonctionnalités à afficher dans le panneau d\'édition</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Le flash sera désactivé pour toutes les alarmes.%s</string>
+    <string name="disable_dnd_for_triggered_alarm_dialog_message">La fonctionnalité \"Ne Pas Déranger\" sera désactivée pour toutes les alarmes.%s</string>
+    <string name="turn_on_back_flash_for_expired_timer_dialog_message">Le flash sera désactivé pour tous les minuteurs.%s</string>
 </resources>
