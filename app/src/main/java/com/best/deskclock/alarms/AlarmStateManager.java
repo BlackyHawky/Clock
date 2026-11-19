@@ -169,14 +169,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
     private static void performUpdateNextAlarm(@NonNull Context context) {
         Context storageContext = Utils.getSafeStorageContext(context);
 
-        // Important: Do not proceed if the user is locked (direct boot mode).
-        // Updating widgets may fail because credential-protected storage
-        // is not yet accessible, and AppWidgetManager.getAppWidgetIds() will throw an exception.
-        // Fix https://github.com/BlackyHawky/Clock/issues/369#issuecomment-3344303993
-        if (!DeviceUtils.isUserUnlocked(storageContext)) {
-            return;
-        }
-
         final AlarmInstance nextAlarm = AlarmInstance.getNextFiringAlarm(context);
 
         if (nextAlarm != null) {
@@ -184,6 +176,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
 
         updateNextAlarmInAlarmManager(context, nextAlarm);
+
+        // Important: Do not proceed if the user is locked (direct boot mode).
+        // Updating widgets may fail because credential-protected storage
+        // is not yet accessible, and AppWidgetManager.getAppWidgetIds() will throw an exception.
+        // Fix https://github.com/BlackyHawky/Clock/issues/369#issuecomment-3344303993
+        if (!DeviceUtils.isUserUnlocked(storageContext)) {
+            return;
+        }
 
         if (SdkUtils.isAtLeastAndroid7()) {
             TileService.requestListeningState(context, new ComponentName(context, AlarmTileService.class));
