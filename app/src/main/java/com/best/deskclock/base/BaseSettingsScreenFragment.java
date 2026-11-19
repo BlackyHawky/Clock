@@ -11,7 +11,11 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_ALARM_FLASH;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_ALARM_VIBRATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TIMER_VIBRATION_PATTERN;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VIBRATION_PATTERN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FEATURES_TO_DISPLAY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FEATURES_TO_DISPLAY;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
@@ -1160,35 +1164,44 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             return;
         }
 
-        boolean hasFlash = DeviceUtils.hasBackFlash(requireContext());
-        boolean hasVibrator = DeviceUtils.hasVibrator(requireContext());
+        String key = multiSelectListPreference.getKey();
+        boolean isAlarmOrTimerFeatures = KEY_ALARM_FEATURES_TO_DISPLAY.equals(key) || KEY_TIMER_FEATURES_TO_DISPLAY.equals(key);
 
-        if (!hasFlash || !hasVibrator) {
-            CharSequence[] currentEntries = multiSelectListPreference.getEntries();
-            CharSequence[] currentValues = multiSelectListPreference.getEntryValues();
+        if (isAlarmOrTimerFeatures) {
+            boolean hasFlash = DeviceUtils.hasBackFlash(requireContext());
+            boolean hasVibrator = DeviceUtils.hasVibrator(requireContext());
 
-            if (currentEntries != null && currentValues != null) {
-                List<CharSequence> newEntries = new ArrayList<>();
-                List<CharSequence> newValues = new ArrayList<>();
+            if (!hasFlash || !hasVibrator) {
+                CharSequence[] currentEntries = multiSelectListPreference.getEntries();
+                CharSequence[] currentValues = multiSelectListPreference.getEntryValues();
 
-                for (int i = 0; i < currentValues.length; i++) {
-                    String value = currentValues[i].toString();
+                if (currentEntries != null && currentValues != null) {
+                    List<CharSequence> newEntries = new ArrayList<>();
+                    List<CharSequence> newValues = new ArrayList<>();
 
-                    boolean skipFlash = !hasFlash && VISIBLE_ALARM_FLASH.equals(value);
-                    boolean skipVibrate = !hasVibrator && VISIBLE_ALARM_VIBRATE.equals(value);
+                    for (int i = 0; i < currentValues.length; i++) {
+                        String value = currentValues[i].toString();
 
-                    if (!skipFlash && !skipVibrate) {
-                        newEntries.add(currentEntries[i]);
-                        newValues.add(currentValues[i]);
+                        boolean skipFlash = !hasFlash && VISIBLE_ALARM_FLASH.equals(value);
+                        boolean skipVibrate = !hasVibrator
+                            && (VISIBLE_ALARM_VIBRATE.equals(value)
+                            || VISIBLE_VIBRATION_PATTERN.equals(value)
+                            || VISIBLE_TIMER_VIBRATION_PATTERN.equals(value)
+                        );
+
+                        if (!skipFlash && !skipVibrate) {
+                            newEntries.add(currentEntries[i]);
+                            newValues.add(currentValues[i]);
+                        }
                     }
+
+                    multiSelectListPreference.setEntries(newEntries.toArray(new CharSequence[0]));
+                    multiSelectListPreference.setEntryValues(newValues.toArray(new CharSequence[0]));
                 }
-
-                multiSelectListPreference.setEntries(newEntries.toArray(new CharSequence[0]));
-                multiSelectListPreference.setEntryValues(newValues.toArray(new CharSequence[0]));
             }
-        }
 
-        sortMultiSelectListPreference(multiSelectListPreference);
+            sortMultiSelectListPreference(multiSelectListPreference);
+        }
     }
 
     protected void sortMultiSelectListPreference(@Nullable MultiSelectListPreference multiSelectListPreference) {

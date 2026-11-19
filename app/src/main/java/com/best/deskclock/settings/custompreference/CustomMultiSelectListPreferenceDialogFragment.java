@@ -265,7 +265,6 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
      * Locks the last checkbox selected to prevent the user from unchecking it, and unlocks all checkboxes if there is more than one.
      */
     private void updateCheckBoxesState(@NonNull List<MaterialCheckBox> checkBoxes, boolean isAlarmOrTimerFeaturePref) {
-
         boolean isOnlyOneChecked = (mNewValues.size() == 1);
 
         for (MaterialCheckBox checkBox : checkBoxes) {
