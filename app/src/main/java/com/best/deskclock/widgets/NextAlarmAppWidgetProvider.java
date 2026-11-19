@@ -12,6 +12,7 @@ import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
@@ -643,6 +645,15 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
                 measuredSizes.mLabelBitmap = WidgetUtils.createBitmap(labelIconForCustomColor);
             }
         }
+    }
+
+    @NonNull
+    @Override
+    protected Intent getClockIntent(@NonNull Context context) {
+        Intent intent = super.getClockIntent(context);
+        intent.setAction(DeskClock.ACTION_SHOW_ALARMS_FROM_NEXT_ALARM_WIDGET);
+
+        return intent;
     }
 
     @Keep

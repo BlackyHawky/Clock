@@ -312,8 +312,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Tapping on the widget opens the app or the calendar (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
-            Intent clockIntent = new Intent(context, DeskClock.class);
-            PendingIntent clockPendingIntent = PendingIntent.getActivity(context, 0, clockIntent, PendingIntent.FLAG_IMMUTABLE);
+            Intent clockIntent = getClockIntent(context);
+            PendingIntent clockPendingIntent = PendingIntent.getActivity(context, widgetId, clockIntent, PendingIntent.FLAG_IMMUTABLE);
 
             rv.setOnClickPendingIntent(getWidgetViewId(), clockPendingIntent);
 
@@ -368,6 +368,11 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         configureWorldCityList(rv, context, prefs, displayMetrics, wm, locale, widgetId, sizes, cities);
 
         return rv;
+    }
+
+    @NonNull
+    protected Intent getClockIntent(@NonNull Context context) {
+        return new Intent(context, DeskClock.class);
     }
 
     protected void configureSizes(@NonNull RemoteViews rv, @NonNull DigitalWidgetSizes sizes) {

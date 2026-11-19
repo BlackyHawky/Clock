@@ -20,6 +20,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_GATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_ZOOM_OUT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
@@ -104,14 +105,18 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
  * clocks, timers and stopwatch.
  */
 public class DeskClock extends BaseActivity implements FabContainer {
+
+    public static final String ACTION_SHOW_ALARMS_FROM_NEXT_ALARM_WIDGET = "com.best.deskclock.action.SHOW_ALARMS_FROM_NEXT_ALARM_WIDGET";
 
     private DeskClockBinding mBinding;
 
@@ -334,7 +339,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         refreshTabsVisibility(oldTab, tabsChanged);
 
-        showTabFromNotifications();
+        showTabFromIntent();
 
         updateKeepScreenOn();
 
@@ -958,13 +963,38 @@ public class DeskClock extends BaseActivity implements FabContainer {
     /**
      * Displays the right tab if the application has been closed and then reopened from the notification.
      */
-    private void showTabFromNotifications() {
+    private void showTabFromIntent() {
         final Intent intent = getIntent();
         if (intent != null) {
             final String action = intent.getAction();
             if (action != null) {
                 int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
                 switch (action) {
+                    case ACTION_SHOW_ALARMS_FROM_NEXT_ALARM_WIDGET -> {
+                        // If the Alarm tab is hidden in the settings, re-enable it.
+                        if (!getUiDataModel().isTabVisible(UiDataModel.Tab.ALARMS)) {
+                            Set<String> visibleTabs = SettingsDAO.getVisibleTabs(getPrefs());
+                            Set<String> newTabs = new HashSet<>(visibleTabs);
+
+                            newTabs.add(VISIBLE_TAB_ALARM);
+
+                            getPrefs().edit().putStringSet(KEY_VISIBLE_TABS, newTabs).apply();
+
+                            if (getUiDataModel().updateActiveTabs()) {
+                                mFragmentTabPagerAdapter.clearCache();
+                                mFragmentTabPagerAdapter.notifyDataSetChanged();
+                                mBinding.deskClockPager.setPageTransformer(false, null);
+                                updatePageTransformer();
+                                refreshTabsVisibility(getUiDataModel().getSelectedTab(), true);
+                            }
+                        }
+
+                        // Open the app to the Alarm tab.
+                        getUiDataModel().setSelectedTab(UiDataModel.Tab.ALARMS);
+
+                        intent.setAction(null);
+                    }
+
                     case TimerService.ACTION_SHOW_TIMER -> {
                         Events.sendTimerEvent(R.string.action_show, label);
                         if (getUiDataModel().isTabVisible(UiDataModel.Tab.TIMERS)) {
@@ -973,6 +1003,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                         // Consume the action to prevent it from being reused
                         intent.setAction(null);
                     }
+
                     case StopwatchService.ACTION_SHOW_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_show, label);
                         if (getUiDataModel().isTabVisible(UiDataModel.Tab.STOPWATCH)) {
