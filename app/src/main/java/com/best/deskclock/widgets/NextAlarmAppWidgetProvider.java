@@ -12,6 +12,7 @@ import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
@@ -54,6 +56,21 @@ import java.util.Locale;
  * choose optimal values.
  */
 public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
+
+    public static final String ACTION_OPEN_ALARMS_TAB = "com.best.deskclock.action.OPEN_ALARMS_TAB";
+
+    @Override
+    @NonNull
+    protected Intent createWidgetClickIntent(@NonNull Context context) {
+        Intent intent = new Intent(context, DeskClock.class);
+        intent.setAction(ACTION_OPEN_ALARMS_TAB);
+        return intent;
+    }
+
+    @Override
+    protected int getWidgetClickRequestCode() {
+        return R.id.next_alarm_widget;
+    }
 
     @Override
     protected int getLayoutWithShadowId() {

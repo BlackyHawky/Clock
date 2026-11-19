@@ -96,6 +96,7 @@ import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.NextAlarmAppWidgetProvider;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -221,6 +222,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         // Fragments may query the latest intent for information, so update the intent.
         setIntent(newIntent);
+
+        if (NextAlarmAppWidgetProvider.ACTION_OPEN_ALARMS_TAB.equals(newIntent.getAction())) {
+            selectAlarmsTabFromWidget(newIntent);
+        }
     }
 
     @Override
@@ -265,6 +270,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
             getUiDataModel().applyDefaultTabPreference();
         }
 
+        if (intent != null && NextAlarmAppWidgetProvider.ACTION_OPEN_ALARMS_TAB.equals(intent.getAction())) {
+            selectAlarmsTabFromWidget(intent);
+        }
+
         configureViewPager();
 
         configureFabAndButtons();
@@ -296,6 +305,13 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 applyBottomNavTooltips();
             });
         });
+    }
+
+    private void selectAlarmsTabFromWidget(@NonNull Intent intent) {
+        if (getUiDataModel().isTabVisible(UiDataModel.Tab.ALARMS)) {
+            getUiDataModel().setSelectedTab(UiDataModel.Tab.ALARMS);
+        }
+        intent.setAction(null);
     }
 
     @Override

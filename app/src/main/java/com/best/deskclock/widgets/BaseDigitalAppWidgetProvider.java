@@ -231,6 +231,15 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract void finalizeMeasurement(@NonNull View sizer, @NonNull DigitalWidgetSizes measuredSizes,
                                                 @NonNull SharedPreferences prefs);
 
+    @NonNull
+    protected Intent createWidgetClickIntent(@NonNull Context context) {
+        return new Intent(context, DeskClock.class);
+    }
+
+    protected int getWidgetClickRequestCode() {
+        return 0;
+    }
+
     /**
      * Rebuild and update the widget for the given instance.
      *
@@ -312,8 +321,9 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Tapping on the widget opens the app or the calendar (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
-            Intent clockIntent = new Intent(context, DeskClock.class);
-            PendingIntent clockPendingIntent = PendingIntent.getActivity(context, 0, clockIntent, PendingIntent.FLAG_IMMUTABLE);
+            Intent clockIntent = createWidgetClickIntent(context);
+            PendingIntent clockPendingIntent = PendingIntent.getActivity(
+                context, getWidgetClickRequestCode(), clockIntent, PendingIntent.FLAG_IMMUTABLE | FLAG_UPDATE_CURRENT);
 
             rv.setOnClickPendingIntent(getWidgetViewId(), clockPendingIntent);
 
