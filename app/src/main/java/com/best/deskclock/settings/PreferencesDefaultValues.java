@@ -133,6 +133,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_SWITCH_TO_NEW_CATEGORY = true;
     public static final boolean DEFAULT_DISPLAY_ENABLED_ALARM_BADGE = false;
     public static final boolean DEFAULT_DELETE_ALARMS_WITH_CATEGORY = false;
+    public static final boolean DEFAULT_DISPLAY_CATEGORY_NAVIGATION_BUTTONS = true;
     public static final String VISIBLE_SCHEDULE_ALARM = "schedule_alarm";
     public static final String VISIBLE_PAUSE_ALARM = "pause_alarm";
     public static final String VISIBLE_TIME_ZONE = "time_zone";

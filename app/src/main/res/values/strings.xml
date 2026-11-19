@@ -101,6 +101,10 @@
     <string name="category_error">Category already created</string>
     <!-- Description of the "Add category" button -->
     <string name="add_category_description">Add category</string>
+    <!-- Description of the "Previous category" button -->
+    <string name="previous_category_description">Previous category</string>
+    <!-- Description of the "Next category" button -->
+    <string name="next_category_description">Next category</string>
     <!-- Hint displayed in the time zone search bar -->
     <string name="time_zone_search_hint">Search for a time zone</string>
 
@@ -726,6 +730,8 @@
     <string name="delete_alarms_with_category_summary">If disabled, alarms will be moved to the default category</string>
     <!-- Setting title to switch to the new category once created -->
     <string name="switch_to_new_category_title">Switch to the new category once created</string>
+    <!-- Setting title to display floating action buttons to navigate between categories -->
+    <string name="display_category_navigation_buttons_title">Display floating action buttons to navigate between categories</string>
     <!-- Setting title for customizing the display -->
     <string name="display_settings_title">Display settings</string>
     <!-- Setting title for changing the sorting order to By name. -->

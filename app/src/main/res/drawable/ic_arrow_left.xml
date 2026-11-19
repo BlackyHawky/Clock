@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Icon available in Android Studio
+    SPDX-License-Identifier: Apache-2.0
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:autoMirrored="true">
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M14.71 17.29c.39-.39.39-1.02 0-1.41L10.83 12l3.88-3.88c.39-.39.39-1.02 0-1.41s-1.02-.39-1.41 0L8.71 11.3c-.39.39-.39 1.02 0 1.41L13.3 17.3c.38.38 1.02.38 1.41-.01z" />
+</vector>

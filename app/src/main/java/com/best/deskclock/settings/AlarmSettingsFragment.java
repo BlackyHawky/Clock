@@ -148,6 +148,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     SwitchPreferenceCompat mShouldSwitchToNewCategoryPref;
     SwitchPreferenceCompat mDisplayEnabledAlarmBadgePref;
     SwitchPreferenceCompat mDeleteAlarmsWithCategoryPref;
+    SwitchPreferenceCompat mDisplayCategoryNavigationButtonsPref;
     MultiSelectListPreference mFeaturesToDisplayPref;
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
@@ -266,6 +267,7 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mShouldSwitchToNewCategoryPref = findPreference(KEY_SWITCH_TO_NEW_CATEGORY);
         mDisplayEnabledAlarmBadgePref = findPreference(KEY_DISPLAY_ENABLED_ALARM_BADGE);
         mDeleteAlarmsWithCategoryPref = findPreference(KEY_DELETE_ALARMS_WITH_CATEGORY);
+        mDisplayCategoryNavigationButtonsPref = findPreference(KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS);
         mFeaturesToDisplayPref = findPreference(KEY_ALARM_FEATURES_TO_DISPLAY);
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
@@ -357,8 +359,9 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         switch (pref.getKey()) {
             case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
                  KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
-                 KEY_ENABLE_ALARM_FAB_LONG_PRESS, KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
-                 KEY_ENABLE_ALARM_SORTING_BY_CATEGORY, KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM, KEY_ENABLE_ALARM_PROXIMITY_SENSOR ->
+                 KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS, KEY_ENABLE_ALARM_FAB_LONG_PRESS, KEY_DISPLAY_DISMISS_BUTTON,
+                 KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, KEY_ENABLE_ALARM_SORTING_BY_CATEGORY,
+                 KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM, KEY_ENABLE_ALARM_PROXIMITY_SENSOR ->
                 Utils.performHapticFeedback(getView(), isVibrationsEnabled(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ADVANCED_AUDIO_PLAYBACK, KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE, KEY_SYSTEM_MEDIA_VOLUME -> {
@@ -783,8 +786,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
                 yield isCategoryEnabled && hasCustomCategories;
             }
 
-            case KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY ->
-                SettingsDAO.areAlarmsSortedByCategory(getPrefs());
+            case KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
+                 KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS -> SettingsDAO.areAlarmsSortedByCategory(getPrefs());
 
             case KEY_REPEAT_MISSED_ALARM -> SettingsDAO.getAlarmTimeout(getPrefs()) != TIMEOUT_NEVER
                 && SettingsDAO.getSnoozeLength(getPrefs()) != ALARM_SNOOZE_DURATION_DISABLED;
@@ -879,6 +882,8 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mDisplayEnabledAlarmBadgePref.setOnPreferenceChangeListener(this);
 
         mDeleteAlarmsWithCategoryPref.setOnPreferenceChangeListener(this);
+
+        mDisplayCategoryNavigationButtonsPref.setOnPreferenceChangeListener(this);
 
         mFeaturesToDisplayPref.setOnPreferenceChangeListener(this);
 

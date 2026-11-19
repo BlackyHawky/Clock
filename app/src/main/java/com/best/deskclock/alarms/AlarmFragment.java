@@ -170,7 +170,9 @@ public final class AlarmFragment extends DeskClockFragment
     private Drawable mDefaultTabIndicator;
     private boolean mIsEnabledAlarmBadgeDisplayed;
     private boolean mDeleteAlarmsWithCategory;
+    private boolean mAreCategoryNavigationButtonsDisplayed;
     private boolean mIs24HourFormat;
+    private boolean mIsFabLongPressEnabled;
     private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mIsSearchMode = false;
     private boolean mIsSearchFocused = false;
@@ -185,7 +187,8 @@ public final class AlarmFragment extends DeskClockFragment
             switch (key) {
                 case KEY_ALARM_FONT, KEY_SORT_ALARM, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_DISPLAY_LOCKED_ALARMS_FIRST,
                      KEY_ENABLE_ALARM_SORTING_BY_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
-                     KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
+                     KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS, KEY_ENABLE_ALARM_FAB_LONG_PRESS,
+                     KEY_DISPLAY_TIME_REMAINING_UNTIL_NEXT_ALARM, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
 
                     mAreSettingsChanged = true;
 
@@ -776,7 +779,7 @@ public final class AlarmFragment extends DeskClockFragment
     public void onFabClick() {
         mAlarmUpdateHandler.hideUndoBar();
 
-        if (SettingsDAO.isAlarmFabLongPressEnabled(getPrefs())) {
+        if (mIsFabLongPressEnabled) {
             startCreatingAlarm();
         } else {
             mSideButtonsVisible = true;
@@ -794,7 +797,7 @@ public final class AlarmFragment extends DeskClockFragment
         fab.setImageResource(R.drawable.ic_add);
         fab.setContentDescription(getString(R.string.button_alarms));
 
-        if (SettingsDAO.isAlarmFabLongPressEnabled(getPrefs())) {
+        if (mIsFabLongPressEnabled) {
             fab.setVisibility(VISIBLE);
 
             fab.setOnLongClickListener(v -> {
@@ -823,34 +826,64 @@ public final class AlarmFragment extends DeskClockFragment
             return;
         }
 
-        if (SettingsDAO.isAlarmFabLongPressEnabled(getPrefs())) {
-            left.setVisibility(INVISIBLE);
-            right.setVisibility(INVISIBLE);
-        } else {
-            if (mSideButtonsVisible) {
-                left.setVisibility(VISIBLE);
-                right.setVisibility(VISIBLE);
+        if (!mIsFabLongPressEnabled && mSideButtonsVisible) {
+            left.setVisibility(VISIBLE);
+            right.setVisibility(VISIBLE);
 
-                left.setClickable(true);
-                left.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_av_timer));
-                left.setContentDescription(getString(R.string.button_alarms_with_delay));
-                left.setOnClickListener(v -> {
-                    startCreatingAlarmWithDelay();
-                    hideSideButtonsWithFabAnimation();
-                });
+            left.setClickable(true);
+            left.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_av_timer));
+            left.setContentDescription(getString(R.string.button_alarms_with_delay));
+            left.setOnClickListener(v -> {
+                startCreatingAlarmWithDelay();
+                hideSideButtonsWithFabAnimation();
+            });
+            left.setOnLongClickListener(v -> {
+                CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), left.getContentDescription().toString(), true);
+                return true;
+            });
 
-                right.setClickable(true);
-                right.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_alarm_add));
-                right.setContentDescription(getString(R.string.button_alarms));
-                right.setOnClickListener(v -> {
-                    startCreatingAlarm();
-                    hideSideButtonsWithFabAnimation();
-                });
-            } else {
-                left.setVisibility(INVISIBLE);
-                right.setVisibility(INVISIBLE);
-            }
+            right.setClickable(true);
+            right.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_alarm_add));
+            right.setContentDescription(getString(R.string.button_alarms));
+            right.setOnClickListener(v -> {
+                startCreatingAlarm();
+                hideSideButtonsWithFabAnimation();
+            });
+            right.setOnLongClickListener(v -> {
+                CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), right.getContentDescription().toString(), true);
+                return true;
+            });
+
+            return;
         }
+
+        if (mAreSortedByCategory && mAreCategoryNavigationButtonsDisplayed) {
+            left.setVisibility(VISIBLE);
+            right.setVisibility(VISIBLE);
+
+            left.setClickable(true);
+            left.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_arrow_left));
+            left.setContentDescription(getString(R.string.previous_category_description));
+            left.setOnClickListener(v -> navigateCategory(false));
+            left.setOnLongClickListener(v -> {
+                CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), left.getContentDescription().toString(), true);
+                return true;
+            });
+
+            right.setClickable(true);
+            right.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_arrow_right));
+            right.setContentDescription(getString(R.string.next_category_description));
+            right.setOnClickListener(v -> navigateCategory(true));
+            right.setOnLongClickListener(v -> {
+                CustomTooltip.showAbove(v, getGeneralTypeface(), getDisplayMetrics(), right.getContentDescription().toString(), true);
+                return true;
+            });
+
+            return;
+        }
+
+        left.setVisibility(INVISIBLE);
+        right.setVisibility(INVISIBLE);
     }
 
     @Override
@@ -1517,6 +1550,32 @@ public final class AlarmFragment extends DeskClockFragment
         CategoryDialogFragment.show(getParentFragmentManager(), dialog);
     }
 
+    private void navigateCategory(boolean forward) {
+        if (mBinding == null) {
+            return;
+        }
+
+        int tabCount = mBinding.alarmCategoryTabs.getTabCount();
+        if (tabCount <= 1) {
+            return;
+        }
+
+        int currentPos = mBinding.alarmCategoryTabs.getSelectedTabPosition();
+        int targetPos = forward ? (currentPos + 1) : (currentPos - 1);
+
+        // Infinite loop
+        if (targetPos >= tabCount) {
+            targetPos = 0;
+        } else if (targetPos < 0) {
+            targetPos = tabCount - 1;
+        }
+
+        TabLayout.Tab targetTab = mBinding.alarmCategoryTabs.getTabAt(targetPos);
+        if (targetTab != null) {
+            targetTab.select();
+        }
+    }
+
     /**
      * Visually forces the selection of a specific tab (useful when cancelling the click on the "+" icon)
      */
@@ -2005,14 +2064,17 @@ public final class AlarmFragment extends DeskClockFragment
         mShouldSwitchToNewCategory = SettingsDAO.shouldSwitchToNewCategory(getPrefs());
         mIsEnabledAlarmBadgeDisplayed = SettingsDAO.isEnabledAlarmBadgeDisplayed(getPrefs());
         mDeleteAlarmsWithCategory = SettingsDAO.areAlarmsDeletedWithCategory(getPrefs());
+        mAreCategoryNavigationButtonsDisplayed = SettingsDAO.areCategoryNavigationButtonsDisplayed(getPrefs());
         mIsTimeRemainingUntilNextAlarmDisplayed = SettingsDAO.isTimeRemainingUntilNextAlarmDisplayed(getPrefs());
         mIs24HourFormat = getDataModel().is24HourFormat();
-
+        mIsFabLongPressEnabled = SettingsDAO.isAlarmFabLongPressEnabled(getPrefs());
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(getPrefs());
     }
 
     private void applySettingsChanges() {
         boolean wasSortedByCategory = mAreSortedByCategory;
+        boolean wasFabLongPressEnabled = mIsFabLongPressEnabled;
+        boolean wereCategoryNavigationButtonsDisplayed = mAreCategoryNavigationButtonsDisplayed;
 
         refreshSettings();
 
@@ -2028,6 +2090,12 @@ public final class AlarmFragment extends DeskClockFragment
             if (mItemAdapter != null) {
                 fetchGlobalStateAndUpdateUI(mItemAdapter.getAllItems());
             }
+        }
+
+        if (wasFabLongPressEnabled != mIsFabLongPressEnabled
+            || wasSortedByCategory != mAreSortedByCategory
+            || wereCategoryNavigationButtonsDisplayed != mAreCategoryNavigationButtonsDisplayed) {
+            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
         }
 
         mAreSettingsChanged = false;

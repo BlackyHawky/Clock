@@ -114,6 +114,7 @@ public class PreferencesKeys {
     public static final String KEY_SWITCH_TO_NEW_CATEGORY = "key_switch_to_new_category";
     public static final String KEY_DISPLAY_ENABLED_ALARM_BADGE = "key_display_enabled_alarm_badge";
     public static final String KEY_DELETE_ALARMS_WITH_CATEGORY = "key_delete_alarms_with_category";
+    public static final String KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS = "key_display_category_navigation_buttons";
     public static final String KEY_ALARM_FEATURES_TO_DISPLAY = "key_alarm_features_to_display";
     public static final String KEY_ENABLE_ALARM_FAB_LONG_PRESS = "key_enable_alarm_fab_long_press";
     public static final String KEY_WEEK_START = "key_week_start";

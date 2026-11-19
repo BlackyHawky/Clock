@@ -1161,6 +1161,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if floating action buttons to navigate between categories are displayed; {@code false} otherwise.
+     */
+    public static boolean areCategoryNavigationButtonsDisplayed(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS, DEFAULT_DISPLAY_CATEGORY_NAVIGATION_BUTTONS);
+    }
+
+    /**
      * @return the set of the alarm features to be displayed in the alarm editing panel.
      */
     public static Set<String> getAlarmFeaturesToDisplay(@NonNull SharedPreferences prefs) {
