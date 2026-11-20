@@ -70,7 +70,6 @@ import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DeskClockBinding;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.setup.FirstLaunch;
@@ -482,11 +481,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
         Context appContext = getApplicationContext();
 
         AppExecutors.getDiskIO().execute(() -> {
-            List<Alarm> enabledAlarms = Alarm.getEnabledAlarms(appContext);
-            if (!enabledAlarms.isEmpty()) {
-                LogUtils.i("Debug deployment: Restoring enabled alarms.");
-                AlarmStateManager.fixAlarmInstances(appContext, getPrefs());
-            }
+            LogUtils.i("Debug deployment: fixAlarmInstances called.");
+            AlarmStateManager.fixAlarmInstances(appContext, getPrefs());
         });
 
         AppExecutors.getMainThread().post(() -> {
