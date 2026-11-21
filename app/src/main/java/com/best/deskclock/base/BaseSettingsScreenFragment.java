@@ -1273,6 +1273,6 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     /**
      * Internal class to store entry/value pairs
      */
-    protected record Pair(@NonNull CharSequence entry, @NonNull CharSequence value) {
+    public record Pair(@NonNull CharSequence entry, @NonNull CharSequence value) {
     }
 }

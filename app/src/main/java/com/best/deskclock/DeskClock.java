@@ -837,6 +837,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * text visibility, font update, etc.
      */
     private void configureBottomNavigationView() {
+        updateBottomNavigationVisibility();
+
+        if (mBinding.deskClockBottomMenu.getVisibility() == View.GONE) {
+            return;
+        }
+
         final int primaryColor = MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         final int onBackgroundColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
@@ -896,6 +902,15 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 new int[][]{{android.R.attr.state_selected}, {}},
                 new int[]{primaryColor, onBackgroundColor}));
         }
+    }
+
+    /**
+     * Displays the bottom navigation bar only if there is strictly more than one tab.
+     */
+    private void updateBottomNavigationVisibility() {
+        boolean isBottomNavDisplayed = getUiDataModel().getTabCount() > 1;
+
+        mBinding.deskClockBottomMenu.setVisibility(isBottomNavDisplayed ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -1051,9 +1066,17 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         final boolean finalMenuChanged = menuChanged;
 
+        if (tabsChanged) {
+            updateBottomNavigationVisibility();
+        }
+
         // Indicate in the menu which tab is currently active to force the Material indicator to redraw
         // when the tabs visibility has been changed
         mBinding.deskClockBottomMenu.post(() -> {
+            if (mBinding.deskClockBottomMenu.getVisibility() == View.GONE) {
+                return;
+            }
+
             UiDataModel.Tab currentTab = getUiDataModel().getSelectedTab();
             int currentItemId = switch (currentTab) {
                 case ALARMS -> R.id.page_alarm;

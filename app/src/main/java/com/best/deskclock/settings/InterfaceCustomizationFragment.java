@@ -49,6 +49,7 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,19 +64,19 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
     ListPreference mThemePref;
     ListPreference mDarkModePref;
     Preference mGeneralFontPref;
+    SwitchPreferenceCompat mCardBackgroundPref;
+    SwitchPreferenceCompat mCardBorderPref;
+    SwitchPreferenceCompat mToolbarTitlePref;
     ListPreference mAccentColorPref;
     SwitchPreferenceCompat mAutoNightAccentColorPref;
     ListPreference mNightAccentColorPref;
-    SwitchPreferenceCompat mCardBackgroundPref;
-    SwitchPreferenceCompat mCardBorderPref;
-    ListPreference mLanguageCodePref;
     MultiSelectListPreference mVisibleTabsPref;
     ListPreference mTabToDisplayPref;
-    SwitchPreferenceCompat mVibrationPref;
-    SwitchPreferenceCompat mToolbarTitlePref;
     ListPreference mTabTitleVisibilityPref;
     SwitchPreferenceCompat mTabIndicatorPref;
     ListPreference mTabAnimationPref;
+    ListPreference mLanguageCodePref;
+    SwitchPreferenceCompat mVibrationPref;
     SwitchPreferenceCompat mFadeTransitionsPref;
     SwitchPreferenceCompat mKeepScreenOnPref;
 
@@ -157,18 +158,18 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         mDarkModePref = findPreference(KEY_DARK_MODE);
         mGeneralFontPref = findPreference(KEY_GENERAL_FONT);
         mAccentColorPref = findPreference(KEY_ACCENT_COLOR);
-        mAutoNightAccentColorPref = findPreference(KEY_AUTO_NIGHT_ACCENT_COLOR);
-        mNightAccentColorPref = findPreference(KEY_NIGHT_ACCENT_COLOR);
         mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
         mCardBorderPref = findPreference(KEY_CARD_BORDER);
-        mLanguageCodePref = findPreference(KEY_LANGUAGE_CODE);
+        mToolbarTitlePref = findPreference(KEY_TOOLBAR_TITLE);
+        mAutoNightAccentColorPref = findPreference(KEY_AUTO_NIGHT_ACCENT_COLOR);
+        mNightAccentColorPref = findPreference(KEY_NIGHT_ACCENT_COLOR);
         mVisibleTabsPref = findPreference(KEY_VISIBLE_TABS);
         mTabToDisplayPref = findPreference(KEY_TAB_TO_DISPLAY);
-        mVibrationPref = findPreference(KEY_VIBRATIONS);
-        mToolbarTitlePref = findPreference(KEY_TOOLBAR_TITLE);
         mTabTitleVisibilityPref = findPreference(KEY_TAB_TITLE_VISIBILITY);
         mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
         mTabAnimationPref = findPreference(KEY_TAB_ANIMATION);
+        mLanguageCodePref = findPreference(KEY_LANGUAGE_CODE);
+        mVibrationPref = findPreference(KEY_VIBRATIONS);
         mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
         mKeepScreenOnPref = findPreference(KEY_KEEP_SCREEN_ON);
 
@@ -323,7 +324,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         return switch (key) {
             case KEY_NIGHT_ACCENT_COLOR -> !SettingsDAO.isAutoNightAccentColorEnabled(getPrefs());
 
-            case KEY_TAB_ANIMATION, KEY_TAB_TO_DISPLAY -> visibleTabs.size() > 1;
+            case KEY_TAB_TO_DISPLAY, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_ANIMATION -> visibleTabs.size() > 1;
 
             case KEY_VIBRATIONS -> DeviceUtils.hasVibrator(requireContext());
 
@@ -361,6 +362,12 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
             : R.string.custom_font_title_variant));
         mGeneralFontPref.setOnPreferenceClickListener(this);
 
+        mCardBackgroundPref.setOnPreferenceChangeListener(this);
+
+        mCardBorderPref.setOnPreferenceChangeListener(this);
+
+        mToolbarTitlePref.setOnPreferenceChangeListener(this);
+
         mAccentColorPref.setSummary(mAccentColorPref.getEntry());
         mAccentColorPref.setOnPreferenceChangeListener(this);
         if (SettingsDAO.isAutoNightAccentColorEnabled(getPrefs())) {
@@ -376,18 +383,10 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         mNightAccentColorPref.setSummary(mNightAccentColorPref.getEntry());
         mNightAccentColorPref.setOnPreferenceChangeListener(this);
 
-        mCardBackgroundPref.setOnPreferenceChangeListener(this);
-
-        mCardBorderPref.setOnPreferenceChangeListener(this);
-
-        mToolbarTitlePref.setOnPreferenceChangeListener(this);
-
         mTabTitleVisibilityPref.setSummary(mTabTitleVisibilityPref.getEntry());
         mTabTitleVisibilityPref.setOnPreferenceChangeListener(this);
 
         mTabIndicatorPref.setOnPreferenceChangeListener(this);
-
-        setupLanguageCodePref();
 
         updateVisibleTabsSummary(visibleTabs);
         mVisibleTabsPref.setOnPreferenceChangeListener(this);
@@ -397,6 +396,9 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
 
         mTabAnimationPref.setSummary(mTabAnimationPref.getEntry());
         mTabAnimationPref.setOnPreferenceChangeListener(this);
+
+
+        setupLanguageCodePref();
 
         mVibrationPref.setOnPreferenceChangeListener(this);
 
@@ -460,22 +462,25 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
                     entryValuePairs.add(new Pair(entries[i], values[i]));
                 }
 
+                final Collator collator = Collator.getInstance();
+                collator.setStrength(Collator.PRIMARY);
+
                 // Sort elements starting from second (index 1)
                 List<Pair> remainingPairs = entryValuePairs.subList(1, entryValuePairs.size());
                 Collections.sort(remainingPairs, (pair1, pair2) ->
-                    CharSequence.compare(pair1.entry.toString(), pair2.entry.toString()));
+                    collator.compare(pair1.entry().toString(), pair2.entry().toString()));
 
                 CharSequence[] sortedEntries = new CharSequence[entries.length];
                 CharSequence[] sortedValues = new CharSequence[values.length];
 
                 // Place first entry and value (unsorted)
-                sortedEntries[0] = entryValuePairs.get(0).entry;
-                sortedValues[0] = entryValuePairs.get(0).value;
+                sortedEntries[0] = entryValuePairs.get(0).entry();
+                sortedValues[0] = entryValuePairs.get(0).value();
 
                 // Copy sorted items
                 for (int i = 1; i < entryValuePairs.size(); i++) {
-                    sortedEntries[i] = entryValuePairs.get(i).entry;
-                    sortedValues[i] = entryValuePairs.get(i).value;
+                    sortedEntries[i] = entryValuePairs.get(i).entry();
+                    sortedValues[i] = entryValuePairs.get(i).value();
                 }
 
                 // Update entries and sorted values in the ListPreference
@@ -600,12 +605,6 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         if (index >= 0) {
             mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntries()[index]);
         }
-    }
-
-    /**
-     * Internal class to store entry/value pairs
-     */
-    private record Pair(@NonNull CharSequence entry, @NonNull CharSequence value) {
     }
 
 }
