@@ -39,7 +39,7 @@
     <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350" tools:ignore="StringFormatCount"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
-    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">定时器增加了 %1$s 分钟，<xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
+    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">定时器已增加 %1$s 分钟，<xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"还剩"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"还剩"</string>
     <string name="alarm_confirmation_toast_1">闹钟时间已设为不到 1 分钟后。</string>
@@ -123,7 +123,7 @@
     <string name="timer_add_timer" msgid="862733633862574752">"添加定时器"</string>
     <string name="timer_start" msgid="6158486445614356442">"开始"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">删除 <xliff:g id="number_string">%s</xliff:g></string>
-    <string name="timer_add_custom_time_description" msgid="6631211310420106116">添加 %s 分钟</string>
+    <string name="timer_add_custom_time_description" msgid="6631211310420106116">增加 %s 分钟</string>
     <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"停止所有定时器"</string>
     <string name="timer_canceled" msgid="7327923392567128060">定时器已取消</string>
@@ -299,7 +299,7 @@
     <string name="settings_permission_summary">点击此处显示权限管理页面。</string>
     <string name="style_category_title">样式</string>
     <string name="font_category_title">字体</string>
-    <string name="miscellaneous_category_title">杂项</string>
+    <string name="miscellaneous_category_title">其他</string>
     <string name="ringtone_category_title">铃声</string>
     <string name="actions_category_title">操作</string>
     <string name="interface_customization_settings">界面</string>
@@ -427,7 +427,7 @@
     <string name="settings_language_russian">俄语</string>
     <string name="last_tab_used_title">上次使用的标签页</string>
     <string name="timer_time_warning_box_title">输入的值不正确</string>
-    <string name="settings_tab_to_display">打开应用时显示的标签页</string>
+    <string name="settings_tab_to_display">打开应用程序时显示的标签页</string>
     <string name="timer_button_time_minutes_warning_box_text">请输入 0 到 60 分钟之间的值</string>
     <string name="settings_language_turkish">土耳其语</string>
     <string name="reset_settings_title">重置设置</string>
@@ -460,7 +460,7 @@
     <string name="date_picker_style_title">日期选择器样式</string>
     <string name="random_ringtone_title">随机铃声</string>
     <string name="warning">警告</string>
-    <string name="timer_add_custom_time_with_seconds_description">添加 %1$s 分钟 %2$s 秒</string>
+    <string name="timer_add_custom_time_with_seconds_description">增加 %1$s 分钟 %2$s 秒</string>
     <string name="label_minutes">分钟</string>
     <string name="timer_button_time_seconds_warning_box_text">请输入 0 到 59 秒之间的值</string>
     <string name="label_seconds">秒</string>
@@ -637,7 +637,7 @@
     <string name="display_timer_end_time_title">显示定时器结束时间</string>
     <string name="timer_missed_channel">错过的定时器</string>
     <string name="settings_language_hebrew">希伯来语</string>
-    <string name="add_time_button_title">“添加时间”按钮</string>
+    <string name="add_time_button_title">“增加时间”按钮</string>
     <string name="delete_timer_after_use_title">结束后删除定时器</string>
     <string name="turn_off_media_title">结束后停止媒体播放</string>
     <plurals name="expired_timers_deleted">
@@ -676,4 +676,79 @@
     <string name="math_hardness_level_hard">困难</string>
     <string name="enable_city_flag_title">显示国家/地区旗帜</string>
     <string name="sw_display_milliseconds_title">显示毫秒</string>
+    <string name="label_back">返回</string>
+    <string name="label_category">类别</string>
+    <string name="save">保存</string>
+    <string name="uncheck_all">取消全选</string>
+    <string name="check_all">全选</string>
+    <string name="do_not_show_again">不再显示</string>
+    <string name="label_days">天</string>
+    <string name="create_category">创建类别</string>
+    <string name="rename_category">重命名类别</string>
+    <string name="label_all_categories">全部</string>
+    <string name="category_error">类别已创建</string>
+    <string name="add_category_description">添加类别</string>
+    <string name="previous_category_description">上一个类别</string>
+    <string name="next_category_description">下一个类别</string>
+    <string name="time_zone_search_hint">搜索时区</string>
+    <string name="button_alarms_with_delay">添加延迟响铃的闹钟</string>
+    <string name="timezone_title">时区</string>
+    <string name="alarm_alert_snooze_duration_message"><xliff:g example="1 h 30 m" id="duration">%s</xliff:g> 分钟后提醒</string>
+    <string name="disable_dnd">禁用勿扰模式</string>
+    <string name="label_lock">锁定</string>
+    <string name="label_unlock">解锁</string>
+    <string name="task_title">任务</string>
+    <string name="task_name">名称</string>
+    <string name="task_url">网址</string>
+    <string name="task_url_helper_text">必须以“http://”、“https://”或“app://”开头</string>
+    <string name="select_app_title">选择应用</string>
+    <string name="loading_apps_title">正在加载应用</string>
+    <string name="search_app_title">搜索应用</string>
+    <string name="search_alarm_title">搜索闹钟</string>
+    <string name="snooze_warning_message">当您将闹钟延后多天时，在此期间内所有已安排的闹钟都会被跳过。\n\n例如：如果您将每日闹钟延后 3 天，那么明天和后天它都不会响铃，直到这 3 天结束后才会再次响铃。</string>
+    <string name="next_alarm_time_1">不到 1 分钟</string>
+    <string name="next_alarm_time_4"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_8"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <plurals name="days_short">
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> 天</item>
+    </plurals>
+    <string name="alarm_days_warning_box_text">请输入 0 到 31 天之间的值</string>
+    <string name="alarm_hours_snooze_warning_box_text">请输入 0 到 23 小时之间的值</string>
+    <string name="city_note_hint">备注</string>
+    <string name="timer_accessibility_custom_time_removed">定时器已减少 %1$s 分钟，<xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
+    <string name="remove_time_button_title">“减少时间”按钮</string>
+    <string name="timer_button_remove_time_box_title">从定时器减去的分钟数</string>
+    <string name="timer_remove_custom_time_description">减少 %s 分钟</string>
+    <string name="timer_remove_custom_time_with_seconds_description">减少 %1$s 分钟 %2$s 秒</string>
+    <string name="timer_button_time_note">注意：将值设为 0 即可隐藏此按钮。</string>
+    <string name="confirm_remove_all_custom_ringtones">确定要移除所有自定义铃声吗？\n\n当前正在使用这些铃声的闹钟和定时器将重置为默认提示音。</string>
+    <string name="general_category_title">常规</string>
+    <string name="advanced_category_title">高级</string>
+    <string name="sorting_title">排序</string>
+    <string name="enable_alarm_sorting_by_category_title">按类别对闹钟进行排序</string>
+    <string name="default_alarm_category_title">打开应用程序时要选择的类别</string>
+    <string name="display_enabled_alarm_badge_title">启用闹钟时显示状态标记</string>
+    <string name="delete_alarms_with_category_title">删除类别时删除闹钟</string>
+    <string name="delete_alarms_with_category_summary">如果禁用，闹钟将被移动到默认类别</string>
+    <string name="switch_to_new_category_title">创建后切换到新类别</string>
+    <string name="display_category_navigation_buttons_title">显示悬浮操作按钮以在类别之间导航</string>
+    <string name="live_update_notifications_title">启用实时更新通知</string>
+    <string name="proximity_sensor_title">屏幕被遮挡时锁定按钮</string>
+    <string name="proximity_sensor_summary">防止因靠近近程传感器而意外停止闹钟</string>
+    <string name="features_to_display_title">要在编辑面板中显示的功能</string>
+    <string name="display_time_remaining_until_next_alarm_title">显示距离下次闹钟的剩余时间</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">所有闹钟的闪光灯功能将被禁用。%s</string>
+    <string name="disable_DND_for_triggered_alarm_title">闹钟触发时禁用勿扰模式</string>
+    <string name="disable_dnd_for_triggered_alarm_dialog_message">所有闹钟的勿扰功能将被禁用。%s</string>
+    <string name="display_locked_alarms_first_title">优先显示已锁定的闹钟</string>
+    <string name="default_time_to_remove_to_timer_title">从定时器减去的默认时间</string>
+    <string name="turn_on_back_flash_for_expired_timer_dialog_message">所有定时器的闪光灯功能将被禁用。%s</string>
+    <string name="display_compact_timers_summary">节省屏幕空间，但最多显示 3 个按钮。\n\n如果为显示自定义时间按钮而隐藏了“播放/暂停”按钮，点击倒计时即可暂停</string>
+    <string name="display_timer_delete_button_title">在定时器卡片上显示“删除”按钮</string>
+    <string name="permission_optional">可选</string>
+    <string name="dnd_permission_title">勿扰模式</string>
+    <string name="dnd_dialog_title">勿扰模式</string>
+    <string name="dnd_dialog_text">此权限允许应用在闹钟响起时自动关闭勿扰模式。\n\n我们建议启用此功能，以免您醒来后错过重要来电或消息。</string>
 </resources>

@@ -766,4 +766,13 @@
     <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Le flash sera désactivé pour toutes les alarmes.%s</string>
     <string name="disable_dnd_for_triggered_alarm_dialog_message">La fonctionnalité \"Ne Pas Déranger\" sera désactivée pour toutes les alarmes.%s</string>
     <string name="turn_on_back_flash_for_expired_timer_dialog_message">Le flash sera désactivé pour tous les minuteurs.%s</string>
+    <string name="next_alarm_time_1">Dans moins d\'une minute</string>
+    <string name="next_alarm_time_4"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> et <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> et <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> et <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_8"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, et <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="display_time_remaining_until_next_alarm_title">Afficher le temps restant avant la prochaine alarme</string>
+    <string name="previous_category_description">Catégorie précédente</string>
+    <string name="next_category_description">Catégorie suivante</string>
+    <string name="display_category_navigation_buttons_title">Afficher des boutons d\'action flottants pour naviguer entre les catégories</string>
 </resources>

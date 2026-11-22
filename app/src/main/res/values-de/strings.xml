@@ -749,4 +749,13 @@
     <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Der Blitz wird für alle Wecker deaktiviert. %s</string>
     <string name="disable_dnd_for_triggered_alarm_dialog_message">Die Funktion \"Nicht stören\" wird für alle Wecker deaktiviert.%s</string>
     <string name="turn_on_back_flash_for_expired_timer_dialog_message">Der Blitz wird für alle Timer deaktiviert.%s</string>
+    <string name="previous_category_description">Vorherige Kategorie</string>
+    <string name="next_category_description">Nächste Kategorie</string>
+    <string name="next_alarm_time_1">Weniger als 1 Minute</string>
+    <string name="next_alarm_time_4"><xliff:g example="2 Tage" id="DAYS">%1$s</xliff:g> und <xliff:g example="2 Stunden" id="HOURS">%2$s</xliff:g></string>
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 Tage" id="DAYS">%1$s</xliff:g> und <xliff:g example="2 Minuten" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 Tage" id="HOURS">%2$s</xliff:g> und <xliff:g example="2 Minuten" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_8"><xliff:g example="2 Tage" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 Stunden" id="HOURS">%2$s</xliff:g>, und <xliff:g example="2 Minuten" id="MINUTES">%3$s</xliff:g></string>
+    <string name="display_category_navigation_buttons_title">Schwebende Aktionsschaltflächen anzeigen, um zwischen Kategorien zu navigieren</string>
+    <string name="display_time_remaining_until_next_alarm_title">Verbleibende Zeit bis zum nächsten Wecker anzeigen</string>
 </resources>

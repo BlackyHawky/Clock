@@ -777,4 +777,13 @@
     <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Спалах буде вимкнено для всіх будильників.%s</string>
     <string name="disable_dnd_for_triggered_alarm_dialog_message">Функцію вимкнення режиму «Не турбувати» буде вимкнено для всіх будильників.%s</string>
     <string name="turn_on_back_flash_for_expired_timer_dialog_message">Спалах буде вимкнено для всіх таймерів.%s</string>
+    <string name="next_alarm_time_4"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> і <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> і <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> і <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_8"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> і <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_1">менше ніж 1 хвилину</string>
+    <string name="display_time_remaining_until_next_alarm_title">Показувати час, що залишився до наступного будильника</string>
+    <string name="previous_category_description">Попередня категорія</string>
+    <string name="next_category_description">Наступна категорія</string>
+    <string name="display_category_navigation_buttons_title">Показувати плаваючі кнопки для навігації між категоріями</string>
 </resources>

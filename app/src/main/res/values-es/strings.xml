@@ -728,4 +728,43 @@
     <string name="default_time_to_remove_to_timer_title">Duración predeterminada a restar</string>
     <string name="display_compact_timers_summary">Ahorra espacio en pantalla, pero muestra un máximo de 3 botones.\n\nSi el botón \"Reproducir/Pausa\" se oculta para mostrar los botones de tiempo personalizados, toca la cuenta atrás para pausar</string>
     <string name="display_timer_delete_button_title">Mostrar el botón \"Eliminar\" en la tarjeta del temporizador</string>
+    <string name="label_back">Atrás</string>
+    <string name="save">Guardar</string>
+    <string name="uncheck_all">Desmarcar todo</string>
+    <string name="check_all">Marcar todo</string>
+    <string name="previous_category_description">Categoría anterior</string>
+    <string name="next_category_description">Siguiente categoría</string>
+    <string name="time_zone_search_hint">Buscar una zona horaria</string>
+    <string name="button_alarms_with_delay">Alarma con temporizador</string>
+    <string name="disable_dnd">Desactivar \"No molestar\"</string>
+    <string name="task_title">Tarea</string>
+    <string name="task_name">Nombre</string>
+    <string name="task_url">URL</string>
+    <string name="task_url_helper_text">Debe comenzar con \"http://\" o \"https://\" o \"app://\"</string>
+    <string name="select_app_title">Seleccionar aplicación</string>
+    <string name="loading_apps_title">Cargando aplicaciones</string>
+    <string name="search_app_title">Buscar una aplicación</string>
+    <string name="search_alarm_title">Buscar una alarma</string>
+    <string name="next_alarm_time_1">Menos de 1 minuto</string>
+    <string name="next_alarm_time_4"><xliff:g example="2 días" id="DAYS">%1$s</xliff:g> y <xliff:g example="2 horas" id="HOURS">%2$s</xliff:g></string>
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 días" id="DAYS">%1$s</xliff:g> y <xliff:g example="2 minutos" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 horas" id="HOURS">%2$s</xliff:g> y <xliff:g example="2 minutos" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_8"><xliff:g example="2 días" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 horas" id="HOURS">%2$s</xliff:g> y <xliff:g example="2 minutos" id="MINUTES">%3$s</xliff:g></string>
+    <string name="city_note_hint">Nota</string>
+    <string name="confirm_remove_all_custom_ringtones">¿Estás seguro de que quieres eliminar todos los tonos de llamada personalizados?\n\nLas alarmas y los temporizadores que actualmente los utilizan se restablecerán al sonido predeterminado.</string>
+    <string name="general_category_title">General</string>
+    <string name="advanced_category_title">Avanzado</string>
+    <string name="display_category_navigation_buttons_title">Añade botones en pantalla para cambiar de categoría</string>
+    <string name="proximity_sensor_title">Bloquear botones con la pantalla tapada</string>
+    <string name="proximity_sensor_summary">Evita que apagues la alarma sin querer usando el sensor de proximidad</string>
+    <string name="features_to_display_title">Funciones que mostrar en el panel de edición</string>
+    <string name="display_time_remaining_until_next_alarm_title">Muestra cuánto falta para la próxima alarma</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">El flash se desactivará en todas las alarmas.%s</string>
+    <string name="disable_DND_for_triggered_alarm_title">Desactiva «No molestar» cuando suene la alarma</string>
+    <string name="disable_dnd_for_triggered_alarm_dialog_message">La función «No molestar» se desactivará en todas las alarmas.%s</string>
+    <string name="turn_on_back_flash_for_expired_timer_dialog_message">El flash se desactivará en todos los temporizadores.%s</string>
+    <string name="permission_optional">Opcional</string>
+    <string name="dnd_permission_title">NO MOLESTAR</string>
+    <string name="dnd_dialog_title">No molestar</string>
+    <string name="dnd_dialog_text">Con este permiso, la app quitará automáticamente el modo «No molestar» cuando suene tu alarma.\n\nTe recomendamos activarlo para no perderte llamadas ni mensajes importantes cuando te despiertes.</string>
 </resources>

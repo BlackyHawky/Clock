@@ -1,0 +1,4 @@
+A few bugs have been fixed, and major new features have been added for alarms.
+
+All changes are detailed here:
+https://github.com/BlackyHawky/Clock/releases/tag/2.35

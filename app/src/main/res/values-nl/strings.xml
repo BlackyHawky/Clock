@@ -753,4 +753,13 @@
     <string name="turn_on_back_flash_for_triggered_alarm_dialog_message">Zaklamp wordt uitgeschakeld voor alle wekkers.%s</string>
     <string name="disable_dnd_for_triggered_alarm_dialog_message">\"Niet storen\" wordt uitgeschakeld voor alle wekkers.%s</string>
     <string name="turn_on_back_flash_for_expired_timer_dialog_message">Zaklamp wordt uitgeschakeld voor alle kookwekkers.%s</string>
+    <string name="next_alarm_time_1">Minder dan 1 minuut</string>
+    <string name="next_alarm_time_4"><xliff:g example="2 dagen" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 uur" id="HOURS">%2$s</xliff:g></string>
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 dagen" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minuten" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 uur" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minuten" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_8"><xliff:g example="2 dagen" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 uur" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minuten" id="MINUTES">%3$s</xliff:g></string>
+    <string name="display_time_remaining_until_next_alarm_title">Resterende tijd tot volgende wekker weergeven</string>
+    <string name="previous_category_description">Vorige categorie</string>
+    <string name="next_category_description">Volgende categorie</string>
+    <string name="display_category_navigation_buttons_title">Knoppen weergeven om tussen categorieën te navigeren</string>
 </resources>
