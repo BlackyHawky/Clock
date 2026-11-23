@@ -62,4 +62,22 @@ public class CombinedDaysTest {
         CombinedDays removed = dismissed.removeSelectedDate(2026, Calendar.AUGUST, 15);
         assertFalse(removed.isDateDismissed(2026, Calendar.AUGUST, 15));
     }
+
+    @Test
+    public void cleanupOnlyKeepsOverridesThatChangeTheWeekdaySchedule() {
+        Weekdays weekdays = Weekdays.fromCalendarDays(Calendar.MONDAY, Calendar.TUESDAY,
+            Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY);
+        CombinedDays overrides = new CombinedDays()
+            .addDeselectedDate(2026, Calendar.JUNE, 8) // Monday, meaningful
+            .addDeselectedDate(2026, Calendar.JUNE, 13) // Saturday, redundant
+            .addSelectedDate(2026, Calendar.JUNE, 20) // Saturday, meaningful
+            .addSelectedDate(2026, Calendar.JUNE, 15); // Monday, redundant
+
+        CombinedDays cleaned = overrides.cleanup(weekdays);
+        assertEquals(1, cleaned.getDeselectedDateCount());
+        assertEquals(1, cleaned.getSelectedDateCount());
+        assertTrue(cleaned.isDateDeselected(2026, Calendar.JUNE, 8));
+        assertTrue(cleaned.isDateSelected(2026, Calendar.JUNE, 20));
+        assertFalse(cleaned.hasRedundantOverrides(weekdays));
+    }
 }

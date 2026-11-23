@@ -7,9 +7,11 @@ package com.best.deskclock.data;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
@@ -220,6 +222,49 @@ public final class CombinedDays {
             : new CombinedDays(Collections.emptySet(), mDeselectedDates, mDismissedDates);
     }
 
+    /**
+     * Drops overrides that cannot affect the supplied weekday schedule, and malformed dates.
+     */
+    @NonNull
+    public CombinedDays cleanup(@NonNull Weekdays weekdays) {
+        Set<String> selected = new TreeSet<>();
+        Set<String> deselected = new TreeSet<>();
+        Set<String> dismissed = new TreeSet<>();
+
+        for (String key : mSelectedDates) {
+            if (!matchesWeekdays(key, weekdays)) {
+                selected.add(key);
+            }
+        }
+        for (String key : mDeselectedDates) {
+            if (matchesWeekdays(key, weekdays)) {
+                deselected.add(key);
+            }
+        }
+        for (String key : mDismissedDates) {
+            boolean weekdayOccurrence = matchesWeekdays(key, weekdays) && !deselected.contains(key);
+            boolean selectedDateOccurrence = !matchesWeekdays(key, weekdays) && selected.contains(key);
+            if (weekdayOccurrence || selectedDateOccurrence) {
+                dismissed.add(key);
+            }
+        }
+        return new CombinedDays(selected, deselected, dismissed);
+    }
+
+    public boolean hasRedundantOverrides(@NonNull Weekdays weekdays) {
+        for (String key : mSelectedDates) {
+            if (matchesWeekdays(key, weekdays)) {
+                return true;
+            }
+        }
+        for (String key : mDeselectedDates) {
+            if (!matchesWeekdays(key, weekdays)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isDateSelected(int year, int month, int day) {
         return mSelectedDates.contains(dateKey(year, month, day));
     }
@@ -241,6 +286,49 @@ public final class CombinedDays {
             return !mDeselectedDates.contains(key);
         }
         return mSelectedDates.contains(key);
+    }
+
+    @NonNull
+    public List<String> getSelectedDates() {
+        return immutableList(mSelectedDates);
+    }
+
+    @NonNull
+    public List<String> getDeselectedDates() {
+        return immutableList(mDeselectedDates);
+    }
+
+    @NonNull
+    public List<String> getDismissedDates() {
+        return immutableList(mDismissedDates);
+    }
+
+    public boolean hasSelectedDates() {
+        return !mSelectedDates.isEmpty();
+    }
+
+    public boolean hasDeselectedDates() {
+        return !mDeselectedDates.isEmpty();
+    }
+
+    public boolean hasDismissedDates() {
+        return !mDismissedDates.isEmpty();
+    }
+
+    public boolean isEmpty() {
+        return mSelectedDates.isEmpty() && mDeselectedDates.isEmpty() && mDismissedDates.isEmpty();
+    }
+
+    public int getSelectedDateCount() {
+        return mSelectedDates.size();
+    }
+
+    public int getDeselectedDateCount() {
+        return mDeselectedDates.size();
+    }
+
+    public int getDismissedDateCount() {
+        return mDismissedDates.size();
     }
 
     @NonNull
@@ -273,5 +361,10 @@ public final class CombinedDays {
             }
         }
         return Collections.unmodifiableSet(keys);
+    }
+
+    @NonNull
+    private static List<String> immutableList(@NonNull Collection<String> values) {
+        return Collections.unmodifiableList(new ArrayList<>(values));
     }
 }
