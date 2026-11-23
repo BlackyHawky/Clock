@@ -154,6 +154,7 @@
     <string name="C153" msgid="7506204460601953711">Κ<xliff:g id="SEPARATOR">=</xliff:g>Κουίνσλαντ<xliff:g id="TIMEZONE">|Australia/Queensland</xliff:g></string>
     <string name="C154" msgid="1193262944948312063">Σ<xliff:g id="SEPARATOR">=</xliff:g>Σίδνεϊ<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g></string>
     <string name="C155" msgid="7079072802229033042">Β<xliff:g id="SEPARATOR">=</xliff:g>Βικτόρια<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g></string>
+    <string name="C156">P<xliff:g id="separator">=</xliff:g>Palma (Balearic Islands)<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
     <string name="C157" msgid="2861486997803753970">Σ<xliff:g id="SEPARATOR">=</xliff:g>Σασκάτσουαν<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g></string>
     <string name="C158" msgid="6882933026191056506">Ν<xliff:g id="SEPARATOR">=</xliff:g>Νησί του Πάσχα<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g></string>
     <string name="C159" msgid="4128429767051043903">Α<xliff:g id="SEPARATOR">=</xliff:g>Άμστερνταμ<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g></string>

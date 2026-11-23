@@ -154,6 +154,7 @@
     <string name="C153" msgid="7506204460601953711">Q<xliff:g id="separator">=</xliff:g>Queensland<xliff:g id="timezone">|Australia/Queensland</xliff:g></string>
     <string name="C154" msgid="1193262944948312063">S<xliff:g id="separator">=</xliff:g>Sydney<xliff:g id="timezone">|Australia/Sydney</xliff:g></string>
     <string name="C155" msgid="7079072802229033042">V<xliff:g id="separator">=</xliff:g>Victoria<xliff:g id="timezone">|Australia/Victoria</xliff:g></string>
+    <string name="C156">P<xliff:g id="separator">=</xliff:g>Palma (Balearic Islands)<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
     <string name="C157" msgid="2861486997803753970">S<xliff:g id="separator">=</xliff:g>Saskatchewan<xliff:g id="timezone">|Canada/Saskatchewan</xliff:g></string>
     <string name="C158" msgid="6882933026191056506">H<xliff:g id="separator">=</xliff:g>Húsvét-szigetek<xliff:g id="timezone">|Chile/EasterIsland</xliff:g></string>
     <string name="C159" msgid="4128429767051043903">A<xliff:g id="separator">=</xliff:g>Amszterdam<xliff:g id="timezone">|Europe/Amsterdam</xliff:g></string>

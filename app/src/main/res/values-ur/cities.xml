@@ -154,6 +154,7 @@
     <string name="C153" msgid="7506204460601953711">ک<xliff:g id="SEPARATOR">=</xliff:g>کوئینزلینڈ<xliff:g id="TIMEZONE">|Australia/Queensland</xliff:g></string>
     <string name="C154" msgid="1193262944948312063">س<xliff:g id="SEPARATOR">=</xliff:g>سڈنی<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g></string>
     <string name="C155" msgid="7079072802229033042"><xliff:g id="SEPARATOR">=</xliff:g>وکٹوریا<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g></string>
+    <string name="C156">P<xliff:g id="separator">=</xliff:g>Palma (Balearic Islands)<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
     <string name="C157" msgid="2861486997803753970">س<xliff:g id="SEPARATOR">=</xliff:g>ساسکچیوان<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g></string>
     <string name="C158" msgid="6882933026191056506"><xliff:g id="SEPARATOR">=</xliff:g>ایسٹرجزیرہ<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g></string>
     <string name="C159" msgid="4128429767051043903"><xliff:g id="SEPARATOR">=</xliff:g>ایمسٹرڈیم<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g></string>

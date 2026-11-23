@@ -154,6 +154,7 @@
     <string name="C153" msgid="7506204460601953711">ㅋ<xliff:g id="SEPARATOR">=</xliff:g>퀸즐랜드<xliff:g id="TIMEZONE">|Australia/Queensland</xliff:g></string>
     <string name="C154" msgid="1193262944948312063">ㅅ<xliff:g id="SEPARATOR">=</xliff:g>시드니<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g></string>
     <string name="C155" msgid="7079072802229033042">ㅂ<xliff:g id="SEPARATOR">=</xliff:g>빅토리아<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g></string>
+    <string name="C156">P<xliff:g id="separator">=</xliff:g>Palma (Balearic Islands)<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
     <string name="C157" msgid="2861486997803753970">ㅅ<xliff:g id="SEPARATOR">=</xliff:g>서스캐처원<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g></string>
     <string name="C158" msgid="6882933026191056506">ㅇ<xliff:g id="separator">=</xliff:g>항가로아<xliff:g id="timezone">|Chile/EasterIsland</xliff:g></string>
     <string name="C159" msgid="4128429767051043903">ㅇ<xliff:g id="SEPARATOR">=</xliff:g>암스테르담<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g></string>

@@ -8,7 +8,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="Typos">
 
     <!-- This array enumerates the resource keys to all cities available to the app.
-         IDs that can be used if necessary: C156 / C231 -->
+         IDs that can be used if necessary: C231 -->
     <array name="city_ids" translatable="false">
         <item>@string/C1</item>
         <item>@string/C2</item>
@@ -160,6 +160,7 @@
         <item>@string/C153</item>
         <item>@string/C154</item>
         <item>@string/C155</item>
+        <item>@string/C156</item>
         <item>@string/C157</item>
         <item>@string/C158</item>
         <item>@string/C159</item>
@@ -694,6 +695,8 @@
     <string name="C154">S<xliff:g id="separator">=</xliff:g>Sydney<xliff:g id="timezone">|Australia/Sydney</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C155">V<xliff:g id="separator">=</xliff:g>Victoria<xliff:g id="timezone">|Australia/Victoria</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
+    <string name="C156">P<xliff:g id="separator">=</xliff:g>Palma (Balearic Islands)<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
     <string name="C157">S<xliff:g id="separator">=</xliff:g>Saskatchewan<xliff:g id="timezone">|Canada/Saskatchewan</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] - DO NOT TRANSLATE THE TIME ZONE -->
