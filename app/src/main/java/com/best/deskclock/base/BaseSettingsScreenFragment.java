@@ -11,6 +11,8 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_ALARM_FLASH;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_ALARM_VIBRATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TIMER_FLASH;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TIMER_VIBRATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TIMER_VIBRATION_PATTERN;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_VIBRATION_PATTERN;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FEATURES_TO_DISPLAY;
@@ -1182,10 +1184,15 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
                     for (int i = 0; i < currentValues.length; i++) {
                         String value = currentValues[i].toString();
 
-                        boolean skipFlash = !hasFlash && VISIBLE_ALARM_FLASH.equals(value);
+                        boolean skipFlash = !hasFlash
+                            && (VISIBLE_ALARM_FLASH.equals(value)
+                            || VISIBLE_TIMER_FLASH.equals(value)
+                        );
+
                         boolean skipVibrate = !hasVibrator
                             && (VISIBLE_ALARM_VIBRATE.equals(value)
                             || VISIBLE_VIBRATION_PATTERN.equals(value)
+                            || VISIBLE_TIMER_VIBRATE.equals(value)
                             || VISIBLE_TIMER_VIBRATION_PATTERN.equals(value)
                         );
 
