@@ -239,8 +239,6 @@ public final class CoverScreenAlarmLauncher {
             return;
         }
 
-        LogUtils.i("CoverScreen: cover displayId=%d is %s after %d ms, checking again in %d ms",
-            cover.getDisplayId(), stateToString(state), elapsed, POLL_INTERVAL_MS);
         pending.postDelayed(() -> runSafely(() -> pollDisplayStates(service, instance, pending, startTime)),
             POLL_INTERVAL_MS);
     }
@@ -303,7 +301,7 @@ public final class CoverScreenAlarmLauncher {
 
     /**
      * @return the only non-default built-in display, whatever its state, if the default display is OFF.
-     * Otherwise {@code null}. Logs the reason.
+     * Otherwise {@code null}. Logs why it skips.
      */
     @Nullable
     @RequiresApi(31)
@@ -321,11 +319,6 @@ public final class CoverScreenAlarmLauncher {
         for (Display display : dm.getDisplays()) {
             final boolean isDefault = display.getDisplayId() == Display.DEFAULT_DISPLAY;
             final String rejectReason = isDefault ? null : getBuiltInRejectReason(display);
-
-            LogUtils.i("CoverScreen: displayId=%d name=%s state=%s flags=0x%s sink=%s -> %s",
-                display.getDisplayId(), display.getName(), stateToString(display.getState()),
-                Integer.toHexString(display.getFlags()), sinkToString(display.getDeviceProductInfo()),
-                isDefault ? "default" : rejectReason == null ? "candidate" : "rejected, " + rejectReason);
 
             if (isDefault) {
                 defaultDisplay = display;
@@ -384,20 +377,6 @@ public final class CoverScreenAlarmLauncher {
         return null;
     }
 
-    @NonNull
-    @RequiresApi(31)
-    private static String sinkToString(@Nullable DeviceProductInfo productInfo) {
-        if (productInfo == null) {
-            return "none";
-        }
-
-        return switch (productInfo.getConnectionToSinkType()) {
-            case DeviceProductInfo.CONNECTION_TO_SINK_BUILT_IN -> "BUILT_IN";
-            case DeviceProductInfo.CONNECTION_TO_SINK_DIRECT -> "DIRECT";
-            case DeviceProductInfo.CONNECTION_TO_SINK_TRANSITIVE -> "TRANSITIVE";
-            default -> "UNKNOWN";
-        };
-    }
 
     @NonNull
     private static String stateToString(int state) {
