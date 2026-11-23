@@ -102,4 +102,16 @@ public class CombinedDaysTest {
         assertTrue(cleaned.isDateSelected(2026, Calendar.JUNE, 20));
         assertFalse(cleaned.hasRedundantOverrides(weekdays));
     }
+
+    @Test
+    public void malformedAndFutureFormatsDoNotCreateInvalidDateEntries() {
+        CombinedDays malformed = CombinedDays.fromJson(
+            "{\"version\":1,\"selectedDates\":[\"2027-02-29\",\"bad\"],"
+                + "\"deselectedDates\":[17],\"dismissedDates\":[]}");
+        assertTrue(malformed.isEmpty());
+
+        CombinedDays unsupported = CombinedDays.fromJson(
+            "{\"version\":2,\"selectedDates\":[\"2027-03-04\"]}");
+        assertTrue(unsupported.isEmpty());
+    }
 }

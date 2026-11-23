@@ -7,6 +7,10 @@ package com.best.deskclock.data;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -53,6 +57,30 @@ public final class CombinedDays {
         mSelectedDates = immutableDateKeys(selectedDates);
         mDeselectedDates = immutableDateKeys(deselectedDates);
         mDismissedDates = immutableDateKeys(dismissedDates);
+    }
+
+    public static CombinedDays fromJson(@Nullable String json) {
+        if (json == null || json.isEmpty()) {
+            return EMPTY;
+        }
+
+        try {
+            return fromJsonObject(new JSONObject(json));
+        } catch (JSONException e) {
+            return EMPTY;
+        }
+    }
+
+    private static CombinedDays fromJsonObject(@NonNull JSONObject object) {
+        if (object.optInt(KEY_VERSION, 0) > VERSION) {
+            // Do not misinterpret a future format as the current one.
+            return EMPTY;
+        }
+
+        return new CombinedDays(
+            jsonArrayToDateKeys(object.optJSONArray(KEY_SELECTED_DATES)),
+            jsonArrayToDateKeys(object.optJSONArray(KEY_DESELECTED_DATES)),
+            jsonArrayToDateKeys(object.optJSONArray(KEY_DISMISSED_DATES)));
     }
 
     /**
@@ -449,5 +477,24 @@ public final class CombinedDays {
         ArrayList<String> result = new ArrayList<>(values);
         Collections.reverse(result);
         return result;
+    }
+
+    private static Set<String> jsonArrayToDateKeys(@Nullable JSONArray array) {
+        Set<String> keys = new TreeSet<>();
+        if (array == null) {
+            return keys;
+        }
+        for (int i = 0; i < array.length(); i++) {
+            Object value = array.opt(i);
+            if (value instanceof String key) {
+                try {
+                    int[] date = parseDateKey(key);
+                    keys.add(dateKey(date[0], date[1], date[2]));
+                } catch (IllegalArgumentException ignored) {
+                    // Ignore invalid date keys instead of making an alarm impossible to load.
+                }
+            }
+        }
+        return keys;
     }
 }
