@@ -21,6 +21,7 @@ import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.databinding.AlarmItemBinding;
 import com.best.deskclock.provider.Alarm;
@@ -255,6 +256,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         } else if (isRecentlyDismissed) {
             if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
                 setRepeatingDaysDescription(alarm, alarmInstance);
+            } else if (alarm.combinedDays.hasSelectedDates()) {
+                setCombinedDaysDateDescription(alarm);
             } else if (alarm.isSpecifiedDate()) {
                 setSpecifiedDateDescription(alarm);
             } else {
@@ -276,6 +279,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
                 AlarmUtils.getFormattedTime(mContext, alarmInstance.getAlarmTime())));
         } else if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
             setRepeatingDaysDescription(alarm, alarmInstance);
+        } else if (alarm.combinedDays.hasSelectedDates()) {
+            setCombinedDaysDateDescription(alarm);
         } else if (alarm.isSpecifiedDate()) {
             setSpecifiedDateDescription(alarm);
         } else {
@@ -284,13 +289,27 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindUpcomingDate(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
-        if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()) {
+        boolean hasDateOnlySchedule = !alarm.daysOfWeek.isRepeating() && alarm.combinedDays.hasSelectedDates();
+        if (alarmInstance == null || !alarm.enabled
+            || (!alarm.daysOfWeek.isRepeating() && !hasDateOnlySchedule)) {
             mBinding.upcomingDate.setVisibility(GONE);
             mBinding.digitalClock.applyUserPreferredTextSizeSp(48);
             return;
         }
 
         Calendar nextAlarmTime = alarm.getNextAlarmTimeCalendar(alarmInstance);
+        if (hasDateOnlySchedule) {
+            mLocalCalendar.setTimeZone(alarm.getTimeZone());
+            mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
+            boolean isDifferentYear = mLocalCalendar.get(Calendar.YEAR) != nextAlarmTime.get(Calendar.YEAR);
+            String formattedDate = mAdapter.getDateFormat(alarm.getTimeZone(), isDifferentYear)
+                .format(nextAlarmTime.getTime());
+            mBinding.upcomingDate.setText(
+                FormattedTextUtils.capitalizeFirstLetter(formattedDate, mAdapter.getDateFormat().locale()));
+            mBinding.upcomingDate.setVisibility(VISIBLE);
+            mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
+            return;
+        }
 
         mLocalCalendar.setTimeZone(alarm.getTimeZone());
         mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
@@ -406,8 +425,39 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             styledDaysText = alarm.daysOfWeek.toString(mContext, weekdayOrder);
         }
 
+        if (!alarm.combinedDays.isEmpty()) {
+            String dateCounts = getDateOverrideSummary(alarm.combinedDays);
+            if (!dateCounts.isEmpty()) {
+                styledDaysText = styledDaysText + " · " + dateCounts;
+                contentDesc += ", " + dateCounts;
+            }
+        }
+
         setDaysOfWeekText(styledDaysText);
         mBinding.daysOfWeek.setContentDescription(contentDesc);
+    }
+
+    private void setCombinedDaysDateDescription(@NonNull Alarm alarm) {
+        String text = mContext.getString(R.string.alarm_dates_count,
+            alarm.combinedDays.getSelectedDateCount());
+        setDaysOfWeekText(text);
+        mBinding.daysOfWeek.setContentDescription(text);
+    }
+
+    @NonNull
+    private String getDateOverrideSummary(@NonNull CombinedDays combinedDays) {
+        int selected = combinedDays.getSelectedDateCount();
+        int excluded = combinedDays.getDeselectedDateCount();
+        if (selected > 0 && excluded > 0) {
+            return mContext.getString(R.string.dates_summary_added_excluded, selected, excluded);
+        }
+        if (selected > 0) {
+            return mContext.getString(R.string.dates_summary_added, selected);
+        }
+        if (excluded > 0) {
+            return mContext.getString(R.string.dates_summary_excluded, excluded);
+        }
+        return "";
     }
 
     private boolean isPauseEffectivelyActive(@NonNull Alarm alarm, @Nullable AlarmInstance nextInstance) {

@@ -120,6 +120,29 @@
     <string name="button_alarms_with_delay">Add alarm with delay</string>
     <!-- Label title in the alarm editing panel to schedule alarm -->
     <string name="schedule_alarm_title">Schedule alarm</string>
+    <!-- Multi-date alarm editor -->
+    <string name="dates_overridden_count">%1$d excluded, %2$d added</string>
+    <string name="dates_excluded_only_count">%1$d excluded</string>
+    <string name="dates_added_only_count">%1$d added</string>
+    <string name="dates_summary_added">+%1$d</string>
+    <string name="dates_summary_excluded">-%1$d</string>
+    <string name="dates_summary_added_excluded">+%1$d, -%2$d</string>
+    <string name="alarm_dates_count">%1$d scheduled dates</string>
+    <string name="no_dates_excluded">No date exceptions</string>
+    <string name="no_dates_selected">No extra dates selected</string>
+    <string name="prev_month">Previous month</string>
+    <string name="next_month">Next month</string>
+    <string name="prev_year">Previous year</string>
+    <string name="next_year">Next year</string>
+    <string name="cleanup_overrides">Remove redundant date exceptions</string>
+    <string name="select_year">Select year</string>
+    <string name="jump_to_current_month">Jump to current month</string>
+    <string name="clear_all_description">Clear all date exceptions</string>
+    <string name="date_action_description">Select or manage a date</string>
+    <string name="date_action_title">Manage %1$s</string>
+    <string name="date_action_go_to">Go to date</string>
+    <string name="date_action_add">Add date</string>
+    <string name="date_action_remove">Remove date</string>
     <!-- Label title in the alarm editing panel to pause alarm -->
     <string name="pause_alarm_title">Pause alarm</string>
     <!-- Label title in the alarm editing panel when the pause is set -->
