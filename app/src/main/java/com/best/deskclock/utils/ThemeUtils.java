@@ -59,6 +59,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CustomTooltip;
@@ -813,7 +814,7 @@ public class ThemeUtils {
         int paddingRight = recyclerView.getPaddingRight();
         int paddingBottom = recyclerView.getPaddingBottom();
 
-        boolean isLandscapePhone = !isPortrait() && !isTablet();
+        boolean isLandscapePhone = (!isPortrait() || DeskClock.isUsingAreaAboveCutout(context)) && !isTablet();
 
         if (isLandscapePhone) {
             if (isRTL(context)) {

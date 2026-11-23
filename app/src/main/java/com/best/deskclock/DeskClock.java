@@ -32,21 +32,30 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -93,6 +102,7 @@ import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -166,6 +176,9 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private Runnable mShowSilentSettingSnackbarRunnable;
 
+    // True when the layouts are chosen for the area above a bottom display cutout
+    private boolean mIsUsingAreaAboveCutout;
+
     /**
      * The current display state of the FAB.
      */
@@ -218,6 +231,65 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * Used to trigger activity recreation only when relevant values actually change.
      */
     private SharedPreferences.OnSharedPreferenceChangeListener mPrefListener;
+
+    @Override
+    protected void attachBaseContext(@NonNull Context newBase) {
+        super.attachBaseContext(newBase);
+
+        Configuration override = getConfigurationForAreaAboveCutout(newBase);
+        if (override != null) {
+            try {
+                applyOverrideConfiguration(override);
+                mIsUsingAreaAboveCutout = true;
+            } catch (IllegalStateException e) {
+                // The resources are already in use, keep the default layouts
+                LogUtils.e("Unable to use the area above the display cutout", e);
+            }
+        }
+    }
+
+    /**
+     * On the cover screen of some flip phones, the window covers the cameras at the bottom.
+     * The part above the cameras is then wider than tall, but the window is portrait,
+     * so the portrait layouts get squashed. In that case, choose the layouts like for a
+     * landscape window that ends above the cameras.
+     *
+     * @return the configuration to apply, or {@code null} if the window does not need it.
+     */
+    @Nullable
+    private static Configuration getConfigurationForAreaAboveCutout(@NonNull Context context) {
+        if (!SdkUtils.isAtLeastAndroid11()) {
+            return null;
+        }
+
+        WindowManager windowManager = context.getSystemService(WindowManager.class);
+        if (windowManager == null) {
+            return null;
+        }
+
+        WindowMetrics windowMetrics = windowManager.getCurrentWindowMetrics();
+        Rect bounds = windowMetrics.getBounds();
+        int usableHeight = bounds.height() - getBottomCutoutHeight(windowMetrics);
+
+        boolean isPortraitWindow = bounds.height() > bounds.width();
+        if (!isPortraitWindow || usableHeight <= 0 || usableHeight >= bounds.width()) {
+            return null;
+        }
+
+        int densityDpi = context.getResources().getConfiguration().densityDpi;
+        if (densityDpi <= 0) {
+            return null;
+        }
+
+        int widthDp = bounds.width() * DisplayMetrics.DENSITY_DEFAULT / densityDpi;
+        int usableHeightDp = usableHeight * DisplayMetrics.DENSITY_DEFAULT / densityDpi;
+
+        Configuration override = new Configuration();
+        override.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        override.screenHeightDp = usableHeightDp;
+        override.smallestScreenWidthDp = Math.min(widthDp, usableHeightDp);
+        return override;
+    }
 
     @Override
     public void onNewIntent(@NonNull Intent newIntent) {
@@ -628,8 +700,49 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            mBinding.deskClockBottomMenu.setPadding(0, 0, 0, bars.bottom);
+            int cutoutHeight = getBottomCutoutHeight();
+            int bottomInset = Math.max(bars.bottom, cutoutHeight);
+            mBinding.deskClockBottomMenu.setPadding(0, 0, 0, bottomInset);
+
         });
+    }
+
+    /**
+     * Some flip phones do not report the cameras of the cover screen in the window insets
+     * when the app uses the full cover screen, but the window metrics do.
+     *
+     * @return the height of the display cutout at the bottom of the window, or 0 if there is none.
+     */
+    private int getBottomCutoutHeight() {
+        if (!SdkUtils.isAtLeastAndroid11()) {
+            return 0;
+        }
+
+        return getBottomCutoutHeight(getWindowManager().getCurrentWindowMetrics());
+    }
+
+    /**
+     * @return the bottom display cutout inset of the given window metrics, never more than the window height.
+     */
+    @RequiresApi(Build.VERSION_CODES.R)
+    private static int getBottomCutoutHeight(@NonNull WindowMetrics windowMetrics) {
+        int cutoutHeight = windowMetrics.getWindowInsets().getInsets(WindowInsets.Type.displayCutout()).bottom;
+        return Math.min(cutoutHeight, windowMetrics.getBounds().height());
+    }
+
+    /**
+     * @return {@code true} if the given context belongs to a {@link DeskClock} that lays out
+     * the area above a bottom display cutout as a landscape window. {@code false} otherwise.
+     */
+    public static boolean isUsingAreaAboveCutout(@NonNull Context context) {
+        while (context instanceof ContextWrapper wrapper) {
+            if (context instanceof DeskClock deskClock) {
+                return deskClock.mIsUsingAreaAboveCutout;
+            }
+            context = wrapper.getBaseContext();
+        }
+
+        return false;
     }
 
     public DeskClockBinding getDeskClockBinding() {

@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
 
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,7 +26,8 @@ public final class SnackbarManager {
 
     public static void show(@NonNull Snackbar snackbar, @NonNull Typeface typeface) {
         sSnackbar = new WeakReference<>(snackbar);
-        if (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) {
+        boolean isPortrait = ThemeUtils.isPortrait() && !DeskClock.isUsingAreaAboveCutout(snackbar.getContext());
+        if (ThemeUtils.isTablet() || isPortrait) {
             snackbar.setAnchorView(R.id.desk_clock_button_layout);
         }
 
