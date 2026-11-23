@@ -237,6 +237,18 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
         mAlarmUpdateHandler = new AlarmUpdateHandler(
             requireContext(), getPrefs(), getGeneralTypeface(), null, null, isVibrationsEnabled());
 
+        SharedPreferences preferences = getPrefs();
+        String datePickerStyle =
+            preferences.getString(KEY_MATERIAL_DATE_PICKER_STYLE, DEFAULT_DATE_PICKER_STYLE);
+        if (!DEFAULT_DATE_PICKER_STYLE.equals(datePickerStyle)
+            && !SPINNER_DATE_PICKER_STYLE.equals(datePickerStyle)) {
+            // "calendar" was the old preference default. The inline calendar is now always
+            // available in the alarm editor, so migrate that choice to the remaining text mode.
+            preferences.edit()
+                .putString(KEY_MATERIAL_DATE_PICKER_STYLE, DEFAULT_DATE_PICKER_STYLE)
+                .apply();
+        }
+
         addPreferencesFromResource(R.xml.settings_alarm);
 
         mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);

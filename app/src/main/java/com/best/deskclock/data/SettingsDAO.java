@@ -1453,7 +1453,8 @@ public final class SettingsDAO {
      */
     public static String getMaterialDatePickerStyle(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getString(KEY_MATERIAL_DATE_PICKER_STYLE, DEFAULT_DATE_PICKER_STYLE);
+        String style = prefs.getString(KEY_MATERIAL_DATE_PICKER_STYLE, DEFAULT_DATE_PICKER_STYLE);
+        return SPINNER_DATE_PICKER_STYLE.equals(style) ? SPINNER_DATE_PICKER_STYLE : DEFAULT_DATE_PICKER_STYLE;
     }
 
     /**
