@@ -325,7 +325,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             timerView = compactView;
             labelView = compactBinding.timerLabel;
             resetButton = compactBinding.resetButton;
-            stopButton = compactBinding.playPauseButton;
+            stopButton = compactBinding.stopButton;
         } else {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(
                 getLayoutInflater(), mBinding.expiredTimersList, false);

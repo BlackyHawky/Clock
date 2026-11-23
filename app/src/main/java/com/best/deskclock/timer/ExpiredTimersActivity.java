@@ -506,6 +506,7 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
         final TextView labelView;
         final View addTimeButton;
         final View resetButton;
+        final View playPauseButton;
         final View stopButton;
 
         if (useCompactLayout) {
@@ -519,7 +520,8 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
             labelView = compactBinding.timerLabel;
             addTimeButton = compactBinding.timerAddTimeButton;
             resetButton = compactBinding.resetButton;
-            stopButton = compactBinding.playPauseButton;
+            playPauseButton = compactBinding.playPauseButton;
+            stopButton = compactBinding.stopButton;
         } else {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(
                 getLayoutInflater(), mBinding.expiredTimersList, false);
@@ -531,7 +533,8 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
             labelView = normalBinding.timerLabel;
             addTimeButton = normalBinding.timerAddTimeButton;
             resetButton = normalBinding.resetButton;
-            stopButton = normalBinding.playPauseButton;
+            playPauseButton = normalBinding.playPauseButton;
+            stopButton = null;
         }
 
         timerView.checkIsLandscapePhone(isLandscape() && !isTablet());
@@ -561,11 +564,17 @@ public class ExpiredTimersActivity extends BaseActivity implements SensorEventLi
         resetButton.setVisibility(INVISIBLE);
 
         // Add logic to the "Stop" button
-        stopButton.setOnClickListener(v -> {
+        View.OnClickListener resetOrDeleteExpiredTimersListener = v -> {
             final Timer timer1 = getDataModel().getTimer(timerId);
             getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
             removeTimer(timer1);
-        });
+        };
+
+        playPauseButton.setOnClickListener(resetOrDeleteExpiredTimersListener);
+
+        if (stopButton != null) {
+            stopButton.setOnClickListener(resetOrDeleteExpiredTimersListener);
+        }
 
         // If the first timer was just added, center it.
         final List<Timer> expiredTimers = getExpiredTimers();
