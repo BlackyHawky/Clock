@@ -31,7 +31,9 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
     static final String CATEGORIES_TABLE_NAME = "alarm_categories";
 
-    private static final int DATABASE_VERSION = 32;
+    // Schema version 33 shipped in multi-date previews; version 34 is the next safe upgrade
+    // point for databases created by either the upstream or preview schema history.
+    private static final int DATABASE_VERSION = 34;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(@Nullable Context context) {
@@ -39,7 +41,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private static void createCategoriesTable(@NonNull SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + CATEGORIES_TABLE_NAME + " (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + CATEGORIES_TABLE_NAME + " (" +
             ClockContract.CategoryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ClockContract.CategoryColumns.NAME + " TEXT NOT NULL, " +
             ClockContract.CategoryColumns.SORT_ORDER + " INTEGER NOT NULL DEFAULT 0);");
@@ -80,7 +82,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             ClockContract.AlarmsColumns.CATEGORY_IDS + " TEXT NOT NULL DEFAULT ',0,', " +
             ClockContract.AlarmsColumns.TASK_NAME + " TEXT NOT NULL DEFAULT '', " +
             ClockContract.AlarmsColumns.TASK_URL + " TEXT NOT NULL DEFAULT '', " +
-            ClockContract.AlarmsColumns.DISABLE_DND + " INTEGER NOT NULL DEFAULT 0);");
+            ClockContract.AlarmsColumns.DISABLE_DND + " INTEGER NOT NULL DEFAULT 0, " +
+            ClockContract.AlarmsColumns.COMBINED_DAYS + " TEXT NOT NULL DEFAULT '');");
 
         LogUtils.i("Alarms Table created");
     }
@@ -137,9 +140,9 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             int month = Calendar.getInstance().get(Calendar.MONTH);
             int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN year INTEGER NOT NULL DEFAULT 0;");
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN month INTEGER NOT NULL DEFAULT 0;");
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN day INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.YEAR, "INTEGER NOT NULL DEFAULT 0");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.MONTH, "INTEGER NOT NULL DEFAULT 0");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.DAY, "INTEGER NOT NULL DEFAULT 0");
 
             db.execSQL("UPDATE " + ALARMS_TABLE_NAME + " SET year = " + year + ", month = " + month + ", day = " + day + ";");
 
@@ -148,32 +151,32 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
 
         // Add the ability to set the volume crescendo duration per alarm
         if (oldVersion < 17) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN crescendoDuration" + " INTEGER NOT NULL DEFAULT 0;");
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN crescendoDuration" + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.CRESCENDO_DURATION, "INTEGER NOT NULL DEFAULT 0");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.CRESCENDO_DURATION, "INTEGER NOT NULL DEFAULT 0");
 
             LogUtils.i("Added crescendoDuration column for version 17 upgrade.");
         }
 
         // Add the ability to set the snooze duration per alarm
         if (oldVersion < 18) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN snoozeDuration" + " INTEGER NOT NULL DEFAULT 10;");
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN snoozeDuration" + " INTEGER NOT NULL DEFAULT 10;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.SNOOZE_DURATION, "INTEGER NOT NULL DEFAULT 10");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.SNOOZE_DURATION, "INTEGER NOT NULL DEFAULT 10");
 
             LogUtils.i("Added snoozeDuration column for version 18 upgrade.");
         }
 
         // Add the ability to set the auto silence duration per alarm
         if (oldVersion < 19) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN autoSilenceDuration" + " INTEGER NOT NULL DEFAULT 10;");
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN autoSilenceDuration" + " INTEGER NOT NULL DEFAULT 10;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION, "INTEGER NOT NULL DEFAULT 10");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.AUTO_SILENCE_DURATION, "INTEGER NOT NULL DEFAULT 10");
 
             LogUtils.i("Added autoSilenceDuration column for version 19 upgrade.");
         }
 
         // Add the ability to set the alarm volume per alarm
         if (oldVersion < 20) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN alarmVolume" + " INTEGER NOT NULL DEFAULT 11;");
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN alarmVolume" + " INTEGER NOT NULL DEFAULT 11;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.ALARM_VOLUME, "INTEGER NOT NULL DEFAULT 11");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.ALARM_VOLUME, "INTEGER NOT NULL DEFAULT 11");
 
             LogUtils.i("Added alarmVolume column for version 20 upgrade.");
         }
@@ -241,17 +244,14 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 "WHERE " + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " > 0");
 
             // Add columns related to the “Repeat missed alarms” feature
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT
-                + " INTEGER NOT NULL DEFAULT -1;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT,
+                "INTEGER NOT NULL DEFAULT -1");
 
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT,
+                "INTEGER NOT NULL DEFAULT 0");
 
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT
-                + " INTEGER NOT NULL DEFAULT -1;");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT,
+                "INTEGER NOT NULL DEFAULT -1");
 
             LogUtils.i("Migrating autoSilenceDuration values from minutes to seconds and " +
                 "added missed_alarm_repeat_count + missed_alarm_repeat_limit columns for version 22 upgrade.");
@@ -259,99 +259,94 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
 
         if (oldVersion < 23) {
             // Add columns related to the "Vibration pattern" feature
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.AlarmsColumns.VIBRATION_PATTERN
-                + " TEXT NOT NULL DEFAULT 'default';");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.VIBRATION_PATTERN,
+                "TEXT NOT NULL DEFAULT 'default'");
 
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.InstancesColumns.VIBRATION_PATTERN
-                + " TEXT NOT NULL DEFAULT 'default';");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.VIBRATION_PATTERN,
+                "TEXT NOT NULL DEFAULT 'default'");
 
             LogUtils.i("vibrationPattern column added for version 23 upgrade.");
         }
 
         if (oldVersion < 24) {
             // Add columns related to the "synchronization of alarms by label" feature
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.AlarmsColumns.SYNC_BY_LABEL
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.SYNC_BY_LABEL,
+                "INTEGER NOT NULL DEFAULT 0");
 
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.InstancesColumns.SYNC_BY_LABEL
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.SYNC_BY_LABEL,
+                "INTEGER NOT NULL DEFAULT 0");
 
             LogUtils.i("syncByLabel column added for version 24 upgrade.");
         }
 
         if (oldVersion < 25) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
-                + " ADD COLUMN " + ClockContract.AlarmsColumns.MANUAL_SORT_ORDER
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.MANUAL_SORT_ORDER,
+                "INTEGER NOT NULL DEFAULT 0");
 
             LogUtils.i("manualSortOrder column added for version 25 upgrade.");
         }
 
         if (oldVersion < 26) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.PAUSE_START_DATE
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.PAUSE_START_DATE, "INTEGER NOT NULL DEFAULT 0");
 
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.PAUSE_END_DATE
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.PAUSE_END_DATE, "INTEGER NOT NULL DEFAULT 0");
 
             LogUtils.i("pauseStartDate and pauseEndDate columns added for version 26 upgrade.");
         }
 
         if (oldVersion < 27) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.BACKGROUND_IMAGE
-                + " TEXT NOT NULL DEFAULT '';");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.BACKGROUND_IMAGE, "TEXT NOT NULL DEFAULT ''");
 
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.BLUR_INTENSITY
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.BLUR_INTENSITY, "INTEGER NOT NULL DEFAULT 0");
 
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.MATH_HARDNESS_LEVEL
-                + " TEXT NOT NULL DEFAULT 'off';");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.MATH_HARDNESS_LEVEL, "TEXT NOT NULL DEFAULT 'off'");
 
             LogUtils.i("backgroundImage + blurIntensity + mathHardnessLevel columns added for version 27 upgrade.");
         }
 
         if (oldVersion < 28) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.LOCK
-                + " INTEGER NOT NULL DEFAULT 0;");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.LOCK, "INTEGER NOT NULL DEFAULT 0");
 
             LogUtils.i("lock column added for version 28 upgrade.");
         }
 
         if (oldVersion < 29) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.TIMEZONE + " TEXT DEFAULT '';");
+            ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.TIMEZONE, "TEXT DEFAULT ''");
 
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " + ClockContract.InstancesColumns.TIMEZONE
-                + " TEXT DEFAULT '';");
+            ensureColumn(db, INSTANCES_TABLE_NAME, ClockContract.InstancesColumns.TIMEZONE, "TEXT DEFAULT ''");
 
             LogUtils.i("timezone column added for version 29 upgrade.");
         }
 
-        if (oldVersion < 30) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " +
-                ClockContract.AlarmsColumns.CATEGORY_IDS + " TEXT NOT NULL DEFAULT ',0,';");
+        // Versions 30-33 were used by both upstream and earlier multi-date previews. Repair
+        // the final schema by checking each column instead of trusting the database version:
+        // matching version numbers did not guarantee matching schemas.
+        ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.CATEGORY_IDS, "TEXT NOT NULL DEFAULT ',0,'");
+        createCategoriesTable(db);
+        ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.TASK_NAME, "TEXT NOT NULL DEFAULT ''");
+        ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.TASK_URL, "TEXT NOT NULL DEFAULT ''");
+        ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.DISABLE_DND, "INTEGER NOT NULL DEFAULT 0");
+        ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.COMBINED_DAYS, "TEXT NOT NULL DEFAULT ''");
+        ensureColumn(db, ALARMS_TABLE_NAME, ClockContract.AlarmsColumns.LOCK, "INTEGER NOT NULL DEFAULT 0");
+    }
 
-            createCategoriesTable(db);
-
-            LogUtils.i("categoryId column and categories table added for version 30 upgrade.");
+    private static void ensureColumn(@NonNull SQLiteDatabase db, @NonNull String table, @NonNull String column,
+                                     @NonNull String definition) {
+        if (!columnExists(db, table, column)) {
+            db.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column + " " + definition + ";");
+            LogUtils.i("Added missing %s column to %s", column, table);
         }
+    }
 
-        if (oldVersion < 31) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.TASK_NAME + " TEXT DEFAULT '';");
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.TASK_URL + " TEXT DEFAULT '';");
-
-            LogUtils.i("taskName and taskUrl columns added for version 31 upgrade.");
+    private static boolean columnExists(@NonNull SQLiteDatabase db, @NonNull String table, @NonNull String column) {
+        try (Cursor cursor = db.rawQuery("PRAGMA table_info(" + table + ")", null)) {
+            while (cursor.moveToNext()) {
+                if (column.equals(cursor.getString(cursor.getColumnIndexOrThrow("name")))) {
+                    return true;
+                }
+            }
         }
-
-        if (oldVersion < 32) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.DISABLE_DND
-                + " INTEGER NOT NULL DEFAULT 0;");
-
-            LogUtils.i("disableDND column added for version 32 upgrade.");
-        }
+        return false;
     }
 
     long fixAlarmInsert(@Nullable ContentValues values) {
