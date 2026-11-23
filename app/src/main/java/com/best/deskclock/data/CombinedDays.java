@@ -4,6 +4,9 @@
 
 package com.best.deskclock.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -31,7 +34,7 @@ import java.util.TreeSet;
  * <p>Dates are stored as ISO civil-date keys, independent of time zone. Database values use a
  * compact JSON string; alarm backups use a nested JSON object.</p>
  */
-public final class CombinedDays {
+public final class CombinedDays implements Parcelable {
 
     public static final String EMPTY_JSON = "";
 
@@ -547,6 +550,43 @@ public final class CombinedDays {
     private static JSONArray listToJsonArray(@NonNull Collection<String> dates) {
         return new JSONArray(dates);
     }
+
+    protected CombinedDays(@NonNull Parcel in) {
+        this(readParcelList(in), readParcelList(in), readParcelList(in));
+    }
+
+    @NonNull
+    private static List<String> readParcelList(@NonNull Parcel in) {
+        List<String> values = new ArrayList<>();
+        in.readStringList(values);
+        return values;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeStringList(new ArrayList<>(mSelectedDates));
+        dest.writeStringList(new ArrayList<>(mDeselectedDates));
+        dest.writeStringList(new ArrayList<>(mDismissedDates));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<CombinedDays> CREATOR = new Creator<>() {
+        @NonNull
+        @Override
+        public CombinedDays createFromParcel(@NonNull Parcel in) {
+            return new CombinedDays(in);
+        }
+
+        @NonNull
+        @Override
+        public CombinedDays[] newArray(int size) {
+            return new CombinedDays[size];
+        }
+    };
 
     @Override
     public boolean equals(@Nullable Object other) {

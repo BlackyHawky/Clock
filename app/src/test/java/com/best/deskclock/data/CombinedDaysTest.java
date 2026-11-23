@@ -4,6 +4,8 @@
 
 package com.best.deskclock.data;
 
+import android.os.Parcel;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -149,6 +151,23 @@ public class CombinedDaysTest {
         assertTrue(cleaned.isDateDeselected(2026, Calendar.JUNE, 8));
         assertTrue(cleaned.isDateSelected(2026, Calendar.JUNE, 20));
         assertFalse(cleaned.hasRedundantOverrides(weekdays));
+    }
+
+
+    @Test
+    public void parcelableStateRoundTrips() {
+        CombinedDays original = new CombinedDays()
+            .addSelectedDate(2027, Calendar.MARCH, 4)
+            .addDeselectedDate(2027, Calendar.MARCH, 5)
+            .addDismissedDate(2027, Calendar.MARCH, 6);
+        Parcel parcel = Parcel.obtain();
+        try {
+            original.writeToParcel(parcel, 0);
+            parcel.setDataPosition(0);
+            assertEquals(original, CombinedDays.CREATOR.createFromParcel(parcel));
+        } finally {
+            parcel.recycle();
+        }
     }
 
     private static void assertInvalidDate(String value) {
