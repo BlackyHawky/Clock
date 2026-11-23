@@ -26,6 +26,7 @@ import androidx.core.os.ParcelCompat;
 import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.AlarmUtils;
@@ -92,7 +93,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         CATEGORY_IDS,
         TASK_NAME,
         TASK_URL,
-        DISABLE_DND
+        DISABLE_DND,
+        COMBINED_DAYS
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -127,6 +129,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + TASK_NAME,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + TASK_URL,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DISABLE_DND,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + COMBINED_DAYS,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -183,28 +186,29 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int TASK_NAME_INDEX = 29;
     private static final int TASK_URL_INDEX = 30;
     private static final int DISABLE_DND_INDEX = 31;
+    private static final int COMBINED_DAYS_INDEX = 32;
 
-    private static final int INSTANCE_STATE_INDEX = 32;
-    public static final int INSTANCE_ID_INDEX = 33;
-    public static final int INSTANCE_YEAR_INDEX = 34;
-    public static final int INSTANCE_MONTH_INDEX = 35;
-    public static final int INSTANCE_DAY_INDEX = 36;
-    public static final int INSTANCE_HOUR_INDEX = 37;
-    public static final int INSTANCE_MINUTE_INDEX = 38;
-    public static final int INSTANCE_LABEL_INDEX = 39;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 40;
-    public static final int INSTANCE_VIBRATE_INDEX = 41;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 42;
-    public static final int INSTANCE_FLASH_INDEX = 43;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 44;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 45;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 46;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 47;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 48;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 49;
-    public static final int INSTANCE_TIMEZONE_INDEX = 50;
+    private static final int INSTANCE_STATE_INDEX = 33;
+    public static final int INSTANCE_ID_INDEX = 34;
+    public static final int INSTANCE_YEAR_INDEX = 35;
+    public static final int INSTANCE_MONTH_INDEX = 36;
+    public static final int INSTANCE_DAY_INDEX = 37;
+    public static final int INSTANCE_HOUR_INDEX = 38;
+    public static final int INSTANCE_MINUTE_INDEX = 39;
+    public static final int INSTANCE_LABEL_INDEX = 40;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 41;
+    public static final int INSTANCE_VIBRATE_INDEX = 42;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 43;
+    public static final int INSTANCE_FLASH_INDEX = 44;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 45;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 46;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 47;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 48;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 49;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 50;
+    public static final int INSTANCE_TIMEZONE_INDEX = 51;
 
-    private static final int COLUMN_COUNT = DISABLE_DND_INDEX + 1;
+    private static final int COLUMN_COUNT = COMBINED_DAYS_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_TIMEZONE_INDEX + 1;
     // Public fields
     public long id;
@@ -241,6 +245,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String taskName;
     public String taskUrl;
     public boolean disableDND;
+    @NonNull
+    public CombinedDays combinedDays = new CombinedDays();
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -292,6 +298,20 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                  int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
                  @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel, boolean lock,
                  @NonNull String timeZone, long[] categoryIds, @NonNull String taskName, @NonNull String taskUrl, boolean disableDND) {
+        this(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash, daysOfWeek, label, syncByLabel,
+            alert, deleteAfterUse, autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit, crescendoDuration, alarmVolume,
+            manualSortOrder, pauseStartDate, pauseEndDate, backgroundImage, blurIntensity, mathHardnessLevel, lock, timeZone,
+            categoryIds, taskName, taskUrl, disableDND, new CombinedDays());
+    }
+
+    // Used to restore an alarm including its multi-date schedule.
+    public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate,
+                 @NonNull String vibrationPattern, boolean flash, @NonNull Weekdays daysOfWeek, @NonNull String label, boolean syncByLabel,
+                 @NonNull String alert, boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit,
+                 int crescendoDuration, int alarmVolume, int manualSortOrder, long pauseStartDate, long pauseEndDate,
+                 @NonNull String backgroundImage, int blurIntensity, @NonNull String mathHardnessLevel, boolean lock,
+                 @NonNull String timeZone, long[] categoryIds, @NonNull String taskName, @NonNull String taskUrl, boolean disableDND,
+                 @NonNull CombinedDays combinedDays) {
 
         this.id = id;
         this.enabled = enabled;
@@ -325,6 +345,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.taskName = taskName;
         this.taskUrl = taskUrl;
         this.disableDND = disableDND;
+        this.combinedDays = combinedDays;
     }
 
     // Used to create a clone of the given alarm
@@ -362,6 +383,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.taskName = original.taskName;
         this.taskUrl = original.taskUrl;
         this.disableDND = original.disableDND;
+        this.combinedDays = original.combinedDays;
     }
 
     public Alarm(@NonNull Cursor c) {
@@ -397,6 +419,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         taskName = c.getString(TASK_NAME_INDEX);
         taskUrl = c.getString(TASK_URL_INDEX);
         disableDND = c.getInt(DISABLE_DND_INDEX) == 1;
+        combinedDays = CombinedDays.fromJson(c.getString(COMBINED_DAYS_INDEX));
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -444,6 +467,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         taskName = p.readString();
         taskUrl = p.readString();
         disableDND = p.readInt() == 1;
+        combinedDays = ParcelCompat.readParcelable(p, getClass().getClassLoader(), CombinedDays.class);
+        if (combinedDays == null) {
+            combinedDays = new CombinedDays();
+        }
     }
 
     @NonNull
@@ -483,6 +510,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(TASK_NAME, taskName);
         values.put(TASK_URL, taskUrl);
         values.put(DISABLE_DND, disableDND ? 1 : 0);
+        values.put(COMBINED_DAYS, combinedDays.toJson());
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -527,6 +555,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(taskName);
         p.writeString(taskUrl);
         p.writeInt(disableDND ? 1 : 0);
+        p.writeParcelable(combinedDays, flags);
     }
 
     public int describeContents() {
@@ -797,7 +826,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || daysOfWeek.getBits() != other.daysOfWeek.getBits()
             || pauseStartDate != other.pauseStartDate
             || pauseEndDate != other.pauseEndDate
-            || !Objects.equals(timeZone, other.timeZone);
+            || !Objects.equals(timeZone, other.timeZone)
+            || !Objects.equals(combinedDays, other.combinedDays);
     }
 
     /**

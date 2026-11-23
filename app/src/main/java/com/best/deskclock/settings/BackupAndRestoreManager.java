@@ -39,6 +39,7 @@ import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.provider.ClockContract;
@@ -234,6 +235,7 @@ public class BackupAndRestoreManager {
             alarmObject.put("taskName", alarm.taskName);
             alarmObject.put("taskUrl", alarm.taskUrl);
             alarmObject.put("disableDND", alarm.disableDND);
+            alarmObject.put("combinedDays", alarm.combinedDays.toJsonObject());
 
             JSONArray categoryIdsArray = new JSONArray();
             if (alarm.categoryIds != null) {
@@ -514,6 +516,7 @@ public class BackupAndRestoreManager {
         String taskName = alarmObject.optString("taskName", "");
         String taskUrl = alarmObject.optString("taskUrl", "");
         boolean disableDND = alarmObject.optBoolean("disableDND", false);
+        CombinedDays combinedDays = CombinedDays.fromBackupValue(alarmObject.opt("combinedDays"));
 
         if (catIdsArray != null && catIdsArray.length() > 0) {
             List<Long> mappedIds = new ArrayList<>();
@@ -580,7 +583,7 @@ public class BackupAndRestoreManager {
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
             missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate, newBackgroundImage,
-            blurIntensity, mathHardnessLevel, lock, timeZone, categoryIds, taskName, taskUrl, disableDND);
+            blurIntensity, mathHardnessLevel, lock, timeZone, categoryIds, taskName, taskUrl, disableDND, combinedDays);
 
         restoredAlarm.addAlarm(contentResolver);
 
