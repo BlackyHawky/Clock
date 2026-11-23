@@ -165,6 +165,9 @@ public class AlarmService extends Service {
 
     private final Queue<Long> mPendingAlarmIds = new LinkedList<>();
     private AlarmInstance mCurrentAlarm = null;
+    // Cover screen launch still waiting for the hinge angle or display state, null if none.
+    @Nullable
+    private CoverScreenAlarmLauncher.PendingLaunch mCoverScreenLaunch;
 
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
         (sharedPreferences, key) -> {
@@ -576,6 +579,8 @@ public class AlarmService extends Service {
             cleanupAndStop();
         }
 
+        cancelCoverScreenLaunch();
+
         stopFlash();
 
         if (mCameraManager != null && mTorchCallback != null) {
@@ -614,6 +619,8 @@ public class AlarmService extends Service {
         AlarmAlertWakeLock.acquireCpuWakeLock(this);
 
         mCurrentAlarm = instance;
+        // A snoozed alarm rings again with the same id, so let its alarm screens handle it again.
+        AlarmActivity.onInstanceFired(instance.mId);
 
         disableDNDIfNeeded(this, instance);
 
@@ -621,7 +628,7 @@ public class AlarmService extends Service {
             this, mCurrentAlarm, SettingsDAO.getLanguageCode(mPrefs), SettingsDAO.getGlobalIntentId(mPrefs));
 
         // Experimental: open AlarmActivity on the cover screen of a folded flip phone.
-        CoverScreenAlarmLauncher.launchIfFolded(this, mCurrentAlarm);
+        mCoverScreenLaunch = CoverScreenAlarmLauncher.launchIfFolded(this, mCurrentAlarm);
 
         RingtonePlayer.Config playerConfig = new RingtonePlayer.Config(
             SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs),
@@ -722,6 +729,8 @@ public class AlarmService extends Service {
     }
 
     private void cleanupAndStop() {
+        cancelCoverScreenLaunch();
+
         stopFlash();
 
         stopAlarmKlaxon();
@@ -735,6 +744,13 @@ public class AlarmService extends Service {
         mCurrentAlarm = null;
         detachListeners();
         AlarmAlertWakeLock.releaseCpuLock();
+    }
+
+    private void cancelCoverScreenLaunch() {
+        if (mCoverScreenLaunch != null) {
+            mCoverScreenLaunch.cancel();
+            mCoverScreenLaunch = null;
+        }
     }
 
     private void stopAlarmKlaxon() {

@@ -128,6 +128,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private static final Set<String> sShownKeys = new HashSet<>();
 
+    /**
+     * Ids of alarm instances already snoozed or dismissed by a copy of this activity, so another copy
+     * doesn't do it again. Main thread only. AlarmService removes the id when the instance rings again.
+     */
+    private static final Set<Long> sHandledInstanceIds = new HashSet<>();
+
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -444,7 +450,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         // Claim again after onStop() released it. If another copy took it meanwhile, keep running:
         // this activity may already be visible, so we never close it here.
         final long instanceId = getIntentInstanceId();
-        if (instanceId != -1 && !isFinishing()) {
+        if (instanceId != -1 && !isFinishing() && !mAlarmHandled) {
             final int displayId = getCurrentDisplayId();
             if (!claimShownInstance(instanceId, displayId)) {
                 LOGGER.i("Instance %d is already claimed on displayId=%d, keeping this copy anyway",
@@ -802,6 +808,32 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             sShownKeys.remove(mShownKey);
             mShownKey = null;
         }
+    }
+
+    /**
+     * Called by AlarmService when an instance starts ringing. A snoozed alarm rings again with the
+     * same id, so its alarm screens must be able to handle it again.
+     */
+    static void onInstanceFired(long instanceId) {
+        sHandledInstanceIds.remove(instanceId);
+    }
+
+    /**
+     * Closes this copy if another copy already snoozed or dismissed the alarm.
+     *
+     * @return {@code true} if it was already handled.
+     */
+    private boolean closeIfHandledElsewhere() {
+        if (mAlarmInstance == null || !sHandledInstanceIds.contains(mAlarmInstance.mId)) {
+            return false;
+        }
+
+        LOGGER.i("Instance %d was already snoozed or dismissed by another copy, closing this one",
+            mAlarmInstance.mId);
+        mAlarmHandled = true;
+        unbindAlarmService();
+        finish();
+        return true;
     }
 
     private void initAlarmAndInstance() {
@@ -1491,7 +1523,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void requestAlarmAction(int action) {
-        if (mAlarmHandled) {
+        if (mAlarmHandled || closeIfHandledElsewhere()) {
             return;
         }
 
@@ -1535,7 +1567,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * otherwise, send snooze intent.
      */
     private void snooze() {
+        if (closeIfHandledElsewhere()) {
+            return;
+        }
+
+        sHandledInstanceIds.add(mAlarmInstance.mId);
         mAlarmHandled = true;
+        // A copy showing the confirmation must not block the next firing of this instance.
+        releaseShownInstance();
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
         final Context appContext = getApplicationContext();
@@ -1583,7 +1622,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Perform dismiss animation and send dismiss intent.
      */
     private void dismiss() {
+        if (closeIfHandledElsewhere()) {
+            return;
+        }
+
+        sHandledInstanceIds.add(mAlarmInstance.mId);
         mAlarmHandled = true;
+        // A copy showing the confirmation must not block the next firing of this instance.
+        releaseShownInstance();
         LOGGER.v("Dismissed: %s", mAlarmInstance);
 
         final Context appContext = getApplicationContext();

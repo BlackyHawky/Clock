@@ -56,22 +56,66 @@ public final class CoverScreenAlarmLauncher {
     }
 
     /**
+     * A launch still waiting for the hinge angle or the display state. Main thread only.
+     */
+    static final class PendingLaunch {
+        private final long mInstanceId;
+        // Token for all posted callbacks, so cancel() removes only ours.
+        private final Object mToken = new Object();
+        private final Handler mHandler = new Handler(Looper.getMainLooper());
+        @Nullable
+        private SensorManager mSensorManager;
+        @Nullable
+        private SensorEventListener mListener;
+        // Set once launched, skipped or cancelled.
+        private boolean mDone;
+
+        private PendingLaunch(long instanceId) {
+            mInstanceId = instanceId;
+        }
+
+        /**
+         * Stops waiting: unregisters the hinge listener and removes posted callbacks. Safe to call
+         * more than once, and after the launch already happened.
+         */
+        void cancel() {
+            mHandler.removeCallbacksAndMessages(mToken);
+            if (mSensorManager != null && mListener != null) {
+                mSensorManager.unregisterListener(mListener);
+            }
+
+            if (!mDone) {
+                mDone = true;
+                LogUtils.i("CoverScreen: cancelled pending launch for instance %d", mInstanceId);
+            }
+        }
+
+        private void postDelayed(@NonNull Runnable runnable, long delayMs) {
+            mHandler.postAtTime(runnable, mToken, SystemClock.uptimeMillis() + delayMs);
+        }
+    }
+
+    /**
      * Starts AlarmActivity on the cover display if the phone looks folded and the user allowed it.
      * Works asynchronously on the main thread, never blocks the caller.
+     *
+     * @return the pending launch, so the caller can cancel it when the alarm stops; {@code null} if
+     * nothing was started.
      */
-    static void launchIfFolded(@NonNull AlarmService service, @NonNull AlarmInstance instance) {
+    @Nullable
+    static PendingLaunch launchIfFolded(@NonNull AlarmService service, @NonNull AlarmInstance instance) {
         try {
             if (!SdkUtils.isAtLeastAndroid12()) {
                 LogUtils.i("CoverScreen: skip, needs Android 12 to check for a built-in display");
-                return;
+                return null;
             }
 
             if (!Settings.canDrawOverlays(service)) {
                 LogUtils.i("CoverScreen: skip, 'Display over other apps' is not allowed");
-                return;
+                return null;
             }
 
-            final Handler handler = new Handler(Looper.getMainLooper());
+            final PendingLaunch pending = new PendingLaunch(instance.mId);
             final SensorManager sensorManager = service.getSystemService(SensorManager.class);
             Sensor hinge = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_HINGE_ANGLE) : null;
             if (hinge == null && sensorManager != null) {
@@ -80,12 +124,14 @@ public final class CoverScreenAlarmLauncher {
 
             if (hinge == null) {
                 LogUtils.i("CoverScreen: no hinge angle sensor, checking display states");
-                pollDisplayStates(service, instance, handler, SystemClock.elapsedRealtime());
+                pollDisplayStates(service, instance, pending, SystemClock.elapsedRealtime());
             } else {
-                readHingeAngle(service, instance, handler, sensorManager, hinge);
+                readHingeAngle(service, instance, pending, sensorManager, hinge);
             }
+            return pending;
         } catch (Exception e) {
             LogUtils.e("CoverScreen: direct launch failed", e);
+            return null;
         }
     }
 
@@ -95,7 +141,7 @@ public final class CoverScreenAlarmLauncher {
      */
     @RequiresApi(31)
     private static void readHingeAngle(@NonNull AlarmService service, @NonNull AlarmInstance instance,
-                                       @NonNull Handler handler, @NonNull SensorManager sensorManager,
+                                       @NonNull PendingLaunch pending, @NonNull SensorManager sensorManager,
                                        @NonNull Sensor hinge) {
 
         // Set by the first event or the timeout, so only one of them decides.
@@ -104,16 +150,17 @@ public final class CoverScreenAlarmLauncher {
         final SensorEventListener listener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                if (done[0]) {
+                if (done[0] || pending.mDone) {
                     return;
                 }
 
                 done[0] = true;
                 sensorManager.unregisterListener(this);
-                handler.removeCallbacksAndMessages(this);
+                pending.mHandler.removeCallbacksAndMessages(pending.mToken);
 
                 final float angle = event.values[0];
                 if (angle > HINGE_CLOSED_MAX_DEGREES) {
+                    pending.mDone = true;
                     LogUtils.i("CoverScreen: skip, hinge angle %.1f means open", angle);
                     return;
                 }
@@ -122,7 +169,9 @@ public final class CoverScreenAlarmLauncher {
                 runSafely(() -> {
                     final Display cover = findCoverDisplay(service);
                     if (cover != null) {
-                        launch(service, instance, cover);
+                        launch(service, instance, pending, cover);
+                    } else {
+                        pending.mDone = true;
                     }
                 });
             }
@@ -132,22 +181,23 @@ public final class CoverScreenAlarmLauncher {
             }
         };
 
-        // Use the listener as the token, so the timeout can be removed on the first event.
-        handler.postAtTime(() -> {
-            if (done[0]) {
+        pending.postDelayed(() -> {
+            if (done[0] || pending.mDone) {
                 return;
             }
 
             done[0] = true;
             sensorManager.unregisterListener(listener);
             LogUtils.i("CoverScreen: no hinge angle after %d ms, checking display states", HINGE_TIMEOUT_MS);
-            runSafely(() -> pollDisplayStates(service, instance, handler, SystemClock.elapsedRealtime()));
-        }, listener, SystemClock.uptimeMillis() + HINGE_TIMEOUT_MS);
+            runSafely(() -> pollDisplayStates(service, instance, pending, SystemClock.elapsedRealtime()));
+        }, HINGE_TIMEOUT_MS);
 
-        if (!sensorManager.registerListener(listener, hinge, SensorManager.SENSOR_DELAY_NORMAL, handler)) {
-            handler.removeCallbacksAndMessages(listener);
+        pending.mSensorManager = sensorManager;
+        pending.mListener = listener;
+        if (!sensorManager.registerListener(listener, hinge, SensorManager.SENSOR_DELAY_NORMAL, pending.mHandler)) {
+            pending.mHandler.removeCallbacksAndMessages(pending.mToken);
             LogUtils.i("CoverScreen: hinge angle sensor registration failed, checking display states");
-            pollDisplayStates(service, instance, handler, SystemClock.elapsedRealtime());
+            pollDisplayStates(service, instance, pending, SystemClock.elapsedRealtime());
         }
     }
 
@@ -157,40 +207,53 @@ public final class CoverScreenAlarmLauncher {
      */
     @RequiresApi(31)
     private static void pollDisplayStates(@NonNull AlarmService service, @NonNull AlarmInstance instance,
-                                          @NonNull Handler handler, long startTime) {
+                                          @NonNull PendingLaunch pending, long startTime) {
+
+        if (pending.mDone) {
+            return;
+        }
 
         final Display cover = findCoverDisplay(service);
         if (cover == null) {
+            pending.mDone = true;
             return;
         }
 
         final int state = cover.getState();
         if (state == Display.STATE_ON || state == Display.STATE_DOZE || state == Display.STATE_DOZE_SUSPEND) {
-            launch(service, instance, cover);
+            launch(service, instance, pending, cover);
             return;
         }
 
         final long elapsed = SystemClock.elapsedRealtime() - startTime;
         if (elapsed >= POLL_TIMEOUT_MS) {
+            pending.mDone = true;
             LogUtils.i("CoverScreen: skip, cover displayId=%d still %s after %d ms",
                 cover.getDisplayId(), stateToString(state), elapsed);
             return;
         }
 
         if (!service.isFiring(instance.mId)) {
+            pending.mDone = true;
             LogUtils.i("CoverScreen: skip, instance %d is no longer firing", instance.mId);
             return;
         }
 
         LogUtils.i("CoverScreen: cover displayId=%d is %s after %d ms, checking again in %d ms",
             cover.getDisplayId(), stateToString(state), elapsed, POLL_INTERVAL_MS);
-        handler.postDelayed(() -> runSafely(() -> pollDisplayStates(service, instance, handler, startTime)),
+        pending.postDelayed(() -> runSafely(() -> pollDisplayStates(service, instance, pending, startTime)),
             POLL_INTERVAL_MS);
     }
 
     @RequiresApi(31)
     private static void launch(@NonNull AlarmService service, @NonNull AlarmInstance instance,
-                               @NonNull Display cover) {
+                               @NonNull PendingLaunch pending, @NonNull Display cover) {
+
+        if (pending.mDone) {
+            return;
+        }
+
+        pending.mDone = true;
 
         if (!service.isFiring(instance.mId)) {
             LogUtils.i("CoverScreen: skip, instance %d is no longer firing", instance.mId);
