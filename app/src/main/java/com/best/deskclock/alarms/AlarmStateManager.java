@@ -1131,8 +1131,18 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             final AlarmManager am = context.getApplicationContext().getSystemService(AlarmManager.class);
-            // Ensure the alarm fires even if the device is dozing.
-            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+
+            if (newState == AlarmInstance.FIRED_STATE) {
+                PendingIntent viewIntent = PendingIntent.getActivity(context, instance.hashCode(),
+                    AlarmNotifications.createViewAlarmIntent(context, instance),
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+                AlarmClockInfo info = new AlarmClockInfo(timeInMillis, viewIntent);
+                am.setAlarmClock(info, pendingIntent);
+            } else {
+                // Ensure non-firing state changes (notification, timeout) fire even if the device is dozing.
+                am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+            }
         }
 
         @Override
