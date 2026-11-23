@@ -64,6 +64,28 @@ public class CombinedDaysTest {
     }
 
     @Test
+    public void dateNavigationSupportsFarFutureDatesAndSkipsDismissed() {
+        CombinedDays days = new CombinedDays()
+            .addSelectedDate(2028, Calendar.JANUARY, 1)
+            .addSelectedDate(2027, Calendar.DECEMBER, 31)
+            .addDismissedDate(2027, Calendar.DECEMBER, 31);
+        Calendar from = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        from.clear();
+        from.set(2027, Calendar.MARCH, 1);
+
+        Calendar next = days.getNextSelectedDate(from);
+        assertEquals(2028, next.get(Calendar.YEAR));
+        assertEquals(Calendar.JANUARY, next.get(Calendar.MONTH));
+        assertEquals(1, next.get(Calendar.DAY_OF_MONTH));
+
+        Calendar before = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        before.clear();
+        before.set(2028, Calendar.JANUARY, 2);
+        Calendar previous = days.getPreviousSelectedDate(before);
+        assertEquals(2028, previous.get(Calendar.YEAR));
+    }
+
+    @Test
     public void cleanupOnlyKeepsOverridesThatChangeTheWeekdaySchedule() {
         Weekdays weekdays = Weekdays.fromCalendarDays(Calendar.MONDAY, Calendar.TUESDAY,
             Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY);

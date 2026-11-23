@@ -332,6 +332,74 @@ public final class CombinedDays {
     }
 
     @NonNull
+    public CombinedDays removeDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        Set<String> selected = mutableCopy(mSelectedDates);
+        Set<String> deselected = mutableCopy(mDeselectedDates);
+        Set<String> dismissed = mutableCopy(mDismissedDates);
+        selected.remove(key);
+        deselected.remove(key);
+        dismissed.remove(key);
+        return new CombinedDays(selected, deselected, dismissed);
+    }
+
+    @NonNull
+    public CombinedDays removePastDates() {
+        return removePastDates(-1, -1, TimeZone.getDefault());
+    }
+
+    @NonNull
+    public CombinedDays removePastDates(int alarmHour, int alarmMinute) {
+        return removePastDates(alarmHour, alarmMinute, TimeZone.getDefault());
+    }
+
+    /**
+     * Drops dates before today in {@code timeZone}; today is dropped only after the alarm time.
+     */
+    @NonNull
+    public CombinedDays removePastDates(int alarmHour, int alarmMinute, @NonNull TimeZone timeZone) {
+        Calendar now = Calendar.getInstance(timeZone);
+        String today = dateKey(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+
+        boolean todayHasPassed = false;
+        if (alarmHour >= 0 && alarmMinute >= 0) {
+            Calendar alarmToday = (Calendar) now.clone();
+            alarmToday.set(Calendar.HOUR_OF_DAY, alarmHour);
+            alarmToday.set(Calendar.MINUTE, alarmMinute);
+            alarmToday.set(Calendar.SECOND, 0);
+            alarmToday.set(Calendar.MILLISECOND, 0);
+            todayHasPassed = now.getTimeInMillis() >= alarmToday.getTimeInMillis();
+        }
+
+        Set<String> selected = removePast(mSelectedDates, today, todayHasPassed);
+        Set<String> deselected = removePast(mDeselectedDates, today, todayHasPassed);
+        Set<String> dismissed = removePast(mDismissedDates, today, todayHasPassed);
+        return new CombinedDays(selected, deselected, dismissed);
+    }
+
+    @Nullable
+    public Calendar getNextSelectedDate(@NonNull Calendar from) {
+        String start = dateKey(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH));
+        for (String key : mSelectedDates) {
+            if (key.compareTo(start) >= 0 && !mDismissedDates.contains(key)) {
+                return calendarForDateKey(key, TimeZone.getTimeZone("UTC"));
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public Calendar getPreviousSelectedDate(@NonNull Calendar before) {
+        String limit = dateKey(before.get(Calendar.YEAR), before.get(Calendar.MONTH), before.get(Calendar.DAY_OF_MONTH));
+        for (String key : reverse(mSelectedDates)) {
+            if (key.compareTo(limit) < 0 && !mDismissedDates.contains(key)) {
+                return calendarForDateKey(key, TimeZone.getTimeZone("UTC"));
+            }
+        }
+        return null;
+    }
+
+    @NonNull
     private static Calendar calendarForDateKey(@NonNull String key, @NonNull TimeZone zone) {
         int[] date = parseDateKey(key);
         Calendar calendar = Calendar.getInstance(zone);
@@ -344,6 +412,16 @@ public final class CombinedDays {
         int[] date = parseDateKey(key);
         Calendar calendar = calendarForDateKey(key, TimeZone.getTimeZone("UTC"));
         return weekdays.isBitOn(calendar.get(Calendar.DAY_OF_WEEK));
+    }
+
+    private static Set<String> removePast(@NonNull Set<String> dates, @NonNull String today, boolean todayHasPassed) {
+        Set<String> kept = new TreeSet<>();
+        for (String key : dates) {
+            if (key.compareTo(today) > 0 || (key.equals(today) && !todayHasPassed)) {
+                kept.add(key);
+            }
+        }
+        return kept;
     }
 
     private static Set<String> mutableCopy(@NonNull Collection<String> values) {
@@ -363,8 +441,13 @@ public final class CombinedDays {
         return Collections.unmodifiableSet(keys);
     }
 
-    @NonNull
     private static List<String> immutableList(@NonNull Collection<String> values) {
         return Collections.unmodifiableList(new ArrayList<>(values));
+    }
+
+    private static List<String> reverse(@NonNull Set<String> values) {
+        ArrayList<String> result = new ArrayList<>(values);
+        Collections.reverse(result);
+        return result;
     }
 }
