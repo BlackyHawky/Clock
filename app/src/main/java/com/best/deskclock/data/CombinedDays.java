@@ -100,6 +100,90 @@ public final class CombinedDays {
         }
     }
 
+    @NonNull
+    public CombinedDays addSelectedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        if (mSelectedDates.contains(key) && !mDeselectedDates.contains(key)
+            && !mDismissedDates.contains(key)) {
+            return this;
+        }
+        Set<String> selected = mutableCopy(mSelectedDates);
+        Set<String> deselected = mutableCopy(mDeselectedDates);
+        Set<String> dismissed = mutableCopy(mDismissedDates);
+        selected.add(key);
+        deselected.remove(key);
+        dismissed.remove(key);
+        return new CombinedDays(selected, deselected, dismissed);
+    }
+
+    @NonNull
+    public CombinedDays removeSelectedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        if (!mSelectedDates.contains(key)) {
+            return this;
+        }
+        Set<String> selected = mutableCopy(mSelectedDates);
+        Set<String> dismissed = mutableCopy(mDismissedDates);
+        selected.remove(key);
+        dismissed.remove(key);
+        return new CombinedDays(selected, mDeselectedDates, dismissed);
+    }
+
+    @NonNull
+    public CombinedDays addDeselectedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        if (mDeselectedDates.contains(key) && !mSelectedDates.contains(key)
+            && !mDismissedDates.contains(key)) {
+            return this;
+        }
+        Set<String> deselected = mutableCopy(mDeselectedDates);
+        Set<String> selected = mutableCopy(mSelectedDates);
+        Set<String> dismissed = mutableCopy(mDismissedDates);
+        deselected.add(key);
+        selected.remove(key);
+        dismissed.remove(key);
+        return new CombinedDays(selected, deselected, dismissed);
+    }
+
+    @NonNull
+    public CombinedDays removeDeselectedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        if (!mDeselectedDates.contains(key)) {
+            return this;
+        }
+        Set<String> deselected = mutableCopy(mDeselectedDates);
+        Set<String> dismissed = mutableCopy(mDismissedDates);
+        deselected.remove(key);
+        dismissed.remove(key);
+        return new CombinedDays(mSelectedDates, deselected, dismissed);
+    }
+
+    @NonNull
+    public CombinedDays toggleSelectedDate(int year, int month, int day) {
+        return isDateSelected(year, month, day)
+            ? removeSelectedDate(year, month, day)
+            : addSelectedDate(year, month, day);
+    }
+
+    @NonNull
+    public CombinedDays toggleDeselectedDate(int year, int month, int day) {
+        return isDateDeselected(year, month, day)
+            ? removeDeselectedDate(year, month, day)
+            : addDeselectedDate(year, month, day);
+    }
+
+    public boolean isDateSelected(int year, int month, int day) {
+        return mSelectedDates.contains(dateKey(year, month, day));
+    }
+
+    public boolean isDateDeselected(int year, int month, int day) {
+        return mDeselectedDates.contains(dateKey(year, month, day));
+    }
+
+    private static Set<String> mutableCopy(@NonNull Collection<String> values) {
+        return new TreeSet<>(values);
+    }
+
     private static Set<String> immutableDateKeys(@NonNull Collection<String> values) {
         Set<String> keys = new TreeSet<>();
         for (String value : values) {

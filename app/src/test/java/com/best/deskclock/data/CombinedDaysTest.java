@@ -33,4 +33,16 @@ public class CombinedDaysTest {
         assertInvalidDate("2024-1-01");
         assertInvalidDate("0000-01-01");
     }
+
+    @Test
+    public void selectionRulesAreImmutableAndExclusive() {
+        CombinedDays empty = new CombinedDays();
+        CombinedDays selected = empty.addSelectedDate(2026, Calendar.AUGUST, 15);
+        assertFalse(empty.isDateSelected(2026, Calendar.AUGUST, 15));
+        assertTrue(selected.isDateSelected(2026, Calendar.AUGUST, 15));
+
+        CombinedDays deselected = selected.addDeselectedDate(2026, Calendar.AUGUST, 15);
+        assertTrue(deselected.isDateDeselected(2026, Calendar.AUGUST, 15));
+        assertFalse(deselected.isDateSelected(2026, Calendar.AUGUST, 15));
+    }
 }
