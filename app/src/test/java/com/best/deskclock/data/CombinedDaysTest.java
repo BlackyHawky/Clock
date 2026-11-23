@@ -64,6 +64,54 @@ public class CombinedDaysTest {
     }
 
     @Test
+    public void backupRoundTripsLegacyStringAndCurrentObject() throws Exception {
+        String legacyV1 = """
+            {"version":1,
+             "selectedDates":["2027-03-04"],
+             "deselectedDates":["2027-03-05"],
+             "dismissedDates":["2027-03-06"]}
+            """;
+        CombinedDays restoredLegacy = CombinedDays.fromBackupValue(legacyV1);
+
+        assertEquals(1, restoredLegacy.getSelectedDateCount());
+        assertEquals(1, restoredLegacy.getDeselectedDateCount());
+        assertEquals(1, restoredLegacy.getDismissedDateCount());
+
+        JSONObject exported = restoredLegacy.toJsonObject();
+        CombinedDays restoredObject = CombinedDays.fromBackupValue(exported);
+
+        assertEquals(restoredLegacy, restoredObject);
+        assertEquals("2027-03-04", restoredObject.getSelectedDates().get(0));
+        assertEquals("2027-03-05", restoredObject.getDeselectedDates().get(0));
+        assertEquals("2027-03-06", restoredObject.getDismissedDates().get(0));
+    }
+
+    @Test
+    public void databaseJsonRoundTripsAndAcceptsUnversionedLegacyJson() {
+        CombinedDays value = new CombinedDays()
+            .addSelectedDate(2027, Calendar.MARCH, 4)
+            .addDeselectedDate(2027, Calendar.MARCH, 5)
+            .addDismissedDate(2027, Calendar.MARCH, 6);
+        assertEquals(value, CombinedDays.fromJson(value.toJson()));
+
+        CombinedDays unversioned = CombinedDays.fromJson(
+            "{\"selectedDates\":[\"2027-03-04\"],\"deselectedDates\":[],\"dismissedDates\":[]}");
+        assertEquals(1, unversioned.getSelectedDateCount());
+    }
+
+    @Test
+    public void malformedAndFutureFormatsDoNotCreateInvalidDateEntries() {
+        CombinedDays malformed = CombinedDays.fromJson(
+            "{\"version\":1,\"selectedDates\":[\"2027-02-29\",\"bad\"],"
+                + "\"deselectedDates\":[17],\"dismissedDates\":[]}");
+        assertTrue(malformed.isEmpty());
+
+        CombinedDays unsupported = CombinedDays.fromJson(
+            "{\"version\":2,\"selectedDates\":[\"2027-03-04\"]}");
+        assertTrue(unsupported.isEmpty());
+    }
+
+    @Test
     public void dateNavigationSupportsFarFutureDatesAndSkipsDismissed() {
         CombinedDays days = new CombinedDays()
             .addSelectedDate(2028, Calendar.JANUARY, 1)
@@ -103,15 +151,12 @@ public class CombinedDaysTest {
         assertFalse(cleaned.hasRedundantOverrides(weekdays));
     }
 
-    @Test
-    public void malformedAndFutureFormatsDoNotCreateInvalidDateEntries() {
-        CombinedDays malformed = CombinedDays.fromJson(
-            "{\"version\":1,\"selectedDates\":[\"2027-02-29\",\"bad\"],"
-                + "\"deselectedDates\":[17],\"dismissedDates\":[]}");
-        assertTrue(malformed.isEmpty());
-
-        CombinedDays unsupported = CombinedDays.fromJson(
-            "{\"version\":2,\"selectedDates\":[\"2027-03-04\"]}");
-        assertTrue(unsupported.isEmpty());
+    private static void assertInvalidDate(String value) {
+        try {
+            CombinedDays.parseDateKey(value);
+        } catch (IllegalArgumentException expected) {
+            return;
+        }
+        throw new AssertionError("Expected invalid date key: " + value);
     }
 }

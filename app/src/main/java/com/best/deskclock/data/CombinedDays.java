@@ -71,6 +71,22 @@ public final class CombinedDays {
         }
     }
 
+    /**
+     * Reads a value from an alarm backup. Older backups stored this value as a JSON-encoded
+     * string; current backups store the same versioned data as a nested object.
+     */
+    @NonNull
+    public static CombinedDays fromBackupValue(@Nullable Object value) {
+        if (value instanceof JSONObject object) {
+            return fromJsonObject(object);
+        }
+        if (value instanceof String string) {
+            return fromJson(string);
+        }
+        return EMPTY;
+    }
+
+    @NonNull
     private static CombinedDays fromJsonObject(@NonNull JSONObject object) {
         if (object.optInt(KEY_VERSION, 0) > VERSION) {
             // Do not misinterpret a future format as the current one.
@@ -81,6 +97,35 @@ public final class CombinedDays {
             jsonArrayToDateKeys(object.optJSONArray(KEY_SELECTED_DATES)),
             jsonArrayToDateKeys(object.optJSONArray(KEY_DESELECTED_DATES)),
             jsonArrayToDateKeys(object.optJSONArray(KEY_DISMISSED_DATES)));
+    }
+
+    /**
+     * Returns the compact JSON string used for database storage.
+     */
+    @NonNull
+    public String toJson() {
+        if (isEmpty()) {
+            return EMPTY_JSON;
+        }
+        return toJsonObject().toString();
+    }
+
+    /**
+     * Returns the human-readable nested JSON object used in backups.
+     */
+    @NonNull
+    public JSONObject toJsonObject() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put(KEY_VERSION, VERSION);
+            object.put(KEY_SELECTED_DATES, listToJsonArray(mSelectedDates));
+            object.put(KEY_DESELECTED_DATES, listToJsonArray(mDeselectedDates));
+            object.put(KEY_DISMISSED_DATES, listToJsonArray(mDismissedDates));
+        } catch (JSONException e) {
+            // The values above are all JSON primitives/arrays, so this cannot fail.
+            throw new IllegalStateException("Could not serialize combined date rules", e);
+        }
+        return object;
     }
 
     /**
@@ -496,5 +541,39 @@ public final class CombinedDays {
             }
         }
         return keys;
+    }
+
+    @NonNull
+    private static JSONArray listToJsonArray(@NonNull Collection<String> dates) {
+        return new JSONArray(dates);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof CombinedDays that)) {
+            return false;
+        }
+        return mSelectedDates.equals(that.mSelectedDates)
+            && mDeselectedDates.equals(that.mDeselectedDates)
+            && mDismissedDates.equals(that.mDismissedDates);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mSelectedDates.hashCode();
+        result = 31 * result + mDeselectedDates.hashCode();
+        result = 31 * result + mDismissedDates.hashCode();
+        return result;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "CombinedDays{selected=" + mSelectedDates
+            + ", deselected=" + mDeselectedDates
+            + ", dismissed=" + mDismissedDates + '}';
     }
 }
