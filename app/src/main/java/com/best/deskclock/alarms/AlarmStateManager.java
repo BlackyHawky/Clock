@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.data.CombinedDays;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
@@ -250,8 +251,38 @@ public final class AlarmStateManager extends BroadcastReceiver {
             return;
         }
 
+        CombinedDays originalCombinedDays = alarm.combinedDays;
+        if (!alarm.combinedDays.isEmpty()) {
+            Calendar occurrence = Calendar.getInstance(alarm.getTimeZone());
+            occurrence.setTimeInMillis(instance.getAlarmTime().getTimeInMillis());
+            int year = occurrence.get(Calendar.YEAR);
+            int month = occurrence.get(Calendar.MONTH);
+            int day = occurrence.get(Calendar.DAY_OF_MONTH);
+            int dayOfWeek = occurrence.get(Calendar.DAY_OF_WEEK);
+            boolean isScheduledOccurrence = alarm.daysOfWeek.isBitOn(dayOfWeek)
+                ? !alarm.combinedDays.isDateDeselected(year, month, day)
+                : alarm.combinedDays.isDateSelected(year, month, day);
+            if (isScheduledOccurrence && !alarm.combinedDays.isDateDismissed(year, month, day)) {
+                alarm.combinedDays = alarm.combinedDays.addDismissedDate(year, month, day);
+            }
+            alarm.combinedDays = alarm.combinedDays.removePastDates(
+                alarm.hour, alarm.minutes, alarm.getTimeZone());
+        }
+        boolean combinedDaysChanged = !alarm.combinedDays.equals(originalCombinedDays);
+
         if (!alarm.daysOfWeek.isRepeating()) {
-            if (alarm.deleteAfterUse) {
+            if (alarm.hasFutureSelectedDate(getCurrentTime())) {
+                LogUtils.i("Keeping parent alarm enabled: more selected dates remain for " + alarm.id);
+                alarm.enabled = true;
+                alarm.updateAlarm(cr);
+                AlarmVisualCache.invalidate(alarm.id);
+
+                AlarmInstance nextInstance = alarm.createInstanceAfter(getCurrentTime());
+                LogUtils.i("Creating new instance for date alarm %d at %s", alarm.id,
+                    AlarmUtils.getFormattedTime(context, nextInstance.getAlarmTime()));
+                nextInstance.addInstance(cr);
+                registerInstance(context, prefs, nextInstance, true);
+            } else if (alarm.deleteAfterUse) {
                 LogUtils.i("Deleting parent alarm: " + alarm.id);
                 Alarm.deleteAlarm(cr, alarm.id);
             } else {
@@ -260,6 +291,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 alarm.updateAlarm(cr);
             }
         } else {
+            if (combinedDaysChanged) {
+                alarm.updateAlarm(cr);
+            }
+
             AlarmInstance nextRepeatedInstance;
 
             if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(prefs)) {
@@ -926,9 +961,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 LogUtils.e("Found instance without matching alarm; deleting instance %s", instance);
                 continue;
             }
-            final Calendar priorAlarmTime = alarm.getPreviousAlarmTime();
+            final Calendar priorAlarmTime = alarm.getPreviousAlarmTime(instance.getAlarmTime());
             final Calendar missedTTLTime = instance.getMissedTimeToLive();
-            if (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime)) {
+            final boolean isCurrentCombinedOccurrence = !alarm.combinedDays.isEmpty()
+                && alarm.getNextAlarmTime(currentTime).getTimeInMillis()
+                == instance.getAlarmTime().getTimeInMillis();
+            if (!isCurrentCombinedOccurrence
+                && ((priorAlarmTime != null && currentTime.before(priorAlarmTime))
+                    || currentTime.after(missedTTLTime))) {
                 final Calendar oldAlarmTime = instance.getAlarmTime();
                 final Calendar newAlarmTime = alarm.getNextAlarmTime(currentTime);
                 final SimpleDateFormat logFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.US);
@@ -1017,7 +1057,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 setAlarmState(context, prefs, instance, alarmState);
 
                 if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
-                    AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
+                    Alarm parentAlarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+                    if (parentAlarm != null && !parentAlarm.combinedDays.isEmpty()) {
+                        // The parent now points at the next date occurrence; do not hide its
+                        // pre-emptive dismiss action using the cache for the old occurrence.
+                        AlarmVisualCache.invalidate(instance.mAlarmId);
+                    } else {
+                        AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
+                    }
                 } else if (alarmState == AlarmInstance.SNOOZE_STATE) {
                     AlarmVisualCache.cacheSnoozedAlarm(instance.mAlarmId, instance);
                 } else if (alarmState == AlarmInstance.NOTIFICATION_STATE || alarmState == AlarmInstance.FIRED_STATE) {

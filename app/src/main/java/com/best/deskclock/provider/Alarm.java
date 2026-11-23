@@ -776,8 +776,15 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return deletedRows == 1;
     }
 
+    public boolean isDeletedAfterDismissal() {
+        return !daysOfWeek.isRepeating() && deleteAfterUse && !combinedDays.hasSelectedDates();
+    }
+
+    /**
+     * Compatibility alias for call sites that still use the upstream method name.
+     */
     public boolean isDeleteAfterUse() {
-        return !daysOfWeek.isRepeating() && deleteAfterUse;
+        return isDeletedAfterDismissal();
     }
 
     public String getLabelOrDefault(@NonNull Context context) {
@@ -1399,6 +1406,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", taskName=" + taskName +
             ", taskUrl=" + taskUrl +
             ", disableDND=" + disableDND +
+            ", combinedDays=" + combinedDays +
             '}';
     }
 

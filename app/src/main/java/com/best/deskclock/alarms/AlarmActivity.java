@@ -1715,15 +1715,11 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     /**
-     * @return {@code true} if the "Delete alarm once dismissed" button is ticked;
+     * @return {@code true} if dismissing the last scheduled date will delete the alarm;
      * {@code false} otherwise.
      */
     private boolean isOccasionalAlarmDeletedAfterUse() {
-        if (mAlarm.daysOfWeek.isRepeating()) {
-            return false;
-        }
-
-        return mAlarm.deleteAfterUse;
+        return mAlarm.isDeletedAfterDismissal();
     }
 
     /**
