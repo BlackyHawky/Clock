@@ -172,12 +172,90 @@ public final class CombinedDays {
             : addDeselectedDate(year, month, day);
     }
 
+    @NonNull
+    public CombinedDays addDismissedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        if (mDismissedDates.contains(key)) {
+            return this;
+        }
+        Set<String> dismissed = mutableCopy(mDismissedDates);
+        dismissed.add(key);
+        return new CombinedDays(mSelectedDates, mDeselectedDates, dismissed);
+    }
+
+    @NonNull
+    public CombinedDays removeDismissedDate(int year, int month, int day) {
+        String key = dateKey(year, month, day);
+        if (!mDismissedDates.contains(key)) {
+            return this;
+        }
+        Set<String> dismissed = mutableCopy(mDismissedDates);
+        dismissed.remove(key);
+        return new CombinedDays(mSelectedDates, mDeselectedDates, dismissed);
+    }
+
+    @NonNull
+    public CombinedDays clearDismissed() {
+        return mDismissedDates.isEmpty()
+            ? this
+            : new CombinedDays(mSelectedDates, mDeselectedDates, Collections.emptySet());
+    }
+
+    @NonNull
+    public CombinedDays clear() {
+        return EMPTY;
+    }
+
+    @NonNull
+    public CombinedDays clearDeselected() {
+        return mDeselectedDates.isEmpty()
+            ? this
+            : new CombinedDays(mSelectedDates, Collections.emptySet(), mDismissedDates);
+    }
+
+    @NonNull
+    public CombinedDays clearSelected() {
+        return mSelectedDates.isEmpty()
+            ? this
+            : new CombinedDays(Collections.emptySet(), mDeselectedDates, mDismissedDates);
+    }
+
     public boolean isDateSelected(int year, int month, int day) {
         return mSelectedDates.contains(dateKey(year, month, day));
     }
 
     public boolean isDateDeselected(int year, int month, int day) {
         return mDeselectedDates.contains(dateKey(year, month, day));
+    }
+
+    public boolean isDateDismissed(int year, int month, int day) {
+        return mDismissedDates.contains(dateKey(year, month, day));
+    }
+
+    public boolean isDateActive(int year, int month, int day, @NonNull Weekdays weekdays) {
+        String key = dateKey(year, month, day);
+        if (mDismissedDates.contains(key)) {
+            return false;
+        }
+        if (matchesWeekdays(key, weekdays)) {
+            return !mDeselectedDates.contains(key);
+        }
+        return mSelectedDates.contains(key);
+    }
+
+    @NonNull
+    private static Calendar calendarForDateKey(@NonNull String key, @NonNull TimeZone zone) {
+        int[] date = parseDateKey(key);
+        Calendar calendar = Calendar.getInstance(zone);
+        calendar.clear();
+        calendar.set(date[0], date[1], date[2]);
+        return calendar;
+    }
+
+    private static boolean matchesWeekdays(@NonNull String key, @NonNull Weekdays weekdays) {
+        int[] date = parseDateKey(key);
+        Calendar calendar = calendarForDateKey(key, TimeZone.getTimeZone("UTC"));
+        return weekdays.isBitOn(calendar.get(Calendar.DAY_OF_WEEK));
     }
 
     private static Set<String> mutableCopy(@NonNull Collection<String> values) {

@@ -35,14 +35,31 @@ public class CombinedDaysTest {
     }
 
     @Test
-    public void selectionRulesAreImmutableAndExclusive() {
-        CombinedDays empty = new CombinedDays();
-        CombinedDays selected = empty.addSelectedDate(2026, Calendar.AUGUST, 15);
-        assertFalse(empty.isDateSelected(2026, Calendar.AUGUST, 15));
-        assertTrue(selected.isDateSelected(2026, Calendar.AUGUST, 15));
+    public void mutationsAreImmutableAndKeepDateSetsExclusive() {
+        CombinedDays original = new CombinedDays().addDeselectedDate(2026, Calendar.AUGUST, 15);
+        CombinedDays selected = original.addSelectedDate(2026, Calendar.AUGUST, 15);
 
-        CombinedDays deselected = selected.addDeselectedDate(2026, Calendar.AUGUST, 15);
-        assertTrue(deselected.isDateDeselected(2026, Calendar.AUGUST, 15));
-        assertFalse(deselected.isDateSelected(2026, Calendar.AUGUST, 15));
+        assertTrue(original.isDateDeselected(2026, Calendar.AUGUST, 15));
+        assertFalse(original.isDateSelected(2026, Calendar.AUGUST, 15));
+        assertTrue(selected.isDateSelected(2026, Calendar.AUGUST, 15));
+        assertFalse(selected.isDateDeselected(2026, Calendar.AUGUST, 15));
+
+        CombinedDays dismissed = selected.addDismissedDate(2026, Calendar.AUGUST, 15);
+        assertTrue(dismissed.isDateDismissed(2026, Calendar.AUGUST, 15));
+        assertFalse(dismissed.isDateActive(2026, Calendar.AUGUST, 15, Weekdays.NONE));
+        assertFalse(selected.isDateDismissed(2026, Calendar.AUGUST, 15));
+    }
+
+    @Test
+    public void changingDateRuleClearsDismissalForThatDate() {
+        CombinedDays dismissed = new CombinedDays()
+            .addSelectedDate(2026, Calendar.AUGUST, 15)
+            .addDismissedDate(2026, Calendar.AUGUST, 15);
+
+        CombinedDays reselected = dismissed.addSelectedDate(2026, Calendar.AUGUST, 15);
+        assertFalse(reselected.isDateDismissed(2026, Calendar.AUGUST, 15));
+
+        CombinedDays removed = dismissed.removeSelectedDate(2026, Calendar.AUGUST, 15);
+        assertFalse(removed.isDateDismissed(2026, Calendar.AUGUST, 15));
     }
 }
