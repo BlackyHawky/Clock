@@ -24,11 +24,5 @@
     <dimen name="lap_text_size">16sp</dimen>
 
     <item name="city_list_end_guide_percent" type="fraction">0.5</item>
-
-    <!-- Landscape alarm screen on narrow windows (e.g. a flip phone cover screen):
-         give the slider more room so its labels are not cut off.
-         Wider windows use the values from values-w560dp. -->
-    <item name="alarm_landscape_middle_guide_percent" type="fraction">0.4</item>
-    <item name="alarm_landscape_end_guide_percent" type="fraction">0.7</item>
     <dimen name="max_dimension_empty_view">350dp</dimen>
 </resources>
