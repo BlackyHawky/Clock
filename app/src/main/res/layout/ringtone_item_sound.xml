@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,8 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
+        android:padding="10dp"
         android:importantForAccessibility="no"
         android:scaleType="centerInside"
         app:tint="?attr/colorOnSurfaceVariant"
@@ -61,9 +59,27 @@
         android:scaleType="centerInside"
         android:visibility="gone"
         app:tint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toStartOf="@+id/play_ringtone_button"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/play_ringtone_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="14dp"
+        android:contentDescription="@string/more_options"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/sound_image_selected"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/ic_play_circle"
         tools:visibility="visible"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -76,9 +92,9 @@
         android:src="@drawable/ic_radio_button_checked"
         android:scaleType="centerInside"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:tint="?attr/colorPrimary"
         app:tintMode="src_in"
         tools:visibility="visible"
