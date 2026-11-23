@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -29,13 +30,19 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -67,6 +74,7 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.databinding.AlarmEditBottomSheetBinding;
 import com.best.deskclock.databinding.DeskClockBinding;
+import com.best.deskclock.databinding.SpinnerDatePickerBinding;
 import com.best.deskclock.dialogfragment.AlarmCategoryDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMathHardnessLevelDialogFragment;
@@ -756,6 +764,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 Calendar current = Calendar.getInstance(mAlarm.getTimeZone());
                 setCalendarMonth(current.get(Calendar.YEAR), current.get(Calendar.MONTH));
             });
+            mBinding.inlineCalendarContainer.dateActionButton.setOnClickListener(v -> launchDateAction());
             mBinding.inlineCalendarContainer.cleanupOverrides.setOnClickListener(v -> cleanupOverrides());
             mBinding.inlineCalendarContainer.calendarSummaryRow.setOnClickListener(v -> cleanupOverrides());
         } else {
@@ -767,6 +776,301 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         updateCalendarSummary();
         updateCleanupButtonVisibility();
         updateClearButtonVisibility();
+    }
+
+    /**
+     * Opens a date-entry dialog with explicit add/remove actions and calendar navigation.
+     * The text and spinner modes follow the user's existing date-picker preference.
+     */
+    private void launchDateAction() {
+        boolean useSpinner = SettingsDAO.getMaterialDatePickerStyle(mPrefs)
+            .equals(SPINNER_DATE_PICKER_STYLE);
+
+        Calendar now = Calendar.getInstance(mAlarm.getTimeZone());
+        boolean timePassed = mAlarm.isTimeBeforeOrEqual(now);
+        Calendar minimum = Calendar.getInstance(mAlarm.getTimeZone());
+        minimum.set(Calendar.HOUR_OF_DAY, 0);
+        minimum.set(Calendar.MINUTE, 0);
+        minimum.set(Calendar.SECOND, 0);
+        minimum.set(Calendar.MILLISECOND, 0);
+        if (timePassed) {
+            minimum.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        final int[] pickedDate = {
+            minimum.get(Calendar.YEAR),
+            minimum.get(Calendar.MONTH),
+            minimum.get(Calendar.DAY_OF_MONTH)
+        };
+        final int minimumYear = pickedDate[0];
+        final int minimumMonth = pickedDate[1];
+        final int minimumDay = pickedDate[2];
+        Calendar pickerMinimum = Calendar.getInstance();
+        pickerMinimum.clear();
+        pickerMinimum.set(minimumYear, minimumMonth, minimumDay);
+        long minimumMillis = pickerMinimum.getTimeInMillis();
+        final boolean[] textValid = {true};
+
+        LinearLayout container = new LinearLayout(requireContext());
+        container.setOrientation(LinearLayout.VERTICAL);
+        int padding = (int) dpToPx(16, mDisplayMetrics);
+        container.setPadding(padding, padding / 2, padding, padding / 4);
+
+        MaterialButton add = makeDateActionButton(R.string.date_action_add);
+        MaterialButton remove = makeDateActionButton(R.string.date_action_remove);
+        MaterialButton goTo = makeDateActionButton(R.string.date_action_go_to);
+        MaterialButton close = makeDateActionButton(R.string.dialog_close);
+
+        LinearLayout actionsRow = new LinearLayout(requireContext());
+        actionsRow.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout footerRow = new LinearLayout(requireContext());
+        footerRow.setOrientation(LinearLayout.HORIZONTAL);
+        int sideMargin = (int) dpToPx(4, mDisplayMetrics);
+        int topMargin = (int) dpToPx(4, mDisplayMetrics);
+        for (MaterialButton button : new MaterialButton[]{add, remove}) {
+            LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            params.setMarginStart(sideMargin);
+            params.setMarginEnd(sideMargin);
+            button.setLayoutParams(params);
+        }
+        for (MaterialButton button : new MaterialButton[]{goTo, close}) {
+            LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            params.setMarginStart(sideMargin);
+            params.setMarginEnd(sideMargin);
+            params.topMargin = topMargin;
+            button.setLayoutParams(params);
+        }
+        LinearLayout.LayoutParams actionsParams =
+            new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        actionsParams.bottomMargin = (int) dpToPx(8, mDisplayMetrics);
+        actionsRow.setLayoutParams(actionsParams);
+        actionsRow.addView(add);
+        actionsRow.addView(remove);
+        footerRow.addView(goTo);
+        footerRow.addView(close);
+
+        final AlertDialog[] dialogRef = new AlertDialog[1];
+
+        Runnable refreshActions = () -> {
+            boolean valid = useSpinner || textValid[0];
+            boolean active = false;
+            if (valid) {
+                valid = compareDate(pickedDate[0], pickedDate[1], pickedDate[2],
+                    minimumYear, minimumMonth, minimumDay) >= 0;
+                active = mAlarm.combinedDays.isDateActive(
+                    pickedDate[0], pickedDate[1], pickedDate[2], mAlarm.daysOfWeek);
+            }
+            goTo.setEnabled(valid);
+            add.setEnabled(valid && !active);
+            remove.setEnabled(valid && active);
+
+            if (dialogRef[0] != null) {
+                Calendar picked = Calendar.getInstance();
+                picked.clear();
+                picked.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+                String dateLabel = formatDateActionLabel(picked);
+                dialogRef[0].setTitle(getString(R.string.date_action_title, dateLabel));
+            }
+        };
+
+        if (useSpinner) {
+            DatePicker picker = (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
+            final DatePicker[] activePicker = {picker};
+            final int[] lastMonth = {pickedDate[1]};
+            final DatePicker.OnDateChangedListener[] listenerHolder = new DatePicker.OnDateChangedListener[1];
+            listenerHolder[0] = (view, year, month, day) -> {
+                pickedDate[0] = year;
+                pickedDate[1] = month;
+                pickedDate[2] = day;
+                if (month != lastMonth[0]) {
+                    lastMonth[0] = month;
+                    container.post(() -> {
+                        int index = container.indexOfChild(activePicker[0]);
+                        if (index < 0) {
+                            return;
+                        }
+                        Calendar selected = Calendar.getInstance();
+                        selected.clear();
+                        selected.set(year, month, day);
+                        DatePicker replacement =
+                            (DatePicker) SpinnerDatePickerBinding.inflate(getLayoutInflater()).getRoot();
+                        replacement.setMinDate(minimumMillis);
+                        replacement.init(selected.get(Calendar.YEAR), selected.get(Calendar.MONTH),
+                            selected.get(Calendar.DAY_OF_MONTH), listenerHolder[0]);
+                        container.removeViewAt(index);
+                        container.addView(replacement, index);
+                        activePicker[0] = replacement;
+                        clampDatePickerWheels(replacement, minimumYear, minimumMonth, minimumDay, year, month);
+                    });
+                }
+                refreshActions.run();
+                clampDatePickerWheels(activePicker[0], minimumYear, minimumMonth, minimumDay, year, month);
+            };
+            picker.setMinDate(minimumMillis);
+            picker.init(pickedDate[0], pickedDate[1], pickedDate[2], listenerHolder[0]);
+            container.addView(picker);
+            clampDatePickerWheels(picker, minimumYear, minimumMonth, minimumDay,
+                pickedDate[0], pickedDate[1]);
+        } else {
+            String pattern = DateFormat.getBestDateTimePattern(mLocale, "yyyyMMdd");
+            EditText input = new EditText(requireContext());
+            input.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
+            input.setHint(pattern);
+            input.setTypeface(mGeneralTypeface);
+
+            Calendar initial = Calendar.getInstance();
+            initial.clear();
+            initial.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+            input.setText(new java.text.SimpleDateFormat(pattern, mLocale).format(initial.getTime()));
+            input.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable text) {
+                    textValid[0] = parseDateInput(text.toString(), pattern, pickedDate);
+                    refreshActions.run();
+                }
+            });
+            container.addView(input);
+        }
+
+        container.addView(actionsRow);
+        container.addView(footerRow);
+        Calendar initialLabelDate = Calendar.getInstance();
+        initialLabelDate.clear();
+        initialLabelDate.set(pickedDate[0], pickedDate[1], pickedDate[2]);
+        String initialLabel = formatDateActionLabel(initialLabelDate);
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.date_action_title, initialLabel))
+            .setView(container)
+            .create();
+        dialogRef[0] = dialog;
+        refreshActions.run();
+
+        goTo.setOnClickListener(v -> {
+            dialog.dismiss();
+            goToDate(pickedDate[0], pickedDate[1]);
+        });
+        add.setOnClickListener(v -> {
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], true);
+            refreshActions.run();
+        });
+        remove.setOnClickListener(v -> {
+            applyDateAction(pickedDate[0], pickedDate[1], pickedDate[2], false);
+            refreshActions.run();
+        });
+        close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+    private void clampDatePickerWheels(DatePicker picker, int minimumYear, int minimumMonth, int minimumDay,
+                                       int pickedYear, int pickedMonth) {
+        try {
+            Resources systemResources = Resources.getSystem();
+            NumberPicker dayPicker = picker.findViewById(systemResources.getIdentifier("day", "id", "android"));
+            NumberPicker monthPicker = picker.findViewById(systemResources.getIdentifier("month", "id", "android"));
+            NumberPicker yearPicker = picker.findViewById(systemResources.getIdentifier("year", "id", "android"));
+            if (dayPicker == null || monthPicker == null || yearPicker == null) {
+                return;
+            }
+            dayPicker.setWrapSelectorWheel(false);
+            monthPicker.setWrapSelectorWheel(false);
+            yearPicker.setMinValue(minimumYear);
+            if (pickedYear != minimumYear || pickedMonth != minimumMonth) {
+                return;
+            }
+
+            Calendar firstOfMonth = Calendar.getInstance();
+            firstOfMonth.clear();
+            firstOfMonth.set(pickedYear, pickedMonth, 1);
+            dayPicker.setMinValue(minimumDay);
+            dayPicker.setMaxValue(firstOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+            if (dayPicker.getValue() < minimumDay) {
+                dayPicker.setValue(minimumDay);
+            }
+
+            String[] monthNames = new java.text.DateFormatSymbols(mLocale).getShortMonths();
+            monthPicker.setDisplayedValues(null);
+            monthPicker.setMinValue(minimumMonth);
+            monthPicker.setMaxValue(11);
+            monthPicker.setDisplayedValues(
+                java.util.Arrays.copyOfRange(monthNames, minimumMonth, monthPicker.getMaxValue() + 1));
+            if (monthPicker.getValue() < minimumMonth) {
+                monthPicker.setValue(minimumMonth);
+            }
+        } catch (RuntimeException ignored) {
+            // The framework's spinner internals vary by Android release; the native minimum
+            // date remains enforced even when its NumberPickers cannot be adjusted here.
+        }
+    }
+
+    private boolean parseDateInput(String text, String pattern, int[] out) {
+        java.text.SimpleDateFormat parser = new java.text.SimpleDateFormat(pattern, mLocale);
+        parser.setLenient(false);
+        java.text.ParsePosition position = new java.text.ParsePosition(0);
+        java.util.Date parsed = parser.parse(text, position);
+        if (parsed == null || position.getIndex() != text.length()) {
+            return false;
+        }
+        Calendar date = Calendar.getInstance();
+        date.setTime(parsed);
+        out[0] = date.get(Calendar.YEAR);
+        out[1] = date.get(Calendar.MONTH);
+        out[2] = date.get(Calendar.DAY_OF_MONTH);
+        return true;
+    }
+
+    private String formatDateActionLabel(Calendar date) {
+        String pattern = DateFormat.getBestDateTimePattern(mLocale, "EEEyMMMd");
+        return new java.text.SimpleDateFormat(pattern, mLocale).format(date.getTime());
+    }
+
+    private MaterialButton makeDateActionButton(@StringRes int textRes) {
+        MaterialButton button = new MaterialButton(requireContext(), null,
+            com.google.android.material.R.attr.materialButtonOutlinedStyle);
+        LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.bottomMargin = (int) dpToPx(8, mDisplayMetrics);
+        button.setLayoutParams(params);
+        button.setText(textRes);
+        button.setAllCaps(false);
+        button.setTypeface(mGeneralTypeface);
+        button.setSingleLine(true);
+        return button;
+    }
+
+    private void applyDateAction(int year, int month, int day, boolean activate) {
+        Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        date.clear();
+        date.set(year, month, day);
+        boolean matchesWeekday = mAlarm.daysOfWeek.isBitOn(date.get(Calendar.DAY_OF_WEEK));
+        if (mAlarm.daysOfWeek.isRepeating() && matchesWeekday) {
+            mAlarm.combinedDays = activate
+                ? mAlarm.combinedDays.removeDeselectedDate(year, month, day)
+                : mAlarm.combinedDays.addDeselectedDate(year, month, day);
+        } else {
+            mAlarm.combinedDays = activate
+                ? mAlarm.combinedDays.addSelectedDate(year, month, day)
+                : mAlarm.combinedDays.removeSelectedDate(year, month, day);
+        }
+        mInlineCalendarAdapter.setData(mAlarm.daysOfWeek, mAlarm.combinedDays);
+        bindSelectedDate();
+        updateCalendarSummary();
+        updateCleanupButtonVisibility();
+        updateClearButtonVisibility();
+    }
+
+    private void goToDate(int year, int month) {
+        setCalendarMonth(year, month);
     }
 
     private void onInlineCalendarDateToggled(int year, int month, int day) {
