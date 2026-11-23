@@ -995,103 +995,195 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return result;
     }
 
-    /**
-     * @return previous firing time, or null if this is a one-time alarm.
-     */
+    /** @return previous firing time, or null if this alarm has no recurring/date rules. */
     @Nullable
     public Calendar getPreviousAlarmTime() {
-        final Calendar previousInstanceTime = Calendar.getInstance(getTimeZone());
-        previousInstanceTime.set(Calendar.YEAR, year);
-        previousInstanceTime.set(Calendar.MONTH, month);
-        previousInstanceTime.set(Calendar.DAY_OF_MONTH, day);
-        previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-        previousInstanceTime.set(Calendar.MINUTE, minutes);
-        previousInstanceTime.set(Calendar.SECOND, 0);
-        previousInstanceTime.set(Calendar.MILLISECOND, 0);
-
-        final int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
-        if (subtractDays > 0) {
-            previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
-            return previousInstanceTime;
-        } else {
-            return null;
-        }
+        return getPreviousAlarmTime(Calendar.getInstance(getTimeZone()));
     }
 
     /**
-     * Calculates the next scheduled occurrence time.
+     * Returns the latest scheduled occurrence strictly before {@code before}.
      *
-     * <p>This method determines when the alarm should trigger again based on its
-     * configuration. It handles both repeating alarms (with specific days of the week)
-     * and one-time alarms (with a fixed date). Daylight Savings Time (DST) adjustments
-     * are also taken into account by resetting the hour and minute after shifting days.
-     *
-     * @return a {@link Calendar} instance representing the next valid alarm time.
-     * <p>- For repeating alarms: the next valid day of the week at the configured hour/minute.</p>
-     * <p>- For one-time alarms: the configured date and time, or the following day if the
-     * specified time has already passed relative to {@code currentTime}.</p>
+     * <p>The calculation is relative to the supplied time rather than the alarm's creation date;
+     * this also considers selected dates and skips date overrides consistently with scheduling.</p>
      */
-    @NonNull
-    public Calendar getNextAlarmTime(@NonNull Calendar currentTime) {
-        final Calendar nextInstanceTime = Calendar.getInstance(getTimeZone());
-        nextInstanceTime.set(Calendar.SECOND, 0);
-        nextInstanceTime.set(Calendar.MILLISECOND, 0);
+    @Nullable
+    public Calendar getPreviousAlarmTime(@NonNull Calendar before) {
+        if (!daysOfWeek.isRepeating() && !combinedDays.hasSelectedDates()) {
+            return null;
+        }
+
+        Calendar upperBound = inAlarmTimeZone(before);
+        Calendar previous = null;
 
         if (daysOfWeek.isRepeating()) {
-            nextInstanceTime.setTimeInMillis(currentTime.getTimeInMillis());
-            nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-            nextInstanceTime.set(Calendar.MINUTE, minutes);
-            nextInstanceTime.set(Calendar.SECOND, 0);
-            nextInstanceTime.set(Calendar.MILLISECOND, 0);
-
-            // If we are still behind the passed in currentTime, then add a day
-            if (nextInstanceTime.getTimeInMillis() <= currentTime.getTimeInMillis()) {
-                nextInstanceTime.add(Calendar.DAY_OF_YEAR, 1);
-            }
-
-            // The day of the week might be invalid, so find next valid one
-            final int addDays = daysOfWeek.getDistanceToNextDay(nextInstanceTime);
-            if (addDays > 0) {
-                nextInstanceTime.add(Calendar.DAY_OF_WEEK, addDays);
-            }
-
-            // Daylight Savings Time can alter the hours and minutes when adjusting the day above.
-            // Reset the desired hour and minute now that the correct day has been chosen.
-            nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-            nextInstanceTime.set(Calendar.MINUTE, minutes);
-
-            if (isDatePaused(nextInstanceTime)) {
-                // The alarm goes off during the pause: retrieve the end time of the pause
-                Calendar endOfPauseUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-                endOfPauseUtc.setTimeInMillis(pauseEndDate);
-
-                // Create a fake local "current date" that corresponds to the very end of the pause, exactly at the scheduled alarm time.
-                Calendar localEndOfPause = Calendar.getInstance(currentTime.getTimeZone());
-                localEndOfPause.clear();
-                localEndOfPause.set(Calendar.YEAR, endOfPauseUtc.get(Calendar.YEAR));
-                localEndOfPause.set(Calendar.MONTH, endOfPauseUtc.get(Calendar.MONTH));
-                localEndOfPause.set(Calendar.DAY_OF_MONTH, endOfPauseUtc.get(Calendar.DAY_OF_MONTH));
-                localEndOfPause.set(Calendar.HOUR_OF_DAY, hour);
-                localEndOfPause.set(Calendar.MINUTE, minutes);
-
-                // Restart the search. The system will see that the alarm time has “already passed or is equal to” that day,
-                // and will automatically add one day and then search for the next valid day of the week.
-                return getNextAlarmTime(localEndOfPause);
-            }
-        } else {
-            nextInstanceTime.set(Calendar.YEAR, year);
-            nextInstanceTime.set(Calendar.MONTH, month);
-            nextInstanceTime.set(Calendar.DAY_OF_MONTH, day);
-            nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
-            nextInstanceTime.set(Calendar.MINUTE, minutes);
-
-            // If we are still behind the passed in currentTime, then add a day
-            if (nextInstanceTime.getTimeInMillis() <= currentTime.getTimeInMillis()) {
-                nextInstanceTime.add(Calendar.DAY_OF_YEAR, 1);
+            Calendar date = (Calendar) upperBound.clone();
+            int maxDays = 7 + combinedDays.getDeselectedDateCount() + combinedDays.getDismissedDateCount();
+            for (int offset = 0; offset < maxDays; offset++) {
+                Calendar candidate = alarmTimeOnDate(date);
+                if (candidate.before(upperBound)
+                    && isWeekdayOccurrence(candidate)
+                    && !isDatePaused(candidate)) {
+                    previous = candidate;
+                    break;
+                }
+                date.add(Calendar.DAY_OF_YEAR, -1);
             }
         }
 
-        return nextInstanceTime;
+        if (combinedDays.hasSelectedDates()) {
+            List<String> selectedDates = combinedDays.getSelectedDates();
+            for (int i = selectedDates.size() - 1; i >= 0; i--) {
+                int[] selectedDate = CombinedDays.parseDateKey(selectedDates.get(i));
+                Calendar candidate = alarmTimeOnDate(selectedDate[0], selectedDate[1], selectedDate[2]);
+                if (candidate.before(upperBound)
+                    && combinedDays.isDateActive(selectedDate[0], selectedDate[1], selectedDate[2], daysOfWeek)
+                    && !isDatePaused(candidate)
+                    && (previous == null || candidate.after(previous))) {
+                    previous = candidate;
+                    break;
+                }
+            }
+        }
+
+        return previous;
+    }
+
+    /**
+     * Calculates the next occurrence from the union of weekly occurrences and selected dates.
+     * Weekday exclusions and transient dismissals remove occurrences from either source.
+     */
+    @NonNull
+    public Calendar getNextAlarmTime(@NonNull Calendar currentTime) {
+        Calendar after = inAlarmTimeZone(currentTime);
+
+        if (!daysOfWeek.isRepeating() && !combinedDays.hasSelectedDates()) {
+            // Preserve the original one-time alarm behavior: its anchor rolls forward one day
+            // after the configured time passes.
+            Calendar nextInstanceTime = alarmTimeOnDate(year, month, day);
+            if (!nextInstanceTime.after(after)) {
+                nextInstanceTime.add(Calendar.DAY_OF_YEAR, 1);
+            }
+            return nextInstanceTime;
+        }
+
+        // A pause is a contiguous date window; once a candidate lands inside it, advance the
+        // search cursor to the end of the window instead of stepping through every date.
+        for (int pausePass = 0; pausePass < 2; pausePass++) {
+            Calendar nextWeekday = daysOfWeek.isRepeating() ? getNextWeekdayOccurrence(after) : null;
+            Calendar nextSelected = getNextSelectedOccurrence(after);
+            Calendar next = earlier(nextWeekday, nextSelected);
+
+            if (next == null) {
+                // No remaining date-only occurrence. Keep a quiet sentinel instance so the
+                // existing alarm state machinery can retire the alarm after a missed event.
+                Calendar sentinel = (Calendar) after.clone();
+                sentinel.add(Calendar.DAY_OF_YEAR, 366);
+                sentinel.set(Calendar.HOUR_OF_DAY, hour);
+                sentinel.set(Calendar.MINUTE, minutes);
+                sentinel.set(Calendar.SECOND, 0);
+                sentinel.set(Calendar.MILLISECOND, 0);
+                if (!sentinel.after(after)) {
+                    sentinel.add(Calendar.DAY_OF_YEAR, 1);
+                }
+                return sentinel;
+            }
+
+            if (!isDatePaused(next)) {
+                return next;
+            }
+
+            Calendar pauseEndUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            pauseEndUtc.setTimeInMillis(pauseEndDate);
+            after = alarmTimeOnDate(
+                pauseEndUtc.get(Calendar.YEAR),
+                pauseEndUtc.get(Calendar.MONTH),
+                pauseEndUtc.get(Calendar.DAY_OF_MONTH));
+        }
+
+        // The jump above normally exits the pause in one pass. Retain a bounded fallback for
+        // malformed legacy pause data rather than recursively searching without limit.
+        Calendar fallback = getNextWeekdayOccurrence(after);
+        Calendar selectedFallback = getNextSelectedOccurrence(after);
+        Calendar next = earlier(fallback, selectedFallback);
+        return next != null ? next : after;
+    }
+
+    @NonNull
+    private Calendar inAlarmTimeZone(@NonNull Calendar time) {
+        Calendar result = Calendar.getInstance(getTimeZone());
+        result.setTimeInMillis(time.getTimeInMillis());
+        return result;
+    }
+
+    @NonNull
+    private Calendar alarmTimeOnDate(@NonNull Calendar date) {
+        Calendar localDate = inAlarmTimeZone(date);
+        return alarmTimeOnDate(localDate.get(Calendar.YEAR), localDate.get(Calendar.MONTH),
+            localDate.get(Calendar.DAY_OF_MONTH));
+    }
+
+    @NonNull
+    private Calendar alarmTimeOnDate(int year, int month, int day) {
+        Calendar result = Calendar.getInstance(getTimeZone());
+        result.clear();
+        result.set(year, month, day, hour, minutes, 0);
+        result.set(Calendar.MILLISECOND, 0);
+        return result;
+    }
+
+    @Nullable
+    private Calendar getNextWeekdayOccurrence(@NonNull Calendar after) {
+        Calendar date = inAlarmTimeZone(after);
+        int maxDays = 7 + combinedDays.getDeselectedDateCount() + combinedDays.getDismissedDateCount();
+        for (int offset = 0; offset < maxDays; offset++) {
+            Calendar candidate = alarmTimeOnDate(date);
+            if (candidate.after(after) && isWeekdayOccurrence(candidate)) {
+                return candidate;
+            }
+            date.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        return null;
+    }
+
+    private boolean isWeekdayOccurrence(@NonNull Calendar candidate) {
+        int year = candidate.get(Calendar.YEAR);
+        int month = candidate.get(Calendar.MONTH);
+        int day = candidate.get(Calendar.DAY_OF_MONTH);
+        return daysOfWeek.isBitOn(candidate.get(Calendar.DAY_OF_WEEK))
+            && !combinedDays.isDateDeselected(year, month, day)
+            && !combinedDays.isDateDismissed(year, month, day);
+    }
+
+    @Nullable
+    private Calendar getNextSelectedOccurrence(@NonNull Calendar after) {
+        for (String dateKey : combinedDays.getSelectedDates()) {
+            int[] date = CombinedDays.parseDateKey(dateKey);
+            Calendar candidate = alarmTimeOnDate(date[0], date[1], date[2]);
+            if (candidate.after(after)
+                && combinedDays.isDateActive(date[0], date[1], date[2], daysOfWeek)) {
+                return candidate;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns whether a dates-only alarm still has a selected occurrence after {@code after}.
+     */
+    public boolean hasFutureSelectedDate(@NonNull Calendar after) {
+        return getNextSelectedOccurrence(inAlarmTimeZone(after)) != null;
+    }
+
+    @Nullable
+    private static Calendar earlier(@Nullable Calendar first, @Nullable Calendar second) {
+        if (first == null) {
+            return second;
+        }
+        if (second == null) {
+            return first;
+        }
+        return first.before(second) ? first : second;
     }
 
     /**
@@ -1166,34 +1258,35 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.set(Calendar.SECOND, 0);
         result.set(Calendar.MILLISECOND, 0);
 
-        if (daysOfWeek.isRepeating()) {
-            // Calculate the next theoretical occurrence from the current time.
+        if (daysOfWeek.isRepeating() || combinedDays.hasSelectedDates()) {
+            // Repeating and multi-date alarms use the same canonical scheduler as the real
+            // AlarmManager instance so list ordering cannot diverge from their next trigger.
             return getNextAlarmTime(alarmNow);
-        } else {
-            if (isSpecifiedDate()) {
-                if (isDateInThePast()) {
-                    // Expired specific date → anchor to today at the alarm's time
-                    result.set(Calendar.YEAR, alarmNow.get(Calendar.YEAR));
-                    result.set(Calendar.MONTH, alarmNow.get(Calendar.MONTH));
-                    result.set(Calendar.DAY_OF_MONTH, alarmNow.get(Calendar.DAY_OF_MONTH));
-                    result.set(Calendar.HOUR_OF_DAY, hour);
-                    result.set(Calendar.MINUTE, minutes);
+        }
 
-                    // Shift to tomorrow if the time has already passed today
-                    if (result.getTimeInMillis() < alarmNow.getTimeInMillis()) {
-                        result.add(Calendar.DAY_OF_YEAR, 1);
-                    }
-                } else {
-                    // Apply the defined date and time for future or today's specified dates
-                    result.set(Calendar.YEAR, year);
-                    result.set(Calendar.MONTH, month);
-                    result.set(Calendar.DAY_OF_MONTH, day);
-                    result.set(Calendar.HOUR_OF_DAY, hour);
-                    result.set(Calendar.MINUTE, minutes);
+        if (isSpecifiedDate()) {
+            if (isDateInThePast()) {
+                // Expired specific date → anchor to today at the alarm's time.
+                result.set(Calendar.YEAR, alarmNow.get(Calendar.YEAR));
+                result.set(Calendar.MONTH, alarmNow.get(Calendar.MONTH));
+                result.set(Calendar.DAY_OF_MONTH, alarmNow.get(Calendar.DAY_OF_MONTH));
+                result.set(Calendar.HOUR_OF_DAY, hour);
+                result.set(Calendar.MINUTE, minutes);
+
+                // Shift to tomorrow if the time has already passed today.
+                if (result.getTimeInMillis() < alarmNow.getTimeInMillis()) {
+                    result.add(Calendar.DAY_OF_YEAR, 1);
                 }
-
-                return result;
+            } else {
+                // Apply the defined date and time for future or today's specified dates.
+                result.set(Calendar.YEAR, year);
+                result.set(Calendar.MONTH, month);
+                result.set(Calendar.DAY_OF_MONTH, day);
+                result.set(Calendar.HOUR_OF_DAY, hour);
+                result.set(Calendar.MINUTE, minutes);
             }
+
+            return result;
         }
 
         // Set alarms with no date and no repetition to today at the alarm time.
