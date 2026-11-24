@@ -962,7 +962,10 @@ public final class AlarmFragment extends DeskClockFragment
             return new GridLayoutManager(requireContext(), 3);
         }
 
-        if (isTablet() || isLandscape()) {
+        // Small landscape windows (like the cover screen of a flip phone) are too narrow for two columns
+        boolean isWideEnoughForTwoColumns = getResources().getConfiguration().screenWidthDp >= 560;
+
+        if (isTablet() || (isLandscape() && isWideEnoughForTwoColumns)) {
             return new GridLayoutManager(requireContext(), 2);
         }
 
