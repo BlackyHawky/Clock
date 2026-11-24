@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.PowerManager;
+import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
@@ -43,6 +44,14 @@ public class PermissionUtils {
     public static boolean isDNDPermissionEnabled(@NonNull Context context) {
         NotificationManager notificationManager = context.getApplicationContext().getSystemService(NotificationManager.class);
         return notificationManager.isNotificationPolicyAccessGranted();
+    }
+
+    /**
+     * @return {@code true} when "Display over other apps" permission is granted; {@code false} otherwise.
+     * Used to show alarms on the cover screen of a folded phone.
+     */
+    public static boolean canDrawOverlays(@NonNull Context context) {
+        return Settings.canDrawOverlays(context);
     }
 
     /**

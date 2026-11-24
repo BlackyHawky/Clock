@@ -277,6 +277,7 @@ public class PreferencesKeys {
     public static final String KEY_FULL_SCREEN_NOTIFICATION_PERMISSION = "key_full_screen_notification_permission";
     public static final String KEY_SHOW_LOCKSCREEN_PERMISSION = "key_show_lockscreen_permission";
     public static final String KEY_DND_PERMISSION = "key_dnd_permission";
+    public static final String KEY_COVER_SCREEN_PERMISSION = "key_cover_screen_permission";
     public static final String KEY_ENABLE_FOREGROUND_SERVICE = "key_enable_foreground_service";
 
     // **************
@@ -374,6 +375,12 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR = "key_next_alarm_widget_default_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR = "key_next_alarm_widget_custom_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_next_alarm_widget_maximum_font_size";
+
+    // *********************
+    // ** RINGTONE PICKER **
+    // *********************
+
+    public static final String KEY_IS_AUTO_PLAY_ENABLED = "key_is_auto_play_enabled";
 
     // ****************
     // ** FILE NAMES **

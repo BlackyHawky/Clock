@@ -20,7 +20,7 @@ public class AddButtonTipViewHolder extends RecyclerView.ViewHolder {
 
         RingtoneItemSoundBinding binding = RingtoneItemSoundBinding.bind(itemView);
 
-        binding.getRoot().setPadding(0, 0, 0, adapter.getDisplayMetricsPadding());
+        binding.getRoot().setPadding(0, 0, 0, adapter.getTipPadding());
 
         binding.ringtoneImage.setImageDrawable(adapter.getAboutIcon());
         binding.ringtoneImage.setPadding(0, 0, 0, 0);

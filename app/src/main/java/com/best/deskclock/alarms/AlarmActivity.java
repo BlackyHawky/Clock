@@ -57,6 +57,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -100,7 +101,9 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class AlarmActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener, SensorEventListener {
 
@@ -117,6 +120,22 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     public static final int MISSION_ACTION_SNOOZE = 1;
     public static final int MISSION_ACTION_DISMISS = 2;
+
+    /**
+     * Keys ("instanceId@displayId") of alarm instances that have a started AlarmActivity on a display.
+     * Only used on the main thread. The full-screen notification and the cover screen launch can both
+     * start this activity for the same alarm. We only drop a copy when the same display already shows
+     * one, so the guard never hides an alarm screen the user might be looking at.
+     */
+    private static final Set<String> sShownKeys = new HashSet<>();
+
+    /**
+     * Ids of alarm instances already snoozed or dismissed by a copy of this activity, so another copy
+     * doesn't do it again. Main thread only. AlarmService removes the id when the instance rings again.
+     */
+    private static final Set<Long> sHandledInstanceIds = new HashSet<>();
+
+    private static int sLiveActivityCount = 0;
 
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -139,6 +158,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private Alarm mAlarm;
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
+    // Key this activity added to sShownKeys, null if none.
+    private String mShownKey;
     private VolumeButtonBehavior mVolumeBehavior;
     private PowerButtonBehavior mPowerBehavior;
     private HeadphonesButtonBehavior mHeadphonesButtonBehavior;
@@ -233,6 +254,20 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sLiveActivityCount++;
+
+        final long instanceId = getIntentInstanceId();
+        final int displayId = getCurrentDisplayId();
+        if (instanceId != -1 && isAlreadyClaimedByAnotherCopy(instanceId, displayId)
+            && AlarmNotifications.ACTION_FULLSCREEN_ACTIVITY.equals(getIntent().getAction())) {
+            LOGGER.i("Instance %d is already shown on displayId=%d, closing duplicate on displayId=%d",
+                instanceId, displayId, displayId);
+            finish();
+            return;
+        }
+
+        LOGGER.i("Showing instance %d on displayId=%d", instanceId, displayId);
 
         mActivityStartTime = SystemClock.elapsedRealtime();
 
@@ -414,7 +449,44 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Claim again after onStop() released it. If another copy took it meanwhile, keep running:
+        // this activity may already be visible, so we never close it here.
+        final long instanceId = getIntentInstanceId();
+        if (instanceId != -1 && !isFinishing() && !mAlarmHandled) {
+            final int displayId = getCurrentDisplayId();
+            if (isAlreadyClaimedByAnotherCopy(instanceId, displayId)) {
+                LOGGER.i("Instance %d is already claimed on displayId=%d, keeping this copy anyway", instanceId, displayId);
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        // A stopped activity may never get finished (e.g. alarm snoozed from the notification),
+        // so it must not block a later full-screen launch of the same instance.
+        releaseShownInstance();
+
+        super.onStop();
+    }
+
+    @Override
+    public void finish() {
+        releaseShownInstance();
+        super.finish();
+    }
+
+    @Override
     protected void onDestroy() {
+        releaseShownInstance();
+
+        if (--sLiveActivityCount <= 0) {
+            sLiveActivityCount = 0;
+            sHandledInstanceIds.clear();
+        }
+
         unbindAlarmService();
 
         if (mPowerBtnReceiverRegistered) {
@@ -697,6 +769,89 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             v.setPadding(0, bars.top, 0, 0);
         });
+    }
+
+    /**
+     * @return the alarm instance id from the intent data, or -1 if there is none.
+     */
+    private long getIntentInstanceId() {
+        final Intent intent = getIntent();
+        final Uri dataUri = intent != null ? intent.getData() : null;
+        return dataUri != null ? AlarmInstance.getId(dataUri) : -1;
+    }
+
+    /**
+     * @return the id of the display this activity is on.
+     */
+    @SuppressWarnings("deprecation")
+    private int getCurrentDisplayId() {
+        if (SdkUtils.isAtLeastAndroid11()) {
+            final Display display = getDisplay();
+            if (display != null) {
+                return display.getDisplayId();
+            }
+        }
+
+        return getWindowManager().getDefaultDisplay().getDisplayId();
+    }
+
+    /**
+     * Marks this activity as the one showing the given alarm instance on the given display,
+     * unless another copy on the same display already holds the key.
+     *
+     * @return {@code true} if another copy on the same display already holds the key;
+     *         {@code false} if this activity holds it.
+     */
+    private boolean isAlreadyClaimedByAnotherCopy(long instanceId, int displayId) {
+        final String key = instanceId + "@" + displayId;
+        if (key.equals(mShownKey)) {
+            return false;
+        }
+
+        if (!sShownKeys.add(key)) {
+            return true;
+        }
+
+        // The activity may have moved to another display since its last claim.
+        releaseShownInstance();
+        mShownKey = key;
+        return false;
+    }
+
+    /**
+     * Removes the key registered by this activity, if any.
+     */
+    private void releaseShownInstance() {
+        if (mShownKey != null) {
+            sShownKeys.remove(mShownKey);
+            mShownKey = null;
+        }
+    }
+
+    /**
+     * Called by AlarmService when an instance starts ringing. A snoozed alarm rings again with the
+     * same id, so its alarm screens must be able to handle it again.
+     */
+    static void onInstanceFired(long instanceId) {
+        sHandledInstanceIds.remove(instanceId);
+    }
+
+    /**
+     * Closes this copy if another copy already snoozed or dismissed the alarm.
+     *
+     * @return {@code true} if it was already handled.
+     */
+    private boolean closeIfHandledElsewhere() {
+        if (mAlarmInstance == null || !sHandledInstanceIds.contains(mAlarmInstance.mId)) {
+            return false;
+        }
+
+        LOGGER.i("Instance %d was already snoozed or dismissed by another copy, closing this one",
+            mAlarmInstance.mId);
+        mAlarmHandled = true;
+        unbindAlarmService();
+        finish();
+        return true;
     }
 
     private void initAlarmAndInstance() {
@@ -1386,7 +1541,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void requestAlarmAction(int action) {
-        if (mAlarmHandled) {
+        if (mAlarmHandled || closeIfHandledElsewhere()) {
             return;
         }
 
@@ -1430,7 +1585,17 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * otherwise, send snooze intent.
      */
     private void snooze() {
+        if (closeIfHandledElsewhere()) {
+            return;
+        }
+
+        sHandledInstanceIds.add(mAlarmInstance.mId);
+
         mAlarmHandled = true;
+
+        // A copy showing the confirmation must not block the next firing of this instance.
+        releaseShownInstance();
+
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
         final Context appContext = getApplicationContext();
@@ -1478,7 +1643,17 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Perform dismiss animation and send dismiss intent.
      */
     private void dismiss() {
+        if (closeIfHandledElsewhere()) {
+            return;
+        }
+
+        sHandledInstanceIds.add(mAlarmInstance.mId);
+
         mAlarmHandled = true;
+
+        // A copy showing the confirmation must not block the next firing of this instance.
+        releaseShownInstance();
+
         LOGGER.v("Dismissed: %s", mAlarmInstance);
 
         final Context appContext = getApplicationContext();
