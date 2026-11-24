@@ -594,11 +594,11 @@ public class AlarmService extends Service {
     }
 
     /**
-     * @return {@code true} if the given instance is the alarm ringing now; {@code false} otherwise.
+     * @return {@code true} if the given instance is not the alarm ringing now; {@code false} otherwise.
      * Used by the delayed cover screen launch. Main thread only.
      */
-    boolean isFiring(long instanceId) {
-        return mCurrentAlarm != null && mCurrentAlarm.mId == instanceId;
+    boolean isNotFiring(long instanceId) {
+        return mCurrentAlarm == null || mCurrentAlarm.mId != instanceId;
     }
 
     private void startAlarm(@NonNull AlarmInstance instance) {

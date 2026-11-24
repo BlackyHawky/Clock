@@ -224,7 +224,7 @@ public class PermissionsManagementPreference extends Preference {
             titleId = R.string.FSN_dialog_title;
             messageId = R.string.FSN_dialog_text;
         } else if (isCoverScreenPermissionPreference()) {
-            iconId = R.drawable.ic_fullscreen;
+            iconId = R.drawable.ic_devices_fold;
             titleId = R.string.cover_screen_dialog_title;
             messageId = R.string.cover_screen_dialog_text;
         } else {

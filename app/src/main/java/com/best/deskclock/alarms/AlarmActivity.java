@@ -57,6 +57,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -133,6 +134,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * doesn't do it again. Main thread only. AlarmService removes the id when the instance rings again.
      */
     private static final Set<Long> sHandledInstanceIds = new HashSet<>();
+
+    private static int sLiveActivityCount = 0;
 
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -252,9 +255,11 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        sLiveActivityCount++;
+
         final long instanceId = getIntentInstanceId();
         final int displayId = getCurrentDisplayId();
-        if (instanceId != -1 && !claimShownInstance(instanceId, displayId)
+        if (instanceId != -1 && isAlreadyClaimedByAnotherCopy(instanceId, displayId)
             && AlarmNotifications.ACTION_FULLSCREEN_ACTIVITY.equals(getIntent().getAction())) {
             LOGGER.i("Instance %d is already shown on displayId=%d, closing duplicate on displayId=%d",
                 instanceId, displayId, displayId);
@@ -452,9 +457,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final long instanceId = getIntentInstanceId();
         if (instanceId != -1 && !isFinishing() && !mAlarmHandled) {
             final int displayId = getCurrentDisplayId();
-            if (!claimShownInstance(instanceId, displayId)) {
-                LOGGER.i("Instance %d is already claimed on displayId=%d, keeping this copy anyway",
-                    instanceId, displayId);
+            if (isAlreadyClaimedByAnotherCopy(instanceId, displayId)) {
+                LOGGER.i("Instance %d is already claimed on displayId=%d, keeping this copy anyway", instanceId, displayId);
             }
         }
     }
@@ -477,6 +481,11 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onDestroy() {
         releaseShownInstance();
+
+        if (--sLiveActivityCount <= 0) {
+            sLiveActivityCount = 0;
+            sHandledInstanceIds.clear();
+        }
 
         unbindAlarmService();
 
@@ -774,30 +783,39 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     /**
      * @return the id of the display this activity is on.
      */
+    @SuppressWarnings("deprecation")
     private int getCurrentDisplayId() {
+        if (SdkUtils.isAtLeastAndroid11()) {
+            final Display display = getDisplay();
+            if (display != null) {
+                return display.getDisplayId();
+            }
+        }
+
         return getWindowManager().getDefaultDisplay().getDisplayId();
     }
 
     /**
-     * Marks this activity as the one showing the given alarm instance on the given display.
+     * Marks this activity as the one showing the given alarm instance on the given display,
+     * unless another copy on the same display already holds the key.
      *
-     * @return {@code true} if this activity holds the key; {@code false} if another copy on the same
-     * display does.
+     * @return {@code true} if another copy on the same display already holds the key;
+     *         {@code false} if this activity holds it.
      */
-    private boolean claimShownInstance(long instanceId, int displayId) {
+    private boolean isAlreadyClaimedByAnotherCopy(long instanceId, int displayId) {
         final String key = instanceId + "@" + displayId;
         if (key.equals(mShownKey)) {
-            return true;
+            return false;
         }
 
         if (!sShownKeys.add(key)) {
-            return false;
+            return true;
         }
 
         // The activity may have moved to another display since its last claim.
         releaseShownInstance();
         mShownKey = key;
-        return true;
+        return false;
     }
 
     /**
@@ -1572,9 +1590,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         sHandledInstanceIds.add(mAlarmInstance.mId);
+
         mAlarmHandled = true;
+
         // A copy showing the confirmation must not block the next firing of this instance.
         releaseShownInstance();
+
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
         final Context appContext = getApplicationContext();
@@ -1627,9 +1648,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         sHandledInstanceIds.add(mAlarmInstance.mId);
+
         mAlarmHandled = true;
+
         // A copy showing the confirmation must not block the next firing of this instance.
         releaseShownInstance();
+
         LOGGER.v("Dismissed: %s", mAlarmInstance);
 
         final Context appContext = getApplicationContext();

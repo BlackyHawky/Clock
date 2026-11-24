@@ -58,7 +58,7 @@ public final class CoverScreenAlarmLauncher {
     /**
      * A launch still waiting for the hinge angle or the display state. Main thread only.
      */
-    static final class PendingLaunch {
+    public static final class PendingLaunch {
         private final long mInstanceId;
         // Token for all posted callbacks, so cancel() removes only ours.
         private final Object mToken = new Object();
@@ -67,7 +67,7 @@ public final class CoverScreenAlarmLauncher {
         private SensorManager mSensorManager;
         @Nullable
         private SensorEventListener mListener;
-        // Set once launched, skipped or cancelled.
+        // Set once launched, skipped or canceled.
         private boolean mDone;
 
         private PendingLaunch(long instanceId) {
@@ -82,6 +82,8 @@ public final class CoverScreenAlarmLauncher {
             mHandler.removeCallbacksAndMessages(mToken);
             if (mSensorManager != null && mListener != null) {
                 mSensorManager.unregisterListener(mListener);
+                mSensorManager = null;
+                mListener = null;
             }
 
             if (!mDone) {
@@ -112,6 +114,11 @@ public final class CoverScreenAlarmLauncher {
 
             if (!Settings.canDrawOverlays(service)) {
                 LogUtils.i("CoverScreen: skip, 'Display over other apps' is not allowed");
+                return null;
+            }
+
+            if (!hasBuiltInSecondDisplay(service)) {
+                LogUtils.i("CoverScreen: skip, no built-in second display found");
                 return null;
             }
 
@@ -233,7 +240,7 @@ public final class CoverScreenAlarmLauncher {
             return;
         }
 
-        if (!service.isFiring(instance.mId)) {
+        if (service.isNotFiring(instance.mId)) {
             pending.mDone = true;
             LogUtils.i("CoverScreen: skip, instance %d is no longer firing", instance.mId);
             return;
@@ -253,7 +260,7 @@ public final class CoverScreenAlarmLauncher {
 
         pending.mDone = true;
 
-        if (!service.isFiring(instance.mId)) {
+        if (service.isNotFiring(instance.mId)) {
             LogUtils.i("CoverScreen: skip, instance %d is no longer firing", instance.mId);
             return;
         }
@@ -376,7 +383,6 @@ public final class CoverScreenAlarmLauncher {
 
         return null;
     }
-
 
     @NonNull
     private static String stateToString(int state) {
