@@ -126,7 +126,7 @@
     <string name="dates_added_only_count">%1$d added</string>
     <string name="dates_summary_added">+%1$d</string>
     <string name="dates_summary_excluded">-%1$d</string>
-    <string name="dates_summary_added_excluded">+%1$d, -%2$d</string>
+    <string name="dates_summary_added_excluded">+%1$d -%2$d</string>
     <string name="alarm_dates_count">%1$d scheduled dates</string>
     <string name="no_dates_excluded">No date exceptions</string>
     <string name="no_dates_selected">No extra dates selected</string>
