@@ -59,7 +59,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CustomTooltip;
@@ -114,11 +113,27 @@ public class ThemeUtils {
     }
 
     /**
+     * @return {@code true} if the given context's configuration is in portrait orientation.
+     * {@code false} otherwise.
+     */
+    public static boolean isPortrait(@NonNull Context context) {
+        return context.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT;
+    }
+
+    /**
      * @return {@code true} if the device is currently in landscape or reverse landscape orientation.
      * {@code false} otherwise.
      */
     public static boolean isLandscape() {
         return Resources.getSystem().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * @return {@code true} if the given context's configuration is in landscape orientation.
+     * {@code false} otherwise.
+     */
+    public static boolean isLandscape(@NonNull Context context) {
+        return context.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
     }
 
     /**
@@ -814,7 +829,7 @@ public class ThemeUtils {
         int paddingRight = recyclerView.getPaddingRight();
         int paddingBottom = recyclerView.getPaddingBottom();
 
-        boolean isLandscapePhone = (!isPortrait() || DeskClock.isUsingAreaAboveCutout(context)) && !isTablet();
+        boolean isLandscapePhone = !isPortrait(context) && !isTablet();
 
         if (isLandscapePhone) {
             if (isRTL(context)) {

@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -78,11 +77,9 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
         mLocale = Utils.getLocaleFromContext(requireContext());
-        // DeskClock may lay out the area above the cameras of a flip phone cover screen as landscape
-        boolean isUsingAreaAboveCutout = DeskClock.isUsingAreaAboveCutout(requireContext());
         mIsTablet = ThemeUtils.isTablet();
-        mIsPortrait = !isUsingAreaAboveCutout && ThemeUtils.isPortrait();
-        mIsLandscape = isUsingAreaAboveCutout || ThemeUtils.isLandscape();
+        mIsPortrait = ThemeUtils.isPortrait(requireContext());
+        mIsLandscape = ThemeUtils.isLandscape(requireContext());
         mIsRtl = ThemeUtils.isRTL(requireContext());
         mIsCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
         mIsCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
