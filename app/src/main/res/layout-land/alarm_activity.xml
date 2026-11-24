@@ -33,14 +33,14 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="@fraction/alarm_landscape_middle_guide_percent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/alarm_landscape_vertical_end_guide"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.75" />
+            app:layout_constraintGuide_percent="@fraction/alarm_landscape_end_guide_percent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/alarm_landscape_horizontal_end_guide"

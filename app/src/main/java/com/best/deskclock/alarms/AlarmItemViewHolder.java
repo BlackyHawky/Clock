@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
-import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -287,7 +286,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     private void bindUpcomingDate(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
         if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()) {
             mBinding.upcomingDate.setVisibility(GONE);
-            mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
+            mBinding.digitalClock.applyUserPreferredTextSizeSp(48);
             return;
         }
 
@@ -313,7 +312,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
         if (diffInDays < 6) {
             mBinding.upcomingDate.setVisibility(GONE);
-            mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
+            mBinding.digitalClock.applyUserPreferredTextSizeSp(48);
             return;
         }
 
@@ -325,7 +324,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.upcomingDate.setVisibility(VISIBLE);
 
         boolean hasLabel = alarm.label != null && !alarm.label.isEmpty();
-        mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, hasLabel ? 32 : 48);
+        mBinding.digitalClock.applyUserPreferredTextSizeSp(hasLabel ? 32 : 48);
     }
 
     private void bindPreemptiveDismissButton(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
