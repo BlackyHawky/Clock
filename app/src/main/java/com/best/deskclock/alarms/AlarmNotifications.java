@@ -52,6 +52,11 @@ public final class AlarmNotifications {
     public static final String EXTRA_MISSED_ALARM_INSTANCE_ID = "extra_missed_alarm_instance_id";
 
     /**
+     * Action of the intent used by the full-screen notification and the cover screen launch.
+     */
+    static final String ACTION_FULLSCREEN_ACTIVITY = "fullscreen_activity";
+
+    /**
      * Formats times such that chronological order and lexicographical order agree.
      */
     private static final DateFormat SORT_KEY_FORMAT =
@@ -413,6 +418,17 @@ public final class AlarmNotifications {
         updateMissedAlarmGroupNotification(context, -1, notification);
     }
 
+    /**
+     * @return the intent that opens AlarmActivity in full screen for the given alarm instance.
+     */
+    static Intent createFullScreenIntent(@NonNull Context context, @NonNull AlarmInstance instance) {
+        Intent fullScreenIntent = AlarmInstance.createIntent(context, AlarmActivity.class, instance.mId);
+        // Set action, so we can be different from content pending intent
+        fullScreenIntent.setAction(ACTION_FULLSCREEN_ACTIVITY);
+        fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+        return fullScreenIntent;
+    }
+
     @SuppressLint("FullScreenIntentPolicy")
     static synchronized void showAlarmNotification(@NonNull Context context, @NonNull AlarmInstance instance,
                                                    @NonNull String languageCode, int globalIntentId) {
@@ -478,10 +494,7 @@ public final class AlarmNotifications {
         notification.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
 
         // Setup fullscreen intent
-        Intent fullScreenIntent = AlarmInstance.createIntent(context, AlarmActivity.class, instance.mId);
-        // Set action, so we can be different from content pending intent
-        fullScreenIntent.setAction("fullscreen_activity");
-        fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+        Intent fullScreenIntent = createFullScreenIntent(context, instance);
         notification.setFullScreenIntent(PendingIntent.getActivity(context, ALARM_FIRING_NOTIFICATION_ID, fullScreenIntent,
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE), true);
 
