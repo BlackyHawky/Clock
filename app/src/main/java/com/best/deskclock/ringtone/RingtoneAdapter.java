@@ -26,6 +26,7 @@ import java.util.List;
 
 public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public static final int VIEW_TYPE_AUTOPLAY_SWITCH = R.layout.ringtone_item_autoplay;
     public static final int VIEW_TYPE_SYSTEM_SOUND = R.layout.ringtone_item_sound;
     public static final int VIEW_TYPE_CUSTOM_SOUND = -R.layout.ringtone_item_sound;
     public static final int VIEW_TYPE_HEADER = R.layout.ringtone_item_header;
@@ -35,23 +36,27 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final UiConfig.Fonts mFonts;
     private final OnRingtoneClickListener mListener;
 
-    private final int mDisplayMetricsPadding;
+    private final int mTipPadding;
 
     private final Drawable mRandomIcon;
     private final Drawable mErrorIcon;
     private final Drawable mSilentIcon;
     private final Drawable mAboutIcon;
+    private final Drawable mPlayIcon;
+    private final Drawable mStopIcon;
     private final int mTipTextColor;
     private final String mTipText;
+    private boolean mIsAutoPlayEnabled;
     private final Drawable.ConstantState mBgSelectedState;
     private final Drawable.ConstantState mBgUnselectedState;
 
     public RingtoneAdapter(@NonNull Context context, @NonNull UiConfig.Fonts fonts, @NonNull UiConfig.Screen screen,
-                           boolean isAmoledDarkMode, @NonNull OnRingtoneClickListener listener) {
+                           boolean isAmoledDarkMode, boolean isAutoPlayEnabled, @NonNull OnRingtoneClickListener listener) {
 
         mFonts = fonts;
         mListener = listener;
-        mDisplayMetricsPadding = (int) dpToPx(20, screen.metrics());
+        mTipPadding = (int) dpToPx(20, screen.metrics());
+        mIsAutoPlayEnabled = isAutoPlayEnabled;
 
         int colorSelected = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         int colorUnselected;
@@ -80,6 +85,20 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mSilentIcon = null;
         }
 
+        Drawable playIcon = AppCompatResources.getDrawable(context, R.drawable.ic_play_circle);
+        if (playIcon != null) {
+            mPlayIcon = playIcon.mutate();
+        } else {
+            mPlayIcon = null;
+        }
+
+        Drawable stopIcon = AppCompatResources.getDrawable(context, R.drawable.ic_stop_circle);
+        if (stopIcon != null) {
+            mStopIcon = stopIcon.mutate();
+        } else {
+            mStopIcon = null;
+        }
+
         mBgSelectedState = ThemeUtils.rippleDrawable(context, screen.metrics(), colorSelected).getConstantState();
         mBgUnselectedState = ThemeUtils.rippleDrawable(context, screen.metrics(), colorUnselected).getConstantState();
 
@@ -95,9 +114,12 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public Drawable.ConstantState getBgSelectedState() { return mBgSelectedState; }
     public Drawable.ConstantState getBgUnselectedState() { return mBgUnselectedState; }
     public Drawable getAboutIcon() { return mAboutIcon; }
+    public Drawable getPlayIcon() { return mPlayIcon; }
+    public Drawable getStopIcon() { return mStopIcon; }
     public int getTipTextColor() { return mTipTextColor; }
     public String getTipText() { return mTipText; }
-    public int getDisplayMetricsPadding() { return mDisplayMetricsPadding; }
+    public boolean isAutoPlayEnabled() { return mIsAutoPlayEnabled; }
+    public int getTipPadding() { return mTipPadding; }
 
     @Override
     public int getItemViewType(int position) {
@@ -113,6 +135,8 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return new HeaderViewHolder(inflater.inflate(viewType, parent, false), mFonts);
         } else if (viewType == VIEW_TYPE_BUTTON_TIP) {
             return new AddButtonTipViewHolder(inflater.inflate(R.layout.ringtone_item_sound, parent, false), this, mFonts);
+        } else if (viewType == VIEW_TYPE_AUTOPLAY_SWITCH) {
+            return new AutoplaySwitchViewHolder(inflater.inflate(viewType, parent, false), this, mFonts);
         } else {
             return new RingtoneViewHolder(inflater.inflate(Math.abs(viewType), parent, false), this, mFonts);
         }
@@ -126,6 +150,8 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ringtoneViewHolder.bind((RingtoneHolder) item, mListener);
         } else if (holder instanceof HeaderViewHolder headerViewHolder) {
             headerViewHolder.bind((HeaderHolder) item);
+        } else if (holder instanceof AutoplaySwitchViewHolder switchViewHolder) {
+            switchViewHolder.bind(mIsAutoPlayEnabled, mListener);
         }
     }
 
@@ -140,6 +166,12 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
+    public void setAutoPlayEnabled(boolean enabled) {
+        mIsAutoPlayEnabled = enabled;
+
+        notifyItemRangeChanged(1, mItems.size() - 1);
+    }
+
     public List<RingtoneItem> getItems() {
         return mItems;
     }
@@ -151,7 +183,11 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public interface OnRingtoneClickListener {
         void onRingtoneClick(@NonNull RingtoneHolder holder);
 
+        void onPlayRingtoneClick(@NonNull RingtoneHolder holder);
+
         void onRemoveRingtoneClick(@NonNull RingtoneHolder holder);
+
+        void onAutoPlayToggled(boolean isEnabled);
     }
 
 }

@@ -623,6 +623,8 @@
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
     <!-- Label for adding a new ringtone sound [CHAR LIMIT=30]-->
     <string name="add_new_sound">Add new</string>
+    <!-- Title to enable/disable autoplay when a ringtone is selected in the ringtone picker -->
+    <string name="autoplay_ringtone_title">Autoplay when selected</string>
     <!-- Tip for the "+" button in the ringtone picker -->
     <string name="button_tip_title">Long press the \"+\" button to add a folder</string>
     <!-- Label for removing a ringtone sound [CHAR LIMIT=30] -->

@@ -376,6 +376,12 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR = "key_next_alarm_widget_custom_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_next_alarm_widget_maximum_font_size";
 
+    // *********************
+    // ** RINGTONE PICKER **
+    // *********************
+
+    public static final String KEY_IS_AUTO_PLAY_ENABLED = "key_is_auto_play_enabled";
+
     // ****************
     // ** FILE NAMES **
     // ****************

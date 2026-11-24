@@ -208,11 +208,25 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the Debug settings are displayed for release versions.
-     * {@code false} otherwise.
+     * @return {@code true} if the Debug settings are displayed for release versions. {@code false} otherwise.
      */
     public static boolean isDebugSettingsDisplayed(@NonNull SharedPreferences prefs) {
         return prefs.getBoolean(KEY_DISPLAY_DEBUG_SETTINGS, DEFAULT_DISPLAY_DEBUG_SETTINGS);
+    }
+
+    /**
+     * @return {@code true} if a ringtone is played automatically after being selected in the ringtone picker;
+     * {@code false} otherwise.
+     */
+    public static boolean isAutoPlayEnabled(@NonNull SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_IS_AUTO_PLAY_ENABLED, true);
+    }
+
+    /**
+     * Enables automatic ringtone playback after selecting it in the ringtone picker.
+     */
+    public static void setAutoPlayEnabled(@NonNull SharedPreferences prefs, boolean isEnabled) {
+        prefs.edit().putBoolean(KEY_IS_AUTO_PLAY_ENABLED, isEnabled).apply();
     }
 
     /**
