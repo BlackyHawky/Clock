@@ -6,9 +6,15 @@
 
 package com.best.deskclock.utils;
 
+import android.content.Context;
+import android.os.Build;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -65,4 +71,33 @@ public class InsetsUtils {
             });
         }
     }
+
+    /**
+     * Some flip phones do not report the cameras of the cover screen in the window insets
+     * when the app uses the full cover screen, but the window metrics do.
+     *
+     * @return the height of the display cutout at the bottom of the window, or 0 if there is none.
+     */
+    public static int getBottomCutoutHeight(@NonNull Context context) {
+        if (!SdkUtils.isAtLeastAndroid11()) {
+            return 0;
+        }
+
+        WindowManager windowManager = context.getSystemService(WindowManager.class);
+        if (windowManager == null) {
+            return 0;
+        }
+
+        return getBottomCutoutHeight(windowManager.getCurrentWindowMetrics());
+    }
+
+    /**
+     * @return the bottom display cutout inset of the given window metrics, never more than the window height.
+     */
+    @RequiresApi(Build.VERSION_CODES.R)
+    public static int getBottomCutoutHeight(@NonNull WindowMetrics windowMetrics) {
+        int cutoutHeight = windowMetrics.getWindowInsets().getInsets(WindowInsets.Type.displayCutout()).bottom;
+        return Math.min(cutoutHeight, windowMetrics.getBounds().height());
+    }
+
 }

@@ -78,8 +78,8 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
         mLocale = Utils.getLocaleFromContext(requireContext());
         mIsTablet = ThemeUtils.isTablet();
-        mIsPortrait = ThemeUtils.isPortrait();
-        mIsLandscape = ThemeUtils.isLandscape();
+        mIsPortrait = ThemeUtils.isPortrait(requireContext());
+        mIsLandscape = ThemeUtils.isLandscape(requireContext());
         mIsRtl = ThemeUtils.isRTL(requireContext());
         mIsCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
         mIsCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
