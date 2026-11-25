@@ -364,7 +364,7 @@ public class ScreensaverUtils {
             boolean isAlarmVisible = false;
 
             if (isNextAlarmDisplayed) {
-                isAlarmVisible = AlarmUtils.refreshAlarm(binding.saverContainer, isUppercase, true, isDateItalic, isNextAlarmItalic);
+                isAlarmVisible = AlarmUtils.refreshAlarm(binding.saverContainer, 16, isUppercase, true, isDateItalic, isNextAlarmItalic);
             } else {
                 binding.dateAndNextAlarmTime.nextAlarmIcon.setVisibility(View.GONE);
                 binding.dateAndNextAlarmTime.nextAlarm.setVisibility(View.GONE);
@@ -413,7 +413,7 @@ public class ScreensaverUtils {
      * Main entry point to configure the screensaver views, including background and clock styles.
      */
     public static void setupScreensaverView(@NonNull View view, @NonNull ScreensaverSettings settings,
-                                            @NonNull DisplayMetrics displayMetrics, boolean isLandscape,
+                                            @NonNull DisplayMetrics displayMetrics, boolean isTablet, boolean isLandscape,
                                             @Nullable Runnable onImageLoaded) {
 
         final ImageView backgroundImage = view.findViewById(R.id.screensaver_background_image);
@@ -421,7 +421,7 @@ public class ScreensaverUtils {
 
         loadBackgroundImage(backgroundImage, settings, onImageLoaded);
 
-        configureClocks(mainClockView, settings, displayMetrics, isLandscape);
+        configureClocks(mainClockView, settings, displayMetrics, isTablet, isLandscape);
 
         configureSecondaryElements(mainClockView, settings);
     }
@@ -475,7 +475,7 @@ public class ScreensaverUtils {
      * Sets up the analog or digital clock based on the user's selected style and preferences.
      */
     private static void configureClocks(@NonNull View mainClockView, @NonNull ScreensaverSettings settings,
-                                        @NonNull DisplayMetrics displayMetrics, boolean isLandscape) {
+                                        @NonNull DisplayMetrics displayMetrics, boolean isTablet, boolean isLandscape) {
 
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
         final AutoSizingTextClock textClock = mainClockView.findViewById(R.id.digital_clock);
@@ -502,7 +502,15 @@ public class ScreensaverUtils {
 
             applyBrightness(textClock, settings.brightnessPercentage, settings.clockColor, null);
         } else {
-            ClockUtils.adjustAnalogClockSize(analogClock, displayMetrics, settings.analogClockSize, isLandscape);
+            ClockUtils.adjustAnalogClockSize(
+                analogClock,
+                displayMetrics,
+                settings.analogClockSize,
+                false,
+                isTablet,
+                isLandscape
+            );
+
             ClockUtils.setAnalogClockSecondsEnabled(settings.clockStyle, analogClock, settings.areClockSecondsEnabled);
 
             if (settings.clockStyle == ClockStyle.ANALOG_MATERIAL) {

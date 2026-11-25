@@ -71,36 +71,12 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:key="key_display_next_alarm"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/display_next_alarm_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
         <Preference
             android:key="key_digital_clock_font"
             android:layout="@layout/settings_preference_layout"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:title="@string/custom_font_title" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="key_font_category"
-        android:title="@string/font_category_title"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
-
-        <SwitchPreferenceCompat
-            android:key="key_display_text_uppercase"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/display_text_uppercase_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_digital_clock_font_size"
@@ -111,6 +87,40 @@
             android:max="200"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_display_next_alarm"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_next_alarm_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_display_text_uppercase"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_date_uppercase_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_date_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/date_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="16"
+            android:max="30"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="key_font_category"
+        android:title="@string/font_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
 
     </PreferenceCategory>
 
@@ -143,6 +153,56 @@
             android:title="@string/enable_city_note_title"
             android:summary="@string/enable_city_note_summary"
             android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_city_name_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/city_name_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="18"
+            android:max="30"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_city_time_difference_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/city_difference_time_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="16"
+            android:max="30"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_city_note_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/city_note_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="16"
+            android:max="30"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_city_digital_clock_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/city_digital_clock_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="24"
+            android:max="30"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_city_analog_clock_size"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/city_analog_clock_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="70"
+            android:max="100"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

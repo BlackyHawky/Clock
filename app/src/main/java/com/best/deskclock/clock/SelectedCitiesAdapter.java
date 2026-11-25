@@ -100,7 +100,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             if (payloads.contains(PAYLOAD_UPDATE_SETTINGS)) {
                 cityViewHolder.applySettings();
-                cityViewHolder.updateBackground();
 
                 cityViewHolder.bind(getCity(position));
             } else if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {

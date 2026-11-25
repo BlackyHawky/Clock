@@ -133,7 +133,11 @@ public final class Screensaver extends DreamService {
         ThemeUtils.hideSystemBars(getWindow(), mBinding.saverContainer);
 
         ScreensaverUtils.setupScreensaverView(
-            mBinding.saverContainer, mSettings, getResources().getDisplayMetrics(), ThemeUtils.isLandscape(), () -> {
+            mBinding.saverContainer,
+            mSettings,
+            getResources().getDisplayMetrics(),
+            ThemeUtils.isTablet(),
+            ThemeUtils.isLandscape(), () -> {
                 mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage, mUiDataModel);
                 mBackgroundAnimator.start();
             }

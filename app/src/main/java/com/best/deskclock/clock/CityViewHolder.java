@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
+import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -80,13 +81,15 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
             );
             mBinding.digitalClock.setTypeface(fonts.clockFont());
 
+            mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, settings.cityDigitalClockSize);
+
             ClockUtils.setDigitalClockTimeFormat(
                 mBinding.digitalClock, false, 0.3f, fonts.clockBoldFont(), "sans-serif", Typeface.BOLD, false);
 
             mBinding.digitalClock.setVisibility(View.VISIBLE);
         } else {
             mBinding.digitalClock.setVisibility(View.GONE);
-            mBinding.analogClock.setVisibility(View.VISIBLE);
+
             mBinding.analogClock.enableSeconds(false);
 
             mBinding.analogClock.configure(
@@ -99,7 +102,22 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
                 0,
                 false
             );
+
+            ClockUtils.adjustAnalogClockSize(
+                mBinding.analogClock,
+                screen.metrics(),
+                settings.cityAnalogClockSize,
+                true,
+                screen.isTablet(),
+                screen.isLandscape()
+            );
+
+            mBinding.analogClock.setVisibility(View.VISIBLE);
         }
+
+        mBinding.worldClockCityContainer.cityName.setTextSize(TypedValue.COMPLEX_UNIT_SP, settings.cityNameSize);
+        mBinding.worldClockCityContainer.hoursAhead.setTextSize(TypedValue.COMPLEX_UNIT_SP, settings.cityTimeDifferenceSize);
+        mBinding.worldClockCityContainer.cityNote.setTextSize(TypedValue.COMPLEX_UNIT_SP, settings.cityNoteSize);
     }
 
     public void bind(@NonNull City city) {
