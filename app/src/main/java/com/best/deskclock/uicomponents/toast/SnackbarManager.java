@@ -25,7 +25,8 @@ public final class SnackbarManager {
 
     public static void show(@NonNull Snackbar snackbar, @NonNull Typeface typeface) {
         sSnackbar = new WeakReference<>(snackbar);
-        if (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) {
+
+        if (ThemeUtils.isTablet() || ThemeUtils.isPortrait(snackbar.getContext())) {
             snackbar.setAnchorView(R.id.desk_clock_button_layout);
         }
 

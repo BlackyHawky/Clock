@@ -35,15 +35,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -93,6 +98,7 @@ import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -218,6 +224,64 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * Used to trigger activity recreation only when relevant values actually change.
      */
     private SharedPreferences.OnSharedPreferenceChangeListener mPrefListener;
+
+    @Override
+    protected void attachBaseContext(@NonNull Context newBase) {
+        super.attachBaseContext(newBase);
+
+        Configuration override = getConfigurationForAreaAboveCutout(newBase);
+        if (override != null) {
+            try {
+                applyOverrideConfiguration(override);
+            } catch (IllegalStateException e) {
+                // The resources are already in use, keep the default layouts
+                LogUtils.e("Unable to use the area above the display cutout", e);
+            }
+        }
+    }
+
+    /**
+     * On the cover screen of some flip phones, the window covers the cameras at the bottom.
+     * The part above the cameras is then wider than tall, but the window is portrait,
+     * so the portrait layouts get squashed. In that case, choose the layouts like for a
+     * landscape window that ends above the cameras.
+     *
+     * @return the configuration to apply, or {@code null} if the window does not need it.
+     */
+    @Nullable
+    private static Configuration getConfigurationForAreaAboveCutout(@NonNull Context context) {
+        if (!SdkUtils.isAtLeastAndroid11()) {
+            return null;
+        }
+
+        WindowManager windowManager = context.getSystemService(WindowManager.class);
+        if (windowManager == null) {
+            return null;
+        }
+
+        WindowMetrics windowMetrics = windowManager.getCurrentWindowMetrics();
+        Rect bounds = windowMetrics.getBounds();
+        int usableHeight = bounds.height() - InsetsUtils.getBottomCutoutHeight(windowMetrics);
+
+        boolean isPortraitWindow = bounds.height() > bounds.width();
+        if (!isPortraitWindow || usableHeight <= 0 || usableHeight >= bounds.width()) {
+            return null;
+        }
+
+        int densityDpi = context.getResources().getConfiguration().densityDpi;
+        if (densityDpi <= 0) {
+            return null;
+        }
+
+        int widthDp = bounds.width() * DisplayMetrics.DENSITY_DEFAULT / densityDpi;
+        int usableHeightDp = usableHeight * DisplayMetrics.DENSITY_DEFAULT / densityDpi;
+
+        Configuration override = new Configuration();
+        override.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        override.screenHeightDp = usableHeightDp;
+        override.smallestScreenWidthDp = Math.min(widthDp, usableHeightDp);
+        return override;
+    }
 
     @Override
     public void onNewIntent(@NonNull Intent newIntent) {
@@ -628,7 +692,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            mBinding.deskClockBottomMenu.setPadding(0, 0, 0, bars.bottom);
+            int cutoutHeight = InsetsUtils.getBottomCutoutHeight(this);
+            int bottomInset = Math.max(bars.bottom, cutoutHeight);
+            mBinding.deskClockBottomMenu.setPadding(0, 0, 0, bottomInset);
+
         });
     }
 
