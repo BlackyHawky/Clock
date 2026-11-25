@@ -2,6 +2,7 @@
 
 package com.best.deskclock.utils;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ANALOG_CLOCK_SIZE;
 
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -89,14 +91,21 @@ public class ClockUtils {
      * @param sizePercent    the analog clock size defined in the settings
      */
     public static void adjustAnalogClockSize(@NonNull View analogClock, @NonNull DisplayMetrics displayMetrics, float sizePercent,
-                                             boolean isLandscape) {
+                                             boolean isCityClock, boolean isTablet, boolean isLandscape) {
 
         float factor = computeFactor(sizePercent);
 
-        int screenHeight = displayMetrics.heightPixels;
-        int baseSize = isLandscape
-            ? (int) (screenHeight / 2.6)
-            : (int) (screenHeight / 3.8);
+        int baseSize;
+
+        if (isCityClock) {
+            baseSize = (int) dpToPx(isTablet ? 150 : 80, displayMetrics);
+        } else {
+            int screenHeight = displayMetrics.heightPixels;
+
+            baseSize = isLandscape
+                ? (int) (screenHeight / 2.6)
+                : (int) (screenHeight / 3.8);
+        }
 
         int finalSize = (int) (baseSize * factor);
 
@@ -217,7 +226,7 @@ public class ClockUtils {
      * Clock views can call this to refresh their date.
      **/
     public static void updateDate(@NonNull String dateSkeleton, @NonNull String descriptionSkeleton, @NonNull View clock,
-                                  boolean isUppercase) {
+                                  int dateSize, boolean isUppercase) {
 
         final TextView dateDisplay = clock.findViewById(R.id.date);
 
@@ -234,6 +243,7 @@ public class ClockUtils {
 
         dateDisplay.setAllCaps(isUppercase);
         dateDisplay.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale));
+        dateDisplay.setTextSize(TypedValue.COMPLEX_UNIT_SP, dateSize);
         dateDisplay.setVisibility(View.VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));
     }

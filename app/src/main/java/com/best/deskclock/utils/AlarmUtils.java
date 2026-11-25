@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -229,8 +230,8 @@ public class AlarmUtils {
      * @param isScreensaverAlarmItalic {@code true} if the next alarm of the screensaver is in italics; {@code false} otherwise.
      * @return True if an upcoming alarm is active and currently displayed; false otherwise.
      */
-    public static boolean refreshAlarm(@NonNull View clock, boolean isUppercase, boolean isScreensaver, boolean isScreensaverDateItalic,
-                                       boolean isScreensaverAlarmItalic) {
+    public static boolean refreshAlarm(@NonNull View clock, int dateSize, boolean isUppercase, boolean isScreensaver,
+                                       boolean isScreensaverDateItalic, boolean isScreensaverAlarmItalic) {
 
         final Context context = clock.getContext();
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
@@ -260,10 +261,12 @@ public class AlarmUtils {
             return false;
         } else {
             String description = context.getString(R.string.next_alarm_description, alarmFormattedTime);
+            nextAlarmView.setTextSize(TypedValue.COMPLEX_UNIT_SP, dateSize);
             nextAlarmView.setAllCaps(isUppercase);
             nextAlarmView.setText(alarmFormattedTime);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
+            nextAlarmIconView.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) (dateSize * 1.2));
             nextAlarmIconView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setContentDescription(description);
             return true;

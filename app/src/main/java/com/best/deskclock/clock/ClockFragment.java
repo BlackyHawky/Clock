@@ -85,8 +85,9 @@ public final class ClockFragment extends DeskClockFragment {
             switch (key) {
                 case KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS,
                      KEY_CLOCK_SECOND_HAND, KEY_DISPLAY_NEXT_ALARM, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE,
-                     KEY_DISPLAY_TEXT_UPPERCASE, KEY_SORT_CITIES, KEY_ENABLE_CITY_FLAG, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK,
-                     KEY_HOME_TIME_ZONE -> {
+                     KEY_DISPLAY_TEXT_UPPERCASE, KEY_DATE_SIZE, KEY_CITY_NAME_SIZE, KEY_CITY_TIME_DIFFERENCE_SIZE, KEY_CITY_NOTE_SIZE,
+                     KEY_CITY_DIGITAL_CLOCK_SIZE, KEY_CITY_ANALOG_CLOCK_SIZE, KEY_SORT_CITIES, KEY_ENABLE_CITY_FLAG, KEY_ENABLE_CITY_NOTE,
+                     KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE -> {
 
                     mAreSettingsChanged = true;
 
@@ -385,6 +386,12 @@ public final class ClockFragment extends DeskClockFragment {
         );
 
         mSettings.analogClockSizePercent = SettingsDAO.getAnalogClockSize(getPrefs());
+        mSettings.dateSize = SettingsDAO.getDateSize(getPrefs());
+        mSettings.cityNameSize = SettingsDAO.getCityNameSize(getPrefs());
+        mSettings.cityTimeDifferenceSize = SettingsDAO.getCityTimeDifferenceSize(getPrefs());
+        mSettings.cityNoteSize = SettingsDAO.getCityNoteSize(getPrefs());
+        mSettings.cityDigitalClockSize = SettingsDAO.getCityDigitalClockSize(getPrefs());
+        mSettings.cityAnalogClockSize = SettingsDAO.getCityAnalogClockSize(getPrefs());
         mSettings.showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), getPrefs());
         mSettings.isCityFlagEnabled = SettingsDAO.isCityFlagEnabled(getPrefs());
         mSettings.isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(getPrefs());
@@ -445,7 +452,15 @@ public final class ClockFragment extends DeskClockFragment {
                 digitalClock, mSettings.showSeconds, 0.4f, getDigitalClockBoldTypeface(), "sans-serif", Typeface.BOLD, false);
             digitalClock.applyUserPreferredTextSizeSp(mSettings.digitalClockFontSize);
         } else {
-            ClockUtils.adjustAnalogClockSize(analogClock, getDisplayMetrics(), mSettings.analogClockSizePercent, isLandscape());
+            ClockUtils.adjustAnalogClockSize(
+                analogClock,
+                getDisplayMetrics(),
+                mSettings.analogClockSizePercent,
+                false,
+                isTablet(),
+                isLandscape()
+            );
+
             ClockUtils.setAnalogClockSecondsEnabled(mSettings.clockStyle, analogClock, mSettings.showSeconds);
         }
 
@@ -465,7 +480,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         if (mSettings.isNextAlarmDisplayed) {
             isAlarmVisible = AlarmUtils.refreshAlarm(
-                mBinding.mainClockFrame.mainClockContainer, mSettings.isTextUppercase, false, false, false);
+                mBinding.mainClockFrame.mainClockContainer, mSettings.dateSize, mSettings.isTextUppercase, false, false, false);
         } else {
             mBinding.mainClockFrame.dateAndNextAlarmTime.nextAlarmIcon.setVisibility(GONE);
             mBinding.mainClockFrame.dateAndNextAlarmTime.nextAlarm.setVisibility(GONE);
@@ -477,6 +492,7 @@ public final class ClockFragment extends DeskClockFragment {
             datePattern,
             mDateFormatForAccessibility,
             mBinding.mainClockFrame.mainClockContainer,
+            mSettings.dateSize,
             mSettings.isTextUppercase
         );
     }

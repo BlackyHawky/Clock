@@ -37,6 +37,8 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
+import java.util.TimeZone;
+
 public class ClockSettingsFragment extends BaseSettingsScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
@@ -251,16 +253,26 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
     @Override
     protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
         final boolean isAnalogClock = mClockStylePref.getValue().equals(mAnalogClock);
-        final boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
         final boolean isDigitalClock = mClockStylePref.getValue().equals(mDigitalClock);
-        final boolean displaySeconds = mDisplayClockSecondsPref.isChecked();
+
+        final long now = System.currentTimeMillis();
+        final TimeZone homeTZ = TimeZone.getTimeZone(mHomeTimeZonePref.getTimeZone());
+        final boolean isHomeTimeZoneDifferent = homeTZ.getOffset(now) != TimeZone.getDefault().getOffset(now);
+        final boolean showHomeClock = mAutoHomeClockPref.isChecked() && isHomeTimeZoneDifferent;
+
+        final int selectedCitiesCount = getDataModel().getSelectedCities().size();
+        final boolean hasDisplayedCities = selectedCitiesCount > 0 || showHomeClock;
 
         return switch (key) {
             case KEY_CLOCK_DIAL -> isAnalogClock;
-            case KEY_CLOCK_DIAL_MATERIAL -> isMaterialAnalogClock;
+            case KEY_CLOCK_DIAL_MATERIAL -> mClockStylePref.getValue().equals(mMaterialAnalogClock);
             case KEY_ANALOG_CLOCK_SIZE -> !isDigitalClock;
-            case KEY_CLOCK_SECOND_HAND -> isAnalogClock && displaySeconds;
-            case KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE -> isDigitalClock;
+            case KEY_CLOCK_SECOND_HAND -> isAnalogClock && mDisplayClockSecondsPref.isChecked();
+            case KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_CITY_DIGITAL_CLOCK_SIZE -> isDigitalClock;
+            case KEY_CITY_NAME_SIZE, KEY_CITY_TIME_DIFFERENCE_SIZE, KEY_ENABLE_CITY_NOTE -> hasDisplayedCities;
+            case KEY_CITY_NOTE_SIZE -> hasDisplayedCities && mEnableCityNotePref.isChecked();
+            case KEY_CITY_ANALOG_CLOCK_SIZE -> !isDigitalClock && hasDisplayedCities;
+            case KEY_SORT_CITIES -> selectedCitiesCount > 1;
             default -> super.isPreferenceVisible(pref, key);
         };
     }
@@ -293,7 +305,9 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
         mSortCitiesPref.setOnPreferenceChangeListener(this);
 
         mEnableCityFlagPref.setOnPreferenceChangeListener(this);
+
         mEnableCityNotePref.setOnPreferenceChangeListener(this);
+
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 
         mHomeTimeZonePref.setEnabled(SettingsDAO.getAutoShowHomeClock(getPrefs()));
@@ -315,6 +329,7 @@ public class ClockSettingsFragment extends BaseSettingsScreenFragment
                     TimeZonePreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setTimeZone(newValue);
+                        invalidatePreferencesVisibility();
                     }
                 }
             });

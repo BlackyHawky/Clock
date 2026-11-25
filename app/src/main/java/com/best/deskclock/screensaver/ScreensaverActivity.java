@@ -110,7 +110,11 @@ public class ScreensaverActivity extends BaseActivity {
         ThemeUtils.hideSystemBars(getWindow(), getWindow().getDecorView());
 
         ScreensaverUtils.setupScreensaverView(
-            mBinding.saverContainer, mSettings, getResources().getDisplayMetrics(), ThemeUtils.isLandscape(), () -> {
+            mBinding.saverContainer,
+            mSettings,
+            getResources().getDisplayMetrics(),
+            ThemeUtils.isTablet(),
+            ThemeUtils.isLandscape(), () -> {
                 mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage, getUiDataModel());
                 mBackgroundAnimator.start();
             }
