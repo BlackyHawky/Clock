@@ -10,6 +10,7 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_TIME_BUTTON_VALUE_ZERO;
 import static com.best.deskclock.utils.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.FOREGROUND_SERVICE_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MISSED_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
 
@@ -274,8 +275,9 @@ class TimerNotificationBuilder {
     /**
      * @return the notification for expired timers.
      */
+    @SuppressLint("FullScreenIntentPolicy")
     Notification buildHeadsUp(@NonNull Context context, @NonNull List<Timer> expired, @NonNull String languageCode,
-                              @NonNull NotificationModel nm, boolean isSingleTimerMode) {
+                              @NonNull NotificationModel nm, boolean isSingleTimerMode, boolean inForeground) {
 
         final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
         final Timer timer = expired.get(0);
@@ -337,24 +339,29 @@ class TimerNotificationBuilder {
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(context, fullScreen);
 
-        @SuppressLint("FullScreenIntentPolicy")
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, FIRING_NOTIFICATION_CHANNEL_ID)
+        final String channelId = inForeground ? FOREGROUND_SERVICE_CHANNEL_ID : FIRING_NOTIFICATION_CHANNEL_ID;
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
             .setOngoing(true)
             .setLocalOnly(true)
             .setShowWhen(false)
             .setAutoCancel(false)
             .setContentTitle(titleText)
             .setContentIntent(contentIntent)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setPriority(inForeground ? NotificationCompat.PRIORITY_LOW : NotificationCompat.PRIORITY_MAX)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
-            .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
+            .setDefaults(inForeground ? 0 : NotificationCompat.DEFAULT_LIGHTS)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSmallIcon(R.drawable.ic_tab_timer_static)
-            .setFullScreenIntent(pendingFullScreen, true)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
+            .setOnlyAlertOnce(true)
             .setGroup(nm.getExpiredTimerNotificationGroupKey())
             .setSortKey(nm.getExpiredTimerNotificationSortKey());
+
+        if (!inForeground) {
+            builder.setFullScreenIntent(pendingFullScreen, true);
+        }
 
         for (NotificationCompat.Action action : actions) {
             builder.addAction(action);
