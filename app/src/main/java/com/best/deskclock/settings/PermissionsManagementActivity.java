@@ -6,7 +6,6 @@ import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS;
-import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS;
 import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT;
 import static android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION;
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
@@ -279,7 +278,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
 
         private Intent getIgnoreBatteryOptimizationsIntentRevoke() {
-            return new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
+            return createHighlightedSettingsIntent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         }
 
         /**
@@ -385,7 +384,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
 
         private Intent getDNDSettingsIntent() {
-            return new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
+            return createHighlightedSettingsIntent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
         }
 
         /**
@@ -462,6 +461,19 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             if (preference instanceof PermissionsManagementPreference permissionsManagementPref) {
                 permissionsManagementPref.refreshState();
             }
+        }
+
+        private Intent createHighlightedSettingsIntent(@NonNull String action) {
+            String packageName = requireContext().getPackageName();
+
+            Intent intent = new Intent(action).addFlags(FLAG_ACTIVITY_NEW_TASK);
+
+            Bundle args = new Bundle();
+            args.putString(":settings:fragment_args_key", packageName);
+            intent.putExtra(":settings:fragment_args_key", packageName);
+            intent.putExtra(":settings:show_fragment_args", args);
+
+            return intent;
         }
 
     }
