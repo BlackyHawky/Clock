@@ -756,19 +756,24 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
     protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
         SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
 
+        final boolean isAdvancedAudioPlaybackEnabled = mAdvancedAudioPlaybackPref.isChecked();
+        final boolean isAutoRoutingToExternalAudioDevice = mAutoRoutingToExternalAudioDevicePref.isChecked();
+        final boolean shouldUseCustomMediaVolume = mSystemMediaVolumePref.isChecked();
+        final boolean areAlarmVibrationsEnabledByDefault = mEnableAlarmVibrationsByDefaultPref.isChecked();
+        final boolean areAlarmsSortedByCategory = mEnableAlarmSortingByCategoryPref.isChecked();
+
         return switch (key) {
-            case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs());
+            case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> isAdvancedAudioPlaybackEnabled;
 
-            case KEY_SYSTEM_MEDIA_VOLUME -> SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs())
-                && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs());
+            case KEY_SYSTEM_MEDIA_VOLUME, KEY_HEADPHONES_BUTTON -> isAdvancedAudioPlaybackEnabled && isAutoRoutingToExternalAudioDevice;
 
-            case KEY_EXTERNAL_AUDIO_DEVICE_VOLUME -> SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs())
-                && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs())
-                && SettingsDAO.shouldUseCustomMediaVolume(getPrefs());
+            case KEY_EXTERNAL_AUDIO_DEVICE_VOLUME -> isAdvancedAudioPlaybackEnabled
+                && isAutoRoutingToExternalAudioDevice
+                && shouldUseCustomMediaVolume;
 
             case KEY_ALARM_VIBRATION_CATEGORY -> DeviceUtils.hasVibrator(requireContext());
 
-            case KEY_VIBRATION_PATTERN, KEY_VIBRATION_START_DELAY -> SettingsDAO.areAlarmVibrationsEnabledByDefault(getPrefs());
+            case KEY_VIBRATION_PATTERN, KEY_VIBRATION_START_DELAY -> areAlarmVibrationsEnabledByDefault;
 
             case KEY_FLIP_ACTION, KEY_SHAKE_ACTION -> sensorManager != null
                 && sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null;
@@ -779,20 +784,20 @@ public class AlarmSettingsFragment extends BaseSettingsScreenFragment
             }
 
             case KEY_DEFAULT_ALARM_CATEGORY -> {
-                boolean isCategoryEnabled = SettingsDAO.areAlarmsSortedByCategory(getPrefs());
                 boolean hasCustomCategories = mDefaultCategoryPref != null
                     && mDefaultCategoryPref.getEntries() != null
                     && mDefaultCategoryPref.getEntries().length > 1;
-                yield isCategoryEnabled && hasCustomCategories;
+                yield areAlarmsSortedByCategory && hasCustomCategories;
             }
 
             case KEY_SWITCH_TO_NEW_CATEGORY, KEY_DISPLAY_ENABLED_ALARM_BADGE, KEY_DELETE_ALARMS_WITH_CATEGORY,
-                 KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS -> SettingsDAO.areAlarmsSortedByCategory(getPrefs());
+                 KEY_DISPLAY_CATEGORY_NAVIGATION_BUTTONS -> areAlarmsSortedByCategory;
 
             case KEY_REPEAT_MISSED_ALARM -> SettingsDAO.getAlarmTimeout(getPrefs()) != TIMEOUT_NEVER
                 && SettingsDAO.getSnoozeLength(getPrefs()) != ALARM_SNOOZE_DURATION_DISABLED;
 
-            case KEY_ENABLE_ALARM_PROXIMITY_SENSOR -> sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null;
+            case KEY_ENABLE_ALARM_PROXIMITY_SENSOR -> sensorManager != null
+                && sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null;
 
             case KEY_DISABLE_DND_FOR_TRIGGERED_ALARM -> PermissionUtils.isDNDPermissionEnabled(requireContext());
 

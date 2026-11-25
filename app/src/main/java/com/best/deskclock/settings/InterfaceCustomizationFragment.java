@@ -322,7 +322,7 @@ public class InterfaceCustomizationFragment extends BaseSettingsScreenFragment
         Set<String> visibleTabs = SettingsDAO.getVisibleTabs(getPrefs());
 
         return switch (key) {
-            case KEY_NIGHT_ACCENT_COLOR -> !SettingsDAO.isAutoNightAccentColorEnabled(getPrefs());
+            case KEY_NIGHT_ACCENT_COLOR -> !mAutoNightAccentColorPref.isChecked();
 
             case KEY_TAB_TO_DISPLAY, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_ANIMATION -> visibleTabs.size() > 1;
 
