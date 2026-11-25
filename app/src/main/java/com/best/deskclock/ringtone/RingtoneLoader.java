@@ -37,7 +37,7 @@ public class RingtoneLoader extends AsyncTaskLoader<List<RingtoneAdapter.Rington
     private final Uri mDefaultRingtoneUri;
     private final String mDefaultRingtoneTitle;
     private List<CustomRingtone> mCustomRingtones;
-    public boolean mIsAutoPlayEnabled;
+    public final boolean mIsAutoPlayEnabled;
 
     RingtoneLoader(@NonNull Context context, @NonNull DataModel dataModel, @NonNull Uri defaultRingtoneUri,
                    @NonNull String defaultRingtoneTitle, boolean isAutoPlayEnabled) {

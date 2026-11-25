@@ -591,32 +591,29 @@ public class TimerSettingsFragment extends BaseSettingsScreenFragment
 
     @Override
     protected boolean isPreferenceVisible(@NonNull Preference pref, @NonNull String key) {
-        final boolean isAdvancedAudioPlayback = mAdvancedAudioPlaybackPref != null && mAdvancedAudioPlaybackPref.isChecked();
-        final boolean isAutoRoutingToExternalAudioDevice = mAutoRoutingToExternalAudioDevicePref != null && mAutoRoutingToExternalAudioDevicePref.isChecked();
+        final boolean isAdvancedAudioPlayback = mAdvancedAudioPlaybackPref.isChecked();
+        final boolean isAutoRoutingToExternalAudioDevice = mAutoRoutingToExternalAudioDevicePref.isChecked();
         final boolean hasAccelerometer = hasAccelerometer();
-        final boolean isSingleTimerMode = mSingleTimerModePref != null && mSingleTimerModePref.isChecked();
 
         return switch (key) {
             case KEY_ALARM_VOLUME_SETTING, KEY_TIMER_ADVANCED_AUDIO_PLAYBACK_CATEGORY -> mIsAlarmTabHidden;
 
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> isAdvancedAudioPlayback;
 
-            case KEY_SYSTEM_MEDIA_VOLUME -> isAdvancedAudioPlayback && isAutoRoutingToExternalAudioDevice;
+            case KEY_SYSTEM_MEDIA_VOLUME, KEY_TIMER_HEADPHONES_BUTTON_ACTION ->
+                isAdvancedAudioPlayback && isAutoRoutingToExternalAudioDevice;
 
             case KEY_EXTERNAL_AUDIO_DEVICE_VOLUME -> isAdvancedAudioPlayback
                 && isAutoRoutingToExternalAudioDevice
-                && SettingsDAO.shouldUseCustomMediaVolume(getPrefs());
+                && mSystemMediaVolumePref.isChecked();
 
             case KEY_TIMER_VIBRATION_CATEGORY -> DeviceUtils.hasVibrator(requireContext());
-
-            case KEY_TIMER_HEADPHONES_BUTTON_ACTION -> SettingsDAO.isAdvancedAudioPlaybackEnabled(getPrefs())
-                && SettingsDAO.isAutoRoutingToExternalAudioDevice(getPrefs());
 
             case KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION -> hasAccelerometer;
 
             case KEY_TIMER_SHAKE_INTENSITY -> hasAccelerometer && mTimerShakeActionPref != null && mTimerShakeActionPref.isChecked();
 
-            case KEY_SORT_TIMER -> !isSingleTimerMode;
+            case KEY_SORT_TIMER -> !mSingleTimerModePref.isChecked();
 
             case KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER -> DeviceUtils.hasBackFlash(requireContext());
 

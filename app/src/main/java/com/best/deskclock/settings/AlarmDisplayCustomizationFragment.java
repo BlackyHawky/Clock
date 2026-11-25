@@ -264,10 +264,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         final boolean isAnalogClock = mAlarmClockStylePref.getValue().equals(mAnalogClock);
         final boolean isMaterialAnalogClock = mAlarmClockStylePref.getValue().equals(mMaterialAnalogClock);
         final boolean isDigitalClock = mAlarmClockStylePref.getValue().equals(mDigitalClock);
-        final boolean isSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(getPrefs());
-        final boolean isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(getPrefs());
-        final boolean isSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(getPrefs());
-        final boolean isTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(getPrefs());
+        final boolean isSwipeActionEnabled = mSwipeActionPref.isChecked();
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(getPrefs()).equals(AMOLED_DARK_MODE);
 
         return switch (key) {
@@ -277,14 +274,14 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             case KEY_ALARM_BACKGROUND_COLOR -> !isAmoledMode;
             case KEY_ALARM_CLOCK_COLOR -> !isMaterialAnalogClock;
             case KEY_ALARM_ANALOG_CLOCK_SIZE, KEY_DISPLAY_ALARM_SECOND_HAND -> !isDigitalClock;
-            case KEY_ALARM_CLOCK_SECOND_HAND, KEY_ALARM_SECOND_HAND_COLOR -> isAnalogClock && isSecondHandDisplayed;
+            case KEY_ALARM_CLOCK_SECOND_HAND, KEY_ALARM_SECOND_HAND_COLOR -> isAnalogClock && mDisplaySecondsPref.isChecked();
             case KEY_SLIDE_ZONE_COLOR, KEY_ALARM_BUTTON_COLOR -> isSwipeActionEnabled;
             case KEY_SNOOZE_BUTTON_COLOR, KEY_DISMISS_BUTTON_COLOR -> !isSwipeActionEnabled;
             case KEY_SNOOZE_ZONE_COLOR, KEY_SNOOZE_MINUS_BUTTON_COLOR, KEY_SNOOZE_PLUS_BUTTON_COLOR, KEY_SNOOZE_SELECTOR_TEXT_COLOR,
-                 KEY_SNOOZE_MINUS_SYMBOL_COLOR, KEY_SNOOZE_PLUS_SYMBOL_COLOR -> isSnoozeSelectorDisplayed;
+                 KEY_SNOOZE_MINUS_SYMBOL_COLOR, KEY_SNOOZE_PLUS_SYMBOL_COLOR -> mDisplaySnoozeSelectorPref.isChecked();
             case KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE -> isDigitalClock;
-            case KEY_ALARM_SHADOW_COLOR, KEY_ALARM_SHADOW_OFFSET -> isTextShadowDisplayed;
-            case KEY_RINGTONE_TITLE_COLOR -> SettingsDAO.isRingtoneTitleDisplayed(getPrefs());
+            case KEY_ALARM_SHADOW_COLOR, KEY_ALARM_SHADOW_OFFSET -> mDisplayTextShadowPref.isChecked();
+            case KEY_RINGTONE_TITLE_COLOR -> mDisplayRingtoneTitlePref.isChecked();
             case KEY_ALARM_BLUR_INTENSITY -> {
                 if (SdkUtils.isBeforeAndroid12()) {
                     yield false;
