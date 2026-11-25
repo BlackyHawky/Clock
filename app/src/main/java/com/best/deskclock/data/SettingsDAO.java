@@ -283,6 +283,14 @@ public final class SettingsDAO {
         return prefs.getString(KEY_DIGITAL_CLOCK_FONT, null);
     }
 
+
+    /**
+     * @return the font size applied in the Clock tab.
+     */
+    public static int getDigitalClockFontSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+    }
     /**
      * @return {@code true} if the text is displayed in uppercase in the clock tab; {@code false} otherwise.
      */
@@ -292,11 +300,51 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the font size applied in the Clock tab.
+     * @return the font size applied to the date and next alarm in the Clock tab.
      */
-    public static int getDigitalClockFontSize(@NonNull SharedPreferences prefs) {
+    public static int getDateSize(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_clock.xml
-        return prefs.getInt(KEY_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+        return prefs.getInt(KEY_DATE_SIZE, DEFAULT_CLOCK_TAB_TEXT_SIZE);
+    }
+
+    /**
+     * @return the font size applied to the city name in the Clock tab.
+     */
+    public static int getCityNameSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_CITY_NAME_SIZE, DEFAULT_CITY_NAME_SIZE);
+    }
+
+    /**
+     * @return the font size applied to the city time difference in the Clock tab.
+     */
+    public static int getCityTimeDifferenceSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_CITY_TIME_DIFFERENCE_SIZE, DEFAULT_CLOCK_TAB_TEXT_SIZE);
+    }
+
+    /**
+     * @return the font size applied to the city note in the Clock tab.
+     */
+    public static int getCityNoteSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_CITY_NOTE_SIZE, DEFAULT_CLOCK_TAB_TEXT_SIZE);
+    }
+
+    /**
+     * @return the font size applied to the city digital clock in the Clock tab.
+     */
+    public static int getCityDigitalClockSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_CITY_DIGITAL_CLOCK_SIZE, DEFAULT_CITY_DIGITAL_CLOCK_SIZE);
+    }
+
+    /**
+     * @return the font size applied to the city analog clock in the Clock tab.
+     */
+    public static int getCityAnalogClockSize(@NonNull SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_CITY_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
     }
 
     /**

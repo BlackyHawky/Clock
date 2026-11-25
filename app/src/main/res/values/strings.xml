@@ -1182,6 +1182,20 @@
     <string name="clock_settings">Clock</string>
     <!-- Clock settings summary -->
     <string name="clock_settings_summary">Customize the style, font, time zone, and device date and time</string>
+    <!-- Setting title to display the date and next alarm in uppercase -->
+    <string name="display_date_uppercase_title">Display the date and next alarm in uppercase</string>
+    <!-- Setting title to change the date size -->
+    <string name="date_size_title">Date size</string>
+    <!-- Setting title to change the city name size -->
+    <string name="city_name_size_title">City name size</string>
+    <!-- Setting title to change the city time difference size -->
+    <string name="city_difference_time_size_title">City time difference size</string>
+    <!-- Setting title to change the city note size -->
+    <string name="city_note_size_title">City note size</string>
+    <!-- Setting title to change the city digital clock size -->
+    <string name="city_digital_clock_size_title">City digital clock size</string>
+    <!-- Setting title to change the city analog clock size -->
+    <string name="city_analog_clock_size_title">City analog clock size</string>
     <!-- Setting title to sort cities -->
     <string name="sort_cities_title">Sort the cities</string>
     <!-- Setting title for changing the cities sorting to By time zone (ascending order). -->

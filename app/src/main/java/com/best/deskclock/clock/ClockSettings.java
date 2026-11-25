@@ -26,6 +26,9 @@ public class ClockSettings {
     /** True if text elements (like AM/PM or date) should be forced to uppercase. */
     public boolean isTextUppercase;
 
+    /** The size of the date. */
+    public int dateSize;
+
     // --- Digital Clock ---
 
     /** The font size used for the digital clock display. */
@@ -49,6 +52,21 @@ public class ClockSettings {
     public int analogClockSizePercent;
 
     // --- City List (World Clock) ---
+
+    /** The size of the city name. */
+    public int cityNameSize;
+
+    /** The size of the city time difference. */
+    public int cityTimeDifferenceSize;
+
+    /** The size of the city note. */
+    public int cityNoteSize;
+
+    /** The size of the city digital clock. */
+    public int cityDigitalClockSize;
+
+    /** The size of the city analog clock. */
+    public int cityAnalogClockSize;
 
     /** True if a secondary clock showing the home time zone should be displayed when traveling. */
     public boolean showHomeClock;

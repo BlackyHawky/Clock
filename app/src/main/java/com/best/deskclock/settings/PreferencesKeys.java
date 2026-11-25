@@ -14,7 +14,6 @@ public class PreferencesKeys {
     // ** SETTINGS **
     // **************
 
-    // Settings
     public static final String KEY_PERMISSION_MESSAGE = "key_permission_message";
     public static final String KEY_ESSENTIAL_PERMISSIONS_GRANTED = "key_essential_permissions_granted";
     public static final String KEY_INTERFACE_CUSTOMIZATION = "key_interface_customization";
@@ -28,7 +27,10 @@ public class PreferencesKeys {
     public static final String KEY_BACKUP_RESTORE_PREFERENCES = "key_backup_restore_preferences";
     public static final String KEY_WIDGET_COLOR_CATEGORY = "key_widget_color_category";
 
-    // About
+    // ***********
+    // ** ABOUT **
+    // ***********
+
     public static final String KEY_ABOUT_TITLE = "key_about_title";
     public static final String KEY_ABOUT_VERSION = "key_about_version";
     public static final String KEY_ABOUT_WHATS_NEW = "key_about_whats_new";
@@ -42,7 +44,10 @@ public class PreferencesKeys {
     public static final String KEY_DEBUG_CATEGORY = "key_debug_category";
     public static final String KEY_ENABLE_LOCAL_LOGGING = "key_enable_local_logging";
 
-    // Interface
+    // ***************
+    // ** INTERFACE **
+    // ***************
+
     public static final String KEY_THEME = "key_theme";
     public static final String KEY_DARK_MODE = "key_dark_mode";
     public static final String KEY_GENERAL_FONT = "key_general_font";
@@ -64,12 +69,21 @@ public class PreferencesKeys {
     public static final String KEY_FADE_TRANSITIONS = "key_fade_transitions";
     public static final String KEY_KEEP_SCREEN_ON = "key_keep_screen_on";
 
-    // Clock
+    // ***********
+    // ** CLOCK **
+    // ***********
+
     public static final String KEY_CLOCK_STYLE = "key_clock_style";
     public static final String KEY_CLOCK_DIAL = "key_clock_dial";
     public static final String KEY_CLOCK_DIAL_MATERIAL = "key_clock_dial_material";
     public static final String KEY_ANALOG_CLOCK_SIZE = "key_analog_clock_size";
     public static final String KEY_DISPLAY_TEXT_UPPERCASE = "key_display_text_uppercase";
+    public static final String KEY_DATE_SIZE = "key_date_size";
+    public static final String KEY_CITY_NAME_SIZE = "key_city_name_size";
+    public static final String KEY_CITY_TIME_DIFFERENCE_SIZE = "key_city_time_difference_size";
+    public static final String KEY_CITY_NOTE_SIZE = "key_city_note_size";
+    public static final String KEY_CITY_DIGITAL_CLOCK_SIZE = "key_city_digital_clock_size";
+    public static final String KEY_CITY_ANALOG_CLOCK_SIZE = "key_city_analog_clock_size";
     public static final String KEY_DIGITAL_CLOCK_FONT_SIZE = "key_digital_clock_font_size";
     public static final String KEY_DISPLAY_CLOCK_SECONDS = "key_display_clock_seconds";
     public static final String KEY_CLOCK_SECOND_HAND = "key_clock_second_hand";
@@ -83,7 +97,10 @@ public class PreferencesKeys {
     public static final String KEY_HOME_TIME_ZONE = "key_home_time_zone";
     public static final String KEY_DATE_TIME = "key_date_time";
 
-    // Alarm
+    // ***********
+    // ** ALARM **
+    // ***********
+
     public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
     public static final String KEY_ALARM_FONT = "key_alarm_font";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
@@ -141,7 +158,10 @@ public class PreferencesKeys {
      */
     public static final String KEY_SHOW_STYLED_REPEAT_DAY = "show_styled_repeat_day_";
 
-    // Alarm Display Customization
+    // *********************************
+    // ** ALARM DISPLAY CUSTOMIZATION **
+    // *********************************
+
     public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";
     public static final String KEY_ALARM_CLOCK_DIAL = "key_alarm_clock_dial";
     public static final String KEY_ALARM_CLOCK_DIAL_MATERIAL = "key_alarm_clock_dial_material";
@@ -180,7 +200,10 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_BLUR_INTENSITY = "key_alarm_blur_intensity";
     public static final String KEY_ALARM_PREVIEW = "key_alarm_preview";
 
-    // Timer
+    // ***********
+    // ** TIMER **
+    // ***********
+
     public static final String KEY_TIMER_DISPLAY_CUSTOMIZATION = "key_timer_display_customization";
     public static final String KEY_TIMER_CREATION_VIEW_STYLE = "key_timer_creation_view_style";
     public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
@@ -206,7 +229,10 @@ public class PreferencesKeys {
     public static final String KEY_ENABLE_TIMER_PROXIMITY_SENSOR = "key_enable_timer_proximity_sensor";
     public static final String KEY_TIMER_LIVE_UPDATE_NOTIFICATIONS = "key_timer_live_update_notifications";
 
-    // Timer Display Customization
+    // *********************************
+    // ** TIMER DISPLAY CUSTOMIZATION **
+    // *********************************
+
     public static final String KEY_TIMER_DURATION_FONT = "key_timer_duration_font";
     public static final String KEY_DISPLAY_COMPACT_TIMERS = "key_display_compact_timers";
     public static final String KEY_DISPLAY_TIMER_DELETE_BUTTON = "key_display_timer_delete_button";
@@ -229,7 +255,10 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_BLUR_INTENSITY = "key_timer_blur_intensity";
     public static final String KEY_TIMER_PREVIEW = "key_timer_preview";
 
-    // Stopwatch
+    // ***************
+    // ** STOPWATCH **
+    // ***************
+
     public static final String KEY_SW_FONT = "key_sw_font";
     public static final String KEY_SW_DISPLAY_MILLISECONDS = "key_sw_display_milliseconds";
     public static final String KEY_SW_VOLUME_UP_ACTION = "key_sw_volume_up_action";
@@ -239,7 +268,10 @@ public class PreferencesKeys {
     public static final String KEY_SW_MISCELLANEOUS_CATEGORY = "key_sw_miscellaneous_category";
     public static final String KEY_SW_LIVE_UPDATE_NOTIFICATIONS = "key_sw_live_update_notifications";
 
-    // Screensaver
+    // *****************
+    // ** SCREENSAVER **
+    // *****************
+
     public static final String KEY_SCREENSAVER_CLOCK_STYLE = "key_screensaver_clock_style";
     public static final String KEY_SCREENSAVER_CLOCK_DIAL = "key_screensaver_clock_dial";
     public static final String KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL = "key_screensaver_clock_dial_material";
@@ -271,7 +303,10 @@ public class PreferencesKeys {
     public static final String KEY_SCREENSAVER_PREVIEW = "key_screensaver_preview";
     public static final String KEY_SCREENSAVER_DAYDREAM_SETTINGS = "key_screensaver_daydream_settings";
 
-    // Permission management
+    // ***************************
+    // ** PERMISSION MANAGEMENT **
+    // ***************************
+
     public static final String KEY_IGNORE_BATTERY_OPTIMIZATIONS = "key_ignore_battery_optimizations";
     public static final String KEY_NOTIFICATION_PERMISSION = "key_notification_permission";
     public static final String KEY_FULL_SCREEN_NOTIFICATION_PERMISSION = "key_full_screen_notification_permission";
@@ -280,19 +315,21 @@ public class PreferencesKeys {
     public static final String KEY_COVER_SCREEN_PERMISSION = "key_cover_screen_permission";
     public static final String KEY_ENABLE_FOREGROUND_SERVICE = "key_enable_foreground_service";
 
-    // **************
-    // ** WIDGETS **
-    // **************
+    // **********************
+    // ** WIDGETS SETTINGS **
+    // **********************
 
     public static final String WIDGET_COUNT = "_widget_count";
 
-    // Widget settings
     public static final String KEY_ANALOG_WIDGET_CUSTOMIZATION = "key_analog_widget_customization";
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION = "key_digital_widget_customization";
     public static final String KEY_VERTICAL_WIDGET_CUSTOMIZATION = "key_vertical_widget_customization";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION = "key_next_alarm_widget_customization";
 
-    // Analog Widget
+    // *******************
+    // ** ANALOG WIDGET **
+    // *******************
+
     public static final String KEY_ANALOG_WIDGET_CLOCK_DIAL = "key_analog_widget_clock_dial";
     public static final String KEY_ANALOG_WIDGET_WITH_SECOND_HAND = "key_analog_widget_with_second_hand";
     public static final String KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND = "key_analog_widget_clock_second_hand";
@@ -305,7 +342,10 @@ public class PreferencesKeys {
     public static final String KEY_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR = "key_analog_widget_default_second_hand_color";
     public static final String KEY_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR = "key_analog_widget_custom_second_hand_color";
 
-    // Digital Widget
+    // ********************
+    // ** DIGITAL WIDGET **
+    // ********************
+
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_digital_widget_display_text_uppercase";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW = "key_digital_widget_display_text_shadow";
     public static final String KEY_DIGITAL_WIDGET_SECONDS_DISPLAYED = "key_digital_widget_seconds_displayed";
@@ -338,7 +378,10 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR = "key_digital_widget_custom_city_note_color";
     public static final String KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_digital_widget_maximum_clock_font_size";
 
-    // Vertical Digital Widget
+    // *****************************
+    // ** VERTICAL DIGITAL WIDGET **
+    // *****************************
+
     public static final String KEY_VERTICAL_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_vertical_widget_display_text_uppercase";
     public static final String KEY_VERTICAL_WIDGET_DISPLAY_TEXT_SHADOW = "key_vertical_widget_display_text_shadow";
     public static final String KEY_VERTICAL_WIDGET_DISPLAY_BACKGROUND = "key_vertical_widget_display_background";
@@ -359,7 +402,10 @@ public class PreferencesKeys {
     public static final String KEY_VERTICAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_vertical_widget_custom_next_alarm_color";
     public static final String KEY_VERTICAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_vertical_widget_maximum_clock_font_size";
 
-    // Next Alarm Widget
+    // ***********************
+    // ** NEXT ALARM WIDGET **
+    // ***********************
+
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_next_alarm_widget_display_text_uppercase";
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW = "key_next_alarm_widget_display_text_shadow";
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = "key_next_alarm_widget_display_background";
@@ -397,4 +443,5 @@ public class PreferencesKeys {
     public static final String FILE_SCREENSAVER_BACKGROUND = "screensaver_background";
     public static final String FILE_DIGITAL_CLOCK_FONT = "digital_clock_font";
     public static final String FILE_SYSTEM_RINGTONE = "system_ringtone_";
+
 }

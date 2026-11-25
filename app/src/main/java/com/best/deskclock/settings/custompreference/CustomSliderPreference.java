@@ -51,6 +51,7 @@ public class CustomSliderPreference extends Preference {
     private static final int MIN_SHADOW_OFFSET_VALUE = 1;
     private static final int MIN_ANALOG_CLOCK_SIZE_VALUE = 1;
     private static final int MIN_FAB_SIZE_VALUE = 40;
+    private static final int MIN_CITY_TEXT_VALUE = 10;
 
     // The max values below correspond to the max values defined in the preferences XML files.
     private static final int MAX_BRIGHTNESS_VALUE = 100;
@@ -63,6 +64,7 @@ public class CustomSliderPreference extends Preference {
     private static final int MAX_ANALOG_CLOCK_SIZE_VALUE = 100;
     private static final int MAX_FONT_SIZE_VALUE = 200;
     private static final int MAX_FAB_SIZE_VALUE = 80;
+    private static final int MAX_CITY_TEXT_VALUE = 30;
 
     private SettingsPreferenceSliderLayoutBinding mBinding;
     private final SharedPreferences mPrefs;
@@ -104,8 +106,8 @@ public class CustomSliderPreference extends Preference {
         mBinding.slider.setStepSize(1f);
         setSliderProgress(mBinding.summary);
         configureSliderButtonDrawables();
-        setupSliderButton(mBinding.sliderMinusIcon, isExternalAudioDeviceVolumePreference() ? -10 : -5, mBinding.summary);
-        setupSliderButton(mBinding.sliderPlusIcon, isExternalAudioDeviceVolumePreference() ? 10 : 5, mBinding.summary);
+        setupSliderButton(mBinding.sliderMinusIcon, getDeltaValue(true), mBinding.summary);
+        setupSliderButton(mBinding.sliderPlusIcon, getDeltaValue(false), mBinding.summary);
         updateSliderButtonStates();
         updateResetButtonStates();
 
@@ -159,6 +161,13 @@ public class CustomSliderPreference extends Preference {
         if (isCentralFabSizePreference() || isSideFabSizePreference()) {
             min = MIN_FAB_SIZE_VALUE;
             max = MAX_FAB_SIZE_VALUE;
+        } else if (isDateSizePreference()
+            || isCityNameSizePreference()
+            || isCityTimeDifferenceSizePreference()
+            || isCityNoteSizePreference()
+            || isCityDigitalClockSizePreference()) {
+            min = MIN_CITY_TEXT_VALUE;
+            max = MAX_CITY_TEXT_VALUE;
         } else if (isScreensaverBrightnessPreference()) {
             min = MIN_BRIGHTNESS_VALUE;
             max = MAX_BRIGHTNESS_VALUE;
@@ -185,6 +194,7 @@ public class CustomSliderPreference extends Preference {
             min = MIN_EXTERNAL_AUDIO_DEVICE_VOLUME;
             max = MAX_EXTERNAL_AUDIO_DEVICE_VOLUME;
         } else if (isAnalogClockSizePreference()
+            || isCityAnalogClockSizePreference()
             || isScreensaverAnalogClockSizePreference()
             || isAlarmAnalogClockSizePreference()) {
             min = MIN_ANALOG_CLOCK_SIZE_VALUE;
@@ -237,6 +247,7 @@ public class CustomSliderPreference extends Preference {
             || isScreensaverAnalogClockSizePreference()
             || isExternalAudioDeviceVolumePreference()
             || isAnalogClockSizePreference()
+            || isCityAnalogClockSizePreference()
             || isAlarmAnalogClockSizePreference()) {
             String formattedText = String.format(Utils.getLocaleFromContext(getContext()), "%d%%", progress);
             sliderSummary.setText(formattedText);
@@ -275,6 +286,7 @@ public class CustomSliderPreference extends Preference {
             mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_volume_down));
             mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_volume_up));
         } else if (isAnalogClockSizePreference()
+            || isCityAnalogClockSizePreference()
             || isScreensaverAnalogClockSizePreference()
             || isAlarmAnalogClockSizePreference()) {
             mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_zoom_in));
@@ -301,6 +313,22 @@ public class CustomSliderPreference extends Preference {
             updateSliderButtonStates();
             updateResetButtonStates();
         });
+    }
+
+    private int getDeltaValue(boolean isMinusButton) {
+        if (isExternalAudioDeviceVolumePreference()) {
+            return isMinusButton ? -10 : 10;
+        }
+
+        if (isDateSizePreference()
+            || isCityNameSizePreference()
+            || isCityTimeDifferenceSizePreference()
+            || isCityNoteSizePreference()
+            || isCityDigitalClockSizePreference()) {
+            return isMinusButton ? -2 : 2;
+        }
+
+        return isMinusButton ? -5 : 5;
     }
 
     /**
@@ -368,6 +396,14 @@ public class CustomSliderPreference extends Preference {
             return DEFAULT_CENTRAL_FAB_SIZE;
         } else if (isSideFabSizePreference()) {
             return DEFAULT_SIDE_FAB_SIZE;
+        } else if (isCityNameSizePreference()) {
+            return DEFAULT_CITY_NAME_SIZE;
+        } else if (isDateSizePreference()
+            || isCityTimeDifferenceSizePreference()
+            || isCityNoteSizePreference()) {
+            return DEFAULT_CLOCK_TAB_TEXT_SIZE;
+        } else if (isCityDigitalClockSizePreference()) {
+            return DEFAULT_CITY_DIGITAL_CLOCK_SIZE;
         } else if (isScreensaverBrightnessPreference()) {
             return DEFAULT_SCREENSAVER_BRIGHTNESS;
         } else if (isDigitalWidgetBackgroundCornerRadius()
@@ -393,6 +429,7 @@ public class CustomSliderPreference extends Preference {
         } else if (isExternalAudioDeviceVolumePreference()) {
             return DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME;
         } else if (isAnalogClockSizePreference()
+            || isCityAnalogClockSizePreference()
             || isScreensaverAnalogClockSizePreference()
             || isAlarmAnalogClockSizePreference()) {
             return DEFAULT_ANALOG_CLOCK_SIZE;
@@ -421,6 +458,11 @@ public class CustomSliderPreference extends Preference {
     private void updateDigitalWidgets() {
         if (!isCentralFabSizePreference()
             && !isSideFabSizePreference()
+            && !isDateSizePreference()
+            && !isCityNameSizePreference()
+            && !isCityTimeDifferenceSizePreference()
+            && !isCityNoteSizePreference()
+            && !isCityDigitalClockSizePreference()
             && !isScreensaverBrightnessPreference()
             && !isScreensaverDigitalClockFontSizePreference()
             && !isScreensaverAnalogClockSizePreference()
@@ -435,6 +477,7 @@ public class CustomSliderPreference extends Preference {
             && !isAlarmBlurIntensityPreference()
             && !isExternalAudioDeviceVolumePreference()
             && !isAnalogClockSizePreference()
+            && !isCityAnalogClockSizePreference()
             && !isAlarmAnalogClockSizePreference()
             && !isDigitalClockFontSizePreference()) {
 
@@ -454,6 +497,48 @@ public class CustomSliderPreference extends Preference {
      */
     private boolean isSideFabSizePreference() {
         return getKey().equals(KEY_SIDE_FAB_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the date size. {@code false} otherwise.
+     */
+    private boolean isDateSizePreference() {
+        return getKey().equals(KEY_DATE_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the city name size. {@code false} otherwise.
+     */
+    private boolean isCityNameSizePreference() {
+        return getKey().equals(KEY_CITY_NAME_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the city time difference size. {@code false} otherwise.
+     */
+    private boolean isCityTimeDifferenceSizePreference() {
+        return getKey().equals(KEY_CITY_TIME_DIFFERENCE_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the city note size. {@code false} otherwise.
+     */
+    private boolean isCityNoteSizePreference() {
+        return getKey().equals(KEY_CITY_NOTE_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the city digital clock size. {@code false} otherwise.
+     */
+    private boolean isCityDigitalClockSizePreference() {
+        return getKey().equals(KEY_CITY_DIGITAL_CLOCK_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the city analog clock size. {@code false} otherwise.
+     */
+    private boolean isCityAnalogClockSizePreference() {
+        return getKey().equals(KEY_CITY_ANALOG_CLOCK_SIZE);
     }
 
     /**

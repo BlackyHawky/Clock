@@ -79,6 +79,9 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_CLOCK_STYLE = "digital";
     public static final boolean DEFAULT_DISPLAY_CLOCK_SECONDS = false;
     public static final boolean DEFAULT_TEXT_UPPERCASE_DISPLAYED = false;
+    public static final int DEFAULT_CLOCK_TAB_TEXT_SIZE = 16;
+    public static final int DEFAULT_CITY_NAME_SIZE = 18;
+    public static final int DEFAULT_CITY_DIGITAL_CLOCK_SIZE = 24;
     public static final String DEFAULT_SORT_CITIES_BY_ASCENDING_TIME_ZONE = "0";
     public static final String SORT_CITIES_BY_DESCENDING_TIME_ZONE = "1";
     public static final String SORT_CITIES_BY_NAME = "2";

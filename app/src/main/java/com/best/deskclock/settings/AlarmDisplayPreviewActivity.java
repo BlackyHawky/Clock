@@ -472,7 +472,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
             }
         } else {
             ClockUtils.adjustAnalogClockSize(
-                mBinding.analogClock, getDisplayMetrics(), SettingsDAO.getAlarmAnalogClockSize(getPrefs()), isLandscape());
+                mBinding.analogClock,
+                getDisplayMetrics(),
+                SettingsDAO.getAlarmAnalogClockSize(getPrefs()),
+                false,
+                isTablet(),
+                isLandscape()
+            );
+
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
 
             if (previewHour != -1 && previewMinute != -1) {
