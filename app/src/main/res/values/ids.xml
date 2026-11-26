@@ -11,4 +11,5 @@
     <item type="id" name="menu_bug_report" />
     <item type="id" name="menu_reset_settings" />
     <item type="id" name="menu_settings_search" />
+    <item type="id" name="menu_settings_preview" />
 </resources>

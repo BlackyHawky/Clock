@@ -29,7 +29,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseSettingsScreenFragment;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.events.Events;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
@@ -302,11 +301,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
         @Override
         public boolean onPreferenceClick(@NonNull Preference pref) {
-            final Context context = requireActivity();
-
             switch (pref.getKey()) {
-                case KEY_SCREENSAVER_PREVIEW -> context.startActivity(
-                    new Intent(context, ScreensaverActivity.class).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
+                case KEY_SCREENSAVER_PREVIEW -> launchPreview();
 
                 case KEY_SCREENSAVER_DAYDREAM_SETTINGS -> {
                     final Intent dialogSSMainSettingsIntent = new Intent(Settings.ACTION_DREAM_SETTINGS);
@@ -370,6 +366,16 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             };
         }
 
+        @Override
+        protected boolean shouldShowPreviewMenu() {
+            return true;
+        }
+
+        @Override
+        protected void onPreviewMenuClicked() {
+            launchPreview();
+        }
+
         private void setupPreferences() {
             mClockStylePref.setSummary(mClockStylePref.getEntry());
             mClockStylePref.setOnPreferenceChangeListener(this);
@@ -425,6 +431,12 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mScreensaverPreviewPref.setOnPreferenceClickListener(this);
 
             mScreensaverMainSettingsPref.setOnPreferenceClickListener(this);
+        }
+
+        private void launchPreview() {
+            Intent previewIntent = new Intent(requireContext(), ScreensaverActivity.class);
+
+            ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
         }
 
     }

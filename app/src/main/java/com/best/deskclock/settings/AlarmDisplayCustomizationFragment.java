@@ -245,15 +245,7 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
                 SettingsDAO.getAlarmBackgroundImage(getPrefs()), KEY_ALARM_BACKGROUND_IMAGE, false, false,
                 this::onBackgroundImageDeleted);
 
-            case KEY_ALARM_PREVIEW -> {
-                Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
-                Calendar now = Calendar.getInstance();
-
-                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, now.get(Calendar.HOUR_OF_DAY));
-                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, now.get(Calendar.MINUTE));
-
-                ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
-            }
+            case KEY_ALARM_PREVIEW -> launchPreview();
         }
 
         return true;
@@ -295,6 +287,16 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
             }
             default -> super.isPreferenceVisible(pref, key);
         };
+    }
+
+    @Override
+    protected boolean shouldShowPreviewMenu() {
+        return true;
+    }
+
+    @Override
+    protected void onPreviewMenuClicked() {
+        launchPreview();
     }
 
     private void setupPreferences() {
@@ -344,6 +346,16 @@ public class AlarmDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         mAlarmBackgroundImagePref.setOnPreferenceClickListener(this);
 
         mAlarmPreviewPref.setOnPreferenceClickListener(this);
+    }
+
+    private void launchPreview() {
+        Intent previewIntent = new Intent(requireContext(), AlarmDisplayPreviewActivity.class);
+        Calendar now = Calendar.getInstance();
+
+        previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, now.get(Calendar.HOUR_OF_DAY));
+        previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, now.get(Calendar.MINUTE));
+
+        ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
     }
 
     private void checkSpecificImagesState() {
