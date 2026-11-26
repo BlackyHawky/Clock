@@ -1,0 +1,4 @@
+Bylo opraveno několik chyb a byly přidány velké funkce týkající se budíků.
+
+Všechny změny jsou popsány zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.35

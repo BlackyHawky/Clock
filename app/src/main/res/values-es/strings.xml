@@ -767,4 +767,8 @@
     <string name="dnd_permission_title">NO MOLESTAR</string>
     <string name="dnd_dialog_title">No molestar</string>
     <string name="dnd_dialog_text">Con este permiso, la app quitará automáticamente el modo «No molestar» cuando suene tu alarma.\n\nTe recomendamos activarlo para no perderte llamadas ni mensajes importantes cuando te despiertes.</string>
+    <string name="autoplay_ringtone_title">Reproducción automática al seleccionarlo</string>
+    <string name="cover_screen_permission_title">MOSTRAR ALARMAS EN LA PANTALLA DE INICIO</string>
+    <string name="cover_screen_dialog_title">Mostrar alarmas en la pantalla de inicio</string>
+    <string name="cover_screen_dialog_text">En algunos teléfonos plegables, la pantalla de la alarma no aparece en la pantalla de la tapa cuando el teléfono está cerrado. Solo se muestra una notificación.\n\nEl permiso «Mostrar sobre otras aplicaciones» permite que la aplicación abra la pantalla de la alarma en la pantalla de la tapa cuando el teléfono está cerrado, para que puedas posponer o desactivar la alarma sin tener que abrir el teléfono.\n\nToca esta tarjeta para abrir los ajustes del sistema y, a continuación, busca esta aplicación en la lista para conceder o revocar el permiso.</string>
 </resources>

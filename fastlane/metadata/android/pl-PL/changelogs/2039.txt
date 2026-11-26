@@ -1,0 +1,4 @@
+Naprawiono kilka błędów oraz dodano istotne nowe funkcje dla alarmów.
+
+Szczegółowa lista wszystkich zmian znajduje się tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.35
