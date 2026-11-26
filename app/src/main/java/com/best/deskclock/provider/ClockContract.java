@@ -124,6 +124,12 @@ public final class ClockContract {
          * <p>Type: STRING</p>
          */
         String TIMEZONE = "timeZone";
+
+        /**
+         * Selected, excluded, and transiently dismissed alarm dates.
+         * <p>Type: JSON string</p>
+         */
+        String COMBINED_DAYS = "combinedDays";
     }
 
     /**

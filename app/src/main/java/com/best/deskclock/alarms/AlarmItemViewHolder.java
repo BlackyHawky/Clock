@@ -14,10 +14,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
+import android.text.TextPaint;
+import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
@@ -27,13 +30,12 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiConfig;
 import com.best.deskclock.utils.AlarmUtils;
-import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -104,12 +106,20 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
                 mItemHolder.getAlarmTimeClickHandler().dismissAlarmInstance(mItemHolder, alarmInstance);
             }
         });
+
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+            mBinding.daysOfWeek, 10, 14, 1, TypedValue.COMPLEX_UNIT_SP);
+        mBinding.daysOfWeek.addOnLayoutChangeListener((view, left, top, right, bottom,
+                                                       oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (right - left != oldRight - oldLeft && mItemHolder != null) {
+                bindAlarmScheduleSummary(mItemHolder.item, mItemHolder.getAlarmInstance());
+            }
+        });
     }
 
     public void applySettings() {
         UiConfig.Fonts currentFonts = mAdapter.getFonts();
 
-        mBinding.upcomingDate.setTypeface(currentFonts.general());
         mBinding.preemptiveDismissButton.setTypeface(currentFonts.bold());
     }
 
@@ -129,7 +139,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         bindGlobeIcon(alarm);
         bindOnOffSwitch(alarm);
         bindRepeatText(alarm, alarmInstance);
-        bindUpcomingDate(alarm, alarmInstance);
         bindPreemptiveDismissButton(alarm, alarmInstance);
         bindAlphaAnimation(alarm);
 
@@ -223,6 +232,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.digitalClock.setTypeface(alarmFont);
 
         mBinding.digitalClock.setTime(alarm.hour, alarm.minutes);
+        mBinding.digitalClock.applyUserPreferredTextSizeSp(48);
     }
 
     private void bindLockAlarm(@NonNull Alarm alarm) {
@@ -247,84 +257,20 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
         // Optimistic Snooze (Bypass database delay)
         if (recentlySnoozedInstance != null && !isRecentlyDismissed) {
-            mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().bold());
-            mBinding.daysOfWeek.setText(mContext.getString(R.string.alarm_alert_snooze_until,
+            setSpecialDaysOfWeekText(mContext.getString(R.string.alarm_alert_snooze_until,
                 AlarmUtils.getFormattedTime(mContext, recentlySnoozedInstance.getAlarmTime())));
+            return;
+        }
 
-        // Optimistic Dismiss
-        } else if (isRecentlyDismissed) {
-            if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
-                setRepeatingDaysDescription(alarm, alarmInstance);
-            } else if (alarm.isSpecifiedDate()) {
-                setSpecifiedDateDescription(alarm);
-            } else {
-                mLocalCalendar.setTimeZone(alarm.getTimeZone());
-                mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
-                if (alarm.isTomorrow(mLocalCalendar)) {
-                    setDaysOfWeekText(mContext.getString(R.string.alarm_tomorrow));
-                } else {
-                    setDaysOfWeekText(mContext.getString(R.string.alarm_today));
-                }
-            }
-
-        // Standard fallbacks
-        } else if (alarmInstance != null
+        if (!isRecentlyDismissed && alarmInstance != null
             && mAdapter.getStateProvider().canPreemptivelyDismiss(alarm)
             && alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
-            mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().bold());
-            mBinding.daysOfWeek.setText(mContext.getString(R.string.alarm_alert_snooze_until,
+            setSpecialDaysOfWeekText(mContext.getString(R.string.alarm_alert_snooze_until,
                 AlarmUtils.getFormattedTime(mContext, alarmInstance.getAlarmTime())));
-        } else if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
-            setRepeatingDaysDescription(alarm, alarmInstance);
-        } else if (alarm.isSpecifiedDate()) {
-            setSpecifiedDateDescription(alarm);
-        } else {
-            setNonRepeatingDefaultDescription(alarm);
-        }
-    }
-
-    private void bindUpcomingDate(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
-        if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()) {
-            mBinding.upcomingDate.setVisibility(GONE);
-            mBinding.digitalClock.applyUserPreferredTextSizeSp(48);
             return;
         }
 
-        Calendar nextAlarmTime = alarm.getNextAlarmTimeCalendar(alarmInstance);
-
-        mLocalCalendar.setTimeZone(alarm.getTimeZone());
-        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
-
-        Calendar today = (Calendar) mLocalCalendar.clone();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-
-        Calendar targetDay = (Calendar) nextAlarmTime.clone();
-        targetDay.set(Calendar.HOUR_OF_DAY, 0);
-        targetDay.set(Calendar.MINUTE, 0);
-        targetDay.set(Calendar.SECOND, 0);
-        targetDay.set(Calendar.MILLISECOND, 0);
-
-        long diffInMillis = targetDay.getTimeInMillis() - today.getTimeInMillis();
-        long diffInDays = Math.round((double) diffInMillis / (24 * 60 * 60 * 1000));
-
-        if (diffInDays < 6) {
-            mBinding.upcomingDate.setVisibility(GONE);
-            mBinding.digitalClock.applyUserPreferredTextSizeSp(48);
-            return;
-        }
-
-        boolean isDifferentYear = mLocalCalendar.get(Calendar.YEAR) != nextAlarmTime.get(Calendar.YEAR);
-        SimpleDateFormat simpleDateFormat = mAdapter.getDateFormat(alarm.getTimeZone(), isDifferentYear);
-        String formattedDate = simpleDateFormat.format(nextAlarmTime.getTime());
-
-        mBinding.upcomingDate.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, mAdapter.getDateFormat().locale()));
-        mBinding.upcomingDate.setVisibility(VISIBLE);
-
-        boolean hasLabel = alarm.label != null && !alarm.label.isEmpty();
-        mBinding.digitalClock.applyUserPreferredTextSizeSp(hasLabel ? 32 : 48);
+        bindAlarmScheduleSummary(alarm, alarmInstance);
     }
 
     private void bindPreemptiveDismissButton(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
@@ -379,35 +325,68 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         bindExpressiveCardBackground();
     }
 
-    private void setRepeatingDaysDescription(@NonNull Alarm alarm, @NonNull AlarmInstance alarmInstance) {
-        Weekdays.Order weekdayOrder = mAdapter.getWeekdayOrder();
-        String contentDesc = alarm.daysOfWeek.toAccessibilityString(mContext, weekdayOrder);
-        CharSequence styledDaysText;
+    private void bindAlarmScheduleSummary(@NonNull Alarm alarm, @Nullable AlarmInstance alarmInstance) {
+        final boolean hasWeekdaySchedule = alarm.daysOfWeek.isRepeating();
+        final boolean hasSelectedDates = alarm.combinedDays.hasSelectedDates();
 
-        if (isPauseEffectivelyActive(alarm, alarmInstance)) {
-            String dateRangeStr = AlarmUtils.formatPauseDateRange(mContext, alarm.pauseStartDate, alarm.pauseEndDate);
-            String pauseText = mContext.getString(R.string.pause_alarm_range, dateRangeStr);
+        mLocalCalendar.setTimeZone(alarm.getTimeZone());
+        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
 
-            styledDaysText = pauseText;
-            contentDesc = pauseText;
-        } else if (alarm.enabled) {
-            int nextAlarmDay = alarm.getNextAlarmDayOfWeek(alarmInstance);
-
-            if (alarm.daysOfWeek.isAllDaysSelected()) {
-                if (mAdapter.getStateProvider().isRepeatDayStyleEnabled(alarm.id)) {
-                    styledDaysText = alarm.daysOfWeek.toStyledString(mContext, weekdayOrder, false, nextAlarmDay);
-                } else {
-                    styledDaysText = alarm.daysOfWeek.toString(mContext, weekdayOrder);
-                }
-            } else {
-                styledDaysText = alarm.daysOfWeek.toStyledString(mContext, weekdayOrder, false, nextAlarmDay);
+        Calendar nextAlarm = null;
+        if ((hasWeekdaySchedule || hasSelectedDates || alarm.combinedDays.isEmpty())
+            && (alarm.enabled || (!hasWeekdaySchedule && alarm.combinedDays.isEmpty()))) {
+            nextAlarm = alarm.getNextAlarmTimeCalendar(alarmInstance);
+            if (!hasWeekdaySchedule && hasSelectedDates
+                && !alarm.combinedDays.isDateSelected(
+                    nextAlarm.get(Calendar.YEAR),
+                    nextAlarm.get(Calendar.MONTH),
+                    nextAlarm.get(Calendar.DAY_OF_MONTH))) {
+                nextAlarm = null;
             }
-        } else {
-            styledDaysText = alarm.daysOfWeek.toString(mContext, weekdayOrder);
         }
 
-        setDaysOfWeekText(styledDaysText);
-        mBinding.daysOfWeek.setContentDescription(contentDesc);
+        Weekdays weekdays = alarm.daysOfWeek;
+        CharSequence scheduleLabel = null;
+        if (isPauseEffectivelyActive(alarm, alarmInstance)) {
+            String dateRange = AlarmUtils.formatPauseDateRange(
+                mContext, alarm.pauseStartDate, alarm.pauseEndDate);
+            scheduleLabel = mContext.getString(R.string.pause_alarm_range, dateRange);
+            weekdays = Weekdays.NONE;
+        }
+
+        int nextAlarmDay = nextAlarm == null ? -1 : nextAlarm.get(Calendar.DAY_OF_WEEK);
+        boolean highlightNextWeekday = nextAlarm != null
+            && alarm.enabled
+            && alarm.combinedDays.isEmpty()
+            && (!alarm.daysOfWeek.isAllDaysSelected()
+                || mAdapter.getStateProvider().isRepeatDayStyleEnabled(alarm.id));
+
+        int availableWidth = mBinding.daysOfWeek.getWidth()
+            - mBinding.daysOfWeek.getPaddingLeft()
+            - mBinding.daysOfWeek.getPaddingRight();
+        mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().general());
+        TextPaint paint = new TextPaint(mBinding.daysOfWeek.getPaint());
+        paint.setTextSize(TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP, 14, mContext.getResources().getDisplayMetrics()));
+        Locale locale = mAdapter.getDateFormat().locale();
+
+        CharSequence summary = AlarmSummaryFormatter.formatSummary(
+            mContext, weekdays, scheduleLabel, mAdapter.getWeekdayOrder(), alarm.combinedDays,
+            nextAlarm, mLocalCalendar, locale, nextAlarmDay, highlightNextWeekday,
+            availableWidth, paint);
+        CharSequence accessibilitySummary = AlarmSummaryFormatter.formatSummary(
+            mContext, weekdays, scheduleLabel, mAdapter.getWeekdayOrder(), alarm.combinedDays,
+            nextAlarm, mLocalCalendar, locale, nextAlarmDay, highlightNextWeekday,
+            Integer.MAX_VALUE, paint);
+
+        setDaysOfWeekText(summary);
+        mBinding.daysOfWeek.setContentDescription(accessibilitySummary.toString());
+    }
+
+    private void setSpecialDaysOfWeekText(@NonNull CharSequence text) {
+        mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().bold());
+        mBinding.daysOfWeek.setText(text);
+        mBinding.daysOfWeek.setContentDescription(text);
     }
 
     private boolean isPauseEffectivelyActive(@NonNull Alarm alarm, @Nullable AlarmInstance nextInstance) {
@@ -424,41 +403,9 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         return nextInstance.getAlarmTime().getTimeInMillis() > alarm.pauseEndDate;
     }
 
-    private void setNonRepeatingDefaultDescription(@NonNull Alarm alarm) {
-        mLocalCalendar.setTimeZone(alarm.getTimeZone());
-        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
-
-        if (alarm.isTomorrow(mLocalCalendar)) {
-            setDaysOfWeekText(mContext.getString(R.string.alarm_tomorrow));
-        } else {
-            setDaysOfWeekText(mContext.getString(R.string.alarm_today));
-        }
-    }
-
-    private void setSpecifiedDateDescription(@NonNull Alarm alarm) {
-        mLocalCalendar.setTimeZone(alarm.getTimeZone());
-        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
-
-        if (alarm.isSpecifiedDateTomorrow()) {
-            setDaysOfWeekText(mContext.getString(R.string.alarm_tomorrow));
-        } else if (alarm.isDateInThePast()) {
-            setDaysOfWeekText(getTodayOrTomorrowBasedOnTime(alarm, mLocalCalendar));
-        } else {
-            setDaysOfWeekText(mContext.getString(R.string.alarm_scheduled_for, AlarmUtils.formatAlarmDate(mContext, alarm)));
-        }
-    }
-
     private void setDaysOfWeekText(@NonNull CharSequence text) {
         mBinding.daysOfWeek.setTypeface(mAdapter.getFonts().general());
         mBinding.daysOfWeek.setText(text);
-    }
-
-    @NonNull
-    private String getTodayOrTomorrowBasedOnTime(@NonNull Alarm alarm, @NonNull Calendar now) {
-        // Used when the date has passed, the new alarm will be scheduled either the same day
-        // or the next day depending on the time.
-        // The text is therefore updated accordingly.
-        return mContext.getString(alarm.isTimeBeforeOrEqual(now) ? R.string.alarm_tomorrow : R.string.alarm_today);
     }
 
     public static long getLastClickTime() {

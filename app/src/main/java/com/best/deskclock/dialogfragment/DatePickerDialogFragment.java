@@ -113,8 +113,8 @@ public class DatePickerDialogFragment {
 
         // Set date picker style
         builder.setInputMode(datePickerStyle.equals(DEFAULT_DATE_PICKER_STYLE)
-            ? MaterialDatePicker.INPUT_MODE_CALENDAR
-            : MaterialDatePicker.INPUT_MODE_TEXT);
+            ? MaterialDatePicker.INPUT_MODE_TEXT
+            : MaterialDatePicker.INPUT_MODE_CALENDAR);
 
         Calendar now = Calendar.getInstance(alarm.getTimeZone());
         Calendar selectionDate = (Calendar) now.clone();

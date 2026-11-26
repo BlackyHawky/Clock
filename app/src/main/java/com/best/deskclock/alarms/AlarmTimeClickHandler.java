@@ -90,6 +90,13 @@ public final class AlarmTimeClickHandler {
             // If the alarm is set for a specific date and that date is already in the past,
             // update it to the current date. An alarm cannot be scheduled in the past.
             alarm.fixDateIfPast();
+            if (!alarm.combinedDays.isEmpty()) {
+                alarm.combinedDays = alarm.combinedDays.removePastDates(
+                    alarm.hour, alarm.minutes, alarm.getTimeZone());
+                if (newState) {
+                    alarm.combinedDays = alarm.combinedDays.clearDismissed();
+                }
+            }
 
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
@@ -301,6 +308,14 @@ public final class AlarmTimeClickHandler {
         }
 
         mSelectedAlarm.enabled = true;
+        if (!mSelectedAlarm.combinedDays.isEmpty()) {
+            mSelectedAlarm.combinedDays = mSelectedAlarm.combinedDays
+                .removePastDates(hour, minute, mSelectedAlarm.getTimeZone())
+                .clearDismissed();
+            if (isFromDelay && !mSelectedAlarm.daysOfWeek.isRepeating()) {
+                mSelectedAlarm.combinedDays = mSelectedAlarm.combinedDays.clearDeselected();
+            }
+        }
 
         AlarmVisualCache.invalidate(mSelectedAlarm.id);
 
