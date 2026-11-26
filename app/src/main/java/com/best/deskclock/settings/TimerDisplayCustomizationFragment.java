@@ -171,21 +171,12 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
 
     @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
-        final Context context = getActivity();
-        if (context == null) {
-            return false;
-        }
-
         switch (pref.getKey()) {
             case KEY_TIMER_BACKGROUND_IMAGE -> selectCustomFile(mTimerBackgroundImagePref, imagePickerLauncher,
                 SettingsDAO.getTimerBackgroundImage(getPrefs()), KEY_TIMER_BACKGROUND_IMAGE, false, false,
                 this::invalidatePreferencesVisibility);
 
-            case KEY_TIMER_PREVIEW -> {
-                Intent previewIntent = new Intent(context, TimerDisplayPreviewActivity.class);
-
-                ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
-            }
+            case KEY_TIMER_PREVIEW -> launchPreview();
         }
 
         return true;
@@ -222,6 +213,16 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         };
     }
 
+    @Override
+    protected boolean shouldShowPreviewMenu() {
+        return true;
+    }
+
+    @Override
+    protected void onPreviewMenuClicked() {
+        launchPreview();
+    }
+
     private void setupPreferences() {
         mDisplayCompactTimersPref.setOnPreferenceChangeListener(this);
 
@@ -247,6 +248,12 @@ public class TimerDisplayCustomizationFragment extends BaseSettingsScreenFragmen
         mTimerBackgroundImagePref.setOnPreferenceClickListener(this);
 
         mTimerPreviewPref.setOnPreferenceClickListener(this);
+    }
+
+    private void launchPreview() {
+        Intent previewIntent = new Intent(requireContext(), TimerDisplayPreviewActivity.class);
+
+        ThemeUtils.startActivityWithTransition(requireContext(), previewIntent, SettingsDAO.isFadeTransitionsEnabled(getPrefs()));
     }
 
 }

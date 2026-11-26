@@ -123,6 +123,7 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
     private MenuItem mSearchMenuItem;
     private AppBarLayout.OnOffsetChangedListener mAppBarOffsetListener;
 
+    private Drawable mToolbarPreviewIcon;
     private Drawable mToolbarSearchIcon;
     protected boolean mIsSearchMode = false;
     private boolean mIsSearchFocused = false;
@@ -209,6 +210,14 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
             SettingsDAO.isCardBorderDisplayed(mPrefs),
             SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)
         );
+
+        mToolbarPreviewIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_preview);
+        if (mToolbarPreviewIcon != null) {
+            DrawableCompat.setTint(
+                mToolbarPreviewIcon,
+                MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
+            );
+        }
 
         mToolbarSearchIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search);
         if (mToolbarSearchIcon != null) {
@@ -318,6 +327,12 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
                     configureSearchBar(searchItem);
                 }
 
+                if (shouldShowPreviewMenu()) {
+                    menu.add(0, R.id.menu_settings_preview, 0, R.string.preview_title)
+                        .setIcon(mToolbarPreviewIcon)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                }
+
                 menu.add(0, R.id.menu_about, 0, R.string.about_title)
                     .setIcon(R.drawable.ic_about)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -333,7 +348,14 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.menu_about) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.menu_settings_preview) {
+                    onPreviewMenuClicked();
+                    return true;
+                }
+
+                if (itemId == R.id.menu_about) {
                     Fragment existingFragment =
                         requireActivity().getSupportFragmentManager().findFragmentByTag(AboutFragment.class.getSimpleName());
 
@@ -979,6 +1001,17 @@ public abstract class BaseSettingsScreenFragment extends PreferenceFragmentCompa
      */
     protected boolean shouldShowSearchMenu() {
         return true;
+    }
+
+    /**
+     * {@code true} if the Preview menu should be displayed. {@code false} otherwise.
+     */
+    protected boolean shouldShowPreviewMenu() {
+        return false;
+    }
+
+    protected void onPreviewMenuClicked() {
+        // Overridden by subclasses that display a preview action
     }
 
     private boolean isCardPreference(@Nullable Preference preference) {
