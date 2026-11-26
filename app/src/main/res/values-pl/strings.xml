@@ -327,7 +327,7 @@
     <string name="version_text">Wersja <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="first_launch_version">Wersja %s</string>
     <string name="first_launch_main_feature_title">GŁÓWNE FUNKCJE</string>
-    <string name="first_launch_button_now">teraz</string>
+    <string name="first_launch_button_now">Teraz</string>
     <string name="more_options">Więcej opcji</string>
     <string name="material_time_picker_style_title">Styl selektora czasu</string>
     <string name="date_color_title">Kolor daty</string>
@@ -776,4 +776,15 @@
     <string name="previous_category_description">Poprzednia kategoria</string>
     <string name="next_category_description">Następna kategoria</string>
     <string name="display_category_navigation_buttons_title">Wyświetlanie pływających przycisków akcji do przełączania kategorii</string>
+    <string name="autoplay_ringtone_title">Odtwarzaj automatycznie po wybraniu</string>
+    <string name="cover_screen_permission_title">POKAZUJ ALARMY NA EKRANIE ZEWNĘTRZNYM</string>
+    <string name="cover_screen_dialog_title">Pokazuj alarmy na ekranie zewnętrznym</string>
+    <string name="cover_screen_dialog_text">W niektórych telefonach z klapką ekran alarmu nie pojawia się na ekranie zewnętrznym, gdy telefon jest zamknięty. Wyświetlane jest jedynie powiadomienie.\n\nUprawnienie „Wyświetlanie nad innymi aplikacjami” pozwala aplikacji otworzyć ekran alarmu na ekranie zewnętrznym przy zamkniętym telefonie, dzięki czemu możesz włączyć drzemkę lub wyłączyć alarm bez otwierania urządzenia.\n\nDotknij tej karty, aby otworzyć ustawienia systemowe, a następnie znajdź tę aplikację na liście, aby zezwolić na to uprawnienie lub je cofnąć.</string>
+    <string name="display_date_uppercase_title">Wyświetlaj datę i następny alarm wielkimi literami</string>
+    <string name="date_size_title">Rozmiar daty</string>
+    <string name="city_name_size_title">Rozmiar nazwy miasta</string>
+    <string name="city_difference_time_size_title">Rozmiar różnicy czasu miasta</string>
+    <string name="city_note_size_title">Rozmiar notatki o mieście</string>
+    <string name="city_digital_clock_size_title">Rozmiar zegara cyfrowego miasta</string>
+    <string name="city_analog_clock_size_title">Rozmiar zegara analogowego miasta</string>
 </resources>

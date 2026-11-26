@@ -767,4 +767,17 @@
     <string name="dnd_permission_title">NERUŠIT</string>
     <string name="dnd_dialog_title">Nerušit</string>
     <string name="dnd_dialog_text">Toto oprávnění umožňuje aplikaci automaticky vypnout režim Nerušit při spuštění budíku.\n\nDoporučujeme jej povolit, abyste nezmeškali důležité hovory nebo zprávy po probuzení.</string>
+    <string name="previous_category_description">Předchozí kategorie</string>
+    <string name="next_category_description">Další kategorie</string>
+    <string name="next_alarm_time_1">Méně než 1 minuta</string>
+    <string name="next_alarm_time_4"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> a <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
+    <string name="next_alarm_time_6" tools:ignore="StringFormatCount"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g> a <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_7" tools:ignore="StringFormatCount"><xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> a <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="next_alarm_time_8"><xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> a <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="autoplay_ringtone_title">Automaticky spustit po výběru</string>
+    <string name="display_category_navigation_buttons_title">Zobrazit plovoucí akční tlačítka pro navigaci mezi kategoriemi</string>
+    <string name="display_time_remaining_until_next_alarm_title">Zobrazit čas zbývající do dalšího budíku</string>
+    <string name="cover_screen_permission_title">ZOBRAZIT BUDÍKY NA OBRAZOVCE UZAMČENÍ</string>
+    <string name="cover_screen_dialog_title">Zobrazit budíky na obrazovce krytu</string>
+    <string name="cover_screen_dialog_text">Na některých skládacích telefonech se obrazovce budíku po zavření telefonu neobjeví na obrazovce krytu. Dostanete pouze oznámení.\n\nOprávnění „Zobrazení přes ostatní aplikace“ umožňuje aplikaci otevřít obrazovku budíku na obrazovce krytu při zavřeném telefonu, abyste mohli budík odložit nebo ukončit bez otevření telefonu.\n\nKlepněte na tuto kartu pro otevření nastavení systému, poté v seznamu najděte tuto aplikaci pro povolení nebo odmítnutí oprávnění.</string>
 </resources>

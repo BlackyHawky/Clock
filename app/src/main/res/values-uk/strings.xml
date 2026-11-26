@@ -786,4 +786,6 @@
     <string name="previous_category_description">Попередня категорія</string>
     <string name="next_category_description">Наступна категорія</string>
     <string name="display_category_navigation_buttons_title">Показувати плаваючі кнопки для навігації між категоріями</string>
+    <string name="autoplay_ringtone_title">Автовідтворення після вибору</string>
+    <string name="date_size_title">Розмір дати</string>
 </resources>

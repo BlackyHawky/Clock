@@ -775,4 +775,15 @@
     <string name="previous_category_description">Catégorie précédente</string>
     <string name="next_category_description">Catégorie suivante</string>
     <string name="display_category_navigation_buttons_title">Afficher des boutons d\'action flottants pour naviguer entre les catégories</string>
+    <string name="autoplay_ringtone_title">Lecture automatique lors de la sélection</string>
+    <string name="cover_screen_permission_title">AFFICHER LES ALARMES SUR L\'ÉCRAN EXTERNE</string>
+    <string name="cover_screen_dialog_title">Afficher les alarmes sur l\'écran externe</string>
+    <string name="cover_screen_dialog_text">Sur certains téléphones pliables, l\'écran d\'alarme n\'apparaît pas sur l\'écran externe lorsque le téléphone est fermé. Vous recevez uniquement une notification.\n\nL\'autorisation \"Afficher par-dessus les autres applications\" permet à l\'application d\'ouvrir l\'écran d\'alarme sur l\'écran externe lorsque le téléphone est fermé, ce qui vous permet de répéter ou rejeter l\'alarme sans ouvrir le téléphone.\n\nTouchez cette carte pour ouvrir les paramètres système, puis recherchez cette application dans la liste pour autoriser ou révoquer l\'autorisation.</string>
+    <string name="display_date_uppercase_title">Afficher la date et la prochaine alarme en majuscules</string>
+    <string name="date_size_title">Taille de la date</string>
+    <string name="city_name_size_title">Taille du nom des villes</string>
+    <string name="city_difference_time_size_title">Taille du décalage horaire des villes</string>
+    <string name="city_note_size_title">Taille de la note des villes</string>
+    <string name="city_digital_clock_size_title">Taille de l\'horloge digitale des villes</string>
+    <string name="city_analog_clock_size_title">Taille de l\'horloge analogique des villes</string>
 </resources>

@@ -449,7 +449,7 @@
     <string name="settings_toolbar_title">Titel in navigatiemenu weergeven</string>
     <string name="settings_tab_title_visibility_title">Titels van tabbladen weergeven</string>
     <string name="tab_title_visibility_always">Altijd</string>
-    <string name="tab_title_visibility_when_selected">Wanneer geselecteerd</string>
+    <string name="tab_title_visibility_when_selected">Indien geselecteerd</string>
     <string name="settings_keep_screen_on_title">Scherm aanhouden</string>
     <string name="settings_keep_screen_on_summary">Let op: het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt weergegeven, ongeacht deze instelling</string>
     <string name="slide_zone_color_title">Kleur veeggebied</string>
@@ -762,4 +762,8 @@
     <string name="previous_category_description">Vorige categorie</string>
     <string name="next_category_description">Volgende categorie</string>
     <string name="display_category_navigation_buttons_title">Knoppen weergeven om tussen categorieën te navigeren</string>
+    <string name="autoplay_ringtone_title">Automatisch afspelen indien geselecteerd</string>
+    <string name="cover_screen_permission_title">WEKKERS OP BUITENSCHERM TONEN</string>
+    <string name="cover_screen_dialog_title">Toon wekkers op het scherm aan de voorzijde</string>
+    <string name="cover_screen_dialog_text">Op sommige vouwtelefoons wordt het wekkerscherm niet getoond aan de buitenkant, als de telefoon is dichtgeklapt. Alleen een melding is te zien.\n\nHet recht \"Weergeven vóór andere apps\" staat de app toe de wekker te tonen op het buitenste scherm als de telefoon dicht is, zodat je de wekker kan uitzetten of sluimeren zonder de telefoon te openen.\n\nTik voor de systeeminstellingen en vind deze app om dit recht toe te staan of te weigeren.</string>
 </resources>
