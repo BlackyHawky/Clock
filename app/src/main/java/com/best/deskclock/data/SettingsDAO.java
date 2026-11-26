@@ -304,7 +304,7 @@ public final class SettingsDAO {
      */
     public static int getDateSize(@NonNull SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_clock.xml
-        return prefs.getInt(KEY_DATE_SIZE, DEFAULT_CLOCK_TAB_TEXT_SIZE);
+        return prefs.getInt(KEY_DATE_AND_NEXT_ALARM_SIZE, DEFAULT_CLOCK_TAB_TEXT_SIZE);
     }
 
     /**

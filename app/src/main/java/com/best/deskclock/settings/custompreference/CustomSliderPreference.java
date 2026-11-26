@@ -161,7 +161,7 @@ public class CustomSliderPreference extends Preference {
         if (isCentralFabSizePreference() || isSideFabSizePreference()) {
             min = MIN_FAB_SIZE_VALUE;
             max = MAX_FAB_SIZE_VALUE;
-        } else if (isDateSizePreference()
+        } else if (isDateAndNextAlarmSizePreference()
             || isCityNameSizePreference()
             || isCityTimeDifferenceSizePreference()
             || isCityNoteSizePreference()
@@ -320,7 +320,7 @@ public class CustomSliderPreference extends Preference {
             return isMinusButton ? -10 : 10;
         }
 
-        if (isDateSizePreference()
+        if (isDateAndNextAlarmSizePreference()
             || isCityNameSizePreference()
             || isCityTimeDifferenceSizePreference()
             || isCityNoteSizePreference()
@@ -398,7 +398,7 @@ public class CustomSliderPreference extends Preference {
             return DEFAULT_SIDE_FAB_SIZE;
         } else if (isCityNameSizePreference()) {
             return DEFAULT_CITY_NAME_SIZE;
-        } else if (isDateSizePreference()
+        } else if (isDateAndNextAlarmSizePreference()
             || isCityTimeDifferenceSizePreference()
             || isCityNoteSizePreference()) {
             return DEFAULT_CLOCK_TAB_TEXT_SIZE;
@@ -458,7 +458,7 @@ public class CustomSliderPreference extends Preference {
     private void updateDigitalWidgets() {
         if (!isCentralFabSizePreference()
             && !isSideFabSizePreference()
-            && !isDateSizePreference()
+            && !isDateAndNextAlarmSizePreference()
             && !isCityNameSizePreference()
             && !isCityTimeDifferenceSizePreference()
             && !isCityNoteSizePreference()
@@ -500,10 +500,10 @@ public class CustomSliderPreference extends Preference {
     }
 
     /**
-     * @return {@code true} if the current preference is related to the date size. {@code false} otherwise.
+     * @return {@code true} if the current preference is related to the date and next alarm size. {@code false} otherwise.
      */
-    private boolean isDateSizePreference() {
-        return getKey().equals(KEY_DATE_SIZE);
+    private boolean isDateAndNextAlarmSizePreference() {
+        return getKey().equals(KEY_DATE_AND_NEXT_ALARM_SIZE);
     }
 
     /**
