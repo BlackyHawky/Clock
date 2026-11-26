@@ -99,15 +99,13 @@
         <SwitchPreferenceCompat
             android:key="key_display_text_uppercase"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/display_date_uppercase_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.CustomSliderPreference
-            android:key="key_date_size"
+            android:key="key_date_and_next_alarm_size"
             android:layout="@layout/settings_preference_slider_layout"
-            android:title="@string/date_size_title"
             android:summary="@string/label_default"
             android:defaultValue="16"
             android:max="30"

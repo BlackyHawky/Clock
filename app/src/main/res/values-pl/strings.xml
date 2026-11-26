@@ -780,7 +780,7 @@
     <string name="cover_screen_permission_title">POKAZUJ ALARMY NA EKRANIE ZEWNĘTRZNYM</string>
     <string name="cover_screen_dialog_title">Pokazuj alarmy na ekranie zewnętrznym</string>
     <string name="cover_screen_dialog_text">W niektórych telefonach z klapką ekran alarmu nie pojawia się na ekranie zewnętrznym, gdy telefon jest zamknięty. Wyświetlane jest jedynie powiadomienie.\n\nUprawnienie „Wyświetlanie nad innymi aplikacjami” pozwala aplikacji otworzyć ekran alarmu na ekranie zewnętrznym przy zamkniętym telefonie, dzięki czemu możesz włączyć drzemkę lub wyłączyć alarm bez otwierania urządzenia.\n\nDotknij tej karty, aby otworzyć ustawienia systemowe, a następnie znajdź tę aplikację na liście, aby zezwolić na to uprawnienie lub je cofnąć.</string>
-    <string name="display_date_uppercase_title">Wyświetlaj datę i następny alarm wielkimi literami</string>
+    <string name="display_date_and_next_alarm_uppercase_title">Wyświetlaj datę i następny alarm wielkimi literami</string>
     <string name="date_size_title">Rozmiar daty</string>
     <string name="city_name_size_title">Rozmiar nazwy miasta</string>
     <string name="city_difference_time_size_title">Rozmiar różnicy czasu miasta</string>

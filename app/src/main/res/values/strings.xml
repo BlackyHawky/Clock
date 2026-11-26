@@ -1183,9 +1183,13 @@
     <!-- Clock settings summary -->
     <string name="clock_settings_summary">Customize the style, font, time zone, and device date and time</string>
     <!-- Setting title to display the date and next alarm in uppercase -->
-    <string name="display_date_uppercase_title">Display the date and next alarm in uppercase</string>
+    <string name="display_date_and_next_alarm_uppercase_title">Display the date and next alarm in uppercase</string>
+    <!-- Setting title to display the date in uppercase -->
+    <string name="display_date_uppercase_title">Display the date in uppercase</string>
     <!-- Setting title to change the date size -->
     <string name="date_size_title">Date size</string>
+    <!-- Setting title to change the date and next alarm size -->
+    <string name="date_and_next_alarm_size_title">Date and next alarm size</string>
     <!-- Setting title to change the city name size -->
     <string name="city_name_size_title">City name size</string>
     <!-- Setting title to change the city time difference size -->

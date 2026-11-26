@@ -78,7 +78,7 @@ public class PreferencesKeys {
     public static final String KEY_CLOCK_DIAL_MATERIAL = "key_clock_dial_material";
     public static final String KEY_ANALOG_CLOCK_SIZE = "key_analog_clock_size";
     public static final String KEY_DISPLAY_TEXT_UPPERCASE = "key_display_text_uppercase";
-    public static final String KEY_DATE_SIZE = "key_date_size";
+    public static final String KEY_DATE_AND_NEXT_ALARM_SIZE = "key_date_and_next_alarm_size";
     public static final String KEY_CITY_NAME_SIZE = "key_city_name_size";
     public static final String KEY_CITY_TIME_DIFFERENCE_SIZE = "key_city_time_difference_size";
     public static final String KEY_CITY_NOTE_SIZE = "key_city_note_size";
