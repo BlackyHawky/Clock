@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.stopwatch.StopwatchReceiver;
 import com.best.deskclock.uidata.UiDataModel;
@@ -39,20 +40,28 @@ public class HandleShortcuts extends Activity {
                 switch (action) {
                     case StopwatchReceiver.ACTION_PAUSE_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_shortcut);
+                        DataModel.getDataModel().pauseStopwatch();
 
                         // Open DeskClock positioned on the stopwatch tab.
                         uiDataModel.setSelectedTab(STOPWATCH);
-                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchReceiver.ACTION_PAUSE_STOPWATCH));
+                        startActivity(new Intent(this, DeskClock.class)
+                            .setAction(StopwatchReceiver.ACTION_SHOW_STOPWATCH)
+                            .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut));
                         setResult(RESULT_OK);
                     }
+
                     case StopwatchReceiver.ACTION_START_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_start, R.string.label_shortcut);
+                        DataModel.getDataModel().startStopwatch();
 
                         // Open DeskClock positioned on the stopwatch tab.
                         uiDataModel.setSelectedTab(STOPWATCH);
-                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchReceiver.ACTION_START_STOPWATCH));
+                        startActivity(new Intent(this, DeskClock.class)
+                            .setAction(StopwatchReceiver.ACTION_SHOW_STOPWATCH)
+                            .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut));
                         setResult(RESULT_OK);
                     }
+
                     default -> throw new IllegalArgumentException("Unsupported action: " + action);
                 }
             }

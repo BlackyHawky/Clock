@@ -137,7 +137,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      */
     @NonNull
     public static Intent createTimerSetupIntent(@NonNull Context context) {
-        return new Intent(context, DeskClock.class).putExtra(EXTRA_TIMER_SETUP, true);
+        return new Intent(context, DeskClock.class)
+            .setAction(TimerService.ACTION_SHOW_TIMER)
+            .putExtra(EXTRA_TIMER_SETUP, true);
     }
 
     private final Handler mVolumeHandler = new Handler(Looper.getMainLooper());

@@ -15,7 +15,6 @@ import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.EX
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VISIBLE_TABS;
@@ -472,21 +471,14 @@ public class HandleApiCalls extends Activity {
     private void handleShowAlarms() {
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
 
-        // Open DeskClock positioned in the correct tab.
-        final int tabToDisplay = SettingsDAO.getTabToDisplay(mPrefs);
-        if (tabToDisplay == DEFAULT_TAB_TO_DISPLAY_INTEGER) {
-            mUiDataModel.setSelectedTab(mUiDataModel.getSelectedTab());
-        } else {
-            mUiDataModel.setSelectedTab(UiDataModel.Tab.values()[tabToDisplay]);
-        }
+        mUiDataModel.setSelectedTab(ALARMS);
 
         startActivity(new Intent(this, DeskClock.class));
     }
 
     private void handleShowTimers() {
-        Events.sendTimerEvent(R.string.action_show, R.string.label_intent);
-
-        final Intent showTimersIntent = new Intent(this, DeskClock.class);
+        final Intent showTimersIntent = new Intent(this, DeskClock.class)
+            .setAction(TimerService.ACTION_SHOW_TIMER);
 
         final List<Timer> timers = mDataModel.getTimers();
         if (!timers.isEmpty()) {
@@ -579,7 +571,9 @@ public class HandleApiCalls extends Activity {
             mUiDataModel.setSelectedTab(TIMERS);
 
             // Open DeskClock which is now positioned on the timers tab.
-            startActivity(new Intent(this, DeskClock.class).putExtra(TimerService.EXTRA_TIMER_ID, timer.getId()));
+            startActivity(new Intent(this, DeskClock.class)
+                .setAction(TimerService.ACTION_SHOW_TIMER)
+                .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId()));
         }
     }
 

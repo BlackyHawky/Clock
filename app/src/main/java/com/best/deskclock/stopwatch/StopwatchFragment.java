@@ -225,20 +225,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             applySettingsChanges();
         }
 
-        final Intent intent = requireActivity().getIntent();
-        if (intent != null) {
-            final String action = intent.getAction();
-            if (StopwatchReceiver.ACTION_START_STOPWATCH.equals(action)) {
-                getDataModel().startStopwatch();
-                // Consume the intent
-                requireActivity().setIntent(null);
-            } else if (StopwatchReceiver.ACTION_PAUSE_STOPWATCH.equals(action)) {
-                getDataModel().pauseStopwatch();
-                // Consume the intent
-                requireActivity().setIntent(null);
-            }
-        }
-
         if (getView() != null) {
             getView().post(() -> {
                 if (!isAdded()) {
