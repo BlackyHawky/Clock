@@ -174,7 +174,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"اسکرین سیور شروع کریں"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"الارمز"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ٹائمر اطلاعات کے اعمال پر کاروائی کرتا ہے۔"</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"اسٹاپ واچ اطلاعات کے اعمال پر کاروائی کرتا ہے۔"</string>
     <string name="swn_paused" msgid="6364358842808263589">"موقوف ہوگئی"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"اسنوز کرنے کیلئے بائیں یا برخاست کرنے کیلئے دائیں سوائپ کریں"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ٹائمرز"</string>

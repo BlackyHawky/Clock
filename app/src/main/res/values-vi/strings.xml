@@ -169,7 +169,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"K.động tr.bảo vệ màn hình"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Báo thức"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Xử lý các tác vụ từ thông báo bộ hẹn giờ."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Xử lý các tác vụ từ thông báo đồng hồ bấm giờ."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Đã tạm dừng"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Vuốt sang trái để báo lại hoặc phải để bỏ qua"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Bộ hẹn giờ"</string>

@@ -131,7 +131,6 @@
     <string name="shortcut_pause_stopwatch_short">Cuir ’na stad</string>
     <string name="alarm_settings">Caismeachdan</string>
     <string name="timer_service_desc">Dèilig ri gnìomhan o bhrathan tìmeir.</string>
-    <string name="stopwatch_service_desc">Dèilig ri gnìomhan o bhrathan stad-uaireadair.</string>
     <string name="swn_paused">’Na stad</string>
     <string name="description_direction_both">Grad-shlaighd gun taobh chlì ’ga chur ’na dhùsal no gun taobh deas ’ga leigeil seachad</string>
     <string name="timer_settings">Tìmearan</string>

@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * All {@link Stopwatch} data is accessed via this model.
  */
-final class StopwatchModel {
+public final class StopwatchModel {
 
     private final Context mContext;
 
@@ -164,7 +164,7 @@ final class StopwatchModel {
      */
     @Nullable
     Lap addLap() {
-        if (!mStopwatch.isRunning() || !canAddMoreLaps()) {
+        if (!getStopwatch().isRunning() || !canAddMoreLaps()) {
             return null;
         }
 

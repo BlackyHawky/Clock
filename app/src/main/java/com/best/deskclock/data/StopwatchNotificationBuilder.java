@@ -29,7 +29,7 @@ import androidx.core.content.ContextCompat;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.stopwatch.StopwatchReceiver;
 import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Builds notification to reflect the latest state of the stopwatch and recorded laps.
  */
-class StopwatchNotificationBuilder {
+public final class StopwatchNotificationBuilder {
 
     @RequiresApi(Build.VERSION_CODES.BAKLAVA)
     public Notification buildLiveUpdateNotification(@NonNull Context context, @NonNull Stopwatch stopwatch, @NonNull String languageCode) {
@@ -50,7 +50,7 @@ class StopwatchNotificationBuilder {
 
         // Intent to load the app when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
-            .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
+            .setAction(StopwatchReceiver.ACTION_SHOW_STOPWATCH)
             .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
@@ -102,7 +102,6 @@ class StopwatchNotificationBuilder {
     }
 
     public Notification build(@NonNull Context context, @NonNull Stopwatch stopwatch, @NonNull String languageCode) {
-
         @StringRes final int eventLabel = R.string.label_notification;
         final Context localizedContext = Utils.getLocalizedContext(context, languageCode);
         final boolean running = stopwatch.isRunning();
@@ -111,7 +110,7 @@ class StopwatchNotificationBuilder {
 
         // Intent to load the app when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
-            .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
+            .setAction(StopwatchReceiver.ACTION_SHOW_STOPWATCH)
             .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
@@ -180,40 +179,48 @@ class StopwatchNotificationBuilder {
 
         if (running) {
             // Left button: Pause
-            final Intent pause = new Intent(context, StopwatchService.class)
-                .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
+            final Intent pause = new Intent(context, StopwatchReceiver.class)
+                .setAction(StopwatchReceiver.ACTION_PAUSE_STOPWATCH)
+                .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                 .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-            final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause);
+            final PendingIntent intent1 = PendingIntent.getBroadcast(
+                context, 0, pause, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             actions.add(new NotificationCompat.Action.Builder(
                 R.drawable.ic_fab_pause, localizedContext.getText(R.string.sw_pause_button), intent1).build());
 
             // Right button: Add Lap
             if (DataModel.getDataModel().canAddMoreLaps()) {
-                final Intent lap = new Intent(context, StopwatchService.class)
-                    .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
+                final Intent lap = new Intent(context, StopwatchReceiver.class)
+                    .setAction(StopwatchReceiver.ACTION_LAP_STOPWATCH)
+                    .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-                final PendingIntent intent2 = Utils.pendingServiceIntent(context, lap);
+                final PendingIntent intent2 = PendingIntent.getBroadcast(
+                    context, 0, lap, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 actions.add(new NotificationCompat.Action.Builder(
                     R.drawable.ic_stopwatch_lap, localizedContext.getText(R.string.sw_lap_button), intent2).build());
             }
         } else {
             // Left button: Start
-            final Intent start = new Intent(context, StopwatchService.class)
-                .setAction(StopwatchService.ACTION_START_STOPWATCH)
+            final Intent start = new Intent(context, StopwatchReceiver.class)
+                .setAction(StopwatchReceiver.ACTION_START_STOPWATCH)
+                .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                 .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-            final PendingIntent intent1 = Utils.pendingServiceIntent(context, start);
+            final PendingIntent intent1 = PendingIntent.getBroadcast(
+                context, 0, start, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             actions.add(new NotificationCompat.Action.Builder(
                 R.drawable.ic_fab_play, localizedContext.getText(R.string.sw_start_button), intent1).build());
 
             // Right button: Reset
-            final Intent reset = new Intent(context, StopwatchService.class)
-                .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
+            final Intent reset = new Intent(context, StopwatchReceiver.class)
+                .setAction(StopwatchReceiver.ACTION_RESET_STOPWATCH)
+                .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                 .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-            final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
+            final PendingIntent intent2 = PendingIntent.getBroadcast(
+                context, 0, reset, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             actions.add(new NotificationCompat.Action.Builder(
                 R.drawable.ic_reset, localizedContext.getText(R.string.reset), intent2).build());
         }

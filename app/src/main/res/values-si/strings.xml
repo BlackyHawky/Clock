@@ -174,7 +174,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"තිර සුරැකුම ආරම්භ කිරීම"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"අනතුරු ඇඟවීම්"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"කාල ගණක දැනුම්දීම් වෙතින් ක්‍රියා සකසයි."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"විරාම ඝටිකා දැනුම්දීම් වෙතින් ක්‍රියා සකසයි."</string>
     <string name="swn_paused" msgid="6364358842808263589">"විරාම කරන ලදි"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"යළි සිහි කැඳවීමට වමට හෝ අස් කිරීමට දකුණට ස්වයිප් කරන්න"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ටයිමර"</string>

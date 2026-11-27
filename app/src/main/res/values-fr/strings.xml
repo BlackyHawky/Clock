@@ -233,7 +233,6 @@
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="alarm_settings_summary">Personnaliser le style, la police, la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
     <string name="description_direction_both" msgid="1841309486023845685">Glisser vers la gauche pour répéter ou vers la droite pour arrêter</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter</string>

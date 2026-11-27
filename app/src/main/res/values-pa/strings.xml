@@ -174,7 +174,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"ਸਕ੍ਰੀਨ ਸੇਵਰ ਸ਼ੁਰੂ ਕਰੋ"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"ਅਲਾਰਮ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ਟਾਈਮਰ ਦੀਆਂ ਸੂਚਨਾਵਾਂ ਤੋਂ ਕਾਰਵਾਈਆਂ \'ਤੇ ਪ੍ਰਕਿਰਿਆ ਕਰਦੀ ਹੈ।"</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ਵਿਰਾਮ ਘੜੀ ਦੀਆਂ ਸੂਚਨਾਵਾਂ ਤੋਂ ਕਾਰਵਾਈਆਂ \'ਤੇ ਪ੍ਰਕਿਰਿਆ ਕਰਦੀ ਹੈ।"</string>
     <string name="swn_paused" msgid="6364358842808263589">"ਰੁਕਿਆ"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"ਸਨੂਜ਼ ਕਰਨ ਲਈ ਖੱਬੇ ਸਵਾਈਪ ਕਰੋ ਜਾਂ ਬਰਖ਼ਾਸਤ ਕਰਨ ਲਈ ਸੱਜੇ ਸਵਾਈਪ ਕਰੋ"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ਟਾਈਮਰ"</string>

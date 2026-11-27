@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.stopwatch.StopwatchReceiver;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
 
@@ -37,20 +37,20 @@ public class HandleShortcuts extends Activity {
 
             if (action != null) {
                 switch (action) {
-                    case StopwatchService.ACTION_PAUSE_STOPWATCH -> {
+                    case StopwatchReceiver.ACTION_PAUSE_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_shortcut);
 
                         // Open DeskClock positioned on the stopwatch tab.
                         uiDataModel.setSelectedTab(STOPWATCH);
-                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchService.ACTION_PAUSE_STOPWATCH));
+                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchReceiver.ACTION_PAUSE_STOPWATCH));
                         setResult(RESULT_OK);
                     }
-                    case StopwatchService.ACTION_START_STOPWATCH -> {
+                    case StopwatchReceiver.ACTION_START_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_start, R.string.label_shortcut);
 
                         // Open DeskClock positioned on the stopwatch tab.
                         uiDataModel.setSelectedTab(STOPWATCH);
-                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchService.ACTION_START_STOPWATCH));
+                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchReceiver.ACTION_START_STOPWATCH));
                         setResult(RESULT_OK);
                     }
                     default -> throw new IllegalArgumentException("Unsupported action: " + action);

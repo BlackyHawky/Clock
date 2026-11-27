@@ -79,7 +79,7 @@ import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.setup.FirstLaunch;
 import com.best.deskclock.stopwatch.StopwatchFragment;
-import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.stopwatch.StopwatchReceiver;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.FabContainer;
@@ -1082,7 +1082,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                         intent.setAction(null);
                     }
 
-                    case StopwatchService.ACTION_SHOW_STOPWATCH -> {
+                    case StopwatchReceiver.ACTION_SHOW_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_show, label);
                         if (getUiDataModel().isTabVisible(UiDataModel.Tab.STOPWATCH)) {
                             getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);

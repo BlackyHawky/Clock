@@ -29,7 +29,7 @@ import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.events.ShortcutEventTracker;
 import com.best.deskclock.screensaver.ScreensaverActivity;
-import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.stopwatch.StopwatchReceiver;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -164,10 +164,10 @@ class ShortcutController {
         final Intent intent;
 
         if (mDataModel.getStopwatch().isRunning()) {
-            intent = new Intent(StopwatchService.ACTION_PAUSE_STOPWATCH).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
+            intent = new Intent(StopwatchReceiver.ACTION_PAUSE_STOPWATCH).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
             shortcut.setShortLabel(localizedContext.getString(R.string.shortcut_pause_stopwatch_short)).setLongLabel(localizedContext.getString(R.string.shortcut_pause_stopwatch_long));
         } else {
-            intent = new Intent(StopwatchService.ACTION_START_STOPWATCH).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
+            intent = new Intent(StopwatchReceiver.ACTION_START_STOPWATCH).putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
             shortcut.setShortLabel(localizedContext.getString(R.string.shortcut_start_stopwatch_short)).setLongLabel(localizedContext.getString(R.string.shortcut_start_stopwatch_long));
         }
 

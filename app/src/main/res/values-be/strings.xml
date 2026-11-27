@@ -186,7 +186,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Запуск экраннай застаўкі"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Будзільнікі"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Апрацоўвае дзеянні з апавяшчэнняў таймера."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Апрацоўвае дзеянні з апавяшчэнняў секундамера."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Прыпынены"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Правядзіце пальцам налева, каб адкласці, або направа, каб адключыць"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Таймеры"</string>
