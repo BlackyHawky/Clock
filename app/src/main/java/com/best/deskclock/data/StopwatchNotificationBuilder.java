@@ -211,7 +211,7 @@ public final class StopwatchNotificationBuilder {
             final PendingIntent intent1 = PendingIntent.getBroadcast(
                 context, 0, start, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             actions.add(new NotificationCompat.Action.Builder(
-                R.drawable.ic_fab_play, localizedContext.getText(R.string.sw_start_button), intent1).build());
+                R.drawable.ic_fab_play, localizedContext.getText(R.string.sw_resume_button), intent1).build());
 
             // Right button: Reset
             final Intent reset = new Intent(context, StopwatchReceiver.class)
