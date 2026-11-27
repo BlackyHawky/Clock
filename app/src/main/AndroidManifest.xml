@@ -141,6 +141,7 @@
 
         <service
             android:name="com.best.deskclock.base.KeepAliveService"
+            android:directBootAware="true"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse">

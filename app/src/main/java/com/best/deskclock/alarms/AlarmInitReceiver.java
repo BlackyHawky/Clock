@@ -88,7 +88,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         if (ACTION_BOOT_COMPLETED.equals(action)) {
             // Ensure that KeepAliveService is the first to be called after a restart
             if (SettingsDAO.isForegroundServiceEnabled(prefs)) {
-                ContextCompat.startForegroundService(appContext, new Intent(appContext, KeepAliveService.class));
+                try {
+                    ContextCompat.startForegroundService(appContext, new Intent(appContext, KeepAliveService.class));
+                } catch (Exception e) {
+                    LogUtils.e("Failed to start KeepAliveService on boot", e);
+                }
             }
 
             dataModel.updateAfterReboot();
