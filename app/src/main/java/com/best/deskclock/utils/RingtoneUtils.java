@@ -566,11 +566,7 @@ public class RingtoneUtils {
         final float gain = (fractionComplete * 40) - 40;
 
         // Convert the target gain (in decibels) into the corresponding volume scalar.
-        final float volume = (float) Math.pow(10f, gain / 20f);
-
-        LogUtils.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)", fractionComplete * 100, volume, gain);
-
-        return volume;
+        return (float) Math.pow(10f, gain / 20f);
     }
 
     /**
