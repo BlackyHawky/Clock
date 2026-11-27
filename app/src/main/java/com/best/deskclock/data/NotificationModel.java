@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 /**
  * Data that must be coordinated across all notifications is accessed via this model.
  */
-final class NotificationModel {
+public final class NotificationModel {
 
     private boolean mApplicationInForeground;
 

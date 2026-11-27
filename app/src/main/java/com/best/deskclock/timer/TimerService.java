@@ -85,7 +85,7 @@ public final class TimerService extends Service {
      */
     public static final String ACTION_ADD_CUSTOM_TIME_TO_TIMER = ACTION_PREFIX + "ADD_CUSTOM_TIME_TO_TIMER";
     public static final String ACTION_REMOVE_CUSTOM_TIME_TO_TIMER = ACTION_PREFIX + "REMOVE_CUSTOM_TIME_TO_TIMER";
-    private static final String ACTION_TIMER_EXPIRED = ACTION_PREFIX + "TIMER_EXPIRED";
+    public static final String ACTION_TIMER_EXPIRED = ACTION_PREFIX + "TIMER_EXPIRED";
     public static final String ACTION_UPDATE_NOTIFICATION = ACTION_PREFIX + "UPDATE_NOTIFICATION";
     public static final String ACTION_RESET_EXPIRED_TIMERS = ACTION_PREFIX + "RESET_EXPIRED_TIMERS";
     public static final String ACTION_RESET_MISSED_TIMERS = ACTION_PREFIX + "RESET_MISSED_TIMERS";
@@ -95,25 +95,30 @@ public final class TimerService extends Service {
         final int timerId = timer == null ? -1 : timer.getId();
         return new Intent(context, TimerService.class)
             .setAction(ACTION_TIMER_EXPIRED)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
             .putExtra(EXTRA_TIMER_ID, timerId);
     }
 
     @NonNull
     public static Intent createResetExpiredTimersIntent(@NonNull Context context) {
-        return new Intent(context, TimerService.class).setAction(ACTION_RESET_EXPIRED_TIMERS);
+        return new Intent(context, TimerAlertReceiver.class)
+            .setAction(ACTION_RESET_EXPIRED_TIMERS)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
     }
-
 
     @NonNull
     public static Intent createAddCustomTimeToTimerIntent(@NonNull Context context, int timerId) {
-        return new Intent(context, TimerService.class)
+        return new Intent(context, TimerAlertReceiver.class)
             .setAction(ACTION_ADD_CUSTOM_TIME_TO_TIMER)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
             .putExtra(EXTRA_TIMER_ID, timerId);
     }
 
     @NonNull
     public static Intent createUpdateNotificationIntent(@NonNull Context context) {
-        return new Intent(context, TimerService.class).setAction(ACTION_UPDATE_NOTIFICATION);
+        return new Intent(context, TimerAlertReceiver.class)
+            .setAction(ACTION_UPDATE_NOTIFICATION)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
     }
 
     private SharedPreferences mPrefs;
@@ -195,28 +200,8 @@ public final class TimerService extends Service {
         final DataModel dataModel = DataModel.getDataModel();
 
         try {
-            if (intent == null) {
+            if (intent == null || !ACTION_TIMER_EXPIRED.equals(intent.getAction())) {
                 return START_NOT_STICKY;
-            }
-
-            final String action = intent.getAction();
-            final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
-
-            if (action != null) {
-                switch (action) {
-                    case ACTION_UPDATE_NOTIFICATION -> {
-                        dataModel.updateTimerNotification();
-                        return START_NOT_STICKY;
-                    }
-                    case ACTION_RESET_EXPIRED_TIMERS -> {
-                        dataModel.resetOrDeleteExpiredTimers(label);
-                        return START_NOT_STICKY;
-                    }
-                    case ACTION_RESET_MISSED_TIMERS -> {
-                        dataModel.resetOrDeleteMissedTimers(label);
-                        return START_NOT_STICKY;
-                    }
-                }
             }
 
             // Look up the timer in question.
@@ -228,38 +213,12 @@ public final class TimerService extends Service {
                 return START_NOT_STICKY;
             }
 
-            // Perform the action on the timer.
-            if (action != null) {
-                switch (action) {
-                    case ACTION_START_TIMER -> {
-                        Events.sendTimerEvent(R.string.action_start, label);
-                        dataModel.startTimer(this, timer);
-                    }
-                    case ACTION_PAUSE_TIMER -> {
-                        Events.sendTimerEvent(R.string.action_pause, label);
-                        dataModel.pauseTimer(timer);
-                    }
-                    case ACTION_ADD_CUSTOM_TIME_TO_TIMER -> {
-                        Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, label);
-                        dataModel.addCustomTimeToTimer(timer);
-                    }
-                    case ACTION_REMOVE_CUSTOM_TIME_TO_TIMER -> {
-                        Events.sendTimerEvent(R.string.action_remove_custom_time_to_timer, label);
-                        dataModel.removeCustomTimeFromTimer(this, timer);
-                    }
-                    case ACTION_RESET_TIMER -> {
-                        dataModel.resetTimer(timer, label);
-                        detachListeners();
-                    }
-                    case ACTION_TIMER_EXPIRED -> {
-                        Events.sendTimerEvent(R.string.action_fire, label);
-                        dataModel.expireTimer(this, timer);
-                        turnOnFlash(timer);
-                        stopMedia(timer);
-                        attachListeners();
-                    }
-                }
-            }
+            final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
+            Events.sendTimerEvent(R.string.action_fire, label);
+            dataModel.expireTimer(this, timer);
+            turnOnFlash(timer);
+            stopMedia(timer);
+            attachListeners();
         } finally {
             // This service is foreground when expired timers exist and stopped when none exist.
             final List<Timer> expiredTimers = dataModel.getExpiredTimers();
@@ -555,7 +514,7 @@ public final class TimerService extends Service {
 
     private void handleAction(boolean actionIsEnabled) {
         if (actionIsEnabled) {
-            startService(createResetExpiredTimersIntent(this));
+            DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_intent);
         }
     }
 

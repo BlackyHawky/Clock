@@ -64,8 +64,12 @@ import java.util.Set;
 /**
  * All {@link Timer} data is accessed via this model.
  */
-final class TimerModel {
+public final class TimerModel {
 
+    /**
+     * AlarmManager enforces a 5-second minimum futurity (MIN_FUTURITY) on scheduled alarms.
+     * Timers with less remaining time use a short wakelock + Handler callback to fire on time.
+     */
     private static final long WAKELOCK_THRESHOLD_MS = 5000L;
 
     /**
@@ -777,8 +781,13 @@ final class TimerModel {
         final long remainingTime = nextExpiringTimer.getRemainingTime();
 
         if (remainingTime <= 0) {
-            ContextCompat.startForegroundService(mContext, intent);
-            return;
+            try {
+                ContextCompat.startForegroundService(mContext, intent);
+                return;
+            } catch (Exception e) {
+                // Fallback: let AlarmManager -> TimerAlertReceiver handle it
+                LogUtils.e("Failed to start TimerService directly, falling back to AlarmManager", e);
+            }
         }
 
         // Update the existing timer expiration callback.
@@ -786,7 +795,7 @@ final class TimerModel {
         final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        if (remainingTime <= WAKELOCK_THRESHOLD_MS) {
+        if (remainingTime > 0 && remainingTime <= WAKELOCK_THRESHOLD_MS) {
             PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(mContext);
             wl.acquire(remainingTime + 1500L);
             AppExecutors.getMainThread().postDelayed(this::updateAlarmManager, remainingTime);
@@ -1048,7 +1057,7 @@ final class TimerModel {
         int foregroundServiceType = 0;
 
         if (SdkUtils.isAtLeastAndroid14()) {
-            foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE;
+            foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
         }
 
         ServiceCompat.startForeground(mService, notificationId, notification, foregroundServiceType);

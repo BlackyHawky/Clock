@@ -414,26 +414,13 @@ public final class DataModel {
      * @param timer the timer to be started
      */
     public void startTimer(@NonNull Timer timer) {
-        startTimer(null, timer);
-    }
-
-    /**
-     * @param service used to start foreground notifications for expired timers
-     * @param timer   the timer to be started
-     */
-    public void startTimer(@Nullable Service service, @NonNull Timer timer) {
         enforceMainLooper();
         final Timer started = timer.start();
         mTimerModel.updateTimer(started);
         if (timer.getRemainingTime() <= 0) {
-            if (service != null) {
-                expireTimer(service, started);
-            } else {
-                Context context = DeskClockApplication.getAppContext();
-                Intent intent = TimerService.createTimerExpiredIntent(context, started);
-
-                ContextCompat.startForegroundService(context, intent);
-            }
+            Context context = DeskClockApplication.getAppContext();
+            Intent intent = TimerService.createTimerExpiredIntent(context, started);
+            ContextCompat.startForegroundService(context, intent);
         }
     }
 
@@ -497,26 +484,14 @@ public final class DataModel {
      * @param timer the timer from which to remove time
      */
     public void removeCustomTimeFromTimer(@NonNull Timer timer) {
-        removeCustomTimeFromTimer(null, timer);
-    }
-
-    /**
-     * @param service used to start foreground notifications for expired timers
-     * @param timer   the timer from which to remove time
-     */
-    public void removeCustomTimeFromTimer(@Nullable Service service, @NonNull Timer timer) {
         enforceMainLooper();
         final Timer updatedTimer = timer.removeCustomTime();
 
         if (updatedTimer.isExpired() && !timer.isExpired()) {
-            if (service != null) {
-                expireTimer(service, updatedTimer);
-            } else {
-                Context context = DeskClockApplication.getAppContext();
-                Intent intent = TimerService.createTimerExpiredIntent(context, updatedTimer);
+            Context context = DeskClockApplication.getAppContext();
+            Intent intent = TimerService.createTimerExpiredIntent(context, updatedTimer);
 
-                ContextCompat.startForegroundService(context, intent);
-            }
+            ContextCompat.startForegroundService(context, intent);
         } else {
             mTimerModel.updateTimer(updatedTimer);
         }

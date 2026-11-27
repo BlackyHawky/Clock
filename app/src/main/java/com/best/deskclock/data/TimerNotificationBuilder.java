@@ -39,6 +39,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.timer.ExpiredTimersActivity;
+import com.best.deskclock.timer.TimerAlertReceiver;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
@@ -52,7 +53,7 @@ import java.util.List;
 /**
  * Builds notifications to reflect the latest state of the timers.
  */
-class TimerNotificationBuilder {
+public final class TimerNotificationBuilder {
 
     private static final String URI_SCHEME_TIMER_START = "timer:start:";
     private static final String URI_SCHEME_TIMER_PAUSE = "timer:pause:";
@@ -250,16 +251,16 @@ class TimerNotificationBuilder {
             final long remainingTime = timer.getRemainingTime();
             if (timer.isRunning() && remainingTime > MINUTE_IN_MILLIS) {
                 // Schedule a callback to update the time-sensitive information of the running timer
-                final PendingIntent pi = PendingIntent.getService(context, REQUEST_CODE_UPCOMING, updateNotification,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                final PendingIntent pi = PendingIntent.getBroadcast(
+                    context, REQUEST_CODE_UPCOMING, updateNotification, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
                 final long triggerTime = SystemClock.elapsedRealtime() + nextMinuteChange;
                 TimerModel.schedulePendingIntent(am, triggerTime, pi);
             } else {
                 // Cancel the update notification callback.
-                final PendingIntent pi = PendingIntent.getService(context, 0, updateNotification,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+                final PendingIntent pi = PendingIntent.getBroadcast(
+                    context, REQUEST_CODE_UPCOMING, updateNotification, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
                 if (pi != null) {
                     am.cancel(pi);
                     pi.cancel();
@@ -286,7 +287,8 @@ class TimerNotificationBuilder {
         // First action intent is to reset all timers.
         @DrawableRes final int icon1 = R.drawable.ic_fab_stop;
         final Intent reset = TimerService.createResetExpiredTimersIntent(context);
-        final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
+        final PendingIntent intent1 = PendingIntent.getBroadcast(
+            context, 0, reset, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Generate some descriptive text, a title, and an action name based on the timer count.
         final CharSequence titleText;
@@ -313,7 +315,8 @@ class TimerNotificationBuilder {
             // Right Button: +x Minutes
             if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(timer.getButtonAddTime())) {
                 final Intent addTime = TimerService.createAddCustomTimeToTimerIntent(context, timerId);
-                final PendingIntent intent2 = Utils.pendingServiceIntent(context, addTime, timerId);
+                final PendingIntent intent2 = PendingIntent.getBroadcast(
+                    context, timerId, addTime, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 @DrawableRes final int icon2 = R.drawable.ic_add;
                 final CharSequence title2 = formatButtonTimeText(localizedContext, timer, true);
 
@@ -410,8 +413,9 @@ class TimerNotificationBuilder {
         contentText = localizedContext.getString(R.string.missed_named_timer_notification_label, label);
 
         // Reset button
-        final Intent reset = new Intent(context, TimerService.class)
+        final Intent reset = new Intent(context, TimerAlertReceiver.class)
             .setAction(TimerService.ACTION_RESET_TIMER)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
             .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
             .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
@@ -428,7 +432,8 @@ class TimerNotificationBuilder {
         final CharSequence title = localizedContext.getText(isSingleTimerMode || timer.getDeleteAfterUse()
             ? R.string.delete
             : R.string.reset);
-        final PendingIntent intent = Utils.pendingServiceIntent(context, reset);
+        final PendingIntent intent = PendingIntent.getBroadcast(
+            context, 0, reset, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         action = new NotificationCompat.Action.Builder(icon, title, intent).build();
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, TIMER_MISSED_NOTIFICATION_CHANNEL_ID)
@@ -493,12 +498,14 @@ class TimerNotificationBuilder {
     }
 
     private PendingIntent resetTimerIntent(@NonNull Context context, int timerId, boolean isMissedTimer) {
-        Intent dismissIntent = new Intent(context, TimerService.class)
+        Intent dismissIntent = new Intent(context, TimerAlertReceiver.class)
             .setAction(isMissedTimer ? TimerService.ACTION_RESET_MISSED_TIMERS : TimerService.ACTION_RESET_EXPIRED_TIMERS)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
             .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
             .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-        return Utils.pendingServiceIntent(context, dismissIntent, timerId);
+        return PendingIntent.getBroadcast(
+            context, timerId, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     /**
@@ -513,56 +520,66 @@ class TimerNotificationBuilder {
 
         if (running) {
             // Left button: Pause
-            final Intent pause = new Intent(context, TimerService.class)
+            final Intent pause = new Intent(context, TimerAlertReceiver.class)
                 .setAction(TimerService.ACTION_PAUSE_TIMER)
+                .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                 .setData(Uri.parse(URI_SCHEME_TIMER_PAUSE + timerId))
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-            final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause, timerId);
+            final PendingIntent intent1 = PendingIntent.getBroadcast(
+                context, timerId, pause, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             actions.add(new NotificationCompat.Action.Builder(
                 R.drawable.ic_fab_pause, localizedContext.getText(R.string.timer_pause), intent1).build());
 
             // Center Button: -x Minutes
             if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(timer.getButtonRemoveTime())) {
-                final Intent removeMinute = new Intent(context, TimerService.class)
+                final Intent removeMinute = new Intent(context, TimerAlertReceiver.class)
                     .setAction(TimerService.ACTION_REMOVE_CUSTOM_TIME_TO_TIMER)
+                    .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                     .setData(Uri.parse(URI_SCHEME_TIMER_REMOVE + timerId))
                     .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-                final PendingIntent intent2 = Utils.pendingServiceIntent(context, removeMinute, timerId);
+                final PendingIntent intent2 = PendingIntent.getBroadcast(
+                    context, timerId, removeMinute, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 actions.add(new NotificationCompat.Action.Builder(
                     R.drawable.ic_minus, formatButtonTimeText(localizedContext, timer, false), intent2).build());
             }
 
             // Right Button: +x Minutes
             if (!TIMER_TIME_BUTTON_VALUE_ZERO.equals(timer.getButtonAddTime())) {
-                final Intent addMinute = new Intent(context, TimerService.class)
+                final Intent addMinute = new Intent(context, TimerAlertReceiver.class)
                     .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
+                    .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                     .setData(Uri.parse(URI_SCHEME_TIMER_ADD + timerId))
                     .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-                final PendingIntent intent3 = Utils.pendingServiceIntent(context, addMinute, timerId);
+                final PendingIntent intent3 = PendingIntent.getBroadcast(
+                    context, timerId, addMinute, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 actions.add(new NotificationCompat.Action.Builder(
                     R.drawable.ic_add, formatButtonTimeText(localizedContext, timer, true), intent3).build());
             }
         } else {
             // Left button: Start
-            final Intent start = new Intent(context, TimerService.class)
+            final Intent start = new Intent(context, TimerAlertReceiver.class)
                 .setAction(TimerService.ACTION_START_TIMER)
+                .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                 .setData(Uri.parse(URI_SCHEME_TIMER_START + timerId))
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-            final PendingIntent intent1 = Utils.pendingServiceIntent(context, start, timerId);
+            final PendingIntent intent1 = PendingIntent.getBroadcast(
+                context, timerId, start, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             actions.add(new NotificationCompat.Action.Builder(
                 R.drawable.ic_fab_play, localizedContext.getText(R.string.sw_resume_button), intent1).build());
 
             // Right Button: Reset
-            final Intent reset = new Intent(context, TimerService.class)
+            final Intent reset = new Intent(context, TimerAlertReceiver.class)
                 .setAction(TimerService.ACTION_RESET_TIMER)
+                .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                 .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-            final PendingIntent intent = Utils.pendingServiceIntent(context, reset, timerId);
+            final PendingIntent intent = PendingIntent.getBroadcast(
+                context, timerId, reset, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             actions.add(new NotificationCompat.Action.Builder(
                 R.drawable.ic_reset, localizedContext.getText(R.string.reset), intent).build());
         }
