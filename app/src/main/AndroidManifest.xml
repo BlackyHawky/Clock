@@ -296,10 +296,7 @@
             android:description="@string/timer_service_desc"
             android:exported="false"
             android:directBootAware="true"
-            android:foregroundServiceType="specialUse">
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Used to notify the user that timers are running" />
+            android:foregroundServiceType="systemExempted">
         </service>
 
         <!-- ============================================================== -->
