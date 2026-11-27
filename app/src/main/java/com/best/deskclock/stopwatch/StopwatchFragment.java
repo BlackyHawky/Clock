@@ -359,6 +359,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
                 right.setClickable(true);
                 right.setVisibility(INVISIBLE);
             }
+
             case RUNNING -> {
                 left.setVisibility(VISIBLE);
                 final boolean canRecordLaps = canRecordMoreLaps();
@@ -368,6 +369,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
                 right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
                 right.setOnClickListener(v -> doAddLap());
             }
+
             case PAUSED -> {
                 left.setVisibility(VISIBLE);
                 right.setClickable(true);
@@ -517,7 +519,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             fab.setContentDescription(getString(R.string.sw_pause_button));
         } else {
             fab.setImageResource(R.drawable.ic_fab_play);
-            fab.setContentDescription(getString(R.string.sw_start_button));
+            fab.setContentDescription(getString(getStopwatch().isPaused() ? R.string.sw_resume_button : R.string.sw_start_button));
         }
 
         fab.setOnLongClickListener(v -> {
@@ -562,7 +564,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setAlpha(1f);
         }
 
-        if (priorState == Stopwatch.State.RUNNING) {
+        if (priorState == Stopwatch.State.RUNNING || priorState == Stopwatch.State.PAUSED) {
             updateFab(FAB_MORPH);
         }
     }
