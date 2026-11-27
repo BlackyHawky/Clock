@@ -329,7 +329,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         applyWindowInsets();
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && intent != null && Intent.ACTION_MAIN.equals(intent.getAction())) {
             getUiDataModel().applyDefaultTabPreference();
         }
 
