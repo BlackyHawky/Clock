@@ -267,7 +267,6 @@ public final class AlarmNotifications {
             .setContentIntent(contentIntent)
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
-            .setAutoCancel(false)
             .setSortKey(createSortKey(instance))
             .setDefaults(0) // No sound on Android 7 and earlier versions
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -280,7 +279,7 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
             context, instance, AlarmStateManager.ALARM_DISMISS_TAG, AlarmInstance.PREDISMISSED_STATE, globalIntentId);
-        dismissIntent.setClass(context, AlarmStateManager.class);
+        dismissIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
 
         builder.addAction(R.drawable.ic_alarm_off, dismissActionTitle, PendingIntent.getBroadcast(
             context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
@@ -339,7 +338,6 @@ public final class AlarmNotifications {
             .setContentIntent(contentIntent)
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setSmallIcon(R.drawable.ic_snooze)
-            .setAutoCancel(false)
             .setSortKey(createSortKey(instance))
             .setDefaults(0) // No sound on Android 7 and earlier versions
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -379,7 +377,9 @@ public final class AlarmNotifications {
         Intent dismissIntent = new Intent(context, AlarmStateManager.class)
             .setAction(AlarmStateManager.ACTION_DISMISS_MISSED_ALARM)
             .putExtra(EXTRA_NOTIFICATION_ID, id)
-            .putExtra(EXTRA_MISSED_ALARM_INSTANCE_ID, instance.mId);
+            .putExtra(EXTRA_MISSED_ALARM_INSTANCE_ID, instance.mId)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
         PendingIntent deleteIntent = PendingIntent.getBroadcast(
             context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
@@ -462,15 +462,23 @@ public final class AlarmNotifications {
         PendingIntent dismissPendingIntent = PendingIntent.getActivity(context,
             ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
+        // Setup delete intent (swipe on Android 14+: direct broadcast to AlarmStateManager, never blocked in the background)
+        Intent deleteIntent = AlarmStateManager.createStateChangeIntent(
+            context, instance, AlarmStateManager.ALARM_DISMISS_TAG, AlarmInstance.DISMISSED_STATE, globalIntentId);
+        deleteIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
+        deleteIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+        PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context,
+            ALARM_FIRING_NOTIFICATION_ID, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context, FIRING_NOTIFICATION_CHANNEL_ID)
             .setContentTitle(instance.getLabelOrDefault(localizedContext))
             .setContentText(AlarmUtils.getFormattedTime(localizedContext, instance.getAlarmTime()))
             .setContentIntent(contentIntent)
-            .setDeleteIntent(dismissPendingIntent)
+            .setDeleteIntent(deletePendingIntent)
             .setColor(ContextCompat.getColor(context, R.color.notificationColor))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setOngoing(true)
-            .setAutoCancel(false)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
             .setWhen(0)
@@ -484,8 +492,9 @@ public final class AlarmNotifications {
             Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(
                 context, instance, AlarmStateManager.ALARM_SNOOZE_TAG, AlarmInstance.SNOOZE_STATE, globalIntentId);
             snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
+            snoozeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
 
-            PendingIntent snoozePendingIntent = PendingIntent.getService(context,
+            PendingIntent snoozePendingIntent = PendingIntent.getBroadcast(context,
                 ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             notification.addAction(R.drawable.ic_snooze, localizedContext.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
@@ -506,7 +515,7 @@ public final class AlarmNotifications {
             int foregroundServiceType = 0;
 
             if (SdkUtils.isAtLeastAndroid14()) {
-                foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE;
+                foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
             }
 
             ServiceCompat.startForeground((Service) context, ALARM_FIRING_NOTIFICATION_ID, builtNotification, foregroundServiceType);

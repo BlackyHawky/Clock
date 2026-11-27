@@ -200,6 +200,7 @@ public class HandleApiCalls extends Activity {
                 Controller.getController().notifyVoiceFailure(activity, reason);
             }
             LOGGER.i("Can't dismiss alarm more than 24 hours in advance");
+            return;
         }
 
         // Log the successful dismissal.

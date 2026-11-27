@@ -54,7 +54,6 @@ import com.best.deskclock.utils.Utils;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -67,33 +66,46 @@ import java.util.Queue;
 public class AlarmService extends Service {
 
     /**
-     * AlarmActivity and AlarmService (when unbound) listen for this broadcast intent
-     * so that other applications can snooze the alarm (after ALARM_ALERT_ACTION and before
-     * ALARM_DONE_ACTION).
+     * Internal action used to start firing an alarm in this service.
+     */
+    public static final String START_ALARM_ACTION = "com.best.deskclock.START_ALARM_ACTION";
+
+    /**
+     * Internal broadcast action listened to by {@link AlarmActivity} and {@link AlarmService}
+     * (when unbound) to snooze the firing alarm.
      */
     public static final String ALARM_SNOOZE_ACTION = "com.best.deskclock.ALARM_SNOOZE";
 
     /**
-     * AlarmActivity and AlarmService listen for this broadcast intent so that other
-     * applications can dismiss the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
+     * Internal broadcast action listened to by {@link AlarmActivity} and {@link AlarmService}
+     * to dismiss the firing alarm.
      */
     public static final String ALARM_DISMISS_ACTION = "com.best.deskclock.ALARM_DISMISS";
 
     /**
-     * AlarmActivity and AlarmService listen for this broadcast intent so that other
-     * applications can mute the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
+     * Internal broadcast action listened to by {@link AlarmActivity} and {@link AlarmService}
+     * to mute the firing alarm without changing its state.
      */
     public static final String ALARM_MUTE_ACTION = "com.best.deskclock.ALARM_MUTE";
 
     /**
-     * A private action sent by AlarmService when the alarm has started.
+     * Public action broadcast by {@link AlarmService} when an alarm starts firing.
+     * Can be intercepted by external automation apps (e.g. Tasker, MacroDroid).
+     * Includes {@link #EXTRA_ALARM_ID} and {@link #EXTRA_ALARM_LABEL}.
      */
-    private static final String ALARM_ALERT_ACTION = "com.best.deskclock.ALARM_ALERT";
+    public static final String ALARM_ALERT_ACTION = "com.best.deskclock.ALARM_ALERT";
 
     /**
-     * A public action sent by AlarmService when the alarm has stopped for any reason.
+     * Public action broadcast by {@link AlarmService} when the firing alarm stops for any reason.
+     * Can be intercepted by external automation apps (e.g. Tasker, MacroDroid).
+     * Includes {@link #EXTRA_ALARM_ID} and {@link #EXTRA_ALARM_LABEL}.
      */
     public static final String ALARM_DONE_ACTION = "com.best.deskclock.ALARM_DONE";
+
+    /**
+     * Internal broadcast action sent to {@link AlarmActivity} when the firing alarm stops.
+     */
+    public static final String ALARM_DONE_INTERNAL_ACTION = "com.best.deskclock.ALARM_DONE_INTERNAL";
 
     /**
      * Private action used to stop an alarm with this service.
@@ -111,9 +123,21 @@ public class AlarmService extends Service {
     private static final String STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION = "com.best.deskclock.STOP_ALARM_WITH_SINGLE_VIBRATION";
 
     /**
-     * Public action used to reset sensors when the math challenge is canceled.
+     * Internal broadcast action used to reset flip/shake sensors when the math challenge is canceled.
      */
     public static final String ALARM_RESET_SENSORS_ACTION = "com.best.deskclock.ALARM_RESET_SENSORS_ACTION";
+
+    /**
+     * Extra containing the parent alarm ID ({@code long}) attached to {@link #ALARM_ALERT_ACTION}
+     * and {@link #ALARM_DONE_ACTION} broadcasts.
+     */
+    public static final String EXTRA_ALARM_ID = "com.best.deskclock.EXTRA_ALARM_ID";
+
+    /**
+     * Extra containing the alarm label ({@code String}) attached to {@link #ALARM_ALERT_ACTION}
+     * and {@link #ALARM_DONE_ACTION} broadcasts.
+     */
+    public static final String EXTRA_ALARM_LABEL = "com.best.deskclock.EXTRA_ALARM_LABEL";
 
     /**
      * Constant for No action
@@ -136,19 +160,24 @@ public class AlarmService extends Service {
     private static final int ALARM_MUTE = 3;
 
     /**
-     * Binder given to AlarmActivity.
+     * Binder given to {@link AlarmActivity}.
      */
     private final IBinder mBinder = new Binder();
 
     /**
-     * Whether the service is currently bound to AlarmActivity
+     * Whether the service is currently bound to {@link AlarmActivity}
      */
     private boolean mIsBound = false;
 
     /**
-     * Whether the receiver is currently registered
+     * Whether the internal actions broadcast receiver is currently registered.
      */
     private boolean mIsRegistered = false;
+
+    /**
+     * Whether an instance of {@link AlarmService} is currently running.
+     */
+    private static volatile boolean sIsRunning = false;
 
     private SharedPreferences mPrefs;
     private String mMathHardnessLevel;
@@ -388,6 +417,8 @@ public class AlarmService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        sIsRunning = true;
+
         mPrefs = getDefaultSharedPreferences(this);
 
         mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
@@ -469,35 +500,36 @@ public class AlarmService extends Service {
             return Service.START_NOT_STICKY;
         }
 
+        final String action = intent.getAction();
+
+        if (action == null) {
+            LogUtils.e("AlarmService started without action");
+            stopSelf();
+            return Service.START_NOT_STICKY;
+        }
+
         final long instanceId = AlarmInstance.getId(dataUri);
 
-        switch (Objects.requireNonNull(intent.getAction())) {
-            case AlarmStateManager.CHANGE_STATE_ACTION -> {
-                AlarmStateManager.handleIntent(this, mPrefs, intent);
+        switch (action) {
+            case START_ALARM_ACTION -> {
+                final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
 
-                // If state is changed to firing, actually fire the alarm!
-                final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
+                if (instance == null) {
+                    LogUtils.e("No instance found to start alarm: %d", instanceId);
 
-                if (alarmState == AlarmInstance.FIRED_STATE) {
-                    final AlarmInstance instance = AlarmInstance.getInstance(getContentResolver(), instanceId);
-
-                    if (instance == null) {
-                        LogUtils.e("No instance found to start alarm: %d", instanceId);
-
-                        if (mCurrentAlarm == null) {
-                            // Only release lock if we are not firing alarm
-                            AlarmAlertWakeLock.releaseCpuLock();
-                        }
-                        break;
+                    if (mCurrentAlarm == null) {
+                        AlarmAlertWakeLock.releaseCpuLock();
+                        stopSelf();
                     }
-
-                    if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
-                        LogUtils.e("Alarm already started for instance: %d", instanceId);
-                        break;
-                    }
-
-                    startAlarm(instance);
+                    break;
                 }
+
+                if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
+                    LogUtils.e("Alarm already started for instance: %d", instanceId);
+                    break;
+                }
+
+                startAlarm(instance);
             }
 
             case STOP_ALARM_ACTION -> {
@@ -568,6 +600,8 @@ public class AlarmService extends Service {
     public void onDestroy() {
         LogUtils.v("AlarmService.onDestroy() called");
         super.onDestroy();
+
+        sIsRunning = false;
 
         if (mPrefs != null) {
             mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
@@ -659,8 +693,10 @@ public class AlarmService extends Service {
             mIsFlashActive = false;
         }
 
-        Intent intent = new Intent(ALARM_ALERT_ACTION);
-        intent.setPackage(getPackageName());
+        Intent intent = new Intent(ALARM_ALERT_ACTION)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
+            .putExtra(EXTRA_ALARM_ID, mCurrentAlarm.mAlarmId != null ? mCurrentAlarm.mAlarmId : Alarm.INVALID_ID)
+            .putExtra(EXTRA_ALARM_LABEL, mCurrentAlarm.mLabel);
         sendBroadcast(intent);
 
         attachListeners();
@@ -735,9 +771,18 @@ public class AlarmService extends Service {
 
         stopAlarmKlaxon();
 
-        Intent intent = new Intent(ALARM_DONE_ACTION);
-        intent.setPackage(getPackageName());
-        sendBroadcast(intent);
+        // Internal: AlarmActivity is guaranteed to close (RECEIVER_NOT_EXPORTED)
+        Intent internalDoneIntent = new Intent(ALARM_DONE_INTERNAL_ACTION)
+            .setPackage(getPackageName())
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        sendBroadcast(internalDoneIntent);
+
+        // Public : for external automation apps (e.g. Tasker, MacroDroid)
+        Intent publicDoneIntent = new Intent(ALARM_DONE_ACTION)
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
+            .putExtra(EXTRA_ALARM_ID, mCurrentAlarm.mAlarmId != null ? mCurrentAlarm.mAlarmId : Alarm.INVALID_ID)
+            .putExtra(EXTRA_ALARM_LABEL, mCurrentAlarm.mLabel);
+        sendBroadcast(publicDoneIntent);
 
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE);
 
@@ -804,6 +849,10 @@ public class AlarmService extends Service {
      * @param instance you are trying to stop
      */
     public static void stopAlarm(@NonNull Context context, @NonNull AlarmInstance instance) {
+        if (!sIsRunning) {
+            return;
+        }
+
         final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId).setAction(STOP_ALARM_ACTION);
 
         // We don't need a wake lock here, since we are trying to kill an alarm
@@ -818,6 +867,10 @@ public class AlarmService extends Service {
      * @param instance you are trying to stop
      */
     public static void stopAlarmWithDoubleVibration(@NonNull Context context, @NonNull AlarmInstance instance) {
+        if (!sIsRunning) {
+            return;
+        }
+
         final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
         intent.setAction(STOP_ALARM_WITH_DOUBLE_VIBRATION_ACTION);
 
@@ -833,6 +886,10 @@ public class AlarmService extends Service {
      * @param instance you are trying to stop
      */
     public static void stopAlarmWithSingleVibration(@NonNull Context context, @NonNull AlarmInstance instance) {
+        if (!sIsRunning) {
+            return;
+        }
+
         final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
         intent.setAction(STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION);
 
@@ -882,6 +939,7 @@ public class AlarmService extends Service {
             if (mIsBound) {
                 final Intent requestIntent = new Intent(action == ALARM_SNOOZE ? ALARM_SNOOZE_ACTION : ALARM_DISMISS_ACTION);
                 requestIntent.setPackage(getPackageName());
+                requestIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
                 sendBroadcast(requestIntent);
             } else {
                 LogUtils.i("Screen not ready yet. Resetting sensors.");
@@ -893,23 +951,32 @@ public class AlarmService extends Service {
         }
 
         switch (action) {
-            case ALARM_SNOOZE ->
-                startService(AlarmStateManager.createStateChangeIntent(
+            case ALARM_SNOOZE -> {
+                Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(
                     this,
                     mCurrentAlarm,
                     AlarmStateManager.ALARM_SNOOZE_TAG,
                     AlarmInstance.SNOOZE_STATE,
-                    SettingsDAO.getGlobalIntentId(mPrefs))
+                    SettingsDAO.getGlobalIntentId(mPrefs)
                 );
 
+                snoozeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+                sendBroadcast(snoozeIntent);
+            }
+
             case ALARM_DISMISS -> {
-                startService(AlarmStateManager.createStateChangeIntent(
+                Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
                     this,
                     mCurrentAlarm,
                     AlarmStateManager.ALARM_DISMISS_TAG,
                     AlarmInstance.DISMISSED_STATE,
-                    SettingsDAO.getGlobalIntentId(mPrefs))
+                    SettingsDAO.getGlobalIntentId(mPrefs)
                 );
+
+                dismissIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+                sendBroadcast(dismissIntent);
 
                 Alarm alarm = Alarm.getAlarm(getContentResolver(), mCurrentAlarm.mAlarmId);
                 if (alarm != null) {

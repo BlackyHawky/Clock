@@ -212,7 +212,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         case AlarmService.ALARM_SNOOZE_ACTION -> requestAlarmAction(MISSION_ACTION_SNOOZE);
                         case AlarmService.ALARM_DISMISS_ACTION -> requestAlarmAction(MISSION_ACTION_DISMISS);
                         case AlarmService.ALARM_MUTE_ACTION -> mute();
-                        case AlarmService.ALARM_DONE_ACTION -> finish();
+                        case AlarmService.ALARM_DONE_INTERNAL_ACTION -> finish();
                         default -> LOGGER.i("Unknown broadcast: %s", action);
                     }
                 }
@@ -320,6 +320,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
                 Intent resetIntent = new Intent(AlarmService.ALARM_RESET_SENSORS_ACTION);
                 resetIntent.setPackage(getPackageName());
+                resetIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
                 sendBroadcast(resetIntent);
             }
         });
@@ -416,7 +418,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         if (!mReceiverRegistered) {
             // Register to get the alarm done/snooze/dismiss intent.
-            final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
+            final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_INTERNAL_ACTION);
             filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
             filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
             filter.addAction(AlarmService.ALARM_MUTE_ACTION);

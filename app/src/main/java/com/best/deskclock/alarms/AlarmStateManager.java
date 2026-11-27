@@ -13,7 +13,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_MATH_HARDNESS_LEVEL;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
@@ -32,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
@@ -299,13 +299,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
     @NonNull
     public static Intent createStateChangeIntent(@NonNull Context context, @NonNull AlarmInstance instance, @NonNull String tag,
                                                  @Nullable Integer state, int globalIntentId) {
-        // This intent is directed to AlarmService, though the actual handling of it occurs here
-        // in AlarmStateManager. The reason is that evidence exists showing the jump between the
-        // broadcast receiver (AlarmStateManager) and service (AlarmService) can be thwarted by the
-        // Out Of Memory killer. If clock is killed during that jump, firing an alarm can fail to
-        // occur. To be safer, the call begins in AlarmService, which has the power to display the
-        // firing alarm if needed, so no jump is needed.
-        Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
+
+        Intent intent = AlarmInstance.createIntent(context, AlarmStateManager.class, instance.mId);
         intent.setAction(CHANGE_STATE_ACTION);
         intent.addCategory(tag);
         intent.putExtra(ALARM_GLOBAL_ID_EXTRA, globalIntentId);
@@ -384,6 +379,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.mAlarmState = AlarmInstance.NOTIFICATION_STATE;
         instance.updateInstance(contentResolver);
 
+        if (instance.mAlarmId != null) {
+            AlarmVisualCache.invalidate(instance.mAlarmId);
+        }
+
         // Setup instance notification and scheduling timers
         AlarmNotifications.showUpcomingNotification(
             context, instance, SettingsDAO.getLanguageCode(prefs), SettingsDAO.getGlobalIntentId(prefs));
@@ -419,6 +418,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.updateInstance(contentResolver);
 
         if (instance.mAlarmId != null) {
+            AlarmVisualCache.invalidate(instance.mAlarmId);
+
             // if the time changed *backward* and pushed an instance from missed back to fired,
             // remove any other scheduled instances that may exist
             deleteOtherInstances(context, prefs, instance.mAlarmId, instance.mId);
@@ -439,6 +440,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Instance not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
+
+        Intent serviceIntent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
+        serviceIntent.setAction(AlarmService.START_ALARM_ACTION);
+        ContextCompat.startForegroundService(context, serviceIntent);
     }
 
     /**
@@ -478,6 +483,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.setAlarmTime(newAlarmTime);
         instance.mAlarmState = AlarmInstance.SNOOZE_STATE;
         instance.updateInstance(context.getContentResolver());
+
+        if (instance.mAlarmId != null) {
+            AlarmVisualCache.cacheSnoozedAlarm(instance.mAlarmId, instance);
+        }
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.showSnoozeNotification(
@@ -618,6 +627,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // rescheduled when the user originally dismissed them.
         if (instance.mAlarmId != null && !alreadyPreDismissed) {
             updateParentAlarm(context, prefs, instance);
+
+            AlarmInstance nextInstance = AlarmInstance.getNextActiveInstanceByAlarmId(contentResolver, instance.mAlarmId);
+            AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId, nextInstance);
         }
 
         // When the alarm is dismissed from the notification and all days of the week are selected,
@@ -699,6 +711,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Delete instance as it is not needed anymore
         AlarmInstance.deleteInstance(contentResolver, instance.mId);
+
+        if (instance.mAlarmId != null && !wasPreDismissed) {
+            AlarmInstance nextInstance = AlarmInstance.getNextActiveInstanceByAlarmId(contentResolver, instance.mAlarmId);
+            AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId, nextInstance);
+        }
 
         // Instance is not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
@@ -1015,14 +1032,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             if (alarmState >= 0) {
                 setAlarmState(context, prefs, instance, alarmState);
-
-                if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
-                    AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
-                } else if (alarmState == AlarmInstance.SNOOZE_STATE) {
-                    AlarmVisualCache.cacheSnoozedAlarm(instance.mAlarmId, instance);
-                } else if (alarmState == AlarmInstance.NOTIFICATION_STATE || alarmState == AlarmInstance.FIRED_STATE) {
-                    AlarmVisualCache.invalidate(instance.mAlarmId);
-                }
             } else {
                 registerInstance(context, prefs, instance, true);
             }
@@ -1090,7 +1099,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
     }
 
-    @SuppressLint({"WakelockTimeout", "Wakelock"})
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         if (INDICATOR_ACTION.equals(intent.getAction())) {
@@ -1100,12 +1108,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Context appContext = context.getApplicationContext();
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(appContext);
-        wl.acquire();
+        wl.acquire(60_000L);
 
         AppExecutors.getDiskIO().execute(() -> {
-            handleIntent(appContext, getDefaultSharedPreferences(appContext), intent);
-            result.finish();
-            wl.release();
+            try {
+                handleIntent(appContext, getDefaultSharedPreferences(appContext), intent);
+            } finally {
+                result.finish();
+                if (wl.isHeld()) {
+                    wl.release();
+                }
+            }
         });
     }
 
@@ -1127,7 +1140,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 context, instance, ALARM_MANAGER_TAG, newState, SettingsDAO.getGlobalIntentId(prefs));
             // Treat alarm state change as high priority, use foreground broadcasts
             stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-            PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
+
+            cancelLegacyServicePendingIntent(context, instance);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
                 stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             final AlarmManager am = context.getApplicationContext().getSystemService(AlarmManager.class);
@@ -1154,7 +1170,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Create a PendingIntent that will match any one set for this instance
             Intent intent = createStateChangeIntent(context, instance, ALARM_MANAGER_TAG, null, SettingsDAO.getGlobalIntentId(prefs));
 
-            PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(), intent,
+            cancelLegacyServicePendingIntent(context, instance);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(), intent,
                 PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
 
             if (pendingIntent != null) {
@@ -1163,6 +1181,22 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 pendingIntent.cancel();
             }
         }
+
+        private void cancelLegacyServicePendingIntent(@NonNull Context context, @NonNull AlarmInstance instance) {
+            Intent legacyIntent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
+            legacyIntent.setAction(CHANGE_STATE_ACTION);
+            legacyIntent.addCategory(ALARM_MANAGER_TAG);
+
+            PendingIntent legacyPendingIntent = PendingIntent.getService(context, instance.hashCode(),
+                legacyIntent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+
+            if (legacyPendingIntent != null) {
+                AlarmManager am = context.getApplicationContext().getSystemService(AlarmManager.class);
+                am.cancel(legacyPendingIntent);
+                legacyPendingIntent.cancel();
+            }
+        }
+
     }
 
     /**

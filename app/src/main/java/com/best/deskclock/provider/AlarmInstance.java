@@ -353,6 +353,32 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
+     * Returns the next active upcoming {@link AlarmInstance} for the given alarm,
+     * excluding dismissed and pre-dismissed instances.
+     *
+     * @param contentResolver The {@link ContentResolver} used to query instances.
+     * @param alarmId         The ID of the alarm.
+     * @return The earliest active {@link AlarmInstance}, or {@code null} if none exists.
+     */
+    @Nullable
+    public static AlarmInstance getNextActiveInstanceByAlarmId(@NonNull ContentResolver contentResolver, long alarmId) {
+        final List<AlarmInstance> alarmInstances = getInstancesByAlarmId(contentResolver, alarmId);
+        AlarmInstance nextAlarmInstance = null;
+
+        for (AlarmInstance instance : alarmInstances) {
+            if (instance.mAlarmState == PREDISMISSED_STATE || instance.mAlarmState == DISMISSED_STATE) {
+                continue;
+            }
+
+            if (nextAlarmInstance == null || instance.getAlarmTime().before(nextAlarmInstance.getAlarmTime())) {
+                nextAlarmInstance = instance;
+            }
+        }
+
+        return nextAlarmInstance;
+    }
+
+    /**
      * Returns the next upcoming alarm instance among all stored alarm instances that share the specified label.
      *
      * <p>This method scans all alarm instances in the database, filters them by the given {@code targetLabel},

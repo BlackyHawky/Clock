@@ -144,7 +144,7 @@ public final class AlarmTimeClickHandler {
             mConfig.globalIntentId()
         );
 
-        mContext.startService(dismissIntent);
+        mContext.sendBroadcast(dismissIntent);
     }
 
     public void onClockClicked(@NonNull Alarm alarm) {

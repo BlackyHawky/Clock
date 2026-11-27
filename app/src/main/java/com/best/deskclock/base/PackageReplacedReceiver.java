@@ -45,7 +45,6 @@ import java.util.Set;
  */
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
-    @SuppressLint({"WakelockTimeout", "Wakelock"})
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         if (!Intent.ACTION_MY_PACKAGE_REPLACED.equals(intent.getAction())) {
@@ -58,7 +57,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         final SharedPreferences prefs = getDefaultSharedPreferences(appContext);
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(appContext);
-        wl.acquire();
+        wl.acquire(60_000L);
 
         AppExecutors.getDiskIO().execute(() -> {
             try {
@@ -84,7 +83,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 updatePerTimerKeys(prefs);
             } finally {
                 result.finish();
-                wl.release();
+
+                if (wl.isHeld()) {
+                    wl.release();
+                }
+
                 LogUtils.v("PackageReplacedReceiver finished");
             }
         });
