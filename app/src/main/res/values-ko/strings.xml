@@ -169,7 +169,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"화면 보호기 시작"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"알람"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"타이머 알림에서 작업 처리"</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"스톱워치 알림에서 작업 처리"</string>
     <string name="swn_paused" msgid="6364358842808263589">"일시중지됨"</string>
     <string name="description_direction_both" msgid="1841309486023845685">왼쪽으로 스와이프하여 잠시 미루거나 오른쪽으로 스와이프하여 해제</string>
     <string name="timer_settings" msgid="7955522143086154795">"타이머"</string>

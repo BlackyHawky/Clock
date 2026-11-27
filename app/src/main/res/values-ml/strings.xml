@@ -174,7 +174,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"സ്ക്രീൻ സേവർ ആരംഭിക്കുക"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"അലാറങ്ങൾ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ടൈമർ അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"സ്റ്റോപ്പ്‌വാച്ച് അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
     <string name="swn_paused" msgid="6364358842808263589">"താല്‍ക്കാലം നിര്‍ത്തി"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ടോ നിരസിക്കാൻ വലത്തോട്ടോ സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ടൈമറുകൾ"</string>

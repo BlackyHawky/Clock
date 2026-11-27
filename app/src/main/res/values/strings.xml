@@ -612,8 +612,6 @@
     <string name="jocular_content_message_9">You have a palette for haste.</string>
     <!-- Jocular content that user may append when sharing the lap times - Message 10 -->
     <string name="jocular_content_message_10">Photonic velocity.</string>
-    <!-- Describes the service that processes actions originating from stopwatch notifications. -->
-    <string name="stopwatch_service_desc">Processes actions from stopwatch notifications.</string>
 
     <!-- ********************** -->
     <!-- **     RINGTONE     ** -->

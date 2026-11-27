@@ -187,7 +187,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Začni ohranjeval. zaslona"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmi"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Obdela dejanja, ki izhajajo iz obvestil časovnika."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Obdela dejanja, ki izhajajo iz obvestil štoparice."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Zaustavljeno"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Povlecite v levo za dremež ali v desno za opustitev"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Časovniki"</string>

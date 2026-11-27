@@ -175,7 +175,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Ekran qoruyucunu başladın"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Siqnallar"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Taymer bildirişlərindən fəaliyyətlər icra olunur."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Saniyəölçən bildirişlərindən fəaliyyətlər icra olunur."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Durduruldu"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Mürgü rejimi üçün sola, və ya ləğv etmək üçün sağa sürüşdürün"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Vaxtölçən"</string>

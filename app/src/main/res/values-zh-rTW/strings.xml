@@ -169,7 +169,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"啟動螢幕保護程式"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"鬧鐘"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"處理計時器通知所指定的操作。"</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"處理碼錶通知所指定的操作。"</string>
     <string name="swn_paused" msgid="6364358842808263589">"已暫停"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"向左滑動可延後鈴響，向右滑動可關閉鈴響"</string>
     <string name="timer_settings" msgid="7955522143086154795">"計時器"</string>

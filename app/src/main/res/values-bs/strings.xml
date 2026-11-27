@@ -181,7 +181,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Pokreni čuvara ekrana"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmi"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Obrađuje radnje iz obavijesti tajmera."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Obrađuje radnje iz obavijesti štoperice."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pauzirana"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Prevucite lijevo da odložite ili desno da odbacite"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Tajmeri"</string>

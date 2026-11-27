@@ -197,7 +197,6 @@
     <string name="shortcut_start_screensaver_long">Dechrau arbedwr sgrin</string>
     <string name="alarm_settings">Larymau</string>
     <string name="timer_service_desc">Mae\'n prosesu gweithredoedd o hysbysiadau amseru.</string>
-    <string name="stopwatch_service_desc">Mae\'n prosesu gweithredoedd o hysbysiadau stopwats.</string>
     <string name="swn_paused">Wedi seibio</string>
     <string name="description_direction_both">Llusga i\'r chwith i hepian neu i\'r dde i ddiystyru</string>
     <string name="timer_settings">Amseryddion</string>

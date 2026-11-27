@@ -180,7 +180,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Ieslēgt ekrānsaudzētāju"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Signāli"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Apstrādā darbības no taimera paziņojumiem."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Apstrādā darbības no hronometra paziņojumiem."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pārtraukts"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Velciet pa kreisi, lai atliktu, vai pa labi, lai noraidītu"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Taimeri"</string>

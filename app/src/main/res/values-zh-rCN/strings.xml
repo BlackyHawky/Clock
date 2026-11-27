@@ -169,7 +169,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">启动屏幕保护程序</string>
     <string name="alarm_settings" msgid="2947147071388290814">"闹钟"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">处理来自定时器通知的操作。</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">处理来自秒表通知的操作。</string>
     <string name="swn_paused" msgid="6364358842808263589">"已暂停"</string>
     <string name="description_direction_both" msgid="1841309486023845685">向左滑动以暂停，向右滑动以关闭</string>
     <string name="timer_settings" msgid="7955522143086154795">"定时器"</string>

@@ -306,15 +306,10 @@
         <!-- Stopwatch components.                                          -->
         <!-- ============================================================== -->
 
-        <service
-            android:name="com.best.deskclock.stopwatch.StopwatchService"
-            android:description="@string/stopwatch_service_desc"
+        <receiver
+            android:name="com.best.deskclock.stopwatch.StopwatchReceiver"
             android:directBootAware="true"
-            android:foregroundServiceType="specialUse">
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Used to notify the user that stopwatch is running" />
-        </service>
+            android:exported="false" />
 
         <!-- ============================================================== -->
         <!-- Screen saver components.                                       -->

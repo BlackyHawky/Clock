@@ -174,7 +174,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Begin sluimerskerm"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Wekkers"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Verwerk handelinge van tydhouerkennisgewings af."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verwerk handelinge van stophorlosiekennisgewings af."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Laat wag"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Swiep links om te sluimer of regs om toe te maak"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Aftellers"</string>

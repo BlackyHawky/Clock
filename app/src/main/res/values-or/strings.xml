@@ -172,7 +172,6 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"ସ୍କ୍ରୀନ୍ ସେଭର୍ ଆରମ୍ଭ କରନ୍ତୁ"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"ଆଲାର୍ମ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ଟାଇମର୍ ବିଜ୍ଞପ୍ତିରୁ କାର୍ଯ୍ୟ ପ୍ରକ୍ରିୟା କରିଥାଏ।"</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ଷ୍ଟପୱାଚ୍ ବିଜ୍ଞପ୍ତିଗୁଡ଼ିକରୁ କାର୍ଯ୍ୟ ପ୍ରକ୍ରିୟା କରିଥାଏ।"</string>
     <string name="swn_paused" msgid="6364358842808263589">"ପଜ୍‌ କରାଯାଇଛି"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"ସ୍ନୁଜ୍ ପାଇଁ ବାମକୁ କିମ୍ୱା ଖାରଜ କରିବା ପାଇଁ ଡାହାଣକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ଟାଇମର୍‌"</string>
