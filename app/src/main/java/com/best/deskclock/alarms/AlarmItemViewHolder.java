@@ -120,7 +120,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public void bind(@NonNull final AlarmItemHolder itemHolder) {
         this.mItemHolder = itemHolder;
         final Alarm alarm = itemHolder.item;
-        final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
+        final AlarmInstance cachedNextInstance = AlarmVisualCache.getNextDismissedInstance(alarm.id);
+        final AlarmInstance alarmInstance = cachedNextInstance != null
+            ? cachedNextInstance
+            : itemHolder.getAlarmInstance();
 
         bindExpressiveCardBackground();
         bindAlarmLabel(mContext, alarm);

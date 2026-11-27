@@ -25,6 +25,11 @@ public class AlarmVisualCache {
     private static final Map<Long, Long> sDismissedAlarms = new ConcurrentHashMap<>();
 
     /**
+     * Thread-safe map to store the next upcoming {@link AlarmInstance} for a recently dismissed repeating alarm.
+     */
+    private static final Map<Long, AlarmInstance> sNextDismissedInstances = new ConcurrentHashMap<>();
+
+    /**
      * Thread-safe maps for snoozed alarms to hold the instance.
      */
     private static final Map<Long, AlarmInstance> sSnoozedAlarms = new ConcurrentHashMap<>();
@@ -41,16 +46,28 @@ public class AlarmVisualCache {
     private static final long CACHE_EXPIRATION_MS = 10000;
 
     /**
-     * Caches the ID of a recently dismissed alarm with the current timestamp.
-     * Automatically invalidates any existing snooze cache for this alarm.
+     * Caches an alarm as recently dismissed along with its newly scheduled next instance,
+     * allowing repeating alarms to immediately reflect their next occurrence in the UI
+     * before the CursorLoader finishes reloading.
      *
-     * @param alarmId the unique identifier of the dismissed alarm
+     * @param alarmId      The ID of the dismissed alarm.
+     * @param nextInstance The next upcoming {@link AlarmInstance} scheduled for this alarm,
+     *                     or {@code null} if none exists (e.g., one-time alarm).
      */
-    public static void cacheDismissedAlarm(long alarmId) {
-        sDismissedAlarms.put(alarmId, SystemClock.elapsedRealtime());
+    public static void cacheDismissedAlarm(@Nullable Long alarmId, @Nullable AlarmInstance nextInstance) {
+        if (alarmId == null) {
+            return;
+        }
 
+        sDismissedAlarms.put(alarmId, SystemClock.elapsedRealtime());
         sSnoozedAlarms.remove(alarmId);
         sSnoozedTimestamps.remove(alarmId);
+
+        if (nextInstance != null) {
+            sNextDismissedInstances.put(alarmId, nextInstance);
+        } else {
+            sNextDismissedInstances.remove(alarmId);
+        }
     }
 
     /**
@@ -79,10 +96,28 @@ public class AlarmVisualCache {
                 return true;
             } else {
                 sDismissedAlarms.remove(alarmId);
+                sNextDismissedInstances.remove(alarmId);
             }
         }
 
         return false;
+    }
+
+    /**
+     * Returns the cached next {@link AlarmInstance} for a recently dismissed repeating alarm,
+     * if the cache entry is still valid.
+     *
+     * @param alarmId The ID of the alarm.
+     * @return The cached next {@link AlarmInstance}, or {@code null} if not cached or expired.
+     */
+    @Nullable
+    public static AlarmInstance getNextDismissedInstance(long alarmId) {
+        if (!isDismissed(alarmId)) {
+            sNextDismissedInstances.remove(alarmId);
+            return null;
+        }
+
+        return sNextDismissedInstances.get(alarmId);
     }
 
     /**
@@ -116,6 +151,7 @@ public class AlarmVisualCache {
      */
     public static void invalidate(long alarmId) {
         sDismissedAlarms.remove(alarmId);
+        sNextDismissedInstances.remove(alarmId);
         sSnoozedAlarms.remove(alarmId);
         sSnoozedTimestamps.remove(alarmId);
     }

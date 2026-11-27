@@ -23,9 +23,10 @@ public class AlarmActionRoutingActivity extends Activity {
 
         final Intent intent = getIntent();
 
-        Intent serviceIntent = new Intent(intent);
-        serviceIntent.setClass(this, AlarmService.class);
-        startService(serviceIntent);
+        Intent broadcastIntent = new Intent(intent);
+        broadcastIntent.setClass(this, AlarmStateManager.class);
+        broadcastIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        sendBroadcast(broadcastIntent);
 
         if (intent.getData() != null) {
             long instanceId = AlarmInstance.getId(intent.getData());

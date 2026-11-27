@@ -15,6 +15,7 @@
         android:name="android.permission.FOREGROUND_SERVICE"
         tools:ignore="ForegroundServicesPolicy" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
     <uses-permission
         android:name="android.permission.USE_FULL_SCREEN_INTENT"
         tools:ignore="FullScreenIntentPolicy" />
@@ -203,6 +204,7 @@
             tools:ignore="DiscouragedApi, NonResizeableActivity" />
 
         <activity android:name="com.best.deskclock.alarms.AlarmActionRoutingActivity"
+            android:directBootAware="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:taskAffinity=""
@@ -258,10 +260,7 @@
             android:name="com.best.deskclock.alarms.AlarmService"
             android:exported="false"
             android:directBootAware="true"
-            android:foregroundServiceType="specialUse">
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Used to notify the user that alarms are running" />
+            android:foregroundServiceType="systemExempted">
         </service>
 
         <!-- ============================================================== -->
